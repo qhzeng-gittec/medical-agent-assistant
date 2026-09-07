@@ -41,7 +41,7 @@ medical-agent-assistant/
 
 ## 发布范围
 
-仓库保留源码、技能、测试、开发场景、配置模板和精选报告。模型权重和主 SFT 数据集单独准备为 Hugging Face 发布包；代码仓库不存放这些大文件。虚拟环境、数据库、用户档案、原始 API 轨迹和录屏不发布。
+仓库保留源码、技能、测试、开发场景、配置模板和精选报告。模型权重和主 SFT 数据集已单独发布到 Hugging Face；代码仓库不存放这些大文件。虚拟环境、数据库、用户档案、原始 API 轨迹和录屏不发布。
 
 评测目录里的 `private` 表示对被测模型隐藏的评分资料，不代表真实患者隐私数据。开发集包括合成场景及公开 CMB 数据改编，来源和上游许可证保留在数据集目录中。主 SFT 数据集包含处理后的 VQA-RAD、MedMCQA、PubMedQA；CPT 语料和本地医学指南文本暂未发布；知识库附带一条明确标注的技术演示资料。
 
@@ -51,6 +51,17 @@ medical-agent-assistant/
 
 ## 模型与数据发布
 
-Hugging Face 发布账号为 `starttoshow`，远端上传等待本机登录。已准备一份 SFT 数据集和 A–F 六组 SFT、GSPO 一组最终适配器，具体名称、基座版本和权重哈希见 [产物清单](MediX-R1/configs/artifacts.json)。所有权重均经过实际加载及 CPU 前向检查；数据导出后逐条还原核对，保持原文、划分、配方顺序与图片字节不变。
+已公开发布至 [MediX 模型与数据合集](https://huggingface.co/collections/starttoshow/medix-medical-sft-and-gspo-6a9e6f31b80642f4ba8b6f28)：一份 SFT 数据集和 A–F 六组 SFT、GSPO 一组最终适配器，具体名称、基座版本和权重哈希见 [产物清单](MediX-R1/configs/artifacts.json)。所有权重均经过实际加载及 CPU 前向检查；数据导出后逐条还原核对，保持原文、划分、配方顺序与图片字节不变。
+
+| 产物 | 内容 |
+| --- | --- |
+| [训练数据](https://huggingface.co/datasets/starttoshow/medix-medical-sft) | 6,435 条记录、314 张图片、4 种训练配方 |
+| [A](https://huggingface.co/starttoshow/medix-qwen3.5-2b-vqa-attention) | VQA · Attention |
+| [B](https://huggingface.co/starttoshow/medix-qwen3.5-2b-vqa-attention-ffn) | VQA · Attention + FFN |
+| [C](https://huggingface.co/starttoshow/medix-qwen3.5-2b-knowledge-attention) | VQA + 知识 · Attention |
+| [D](https://huggingface.co/starttoshow/medix-qwen3.5-2b-knowledge-attention-ffn) | VQA + 知识 · Attention + FFN |
+| [E](https://huggingface.co/starttoshow/medix-qwen3.5-2b-case-attention-ffn) | VQA + 知识 + 病例 · Attention + FFN |
+| [F](https://huggingface.co/starttoshow/medix-qwen3.5-2b-context-attention-ffn) | VQA + 知识 + 病例 + 上下文 · Attention + FFN |
+| [GSPO](https://huggingface.co/starttoshow/medix-qwen3.5-2b-vqa-gspo) | 基于 C 组继续训练的完整适配器 |
 
 [Hugging Face 上传入口](release/publish_hf.py)默认只展示计划；配置本机 `hf auth login` 后，指定 `--packages`、`--namespace` 和 `--upload` 才会上传。不要把 token 放进源码或聊天。公开包约 502 MiB，未包含中途 checkpoint 和原始基座副本。

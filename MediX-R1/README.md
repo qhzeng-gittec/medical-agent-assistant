@@ -24,10 +24,10 @@ Qwen3.5-2B 的医疗多模态 SFT、GSPO 及评测代码。训练模块与 Agent
 
 ## 下载数据和模型
 
-数据与七份最终适配器已准备为独立的 Hugging Face 发布包，发布账号为 `starttoshow`，尚待本机登录后上传。下面的 `DATASET_COMMIT` 需要在上传完成后替换为实际发布版本。
+数据与七份最终适配器已公开发布至 [MediX 合集](https://huggingface.co/collections/starttoshow/medix-medical-sft-and-gspo-6a9e6f31b80642f4ba8b6f28)。以下下载命令固定数据版本；各适配器版本和权重哈希见 `configs/artifacts.json`。
 
 ```powershell
-python -m data_processing.download_release --repo-id starttoshow/medix-medical-sft --revision DATASET_COMMIT
+python -m data_processing.download_release --repo-id starttoshow/medix-medical-sft --revision 59b8da5629aac3f94ddaec9a9712b018daa81907
 hf download Qwen/Qwen3.5-2B --revision 15852e8c16360a2fea060d615a32b45270f8a8fc --local-dir models/Qwen3.5-2B
 ```
 
