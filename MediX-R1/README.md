@@ -57,4 +57,4 @@ python -m pytest tests --ignore=tests/test_native_reasoning.py -q
 
 [247 题留出测试报告](reports/training_report.md)只比较知识与上下文；[T0–T3 对照](reports/format_factorial.md)来自开发集。[GSPO 对比](reports/gspo_comparison.json)记录 93 道验证题、16 张图像，SFT 到 GSPO 的归一化评审分为 60.75 → 66.13；只有一个训练种子，不能表述为稳定诊断准确率提升。
 
-数据包、配置和最终权重支持重新运行评测；精选报告未包含全部历史逐题评分文件，因此不能仅靠这些报告重算所有原始统计。尚未证明临床安全性或 Agent 端到端收益。
+数据包、配置和最终权重支持重新运行评测。[完整结果](../results/README.md)提供逐题输出、评分和历史诊断附件，并附主要指标复算脚本。尚未证明临床安全性或 Agent 端到端收益。

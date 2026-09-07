@@ -1,0 +1,74 @@
+{
+  "frozen_before_new_training_and_generation": true,
+  "seed": 42,
+  "arms": [
+    "sft_only",
+    "cpt_sft"
+  ],
+  "sft_recipe": "vqa_knowledge_case_context",
+  "sft_train_sha256": "f16a3d43ee35d50e820efc790120b40e82c4a511fa3d4f5320de6480f8e14a97",
+  "baseline_adapter_sha256": "10dee665bc434d4a4dd812fe5d83029d5223dbe089ea2fa466412b28b7cb7ef1",
+  "evaluation_sha256": "43e4f7ab970a0540b89f39fb4df18afa28ac85ea28ef710baf942009ba50c09e",
+  "counts": {
+    "case": 162,
+    "context": 97,
+    "knowledge": 150,
+    "vqa": 105
+  },
+  "primary": "knowledge strict final-answer correctness (judge answer_score == 2)",
+  "significance": "Two-sided exact McNemar p<0.05 AND paired question bootstrap 95% CI lower bound>0; report effect in percentage points.",
+  "practical_effect": "At least +5 percentage points on the primary endpoint; statistical and practical results reported separately.",
+  "secondary": [
+    "partial-credit answer score",
+    "reasoning score",
+    "joint score",
+    "case",
+    "context",
+    "vqa"
+  ],
+  "generation": {
+    "decoding": "greedy",
+    "enable_thinking": true,
+    "max_new_tokens": 2048,
+    "reasoning_budget": 1792,
+    "text_batch_size": 4,
+    "image_batch_size": 1,
+    "image_max_edge": 768
+  },
+  "cpt": {
+    "rank": 32,
+    "scope": "language attention including linear-attention gates + FFN",
+    "learning_rate": 5e-05,
+    "medical_token_target": 8000000,
+    "replay_fraction": 0.01,
+    "epochs": 1,
+    "max_length": 1024,
+    "batch_size": 2,
+    "gradient_accumulation_steps": 4,
+    "expected_steps": 1521,
+    "actual_corpus_tokens": 8081313,
+    "corpus_manifest_sha256": "c008dee0e50b42c5e7a1183a3ef73c2a37a4a6252f16716e065993c3c2c91245"
+  },
+  "sft": {
+    "rank": 8,
+    "scope": "attention_ffn",
+    "learning_rate": 5e-05,
+    "epochs": 1,
+    "batch_size": 2,
+    "gradient_accumulation_steps": 2,
+    "image_max_edge": 768,
+    "seed": 42,
+    "fresh_adapter": true,
+    "frozen_cpt_base": true
+  },
+  "limitations": [
+    "One trained seed: question-level significance is not across-training-seed robustness.",
+    "Previously used project holdout, not a newly sourced external benchmark.",
+    "Extra CPT adds data and compute; this estimates the pipeline effect, not a compute-matched objective ablation.",
+    "CPT is a small, selected guideline experiment on the post-trained Qwen3.5-2B, not reproduction of billion-token full-parameter CPT.",
+    "Medical judgments are model assessments, not clinician validation."
+  ],
+  "original_base_weight_sha256": {
+    "models\\Qwen3.5-2B\\model.safetensors-00001-of-00001.safetensors": "aa33250c4fc64891ddfaba3a314fd9542ea371843c387178b425fbcc5ed680b1"
+  }
+}

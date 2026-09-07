@@ -1,0 +1,1212 @@
+{
+  "plan": {
+    "arms": [
+      "T0",
+      "T1",
+      "T2",
+      "T3"
+    ],
+    "seed": 42,
+    "initial_adapter": "MediX-R1\\outputs\\knowledge_experiments_v1\\seed42\\vqa_knowledge_attention\\final_adapter",
+    "initial_adapter_sha256": "e22c5be2c23d4accd6026f2dc9705fa145b4df0ab8b0120c60ad6d9b34914e8d",
+    "candidate_knowledge": 191,
+    "vqa_replay": 192,
+    "epochs": 2,
+    "batch_size": 1,
+    "gradient_accumulation_steps": 4,
+    "learning_rate": 2e-05,
+    "lora_scope": "attention",
+    "image_max_edge": 512,
+    "gpu_memory_fraction": 0.4,
+    "evaluation_counts": {
+      "knowledge": 150,
+      "vqa": 16
+    },
+    "evaluation_sha256": "98f8983ef26ffee6785f8a04a10a02aafe83181b5ff96872c2af6120075aa644",
+    "model": "gpt-5.6-sol",
+    "primary_metric": "Knowledge final-answer semantic 0/1/2 score; sentence form is separate.",
+    "main_contrasts": [
+      "T1-T0",
+      "T2-T0",
+      "T3-T0",
+      "T3-T2",
+      "T3-T1"
+    ],
+    "factorial_contrasts": [
+      "form=(T1+T3-T0-T2)/2",
+      "relation=(T2+T3-T0-T1)/2",
+      "interaction=T3-T2-T1+T0"
+    ],
+    "success": "Report whether complete-sentence rate rises separately from semantic score. A performance candidate needs positive paired semantic evidence and no clear VQA or reasoning-error regression; one seed is exploratory.",
+    "limitations": [
+      "Continuation from existing C, not full training from the base model.",
+      "Development validation previously used in other pilots; no independent test claim.",
+      "T2 relation explanations reuse a prior generated and audited training pool; not all originals were defective.",
+      "Equal steps/exposures, but token counts and explanation lengths may differ.",
+      "One training seed and LLM review; no clinical expert certification."
+    ],
+    "accepted_knowledge": 191,
+    "excluded_knowledge": 0,
+    "optimizer_steps": 192,
+    "actual_subjects": {
+      "Anatomy": 32,
+      "Biochemistry": 32,
+      "Microbiology": 32,
+      "Pathology": 32,
+      "Pharmacology": 31,
+      "Physiology": 32
+    },
+    "manifests": {
+      "T0": {
+        "protocol": "qwen_native_open_qa_llm_judge",
+        "enable_thinking": true,
+        "system_prompt": "You are a medical multimodal assistant. Reason from the supplied image, research context, or clinical case. Do not invent observations. Give the final answer in natural language.",
+        "name": "T0",
+        "train_sha256": "9d003dd17f04591fe469ea2ed37da36aefa82755c1b3fe4251559c52a3e7d174",
+        "train_samples": 383,
+        "train_task_counts": {
+          "vqa": 192,
+          "knowledge": 191
+        },
+        "train_task_supervised_tokens": {
+          "knowledge": 8495,
+          "vqa": 9303
+        },
+        "supervised_probe_source": "medmcqa-b5747d1d-8135-42a5-806d-d5bfdb45579b",
+        "supervised_probe": "Helmet cells and triangular red-cell fragments are forms of schistocytes produced by mechanical fragmentation of erythrocytes. Their presence is therefore described as schistocytosis.\n</think>\n\nSchistocytosis.<|im_end|>\n"
+      },
+      "T1": {
+        "protocol": "qwen_native_open_qa_llm_judge",
+        "enable_thinking": true,
+        "system_prompt": "You are a medical multimodal assistant. Reason from the supplied image, research context, or clinical case. Do not invent observations. Give the final answer in natural language.",
+        "name": "T1",
+        "train_sha256": "e24fa58176f9ebc38b66e47b0c69c0f4206c47389ac8ed595b5478ccfa63373b",
+        "train_samples": 383,
+        "train_task_counts": {
+          "vqa": 192,
+          "knowledge": 191
+        },
+        "train_task_supervised_tokens": {
+          "knowledge": 10537,
+          "vqa": 9303
+        },
+        "supervised_probe_source": "medmcqa-b5747d1d-8135-42a5-806d-d5bfdb45579b",
+        "supervised_probe": "Helmet cells and triangular red-cell fragments are forms of schistocytes produced by mechanical fragmentation of erythrocytes. Their presence is therefore described as schistocytosis.\n</think>\n\nThe appearance of helmet cells and triangular red-cell fragments on a peripheral blood smear indicates schistocytosis.<|im_end|>\n"
+      },
+      "T2": {
+        "protocol": "qwen_native_open_qa_llm_judge",
+        "enable_thinking": true,
+        "system_prompt": "You are a medical multimodal assistant. Reason from the supplied image, research context, or clinical case. Do not invent observations. Give the final answer in natural language.",
+        "name": "T2",
+        "train_sha256": "1dca51912f8be81ae5b30db7d848adcfb1fdf76a5d21da292224b02e5206c623",
+        "train_samples": 383,
+        "train_task_counts": {
+          "vqa": 192,
+          "knowledge": 191
+        },
+        "train_task_supervised_tokens": {
+          "knowledge": 11038,
+          "vqa": 9303
+        },
+        "supervised_probe_source": "medmcqa-b5747d1d-8135-42a5-806d-d5bfdb45579b",
+        "supervised_probe": "Mechanical damage can fragment erythrocytes into irregular pieces called schistocytes. Helmet cells and triangular red-cell fragments are characteristic schistocyte forms, so their appearance indicates schistocytosis.\n</think>\n\nSchistocytosis.<|im_end|>\n"
+      },
+      "T3": {
+        "protocol": "qwen_native_open_qa_llm_judge",
+        "enable_thinking": true,
+        "system_prompt": "You are a medical multimodal assistant. Reason from the supplied image, research context, or clinical case. Do not invent observations. Give the final answer in natural language.",
+        "name": "T3",
+        "train_sha256": "da83df5f5ef92e7a478d0264f37a66a6afcca9cec39435b6d8658ab6a1094e27",
+        "train_samples": 383,
+        "train_task_counts": {
+          "vqa": 192,
+          "knowledge": 191
+        },
+        "train_task_supervised_tokens": {
+          "knowledge": 13080,
+          "vqa": 9303
+        },
+        "supervised_probe_source": "medmcqa-b5747d1d-8135-42a5-806d-d5bfdb45579b",
+        "supervised_probe": "Mechanical damage can fragment erythrocytes into irregular pieces called schistocytes. Helmet cells and triangular red-cell fragments are characteristic schistocyte forms, so their appearance indicates schistocytosis.\n</think>\n\nThe appearance of helmet cells and triangular red-cell fragments on a peripheral blood smear indicates schistocytosis.<|im_end|>\n"
+      }
+    },
+    "accepted_ids": [
+      "medmcqa-6a720dd4-4e5a-4595-b506-28e2c11452d6",
+      "medmcqa-519f4dae-6489-41d4-a5f3-04ee91cc5c2b",
+      "medmcqa-dc36a48d-8f23-40e9-8e37-3aabdae4d9b0",
+      "medmcqa-fab4ba97-e4d8-4ff6-b1cc-c4aa01a48332",
+      "medmcqa-3155eccf-fdc9-4538-88ea-81407700fb48",
+      "medmcqa-db2328ec-e6bc-44a3-9130-c17b85f53ba3",
+      "medmcqa-32d3d236-3c92-4060-80d3-02619ceda9ae",
+      "medmcqa-89c6fc0a-5302-411d-8356-979b307da42d",
+      "medmcqa-56190afe-cf6d-493c-af70-78b66cc58b72",
+      "medmcqa-da8a5c79-a5bf-4b0d-9a8d-2e8003c5b07e",
+      "medmcqa-5f497714-22aa-46ab-88bd-cb64197bda17",
+      "medmcqa-bb14ea81-ba6d-4f73-9951-0542c52573e9",
+      "medmcqa-5f4d2928-eff3-400e-a5a9-e17f6a9cb585",
+      "medmcqa-7f5e0db6-ce9a-4a5f-a18c-7048fb8b7fc2",
+      "medmcqa-c0619822-c711-4fac-ac75-03673228070d",
+      "medmcqa-7d60ecfd-8843-44e9-ba8c-e788aabdc526",
+      "medmcqa-e9e65f90-949e-4b16-aa85-2876be9004dd",
+      "medmcqa-35b0996a-95ab-419e-b772-ecc11a6f7c49",
+      "medmcqa-383e1a24-4586-41e7-bc6a-f8ae6f521280",
+      "medmcqa-c7bfa274-aa90-4af4-834f-7511f83bc616",
+      "medmcqa-c50be7fa-e95f-455c-99ea-bc3b91e28caa",
+      "medmcqa-499c0f00-9d08-4185-9e73-1bea938670df",
+      "medmcqa-0a74ee6b-a091-448e-a03f-da050b854cb1",
+      "medmcqa-416267c9-f0b8-4eb7-a0f4-ed7381b1fec6",
+      "medmcqa-82575437-d128-4750-992f-f8d8c9b74ec8",
+      "medmcqa-bcbd3b2f-7a2b-421e-9f8c-59e9a22b620b",
+      "medmcqa-46819a87-30e1-41ea-b2f7-6889b9de2908",
+      "medmcqa-63c53c8a-fb0a-4212-9e31-06e974741c7c",
+      "medmcqa-8b3de15a-3c0f-4bcd-926f-26e05ca5cbb9",
+      "medmcqa-af7b06ec-6ef0-48d1-b03e-593d8241b7f7",
+      "medmcqa-0d98e807-12aa-4a88-9587-de1b49397a83",
+      "medmcqa-370aac8d-6c3f-4e72-8e4f-be0017fc4b69",
+      "medmcqa-82883686-dbdc-41ac-96fd-78bde1504c53",
+      "medmcqa-12bb51a0-2588-4d96-95ec-9f1bb28760ce",
+      "medmcqa-2dc39fab-a599-48b6-894d-56b312fa111e",
+      "medmcqa-2d2bbfac-9933-4cf7-b3c9-685494a6b114",
+      "medmcqa-dbe38f8b-26e8-4c5d-82a5-c2bfb32c8893",
+      "medmcqa-95680c0a-4777-4552-9f17-4b25bad4fc42",
+      "medmcqa-c11d4513-b8a4-4c58-b395-8db1359a742a",
+      "medmcqa-a289ffde-0f05-403e-8e90-c0fbf62ddddb",
+      "medmcqa-c5074b82-7ba2-469f-8ab0-82d1f2d304e5",
+      "medmcqa-474f6bae-d980-4210-8ba9-1de58dfe30d8",
+      "medmcqa-78f3f7f8-fdc9-4ef1-bc11-0691f1cc8152",
+      "medmcqa-c4333b7e-076d-4ce8-a89c-3c7e39feaa3a",
+      "medmcqa-c9e23ae7-e9c6-469d-96f6-a983795e2e59",
+      "medmcqa-ff1a5891-f8cb-4455-b2e2-d7791d3ca490",
+      "medmcqa-0c0a0e4b-6495-4eda-9949-beb86ad2b956",
+      "medmcqa-0aec1871-94b0-4845-9888-6008b04d8cfd",
+      "medmcqa-2cb51a11-3587-4c1e-9098-4faf26597b87",
+      "medmcqa-db86d07b-e135-4aab-98b1-4375025bc778",
+      "medmcqa-13eb3fa8-bc1a-4867-9b5f-1358f9265c36",
+      "medmcqa-ecc0029b-a7ea-4ac0-a6fb-ded7161a0bf6",
+      "medmcqa-d823e22c-8bf5-47d5-b2ab-e68c35175de5",
+      "medmcqa-d6b52d4b-ee4a-419d-a5a3-07e13c193506",
+      "medmcqa-679e4acf-36c2-458c-bb05-5f296a25219c",
+      "medmcqa-52ae911d-9f59-4e01-926b-b3a3b67a3724",
+      "medmcqa-7a1439b5-4dc4-4778-8b59-b118d746b5e4",
+      "medmcqa-d2f7febb-5cae-4af1-9a1a-9cdb39039dd1",
+      "medmcqa-596b2637-7e08-48a5-adbd-cdce034e6df9",
+      "medmcqa-735a5729-4dac-4bca-a90a-c5d1f4cda2fd",
+      "medmcqa-d371d119-0091-488a-b5eb-1372588676a4",
+      "medmcqa-3c0993dd-b9d5-461b-af56-a6f5b0aec65c",
+      "medmcqa-7d314e15-9e3f-4b60-b7a2-011958e84e5a",
+      "medmcqa-97197d5d-1d48-4ffa-b696-933bc68bc9fc",
+      "medmcqa-ad3ade28-9bfe-47f3-bfb8-e707fa9a3cc7",
+      "medmcqa-2c17fd0a-467a-415f-926d-2e2146ef378a",
+      "medmcqa-f3972a34-66a3-4a68-86cc-e7276f8e927f",
+      "medmcqa-ef610aed-73ea-4098-8a21-10768c586f81",
+      "medmcqa-06f4a2af-ea65-4970-95e9-126df5c47541",
+      "medmcqa-312007d7-b462-4e64-bd92-5468887c6171",
+      "medmcqa-8e9b397d-fbaf-478d-bd09-a80e720a4843",
+      "medmcqa-2b9e9b6f-540b-4146-b10e-d2789bc78b44",
+      "medmcqa-9cee2308-46da-409b-bdd0-5145a6c6a17b",
+      "medmcqa-327fd974-0f83-4abe-9d43-daeb55b683e4",
+      "medmcqa-47853435-8ab4-4f08-af9b-cf66049789cb",
+      "medmcqa-9a1e2719-9396-48ab-95bc-88e4b03db724",
+      "medmcqa-aa8a6410-e245-44d8-8812-b19e1dffe8c7",
+      "medmcqa-a98b1d47-6273-44bd-bc06-dff76d088660",
+      "medmcqa-4b3649a0-d88a-4f4d-91be-9b0a9a3df30e",
+      "medmcqa-223402e2-79e2-4eff-9a9f-8c3c24ea7ca8",
+      "medmcqa-91ec5e6a-50a2-4e36-8b3e-c43b5e9db5da",
+      "medmcqa-7802f717-23af-42cc-9761-75248f6b20ec",
+      "medmcqa-d50a7bd9-f734-4926-a197-ab202b4d4ee7",
+      "medmcqa-bb6ef471-e2a6-496b-bcc5-3785bdd0cf84",
+      "medmcqa-a513389b-50ed-49c8-83a0-8ff73cb1791f",
+      "medmcqa-33058c33-b422-4b77-b5c2-4c08dbeec50d",
+      "medmcqa-61d522b0-2b46-487d-a3b0-7511548ce474",
+      "medmcqa-a18198c7-917f-4060-9bc5-5bf3b8607314",
+      "medmcqa-9823631a-681e-4bdb-bdcb-9952f48604e4",
+      "medmcqa-bbd48b06-7fa1-4ae1-85fe-a8bd81379b98",
+      "medmcqa-f8edf300-965d-4038-95bb-6eae10b767a9",
+      "medmcqa-771b9340-292d-4103-9b46-63b4069eb1a0",
+      "medmcqa-ed6fd21b-3a8e-4d10-8d48-49c9fef7d71e",
+      "medmcqa-195f12e9-2bb7-43cf-9aca-c975ce5dc37f",
+      "medmcqa-9e366753-7746-4dcd-a40f-ebf8594db25b",
+      "medmcqa-9914bef5-207c-4b9d-8085-7417e9db522e",
+      "medmcqa-dd0ba8de-7c14-4b87-9e7a-75ca0bc5aa8e",
+      "medmcqa-a9873cb1-7126-489e-a587-2b92b5999769",
+      "medmcqa-c985952e-03e5-43dd-a34c-1aae3beb1503",
+      "medmcqa-0d60946b-b8d6-4559-8f90-f794ecda9301",
+      "medmcqa-30f0afaa-d1e0-4072-a8d5-edd8580c87ac",
+      "medmcqa-0c573d26-826f-4d2f-9970-09015c017fe1",
+      "medmcqa-68a949ea-f06a-4404-8139-c4fc6283a01c",
+      "medmcqa-b4ed6433-e0a7-4b5b-81c4-5138d95d3a59",
+      "medmcqa-05ca10d0-b5ea-4ae4-951f-ea515b022dd8",
+      "medmcqa-974aee4e-fd03-47a9-8d5f-b7ed3a2701a3",
+      "medmcqa-ff7b0de9-49dc-4ebf-8e2f-db27d9dae19a",
+      "medmcqa-00566935-875a-4b28-86cd-f1ff68280fe5",
+      "medmcqa-ca365f23-4929-4349-92a0-bbc496b6bbcb",
+      "medmcqa-1c6b5533-a90b-4291-8f31-3b8f6d87f14a",
+      "medmcqa-01dcb20e-07d9-4b94-be51-4a7ab00c2e14",
+      "medmcqa-40665d6c-5de5-4024-b151-b5125b03b248",
+      "medmcqa-633e9b01-8e71-4629-b176-ba2ce86f3adf",
+      "medmcqa-919320c5-bcac-4162-bc7d-817231f9dab7",
+      "medmcqa-89fbba6d-e3ee-42d8-92eb-9463cb432273",
+      "medmcqa-b9aef0a2-78f0-4ab3-aa76-cfd531a87946",
+      "medmcqa-ddaf9445-7429-445f-a81d-44894d84801b",
+      "medmcqa-0351753c-0551-4687-9337-0eb40cfcec67",
+      "medmcqa-b5747d1d-8135-42a5-806d-d5bfdb45579b",
+      "medmcqa-7c49853e-b89a-4f3c-8191-83ae435071fb",
+      "medmcqa-a2f5a47c-83cc-44bc-841c-cdf781e037c6",
+      "medmcqa-cf5faa3c-4e8b-4cbd-a52b-0d5aeed4fd62",
+      "medmcqa-6219d5f9-7eeb-4e0c-86e2-b8a4fe875132",
+      "medmcqa-d347f5fc-abd8-45d0-a50c-e48f68efbe04",
+      "medmcqa-92f069fb-7c7f-4277-9571-ad469386b376",
+      "medmcqa-38e27c65-1fc4-43c8-a605-d956ae26e3e0",
+      "medmcqa-00904298-bddf-4024-a86a-9c9e2fa27be0",
+      "medmcqa-cab132cd-39c6-4eac-a387-7a18610119c5",
+      "medmcqa-fa591b66-b64a-4f07-864b-885e7d1fec06",
+      "medmcqa-20a8e7ee-4e90-4548-8570-cf08a586363c",
+      "medmcqa-9f0fdcac-2578-4895-9708-58384e7268df",
+      "medmcqa-96cb625b-3946-4711-b8e5-f4a2422148dd",
+      "medmcqa-c5b3a14a-e4b8-4302-a59f-4fa1939652ae",
+      "medmcqa-f3a53351-c89f-41eb-a5be-e4fe88b2fa56",
+      "medmcqa-151cfb9a-6922-4c58-a0de-5dd03bcb3898",
+      "medmcqa-86033282-731e-4341-82da-de545f93f79d",
+      "medmcqa-6b5584e8-8d83-440d-bf64-a1d26503d25f",
+      "medmcqa-800b3c7d-0e6f-4cb6-9de2-fa1d38fc537a",
+      "medmcqa-8966925a-2d42-4d16-931c-f19358d8f0eb",
+      "medmcqa-e5e1da36-d58e-452c-b7de-afa63fd3cfe4",
+      "medmcqa-f4669d59-b062-4569-8797-c636f8e62aec",
+      "medmcqa-267afab1-c793-4811-8f02-60c3a81bed07",
+      "medmcqa-ee818d66-c859-4f35-9227-837b7dcd664a",
+      "medmcqa-a266755f-eac4-461a-8eef-1073ad969736",
+      "medmcqa-263b4c72-8154-43d8-ab12-c3bb1d75a605",
+      "medmcqa-f1faa205-d55e-446b-a348-b58da8f652a4",
+      "medmcqa-23cf34a7-4643-4783-89e7-268254a9bc16",
+      "medmcqa-edf059f4-ae92-4489-91e3-9f16e5c30372",
+      "medmcqa-75ea2fa5-b8e9-4f85-9196-a8dbe1a8659f",
+      "medmcqa-bc5c6afe-2033-4cff-9ef4-6da2c1a0f3f7",
+      "medmcqa-b3d41006-7d06-4d57-a69c-5f4524cacd27",
+      "medmcqa-4ae453d5-1064-439d-9dc3-220896e177d2",
+      "medmcqa-6443a6ba-0532-49df-a7ab-dd04115087a8",
+      "medmcqa-71bc8a89-553f-4465-9186-ccc45c0393b9",
+      "medmcqa-976aaca0-168c-4982-a397-a271671685d0",
+      "medmcqa-5c025311-06f3-474d-b902-40705765ee7e",
+      "medmcqa-e7171fb6-5aea-4319-a8f5-cc96c3db641d",
+      "medmcqa-c59cdae4-6e72-49f9-8930-ba43628caf5e",
+      "medmcqa-2c772ba5-957e-47d3-9bd8-9c8ea78c1d0a",
+      "medmcqa-e23d622e-e33c-426a-9301-21ab195e986d",
+      "medmcqa-37ad6932-54bd-40c0-8fbf-0ca90b7b543f",
+      "medmcqa-a821f91c-57e7-435b-970e-b34092c6af43",
+      "medmcqa-6c521d0e-36e2-4bca-9ea8-5e6b7c892e89",
+      "medmcqa-38e9ece0-e01c-4187-8010-123011c83eef",
+      "medmcqa-bffdfa7c-ef1c-4b25-b314-8a6aad9c51dd",
+      "medmcqa-94d3a3cd-fe85-48e6-8279-9a4ead80053f",
+      "medmcqa-410d6705-2c76-490a-ad7d-b319dc53b722",
+      "medmcqa-9dbcf7e5-6b8c-45f7-8d97-6b2e022bcb32",
+      "medmcqa-f9dc66b2-4529-477e-92d3-818eb6d8728f",
+      "medmcqa-9bf0734f-da78-48f5-8db8-19d233168e6e",
+      "medmcqa-7ce88ecf-4669-4de8-81c6-4ba662e1ffa4",
+      "medmcqa-6b5af823-f526-4ac3-b570-79f7a60425b4",
+      "medmcqa-4b0fd690-ab6f-4495-9707-ee7f13c37786",
+      "medmcqa-9bb5fda7-8add-403a-aa4c-1c950e05c9b3",
+      "medmcqa-32f0508c-cdf1-4fae-b05c-283b0299a263",
+      "medmcqa-e756791f-bb97-4080-a14a-e44151dfb28b",
+      "medmcqa-0a627826-fb04-45e8-91bc-e205981b96ef",
+      "medmcqa-920f5847-b867-4ea7-98e5-284775fb525e",
+      "medmcqa-63f483c7-82cf-472e-a85b-f619da9ed415",
+      "medmcqa-cf891b2c-09df-4113-8c72-d6569e587dea",
+      "medmcqa-9aa13f4f-69c1-4c29-b821-f2e0bfe074dd",
+      "medmcqa-16d9bbdb-831f-4962-a9b2-4c4ba5e4638f",
+      "medmcqa-ccfc4ade-afe7-42b9-8200-90c08b14a9b0",
+      "medmcqa-bf069866-d019-42b7-bdf3-d3dbd1bd0f83",
+      "medmcqa-0186386e-8e4f-4dea-a0d7-faccd8a4117d",
+      "medmcqa-d7033c2c-e138-49c2-8e4a-500853ab2ac6",
+      "medmcqa-ea4ac7f0-f310-457e-a641-e06673674287",
+      "medmcqa-ceeeb4d8-b673-4088-bb06-9f4823e6c73f",
+      "medmcqa-2b50359b-0846-492d-bf18-ef62a804cff8",
+      "medmcqa-84eca670-8d01-4d4d-a517-1883894df02b",
+      "medmcqa-4987f372-b104-4e7c-bdcb-cb7e82145e76"
+    ]
+  },
+  "groups": {
+    "knowledge/C_start": {
+      "n": 150,
+      "answer_score": 57.99999999999999,
+      "reasoning_score": 52.33333333333333,
+      "joint_score": 51.0,
+      "full_sentence_percent": 3.3333333333333335,
+      "median_answer_words": 2.0,
+      "median_reasoning_words": 17.0,
+      "reasoning_material_error_percent": 38.666666666666664,
+      "forced_ends": 0,
+      "length_stops": 0
+    },
+    "knowledge/T0": {
+      "n": 150,
+      "answer_score": 59.333333333333336,
+      "reasoning_score": 55.333333333333336,
+      "joint_score": 53.333333333333336,
+      "full_sentence_percent": 4.0,
+      "median_answer_words": 2.0,
+      "median_reasoning_words": 17.0,
+      "reasoning_material_error_percent": 37.333333333333336,
+      "forced_ends": 0,
+      "length_stops": 0
+    },
+    "knowledge/T1": {
+      "n": 150,
+      "answer_score": 60.0,
+      "reasoning_score": 54.333333333333336,
+      "joint_score": 53.666666666666664,
+      "full_sentence_percent": 100,
+      "median_answer_words": 10.0,
+      "median_reasoning_words": 16.5,
+      "reasoning_material_error_percent": 38.666666666666664,
+      "forced_ends": 0,
+      "length_stops": 0
+    },
+    "knowledge/T2": {
+      "n": 150,
+      "answer_score": 63.33333333333333,
+      "reasoning_score": 54.666666666666664,
+      "joint_score": 54.333333333333336,
+      "full_sentence_percent": 4.666666666666667,
+      "median_answer_words": 2.0,
+      "median_reasoning_words": 25.5,
+      "reasoning_material_error_percent": 37.333333333333336,
+      "forced_ends": 0,
+      "length_stops": 0
+    },
+    "knowledge/T3": {
+      "n": 150,
+      "answer_score": 61.33333333333333,
+      "reasoning_score": 53.0,
+      "joint_score": 52.33333333333333,
+      "full_sentence_percent": 99.33333333333333,
+      "median_answer_words": 10.5,
+      "median_reasoning_words": 26.0,
+      "reasoning_material_error_percent": 38.0,
+      "forced_ends": 0,
+      "length_stops": 0
+    },
+    "vqa/C_start": {
+      "n": 16,
+      "answer_score": 81.25,
+      "reasoning_score": 75.0,
+      "joint_score": 75.0,
+      "full_sentence_percent": 100,
+      "median_answer_words": 6.5,
+      "median_reasoning_words": 24.0,
+      "reasoning_material_error_percent": 25.0,
+      "forced_ends": 0,
+      "length_stops": 0
+    },
+    "vqa/T0": {
+      "n": 16,
+      "answer_score": 68.75,
+      "reasoning_score": 62.5,
+      "joint_score": 62.5,
+      "full_sentence_percent": 100,
+      "median_answer_words": 6.0,
+      "median_reasoning_words": 23.5,
+      "reasoning_material_error_percent": 37.5,
+      "forced_ends": 0,
+      "length_stops": 0
+    },
+    "vqa/T1": {
+      "n": 16,
+      "answer_score": 68.75,
+      "reasoning_score": 59.375,
+      "joint_score": 59.375,
+      "full_sentence_percent": 100,
+      "median_answer_words": 6.0,
+      "median_reasoning_words": 22.0,
+      "reasoning_material_error_percent": 37.5,
+      "forced_ends": 0,
+      "length_stops": 0
+    },
+    "vqa/T2": {
+      "n": 16,
+      "answer_score": 68.75,
+      "reasoning_score": 59.375,
+      "joint_score": 59.375,
+      "full_sentence_percent": 100,
+      "median_answer_words": 6.0,
+      "median_reasoning_words": 25.0,
+      "reasoning_material_error_percent": 37.5,
+      "forced_ends": 0,
+      "length_stops": 0
+    },
+    "vqa/T3": {
+      "n": 16,
+      "answer_score": 68.75,
+      "reasoning_score": 56.25,
+      "joint_score": 56.25,
+      "full_sentence_percent": 100,
+      "median_answer_words": 6.0,
+      "median_reasoning_words": 25.0,
+      "reasoning_material_error_percent": 37.5,
+      "forced_ends": 0,
+      "length_stops": 0
+    }
+  },
+  "contrasts": {
+    "knowledge/T1-T0": {
+      "answer_score": {
+        "delta": 0.6666666666666666,
+        "ci95": [
+          -3.0,
+          4.333333333333333
+        ],
+        "improved": 9,
+        "worsened": 7,
+        "unchanged": 134
+      },
+      "reasoning_score": {
+        "delta": -1.0,
+        "ci95": [
+          -5.0,
+          3.0
+        ],
+        "improved": 10,
+        "worsened": 12,
+        "unchanged": 128
+      },
+      "joint_score": {
+        "delta": 0.3333333333333333,
+        "ci95": [
+          -4.0,
+          4.666666666666667
+        ],
+        "improved": 13,
+        "worsened": 13,
+        "unchanged": 124
+      },
+      "complete_sentence": {
+        "delta": 96.0,
+        "ci95": [
+          92.66666666666667,
+          98.66666666666667
+        ],
+        "improved": 144,
+        "worsened": 0,
+        "unchanged": 6
+      }
+    },
+    "knowledge/T2-T0": {
+      "answer_score": {
+        "delta": 4.0,
+        "ci95": [
+          -1.3333333333333333,
+          9.333333333333334
+        ],
+        "improved": 16,
+        "worsened": 8,
+        "unchanged": 126
+      },
+      "reasoning_score": {
+        "delta": -0.6666666666666666,
+        "ci95": [
+          -6.333333333333333,
+          5.008333333332605
+        ],
+        "improved": 19,
+        "worsened": 21,
+        "unchanged": 110
+      },
+      "joint_score": {
+        "delta": 1.0,
+        "ci95": [
+          -4.666666666666667,
+          7.0
+        ],
+        "improved": 21,
+        "worsened": 20,
+        "unchanged": 109
+      },
+      "complete_sentence": {
+        "delta": 0.6666666666666666,
+        "ci95": [
+          0.0,
+          2.0
+        ],
+        "improved": 1,
+        "worsened": 0,
+        "unchanged": 149
+      }
+    },
+    "knowledge/T3-T0": {
+      "answer_score": {
+        "delta": 2.0,
+        "ci95": [
+          -3.0,
+          7.333333333333333
+        ],
+        "improved": 13,
+        "worsened": 9,
+        "unchanged": 128
+      },
+      "reasoning_score": {
+        "delta": -2.3333333333333335,
+        "ci95": [
+          -8.0,
+          3.0
+        ],
+        "improved": 16,
+        "worsened": 23,
+        "unchanged": 111
+      },
+      "joint_score": {
+        "delta": -1.0,
+        "ci95": [
+          -6.666666666666667,
+          4.333333333333333
+        ],
+        "improved": 18,
+        "worsened": 23,
+        "unchanged": 109
+      },
+      "complete_sentence": {
+        "delta": 95.33333333333333,
+        "ci95": [
+          92.0,
+          98.0
+        ],
+        "improved": 143,
+        "worsened": 0,
+        "unchanged": 7
+      }
+    },
+    "knowledge/T3-T2": {
+      "answer_score": {
+        "delta": -2.0,
+        "ci95": [
+          -5.666666666666667,
+          1.6666666666666667
+        ],
+        "improved": 4,
+        "worsened": 8,
+        "unchanged": 138
+      },
+      "reasoning_score": {
+        "delta": -1.6666666666666667,
+        "ci95": [
+          -5.666666666666667,
+          2.3333333333333335
+        ],
+        "improved": 9,
+        "worsened": 11,
+        "unchanged": 130
+      },
+      "joint_score": {
+        "delta": -2.0,
+        "ci95": [
+          -6.333333333333333,
+          2.0
+        ],
+        "improved": 9,
+        "worsened": 12,
+        "unchanged": 129
+      },
+      "complete_sentence": {
+        "delta": 94.66666666666667,
+        "ci95": [
+          91.33333333333333,
+          98.0
+        ],
+        "improved": 142,
+        "worsened": 0,
+        "unchanged": 8
+      }
+    },
+    "knowledge/T3-T1": {
+      "answer_score": {
+        "delta": 1.3333333333333333,
+        "ci95": [
+          -4.0,
+          6.666666666666667
+        ],
+        "improved": 11,
+        "worsened": 10,
+        "unchanged": 129
+      },
+      "reasoning_score": {
+        "delta": -1.3333333333333333,
+        "ci95": [
+          -7.333333333333333,
+          4.666666666666667
+        ],
+        "improved": 18,
+        "worsened": 24,
+        "unchanged": 108
+      },
+      "joint_score": {
+        "delta": -1.3333333333333333,
+        "ci95": [
+          -7.333333333333333,
+          4.666666666666667
+        ],
+        "improved": 18,
+        "worsened": 24,
+        "unchanged": 108
+      },
+      "complete_sentence": {
+        "delta": -0.6666666666666666,
+        "ci95": [
+          -2.0,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 1,
+        "unchanged": 149
+      }
+    },
+    "knowledge/T0-C_start": {
+      "answer_score": {
+        "delta": 1.3333333333333333,
+        "ci95": [
+          -3.0,
+          5.666666666666667
+        ],
+        "improved": 11,
+        "worsened": 7,
+        "unchanged": 132
+      },
+      "reasoning_score": {
+        "delta": 3.0,
+        "ci95": [
+          -1.3333333333333333,
+          7.333333333333333
+        ],
+        "improved": 15,
+        "worsened": 8,
+        "unchanged": 127
+      },
+      "joint_score": {
+        "delta": 2.3333333333333335,
+        "ci95": [
+          -2.3333333333333335,
+          7.0
+        ],
+        "improved": 15,
+        "worsened": 9,
+        "unchanged": 126
+      },
+      "complete_sentence": {
+        "delta": 0.6666666666666666,
+        "ci95": [
+          0.0,
+          2.0
+        ],
+        "improved": 1,
+        "worsened": 0,
+        "unchanged": 149
+      }
+    },
+    "knowledge/form": {
+      "answer_score": {
+        "delta": -0.6666666666666666,
+        "ci95": [
+          -3.3333333333333335,
+          1.8333333333333333
+        ],
+        "improved": 10,
+        "worsened": 11,
+        "unchanged": 129
+      },
+      "reasoning_score": {
+        "delta": -1.3333333333333333,
+        "ci95": [
+          -4.0,
+          1.1666666666666667
+        ],
+        "improved": 14,
+        "worsened": 18,
+        "unchanged": 118
+      },
+      "joint_score": {
+        "delta": -0.8333333333333334,
+        "ci95": [
+          -3.6666666666666665,
+          2.0
+        ],
+        "improved": 17,
+        "worsened": 20,
+        "unchanged": 113
+      },
+      "complete_sentence": {
+        "delta": 95.33333333333333,
+        "ci95": [
+          92.0,
+          98.33333333333333
+        ],
+        "improved": 144,
+        "worsened": 0,
+        "unchanged": 6
+      }
+    },
+    "knowledge/relation": {
+      "answer_score": {
+        "delta": 2.6666666666666665,
+        "ci95": [
+          -1.8333333333333333,
+          7.333333333333333
+        ],
+        "improved": 17,
+        "worsened": 12,
+        "unchanged": 121
+      },
+      "reasoning_score": {
+        "delta": -1.0,
+        "ci95": [
+          -6.0,
+          4.0
+        ],
+        "improved": 21,
+        "worsened": 29,
+        "unchanged": 100
+      },
+      "joint_score": {
+        "delta": -0.16666666666666666,
+        "ci95": [
+          -5.166666666666667,
+          4.833333333333333
+        ],
+        "improved": 23,
+        "worsened": 30,
+        "unchanged": 97
+      },
+      "complete_sentence": {
+        "delta": 0.0,
+        "ci95": [
+          -1.0,
+          1.0
+        ],
+        "improved": 1,
+        "worsened": 1,
+        "unchanged": 148
+      }
+    },
+    "knowledge/interaction": {
+      "answer_score": {
+        "delta": -2.6666666666666665,
+        "ci95": [
+          -8.0,
+          2.6666666666666665
+        ],
+        "improved": 9,
+        "worsened": 14,
+        "unchanged": 127
+      },
+      "reasoning_score": {
+        "delta": -0.6666666666666666,
+        "ci95": [
+          -6.666666666666667,
+          5.333333333333333
+        ],
+        "improved": 17,
+        "worsened": 16,
+        "unchanged": 117
+      },
+      "joint_score": {
+        "delta": -2.3333333333333335,
+        "ci95": [
+          -8.666666666666666,
+          4.0
+        ],
+        "improved": 18,
+        "worsened": 20,
+        "unchanged": 112
+      },
+      "complete_sentence": {
+        "delta": -1.3333333333333333,
+        "ci95": [
+          -3.3333333333333335,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 2,
+        "unchanged": 148
+      }
+    },
+    "vqa/T1-T0": {
+      "answer_score": {
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 0,
+        "unchanged": 16
+      },
+      "reasoning_score": {
+        "delta": -3.125,
+        "ci95": [
+          -9.375,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 1,
+        "unchanged": 15
+      },
+      "joint_score": {
+        "delta": -3.125,
+        "ci95": [
+          -9.375,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 1,
+        "unchanged": 15
+      },
+      "complete_sentence": {
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 0,
+        "unchanged": 16
+      }
+    },
+    "vqa/T2-T0": {
+      "answer_score": {
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 0,
+        "unchanged": 16
+      },
+      "reasoning_score": {
+        "delta": -3.125,
+        "ci95": [
+          -9.375,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 1,
+        "unchanged": 15
+      },
+      "joint_score": {
+        "delta": -3.125,
+        "ci95": [
+          -9.375,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 1,
+        "unchanged": 15
+      },
+      "complete_sentence": {
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 0,
+        "unchanged": 16
+      }
+    },
+    "vqa/T3-T0": {
+      "answer_score": {
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 0,
+        "unchanged": 16
+      },
+      "reasoning_score": {
+        "delta": -6.25,
+        "ci95": [
+          -15.625,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 2,
+        "unchanged": 14
+      },
+      "joint_score": {
+        "delta": -6.25,
+        "ci95": [
+          -15.625,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 2,
+        "unchanged": 14
+      },
+      "complete_sentence": {
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 0,
+        "unchanged": 16
+      }
+    },
+    "vqa/T3-T2": {
+      "answer_score": {
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 0,
+        "unchanged": 16
+      },
+      "reasoning_score": {
+        "delta": -3.125,
+        "ci95": [
+          -9.375,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 1,
+        "unchanged": 15
+      },
+      "joint_score": {
+        "delta": -3.125,
+        "ci95": [
+          -9.375,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 1,
+        "unchanged": 15
+      },
+      "complete_sentence": {
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 0,
+        "unchanged": 16
+      }
+    },
+    "vqa/T3-T1": {
+      "answer_score": {
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 0,
+        "unchanged": 16
+      },
+      "reasoning_score": {
+        "delta": -3.125,
+        "ci95": [
+          -9.375,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 1,
+        "unchanged": 15
+      },
+      "joint_score": {
+        "delta": -3.125,
+        "ci95": [
+          -9.375,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 1,
+        "unchanged": 15
+      },
+      "complete_sentence": {
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 0,
+        "unchanged": 16
+      }
+    },
+    "vqa/T0-C_start": {
+      "answer_score": {
+        "delta": -12.5,
+        "ci95": [
+          -31.25,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 2,
+        "unchanged": 14
+      },
+      "reasoning_score": {
+        "delta": -12.5,
+        "ci95": [
+          -31.25,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 2,
+        "unchanged": 14
+      },
+      "joint_score": {
+        "delta": -12.5,
+        "ci95": [
+          -31.25,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 2,
+        "unchanged": 14
+      },
+      "complete_sentence": {
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 0,
+        "unchanged": 16
+      }
+    },
+    "vqa/form": {
+      "answer_score": {
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 0,
+        "unchanged": 16
+      },
+      "reasoning_score": {
+        "delta": -3.125,
+        "ci95": [
+          -7.8125,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 2,
+        "unchanged": 14
+      },
+      "joint_score": {
+        "delta": -3.125,
+        "ci95": [
+          -7.8125,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 2,
+        "unchanged": 14
+      },
+      "complete_sentence": {
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 0,
+        "unchanged": 16
+      }
+    },
+    "vqa/relation": {
+      "answer_score": {
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 0,
+        "unchanged": 16
+      },
+      "reasoning_score": {
+        "delta": -3.125,
+        "ci95": [
+          -7.8125,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 2,
+        "unchanged": 14
+      },
+      "joint_score": {
+        "delta": -3.125,
+        "ci95": [
+          -7.8125,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 2,
+        "unchanged": 14
+      },
+      "complete_sentence": {
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 0,
+        "unchanged": 16
+      }
+    },
+    "vqa/interaction": {
+      "answer_score": {
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 0,
+        "unchanged": 16
+      },
+      "reasoning_score": {
+        "delta": 0.0,
+        "ci95": [
+          -9.375,
+          9.375
+        ],
+        "improved": 1,
+        "worsened": 1,
+        "unchanged": 14
+      },
+      "joint_score": {
+        "delta": 0.0,
+        "ci95": [
+          -9.375,
+          9.375
+        ],
+        "improved": 1,
+        "worsened": 1,
+        "unchanged": 14
+      },
+      "complete_sentence": {
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "improved": 0,
+        "worsened": 0,
+        "unchanged": 16
+      }
+    }
+  },
+  "invalid_questions": [],
+  "same_final_score_conflicts": [],
+  "nominal_intervals": true,
+  "training_seed_count": 1,
+  "status": "complete"
+}

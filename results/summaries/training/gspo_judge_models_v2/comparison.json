@@ -1,0 +1,160 @@
+{
+  "conditions": "Same 32 saved responses, 16 per request, low reasoning, sequential calls; one timing trial per model",
+  "results": [
+    {
+      "judge_model": "gpt-5.5",
+      "reasoning_effort": "low",
+      "judge_batch_size": 16,
+      "status": "completed",
+      "call_seconds": [
+        28.031000000424683,
+        28.389999999664724
+      ],
+      "samples": 32,
+      "judge_seconds": 56.42100000008941,
+      "unjudgeable_samples": 0,
+      "agreement_with_sol_batch16": 0.9375
+    },
+    {
+      "judge_model": "gpt-5.6-terra",
+      "reasoning_effort": "low",
+      "judge_batch_size": 16,
+      "status": "completed",
+      "call_seconds": [
+        37.60999999940395,
+        28.828000000678003
+      ],
+      "samples": 32,
+      "judge_seconds": 66.43800000008196,
+      "unjudgeable_samples": 0,
+      "agreement_with_sol_batch16": 0.9375
+    },
+    {
+      "judge_model": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "judge_batch_size": 16,
+      "status": "completed",
+      "call_seconds": [
+        27.389999999664724,
+        29.328999999910593
+      ],
+      "samples": 32,
+      "judge_seconds": 56.71899999957532,
+      "unjudgeable_samples": 0,
+      "agreement_with_sol_batch16": 0.875
+    },
+    {
+      "judge_model": "gpt-5.4-mini",
+      "reasoning_effort": "low",
+      "judge_batch_size": 16,
+      "status": "completed",
+      "call_seconds": [
+        25.656000000424683,
+        24.139999999664724
+      ],
+      "samples": 32,
+      "judge_seconds": 49.79600000008941,
+      "unjudgeable_samples": 0,
+      "agreement_with_sol_batch16": 0.84375
+    },
+    {
+      "judge_model": "gpt-5.3-codex-spark",
+      "reasoning_effort": "low",
+      "judge_batch_size": 16,
+      "status": "completed",
+      "call_seconds": [
+        13.203999999910593,
+        13.5
+      ],
+      "samples": 32,
+      "judge_seconds": 26.703999999910593,
+      "unjudgeable_samples": 0,
+      "agreement_with_sol_batch16": 0.8125
+    },
+    {
+      "judge_model": "gpt-6-astra",
+      "reasoning_effort": "low",
+      "judge_batch_size": 16,
+      "status": "completed",
+      "call_seconds": [
+        36.76599999982864,
+        35.54700000025332
+      ],
+      "samples": 32,
+      "judge_seconds": 72.31300000008196,
+      "unjudgeable_samples": 0,
+      "agreement_with_sol_batch16": 0.75
+    }
+  ],
+  "sol_baseline": {
+    "status": "completed",
+    "judge_model": "gpt-5.6-sol",
+    "reasoning_effort": "low",
+    "samples": 32,
+    "judge_batch_size": 16,
+    "calls": 2,
+    "call_seconds": [
+      41.42200000025332,
+      32.92200000025332
+    ],
+    "judge_seconds": 74.34400000050664,
+    "previous_judge_seconds": 160.40500000026077,
+    "score_agreement": 0.875,
+    "score_changes": [
+      {
+        "source_id": "train-01677::cycle0::sample1",
+        "old_score": 1,
+        "new_score": 0,
+        "old_explanation": "The described focal low attenuation in the temporal/opercular region is compatible with edema, but the response misses the clearest requested sign: sulcal effacement.",
+        "new_explanation": "It describes a purported distribution of edema rather than the visible sign requested, sulcal effacement, and includes unsupported localization claims."
+      },
+      {
+        "source_id": "test-00356::cycle0::sample0",
+        "old_score": 1,
+        "new_score": 2,
+        "old_explanation": "The conclusion is correct and vascular enhancement supports IV contrast, but the claimed “renophorenal pattern” is unclear and not demonstrated on this slice.",
+        "new_explanation": "Vascular and solid-organ enhancement supports the correct conclusion that intravenous contrast was administered."
+      },
+      {
+        "source_id": "test-00135::cycle1::sample0",
+        "old_score": 1,
+        "new_score": 2,
+        "old_explanation": "The conclusion is correct, but the rationale uses unclear, nonstandard language about vertebral markers and does not clearly ground the size assessment in a valid radiographic measure.",
+        "new_explanation": "Correctly concludes that the cardiac silhouette is not enlarged; the rationale is garbled but still conveys absence of gross widening."
+      },
+      {
+        "source_id": "test-00135::cycle1::sample1",
+        "old_score": 1,
+        "new_score": 2,
+        "old_explanation": "The normal-size conclusion matches the image, but the statement that the silhouette is not “behind the heart contour” is anatomically unclear and provides weak supporting reasoning.",
+        "new_explanation": "Correctly states that the visible cardiac silhouette is within normal size limits."
+      }
+    ],
+    "note": "Same saved responses; two fresh sequential calls. No model generation or training rerun."
+  },
+  "spark_image_check": {
+    "expected": "99795539",
+    "results": [
+      {
+        "model": "gpt-5.3-codex-spark",
+        "response": {
+          "digits": "UNAVAILABLE"
+        },
+        "exact_match": false
+      },
+      {
+        "model": "gpt-5.5",
+        "response": {
+          "digits": "99795539"
+        },
+        "exact_match": true
+      }
+    ]
+  },
+  "client_versions": {
+    "default": "0.146.0",
+    "astra": "0.153.3"
+  },
+  "excluded_catalog_entries": "Hidden internal entries gpt-reserve and codex-auto-review were not benchmarked",
+  "training_model_changed": false
+}

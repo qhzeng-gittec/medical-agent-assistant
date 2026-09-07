@@ -1,0 +1,29 @@
+{
+  "dataset_sha256": "d1f30fa2dbb0921a857efa9c2bcedfea49bdbfd7aa0a3476aa6163c82022b70d",
+  "corpus_sha256": "77b4970c7300ea2ab032ca2f44f9d309f65efa2f0f02bbf76d5446c00a8aa406",
+  "temperature": 0.2,
+  "reasoning_effort": "low",
+  "max_output_tokens": 2048,
+  "supervisor_rounds": 4,
+  "worker_tool_budget": 2,
+  "models": [
+    "minimax/minimax-m2.5",
+    "qwen/qwen3.5-27b",
+    "google/gemini-3.8-flash"
+  ],
+  "embedding_model": "qwen/qwen3-embedding-8b",
+  "budget_usd": 5,
+  "adaptations": [
+    "real API embeddings + local exact cosine replaces unavailable Milvus",
+    "provider reasoning_details preserved by evaluation transport",
+    "deep_research returns explicit not-configured error, never fake success",
+    "Mem0 Platform disabled: no credentials; Profile persistence is real",
+    "fine-tuned medical model not connected: no serving endpoint configured"
+  ],
+  "clinical_review": "pending",
+  "patient_selector": "qwen/qwen3.5-27b",
+  "patient_selector_max_output_tokens": 4096,
+  "parallel_patient_tasks": 4,
+  "execution_isolation": "one event loop per patient task in separate threads",
+  "query_instruction": "English medical retrieval task prefix; documents have no prefix"
+}

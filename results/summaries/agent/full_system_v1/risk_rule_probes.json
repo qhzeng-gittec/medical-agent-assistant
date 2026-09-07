@@ -1,0 +1,38 @@
+[
+  {
+    "input": "没有胸痛，没有呼吸困难，只有咳嗽",
+    "desired_behavior": "不能把否认的胸痛/呼吸困难识别为已出现的高危症状",
+    "observed": {
+      "answer": "【症状风险评估】\n\n症状描述：没有胸痛，没有呼吸困难，只有咳嗽\n\n风险等级：高危 🔴\n\n风险因素：\n  • 检测到高风险症状：没有胸痛，没有呼吸困难，只有咳嗽\n\n就医建议：⚠️ 建议立即就医或拨打急救电话120\n\n⚠️ 请立即就医或拨打 120！\n\n💡 数据来源：风险规则引擎 + 医学知识库（Milvus RAG）",
+      "risk_level": "high",
+      "recommendation": "⚠️ 建议立即就医或拨打急救电话120",
+      "documents": []
+    },
+    "assessment": "known_rule_or_error_observability_gap",
+    "uses_llm": false
+  },
+  {
+    "input": "最近不舒服",
+    "desired_behavior": "未知不是低危：风险资料不足应显式表达不确定",
+    "observed": {
+      "answer": "【症状风险评估】\n\n症状描述：最近不舒服\n\n风险等级：低危 🟢\n\n就医建议：建议密切观察症状变化，如果症状加重或持续不缓解，应及时就医\n\n💡 数据来源：风险规则引擎 + 医学知识库（Milvus RAG）",
+      "risk_level": "low",
+      "recommendation": "建议密切观察症状变化，如果症状加重或持续不缓解，应及时就医",
+      "documents": []
+    },
+    "assessment": "known_rule_or_error_observability_gap",
+    "uses_llm": false
+  },
+  {
+    "input": "咳嗽",
+    "desired_behavior": "检索异常应可观察，不能返回宣称已使用知识库的成功型结果",
+    "observed": {
+      "answer": "【症状风险评估】\n\n症状描述：咳嗽\n\n风险等级：低危 🟢\n\n就医建议：建议密切观察症状变化，如果症状加重或持续不缓解，应及时就医\n\n💡 数据来源：风险规则引擎 + 医学知识库（Milvus RAG）",
+      "risk_level": "low",
+      "recommendation": "建议密切观察症状变化，如果症状加重或持续不缓解，应及时就医",
+      "documents": []
+    },
+    "assessment": "known_rule_or_error_observability_gap",
+    "uses_llm": false
+  }
+]

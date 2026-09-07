@@ -1,0 +1,626 @@
+{
+  "plan": {
+    "seed": 20260906,
+    "candidate_families": 96,
+    "models": [
+      "base",
+      "A",
+      "B",
+      "C",
+      "D",
+      "D_without_ffn"
+    ],
+    "primary": "Final-answer semantic correctness in matched no-thinking greedy short-answer probes; two wordings per fact.",
+    "retention": "Base correct on both closed-book wordings; report any loss and both-wordings loss after tuning, separated by heldout/training source.",
+    "acquisition": "Base wrong on both wordings, candidate correct on both. Contrast D vs B, D vs C, and D vs inference-time FFN ablation; finite probe failure is not proof of absent parametric knowledge.",
+    "secondary": "Prespecified oracle relevant/irrelevant evidence probes and native-thinking anchors; no revisions based on target model outputs.",
+    "limitation": "Diagnostic validation, not untouched benchmark/test. Heldout source IDs do not establish that underlying facts were absent from all training text. One trained seed; judge and wording uncertainty. Jointly trained FFN ablation measures dependence, not isolated knowledge storage.",
+    "accepted_families": 94,
+    "rejected_families": 2,
+    "probes_per_model": 248,
+    "counts": {
+      "training/original": 48,
+      "training/paraphrase": 48,
+      "training/relevant": 12,
+      "training/irrelevant": 12,
+      "training/native": 6,
+      "heldout/original": 46,
+      "heldout/paraphrase": 46,
+      "heldout/relevant": 12,
+      "heldout/irrelevant": 12,
+      "heldout/native": 6
+    },
+    "probes_sha256": "a44b0a4fed37e9eb345f7d4e5bafc95154d91aecfb063f89225f47fe2b199e36"
+  },
+  "invalid_reference_families": [
+    "medmcqa-61d522b0-2b46-487d-a3b0-7511548ce474",
+    "medmcqa-a77a0f56-af91-43d1-9722-c176738153f9",
+    "medmcqa-d844ee84-474f-45f9-82bf-c4e074171e91"
+  ],
+  "models": {
+    "base": {
+      "training": {
+        "families": 45,
+        "questions": 90,
+        "correct_answers": 49,
+        "both_correct_families": 21,
+        "base_known_families": 21,
+        "retained_both": 21,
+        "no_longer_both_correct": 0,
+        "lost_both": 0,
+        "became_unstable": 0,
+        "base_wrong_both_families": 14,
+        "acquired_both": 0,
+        "unfinished_pairs": 0
+      },
+      "heldout": {
+        "families": 46,
+        "questions": 92,
+        "correct_answers": 47,
+        "both_correct_families": 21,
+        "base_known_families": 21,
+        "retained_both": 21,
+        "no_longer_both_correct": 0,
+        "lost_both": 0,
+        "became_unstable": 0,
+        "base_wrong_both_families": 19,
+        "acquired_both": 0,
+        "unfinished_pairs": 0
+      },
+      "original": {
+        "questions": 91,
+        "correct": 47,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "paraphrase": {
+        "questions": 91,
+        "correct": 49,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "relevant": {
+        "questions": 23,
+        "correct": 22,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "irrelevant": {
+        "questions": 23,
+        "correct": 10,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "native": {
+        "questions": 12,
+        "correct": 8,
+        "stopped_by_length": 2,
+        "forced_reasoning_ends": 12,
+        "empty_final_answers": 0
+      },
+      "evidence_rescue": {
+        "families": 23,
+        "closed_wrong": 10,
+        "rescued_relevant": 9,
+        "rescued_irrelevant": 1
+      }
+    },
+    "A": {
+      "training": {
+        "families": 45,
+        "questions": 90,
+        "correct_answers": 46,
+        "both_correct_families": 19,
+        "base_known_families": 21,
+        "retained_both": 14,
+        "no_longer_both_correct": 7,
+        "lost_both": 2,
+        "became_unstable": 5,
+        "base_wrong_both_families": 14,
+        "acquired_both": 2,
+        "unfinished_pairs": 0
+      },
+      "heldout": {
+        "families": 46,
+        "questions": 92,
+        "correct_answers": 50,
+        "both_correct_families": 22,
+        "base_known_families": 21,
+        "retained_both": 19,
+        "no_longer_both_correct": 2,
+        "lost_both": 1,
+        "became_unstable": 0,
+        "base_wrong_both_families": 19,
+        "acquired_both": 3,
+        "unfinished_pairs": 0
+      },
+      "original": {
+        "questions": 91,
+        "correct": 49,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "paraphrase": {
+        "questions": 91,
+        "correct": 47,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "relevant": {
+        "questions": 23,
+        "correct": 22,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "irrelevant": {
+        "questions": 23,
+        "correct": 13,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "native": {
+        "questions": 12,
+        "correct": 7,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "evidence_rescue": {
+        "families": 23,
+        "closed_wrong": 11,
+        "rescued_relevant": 10,
+        "rescued_irrelevant": 2
+      }
+    },
+    "B": {
+      "training": {
+        "families": 45,
+        "questions": 90,
+        "correct_answers": 51,
+        "both_correct_families": 21,
+        "base_known_families": 21,
+        "retained_both": 15,
+        "no_longer_both_correct": 6,
+        "lost_both": 0,
+        "became_unstable": 6,
+        "base_wrong_both_families": 14,
+        "acquired_both": 2,
+        "unfinished_pairs": 0
+      },
+      "heldout": {
+        "families": 46,
+        "questions": 92,
+        "correct_answers": 56,
+        "both_correct_families": 25,
+        "base_known_families": 21,
+        "retained_both": 20,
+        "no_longer_both_correct": 1,
+        "lost_both": 0,
+        "became_unstable": 1,
+        "base_wrong_both_families": 19,
+        "acquired_both": 4,
+        "unfinished_pairs": 0
+      },
+      "original": {
+        "questions": 91,
+        "correct": 57,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "paraphrase": {
+        "questions": 91,
+        "correct": 50,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "relevant": {
+        "questions": 23,
+        "correct": 21,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "irrelevant": {
+        "questions": 23,
+        "correct": 12,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "native": {
+        "questions": 12,
+        "correct": 7,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "evidence_rescue": {
+        "families": 23,
+        "closed_wrong": 9,
+        "rescued_relevant": 8,
+        "rescued_irrelevant": 1
+      }
+    },
+    "C": {
+      "training": {
+        "families": 45,
+        "questions": 90,
+        "correct_answers": 51,
+        "both_correct_families": 20,
+        "base_known_families": 21,
+        "retained_both": 14,
+        "no_longer_both_correct": 7,
+        "lost_both": 1,
+        "became_unstable": 5,
+        "base_wrong_both_families": 14,
+        "acquired_both": 2,
+        "unfinished_pairs": 0
+      },
+      "heldout": {
+        "families": 46,
+        "questions": 92,
+        "correct_answers": 50,
+        "both_correct_families": 20,
+        "base_known_families": 21,
+        "retained_both": 17,
+        "no_longer_both_correct": 4,
+        "lost_both": 0,
+        "became_unstable": 4,
+        "base_wrong_both_families": 19,
+        "acquired_both": 2,
+        "unfinished_pairs": 0
+      },
+      "original": {
+        "questions": 91,
+        "correct": 52,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "paraphrase": {
+        "questions": 91,
+        "correct": 49,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "relevant": {
+        "questions": 23,
+        "correct": 22,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "irrelevant": {
+        "questions": 23,
+        "correct": 13,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "native": {
+        "questions": 12,
+        "correct": 6,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "evidence_rescue": {
+        "families": 23,
+        "closed_wrong": 10,
+        "rescued_relevant": 9,
+        "rescued_irrelevant": 2
+      }
+    },
+    "D": {
+      "training": {
+        "families": 45,
+        "questions": 90,
+        "correct_answers": 55,
+        "both_correct_families": 24,
+        "base_known_families": 21,
+        "retained_both": 18,
+        "no_longer_both_correct": 3,
+        "lost_both": 0,
+        "became_unstable": 2,
+        "base_wrong_both_families": 14,
+        "acquired_both": 3,
+        "unfinished_pairs": 0
+      },
+      "heldout": {
+        "families": 46,
+        "questions": 92,
+        "correct_answers": 52,
+        "both_correct_families": 23,
+        "base_known_families": 21,
+        "retained_both": 18,
+        "no_longer_both_correct": 3,
+        "lost_both": 1,
+        "became_unstable": 2,
+        "base_wrong_both_families": 19,
+        "acquired_both": 4,
+        "unfinished_pairs": 0
+      },
+      "original": {
+        "questions": 91,
+        "correct": 55,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "paraphrase": {
+        "questions": 91,
+        "correct": 52,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "relevant": {
+        "questions": 23,
+        "correct": 22,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "irrelevant": {
+        "questions": 23,
+        "correct": 12,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "native": {
+        "questions": 12,
+        "correct": 6,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "evidence_rescue": {
+        "families": 23,
+        "closed_wrong": 10,
+        "rescued_relevant": 9,
+        "rescued_irrelevant": 0
+      }
+    },
+    "D_without_ffn": {
+      "training": {
+        "families": 45,
+        "questions": 90,
+        "correct_answers": 51,
+        "both_correct_families": 21,
+        "base_known_families": 21,
+        "retained_both": 19,
+        "no_longer_both_correct": 2,
+        "lost_both": 0,
+        "became_unstable": 2,
+        "base_wrong_both_families": 14,
+        "acquired_both": 0,
+        "unfinished_pairs": 0
+      },
+      "heldout": {
+        "families": 46,
+        "questions": 92,
+        "correct_answers": 54,
+        "both_correct_families": 23,
+        "base_known_families": 21,
+        "retained_both": 20,
+        "no_longer_both_correct": 1,
+        "lost_both": 0,
+        "became_unstable": 1,
+        "base_wrong_both_families": 19,
+        "acquired_both": 1,
+        "unfinished_pairs": 0
+      },
+      "original": {
+        "questions": 91,
+        "correct": 52,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "paraphrase": {
+        "questions": 91,
+        "correct": 53,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "relevant": {
+        "questions": 23,
+        "correct": 22,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "irrelevant": {
+        "questions": 23,
+        "correct": 11,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 0,
+        "empty_final_answers": 0
+      },
+      "native": {
+        "questions": 12,
+        "correct": 7,
+        "stopped_by_length": 0,
+        "forced_reasoning_ends": 2,
+        "empty_final_answers": 0
+      },
+      "evidence_rescue": {
+        "families": 23,
+        "closed_wrong": 7,
+        "rescued_relevant": 6,
+        "rescued_irrelevant": 0
+      }
+    }
+  },
+  "comparisons": {
+    "training/A-base": {
+      "families": 45,
+      "mean_delta": -3.3333333333333335,
+      "paired_family_bootstrap_95_ci": [
+        -14.444444444444445,
+        7.777777777777778
+      ],
+      "gained_consistent_success": 5,
+      "lost_consistent_success": 7
+    },
+    "training/B-base": {
+      "families": 45,
+      "mean_delta": 2.2222222222222223,
+      "paired_family_bootstrap_95_ci": [
+        -7.777777777777778,
+        12.222222222222221
+      ],
+      "gained_consistent_success": 6,
+      "lost_consistent_success": 6
+    },
+    "training/C-base": {
+      "families": 45,
+      "mean_delta": 2.2222222222222223,
+      "paired_family_bootstrap_95_ci": [
+        -11.11111111111111,
+        14.444444444444445
+      ],
+      "gained_consistent_success": 6,
+      "lost_consistent_success": 7
+    },
+    "training/D-base": {
+      "families": 45,
+      "mean_delta": 6.666666666666667,
+      "paired_family_bootstrap_95_ci": [
+        -4.444444444444445,
+        17.77777777777778
+      ],
+      "gained_consistent_success": 6,
+      "lost_consistent_success": 3
+    },
+    "training/D-B": {
+      "families": 45,
+      "mean_delta": 4.444444444444445,
+      "paired_family_bootstrap_95_ci": [
+        -4.444444444444445,
+        13.333333333333334
+      ],
+      "gained_consistent_success": 5,
+      "lost_consistent_success": 2
+    },
+    "training/D-C": {
+      "families": 45,
+      "mean_delta": 4.444444444444445,
+      "paired_family_bootstrap_95_ci": [
+        -2.2222222222222223,
+        12.222222222222221
+      ],
+      "gained_consistent_success": 6,
+      "lost_consistent_success": 2
+    },
+    "training/D-D_without_ffn": {
+      "families": 45,
+      "mean_delta": 4.444444444444445,
+      "paired_family_bootstrap_95_ci": [
+        -4.444444444444445,
+        13.333333333333334
+      ],
+      "gained_consistent_success": 5,
+      "lost_consistent_success": 2
+    },
+    "training/knowledge_by_ffn_interaction": {
+      "families": 45,
+      "mean_delta": -1.1111111111111112,
+      "paired_family_bootstrap_95_ci": [
+        -8.88888888888889,
+        6.666666666666667
+      ]
+    },
+    "heldout/A-base": {
+      "families": 46,
+      "mean_delta": 3.260869565217391,
+      "paired_family_bootstrap_95_ci": [
+        -7.608695652173913,
+        14.130434782608695
+      ],
+      "gained_consistent_success": 3,
+      "lost_consistent_success": 2
+    },
+    "heldout/B-base": {
+      "families": 46,
+      "mean_delta": 9.782608695652174,
+      "paired_family_bootstrap_95_ci": [
+        1.0869565217391304,
+        19.565217391304348
+      ],
+      "gained_consistent_success": 5,
+      "lost_consistent_success": 1
+    },
+    "heldout/C-base": {
+      "families": 46,
+      "mean_delta": 3.260869565217391,
+      "paired_family_bootstrap_95_ci": [
+        -5.434782608695652,
+        13.043478260869565
+      ],
+      "gained_consistent_success": 3,
+      "lost_consistent_success": 4
+    },
+    "heldout/D-base": {
+      "families": 46,
+      "mean_delta": 5.434782608695652,
+      "paired_family_bootstrap_95_ci": [
+        -5.434782608695652,
+        16.304347826086957
+      ],
+      "gained_consistent_success": 5,
+      "lost_consistent_success": 3
+    },
+    "heldout/D-B": {
+      "families": 46,
+      "mean_delta": -4.3478260869565215,
+      "paired_family_bootstrap_95_ci": [
+        -10.869565217391305,
+        2.1739130434782608
+      ],
+      "gained_consistent_success": 1,
+      "lost_consistent_success": 3
+    },
+    "heldout/D-C": {
+      "families": 46,
+      "mean_delta": 2.1739130434782608,
+      "paired_family_bootstrap_95_ci": [
+        -4.3478260869565215,
+        8.695652173913043
+      ],
+      "gained_consistent_success": 4,
+      "lost_consistent_success": 1
+    },
+    "heldout/D-D_without_ffn": {
+      "families": 46,
+      "mean_delta": -2.1739130434782608,
+      "paired_family_bootstrap_95_ci": [
+        -10.869565217391305,
+        6.521739130434782
+      ],
+      "gained_consistent_success": 4,
+      "lost_consistent_success": 4
+    },
+    "heldout/knowledge_by_ffn_interaction": {
+      "families": 46,
+      "mean_delta": -4.3478260869565215,
+      "paired_family_bootstrap_95_ci": [
+        -15.217391304347826,
+        4.3478260869565215
+      ]
+    }
+  }
+}

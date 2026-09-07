@@ -2,7 +2,7 @@
 
 医疗多智能体助手与 Qwen3.5-2B 医疗模型训练实验。支持多轮问诊、专业 Agent 调度、患者档案和检索证据管理，并提供 LoRA SFT、GSPO 训练及评测代码。
 
-[Agent 使用说明](medix-agent-swarm/README.md) · [训练与推理](MediX-R1/README.md) · [模型与数据](https://huggingface.co/collections/starttoshow/medix-medical-sft-and-gspo-6a9e6f31b80642f4ba8b6f28)
+[Agent 使用说明](medix-agent-swarm/README.md) · [训练与推理](MediX-R1/README.md) · [完整评测结果](results/README.md) · [完整评测结果](results/README.md) · [模型与数据](https://huggingface.co/collections/starttoshow/medix-medical-sft-and-gspo-6a9e6f31b80642f4ba8b6f28)
 
 ## 功能
 
@@ -72,9 +72,9 @@ python medix-agent-swarm/main.py
 | --- | --- | --- |
 | LoRA 留出评测 | 247 道知识/上下文题，944 份回答；加入知识后的净收益未获得稳定证据 | [训练报告](MediX-R1/reports/training_report.md) |
 | GSPO | 93 道验证题、16 张图像；归一化评审分 60.75 → 66.13，单训练种子 | [GSPO 对比](MediX-R1/reports/gspo_comparison.json) |
-| Agent 开发评测 | 24 个模拟场景 × 2 款模型；48 个主任务完成，自动评审有效 16/96 条 | [开发测评报告](medix-agent-swarm/reports/医疗问诊Agent测评报告.md) |
+| Agent 开发评测 | 24 个模拟场景 × 2 款模型；48 个主任务完成，自动双评审有效 96/96 条 | [开发测评报告](medix-agent-swarm/reports/医疗问诊Agent测评报告.md) |
 
-上述评审分不等于临床诊断准确率。Agent 评分不完整，不据此给出整体质量排名；报告包含已观察到的风险判断、档案写入和子 Agent 失败问题。逐题生成及评审记录不包含在本仓库中，精选报告不能独立重算全部统计。
+上述评审分不等于临床诊断准确率。Agent 两位评审均全项通过的任务为 MiniMax 13/24、Qwen 14/24，不能据此推断临床优劣。[完整评测结果](results/README.md)提供逐题评分、必要轨迹、历史实验附件及复算脚本；报告保留风险判断、档案写入和子 Agent 失败问题。
 
 ## 项目结构
 
@@ -82,6 +82,7 @@ python medix-agent-swarm/main.py
 medical-agent-assistant/
 ├── medix-agent-swarm/    # Agent、技能、记忆、检索、示例与测试
 ├── MediX-R1/            # 训练、数据处理、评测与实验报告
+├── results/             # 完整评测索引、汇总指标与复算工具
 ├── release/             # Hugging Face 产物上传工具
 ├── config.example.py    # API 与可选 Mem0 配置
 └── requirements-dev.txt # 测试依赖

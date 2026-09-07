@@ -1,0 +1,597 @@
+{
+  "plan": {
+    "initial_adapter": "MediX-R1\\outputs\\knowledge_experiments_v1\\seed42\\vqa_knowledge_attention\\final_adapter",
+    "initial_adapter_sha256": "e22c5be2c23d4accd6026f2dc9705fa145b4df0ab8b0120c60ad6d9b34914e8d",
+    "arms": [
+      "unchanged_C",
+      "original",
+      "structured"
+    ],
+    "seed": 42,
+    "train_examples": 96,
+    "train_subject_counts": {
+      "Anatomy": 16,
+      "Biochemistry": 16,
+      "Microbiology": 16,
+      "Pathology": 16,
+      "Pharmacology": 16,
+      "Physiology": 16
+    },
+    "epochs": 3,
+    "batch_size": 2,
+    "gradient_accumulation_steps": 2,
+    "optimizer_steps": 72,
+    "learning_rate": 2e-05,
+    "gpu_memory_fraction": 0.45,
+    "lora_scope": "attention",
+    "knowledge_only_continuation": true,
+    "evaluation_counts": {
+      "knowledge": 60,
+      "vqa": 20
+    },
+    "evaluation_knowledge_subject_counts": {
+      "Anatomy": 10,
+      "Biochemistry": 10,
+      "Microbiology": 10,
+      "Pharmacology": 10,
+      "Physiology": 10,
+      "Pathology": 10
+    },
+    "historical_knowledge_ids": [
+      "medmcqa-0aa6a390-8543-4220-98a8-cfc1939ccde3",
+      "medmcqa-15ec87dd-fcbc-49e2-89d5-dd46f8a6c215",
+      "medmcqa-1efc680b-ed5d-4c2c-8049-e3defda927c4",
+      "medmcqa-4279801b-8afd-4b2f-b1a3-3af5aaf8551a",
+      "medmcqa-4b27992b-76f7-4e25-8a61-206a6b5c2850",
+      "medmcqa-4f5ecdac-002b-478f-b47d-a680f0bf4921",
+      "medmcqa-61de3d5d-56ad-4de0-8e1a-d4476427dbad",
+      "medmcqa-81b7311f-395f-4e05-b51b-1a9002c0e1e5",
+      "medmcqa-8a5680a5-a800-40fe-888b-d1345ed69951",
+      "medmcqa-a13a8a3b-850b-4b47-bd3b-6ed1dc7dce5d",
+      "medmcqa-b2b4327f-d52a-48a2-91e4-d79cd89237df",
+      "medmcqa-bd315295-b25e-4865-9b78-77571b1855d0",
+      "medmcqa-c2163ff3-5879-423d-b69b-388654dd7f42",
+      "medmcqa-d66c7cf0-e230-4c3d-a573-2077a96913a1",
+      "medmcqa-da85d4fe-d545-4a41-b88c-0dd692d95f83",
+      "medmcqa-db9483df-c6b3-4357-a955-196f122ac5d5",
+      "medmcqa-dc56c370-29e4-4d91-b611-fd9f36295319",
+      "medmcqa-e85e38df-437a-4484-ba09-76b561de6793",
+      "medmcqa-eb626c4c-0c8b-4e82-acbc-55dc2fbd45df",
+      "medmcqa-f3f5b3e3-10e8-4f95-8166-51291f0d327b"
+    ],
+    "evaluation_ids": [
+      "medmcqa-f3f5b3e3-10e8-4f95-8166-51291f0d327b",
+      "medmcqa-4b27992b-76f7-4e25-8a61-206a6b5c2850",
+      "medmcqa-4279801b-8afd-4b2f-b1a3-3af5aaf8551a",
+      "medmcqa-61de3d5d-56ad-4de0-8e1a-d4476427dbad",
+      "medmcqa-db9483df-c6b3-4357-a955-196f122ac5d5",
+      "medmcqa-a13a8a3b-850b-4b47-bd3b-6ed1dc7dce5d",
+      "medmcqa-81b7311f-395f-4e05-b51b-1a9002c0e1e5",
+      "medmcqa-e85e38df-437a-4484-ba09-76b561de6793",
+      "medmcqa-bd315295-b25e-4865-9b78-77571b1855d0",
+      "medmcqa-0aa6a390-8543-4220-98a8-cfc1939ccde3",
+      "medmcqa-eb626c4c-0c8b-4e82-acbc-55dc2fbd45df",
+      "medmcqa-dc56c370-29e4-4d91-b611-fd9f36295319",
+      "medmcqa-b2b4327f-d52a-48a2-91e4-d79cd89237df",
+      "medmcqa-1efc680b-ed5d-4c2c-8049-e3defda927c4",
+      "medmcqa-c2163ff3-5879-423d-b69b-388654dd7f42",
+      "medmcqa-d66c7cf0-e230-4c3d-a573-2077a96913a1",
+      "medmcqa-da85d4fe-d545-4a41-b88c-0dd692d95f83",
+      "medmcqa-8a5680a5-a800-40fe-888b-d1345ed69951",
+      "medmcqa-4f5ecdac-002b-478f-b47d-a680f0bf4921",
+      "medmcqa-15ec87dd-fcbc-49e2-89d5-dd46f8a6c215",
+      "medmcqa-5c361810-9478-4b86-9e69-180ac6828fd5",
+      "medmcqa-eed4da6f-60fb-4123-b5a4-404dea2f39ed",
+      "medmcqa-0c81fe12-7aff-4a4c-a367-7ae82631a156",
+      "medmcqa-858a73e4-589d-4512-8154-374155db0ce8",
+      "medmcqa-3b709ee1-1208-4b1f-b832-00f7a7401d2a",
+      "medmcqa-d8a6a465-1b15-4542-8f42-96c028b7781d",
+      "medmcqa-7ff5e2d3-c3a2-4693-a8a7-131d1830dcab",
+      "medmcqa-d5605c29-6b07-4d43-8b2f-0047f03cf82a",
+      "medmcqa-953e7a3e-3b5f-4dc6-aad0-d05a2ed95db1",
+      "medmcqa-17593637-5776-4910-baf4-85a6d8f6075f",
+      "medmcqa-852ad85a-3d67-4b66-8487-93d7dc9e1c24",
+      "medmcqa-9023d658-3d58-480e-bf58-3b41a57d03cb",
+      "medmcqa-9ea54383-3054-4cd2-8864-dad322dc33a0",
+      "medmcqa-79cc0dfb-f9bf-4a32-8ea0-5696edc17c5e",
+      "medmcqa-f42ac82d-19bf-4717-a4fd-6b89a47b5029",
+      "medmcqa-02e1f40b-2e30-4776-9b9b-9479ddeb5802",
+      "medmcqa-360e653e-5722-4bf1-a3d3-2083c529cf91",
+      "medmcqa-f98d60fa-17a8-4a64-b8f8-bd83b0c65d46",
+      "medmcqa-125a7e80-7f7d-4537-8afb-1780ca741c34",
+      "medmcqa-f6f945a3-e0cf-494c-a26e-d49aa5fc1f4a",
+      "medmcqa-6c75c176-53d4-4e9e-b285-62ca3c2b7e9d",
+      "medmcqa-f5d401ec-26dd-422a-8a1d-83eb356cf2b2",
+      "medmcqa-0d1b7cf3-a9d7-41b8-9d3e-02c779855560",
+      "medmcqa-c87acac5-eaae-41d1-b3f6-8351538141a6",
+      "medmcqa-d0a90891-675f-4583-980f-019866ceba8f",
+      "medmcqa-2ee18a5a-4a1a-4d24-80da-0a46c7c8467f",
+      "medmcqa-25849985-f66a-4252-bd0f-801244d9033b",
+      "medmcqa-d6d4f94a-af4e-4bc8-8089-d4ac7c0297e9",
+      "medmcqa-5582239d-8a3e-4d5b-a280-b9dad2966e1c",
+      "medmcqa-ea8df1a7-50d8-4a6e-b79e-a2c35aa016b7",
+      "medmcqa-9ce77597-e8b1-4f88-8338-2e65359be4e4",
+      "medmcqa-89dfee00-cb82-46b8-8e2a-d53af63ca041",
+      "medmcqa-6085f752-4bde-4194-b1ee-c797ea42cdf1",
+      "medmcqa-9db3f164-9bd7-4065-8e95-564540747916",
+      "medmcqa-1013f710-1195-439e-82a6-45e4d372a96e",
+      "medmcqa-9e09d377-1738-430e-8abb-59803df04509",
+      "medmcqa-0e22cde9-63d3-4716-88c6-e064bdffbf6e",
+      "medmcqa-9b010130-0fa2-4f72-be34-28fc5a00335f",
+      "medmcqa-414ed736-f7b7-4042-9f1f-a6b3e7b4155b",
+      "medmcqa-33502cf1-199b-4d66-be3b-53a29f74d3c4",
+      "train-00136",
+      "train-00149",
+      "train-00327",
+      "train-00372",
+      "train-00373",
+      "train-00395",
+      "train-00714",
+      "train-00725",
+      "train-00757",
+      "train-00768",
+      "train-00798",
+      "train-00934",
+      "train-01313",
+      "train-01699",
+      "test-00014",
+      "test-00051",
+      "test-00055",
+      "test-00058",
+      "test-00067",
+      "test-00323"
+    ],
+    "evaluation_sha256": "65a999865666f084a28266721a8e95a6538a5b3cafe13dc64c1541fb610d8ca5",
+    "training_edits_sha256": "beb424634c456e270008550bff86b86e975e082d93a63763dd507c4fccb86372",
+    "primary_metric": "Existing 0/1/2 joint answer-and-rationale score on all 60 knowledge validation questions.",
+    "diagnostic_metrics": [
+      "final_answer_correct",
+      "reasoning_fact_error",
+      "reasoning_answer_contradiction"
+    ],
+    "promising_rule": "Structured score above both original continuation and unchanged C, final-answer accuracy not below original, VQA no more than 5 points below original. Exploratory, not a significance claim.",
+    "limitations": [
+      "Single seed; 96 previously seen knowledge examples continued from C.",
+      "Structure and length change together; supervised tokens and compute are not matched.",
+      "No independent test evaluation; historical 20 validation questions have been inspected.",
+      "Rewrites derive from reviewed references, not a new independent clinical audit."
+    ]
+  },
+  "models": {
+    "unchanged_C": {
+      "knowledge": {
+        "samples": 60,
+        "judged_samples": 60,
+        "unjudgeable_samples": 0,
+        "score_0_to_100": 51.666666666666664,
+        "verdicts": {
+          "incorrect": 27,
+          "correct": 29,
+          "partial": 4
+        }
+      },
+      "vqa": {
+        "samples": 20,
+        "judged_samples": 20,
+        "unjudgeable_samples": 0,
+        "score_0_to_100": 75.0,
+        "verdicts": {
+          "correct": 14,
+          "incorrect": 4,
+          "partial": 2
+        }
+      },
+      "historical_20": {
+        "samples": 20,
+        "judged_samples": 20,
+        "unjudgeable_samples": 0,
+        "score_0_to_100": 52.5,
+        "verdicts": {
+          "correct": 10,
+          "incorrect": 9,
+          "partial": 1
+        }
+      },
+      "additional_40": {
+        "samples": 40,
+        "judged_samples": 40,
+        "unjudgeable_samples": 0,
+        "score_0_to_100": 51.25,
+        "verdicts": {
+          "partial": 3,
+          "incorrect": 18,
+          "correct": 19
+        }
+      },
+      "by_subject": {
+        "Anatomy": {
+          "samples": 10,
+          "judged_samples": 10,
+          "unjudgeable_samples": 0,
+          "score_0_to_100": 50.0,
+          "verdicts": {
+            "incorrect": 4,
+            "correct": 4,
+            "partial": 2
+          }
+        },
+        "Biochemistry": {
+          "samples": 10,
+          "judged_samples": 10,
+          "unjudgeable_samples": 0,
+          "score_0_to_100": 80.0,
+          "verdicts": {
+            "correct": 8,
+            "incorrect": 2
+          }
+        },
+        "Microbiology": {
+          "samples": 10,
+          "judged_samples": 10,
+          "unjudgeable_samples": 0,
+          "score_0_to_100": 30.0,
+          "verdicts": {
+            "incorrect": 7,
+            "correct": 3
+          }
+        },
+        "Pathology": {
+          "samples": 10,
+          "judged_samples": 10,
+          "unjudgeable_samples": 0,
+          "score_0_to_100": 45.0,
+          "verdicts": {
+            "incorrect": 5,
+            "partial": 1,
+            "correct": 4
+          }
+        },
+        "Pharmacology": {
+          "samples": 10,
+          "judged_samples": 10,
+          "unjudgeable_samples": 0,
+          "score_0_to_100": 45.0,
+          "verdicts": {
+            "correct": 4,
+            "partial": 1,
+            "incorrect": 5
+          }
+        },
+        "Physiology": {
+          "samples": 10,
+          "judged_samples": 10,
+          "unjudgeable_samples": 0,
+          "score_0_to_100": 60.0,
+          "verdicts": {
+            "incorrect": 4,
+            "correct": 6
+          }
+        }
+      },
+      "diagnostics": {
+        "final_answer_correct": {
+          "count": 32,
+          "assessable": 60,
+          "rate": 0.5333333333333333
+        },
+        "reasoning_fact_error": {
+          "count": 32,
+          "assessable": 60,
+          "rate": 0.5333333333333333
+        },
+        "reasoning_answer_contradiction": {
+          "count": 4,
+          "assessable": 60,
+          "rate": 0.06666666666666667
+        }
+      },
+      "mean_generated_tokens": 37.68333333333333,
+      "length_stops": 0,
+      "forced_reasoning_ends": 0
+    },
+    "original": {
+      "knowledge": {
+        "samples": 60,
+        "judged_samples": 60,
+        "unjudgeable_samples": 0,
+        "score_0_to_100": 51.666666666666664,
+        "verdicts": {
+          "incorrect": 26,
+          "correct": 28,
+          "partial": 6
+        }
+      },
+      "vqa": {
+        "samples": 20,
+        "judged_samples": 20,
+        "unjudgeable_samples": 0,
+        "score_0_to_100": 72.5,
+        "verdicts": {
+          "correct": 13,
+          "incorrect": 4,
+          "partial": 3
+        }
+      },
+      "historical_20": {
+        "samples": 20,
+        "judged_samples": 20,
+        "unjudgeable_samples": 0,
+        "score_0_to_100": 47.5,
+        "verdicts": {
+          "correct": 9,
+          "incorrect": 10,
+          "partial": 1
+        }
+      },
+      "additional_40": {
+        "samples": 40,
+        "judged_samples": 40,
+        "unjudgeable_samples": 0,
+        "score_0_to_100": 53.75,
+        "verdicts": {
+          "partial": 5,
+          "incorrect": 16,
+          "correct": 19
+        }
+      },
+      "by_subject": {
+        "Anatomy": {
+          "samples": 10,
+          "judged_samples": 10,
+          "unjudgeable_samples": 0,
+          "score_0_to_100": 40.0,
+          "verdicts": {
+            "incorrect": 5,
+            "correct": 3,
+            "partial": 2
+          }
+        },
+        "Biochemistry": {
+          "samples": 10,
+          "judged_samples": 10,
+          "unjudgeable_samples": 0,
+          "score_0_to_100": 70.0,
+          "verdicts": {
+            "incorrect": 3,
+            "correct": 7
+          }
+        },
+        "Microbiology": {
+          "samples": 10,
+          "judged_samples": 10,
+          "unjudgeable_samples": 0,
+          "score_0_to_100": 40.0,
+          "verdicts": {
+            "incorrect": 5,
+            "correct": 3,
+            "partial": 2
+          }
+        },
+        "Pathology": {
+          "samples": 10,
+          "judged_samples": 10,
+          "unjudgeable_samples": 0,
+          "score_0_to_100": 50.0,
+          "verdicts": {
+            "incorrect": 5,
+            "correct": 5
+          }
+        },
+        "Pharmacology": {
+          "samples": 10,
+          "judged_samples": 10,
+          "unjudgeable_samples": 0,
+          "score_0_to_100": 45.0,
+          "verdicts": {
+            "correct": 4,
+            "partial": 1,
+            "incorrect": 5
+          }
+        },
+        "Physiology": {
+          "samples": 10,
+          "judged_samples": 10,
+          "unjudgeable_samples": 0,
+          "score_0_to_100": 65.0,
+          "verdicts": {
+            "incorrect": 3,
+            "correct": 6,
+            "partial": 1
+          }
+        }
+      },
+      "diagnostics": {
+        "final_answer_correct": {
+          "count": 34,
+          "assessable": 60,
+          "rate": 0.5666666666666667
+        },
+        "reasoning_fact_error": {
+          "count": 32,
+          "assessable": 60,
+          "rate": 0.5333333333333333
+        },
+        "reasoning_answer_contradiction": {
+          "count": 2,
+          "assessable": 60,
+          "rate": 0.03333333333333333
+        }
+      },
+      "mean_generated_tokens": 37.88333333333333,
+      "length_stops": 0,
+      "forced_reasoning_ends": 0
+    },
+    "structured": {
+      "knowledge": {
+        "samples": 60,
+        "judged_samples": 60,
+        "unjudgeable_samples": 0,
+        "score_0_to_100": 52.5,
+        "verdicts": {
+          "incorrect": 25,
+          "correct": 28,
+          "partial": 7
+        }
+      },
+      "vqa": {
+        "samples": 20,
+        "judged_samples": 20,
+        "unjudgeable_samples": 0,
+        "score_0_to_100": 72.5,
+        "verdicts": {
+          "correct": 14,
+          "incorrect": 5,
+          "partial": 1
+        }
+      },
+      "historical_20": {
+        "samples": 20,
+        "judged_samples": 20,
+        "unjudgeable_samples": 0,
+        "score_0_to_100": 50.0,
+        "verdicts": {
+          "correct": 9,
+          "incorrect": 9,
+          "partial": 2
+        }
+      },
+      "additional_40": {
+        "samples": 40,
+        "judged_samples": 40,
+        "unjudgeable_samples": 0,
+        "score_0_to_100": 53.75,
+        "verdicts": {
+          "incorrect": 16,
+          "correct": 19,
+          "partial": 5
+        }
+      },
+      "by_subject": {
+        "Anatomy": {
+          "samples": 10,
+          "judged_samples": 10,
+          "unjudgeable_samples": 0,
+          "score_0_to_100": 55.0,
+          "verdicts": {
+            "incorrect": 4,
+            "correct": 5,
+            "partial": 1
+          }
+        },
+        "Biochemistry": {
+          "samples": 10,
+          "judged_samples": 10,
+          "unjudgeable_samples": 0,
+          "score_0_to_100": 65.0,
+          "verdicts": {
+            "incorrect": 3,
+            "correct": 6,
+            "partial": 1
+          }
+        },
+        "Microbiology": {
+          "samples": 10,
+          "judged_samples": 10,
+          "unjudgeable_samples": 0,
+          "score_0_to_100": 55.0,
+          "verdicts": {
+            "incorrect": 4,
+            "correct": 5,
+            "partial": 1
+          }
+        },
+        "Pathology": {
+          "samples": 10,
+          "judged_samples": 10,
+          "unjudgeable_samples": 0,
+          "score_0_to_100": 40.0,
+          "verdicts": {
+            "incorrect": 6,
+            "correct": 4
+          }
+        },
+        "Pharmacology": {
+          "samples": 10,
+          "judged_samples": 10,
+          "unjudgeable_samples": 0,
+          "score_0_to_100": 60.0,
+          "verdicts": {
+            "partial": 2,
+            "correct": 5,
+            "incorrect": 3
+          }
+        },
+        "Physiology": {
+          "samples": 10,
+          "judged_samples": 10,
+          "unjudgeable_samples": 0,
+          "score_0_to_100": 40.0,
+          "verdicts": {
+            "incorrect": 5,
+            "correct": 3,
+            "partial": 2
+          }
+        }
+      },
+      "diagnostics": {
+        "final_answer_correct": {
+          "count": 35,
+          "assessable": 60,
+          "rate": 0.5833333333333334
+        },
+        "reasoning_fact_error": {
+          "count": 31,
+          "assessable": 60,
+          "rate": 0.5166666666666667
+        },
+        "reasoning_answer_contradiction": {
+          "count": 3,
+          "assessable": 60,
+          "rate": 0.05
+        }
+      },
+      "mean_generated_tokens": 59.4,
+      "length_stops": 0,
+      "forced_reasoning_ends": 0
+    }
+  },
+  "structured_paired_comparisons": {
+    "unchanged_C": {
+      "paired_samples": 60,
+      "delta": 0.8333333333333334,
+      "wins": 9,
+      "ties": 40,
+      "losses": 11,
+      "paired_bootstrap_95_ci": [
+        -10.833333333333334,
+        13.333333333333334
+      ]
+    },
+    "original": {
+      "paired_samples": 60,
+      "delta": 0.8333333333333334,
+      "wins": 9,
+      "ties": 41,
+      "losses": 10,
+      "paired_bootstrap_95_ci": [
+        -10.833333333333334,
+        12.5
+      ]
+    }
+  },
+  "inference_limit": "Paired item bootstrap describes this fixed pilot; it does not include seed or judge variability.",
+  "nominal_screening_rule_met": true,
+  "diagnostic_review_notes": [
+    {
+      "model": "structured",
+      "source_id": "medmcqa-d66c7cf0-e230-4c3d-a573-2077a96913a1",
+      "note": "The judge marks contradiction because the rationale treats two options as satisfying an exception question. It does not explicitly deny the final choice. This is a boundary case between extra factual error and direct contradiction; retain raw judgment, do not interpret the contradiction count as definitive."
+    }
+  ],
+  "interpretation": {
+    "status": "pilot_complete_inconclusive",
+    "primary_score_delta_vs_both_controls": 0.8333333333333334,
+    "additional_40_score_delta_vs_original": 0.0,
+    "conclusion": "Nominal screening rule is met, but the effect is tiny, the paired confidence interval crosses zero, and direct contradictions persist. No reliable improvement demonstrated; do not infer that explanation length or structure alone fixes reasoning."
+  }
+}

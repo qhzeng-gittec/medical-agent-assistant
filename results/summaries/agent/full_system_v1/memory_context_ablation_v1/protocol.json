@@ -1,0 +1,49 @@
+{
+  "selected_sources": [
+    {
+      "case_id": "M01",
+      "source_sha256": "698dc3c506b84abb5cdd1c2a4c206e5b221aba67e86afa48ec80ac5f77bef991",
+      "query_id": "direct"
+    },
+    {
+      "case_id": "M02",
+      "source_sha256": "286ab242e90efa17f13f98060896bf4c94aff0f8349336b3c21f62114c0ce386",
+      "query_id": "current"
+    },
+    {
+      "case_id": "M07",
+      "source_sha256": "3930e890f3085a1c8f677c09e2644f94bb6d5cc65790a649f605a8dc096f4f0d",
+      "query_id": "contamination"
+    },
+    {
+      "case_id": "M11",
+      "source_sha256": "3d9e298ba6393fefac021271a7efeae2c4cd788ec5ed7204ba2cac1b8ed58c5f",
+      "query_id": "broad"
+    }
+  ],
+  "arms": [
+    "neither",
+    "profile_only",
+    "mem0_replay_only",
+    "profile_and_mem0_replay"
+  ],
+  "models": [
+    "minimax/minimax-m2.5",
+    "qwen/qwen3.5-27b"
+  ],
+  "single_sample_per_arm": true,
+  "source_selection": "deliberate development diagnostics chosen after viewing Mem0 r1",
+  "execution": "sequential; rotate arm order by case/model index; no parallel shared tool globals",
+  "memory_recall": "frozen actual Mem0 r1 baseline, identical across compared arms/models",
+  "write_back": "disabled for this read-side experiment",
+  "profile_seed": "real PatientProfileStore extraction of historical user turns",
+  "corpus_sha256": "77b4970c7300ea2ab032ca2f44f9d309f65efa2f0f02bbf76d5446c00a8aa406",
+  "shared_budget_ledger": "evals\\results\\full_system_v1\\api_ledger.jsonl",
+  "cumulative_budget_usd": 5,
+  "source_hashes": {
+    "evals\\campaign_run.py": "8d485a30498909013ef014f8f8770e5751a41374caf5dd0f71b71affca33530a",
+    "evals\\campaign_memory_ablation.py": "73cf0bddb89dfa2ca7cd8ad6595364a91022f6c21b2dd6aea43c438f7f732800",
+    "swarm\\supervisor_agent.py": "6c87ab7ac26c4d075972c50d0ce70c05f1918c6e477e5f79b6a89c2cfe943d74",
+    "memory\\patient_profile.py": "8cf1c9103b6fcb926be3fd279de66436a3ba4705cb3076ecf96198afc996a0c4"
+  }
+}

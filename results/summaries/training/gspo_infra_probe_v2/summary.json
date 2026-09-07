@@ -1,0 +1,140 @@
+{
+  "status": "completed",
+  "config": {
+    "initial_adapter": "MediX-R1\\outputs\\knowledge_experiments_v1\\seed42\\vqa_knowledge_attention\\final_adapter",
+    "initial_sha256": "e22c5be2c23d4accd6026f2dc9705fa145b4df0ab8b0120c60ad6d9b34914e8d",
+    "prompts": 8,
+    "group_size": 4,
+    "prompts_per_rollout": 4,
+    "responses_per_update": 8,
+    "max_new_tokens": 512,
+    "learning_rate": 1e-06,
+    "clip_low": 0.0003,
+    "clip_high": 0.0004,
+    "seed": 42,
+    "temperature": 1.0,
+    "top_p": 1.0,
+    "top_k": 0,
+    "dropout": 0.0,
+    "kl_coefficient": 0.0,
+    "image_max_edge": 768,
+    "gpu_memory_fraction": 0.8,
+    "judge_model": "gpt-5.6-sol",
+    "reward": "0.9 * (judge_score / 2) + 0.1 * native_format_score",
+    "format": "One </think>, nonempty reasoning and final answer, normal EOS termination",
+    "truncation": "Retain capped trajectories, score final answer as generated; format reward requires EOS",
+    "scope": "Infrastructure probe, not a generalization or performance experiment",
+    "source_ids": [
+      "train-01420",
+      "train-01677",
+      "train-00838",
+      "test-00356",
+      "train-01498",
+      "train-00482",
+      "test-00135",
+      "train-01325"
+    ]
+  },
+  "steps": [
+    {
+      "step": 1,
+      "cycle": 0,
+      "loss": 4.470348358154297e-08,
+      "ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "grad_norm": 2.137169361114502,
+      "initial_logprob_max_error": 0.0
+    },
+    {
+      "step": 2,
+      "cycle": 0,
+      "loss": 0.0013601258397102356,
+      "ratios": [
+        1.0065950155258179,
+        1.0083587169647217,
+        0.9980289340019226,
+        1.002221941947937,
+        1.0033209323883057,
+        1.0137420892715454,
+        1.005557656288147,
+        1.0020878314971924
+      ],
+      "grad_norm": 1.342268466949463,
+      "initial_logprob_max_error": null
+    },
+    {
+      "step": 3,
+      "cycle": 1,
+      "loss": -4.470348358154297e-08,
+      "ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "grad_norm": 1.4808708429336548,
+      "initial_logprob_max_error": 0.0
+    },
+    {
+      "step": 4,
+      "cycle": 1,
+      "loss": 0.00046209990978240967,
+      "ratios": [
+        1.0052478313446045,
+        0.9963937997817993,
+        1.0049015283584595,
+        0.9994502067565918,
+        1.0028796195983887,
+        0.9956676363945007,
+        1.0104180574417114,
+        0.9942852854728699
+      ],
+      "grad_norm": 1.541782259941101,
+      "initial_logprob_max_error": null
+    }
+  ],
+  "cycles": [
+    {
+      "cycle": 0,
+      "policy_version_after": 2,
+      "reward_mean": 0.5500000049360096,
+      "zero_advantage_groups": 1
+    },
+    {
+      "cycle": 1,
+      "policy_version_after": 4,
+      "reward_mean": 0.7187500018626451,
+      "zero_advantage_groups": 1
+    }
+  ],
+  "timing": {
+    "generation_seconds": 56.531000001356006,
+    "judge_seconds": 160.40500000026077,
+    "old_logprob_seconds": 6.687999999150634,
+    "update_seconds": 28.26600000075996
+  },
+  "total_seconds": 254.76599999982864,
+  "generated_tokens": 1643,
+  "format_rate": 1.0,
+  "truncated_responses": 0,
+  "trainable_parameters": 3096576,
+  "changed_parameter_tensors": 156,
+  "max_parameter_change": 4.011206328868866e-06,
+  "peak_allocated_gib": 4.512850761413574,
+  "peak_reserved_gib": 4.830078125,
+  "initial_adapter_unchanged": true,
+  "heldout_used_for_training": false,
+  "efficacy_evaluated": false
+}
