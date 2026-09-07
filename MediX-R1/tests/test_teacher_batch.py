@@ -7,7 +7,7 @@ from unittest.mock import patch
 
 LAB_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(LAB_DIR))
-from complete_reasoning import annotate_batch
+from data_processing.complete_reasoning import annotate_batch
 
 
 class TeacherBatchTests(unittest.TestCase):
@@ -23,7 +23,7 @@ class TeacherBatchTests(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory).resolve()
-            with patch("complete_reasoning.call_teacher", side_effect=teacher) as call:
+            with patch("data_processing.complete_reasoning.call_teacher", side_effect=teacher) as call:
                 annotations = annotate_batch(items, output, "fixture")
                 self.assertEqual({r["id"] for r in annotations}, {"a", "b"})
                 self.assertEqual(call.call_count, 2)

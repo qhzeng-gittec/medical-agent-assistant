@@ -5,7 +5,6 @@ DiagnosticAgent：症状诊断推理 Agent
 1. 参与 Swarm 协作
 2. 自主认领任务
 3. 调用医疗工具
-4. 将结果写入 SharedContext
 """
 from typing import Dict, Any, Optional
 from loguru import logger

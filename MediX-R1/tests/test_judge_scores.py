@@ -3,7 +3,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from llm_judge import summarize_judgments
+from evaluation.llm_judge import summarize_judgments
 
 
 class JudgeScoreTests(unittest.TestCase):

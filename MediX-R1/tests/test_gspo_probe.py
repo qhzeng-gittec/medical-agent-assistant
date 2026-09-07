@@ -6,7 +6,7 @@ from types import SimpleNamespace
 
 import torch
 
-from train_vqa_gspo_probe import (collate_responses, format_score, microbatches, policy_loss, response_logprobs,
+from training.gspo import (collate_responses, format_score, microbatches, policy_loss, response_logprobs,
                                   score_rollouts, select_training_rows, trim_completion)
 
 
@@ -56,7 +56,7 @@ def test_judge_batching_preserves_question_groups():
         concurrent_calls.wait(timeout=5)
         return [{"id": row["source_id"], "score": scores[int(row["source_id"])]} for row in rows]
 
-    with patch("train_vqa_gspo_probe.judge_responses", side_effect=judge) as mocked:
+    with patch("training.gspo.judge_responses", side_effect=judge) as mocked:
         score_rollouts(batch, 4, 16, Path("unused"), "test")
     assert [len(call.args[0]) for call in mocked.call_args_list] == [16, 16]
     assert all(item["advantage"] == 0 for item in batch[:8])
@@ -74,7 +74,7 @@ def test_failed_judge_aborts_before_assigning_rewards():
             raise RuntimeError("judge unavailable")
         return [{"id": row["source_id"], "score": 2} for row in rows]
 
-    with patch("train_vqa_gspo_probe.judge_responses", side_effect=judge):
+    with patch("training.gspo.judge_responses", side_effect=judge):
         try:
             score_rollouts(batch, 4, 4, Path("unused"), "test")
         except RuntimeError as error:

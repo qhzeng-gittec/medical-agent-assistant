@@ -8,7 +8,7 @@ from unittest.mock import Mock, patch
 from filelock import Timeout
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-import run_knowledge_experiments as queue
+import experiments.run_knowledge_experiments as queue
 
 
 class ExperimentResumeTests(unittest.TestCase):

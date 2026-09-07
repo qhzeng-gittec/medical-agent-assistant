@@ -11,12 +11,12 @@ from transformers import AutoProcessor
 LAB_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(LAB_DIR))
 
-from native_reasoning import SYSTEM_PROMPT, missing_case_image_reason, parse_completion, source_explanation
-from train_multitask_lora import MultitaskCollator
-from data_io import load_jsonl
-from evaluate_native_reasoning import ThinkingBudget
-from original_images import load_model_image
-from prepare_open_cases import CHOICE_REFERENCE, accepted_cases
+from common.native_reasoning import SYSTEM_PROMPT, missing_case_image_reason, parse_completion, source_explanation
+from training.sft import MultitaskCollator
+from common.io import load_jsonl
+from evaluation.evaluate_native_reasoning import ThinkingBudget
+from common.original_images import load_model_image
+from data_processing.prepare_open_cases import CHOICE_REFERENCE, accepted_cases
 
 
 class NativeReasoningTests(unittest.TestCase):
@@ -112,7 +112,7 @@ class NativeReasoningTests(unittest.TestCase):
         annotations = {r["id"]: r for r in load_jsonl(annotation_dir / "annotations.jsonl")}
         open_annotations = {r["id"]: r for r in load_jsonl(LAB_DIR / "data/open_cases/annotations.jsonl")}
         self.assertEqual(set(open_annotations), {r["id"] for r in accepted_cases()})
-        from complete_reasoning import source_items
+        from data_processing.complete_reasoning import source_items
         self.assertEqual(set(annotations), {r["id"] for r in source_items()})
         for rows in self.rows.values():
             for row in rows:

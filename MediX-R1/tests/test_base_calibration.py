@@ -5,8 +5,8 @@ from pathlib import Path
 import torch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from evaluate_native_reasoning import GeneratedPresencePenalty, qwen_sampling_parameters
-from calibration_stopping import RepetitionStop, repeated_line
+from evaluation.evaluate_native_reasoning import GeneratedPresencePenalty, qwen_sampling_parameters
+from common.calibration_stopping import RepetitionStop, repeated_line
 
 
 class CalibrationTests(unittest.TestCase):

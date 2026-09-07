@@ -1,48 +1,60 @@
 # 医疗模型训练与评测
 
-本目录来自项目自建的训练实验室，包含 Qwen3.5-2B 医疗多模态 SFT、GSPO 及评测代码。保持脚本与其相邻模块的原组织，便于追踪实验；它不包含原参考框架的整份副本。
+Qwen3.5-2B 的医疗多模态 SFT、GSPO 及评测代码。训练模块与 Agent 系统独立运行。
 
-## 主要入口
+## 目录与入口
 
-| 工作 | 代码 |
-| --- | --- |
-| VQA 项目划分与原图处理 | `prepare_vqa_project_split.py`、`original_images.py` |
-| 推理监督与配方构建 | `complete_reasoning.py`、`build_native_recipes.py`、`prepare_knowledge_experiments.py` |
-| LoRA SFT / CPT | `train_multitask_lora.py`、`train_cpt_lora.py` |
-| GSPO rollout 与训练 | `train_vqa_gspo_probe.py` |
-| 配方实验调度与恢复 | `run_knowledge_experiments.py` |
-| 生成与评分 | `evaluate_native_reasoning.py`、`evaluate_vqa_rl.py`、`llm_judge.py` |
-| 留出集及形式对照 | `run_independent_holdout.py`、`run_format_factorial.py` |
-| 精选结果 | [训练报告](reports/training_report.md)、[指标](reports/report_metrics.json) |
+| 目录 | 内容 | 主要入口 |
+| --- | --- | --- |
+| `training/` | LoRA 训练 | `python -m training.sft`、`python -m training.cpt`、`python -m training.gspo` |
+| `data_processing/` | 下载发布集、清洗、划分、标注、配方构建 | `python -m data_processing.download_release` |
+| `evaluation/` | 模型生成、LLM 评分、目标审计 | `python -m evaluation.evaluate_native_reasoning` |
+| `experiments/` | 固定协议的配方对照、GSPO、消融和诊断 | `python -m experiments.run_knowledge_experiments`、`python -m experiments.run_gspo` |
+| `common/` | 数据读写、图像处理、模板、标注后端 | 供各模块导入 |
+| `configs/` | 基座版本、A–F 与 GSPO 权重清单 | `artifacts.json` |
+| `reports/` | 精选成绩、方案及隔离审计 | [训练报告](reports/training_report.md) |
+| `examples/` | 权重加载与 GSPO 目标示例 | `python -m examples.inference` |
+| `tests/` | 离线回归与本地数据集成测试 | pytest |
 
-## 环境与数据前提
+所有模块命令在本目录执行。历史实验入口保留各自的数据和输出目录；共享函数已与一次性报告复制脚本分离。原始大文件和旧代码留在本地工作目录，没有直接删除实验原件。
 
-训练环境与 Agent 环境分开安装。PowerShell 中进入本目录，运行 `./setup_env.ps1`，它会建立 `.venv` 并安装固定版本依赖及 CUDA PyTorch。CUDA 和 GPU 支持需要与实际机器匹配；`-SkipCudaTorch` 可跳过该脚本中的 PyTorch 安装。版本是原实验的环境记录，没有声明兼容所有机器。
+## 环境
 
-代码默认从 `models/Qwen3.5-2B/` 加载本地模型。完整数据、图片、推理标注和生成后的配方应放在本目录 `data/` 下；它们与 `outputs/` 一同被 Git 忽略。
+使用独立 Python 3.11+ 环境。在 PowerShell 中运行 `./setup_env.ps1`，它会建立 `.venv` 并安装原实验固定版本依赖及 CUDA PyTorch。CUDA 支持需与机器匹配；`-SkipCudaTorch` 跳过该脚本的 PyTorch 安装。运行下列命令前激活这个环境。
 
-项目使用过 VQA-RAD、MedMCQA、PubMedQA 等公开来源，自行划分项目训练/验证/测试集。相关处理脚本保留来源标识和规则，但本仓库未提供完整数据的一键下载与重建，运行前须按脚本输入路径自行准备数据并遵守各上游条款。`medical_teacher.py` 调用已认证的 Codex CLI 完成标注和评分，相关步骤需要该外部工具、账号与对应模型访问权限。
+## 下载数据和模型
 
-准备好模型和 `data/native_reasoning/recipes/` 后，可以在本目录验证训练批次：
-
-```powershell
-.\.venv\Scripts\python.exe train_multitask_lora.py --recipe all_reasoning --dry-run
-```
-
-移除 `--dry-run` 才会训练。历史配方、留出集和诊断脚本依赖各自前序实验产物；缺少这些本地文件时不能直接重放历史实验。
-
-## 测试
-
-在训练环境中安装根目录 `requirements-dev.txt`，然后运行：
+数据与七份最终适配器已准备为独立的 Hugging Face 发布包，远端 ID 在账号确认和上传后补齐。下面的 `HF_USERNAME` 与 `DATASET_COMMIT` 需要替换为实际账号和发布版本。
 
 ```powershell
-.\.venv\Scripts\python.exe -m pytest tests --ignore=tests/test_native_reasoning.py -q
+python -m data_processing.download_release --repo-id HF_USERNAME/medix-medical-sft --revision DATASET_COMMIT
+hf download Qwen/Qwen3.5-2B --revision 15852e8c16360a2fea060d615a32b45270f8a8fc --local-dir models/Qwen3.5-2B
 ```
 
-`test_native_reasoning.py` 是模型与数据集集成测试，需要本地模型及 `data/native_reasoning/` 后单独执行。其他测试覆盖序列级目标、评分解析、生成预算、并行标注和断点恢复。
+下载器校验数据与图片哈希，恢复 `data/knowledge_experiments_v1/` 的三个 split、去重图片和四种配方顺序，拒绝覆盖已有数据目录。原始训练数据的本机图片路径转为可迁移路径；训练读取时相对 JSONL 文件解析。原始与发布版本哈希分别保留。
 
-## 结果边界
+训练/验证/测试分别有 5,418 / 503 / 514 条；图片共 314 张。数据源为 VQA-RAD、MedMCQA、PubMedQA，包含模型辅助推理标注。CPT 指南语料和早期 pilot 的加工数据不在首版发布包中，对应实验需另外准备输入。
 
-精选报告保存原始实验结论，使用仓库相对路径。`reports/holdout/` 保留方案、汇总成绩与隔离审计；完整逐题输入、生成回答、权重和日志不在仓库中，因此这份发布快照不足以独立重算全部历史成绩。
+## 推理与训练
 
-247 道留出题的报告只比较知识与上下文任务；[T0–T3 对照](reports/format_factorial.md)来自开发集，与留出测试分开。当前实验没有证明稳定临床收益，也没有证明训练后的模型改善了 Agent 端到端问诊表现。
+```powershell
+python -m examples.inference --adapter HF_USERNAME/medix-qwen3.5-2b-knowledge-attention --question "What is the purpose of a randomized control group?"
+python -m training.sft --recipes-dir data/knowledge_experiments_v1/recipes --recipe vqa_knowledge --lora-scope attention --dry-run
+```
+
+推理示例默认 CPU，使用 GPU 需显式加 `--device cuda`；VQA 加 `--image path/to/image.png`。移除训练命令的 `--dry-run` 才会训练。
+
+完整六组对照由 `python -m experiments.run_knowledge_experiments` 调度。GSPO 入口为 `python -m experiments.run_gspo --output outputs/my_gspo_run`，需要先准备 C 组适配器于 `outputs/knowledge_experiments_v1/seed42/vqa_knowledge_attention/final_adapter/`。这两个流程使用 GPU，并通过已登录的 Codex CLI 调用外部模型评分，会消耗账号额度。
+
+## 测试与结果
+
+```powershell
+python -m pip install -r ../requirements-dev.txt
+python -m pytest tests --ignore=tests/test_native_reasoning.py -q
+```
+
+`test_native_reasoning.py` 需要额外的 `data/native_reasoning/` 和本地基座，不属于仅下载首版 SFT 发布集即可运行的离线测试。
+
+[247 题留出测试报告](reports/training_report.md)只比较知识与上下文；[T0–T3 对照](reports/format_factorial.md)来自开发集。[GSPO 对比](reports/gspo_comparison.json)记录 93 道验证题、16 张图像，SFT 到 GSPO 的归一化评审分为 60.75 → 66.13；只有一个训练种子，不能表述为稳定诊断准确率提升。
+
+数据包、配置和最终权重支持重新运行评测；精选报告未包含全部历史逐题评分文件，因此不能仅靠这些报告重算所有原始统计。尚未证明临床安全性或 Agent 端到端收益。
