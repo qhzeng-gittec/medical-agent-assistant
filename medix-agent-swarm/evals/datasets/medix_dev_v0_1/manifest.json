@@ -1,0 +1,53 @@
+{
+  "dataset_id": "medix_dev_v0_1",
+  "version": "0.1.0",
+  "created_on": "2026-09-07",
+  "status": "development_pilot_not_clinically_validated",
+  "counts": {
+    "total": 30,
+    "medical": 8,
+    "system": 14,
+    "component": 8,
+    "public_adaptations": 8,
+    "synthetic": 22
+  },
+  "split_policy": "全部dev。未来同源题及改写/反事实变体按family_id整体分组；不得把本批调参样本挪进宣称未见的test。",
+  "model_calls_performed": 0,
+  "clinical_review": "pending",
+  "target_models": [
+    {
+      "id": "minimax/minimax-m2.5",
+      "user_tier": "middle"
+    },
+    {
+      "id": "qwen/qwen3.5-27b",
+      "user_tier": "low"
+    },
+    {
+      "id": "google/gemini-3.8-flash",
+      "user_tier": "high"
+    }
+  ],
+  "tier_note": "用户给定预算分组，不代表已测性能排序；开跑前重新验证OpenRouter模型ID、工具支持和价格。",
+  "grader_version": "0.1.0",
+  "fixture_version": "0.1.0",
+  "medical_scope": "4道保留选项的学习题 + 4个公开病历资料忠实度场景；不是完整诊断/用药能力评估。",
+  "future_work": [
+    "接入OpenRouter运行器，逐轮执行，记录真实usage/费用/时延",
+    "system评分的trace断言与人工rubric尚需运行器实现",
+    "临床审核及新来源家族的冻结测试集",
+    "真实Mem0检索、真实RAG召回质量另设live模式，不能由fixture测试替代"
+  ],
+  "files": {
+    "cases.jsonl": "16208d68597deb208f17fab0456e2274f1e5388d3dbec78ef803e4437cbd5ac2",
+    "documents.jsonl": "7078425d9b87b236c20b880a924234088dbd5903b5455da0414c08bb370b4a6c",
+    "private/evaluation_protocol.json": "e06dd904ed18389f4d9fc153fa3f88c9776b33329575e5577392f1b4400d75cf",
+    "private/fixtures.jsonl": "144193820d4248605001c422dde1911498db0f2d6ddcd557bca6fec0881f844e",
+    "private/rubrics.jsonl": "b4c754f6c8c615764cacdab8291676409426aa47817d2c336ecd4555b4986659",
+    "private/source_records.jsonl": "e52dac3f992f4fa12c81f224aa755db24e6c12d7d3e8d1e72bf4523df8c7e739",
+    "provenance/LICENSE-CMB.txt": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "provenance/training_overlap_audit.json": "ca89411b3be3f39abb869cf06e76bd964bf6230c33fc3210f2b69bc55ce766cd",
+    "场景逐条阅读.md": "96aac08b11474449203b5dcb643d8acd1a95d0b73050f85c05762e6d233d5ccf",
+    "数据集说明.md": "b7c8a3caba32916e63349d2babea8edeee57e509f54fab93b0e93095edf2dcd7"
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "seed": 20260906,
+  "frozen_before_generation": true,
+  "task_counts": {
+    "context": 97,
+    "knowledge": 150
+  },
+  "arms": {
+    "knowledge": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "D_half"
+    ],
+    "context": [
+      "E",
+      "F"
+    ]
+  },
+  "expected_outputs": 944,
+  "contrasts": {
+    "knowledge": [
+      "B-A",
+      "D-C",
+      "C-A",
+      "D-B",
+      "D_half-D"
+    ],
+    "context": [
+      "F-E"
+    ]
+  },
+  "metrics": [
+    "answer_score",
+    "reasoning_score",
+    "joint_score"
+  ],
+  "primary_metric": "answer_score; reasoning and joint scores reported separately",
+  "protocol": {
+    "enable_thinking": true,
+    "decoding": "greedy",
+    "batch_size": 4,
+    "total_budget": 2048,
+    "reasoning_budget": 1792
+  },
+  "evaluation_sha256": "a4ad1a59673628b2682cd3963caae4809d06d875baa8abb888f4a8185f8f30ae",
+  "checkpoint_sha256": {
+    "A": "c16da1e1baae32659ffcf3aa3c3421cb048e0a2e567054906f9354470e55e9ac",
+    "B": "08d6399f6d45567f1bec63c3ca4bceefe5bf60e299a0842ccdadbc3ef082b7d0",
+    "C": "e22c5be2c23d4accd6026f2dc9705fa145b4df0ab8b0120c60ad6d9b34914e8d",
+    "D": "5af764abcdf9fe9e4035d49726a8b232932a4bb09831e20a2bbadd0b0173bcff",
+    "E": "166d0a99c5fb1651720ea3e4a89f3ba19a6e30b733648d160e2ccd311e0323da",
+    "F": "10dee665bc434d4a4dd812fe5d83029d5223dbe089ea2fa466412b28b7cb7ef1"
+  },
+  "source_sha256": {
+    "train": "035f21c514483aef2209df2bd75460dc6bca9c33bb21a90eb5b48cb804feb4c1",
+    "validation": "ac96d3e8856f48a743a149e89b9abd2f688ac9a4118ca167f79db378e394b12c",
+    "test": "bbdcc66ff95c9749722a5bc1cf8f285e59c87e0e4f07a1dcc7afc4c416d57327"
+  },
+  "overlap": {
+    "source_id": {
+      "train": 0,
+      "validation": 0
+    },
+    "source_group": {
+      "train": 0,
+      "validation": 0
+    }
+  },
+  "knowledge_subjects": {
+    "Physiology": 25,
+    "Anatomy": 25,
+    "Pharmacology": 25,
+    "Microbiology": 25,
+    "Biochemistry": 25,
+    "Pathology": 25
+  },
+  "context_labels": {
+    "yes": 52,
+    "no": 34,
+    "maybe": 11
+  },
+  "limitations": [
+    "Project holdout, not a new external benchmark; no claim of absence from base pretraining.",
+    "No overlap with original training/validation or prior full-reasoning diagnostic; other historical use not exhaustively excluded.",
+    "One trained seed; paired question intervals exclude training and judge randomness.",
+    "Data-added arms also differ in optimizer steps; FFN inference scaling is not lower-LR retraining.",
+    "No new VQA or case evaluation; cannot infer four-task overall rankings."
+  ]
+}

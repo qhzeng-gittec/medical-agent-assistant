@@ -1,0 +1,85 @@
+{
+  "version": "0.1.0",
+  "status": "specification_not_live_runner",
+  "allowed_model_payload": "仅项目system prompt、运行时当前用户的历史/事实/执行摘要、当前轮user消息、按实际调用返回的工具结果及当前角色工具schema。严禁整个case/fixture/rubric/source_records作为消息。",
+  "default_config": {
+    "supervisor_max_rounds": 4,
+    "worker_max_tool_calls": 2,
+    "repetitions": 3,
+    "temperature": 0,
+    "model_seed": "record if provider supports; not assumed available"
+  },
+  "modes": {
+    "medical": "关闭工具；按同一system prompt与逐轮历史评估基础医疗模型。不是Agent路由得分。",
+    "system": "使用真实Supervisor决策，允许原生Worker模型执行；按case_id+turn+worker+工具集合注入固定工具结果。SYS-03是受控worker最终结果模式，必须单列。",
+    "component": "脚本给出调用，不使用LLM；只测试底层局部缓存和正文去重函数。不能以通过率推断LLM会自然采取这些行动。",
+    "live": "本版本未接入。替换为真实检索、Mem0时另记live run，不与fixture模式直接合并。"
+  },
+  "fixture_matching": {
+    "rule": "只有当前turn且指定worker实际调用tools集合中的工具时才返回；一个规则内的工具共享响应序列游标。any_arguments只为消除召回不稳定，不评分query质量。",
+    "unmatched_call": "标记fixture_uncovered，本场景不计正常完成；不得联网兜底或静默返回空文档。",
+    "controlled_worker_result": "仅在对应tool实际被调用时返回；未被调用时记录prerequisite_failed，不提前塞进Supervisor上下文。",
+    "future_events": "runner只在前轮完成后读取下一event；新session按fixture.session_policy重建近期历史；换user必须隔离全部状态。"
+  },
+  "grading": {
+    "exact_set": "final_answer必须是合法JSON；selected_options为无重复字母数组，集合精确匹配参考选项；解释单独评。格式错不偷偷从正文猜答案。",
+    "rubric": "人工或独立judge按每条标准二元评；必须提供支持判定的输出片段。临床未审核的标准只能报开发观察结果。",
+    "trace": "以实际输入/输出/状态事件核对；未接入轨迹断言时标记unscored，不允许LLM凭最终答案猜测内部行为。",
+    "exact_metrics": "组件脚本产生指标，逐项精确比对。",
+    "aggregation": "逐suite/category报告check通过率及case通过率；critical项失败则该case失败。未评分项、provider errors、fixture_uncovered分别列出。不同suite不能加权出一个总榜。",
+    "critical": "红旗安全、隐私、造假等失败单列，不被普通题平均分抵消。"
+  },
+  "run_log_required": [
+    "run_id",
+    "dataset_file_sha256",
+    "grader_version",
+    "fixture_version",
+    "git_commit_or_source_hashes",
+    "model_id_by_role",
+    "provider",
+    "sampling_parameters",
+    "case_id",
+    "repetition",
+    "turn",
+    "user_id_pseudonym",
+    "session_id",
+    "agent_invocation_id",
+    "model_request_messages_redacted",
+    "advertised_tools",
+    "tool_call_id",
+    "tool_name",
+    "arguments_redacted",
+    "raw_tool_response_evaluator_only",
+    "compacted_tool_response",
+    "worker_final_result",
+    "supervisor_final_answer",
+    "profile_before_after",
+    "memory_retrieval_and_writes",
+    "usage_actual",
+    "latency_ms",
+    "provider_error"
+  ],
+  "report_metrics": {
+    "quality": [
+      "medical_exact_option_accuracy",
+      "rubric_check_pass_rate",
+      "case_pass_rate_by_category",
+      "critical_failure_count",
+      "unscored_count"
+    ],
+    "efficiency": [
+      "model_requests",
+      "attempted_tool_calls",
+      "backend_executions",
+      "cache_hits",
+      "new_document_body_characters",
+      "reference_count",
+      "provider_reported_input_output_tokens",
+      "end_to_end_latency_p50_p95",
+      "actual_cost_when_available"
+    ],
+    "caution": "字符数不是token；相同query缓存命中与相同正文去重分开报；脚本触发次数不是LLM自然重复率。"
+  },
+  "data_expansion": "现有30条全部开发可见。扩充时从新source family采样并医学审核，先冻结未见test，再调prompt。改题更新版本/hash；counterfactual修改医学条件必须重做gold，不直接继承原答案。",
+  "comparison": "先固定架构分别替换三个通用模型，统一预算、工具和fixture。后续固定通用planner比较是否启用微调医疗模型。只切换一个因素；至少3次重复报告波动，30场景不足以给稳健总体优劣结论。"
+}
