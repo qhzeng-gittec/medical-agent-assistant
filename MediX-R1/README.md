@@ -24,10 +24,10 @@ Qwen3.5-2B 的医疗多模态 SFT、GSPO 及评测代码。训练模块与 Agent
 
 ## 下载数据和模型
 
-数据与七份最终适配器已准备为独立的 Hugging Face 发布包，远端 ID 在账号确认和上传后补齐。下面的 `HF_USERNAME` 与 `DATASET_COMMIT` 需要替换为实际账号和发布版本。
+数据与七份最终适配器已准备为独立的 Hugging Face 发布包，发布账号为 `starttoshow`，尚待本机登录后上传。下面的 `DATASET_COMMIT` 需要在上传完成后替换为实际发布版本。
 
 ```powershell
-python -m data_processing.download_release --repo-id HF_USERNAME/medix-medical-sft --revision DATASET_COMMIT
+python -m data_processing.download_release --repo-id starttoshow/medix-medical-sft --revision DATASET_COMMIT
 hf download Qwen/Qwen3.5-2B --revision 15852e8c16360a2fea060d615a32b45270f8a8fc --local-dir models/Qwen3.5-2B
 ```
 
@@ -38,7 +38,7 @@ hf download Qwen/Qwen3.5-2B --revision 15852e8c16360a2fea060d615a32b45270f8a8fc 
 ## 推理与训练
 
 ```powershell
-python -m examples.inference --adapter HF_USERNAME/medix-qwen3.5-2b-knowledge-attention --question "What is the purpose of a randomized control group?"
+python -m examples.inference --adapter starttoshow/medix-qwen3.5-2b-knowledge-attention --question "What is the purpose of a randomized control group?"
 python -m training.sft --recipes-dir data/knowledge_experiments_v1/recipes --recipe vqa_knowledge --lora-scope attention --dry-run
 ```
 

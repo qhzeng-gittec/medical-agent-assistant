@@ -51,6 +51,6 @@ medical-agent-assistant/
 
 ## 模型与数据发布
 
-远端上传等待账号配置。已准备一份 SFT 数据集和 A–F 六组 SFT、GSPO 一组最终适配器，具体名称、基座版本和权重哈希见 [产物清单](MediX-R1/configs/artifacts.json)。所有权重均经过实际加载及 CPU 前向检查；数据导出后逐条还原核对，保持原文、划分、配方顺序与图片字节不变。
+Hugging Face 发布账号为 `starttoshow`，远端上传等待本机登录。已准备一份 SFT 数据集和 A–F 六组 SFT、GSPO 一组最终适配器，具体名称、基座版本和权重哈希见 [产物清单](MediX-R1/configs/artifacts.json)。所有权重均经过实际加载及 CPU 前向检查；数据导出后逐条还原核对，保持原文、划分、配方顺序与图片字节不变。
 
 [Hugging Face 上传入口](release/publish_hf.py)默认只展示计划；配置本机 `hf auth login` 后，指定 `--packages`、`--namespace` 和 `--upload` 才会上传。不要把 token 放进源码或聊天。公开包约 502 MiB，未包含中途 checkpoint 和原始基座副本。
