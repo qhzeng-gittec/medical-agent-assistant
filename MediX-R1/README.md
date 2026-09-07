@@ -16,7 +16,7 @@ Qwen3.5-2B 的医疗多模态 SFT、GSPO 及评测代码。训练模块与 Agent
 | `examples/` | 权重加载与 GSPO 目标示例 | `python -m examples.inference` |
 | `tests/` | 离线回归与本地数据集成测试 | pytest |
 
-所有模块命令在本目录执行。历史实验入口保留各自的数据和输出目录；共享函数已与一次性报告复制脚本分离。原始大文件和旧代码留在本地工作目录，没有直接删除实验原件。
+以下模块命令均在 `MediX-R1/` 目录执行。
 
 ## 环境
 
@@ -31,7 +31,7 @@ python -m data_processing.download_release --repo-id starttoshow/medix-medical-s
 hf download Qwen/Qwen3.5-2B --revision 15852e8c16360a2fea060d615a32b45270f8a8fc --local-dir models/Qwen3.5-2B
 ```
 
-下载器校验数据与图片哈希，恢复 `data/knowledge_experiments_v1/` 的三个 split、去重图片和四种配方顺序，拒绝覆盖已有数据目录。原始训练数据的本机图片路径转为可迁移路径；训练读取时相对 JSONL 文件解析。原始与发布版本哈希分别保留。
+下载器校验数据与图片哈希，恢复 `data/knowledge_experiments_v1/` 的三个 split、去重图片和四种配方顺序，拒绝覆盖已有数据目录。训练时相对 JSONL 所在目录解析图片路径。清单提供数据来源和文件哈希。
 
 训练/验证/测试分别有 5,418 / 503 / 514 条；图片共 314 张。数据源为 VQA-RAD、MedMCQA、PubMedQA，包含模型辅助推理标注。CPT 指南语料和早期 pilot 的加工数据不在首版发布包中，对应实验需另外准备输入。
 

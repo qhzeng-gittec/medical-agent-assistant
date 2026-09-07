@@ -55,8 +55,8 @@ python evals/campaign_run.py --output evals/results/my_run --repetition 1 --conc
 
 这会调用付费外部 API。运行器里的模型 ID 是实验配置，使用前确认账号可访问。`campaign_resume.py`、`campaign_report.py` 等保留原实验的恢复和汇总逻辑，含固定批次选择，不能直接当作任意新实验的通用报告生成器。
 
-历史结果见 [开发测评报告](reports/医疗问诊Agent测评报告.md)和[问题复盘](reports/问题复盘与下一轮计划.md)。原始 traces、账单状态和用户档案未发布。报告引用的本地运行产物需自行重跑生成。
+实验设置、结果和已知问题见 [开发测评报告](reports/医疗问诊Agent测评报告.md)。运行器将新实验的轨迹和评分保存到指定输出目录。
 
 ## 离线演示
 
-在本目录运行 `python -m examples.context_growth`，可查看真实编排代码收到的消息与证据复用轨迹。模型回复和知识库内容均使用固定模拟数据，不发送付费请求。旧版 SharedContext、身份学习和大段演示测试已从发布版移除，正式回归集中在 `tests/`。
+在本目录运行 `python -m examples.context_growth`，可查看真实编排代码收到的消息与证据复用轨迹。模型回复和知识库内容均使用固定模拟数据，不发送付费请求。回归测试位于 `tests/`。

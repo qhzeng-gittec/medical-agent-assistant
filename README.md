@@ -1,57 +1,57 @@
 # Medical Agent Assistant
 
-医疗多智能体助手与医疗模型训练实验。仓库包含两部分：由 Supervisor 调度的问诊 Agent 系统，以及 Qwen3.5-2B 的 LoRA 训练、GSPO 实验和评测代码。
+医疗多智能体助手与 Qwen3.5-2B 医疗模型训练实验。支持多轮问诊、专业 Agent 调度、患者档案和检索证据管理，并提供 LoRA SFT、GSPO 训练及评测代码。
 
-Agent 当前调用配置的 OpenAI 兼容 API；训练模块独立运行。仓库没有将本地 LoRA 权重接入 Agent 的端到端效果验证。
+[Agent 使用说明](medix-agent-swarm/README.md) · [训练与推理](MediX-R1/README.md) · [模型与数据](https://huggingface.co/collections/starttoshow/medix-medical-sft-and-gspo-6a9e6f31b80642f4ba8b6f28)
 
-## 项目结构
+## 功能
 
-```text
-medical-agent-assistant/
-├── medix-agent-swarm/    # Supervisor、专业 Agent、Skills、记忆、检索及测试
-├── MediX-R1/            # 模型训练、数据处理、GSPO、评测和实验报告
-├── config.example.py    # Agent 配置模板；复制为 config.py 后使用
-└── requirements-dev.txt # pytest
+| 模块 | 功能 |
+| --- | --- |
+| 医疗 Agent | Supervisor 根据问题调用问诊、诊断、研究 Agent，汇总工具结果和来源 |
+| 记忆与检索 | 患者档案持久化、近期对话预算、可选 Mem0、Milvus 检索与证据正文复用 |
+| 模型训练 | Qwen3.5-2B 的 Attention / Attention+FFN LoRA，以及 VQA GSPO 实验 |
+| 评测 | Agent 开发场景、组件测试、医疗问答评分和配方对照 |
+
+Agent 使用 OpenAI 兼容 API；LoRA 模型训练与推理独立运行，尚未验证微调模型接入 Agent 后的端到端收益。
+
+```mermaid
+flowchart LR
+    User[用户] --> Supervisor[MedicalSupervisorAgent]
+    Memory[患者档案与近期对话] --> Supervisor
+    Supervisor --> Consultation[Consultation Agent]
+    Supervisor --> Diagnostic[Diagnostic Agent]
+    Supervisor --> Research[Research Agent]
+    Consultation --> Tools[技能与检索工具]
+    Diagnostic --> Tools
+    Research --> Tools
+    Consultation --> Answer[汇总回答]
+    Diagnostic --> Answer
+    Research --> Answer
 ```
 
-`MediX-R1` 是本仓库训练模块的目录名，原本地名称为 `medvlm_training_lab`。原参考框架目录未打包进入此仓库。
+## 快速开始
 
-## Agent 系统
+需要 Python 3.11+ 和可用的 OpenAI 兼容 API。以下为 PowerShell 命令：
 
-用户输入 → Patient Profile / Recent History / 可选 Mem0 → MedicalSupervisorAgent → Consultation、Diagnostic、Research 专业 Agent → 请求级 Evidence Store → 汇总回答。
+```powershell
+git clone https://github.com/qhzeng-gittec/medical-agent-assistant.git
+cd medical-agent-assistant
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r medix-agent-swarm/requirements.txt -r requirements-dev.txt
+Copy-Item config.example.py config.py
+$env:LLM_API_KEY = "你的 API key"
+$env:LLM_MODEL = "你的模型 ID"
+$env:LLM_BASE_URL = "你的 OpenAI 兼容 API 地址"
+python medix-agent-swarm/main.py
+```
 
-- Supervisor 观察工具和专业 Agent 的返回结果后继续决策，支持有依赖的顺序执行与条件并行。
-- Patient Profile 保存结构化事实；Recent History 按完整轮次管理预算；Mem0 提供可选跨会话记忆。
-- Evidence Store 合并一次请求内相同参数的工具调用；RAG 上下文按来源复用正文。
-- `.claude/skills/` 是运行时会加载的代码及技能描述，必须随源码保留。
+需要检索的问诊还需配置 Milvus、嵌入模型和知识库，见 [Agent 安装说明](medix-agent-swarm/README.md)。示例资料为合成技术文本。Linux/macOS 的环境设置与离线演示也见该文档。
 
-安装、启动及开发评测见 [Agent 使用说明](medix-agent-swarm/README.md)。
+## 模型与数据
 
-## 训练与评测
-
-[MediX-R1 使用说明](MediX-R1/README.md)列出数据准备、训练入口和测试前提。
-
-- SFT：Attention 与 Attention+FFN LoRA，比较 VQA、知识、病例和上下文配方。
-- GSPO：序列级比率、裁剪目标、rollout 和 VQA 强化学习实验；不把基础设施探针当作性能收益。
-- 评测：分别评估答案与解释，保留数据划分、配对比较和局限性。
-
-当前精选 [训练报告](MediX-R1/reports/training_report.md)包含 247 道项目留出题、944 份回答。该轮只评知识与上下文，不宣称四任务综合提升。
-
-[Agent 开发测评报告](medix-agent-swarm/reports/医疗问诊Agent测评报告.md)记录 48 个主测任务；其中自动双评审只有 16/96 条有效评分，缺失评分未作为失败计入，也未据此发布整体医疗质量排名。报告是历史实验快照，原始运行轨迹未打包。
-
-## 发布范围
-
-仓库保留源码、技能、测试、开发场景、配置模板和精选报告。模型权重和主 SFT 数据集已单独发布到 Hugging Face；代码仓库不存放这些大文件。虚拟环境、数据库、用户档案、原始 API 轨迹和录屏不发布。
-
-评测目录里的 `private` 表示对被测模型隐藏的评分资料，不代表真实患者隐私数据。开发集包括合成场景及公开 CMB 数据改编，来源和上游许可证保留在数据集目录中。主 SFT 数据集包含处理后的 VQA-RAD、MedMCQA、PubMedQA；CPT 语料和本地医学指南文本暂未发布；知识库附带一条明确标注的技术演示资料。
-
-实验报告中的路径已规范化，原始数据哈希保留；数据集文件清单的哈希对应本仓库公开版本。仅凭精选报告不能重算所有逐题成绩，完整复现实验仍需自行准备模型、数据和付费评测后端。
-
-本项目用于学习和实验，尚未验证临床安全性，不能用于替代专业诊疗。
-
-## 模型与数据发布
-
-已公开发布至 [MediX 模型与数据合集](https://huggingface.co/collections/starttoshow/medix-medical-sft-and-gspo-6a9e6f31b80642f4ba8b6f28)：一份 SFT 数据集和 A–F 六组 SFT、GSPO 一组最终适配器，具体名称、基座版本和权重哈希见 [产物清单](MediX-R1/configs/artifacts.json)。所有权重均经过实际加载及 CPU 前向检查；数据导出后逐条还原核对，保持原文、划分、配方顺序与图片字节不变。
+数据集包含 5,418 条训练记录、503 条验证记录、514 条测试记录和 314 张图片，来源为 VQA-RAD、MedMCQA、PubMedQA。推理标注包含模型辅助生成内容；来源、处理方法和许可证见 [数据集页面](https://huggingface.co/datasets/starttoshow/medix-medical-sft)。
 
 | 产物 | 内容 |
 | --- | --- |
@@ -64,4 +64,29 @@ medical-agent-assistant/
 | [F](https://huggingface.co/starttoshow/medix-qwen3.5-2b-context-attention-ffn) | VQA + 知识 + 病例 + 上下文 · Attention + FFN |
 | [GSPO](https://huggingface.co/starttoshow/medix-qwen3.5-2b-vqa-gspo) | 基于 C 组继续训练的完整适配器 |
 
-[Hugging Face 上传入口](release/publish_hf.py)默认只展示计划；配置本机 `hf auth login` 后，指定 `--packages`、`--namespace` 和 `--upload` 才会上传。不要把 token 放进源码或聊天。公开包约 502 MiB，未包含中途 checkpoint 和原始基座副本。
+七份权重均为 LoRA 适配器，加载时需要 Qwen3.5-2B 基座。[训练说明](MediX-R1/README.md)提供固定版本的数据下载、适配器推理和训练命令；版本与哈希见 [产物清单](MediX-R1/configs/artifacts.json)。
+
+## 评测结果
+
+| 实验 | 范围与结果 | 详细报告 |
+| --- | --- | --- |
+| LoRA 留出评测 | 247 道知识/上下文题，944 份回答；加入知识后的净收益未获得稳定证据 | [训练报告](MediX-R1/reports/training_report.md) |
+| GSPO | 93 道验证题、16 张图像；归一化评审分 60.75 → 66.13，单训练种子 | [GSPO 对比](MediX-R1/reports/gspo_comparison.json) |
+| Agent 开发评测 | 24 个模拟场景 × 2 款模型；48 个主任务完成，自动评审有效 16/96 条 | [开发测评报告](medix-agent-swarm/reports/医疗问诊Agent测评报告.md) |
+
+上述评审分不等于临床诊断准确率。Agent 评分不完整，不据此给出整体质量排名；报告包含已观察到的风险判断、档案写入和子 Agent 失败问题。逐题生成及评审记录不包含在本仓库中，精选报告不能独立重算全部统计。
+
+## 项目结构
+
+```text
+medical-agent-assistant/
+├── medix-agent-swarm/    # Agent、技能、记忆、检索、示例与测试
+├── MediX-R1/            # 训练、数据处理、评测与实验报告
+├── release/             # Hugging Face 产物上传工具
+├── config.example.py    # API 与可选 Mem0 配置
+└── requirements-dev.txt # 测试依赖
+```
+
+## 使用范围
+
+项目用于研究和工程实验，尚未经过独立临床验证，不能替代专业诊疗。评测场景为合成资料或公开数据改编；上游来源与许可证随数据保留。运行时的密钥、患者档案和数据库应保存在各自的部署环境中。
