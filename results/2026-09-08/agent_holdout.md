@@ -1,138 +1,75 @@
-# 独立合成留出集：执行与盲评报告
+# Agent 整体验收：测什么、怎么评分、结果如何
 
-本报告是开发测评，不提供临床正确率认证。计划的主样本是 72 个合成场景；模型、轮次和重复执行均不是新增独立病例。
-两个固定评审分别只看到检查点时点及以前的实际对话、状态与工具结果，看不到目标模型身份、隐藏患者事实或未来脚本。
-每个时点的双评审独立调用，分歧保留为 uncertain；任何一位评审发现的关键失败另行计数，仍需独立复核。
-MiniMax 和 Qwen 同时参与目标执行与评审时可能存在同源偏差。合成患者和模型评审均不能替代医生审核。
+这组测评检查完整对话能否满足预先定义的任务要求，包括问诊信息收集、历史记忆使用、档案更新和证据引用。专项设计收益见 [关键设计报告](agent_improvements.md)；本页只报告整体验收。
 
-完成率为适用检查项全部通过的运行数 / 已完整评分运行数，并同时给出计划分母。未执行、服务不可用、评分错误、uncertain 与 not_applicable 单列；全不适用不算完成。
-运行基础设施错误不记临床失败。控制检索/记忆仅检验受控输入的使用，不能冒充真实服务端到端质量。
+## 样本如何组成
 
-## 主样本（每模型每案例 repetition=1，恢复尝试单列）
+共 72 个新编合成场景，按下表均衡分布，评测前固定场景与检查点。
 
-| 模型 | 领域 | 难度 | 已执行/计划 | 完成评分 | 全适用项通过/评分（计划） | 关键失败/已评运行 | 分歧项 |
-|---|---|---|---:|---:|---:|---:|---:|
-| gemini-3.5-flash | all | all | 72/72 | 51 | 43/51（72） | 7/67 | 11 |
-| gemini-3.5-flash | all | boundary | 24/24 | 17 | 15/17（24） | 2/22 | 4 |
-| gemini-3.5-flash | all | complex | 24/24 | 14 | 11/14（24） | 2/21 | 2 |
-| gemini-3.5-flash | all | routine | 24/24 | 20 | 17/20（24） | 3/24 | 5 |
-| gemini-3.5-flash | consultation | all | 24/24 | 17 | 13/17（24） | 3/24 | 4 |
-| gemini-3.5-flash | consultation | boundary | 8/8 | 6 | 6/6（8） | 0/8 | 0 |
-| gemini-3.5-flash | consultation | complex | 8/8 | 5 | 3/5（8） | 1/8 | 1 |
-| gemini-3.5-flash | consultation | routine | 8/8 | 6 | 4/6（8） | 2/8 | 3 |
-| gemini-3.5-flash | evidence | all | 24/24 | 18 | 15/18（24） | 3/22 | 5 |
-| gemini-3.5-flash | evidence | boundary | 8/8 | 7 | 5/7（8） | 2/7 | 4 |
-| gemini-3.5-flash | evidence | complex | 8/8 | 4 | 3/4（8） | 1/7 | 1 |
-| gemini-3.5-flash | evidence | routine | 8/8 | 7 | 7/7（8） | 0/8 | 0 |
-| gemini-3.5-flash | history | all | 24/24 | 16 | 15/16（24） | 1/21 | 2 |
-| gemini-3.5-flash | history | boundary | 8/8 | 4 | 4/4（8） | 0/7 | 0 |
-| gemini-3.5-flash | history | complex | 8/8 | 5 | 5/5（8） | 0/6 | 0 |
-| gemini-3.5-flash | history | routine | 8/8 | 7 | 6/7（8） | 1/8 | 2 |
-| minimax/minimax-m2.5 | all | all | 72/72 | 57 | 33/57（72） | 22/68 | 25 |
-| minimax/minimax-m2.5 | all | boundary | 24/24 | 20 | 14/20（24） | 6/23 | 8 |
-| minimax/minimax-m2.5 | all | complex | 24/24 | 18 | 6/18（24） | 10/22 | 11 |
-| minimax/minimax-m2.5 | all | routine | 24/24 | 19 | 13/19（24） | 6/23 | 6 |
-| minimax/minimax-m2.5 | consultation | all | 24/24 | 19 | 8/19（24） | 12/23 | 13 |
-| minimax/minimax-m2.5 | consultation | boundary | 8/8 | 7 | 6/7（8） | 2/8 | 0 |
-| minimax/minimax-m2.5 | consultation | complex | 8/8 | 7 | 1/7（8） | 5/8 | 9 |
-| minimax/minimax-m2.5 | consultation | routine | 8/8 | 5 | 1/5（8） | 5/7 | 4 |
-| minimax/minimax-m2.5 | evidence | all | 24/24 | 20 | 11/20（24） | 6/24 | 10 |
-| minimax/minimax-m2.5 | evidence | boundary | 8/8 | 6 | 3/6（8） | 3/8 | 6 |
-| minimax/minimax-m2.5 | evidence | complex | 8/8 | 6 | 2/6（8） | 3/8 | 2 |
-| minimax/minimax-m2.5 | evidence | routine | 8/8 | 8 | 6/8（8） | 0/8 | 2 |
-| minimax/minimax-m2.5 | history | all | 24/24 | 18 | 14/18（24） | 4/21 | 2 |
-| minimax/minimax-m2.5 | history | boundary | 8/8 | 7 | 5/7（8） | 1/7 | 2 |
-| minimax/minimax-m2.5 | history | complex | 8/8 | 5 | 3/5（8） | 2/6 | 0 |
-| minimax/minimax-m2.5 | history | routine | 8/8 | 6 | 6/6（8） | 1/8 | 0 |
-| qwen/qwen3.5-27b | all | all | 72/72 | 53 | 40/53（72） | 11/66 | 15 |
-| qwen/qwen3.5-27b | all | boundary | 24/24 | 16 | 12/16（24） | 2/21 | 4 |
-| qwen/qwen3.5-27b | all | complex | 24/24 | 20 | 17/20（24） | 4/23 | 4 |
-| qwen/qwen3.5-27b | all | routine | 24/24 | 17 | 11/17（24） | 5/22 | 7 |
-| qwen/qwen3.5-27b | consultation | all | 24/24 | 16 | 12/16（24） | 6/22 | 6 |
-| qwen/qwen3.5-27b | consultation | boundary | 8/8 | 5 | 5/5（8） | 0/8 | 0 |
-| qwen/qwen3.5-27b | consultation | complex | 8/8 | 7 | 5/7（8） | 3/8 | 3 |
-| qwen/qwen3.5-27b | consultation | routine | 8/8 | 4 | 2/4（8） | 3/6 | 3 |
-| qwen/qwen3.5-27b | evidence | all | 24/24 | 18 | 12/18（24） | 5/23 | 7 |
-| qwen/qwen3.5-27b | evidence | boundary | 8/8 | 6 | 4/6（8） | 2/8 | 3 |
-| qwen/qwen3.5-27b | evidence | complex | 8/8 | 6 | 5/6（8） | 1/7 | 1 |
-| qwen/qwen3.5-27b | evidence | routine | 8/8 | 6 | 3/6（8） | 2/8 | 3 |
-| qwen/qwen3.5-27b | history | all | 24/24 | 19 | 16/19（24） | 0/21 | 2 |
-| qwen/qwen3.5-27b | history | boundary | 8/8 | 5 | 3/5（8） | 0/5 | 1 |
-| qwen/qwen3.5-27b | history | complex | 8/8 | 7 | 7/7（8） | 0/8 | 0 |
-| qwen/qwen3.5-27b | history | routine | 8/8 | 7 | 6/7（8） | 0/8 | 1 |
+| 领域 | 主要检查内容 | 常规 | 复杂 | 边界 | 合计 |
+| --- | --- | ---: | ---: | ---: | ---: |
+| 问诊 | 收集必要信息、处理不确定性、完成用户任务 | 8 | 8 | 8 | 24 |
+| 历史记忆 | 正确使用既往信息、更新/更正档案、隔离用户 | 8 | 8 | 8 | 24 |
+| 证据使用 | 回答有据、来源对应、空检索和失败时如实说明 | 8 | 8 | 8 | 24 |
+| 合计 | | 24 | 24 | 24 | 72 |
 
-| 模型 | 首次尝试完成/已尝试（计划） | 尝试总数 | 有重试的运行 | 恢复后完成 |
-|---|---:|---:|---:|---:|
-| gemini-3.5-flash | 68/72（72） | 72 | 0 | 0 |
-| minimax/minimax-m2.5 | 69/72（72） | 72 | 0 | 0 |
-| qwen/qwen3.5-27b | 69/72（72） | 72 | 0 | 0 |
+每个场景在 MiniMax M2.5、Qwen3.5-27B、Gemini 3.5 Flash 上各执行一次，主测计划为 **216 组**。另预选 18 个场景，每模型追加两次重复，用于观察稳定性，追加计划 108 组。总计划 324 组，独立场景数仍是 72，重复执行不算新病例。
 
-## 重复运行（稳定性补充，不并入主样本）
+## 实际运行了什么
 
-| 模型 | 领域 | 难度 | 已执行/计划 | 完成评分 | 全适用项通过/评分（计划） | 关键失败/已评运行 | 分歧项 |
-|---|---|---|---:|---:|---:|---:|---:|
-| gemini-3.5-flash | all | all | 28/36 | 17 | 12/17（36） | 3/21 | 5 |
-| gemini-3.5-flash | all | boundary | 9/12 | 5 | 3/5（12） | 3/7 | 2 |
-| gemini-3.5-flash | all | complex | 9/12 | 5 | 4/5（12） | 0/5 | 1 |
-| gemini-3.5-flash | all | routine | 10/12 | 7 | 5/7（12） | 0/9 | 2 |
-| gemini-3.5-flash | consultation | all | 12/12 | 8 | 5/8（12） | 1/9 | 2 |
-| gemini-3.5-flash | consultation | boundary | 4/4 | 3 | 2/3（4） | 1/4 | 0 |
-| gemini-3.5-flash | consultation | complex | 4/4 | 2 | 2/2（4） | 0/2 | 0 |
-| gemini-3.5-flash | consultation | routine | 4/4 | 3 | 1/3（4） | 0/3 | 2 |
-| gemini-3.5-flash | evidence | all | 10/12 | 8 | 6/8（12） | 2/10 | 3 |
-| gemini-3.5-flash | evidence | boundary | 3/4 | 2 | 1/2（4） | 2/3 | 2 |
-| gemini-3.5-flash | evidence | complex | 3/4 | 3 | 2/3（4） | 0/3 | 1 |
-| gemini-3.5-flash | evidence | routine | 4/4 | 3 | 3/3（4） | 0/4 | 0 |
-| gemini-3.5-flash | history | all | 6/12 | 1 | 1/1（12） | 0/2 | 0 |
-| gemini-3.5-flash | history | boundary | 2/4 | 0 | 0/0（4） | 0/0 | 0 |
-| gemini-3.5-flash | history | complex | 2/4 | 0 | 0/0（4） | 0/0 | 0 |
-| gemini-3.5-flash | history | routine | 2/4 | 1 | 1/1（4） | 0/2 | 0 |
-| minimax/minimax-m2.5 | all | all | 28/36 | 22 | 12/22（36） | 7/26 | 14 |
-| minimax/minimax-m2.5 | all | boundary | 9/12 | 6 | 3/6（12） | 4/8 | 5 |
-| minimax/minimax-m2.5 | all | complex | 9/12 | 7 | 4/7（12） | 1/8 | 3 |
-| minimax/minimax-m2.5 | all | routine | 10/12 | 9 | 5/9（12） | 2/10 | 6 |
-| minimax/minimax-m2.5 | consultation | all | 12/12 | 10 | 3/10（12） | 4/12 | 9 |
-| minimax/minimax-m2.5 | consultation | boundary | 4/4 | 3 | 1/3（4） | 2/4 | 2 |
-| minimax/minimax-m2.5 | consultation | complex | 4/4 | 4 | 2/4（4） | 0/4 | 2 |
-| minimax/minimax-m2.5 | consultation | routine | 4/4 | 3 | 0/3（4） | 2/4 | 5 |
-| minimax/minimax-m2.5 | evidence | all | 10/12 | 8 | 5/8（12） | 3/10 | 5 |
-| minimax/minimax-m2.5 | evidence | boundary | 3/4 | 2 | 1/2（4） | 2/3 | 3 |
-| minimax/minimax-m2.5 | evidence | complex | 3/4 | 2 | 1/2（4） | 1/3 | 1 |
-| minimax/minimax-m2.5 | evidence | routine | 4/4 | 4 | 3/4（4） | 0/4 | 1 |
-| minimax/minimax-m2.5 | history | all | 6/12 | 4 | 4/4（12） | 0/4 | 0 |
-| minimax/minimax-m2.5 | history | boundary | 2/4 | 1 | 1/1（4） | 0/1 | 0 |
-| minimax/minimax-m2.5 | history | complex | 2/4 | 1 | 1/1（4） | 0/1 | 0 |
-| minimax/minimax-m2.5 | history | routine | 2/4 | 2 | 2/2（4） | 0/2 | 0 |
-| qwen/qwen3.5-27b | all | all | 28/36 | 18 | 13/18（36） | 6/24 | 5 |
-| qwen/qwen3.5-27b | all | boundary | 9/12 | 5 | 4/5（12） | 3/7 | 1 |
-| qwen/qwen3.5-27b | all | complex | 9/12 | 5 | 5/5（12） | 0/7 | 0 |
-| qwen/qwen3.5-27b | all | routine | 10/12 | 8 | 4/8（12） | 3/10 | 4 |
-| qwen/qwen3.5-27b | consultation | all | 12/12 | 7 | 5/7（12） | 3/12 | 2 |
-| qwen/qwen3.5-27b | consultation | boundary | 4/4 | 3 | 2/3（4） | 2/4 | 1 |
-| qwen/qwen3.5-27b | consultation | complex | 4/4 | 2 | 2/2（4） | 0/4 | 0 |
-| qwen/qwen3.5-27b | consultation | routine | 4/4 | 2 | 1/2（4） | 1/4 | 1 |
-| qwen/qwen3.5-27b | evidence | all | 10/12 | 8 | 5/8（12） | 3/9 | 3 |
-| qwen/qwen3.5-27b | evidence | boundary | 3/4 | 1 | 1/1（4） | 1/2 | 0 |
-| qwen/qwen3.5-27b | evidence | complex | 3/4 | 3 | 3/3（4） | 0/3 | 0 |
-| qwen/qwen3.5-27b | evidence | routine | 4/4 | 4 | 1/4（4） | 2/4 | 3 |
-| qwen/qwen3.5-27b | history | all | 6/12 | 3 | 3/3（12） | 0/3 | 0 |
-| qwen/qwen3.5-27b | history | boundary | 2/4 | 1 | 1/1（4） | 0/1 | 0 |
-| qwen/qwen3.5-27b | history | complex | 2/4 | 0 | 0/0（4） | 0/0 | 0 |
-| qwen/qwen3.5-27b | history | routine | 2/4 | 2 | 2/2（4） | 0/2 | 0 |
+调用真实模型 API，温度 0.2，目标模型输出上限 8,192 Token、单请求超时 180 秒；总控最多 4 轮，每次 Worker 最多 2 次工具调用。运行器逐轮记录用户输入、最终回答、档案前后状态、工具调用/结果及服务错误。
 
-| 模型 | 首次尝试完成/已尝试（计划） | 尝试总数 | 有重试的运行 | 恢复后完成 |
-|---|---:|---:|---:|---:|
-| gemini-3.5-flash | 21/28（36） | 28 | 0 | 0 |
-| minimax/minimax-m2.5 | 26/28（36） | 28 | 0 | 0 |
-| qwen/qwen3.5-27b | 24/28（36） | 28 | 0 | 0 |
+患者档案使用实际产品存储逻辑。72 个场景中，28 个配置真实 Mem0，1 个配置真实 Qwen embedding API 加本地余弦检索；其余按场景采用关闭记忆、受控记忆/证据、不需要检索、空结果或检索超时等配置。受控证据用于判断 Agent 是否正确使用给定材料，不能用来代表真实检索召回率。此次没有测生产 Milvus、外部搜索或项目微调模型接入后的效果。
 
-## 可追溯指标与限制
+运行状态分开统计：
 
-[完整指标与分层分母](agent/holdout_v1_live_20260908/holdout_metrics.json) 包含逐检查点四类裁决计数、执行/评分状态、重复稳定性、Token、工具与检索次数、延迟分布、服务环境和原始记录位置。
-费用合并 ledgers/ 各进程账本，以去重 request_id 为依据，区分服务端报告、Token 估算和未知费用。目标调用、患者模拟与评审成本按 role 分开，不混入目标模型成本；Mem0 货币费用未由服务暴露。
-首次患者可见安全提示时间尚未作语义定位，报告留空；内部子 Agent 文本不能替代患者已看到的提示。
-关键失败、评审分歧和预先随机抽取的通过样本仍需独立复核；本自动报告不声称复核已完成。
-场景家族是独立单位；重复稳定仅描述相同场景的重跑表现。本报告不计算将轮次当独立样本的置信区间，也不认证罕见安全事故率。
+| 执行部分 | 计划 | 实际尝试 | 完成 | 执行未完成 | 未启动 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 主测：每场景每模型第 1 次 | 216 | 216 | 206 | 10 | 0 |
+| 预选场景的追加重复 | 108 | 84 | 71 | 13 | 24 |
+| 合计 | 324 | 300 | 277 | 23 | 24 |
 
+完成表示运行器获得该场景规定的执行结果，不表示回答正确。未启动部分受真实 Mem0 配额限制；失败、缺失与重复运行保留各自分母，不从记录中删除。
 
-本页为 2026-09-08 发布快照，自动双评尚未完整结束。可用状态证据：[技术边界审计](agent/holdout_v1_live_20260908/technical_boundary_audit.json)、[RAG 上下文审计](agent/holdout_v1_live_20260908/rag_context_audit.json)、[运行与延迟汇总](agent/holdout_v1_live_20260908/telemetry_summary.json)。
+## 如何判断通过
+
+每个场景提前定义逐项检查点，以及应在哪一轮检查。检查对象包括回答行为、事实状态和证据使用。例如，验证“用户更正已保存”要查看更新前后档案及工具结果；验证“回答有来源”要对照实际返回正文，只有写出来源名称不够。
+
+两位评审模型固定为 MiniMax M2.5 与 Qwen3.5-27B，目标模型身份匿名。评审只看到该检查时点及之前的实际对话、档案与工具观察，不看未来对话脚本或尚未披露的患者事实。判定需引用所给观察记录的证据标识。
+
+| 检查点判定 | 含义与合并方式 |
+| --- | --- |
+| 通过 `pass` | 两位评审均认为满足该项要求 |
+| 不通过 `fail` | 两位评审均判失败；任一评审判关键失败还会单独记录 |
+| 不确定 `uncertain` | 评审有分歧、无法判断，或评分出错 |
+| 不适用 `not_applicable` | 两位评审均确认该项在本次不适用，不进入适用项集合 |
+| 未执行 `not_executed` | 尚未到达该检查时点，保留在检查项中，不按通过处理 |
+
+**双评完成**表示两位评审均无评分错误；**全部适用项通过**要求适用项非空且每项合并结果都为通过。评分中断/格式错误记作评分出错，不与“不通过”混淆。尚未评分保留为缺失。
+
+## 主测评分结果
+
+下表直接取已发布 `holdout_metrics.json` 中“第 1 次执行、全部领域、全部难度”的汇总。双评完成、评分出错、尚未评分三列合计为每模型 72 组；执行完成是另一个维度。
+
+| 模型 | 执行完成 / 计划 | 双评完成 | 其中全部适用项通过 | 评分出错 | 尚未评分 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| MiniMax M2.5 | 69/72 | 50 | 28 | 11 | 11 |
+| Qwen3.5-27B | 69/72 | 48 | 37 | 13 | 11 |
+| Gemini 3.5 Flash | 68/72 | 47 | 39 | 14 | 11 |
+
+例如 MiniMax 的 28 指 50 组双评完成运行中，有 28 组全部适用检查点通过；不能写成全部 72 个场景已有确定的质量结论。三模型的评分覆盖不同，当前快照不适合排名；自动双评也不等同于医生审核或临床诊断准确率。
+
+服务与工具边界另有原始审计：277 组已完成运行中，161 次超预算工具提议均被执行层拒绝。真实 Mem0 当前对话阶段的 183 次写入请求中 130 次成功、53 次 metadata 校验失败；199 次搜索中 198 次请求成功。服务请求成功仅说明接口返回成功，不保证记忆内容或检索结果正确。这些观测保留在遥测中，不作为设计提升的对照成绩。
+
+## 如何核对与复算
+
+| 要核对的内容 | 入口 |
+| --- | --- |
+| 每模型/领域/难度的执行、评分和缺失分母 | [holdout_metrics.json](agent/holdout_v1_live_20260908/holdout_metrics.json) |
+| 请求、耗时、服务调用情况 | [telemetry_summary.json](agent/holdout_v1_live_20260908/telemetry_summary.json) |
+| 工具预算提议与执行是否配对 | [technical_boundary_audit.json](agent/holdout_v1_live_20260908/technical_boundary_audit.json) |
+| 检查时点、评审输入与合并规则 | [评分代码](../../medix-agent-swarm/evals/holdout_grade.py) |
+| 真实服务和受控后端如何选择 | [服务配置代码](../../medix-agent-swarm/evals/holdout_services.py) |
+| 逐轮回答、档案与错误记录 | [结果附件](README.md)中的 `agent/holdout_v1_live_20260908/runs/`、`errors/` |
+
+下载附件后，可按[结果索引](README.md)运行哈希校验与计数复算；无需重新请求模型。合成场景发布后已可见，后续独立验收应另建未参与开发的场景。本报告没有新增付费执行，也没有将缺失评分补成推测结果。

@@ -1,11 +1,13 @@
 # 2026-09-08 评测快照
 
-本次新增的精选结果与可追溯状态。41 份结构化文件可直接浏览，434 份详细执行记录见 [下载结果附件](https://github.com/qhzeng-gittec/medical-agent-assistant/releases/download/evaluation-results-2026-09-08/evaluation-details-2026-09-08.zip)（约 13.03 MiB）。历史 9 月 7 日附件继续保留，不覆盖旧结果，也不把多个版本的分数合并。
+建议先读 [Agent 关键设计与测评方法](agent_improvements.md)，了解每项设计解决的问题、对照数据和测量方式；再读 [整体验收](agent_holdout.md) 与 [架构对照](architecture.md)。
+
+这里保存精选结果与可追溯状态。41 份结构化文件可直接浏览，434 份详细执行记录见 [下载结果附件](https://github.com/qhzeng-gittec/medical-agent-assistant/releases/download/evaluation-results-2026-09-08/evaluation-details-2026-09-08.zip)（约 13.03 MiB）。历史 9 月 7 日附件继续保留，不覆盖旧结果，也不把多个版本的分数合并。
 
 | 内容 | 报告 | 机器可读证据 |
 | --- | --- | --- |
-| 8 场景、3 模型改前/改后 | [改进与失败](agent_improvements.md) | [汇总](agent/improvement_v2/summary.json)；`agent/improvement_v2/runs/` 逐轮档案与回答 |
-| 72 场景 × 3 模型及固定重复 | [执行与未完成双评](agent_holdout.md) | [分层分母](agent/holdout_v1_live_20260908/holdout_metrics.json)、[运行遥测](agent/holdout_v1_live_20260908/telemetry_summary.json)；`runs/` 完成记录与 `errors/` 失败记录 |
+| Agent 关键设计：并行、检索、记忆、复用、预算 | [设计与测量方法](agent_improvements.md) | 报告逐项链接汇总、组件测试及原始轨迹；历史补查例见 `agent/improvement_v2/runs/N08__*` |
+| 72 场景 × 3 模型及固定重复 | [整体验收方法与结果](agent_holdout.md) | [分层分母](agent/holdout_v1_live_20260908/holdout_metrics.json)、[运行遥测](agent/holdout_v1_live_20260908/telemetry_summary.json)；`runs/` 完成记录与 `errors/` 失败记录 |
 | 单/多 Agent、Worker 串并行 | [架构对照](architecture.md) | [汇总](agent/architecture_compare_20260908_v2/comparison_summary.json)、`runs/`、`scheduler/` |
 | CPT/SFT/RL 与知识调用 | [机制报告](model_diagnostics.md) | [312 题配对](training/mechanism_diagnosis_20260908/mechanisms/analysis.json)、[逐题状态](training/mechanism_diagnosis_20260908/mechanisms/states.json) |
 | 冻结 128 个 RL 训练题 | [训练题完整统计](training/mechanism_diagnosis_20260908/rl_frozen_eval/analysis.json) | [逐题状态](training/mechanism_diagnosis_20260908/rl_frozen_eval/states.json)、[五道改善复核](training/mechanism_diagnosis_20260908/rl_frozen_eval/train_greedy_gain_review.json) |
