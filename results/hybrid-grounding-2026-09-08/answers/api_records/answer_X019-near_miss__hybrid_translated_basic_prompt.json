@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful medical information assistant. Answer the user's question with the provided context.\nAnswer in the user's language, concisely (at most 150 words). Return JSON {\"answer\":\"your response\"}."
+      },
+      {
+        "role": "user",
+        "content": "{\"question\": \"Use only the indexed MedlinePlus summary titled \\\"Drug Reactions\\\". What exact percentage of drug allergies progress to anaphylaxis?\", \"context\": [{\"id\": \"MLP-5603\", \"title\": \"Drug Reactions\", \"content\": \"Most of the time, medicines make our lives better. They reduce aches and pains, fight infections, and control problems such as high blood pressure or diabetes. But medicines can also cause unwanted reactions, such as drug interactions, side effects, and allergies. What is a drug interaction? A drug interaction is a change in the way a drug acts in the body when taken with certain other drugs, foods, or supplements or when taken while you have certain medical conditions. Examples include: Two drugs, such as aspirin and blood thinners Drugs and food, such as statins and grapefruit Drugs and supplements, such as gingko and blood thinners Drugs and medical conditions, such as aspirin and peptic ulcers Interactions could cause a drug to be more or less effective, cause side effects, or change the way one or both drugs work. What are side effects? Side effects are unwanted, usually unpleasant, effects caused by medicines. Most are mild, such as a stomachache, dry mouth , or drowsiness, and go away after you stop taking the medicine. Others can be more serious. Sometimes a drug can interact with a disease that you have and cause a side effect. For example, if you have a heart condition, certain decongestants can cause you to have a rapid heartbeat. What are drug allergies? Drug allergies are another type of reaction. They can range from mild to life-threatening. Skin reactions, such as hives and rashes , are the most common type. Anaphylaxis , a serious allergic reaction, is less common. How can I stay safe when taking medicines? When you start a new prescription or over-the-counter medicine, make sure you understand how to take it correctly . Know which other medicines, foods, and supplements you need to avoid. Always talk to your health care provider or pharmacist if you have questions about your medicines.\"}, {\"id\": \"MLP-6257\", \"title\": \"Anaphylaxis\", \"content\": \"Anaphylaxis is a serious allergic reaction . It can begin very quickly, and symptoms may be life-threatening. The most common causes are reactions to foods (especially peanuts), medications , and stinging insects . Other causes include exercise and exposure to latex . Sometimes no cause can be found. It can affect many organs: Skin - itching, hives, redness, swelling Nose - sneezing, stuffy nose, runny nose Mouth - itching, swelling of the lips or tongue Throat - itching, tightness, trouble swallowing, swelling of the back of the throat Chest - shortness of breath, coughing, wheezing, chest pain or tightness Heart - weak pulse, passing out, shock Gastrointestinal tract - vomiting, diarrhea, cramps Nervous system - dizziness or fainting If someone is having a serious allergic reaction, call 911. If an auto-injector is available, give the person the injection right away.\"}, {\"id\": \"MLP-24\", \"title\": \"Allergy\", \"content\": \"An allergy is a reaction by your immune system to something that does not bother most other people. People who have allergies often are sensitive to more than one thing. Substances that often cause reactions are: Pollen Dust mites Mold spores Pet dander Food Insect stings Medicines Normally, your immune system fights germs. It is your body's defense system. In most allergic reactions, however, it is responding to a false alarm. Genes and the environment probably both play a role. Allergies can cause a variety of symptoms such as a runny nose, sneezing, itching, rashes , swelling, or asthma . Allergies can range from minor to severe. Anaphylaxis is a severe reaction that can be life-threatening. Doctors use skin and blood tests to diagnose allergies. Treatments include medicines, allergy shots, and avoiding the substances that cause the reactions.\"}]}"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 1400,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788877359-rVp20lVzJJ0npfVSG42b",
+    "object": "chat.completion",
+    "created": 1788877359,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "DeepInfra",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"answer\": \"The provided MedlinePlus summary titled \\\"Drug Reactions\\\" does not state an exact percentage of drug allergies that progress to anaphylaxis. It only mentions that anaphylaxis is a serious allergic reaction and is \\\"less common\\\" compared to skin reactions like hives and rashes.\"}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 929,
+      "completion_tokens": 65,
+      "total_tokens": 994,
+      "cost": 0.00041054,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00041054,
+        "upstream_inference_prompt_cost": 0.00024154,
+        "upstream_inference_completions_cost": 0.000169
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 6.109
+}

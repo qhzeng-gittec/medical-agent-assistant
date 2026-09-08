@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"R066\", \"query\": \"对于患有间质性膀胱炎的女性，在一个月中的哪个时期症状往往会加重？\"}, {\"id\": \"R068\", \"query\": \"除了关节疼痛和肿胀外，如果一个人患有关节炎，他们可能会出现哪些其他一般症状？\"}, {\"id\": \"R070\", \"query\": \"既然腮腺炎没有特定的治疗方法，可以做些什么来预防这种疾病？\"}, {\"id\": \"R072\", \"query\": \"如果我的孩子未满 18 岁并想成为器官捐献者，谁需要给予许可？\"}, {\"id\": \"R074\", \"query\": \"在描述急性淋巴细胞白血病时，“急性”这个词是什么意思？\"}, {\"id\": \"R076\", \"query\": \"在进行女性健康检查时，使用什么具体测试来寻找可能变成宫颈癌的异常细胞？\"}, {\"id\": \"R078\", \"query\": \"除了服用更大剂量外，通过改变服药方式滥用处方药的另一种方式是什么？\"}, {\"id\": \"R080\", \"query\": \"哪些现有疾病会增加一个人患胸腺癌的可能性？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875355-p1MrW2OM5ij9ef2jWgZz",
+    "object": "chat.completion",
+    "created": 1788875355,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Phala",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"R066\",\n      \"query\": \"For women with interstitial cystitis, during which phase of the month do symptoms tend to worsen?\"\n    },\n    {\n      \"id\": \"R068\",\n      \"query\": \"Besides joint pain and swelling, what other general symptoms might a person with arthritis experience?\"\n    },\n    {\n      \"id\": \"R070\",\n      \"query\": \"Since there is no specific treatment for mumps, what can be done to prevent the disease?\"\n    },\n    {\n      \"id\": \"R072\",\n      \"query\": \"If my child is under 18 and wants to be an organ donor, who needs to give permission?\"\n    },\n    {\n      \"id\": \"R074\",\n      \"query\": \"In describing acute lymphoblastic leukemia, what does the word 'acute' mean?\"\n    },\n    {\n      \"id\": \"R076\",\n      \"query\": \"During a women's health exam, what specific test is used to look for abnormal cells that could become cervical cancer?\"\n    },\n    {\n      \"id\": \"R078\",\n      \"query\": \"Besides taking larger doses, what is another way to abuse prescription drugs by changing how they are taken?\"\n    },\n    {\n      \"id\": \"R080\",\n      \"query\": \"Which existing conditions increase a person's likelihood of developing thymic cancer?\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 309,
+      "completion_tokens": 351,
+      "total_tokens": 660,
+      "cost": 0.0009351,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0009351,
+        "upstream_inference_prompt_cost": 9.27e-05,
+        "upstream_inference_completions_cost": 0.0008424
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 12.907
+}

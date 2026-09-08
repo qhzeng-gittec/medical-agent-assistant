@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"R018\", \"query\": \"从其他来源获得抗体后，被动免疫通常能持续多久？\"}, {\"id\": \"R020\", \"query\": \"除了铃声之外，耳鸣患者通常还会描述听到哪些其他声音？\"}, {\"id\": \"R022\", \"query\": \"如果医生怀疑我患有白喉，我是否需要等待实验室检测结果出来后才开始治疗？\"}, {\"id\": \"R024\", \"query\": \"我可能有哪些迹象表明我患有唾液腺癌？\"}, {\"id\": \"R026\", \"query\": \"医生治疗肌腱炎通常采取的第一步是什么？\"}, {\"id\": \"R028\", \"query\": \"甲型肝炎病毒通常是如何在人与人之间传播的？\"}, {\"id\": \"R030\", \"query\": \"如果及时给药，可以使用什么药物来治疗海洛因过量？\"}, {\"id\": \"R032\", \"query\": \"如果我因艾滋病或癌症导致免疫系统减弱，为什么通常无害的肺孢子菌真菌会开始让我生病？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875350-oo5PrRYTa2G0t90VhHiX",
+    "object": "chat.completion",
+    "created": 1788875350,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"R018\",\n      \"query\": \"After obtaining antibodies from other sources, how long does passive immunity typically last?\"\n    },\n    {\n      \"id\": \"R020\",\n      \"query\": \"Besides ringing, what other sounds do patients with tinnitus typically describe hearing?\"\n    },\n    {\n      \"id\": \"R022\",\n      \"query\": \"If my doctor suspects I have diphtheria, do I need to wait for laboratory test results before starting treatment?\"\n    },\n    {\n      \"id\": \"R024\",\n      \"query\": \"What signs might indicate that I have salivary gland cancer?\"\n    },\n    {\n      \"id\": \"R026\",\n      \"query\": \"What is the first step doctors usually take to treat tendonitis?\"\n    },\n    {\n      \"id\": \"R028\",\n      \"query\": \"How is the hepatitis A virus typically transmitted between people?\"\n    },\n    {\n      \"id\": \"R030\",\n      \"query\": \"If administered in time, what medication can be used to treat a heroin overdose?\"\n    },\n    {\n      \"id\": \"R032\",\n      \"query\": \"If my immune system is weakened by AIDS or cancer, why would the normally harmless Pneumocystis fungus start making me sick?\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 292,
+      "completion_tokens": 330,
+      "total_tokens": 622,
+      "cost": 0.00057174,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00057174,
+        "upstream_inference_prompt_cost": 5.694e-05,
+        "upstream_inference_completions_cost": 0.0005148
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 6.734
+}

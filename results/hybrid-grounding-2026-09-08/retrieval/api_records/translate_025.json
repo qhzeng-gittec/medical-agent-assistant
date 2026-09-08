@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"R361\", \"query\": \"请告诉我上次血钾化验的精确数值。\"}, {\"id\": \"R362\", \"query\": \"请告诉我昨天测得的血压。\"}, {\"id\": \"R363\", \"query\": \"请告诉我本周血糖仪的平均读数。\"}, {\"id\": \"R364\", \"query\": \"请告诉我预约门诊的具体时间。\"}, {\"id\": \"R365\", \"query\": \"请告诉我我以前实际服用的药物剂量。\"}, {\"id\": \"R366\", \"query\": \"请告诉我上个月的住院病案号。\"}, {\"id\": \"R367\", \"query\": \"请告诉我我的医疗保险剩余额度。\"}, {\"id\": \"R368\", \"query\": \"请告诉我我的手术日期。\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875409-SSHo7YZxpHDRLl5z7dCd",
+    "object": "chat.completion",
+    "created": 1788875409,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "SiliconFlow",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\"id\": \"R361\", \"query\": \"Tell me the exact value of the last blood potassium test.\"},\n    {\"id\": \"R362\", \"query\": \"Tell me the blood pressure measured yesterday.\"},\n    {\"id\": \"R363\", \"query\": \"Tell me the average reading of the blood glucose meter this week.\"},\n    {\"id\": \"R364\", \"query\": \"Tell me the specific time of the outpatient appointment.\"},\n    {\"id\": \"R365\", \"query\": \"Tell me the actual medication dosage I took before.\"},\n    {\"id\": \"R366\", \"query\": \"Tell me the hospitalization record number from last month.\"},\n    {\"id\": \"R367\", \"query\": \"Tell me my remaining medical insurance balance.\"},\n    {\"id\": \"R368\", \"query\": \"Tell me my surgery date.\"}\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 241,
+      "completion_tokens": 219,
+      "total_tokens": 460,
+      "cost": 0.00049825,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00049825,
+        "upstream_inference_prompt_cost": 6.025e-05,
+        "upstream_inference_completions_cost": 0.000438
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 9.844
+}

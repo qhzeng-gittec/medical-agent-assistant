@@ -1,0 +1,280 @@
+{
+  "model": "gpt-5.5",
+  "instruction": "Audit answers for faithfulness to supplied evidence, not for whether outside medical knowledge makes a claim plausible.\nThe answerer had ONLY these source excerpts/memories. No external search occurred. Source IDs and answer method names must not affect scoring.\nEach item gives question, answer, context, gold evidence/expected answer when available, intended answerability and allowed_source_ids when source-scoped.\nOnly allowed sources can support a source-scoped answer. For memories, preserve who, when, negation and uncertainty; assistant suggestions are not user facts.\nFor memory items, source_history contains the authoritative original user turns and recording timestamps. If a recalled memory or answer distorts them, mark the answer's distorted claim unsupported even if the retrieved memory contains it. Check absolute years against relative dates and timestamps; do not assume old authored years are correct.\nReturn JSON {\"items\":[{\"id\":same ID,\"context_sufficiency\":\"full|partial|none\",\n\"has_unsupported_claim\":boolean,\"unsupported_quote\":\"verbatim answer substring or empty\",\n\"false_search_claim\":boolean,\"search_quote\":\"verbatim answer substring or empty\",\n\"acknowledges_limit\":boolean,\"answers_supported_part\":boolean,\"complete_correct\":boolean,\"reason\":\"short explanation\"}]}.\nhas_unsupported_claim: any factual medical/personal/quantitative statement asserted without support in eligible context, or contradicting it.\nGeneric advice to consult a professional is allowed; clearly conditional questions are not invented history. A disclaimer does not erase an unsupported claim elsewhere.\nfalse_search_claim: claims to have searched external databases, verified approvals, or exhaustively established absence beyond these excerpts. 'The supplied materials do not state X' is valid. 'PubMed has no studies' without actual search evidence is invalid, even if the answer also says no evidence.\nacknowledges_limit: explicitly acknowledges missing requested evidence or inability to determine it, not just a generic disclaimer.\nanswers_supported_part: supplies the actual requested supported fact(s), not just a relevant topic summary. For intended unanswerable/needs_history set false.\ncomplete_correct: all answerable requested facts correct and supported, plus explicit limitation for missing parts; fully unanswerable cases require clear limitation without invented specifics. If has_unsupported_claim or false_search_claim is true, complete_correct MUST be false.\nFor partial cases, merely refusing everything is incomplete. For answerable cases, merely refusing is incomplete even if retrieval failed.\nGold evidence guides the requested facts but irrelevant sentences in a long excerpt need not be repeated. Alternative eligible sources may support correct answers.\nUnsupported/search quotes must be exact answer substrings when the corresponding flag is true, empty otherwise. Read the whole answer.\nCalibration clarification v2: distinguish invented facts from unnecessary refusal.\nA refusal ('cannot determine'), conservative uncertainty, or failure to select a later correction is NOT by itself an affirmative fabricated medical/personal fact: set complete_correct false if the answer omits available requested information, but do NOT set has_unsupported_claim just for the refusal.\nAn answer that asserts the obsolete value as current despite a later correction DOES contain an unsupported/contradicted factual claim.\ncontext_sufficiency must cover the ENTIRE actual question: if it asks for an undisclosed invoice number, no amount of related medical history makes that number available; mark none if only the invoice is requested, partial if the question also requests an available medical fact.\nFor fully unanswerable questions, answers_supported_part must be false; complete_correct can be true if it acknowledges the missing requested information and adds no unsupported factual claims.\nKeep all six boolean fields as JSON true/false, not strings. Always include both quote fields, using empty strings for false flags.\nIndependently review each item. Only the context field was shown to the answerer.\nGold evidence and expected answers are evaluator references, NOT additional retrieved context.\nIf gold evidence is absent from context, an admission of missing information is not hallucination or a false search claim.\nRead all context documents before judging. Do not mark a statement unsupported merely because one gold excerpt is narrower.\nAn explicit claim about what the provided documents contain is not a claim of external database search.\nAn answer may fail completeness without fabricating facts. Preserve this distinction rigorously.",
+  "input": [
+    {
+      "id": "2aa8fd65ead37c6582",
+      "question": "我有两个不同的问题：除了食物之外，还有哪些产品可能含有乳糜泻患者需要避免的麸质？ 哪种避孕方法是唯一能同时预防性传播感染的？",
+      "answer": "关于乳糜泻患者需避免的非食物类含麸质产品，提供的资料中未包含相关信息，无法确定。关于避孕方法，资料指出男用避孕套（乳胶或聚氨酯）和女用避孕套可以帮助预防性传播感染（STIs）[MLP-160]。资料提到“正确使用乳胶避孕套大大降低了……感染或传播STIs的风险”，并指出“避免感染的最可靠方法是不要进行肛交、阴道交或口交”[MLP-301, MLP-400]。资料并未声明某种避孕方法是“唯一”能同时预防STIs的方法，仅指出屏障法（避孕套）有此功能，而其他方法如激素类或宫内节育器未提及可预防STIs。",
+      "context": [
+        {
+          "id": "MLP-160",
+          "title": "Birth Control",
+          "content": "What is birth control? Birth control, also known as contraception, is the use of medicines, devices, or surgery to prevent pregnancy. There are many different types. Some are reversible, while others are permanent. Some types can also help prevent sexually transmitted infections (STIs). What are the different types of birth control? There are several different types of birth control, and they work in different ways: Barrier methods Male condom A thin sheath that covers the penis to collect sperm and prevent it from entering the woman's body. Condoms that are made of latex and polyurethane can help prevent STIs. Female condom A thin, flexible plastic pouch. Part of the condom is inserted into the vagina before intercourse to prevent sperm from entering the uterus. The uterus, or womb, is the place where the baby grows during pregnancy. Female condoms can also help prevent STIs. Contraceptive sponge A small sponge that you put into the vagina to cover the cervix (the opening of the uterus). The sponge also contains a spermicide to kill sperm. Spermicide A substance that can kill sperm cells. It comes in a foam, jelly, cream, suppository, or film. You put it into the vagina near the uterus. Spermicide can be used alone or with a diaphragm or cervical cap. Diaphragm and cervical cap Cups that are placed inside the vagina to cover the cervix. They may be used with spermicide. They come in different sizes, so it's important to see your health care provider to figure out which size works best for you. Hormonal methods Oral contraceptives (\"the pill\") Pills that a woman takes every day. They may contain only progestin or both progestin and estrogen. Contraceptive patch A patch that a woman puts on her skin each week. The patch releases hormones into the bloodstream. Vaginal ring A thin, flexible ring. The woman inserts the ring into the vagina, where it continually releases hormones for three weeks. She takes it out for the fourth week. After that week, she puts in a new ring. Injectable birth control An injection of a hormone that a woman gets once every three months. This is done in your provider's office. Implant A single, thin rod that a provider inserts under the skin of a women's upper arm. It is done in your provider's office. The implant can last for four years. Long-acting reversible contraceptives (LARCs) Intrauterine device (IUD) A small, T-shaped device that a provider inserts into the uterus. This is done in the provider's office. IUDs can last from 3 to 10 years. There are two types: hormonal IUDs and copper IUDs. Sterilization Tubal ligation A surgery that prevents a woman from getting pregnant. It is permanent. Vasectomy A surgery that prevents a man from getting someone pregnant. It is permanent. What are some other forms of pregnancy prevention? There are some types of pregnancy prevention that do not involve medicines, devices, or surgery: Other forms of pregnancy prevention Fertility awareness-based methods They are also called natural rhythm methods. They involve tracking the woman's fertility cycle and avoiding sex or using barrier methods on the days when she is most likely to get pregnant. This method may have higher pregnancy rates than other types. Lactational amenorrhea method (LAM) A form of natural birth control for breastfeeding mothers. It relies on the new mother feeding her baby only breastmilk for up to six months and having no periods or spotting during that time. Withdrawal During intercourse, the penis is pulled out of the vagina before ejaculation. The goal is to keep sperm from entering the vagina . But the sperm can leak out before the penis is pulled out, so this method has higher pregnancy rates than other types. What is emergency contraception? Emergency contraception is not a regular method of birth control. But it can be used to prevent pregnancy after unprotected intercourse or if a condom breaks. There are two types: Copper IUD, which is a small, T-shaped device that a provider inserts within 120 hours of unprotected intercourse. Emergency contraceptive pills (ECPs), which are hormonal pills which the woman takes as soon as possible after unprotected intercourse. What else should I know about birth control? When deciding which birth control type is right for you, there are many different factors to consider: Do you want to have children someday? How soon? Do you have any health conditions? How often do you have sex? How many sex partners do you have? Do you also need protection from HIV and other STIs? How well does the birth control method work? Are there any side effects? Will you be able to use it correctly every time? How much does it cost? Your provider can answer your questions about birth control to help you select the best type for you. NIH: National Institute of Child Health and Human Development"
+        },
+        {
+          "id": "MLP-3019",
+          "title": "Gonorrhea",
+          "content": "Gonorrhea is a sexually transmitted infection (STI). It is most common in young adults. The bacteria that cause gonorrhea can infect the genital tract, mouth, or anus. You can get gonorrhea during vaginal, oral, or anal sex with an infected partner. A pregnant woman can pass it to her baby during childbirth. Gonorrhea does not always cause symptoms. In men, gonorrhea can cause pain when urinating and discharge from the penis. If untreated, it can cause problems with the prostate and testicles. In women, the early symptoms of gonorrhea often are mild. Later, it can cause bleeding between periods, pain when urinating, and increased discharge from the vagina. If untreated, it can lead to pelvic inflammatory disease , which causes problems with pregnancy and infertility. Your health care provider will diagnose gonorrhea with lab tests. Treatment is with antibiotics. Treating gonorrhea is becoming more difficult because drug-resistant strains are increasing. Correct usage of latex condoms greatly reduces, but does not eliminate, the risk of catching or spreading gonorrhea. If your or your partner is allergic to latex , you can use polyurethane condoms. The most reliable way to avoid infection is to not have anal, vaginal, or oral sex. Centers for Disease Control and Prevention"
+        },
+        {
+          "id": "MLP-400",
+          "title": "Sexually Transmitted Infections",
+          "content": "What are sexually transmitted infections (STIs)? Sexually transmitted infections (STIs) are infections that are passed from one person to another through sexual contact. If not treated, an STI can develop into a sexually transmitted disease (STD). STIs are usually spread during vaginal, oral, or anal sex. But sometimes they can spread through other sexual contact involving the penis, vagina, mouth, or anus. This is because some STIs, like herpes and HPV, are spread by skin-to-skin contact. Some STIs can be passed to the fetus during pregnancy or childbirth. Other ways that some STIs may spread include while breastfeeding , through blood transfusions , or by sharing needles. There are more than 20 types of STIs, including: Chlamydia Genital herpes Genital warts Gonorrhea HIV HPV Pubic lice Syphilis Trichomoniasis What causes sexually transmitted infections (STIs)? STIs can be caused by bacteria , viruses , and parasites . Who is affected by sexually transmitted infections (STIs)? Most STIs affect both men and women, but in many cases the health problems they cause can be more severe for women. If an STI is passed to a fetus during pregnancy or childbirth , it can cause serious health problems. What are the symptoms of sexually transmitted infections (STIs)? STIs don't always cause symptoms or may only cause mild symptoms. So, it is possible to have an infection and not know it. And even without symptoms, STIs can still be harmful and may be passed on during sex. If you do have symptoms, they could include: Unusual discharge from the penis or vagina Sores or warts on the genital area Painful or frequent urination (peeing) Itching and redness in the genital area Blisters or sores in or around the mouth Abnormal vaginal odor Anal itching, soreness, or bleeding Abdominal (belly) pain Fever How are sexually transmitted infections (STIs) diagnosed? If you are sexually active, you should talk to your health care provider about your risk for STIs and whether you need to be tested. This is especially important since many STIs do not usually cause symptoms. Some STIs may be diagnosed during a physical exam or through STI testing . Some tests involve a microscopic examination of a sore or fluid swabbed from the vagina, penis, or anus. Blood tests can diagnose other types of STIs. What are the treatments for sexually transmitted infections (STIs)? Antibiotics can treat STIs that are caused by bacteria or parasites. There is no cure for STIs caused by viruses, but antiviral medicines can often help with the symptoms and lower your risk of spreading the infection. It's important to get treatment if you have an STI. Some types of STIs can cause serious health problems if they are not treated. Talk to your provider about how long to not have sex after treatment to avoid passing the infection back and forth with your partner. Can sexually transmitted infections (STIs) be prevented? The surest way to protect yourself against STIs is to not have sex. If you do decide to have sex, you can lower your risk of getting an STI by: Having you and your partner tested for STIs before having sex. Using a condom every time you have sex. Correct usage of latex condoms greatly reduces, but does not eliminate, the risk of catching or spreading STIs. If you or your partner is allergic to latex , you can use polyurethane condoms. Reducing your number of sex partners. You might even consider \"mutual monogamy\" with just one partner. This means that you agree to be sexually active only with them, and they agree to be sexually active only with you. But first you should both get tested to make sure that you don't already have an STI. Getting vaccinated against HPV and hepatitis B ."
+        }
+      ],
+      "intended_answerability": "answerable",
+      "gold_evidence": [
+        "It may also be in other products like vitamins and supplements , hair and skin products, toothpastes, and lip balm.",
+        "Condoms are the only birth control method that protects against STIs."
+      ],
+      "expected_answer": "",
+      "allowed_source_ids": null,
+      "source_history": null
+    },
+    {
+      "id": "2c8e1c706a1cb288ba",
+      "question": "我有两个不同的问题：我的脚踝因积液而肿胀；除了心力衰竭，这种类型的肿胀还有哪些常见原因？ 我被诊断出患有 HIV；每天服用抗逆转录病毒疗法药物的主要目标是什么？",
+      "answer": "根据提供的资料，除了心力衰竭外，脚踝积液（水肿）的常见原因还包括：摄入过多盐分、晒伤、肾脏疾病、肝硬化引起的肝脏问题、怀孕、淋巴结问题（尤其是乳房切除术后）、某些药物以及天气炎热时长时间站立或行走 [MLP-1229]。关于HIV治疗，每天服用抗逆转录病毒疗法（ART）药物的主要目标是减少体内的HIV病毒载量，使免疫系统有机会恢复，从而帮助患者对抗感染和癌症，延长寿命并提高生活质量；同时降低将病毒传播给他人的风险 [MLP-4287, MLP-1]。",
+      "context": [
+        {
+          "id": "MLP-4287",
+          "title": "HIV Medicines",
+          "content": "What is HIV? HIV stands for human immunodeficiency virus. It harms your immune system by destroying CD4 cells. These are a type of white blood cells that fight infection. The loss of these cells makes it hard for your body to fight off infections and certain HIV-related cancers. Without treatment, HIV can gradually destroy the immune system and advance to AIDS. AIDS stands for acquired immunodeficiency syndrome. It is the final stage of infection with HIV. Not everyone with HIV develops AIDS. What is antiretroviral therapy (ART)? The treatment of HIV with medicines is called antiretroviral therapy (ART). It involves taking a combination of medicines every day. ART is recommended for everyone who has HIV. The medicines do not cure HIV infection, but help people with HIV live longer, healthier lives. They also reduce the risk of spreading the virus to others. How do HIV medicines work? HIV medicines reduce the amount of HIV (viral load) in your body, which helps by: Giving your immune system a chance to recover. Even though there is still some HIV in your body, your immune system should be strong enough to fight off infections and certain HIV-related cancers. Reducing the risk that you will spread HIV to others. What are the types of HIV medicines? There are many different types (called classes) of HIV medicines. Some work by blocking or changing enzymes that HIV needs to make copies of itself. This prevents HIV from copying itself, which reduces the amount of HIV in the body. Several types of medicines do this: Nucleoside reverse transcriptase inhibitors (NRTIs) block an enzyme called reverse transcriptase Non-nucleoside reverse transcriptase inhibitors (NNRTIs) bind to and later change reverse transcriptase Integrase inhibitors , also called integrase strand transfer inhibitors (INSTIs), block an enzyme called integrase Protease inhibitors (PIs) block an enzyme called protease Some types of HIV medicines interfere with HIV's ability to infect CD4 immune system cells: Fusion inhibitors block HIV from entering the cells CCR5 antagonists and post-attachment inhibitors block different molecules on the CD4 cells. To infect a cell, HIV has to bind to two types of molecules on the cell's surface. Blocking either of these molecules prevents HIV from entering the cells. Attachment inhibitors bind to a specific protein on the outer surface of HIV. This prevents HIV from entering the cell. Pharmacokinetic enhancers are another type of medicine. They are sometimes taken along with certain other HIV medicines. Pharmacokinetic enhancers increase the effectiveness of the other medicine. They work by slowing the breakdown of the other medicine. This allows that medicine to stay in the body longer at a higher concentration. There are also multidrug combinations , which include a combination of two or more different types of HIV medicines. When do I need to start taking HIV medicines? It's important to start taking HIV medicines as soon as possible after your diagnosis, especially if you: Are pregnant Have AIDS Have certain HIV-related illnesses and infections Have an early HIV infection (the first 6 months after infection with HIV) What else do I need to know about taking HIV medicines? You and your health care provider will work together to come up with a personal treatment plan. This plan will be based on many factors, including: The possible side effects of HIV medicines Potential drug interactions with any other medicines you take How many medicines you will need to take every day Any other health problems you may have It's important to take your medicines every day, according to the instructions from your provider. If you miss doses or don't follow a regular schedule, your treatment may not work, and the HIV virus may become resistant to the medicines. HIV medicines can cause side effects. Most of these side effects are manageable, but a few can be serious. Tell your provider about any side effects that you are having. Don't stop taking your medicine without first talking to your provider. There may be steps you can take to help manage the side effects. In some cases, your provider may decide to change your medicines. What are HIV PrEP and PEP medicines? HIV medicines are not just used for treatment. Some people take them to prevent HIV . PrEP (pre-exposure prophylaxis) is for people who don't already have HIV but are at very high risk of getting it. PEP (post-exposure prophylaxis) is for people who have possibly been exposed to HIV. NIH: Office of AIDS Research"
+        },
+        {
+          "id": "MLP-1",
+          "title": "HIV",
+          "content": "What is HIV? HIV stands for human immunodeficiency virus. HIV harms your immune system by destroying a type of white blood cell that helps your body fight infection. This puts you at risk for other infections and diseases. What is AIDS? AIDS stands for acquired immunodeficiency syndrome. It is the final stage of infection with HIV. It happens when the body's immune system is badly damaged because of the virus. Not everyone with HIV develops AIDS. How does HIV spread? HIV is spread through certain body fluids from a person who has HIV. This can happen: By having unprotected vaginal or anal sex with a person who has HIV. \"Unprotected\" means not using condoms or medicine to treat or prevent HIV. This is the most common way that it spreads. By sharing drug needles. Through contact with the blood of a person with HIV. From mother to fetus during pregnancy . From mother to baby during, childbirth, or breastfeeding. Who is at risk for HIV infection? Anyone can get HIV, but certain groups have a higher risk of getting it: People who have another sexually transmitted infection (STI). Having an STI can increase your risk of getting or spreading HIV. People who inject drugs with shared needles. Gay and bisexual men. Black/African Americans and Hispanic/Latino Americans. They make up a higher proportion of new HIV diagnoses and people with HIV, compared to other races and ethnicities. People who engage in risky sexual behaviors, such as not using condoms or medicine to prevent or treat HIV. Factors such as stigma, discrimination, income, education, and geographic region can also affect people's risk for HIV. What are the symptoms of HIV? The first signs of HIV infection may be flu-like symptoms: Fever Chills Rash Night sweats (heavy sweating during sleep) Muscle aches Sore throat Fatigue Swollen lymph nodes Mouth ulcers These symptoms may come and go within two to four weeks. This stage is called acute HIV infection. If the infection is not treated, it becomes chronic HIV infection. Often, there are no symptoms during this stage. If it is not treated, eventually the virus will weaken your body's immune system. Then the infection will progress to AIDS. This is the late stage of HIV infection. Because your immune system is badly damaged, your body cannot fight off other infections, called opportunistic infections (OIs). OIs are infections that happen more frequently or are more severe in people who have weakened immune systems. Some people may not feel sick during the earlier stages of HIV infection. So the only way to know for sure whether you have HIV is to get tested. How do I know if I have HIV? A blood test can tell if you have HIV infection. Your health care provider can do the test, or you can use a home testing kit. You can also use the CDC Testing Locator to find free testing sites. What are the treatments for HIV? There is no cure for HIV infection, but it can be treated with medicines. This is called antiretroviral therapy (ART). ART can make HIV infection a manageable chronic condition. It also reduces the risk of spreading the virus to others. Most people with HIV live long and healthy lives if they get ART as soon as possible and stay on it. It's also important to take care of yourself. Making sure that you have the support you need, living a healthy lifestyle, and getting regular medical care can help you enjoy a better quality of life . Can HIV infection be prevented? You can reduce the risk of getting or spreading HIV by: Getting tested for HIV. Choosing less risky sexual behaviors. This includes limiting the number of sexual partners you have and using latex condoms every time you have sex. If your or your partner is allergic to latex, you can use polyurethane condoms. Getting tested and treated for sexually transmitted infections (STIs). Not injecting drugs. Talking to your provider about medicines to prevent HIV : PrEP (pre-exposure prophylaxis) is for people who don't already have HIV but are at very high risk of getting it. PrEP is daily medicine that can reduce this risk. PEP (post-exposure prophylaxis) is for people who have possibly been exposed to HIV. It is only for emergency situations. PEP must be started within 72 hours after a possible exposure to HIV. NIH: National Institutes of Health"
+        },
+        {
+          "id": "MLP-1229",
+          "title": "Edema",
+          "content": "Edema means swelling caused by fluid in your body's tissues. It usually occurs in the feet, ankles and legs, but it can involve your entire body. Causes of edema include: Eating too much salt Sunburn Heart failure Kidney disease Liver problems from cirrhosis Pregnancy Problems with lymph nodes , especially after mastectomy Some medicines Standing or walking a lot when the weather is warm To keep swelling down, your health care provider may recommend keeping your legs raised when sitting, wearing support stockings, limiting how much salt you eat, or taking a medicine called a diuretic - also called a water pill."
+        }
+      ],
+      "intended_answerability": "answerable",
+      "gold_evidence": [
+        "Causes of edema include: Eating too much salt Sunburn Heart failure Kidney disease Liver problems from cirrhosis Pregnancy Problems with lymph nodes , especially after mastectomy Some medicines Standing or walking a lot when the weather is warm To keep swelling down, your health care provider may recommend keeping your legs raised when sitting, wearing support stockings, limiting how much salt you eat, or taking a medicine called a diuretic - also called a water pill.",
+        "The medicines do not cure HIV infection, but help people with HIV live longer, healthier lives."
+      ],
+      "expected_answer": "",
+      "allowed_source_ids": null,
+      "source_history": null
+    },
+    {
+      "id": "34ebe65142dc066003",
+      "question": "Use only the indexed MedlinePlus summary titled \"Campylobacter Infections\". How long after infection do Campylobacter infection symptoms usually start? Also, What exact percentage of Campylobacter infections lead to Guillain-Barre syndrome?",
+      "answer": "According to the MedlinePlus summary \"Campylobacter Infections,\" symptoms usually start two to five days after infection. The text states that Guillain-Barre syndrome is a rare complication but does not provide an exact percentage of infections that lead to this condition.",
+      "context": [
+        {
+          "id": "MLP-6046",
+          "title": "Campylobacter Infections",
+          "content": "Campylobacter infection is a common foodborne illness . You usually get it from eating contaminated food, especially raw or undercooked poultry. You can also get it from drinking contaminated water or raw milk, or handling infected animal feces (poop). Some infected people don't have any symptoms. If you do have symptoms, they start two to five days after you are infected. They usually last about one week, and can include: Diarrhea (which could be bloody) Cramping Abdominal pain Fever Fatigue Nausea and vomiting Health care providers use stool tests to make a diagnosis. Most people get better without treatment. You should drink extra fluids for as long as the diarrhea lasts. People who have a severe infection or a weakened immune system may need to take antibiotics . In rare cases, the infection can cause reactive arthritis or Guillain-Barre syndrome . To prevent Campylobacter infection, cook poultry thoroughly. Use a separate cutting board and utensils for meats. Make sure to clean them carefully with soap and hot water after you use them. Centers for Disease Control and Prevention"
+        },
+        {
+          "id": "MLP-1234",
+          "title": "Guillain-Barre Syndrome",
+          "content": "Guillain-Barre syndrome is a rare disorder that causes your immune system to attack your peripheral nervous system (PNS). The PNS nerves connect your brain and spinal cord with the rest of your body. Damage to these nerves makes it hard for them to transmit signals. As a result, your muscles have trouble responding to your brain. No one knows what causes the syndrome. Sometimes it is triggered by an infection, surgery, or a vaccination. The first symptom is usually weakness or a tingling feeling in your legs. The feeling can spread to your upper body. In severe cases, you become almost paralyzed. This is life-threatening. You might need a respirator to breathe. Symptoms usually worsen over a period of weeks and then stabilize. Guillain-Barre can be hard to diagnose. Possible tests include nerve tests and a spinal tap. Most people recover. Recovery can take a few weeks to a few years. Treatment can help symptoms, and may include medicines or a procedure called plasma exchange. NIH: National Institute of Neurological Disorders and Stroke"
+        },
+        {
+          "id": "MLP-1213",
+          "title": "Salmonella Infections",
+          "content": "Salmonella is the name of a group of bacteria. In the United States, it is a common cause of foodborne illness . Salmonella occurs in raw poultry, eggs, beef, and sometimes on unwashed fruit and vegetables. You also can get infected after handling pets, especially reptiles like snakes, turtles, and lizards. Symptoms include: Fever Diarrhea Abdominal cramps Headache Possible nausea, vomiting , and loss of appetite Symptoms usually last 4-7 days. Your health care provider diagnoses the infection with a stool test. Most people get better without treatment. Infection can be more serious in older adults, infants, and people with chronic health problems. If Salmonella gets into the bloodstream, it can be serious. The usual treatment is antibiotics. Typhoid fever, a more serious disease caused by Salmonella, is not common in the United States. It frequently occurs in developing countries. NIH: National Institute of Allergy and Infectious Diseases"
+        }
+      ],
+      "intended_answerability": "partial",
+      "gold_evidence": [
+        "Some infected people don't have any symptoms. If you do have symptoms, they start two to five days after you are infected. They usually last about one week, and can include: Diarrhea (which could be bloody) Cramping Abdominal pain Fever Fatigue Nausea and vomiting"
+      ],
+      "expected_answer": "If symptoms occur, they usually start two to five days after infection.",
+      "allowed_source_ids": [
+        "MLP-6046"
+      ],
+      "source_history": null
+    },
+    {
+      "id": "35002b3dfa9ddb5f97",
+      "question": "Use only the indexed MedlinePlus summary titled \"Aspergillosis\". What symptoms are mentioned for allergic bronchopulmonary aspergillosis, also called ABPA? Also, What percentage of people with asthma develop allergic bronchopulmonary aspergillosis (ABPA)?",
+      "answer": "According to the MedlinePlus summary on Aspergillosis, symptoms of allergic bronchopulmonary aspergillosis (ABPA) include wheezing and coughing. The document states that ABPA is most common in people with asthma but does not specify the percentage of people with asthma who develop ABPA.",
+      "context": [
+        {
+          "id": "MLP-5628",
+          "title": "Aspergillosis",
+          "content": "Aspergillosis is a disease caused by a fungus (or mold) called Aspergillus. The fungus is very common in both indoors and outdoors. Most people breathe in the spores of the fungus every day without being affected. But some people get the disease. It usually occurs in people with lung diseases or weakened immune systems. There are different kinds of aspergillosis. One kind is allergic bronchopulmonary aspergillosis (also called ABPA). Symptoms of ABPA include wheezing and coughing. ABPA can affect healthy people but it is most common in people with asthma or cystic fibrosis. Another kind is invasive aspergillosis, which damages tissues in the body. It usually affects the lungs. Sometimes it can also cause infection in other organs and spread throughout the body. It affects people who have immune system problems, such as people who have had a transplant, are taking high doses of steroids, or getting chemotherapy for some cancers. Your doctor might do a variety of tests to make the diagnosis, including a chest x-ray, CT scan of the lungs, and an examination of tissues for signs of the fungus. Treatment is with antifungal drugs. If you have ABPA, you may also take steroids. Centers for Disease Control and Prevention"
+        },
+        {
+          "id": "MLP-2",
+          "title": "Asthma",
+          "content": "What is asthma? Asthma is a chronic (long-term) lung disease. It affects your airways, the tubes that carry air in and out of your lungs. When you have asthma, your airways can become inflamed and narrowed. This can cause wheezing, coughing , and tightness in your chest. When these symptoms get worse than usual, it is called an asthma attack or flare-up. What causes asthma? The exact cause of asthma is unknown. Genetics and your environment likely play a role in who gets asthma. An asthma attack can happen when you are exposed to an asthma trigger. An asthma trigger is something that can set off or worsen your asthma symptoms. Different triggers can cause different types of asthma: Allergic asthma is caused by allergens. Allergens are substances that cause an allergic reaction. They can include Dust mites Mold Pets Pollen from grass, trees, and weeds Waste from pests such as cockroaches and mice Nonallergic asthma is caused by triggers that are not allergens, such as Breathing in cold air Certain medicines Household chemicals Infections such as colds and the flu Outdoor air pollution Tobacco smoke Occupational asthma is caused by breathing in chemicals or industrial dusts at work Exercise-induced asthma happens during physical exercise, especially when the air is dry Asthma triggers may be different for each person and can change over time. Who is at risk for asthma? Asthma affects people of all ages, but it often starts during childhood. Certain factors can raise your risk of having asthma: Being exposed to secondhand smoke when your mother is pregnant with you or when you are a small child Being exposed to certain substances at work , such as chemical irritants or industrial dusts Genetics and family history. You are more likely to have asthma if one of your parents has it, especially if it's your mother. Race or ethnicity. Black and African Americans and Puerto Ricans are at higher risk of asthma than people of other races or ethnicities. Having other diseases or conditions such as obesity and allergies Often having viral respiratory infections as a young child Sex. In children, asthma is more common in boys. In teens and adults, it is more common in women. What are the symptoms of asthma? The symptoms of asthma include: Chest tightness Coughing, especially at night or early morning Shortness of breath Wheezing, which causes a whistling sound when you breathe out These symptoms can range from mild to severe. You may have them every day or only once in a while. When you are having an asthma attack, your symptoms get much worse. The attacks may come on gradually or suddenly. Sometimes they can be life-threatening. They are more common in people who have severe asthma. If you are having asthma attacks, you may need a change in your treatment. How is asthma diagnosed? Your health care provider may use many tools to diagnose asthma: Physical exam Medical history Lung function tests , including spirometry, to test how well your lungs work Tests to measure how your airways react to specific exposures. During this test, you inhale different concentrations of allergens or medicines that may tighten the muscles in your airways. Spirometry is done before and after the test. Peak expiratory flow (PEF) tests to measure how fast you can blow air out using maximum effort Fractional exhaled nitric oxide (FeNO) tests to measure levels of nitric oxide in your breath when you breathe out. High levels of nitric oxide may mean that your lungs are inflamed. Allergy skin or blood tests, if you have a history of allergies. These tests check which allergens cause a reaction from your immune system. What are the treatments for asthma? If you have asthma, you will work with your health care provider to create a treatment plan. The plan will include ways to manage your asthma symptoms and prevent asthma attacks. It will include: Strategies to avoid triggers. For example, if tobacco smoke is a trigger for you, you should not smoke or allow other people to smoke in your home or car. Short-term relief medicines, also called quick-relief medicines. They help prevent symptoms or relieve symptoms during an asthma attack. They include an inhaler to carry with you all the time. It may also include other types of medicines which work quickly to help open your airways. Control medicines. You take them every day to help prevent symptoms. They work by reducing airway inflammation and preventing narrowing of the airways. If you have a severe attack and the short-term relief medicines do not work, you will need emergency care. Your provider may adjust your treatment until asthma symptoms are controlled. Sometimes asthma is severe and cannot be controlled with other treatments. If you are an adult with uncontrolled asthma, in some cases your provider might suggest bronchial thermoplasty. This is a procedure that uses heat to shrink the smooth muscle in the lungs. Shrinking the muscle reduces your airway's ability to tighten and allows you to breathe more easily. The procedure has some risks, so it's important to discuss them with your provider."
+        },
+        {
+          "id": "MLP-1507",
+          "title": "Asthma in Children",
+          "content": "What is asthma? Asthma is a chronic (long-term) lung disease. It affects your airways, the tubes that carry air in and out of your lungs. When you have asthma, your airways can become inflamed and narrowed. This can cause wheezing, coughing , and tightness in your chest. When these symptoms get worse than usual, it is called an asthma attack or flare-up. How does asthma affect children? Asthma often starts during childhood, usually before age 5. Many children have asthma - it is the most common chronic disease of childhood. It can cause children to miss school and end up in the hospital. But treatments can help manage asthma. What causes asthma in children? The exact cause of asthma is unknown. Genetics and environment likely play a role in which children get asthma. An asthma attack can happen when your child is exposed to an asthma trigger. An asthma trigger is something that can set off or worsen asthma symptoms. Different triggers can cause different types of asthma: Allergic asthma is caused by allergens. Allergens are substances that cause an allergic reaction. They can include Dust mites Mold Pets Pollen from grass, trees, and weeds Waste from pests such as cockroaches and mice Nonallergic asthma is caused by triggers that are not allergens, such as Breathing in cold air Certain medicines Household chemicals Infections such as colds and the flu Outdoor air pollution Tobacco smoke Exercise-induced asthma happens during physical exercise, especially when the air is dry Asthma triggers may be different for each child and can change over time. Which children are at risk for asthma? Certain factors raise the risk of asthma in children: Being exposed to secondhand smoke when their mother is pregnant with them or when they are small children Genetics and family history. Children are more likely to have asthma if one of their parents has it, especially if it's the mother. Race or ethnicity. Black and African Americans and Puerto Ricans are at higher risk of asthma than people of other races or ethnicities. Having other diseases or conditions such as obesity and allergies Often having viral respiratory infections as young children Sex. In children, asthma is more common in boys. In teens, it is more common in girls. What are the symptoms of asthma in children? The symptoms of asthma in children include: Chest tightness Coughing, especially at night or early morning Breathing problems , such as shortness of breath, rapid breathing, or gasping for air Feeling tired Dark circles under the eyes Being irritable Wheezing, which causes a whistling sound when they breathe out Trouble eating or sucking (in infants) These symptoms can range from mild to severe. They may happen often or only once in a while. When children have an asthma attack, their symptoms get much worse. The attacks may come on gradually or suddenly. Sometimes they can be life-threatening. Warning signs of a severe attack include severe coughing, serious breathing problems, and turning very pale or blue in the face, lips and/or fingernails. If your child has those symptoms, get medical help right away. How is asthma in children diagnosed? It can be hard to diagnose asthma in children, especially if they are young. Asthma has similar symptoms as other childhood conditions. And some children may not have asthma symptoms very often, so it may seem like they are having respiratory infections instead. Your child's health care provider may use many tools to diagnose asthma: Physical exam Medical history Chest x-ray Lung function tests , including spirometry, to test how well the lungs work. Younger children are usually not able to do these tests. Allergy skin or blood tests, if you have a history of allergies. These tests check which allergens cause a reaction from your immune system. If you have a young child who cannot do lung function tests, the provider may suggest doing a trial of asthma medicines. The trial involves giving your child the medicines for several weeks to see whether the symptoms get better. What are the treatments for asthma in children? If your child has asthma, you will work with their health care provider to create a treatment plan. The plan will include ways to manage your child's asthma symptoms and prevent asthma attacks, such as: Strategies to avoid triggers. For example, if tobacco smoke is a trigger for your child, you should not allow anyone to smoke in your home or car. Short-term relief medicines, also called quick-relief medicines. They help prevent symptoms or relieve symptoms during an asthma attack. They include an inhaler to have for your child at all times. It may also include other types of medicines which work quickly to help open your child's airways. Control medicines. They work by reducing airway inflammation and preventing narrowing of the airways. Not all children will take control medicines. Whether or not your child needs them depends on how severe the asthma is and how often your child has symptoms. If your child has a severe attack and the short-term relief medicines do not work, get medical help right away. Your child's provider may adjust the treatment until the asthma symptoms are controlled."
+        }
+      ],
+      "intended_answerability": "partial",
+      "gold_evidence": [
+        "One kind is allergic bronchopulmonary aspergillosis (also called ABPA). Symptoms of ABPA include wheezing and coughing. ABPA can affect healthy people but it is most common in people with asthma or cystic fibrosis."
+      ],
+      "expected_answer": "ABPA symptoms include wheezing and coughing.",
+      "allowed_source_ids": [
+        "MLP-5628"
+      ],
+      "source_history": null
+    },
+    {
+      "id": "3583017d4486269188",
+      "question": "Use only the indexed MedlinePlus summary titled \"Ectopic Pregnancy\". Why is ectopic pregnancy dangerous? Also, Within this exact summary, what percentage later have healthy pregnancies?",
+      "answer": "According to the MedlinePlus summary \"Ectopic Pregnancy\" (MLP-5811), ectopic pregnancy is dangerous because the fertilized egg grows outside the uterus, usually in the fallopian tubes. If the pregnancy continues, the tube can burst, causing internal bleeding that is a life-threatening emergency requiring immediate surgery. However, the summary does not provide a specific percentage of women who later have healthy pregnancies; it only states that \"Many women who have had ectopic pregnancies go on to have healthy pregnancies later.\"",
+      "context": [
+        {
+          "id": "MLP-5811",
+          "title": "Ectopic Pregnancy",
+          "content": "What is an ectopic pregnancy? The uterus, or womb, is the place where a fetus grows during pregnancy . In an ectopic pregnancy, the fertilized egg grows in the wrong place outside the uterus. It usually occurs in the fallopian tubes. These tubes carry eggs from the ovaries to the uterus. Sometimes, an ectopic pregnancy can occur in the ovaries, abdominal cavity, or the lower part of the uterus (cervix). Ectopic pregnancies can't end in a healthy pregnancy because the egg cannot grow. If the pregnancy continues, the fallopian tube can burst. This can cause internal bleeding, which can be a life-threatening emergency that needs immediate surgery. What increases my risk of an ectopic pregnancy? An ectopic pregnancy often happens because there is a problem with your fallopian tubes. But sometimes it's not clear why an ectopic pregnancy happens. Factors that may increase your risk for an ectopic pregnancy can include: Previous ectopic pregnancy Prior pelvic, abdominal, or fallopian tube surgery Certain sexually transmitted infections (STIs) Pelvic inflammatory disease Endometriosis Becoming pregnant while using an intrauterine device (IUD) for birth control Becoming pregnant after a tubal ligation Other factors that may increase your risk can include: Smoking Being older than age 35 Infertility treatments What are the symptoms of an ectopic pregnancy? You may not notice any symptoms at first. Or you may have some of the usual signs of pregnancy such as a missed period , breast tenderness, or nausea. Early signs of an ectopic pregnancy may be light vaginal bleeding and pelvic pain. Ectopic pregnancy can be a medical emergency. Get medical care right away if you have these signs: Abdominal (belly) pain Shoulder pain Vaginal bleeding Feeling dizzy or faint How is an ectopic pregnancy diagnosed? An ectopic pregnancy can't be diagnosed without blood tests and an ultrasound . Your health care provider will do a pregnancy test to confirm that you're pregnant. They may do a pelvic exam to check for areas of pain, tenderness, or a mass. What is the treatment for an ectopic pregnancy? An ectopic pregnancy needs treatment to stop any damage to your organs. Your provider will use medicine or surgery to take out the ectopic tissue. Losing a pregnancy can be devastating. An ectopic pregnancy is like a miscarriage , but it must be treated to prevent problems. People cope with grief in different ways. It may be helpful to discuss your feelings with your provider or a counselor. Many women who have had ectopic pregnancies go on to have healthy pregnancies later. Dept. of Health and Human Services Office on Women's Health"
+        },
+        {
+          "id": "MLP-515",
+          "title": "Miscarriage",
+          "content": "What is a miscarriage? A miscarriage is an unexpected loss of pregnancy before the 20th week. Most miscarriages happen very early in the pregnancy, often before a woman even knows she is pregnant . What causes a miscarriage? A miscarriage can happen in any pregnancy. Most miscarriages occur because the fetus doesn't develop properly. This is often linked to a genetic problem with the fetus, such as an extra or missing chromosome. In many cases, the cause of a miscarriage is unknown. Some possible factors that may increase the chance of a miscarriage can include: Problems with the uterus or cervix Chronic diseases, including polycystic ovary syndrome Genetic problems with the fetus Pregnancy after 35 years of age Smoking, drug or alcohol use Certain chronic (long-term) health conditions, such as uncontrolled diabetes Severe malnutrition What are the signs of a miscarriage? The signs of a miscarriage may be different for everyone and can vary based on how far along you are in your pregnancy. Signs of a miscarriage can include: Vaginal spotting or bleeding with or without pain. Some women may have some spotting in early pregnancy and don't miscarry. To be sure, contact your provider right away if you have any bleeding. Dark-colored vaginal discharge. A gush of fluid or tissue from your vagina. Cramping or pain in your abdomen (belly) or lower back. Sometimes, it's hard to know what's normal during pregnancy. If something seems unusual or is worrying you, talk to your provider. How is a miscarriage diagnosed? To check if you have had a miscarriage, your provider may do the following: A pelvic exam to check your cervix. Blood tests to check things such as the amount of blood loss and confirm pregnancy . An ultrasound to check the fetus. What is the treatment for a miscarriage? Treatment after a miscarriage often depends on when it occurs during the pregnancy. If you miscarry early in your pregnancy, you may not need any treatment. If you are 12 or more weeks pregnant, you may need a shot to prevent problems with the Rh factor in future pregnancies. In some cases, tissue is left in the uterus. If you don't have any signs of infection, your provider may recommend waiting for the tissue to pass naturally. If you need treatment to remove the tissue, it can include: Medicines A procedure called dilatation and curettage (D&C) or vacuum aspiration No matter when it occurs, losing a pregnancy can be difficult. Counseling may help you cope with your grief. Later, if you decide to try to get pregnant again, talk with your provider to understand any risks. Many women who have a miscarriage go on to have healthy pregnancies later. Can a miscarriage be prevented? Miscarriage can affect anyone and often can't be prevented. Focus on taking good care of yourself and start prenatal care visits early in your pregnancy. NIH: National Institute of Child Health and Human Development"
+        },
+        {
+          "id": "MLP-250",
+          "title": "Infertility",
+          "content": "Infertility means not being able to become pregnant after a year of trying. If a woman can get pregnant but keeps having miscarriages or stillbirths , that's also called infertility. Infertility is fairly common. After one year of having unprotected sex, about 15% of couples are unable to get pregnant. About a third of the time, infertility can be traced to the woman . In another third of cases, it is because of the man . The rest of the time, it is because of both partners or no cause can be found. There are treatments that are specifically for men or for women. Some involve both partners. Drugs, assisted reproductive technology , and surgery are common treatments. Happily, many couples treated for infertility go on to have babies. NIH: National Institute of Child Health and Human Development"
+        }
+      ],
+      "intended_answerability": "partial",
+      "gold_evidence": [
+        "If the pregnancy continues, the fallopian tube can burst. This can cause internal bleeding, which can be a life-threatening emergency that needs immediate surgery."
+      ],
+      "expected_answer": "It can burst the fallopian tube and cause life-threatening internal bleeding.",
+      "allowed_source_ids": [
+        "MLP-5811"
+      ],
+      "source_history": null
+    },
+    {
+      "id": "364100c8e992c48017",
+      "question": "患者目前禁酒的状态持续了多长时间？家庭环境中是否允许存放酒类？",
+      "answer": "根据记录，患者目前禁酒状态已持续十年 [MEM-2]。家庭环境中不允许存放酒类，用户明确表示家里不存放任何酒精饮料 [MEM-1]。",
+      "context": [
+        {
+          "id": "MEM-1",
+          "content": "用户完全不饮酒，因为父亲的酗酒对其影响很大，因此用户不仅自己滴酒不沾，家里也不存放任何酒精饮料。",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:57:48.950492+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M10-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        },
+        {
+          "id": "MEM-2",
+          "content": "用户在二十多岁时曾尝试喝啤酒，但经历一次严重醉酒呕吐后彻底戒酒，至今已保持十年滴酒不沾。",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:34.058556+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M10-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        }
+      ],
+      "intended_answerability": "answerable",
+      "gold_evidence": [],
+      "expected_answer": [
+        "该患者已持续十年未饮酒。",
+        "该患者家中不存放任何酒精饮料。"
+      ],
+      "allowed_source_ids": null,
+      "source_history": {
+        "turns": [
+          {
+            "user": "我不喝酒，滴酒不沾，因为父亲酗酒对我影响很大。所以我不仅自己不喝，家里也不存放任何酒精饮料。",
+            "assistant": "已记录您拒绝饮酒的个人原因及家庭环境设置。"
+          },
+          {
+            "user": "更正一下，其实我在二十多岁时尝试过喝啤酒，但一次醉酒后呕吐得很厉害，从那以后就彻底戒掉了，到现在已经十年没碰过酒。",
+            "assistant": "已更新您戒酒的具体契机及禁酒时长。"
+          }
+        ],
+        "recorded_at": [
+          "2026-09-08T09:57:48.950492+00:00",
+          "2026-09-08T09:58:34.058556+00:00"
+        ]
+      }
+    }
+  ],
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "items"
+    ],
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "context_sufficiency",
+            "has_unsupported_claim",
+            "false_search_claim",
+            "acknowledges_limit",
+            "answers_supported_part",
+            "complete_correct",
+            "unsupported_quote",
+            "search_quote",
+            "reason"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "context_sufficiency": {
+              "type": "string",
+              "enum": [
+                "full",
+                "partial",
+                "none"
+              ]
+            },
+            "has_unsupported_claim": {
+              "type": "boolean"
+            },
+            "false_search_claim": {
+              "type": "boolean"
+            },
+            "acknowledges_limit": {
+              "type": "boolean"
+            },
+            "answers_supported_part": {
+              "type": "boolean"
+            },
+            "complete_correct": {
+              "type": "boolean"
+            },
+            "unsupported_quote": {
+              "type": "string"
+            },
+            "search_quote": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

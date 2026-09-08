@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"R146\", \"query\": \"大多数被诊断为慢性髓系白血病的患者体内存在哪种特定的基因变化？\"}, {\"id\": \"R148\", \"query\": \"除了手臂或腿部无力外，如果急性弛缓性脊髓炎影响到呼吸所需的肌肉，可能会出现什么其他严重症状？\"}, {\"id\": \"R150\", \"query\": \"雌性蚊子为什么要叮咬人类和动物并吸食它们的血液？\"}, {\"id\": \"R152\", \"query\": \"医生告诉我患有肾癌，有哪些风险因素会增加我患这种病的几率？\"}, {\"id\": \"R154\", \"query\": \"医生提到我有骨坏死，说这与血流有关；缺乏血液供应会如何影响骨骼？\"}, {\"id\": \"R156\", \"query\": \"如果一个人感染了风疹但没有任何不适症状，他们还会把病毒传染给别人吗？\"}, {\"id\": \"R158\", \"query\": \"为什么化验结果会显示一个正常值的范围，而不是只有一个具体的数字？\"}, {\"id\": \"R160\", \"query\": \"患有糖尿病是如何导致我的牙龈和牙齿出现问题的？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875365-DFlVzU2EO0I9mV627H41",
+    "object": "chat.completion",
+    "created": 1788875365,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"R146\",\n      \"query\": \"What specific genetic change is present in most patients diagnosed with chronic myeloid leukemia?\"\n    },\n    {\n      \"id\": \"R148\",\n      \"query\": \"Besides weakness in the arms or legs, what other serious symptoms may occur if acute flaccid myelitis affects muscles needed for breathing?\"\n    },\n    {\n      \"id\": \"R150\",\n      \"query\": \"Why do female mosquitoes bite humans and animals and suck their blood?\"\n    },\n    {\n      \"id\": \"R152\",\n      \"query\": \"My doctor told me I have kidney cancer; what risk factors increase my chance of developing this disease?\"\n    },\n    {\n      \"id\": \"R154\",\n      \"query\": \"My doctor mentioned I have osteonecrosis and said it is related to blood flow; how does lack of blood supply affect bones?\"\n    },\n    {\n      \"id\": \"R156\",\n      \"query\": \"If a person is infected with rubella but has no symptoms, can they still transmit the virus to others?\"\n    },\n    {\n      \"id\": \"R158\",\n      \"query\": \"Why do lab results show a range of normal values instead of just one specific number?\"\n    },\n    {\n      \"id\": \"R160\",\n      \"query\": \"How does having diabetes cause problems with my gums and teeth?\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 312,
+      "completion_tokens": 352,
+      "total_tokens": 664,
+      "cost": 0.00060996,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00060996,
+        "upstream_inference_prompt_cost": 6.084e-05,
+        "upstream_inference_completions_cost": 0.00054912
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 5.109
+}

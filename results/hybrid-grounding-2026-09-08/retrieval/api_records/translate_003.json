@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"R050\", \"query\": \"除了骨折外，还有一种颌骨损伤会导致关节将骨头末端推离正常位置，那是什么？\"}, {\"id\": \"R052\", \"query\": \"如果我怀疑某人正在中风，我应该立即采取什么紧急行动？\"}, {\"id\": \"R054\", \"query\": \"患有雷特综合征的婴儿通常在多大时停止发育并开始丧失之前掌握的技能？\"}, {\"id\": \"R056\", \"query\": \"涉及热液体或火灾的最常见烧伤原因是什么？\"}, {\"id\": \"R058\", \"query\": \"除了无人看管的营火等意外事故外，还有什么故意行为会导致野火？\"}, {\"id\": \"R060\", \"query\": \"对于患有糖尿病的孕妇来说，控制血糖水平如何影响她宝宝患心脏缺陷的风险？\"}, {\"id\": \"R062\", \"query\": \"如果我患有软骨发育不全，这是最常见的侏儒症类型，它通常如何影响我的手臂和腿部大小与头部和躯干的比较？\"}, {\"id\": \"R064\", \"query\": \"为了在家安全使用医疗设备，关于随设备附带的说明书，一个重要的步骤是什么？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875352-QC4qm8AI1Y4PEHGJanwG",
+    "object": "chat.completion",
+    "created": 1788875352,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "\"{\"",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 325,
+      "completion_tokens": 3,
+      "total_tokens": 328,
+      "cost": 0.0001047,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0001047,
+        "upstream_inference_prompt_cost": 9.75e-05,
+        "upstream_inference_completions_cost": 7.2e-06
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 5.297
+}

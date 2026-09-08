@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"R002\", \"query\": \"我有糖尿病，很担心肾脏问题。既然早期肾病通常没有症状，那么有什么方法能知道我的肾脏功能如何？\"}, {\"id\": \"R004\", \"query\": \"我的朋友目前无家可归，我很担心他的健康状况。无家可归的人通常会面临哪些常见的健康问题？\"}, {\"id\": \"R006\", \"query\": \"我想开始更健康的生活方式以降低患心脏病的风险。我可以改变哪些日常习惯来让我感觉更好？\"}, {\"id\": \"R008\", \"query\": \"我即将开始化疗，我很担心副作用。由于治疗可能会伤害健康细胞，可能会出现哪些常见的副作用？\"}, {\"id\": \"R010\", \"query\": \"我被诊断出患有慢性肾脏病。导致这种疾病的两个最常见原因是什么？\"}, {\"id\": \"R012\", \"query\": \"我担心一次给孩子打几针疫苗会让他们免疫系统不堪重负。这是真的吗？\"}, {\"id\": \"R014\", \"query\": \"脓肿里的脓液具体是由什么组成的？\"}, {\"id\": \"R016\", \"query\": \"如果我患有干性黄斑变性，我在看直线时可能会注意到什么样的视觉扭曲？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875350-4RLjzX4L6PJ9SjDLSF1n",
+    "object": "chat.completion",
+    "created": 1788875350,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"R002\",\n      \"query\": \"I have diabetes and am very concerned about kidney problems. Since early kidney disease is usually asymptomatic, what methods are there to know how my kidney function is?\"\n    },\n    {\n      \"id\": \"R004\",\n      \"query\": \"My friend is currently homeless, and I am very concerned about his health. What common health problems do homeless people typically face?\"\n    },\n    {\n      \"id\": \"R006\",\n      \"query\": \"I want to start a healthier lifestyle to reduce the risk of heart disease. What daily habits can I change to feel better?\"\n    },\n    {\n      \"id\": \"R008\",\n      \"query\": \"I am about to start chemotherapy and am very concerned about side effects. Since treatment may harm healthy cells, what common side effects may occur?\"\n    },\n    {\n      \"id\": \"R010\",\n      \"query\": \"I have been diagnosed with chronic kidney disease. What are the two most common causes of this disease?\"\n    },\n    {\n      \"id\": \"R012\",\n      \"query\": \"I am worried that giving a child several vaccine shots at once will overwhelm their immune system. Is this true?\"\n    },\n    {\n      \"id\": \"R014\",\n      \"query\": \"What exactly is the pus in an abscess composed of?\"\n    },\n    {\n      \"id\": \"R016\",\n      \"query\": \"If I have dry age-related macular degeneration, what kind of visual distortion might I notice when looking at straight lines?\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 330,
+      "completion_tokens": 385,
+      "total_tokens": 715,
+      "cost": 0.00066495,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00066495,
+        "upstream_inference_prompt_cost": 6.435e-05,
+        "upstream_inference_completions_cost": 0.0006006
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 7.531
+}

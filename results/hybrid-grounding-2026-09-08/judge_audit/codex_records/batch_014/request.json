@@ -1,0 +1,289 @@
+{
+  "model": "gpt-5.5",
+  "instruction": "Audit answers for faithfulness to supplied evidence, not for whether outside medical knowledge makes a claim plausible.\nThe answerer had ONLY these source excerpts/memories. No external search occurred. Source IDs and answer method names must not affect scoring.\nEach item gives question, answer, context, gold evidence/expected answer when available, intended answerability and allowed_source_ids when source-scoped.\nOnly allowed sources can support a source-scoped answer. For memories, preserve who, when, negation and uncertainty; assistant suggestions are not user facts.\nFor memory items, source_history contains the authoritative original user turns and recording timestamps. If a recalled memory or answer distorts them, mark the answer's distorted claim unsupported even if the retrieved memory contains it. Check absolute years against relative dates and timestamps; do not assume old authored years are correct.\nReturn JSON {\"items\":[{\"id\":same ID,\"context_sufficiency\":\"full|partial|none\",\n\"has_unsupported_claim\":boolean,\"unsupported_quote\":\"verbatim answer substring or empty\",\n\"false_search_claim\":boolean,\"search_quote\":\"verbatim answer substring or empty\",\n\"acknowledges_limit\":boolean,\"answers_supported_part\":boolean,\"complete_correct\":boolean,\"reason\":\"short explanation\"}]}.\nhas_unsupported_claim: any factual medical/personal/quantitative statement asserted without support in eligible context, or contradicting it.\nGeneric advice to consult a professional is allowed; clearly conditional questions are not invented history. A disclaimer does not erase an unsupported claim elsewhere.\nfalse_search_claim: claims to have searched external databases, verified approvals, or exhaustively established absence beyond these excerpts. 'The supplied materials do not state X' is valid. 'PubMed has no studies' without actual search evidence is invalid, even if the answer also says no evidence.\nacknowledges_limit: explicitly acknowledges missing requested evidence or inability to determine it, not just a generic disclaimer.\nanswers_supported_part: supplies the actual requested supported fact(s), not just a relevant topic summary. For intended unanswerable/needs_history set false.\ncomplete_correct: all answerable requested facts correct and supported, plus explicit limitation for missing parts; fully unanswerable cases require clear limitation without invented specifics. If has_unsupported_claim or false_search_claim is true, complete_correct MUST be false.\nFor partial cases, merely refusing everything is incomplete. For answerable cases, merely refusing is incomplete even if retrieval failed.\nGold evidence guides the requested facts but irrelevant sentences in a long excerpt need not be repeated. Alternative eligible sources may support correct answers.\nUnsupported/search quotes must be exact answer substrings when the corresponding flag is true, empty otherwise. Read the whole answer.\nCalibration clarification v2: distinguish invented facts from unnecessary refusal.\nA refusal ('cannot determine'), conservative uncertainty, or failure to select a later correction is NOT by itself an affirmative fabricated medical/personal fact: set complete_correct false if the answer omits available requested information, but do NOT set has_unsupported_claim just for the refusal.\nAn answer that asserts the obsolete value as current despite a later correction DOES contain an unsupported/contradicted factual claim.\ncontext_sufficiency must cover the ENTIRE actual question: if it asks for an undisclosed invoice number, no amount of related medical history makes that number available; mark none if only the invoice is requested, partial if the question also requests an available medical fact.\nFor fully unanswerable questions, answers_supported_part must be false; complete_correct can be true if it acknowledges the missing requested information and adds no unsupported factual claims.\nKeep all six boolean fields as JSON true/false, not strings. Always include both quote fields, using empty strings for false flags.\nIndependently review each item. Only the context field was shown to the answerer.\nGold evidence and expected answers are evaluator references, NOT additional retrieved context.\nIf gold evidence is absent from context, an admission of missing information is not hallucination or a false search claim.\nRead all context documents before judging. Do not mark a statement unsupported merely because one gold excerpt is narrower.\nAn explicit claim about what the provided documents contain is not a claim of external database search.\nAn answer may fail completeness without fabricating facts. Preserve this distinction rigorously.",
+  "input": [
+    {
+      "id": "ee9eb20da51cd59a09",
+      "question": "I have two separate questions: My doctor mentioned I might have GERD. How does stomach acid affect my esophagus in this condition? My baby has cradle cap on their scalp. What is a simple daily routine to help manage it at home?",
+      "answer": "In GERD, stomach acid flows back into the esophagus because the lower esophageal sphincter is weak or relaxes inappropriately. This acid can irritate the esophagus lining, causing symptoms like heartburn, pain, and potentially leading to inflammation, scarring, or Barrett's esophagus over time [MLP-6521][MLP-512]. Regarding cradle cap, the provided documents do not contain information on a daily routine to manage it at home; they only discuss reflux and GERD in children and infants.",
+      "context": [
+        {
+          "id": "MLP-6521",
+          "title": "Reflux in Children",
+          "content": "What is reflux (GER) and GERD? Gastroesophageal reflux (GER), often called reflux, occurs when food or stomach acid flows back from your child's stomach into the esophagus. The esophagus is the tube that carries food from your mouth to your stomach. This can sometimes cause irritation or a burning sensation. Occasional reflux is common and usually not a problem. Gastroesophageal reflux disease ( GERD ) is a more serious and long-lasting type of reflux. GERD can cause repeated symptoms or damage to the lining of the esophagus. Having reflux two or more times a week may be a sign of GERD. Your child's health care provider may diagnose GERD if the reflux causes pain, feeding problems, or irritation of the esophagus. What causes reflux and GERD in children? A small muscle called the lower esophageal sphincter acts as a valve between the esophagus and stomach. When your child swallows, this muscle relaxes to let food pass from the esophagus to the stomach. This muscle normally stays closed, so the stomach contents and acid don't flow back into the esophagus. This muscle, along with the diaphragm (the large muscle between the chest and abdomen), usually prevents reflux. It's normal for children to have reflux occasionally. In children who have GERD, the lower esophageal sphincter may be weak or relax when it shouldn't. That allows stomach contents into the esophagus. This can happen because of: A hiatal hernia , a condition in which the upper part of the stomach pushes up into the chest Increased pressure on the abdomen (belly) from being overweight or having obesity Certain medicines, such as some used to treat asthma , allergies , depression , or pain Smoking or exposure to secondhand smoke Previous surgery on the esophagus or upper abdomen Developmental delays or certain neurological conditions , such as cerebral palsy Lung conditions, such as cystic fibrosis How common are reflux and GERD in children? Many children have occasional reflux, especially after large meals or physical activity. GERD is less common, and most symptoms improve with time and lifestyle changes. What are the symptoms of reflux and GERD in children? Symptoms may vary by age. Some children might not even notice reflux, while others may taste food or stomach acid in the back of their mouth. In children, GERD can cause: Heartburn , a burning feeling in the chest or throat (more common in older children and teens) Bad breath Nausea or vomiting Trouble or pain when swallowing Cough , hoarseness, or breathing problems Wearing away of tooth enamel from stomach acid Other conditions can cause similar symptoms. Talk to your child's provider if symptoms happen often or make eating, sleeping, or daily activities difficult. How are reflux and GERD diagnosed in children? In most cases, your child's provider can tell if it's reflux by learning about your child's symptoms and health history. Tests are usually needed only if symptoms don't get better with lifestyle changes or medicines, or if another health problem is suspected. Common tests include: Upper GI series , which looks at the shape of your child's upper GI (gastrointestinal) tract. Your child will drink or eat a chalky-tasting liquid called barium. For young children, the barium is mixed in with a bottle or other food. Several x-rays are taken to track the barium as it goes through your child's esophagus and stomach. Esophageal pH and impedance monitoring , which measures the amount of acid or liquid in your child's esophagus. A thin flexible tube is placed through their nose into the stomach. The end of the tube in the esophagus measures when and how much acid comes up into the esophagus. The other end of the tube attaches to a monitor that records the measurements. Your child will wear the tube for 24 hours. They may need to stay in the hospital during the test. Upper gastrointestinal (GI) endoscopy and biopsy , which uses an endoscope, a long, flexible tube with a light and camera at the end of it. An endoscope is inserted down your child's esophagus, stomach, and first part of the small intestine. While looking at the pictures from the endoscope, tissue samples (biopsy) may be taken. What lifestyle changes can help treat my child's reflux or GERD? Simple lifestyle changes can often improve symptoms. Examples include: Maintaining a healthy weight. Eating smaller meals. Avoiding high-fat foods or other trigger foods that cause symptoms. Wearing loose-fitting clothing around the abdomen (belly). Staying upright for 3 hours after meals and avoiding slouching when sitting. Sleeping with the head of the bed raised 6 to 8 inches. What are the treatments for my child's GERD? If lifestyle changes aren't enough, your provider may recommend medicine to reduce stomach acid. The medicines work by lowering the amount of acid your child's stomach makes. Some are available over-the-counter , while others need a prescription. Do not give your child any medicine unless your provider recommends it. If symptoms don't get better or are severe, your provider may refer you to a doctor who treats stomach and digestion problems in children. In rare cases, surgery may be considered. If GERD isn't treated, it can cause problems such as inflammation or scarring in the esophagus, changes in its lining (Barrett's esophagus), or make breathing problems, like asthma, worse. NIH: National Institute of Diabetes and Digestive and Kidney Diseases"
+        },
+        {
+          "id": "MLP-512",
+          "title": "GERD",
+          "content": "What is GERD? Sometimes, after eating a large meal or lying down too soon after eating, you might feel acid coming up into your throat. This is called gastroesophageal reflux (GER). It happens when the muscle at the end of your esophagus (the tube that carries food from your mouth to your stomach) doesn't close properly. Stomach contents can then move back up and irritate the esophagus. Having reflux occasionally is common. But if you have symptoms two or more times a week or if they cause damage to the lining of your esophagus, you may have gastroesophageal reflux disease (GERD). GERD is a chronic (long-lasting) condition that can cause discomfort and, over time, lead to other health problems. Anyone can have GERD, including infants and children . What causes GERD? GERD can happen when the muscle at the bottom of your esophagus becomes weak or relaxes at the wrong time. You are more likely to have GERD if you: Are overweight or have obesity Are pregnant Smoke or are around secondhand smoke Have a hiatal hernia (when part of the stomach pushes up into the chest) Certain foods, drinks, or medicines can also make GERD worse. What are common symptoms of GERD? The most common symptom of GERD is heartburn . This is a burning feeling in your chest or throat. You can also have GERD without having heartburn. Other symptoms may include: Tasting acid or food in the back of your mouth A dry cough or hoarse voice Asthma -like symptoms Trouble swallowing Get medical help right away if you have chest pain with shortness of breath , or pain in your jaw or arm. These can be signs of a heart problem. How is GERD diagnosed? Your health care provider will ask about your symptoms and medical history. They may recommend tests such as: Upper GI endoscopy to look at the esophagus and stomach lining with a tiny camera. Biopsy to check a small tissue sample. X-Ray to take pictures of the upper digestive system. Esophageal pH test to measure how often acid backs up the esophagus and how long the acid stays there. Esophageal manometry to check how well your esophagus moves food when you swallow. Transnasal esophagoscopy to look for damage to the esophagus by using a small tube with a camera. How is GERD treated? Most people can manage GERD with lifestyle changes and medicine. In rare cases, surgery is needed. Lifestyle changes can include: Eating smaller meals and avoiding lying down for at least 2-3 hours after eating Avoiding foods that trigger symptoms, such as spicy foods, chocolate, caffeine, or fatty foods Losing weight if needed Raising the head of your bed Quitting smoking Medicines can include: Over-the-counter medicines , such as antacids Prescription medicines If not treated, GERD can cause problems like inflammation of the esophagus , scarring, or changes in the tissue lining (Barrett's esophagus). It can also worsen asthma or cause chronic (long-term) cough or hoarseness. Can GERD be prevented? You may be able to improve symptoms of GERD by: Avoiding alcohol and trigger foods Eating smaller meals Not eating close to bedtime Wearing loose-fitting clothes Sleeping on your left side or raising the head of your bed Maintaining a healthy weight NIH: National Institute of Diabetes and Digestive and Kidney Diseases"
+        },
+        {
+          "id": "MLP-6467",
+          "title": "Reflux in Infants",
+          "content": "What is reflux (GER) and GERD? Gastroesophageal reflux (GER), often called reflux or spitting up, happens when food or milk comes back up from your baby's stomach into the esophagus. The esophagus is the tube that carries food from your mouth to your stomach. Reflux is very common in healthy babies. It usually starts to get better by 6 months of age and goes away by 12 months. Reflux that continues after 18 months is unusual. Gastroesophageal reflux disease ( GERD ) is a more serious and long-lasting type of reflux. It can cause feeding problems, discomfort, or other symptoms that affect your baby's growth or sleep. Babies may have GERD if symptoms prevent them from feeding well or last longer than 12 to 14 months. What causes reflux and GERD in infants? There is a muscle (the lower esophageal sphincter) that acts as a valve between the esophagus and stomach. When your baby swallows, this muscle relaxes to let food pass from the esophagus to the stomach. This muscle normally stays closed, so the stomach contents don't flow back into the esophagus. In babies who have reflux, this muscle is not fully developed and lets the stomach contents back up the esophagus. This causes your baby to spit up (regurgitate). As your baby grows and the sphincter muscle fully develops, your baby should no longer spit up. In babies who have GERD, the sphincter muscle becomes weak or relaxes when it shouldn't. This allows stomach contents to come up more often or cause irritation. How common are reflux and GERD in infants? Reflux is very common in babies and usually goes away on its own. Most babies spit up several times a day during their first 3 months. They usually stop spitting up between the ages of 12 and 14 months. GERD is less common. Babies may show symptoms, but they decrease with growth, with only a small number of babies affected by 12 months. Babies are more likely to have reflux or GERD if they: Were born too early ( premature ) Have lung problems, such as cystic fibrosis Have conditions that affect the nervous system, such as cerebral palsy Have a hiatal hernia (when part of the stomach pushes up into the chest) Have had surgery on the esophagus What are the symptoms of reflux and GERD in infants? In babies, the main symptom of reflux and GERD is spitting up. GERD may also cause symptoms such as: Arching of the back, often during or right after eating Coughing Gagging or trouble swallowing Irritability or crying, especially after eating Poor eating or refusing to eat Not gaining enough weight or losing weight Wheezing or trouble breathing Forceful or frequent vomiting Other conditions can cause similar symptoms. Contact your baby's health care provider if your baby has symptoms, especially if your baby isn't gaining weight. How are reflux and GERD diagnosed in infants? In most cases, your provider diagnoses reflux by reviewing your baby's symptoms and medical history. Testing is only needed if symptoms don't get better with feeding changes or medicines, or if there are other health concerns. Several tests can help your provider diagnose GERD. Sometimes more than one test may be ordered to get a diagnosis. Common tests include: Upper GI series , which looks at the shape of your baby's upper GI (gastrointestinal) tract. Your baby will drink or eat a chalky-tasting liquid called barium. The barium is mixed in with a bottle or other food. Several x-rays are taken to track the barium as it goes through your baby's esophagus and stomach. Esophageal pH or impedance monitoring , which measures the amount of acid or liquid in your baby's esophagus. A thin flexible tube is placed through your baby's nose into the stomach. The end of the tube in the esophagus measures when and how much acid comes up into the esophagus. The other end of the tube attaches to a monitor that records the measurements. Your baby will wear this for 24 hours, most likely in the hospital. Upper gastrointestinal (GI) endoscopy and biopsy , which uses an endoscope, a long, flexible tube with a light and camera at the end of it. An endoscope is inserted down your baby's esophagus, stomach, and first part of the small intestine. While looking at the pictures from the endoscope, tissue samples ( biopsy ) may be taken. What feeding changes can help treat my infant's reflux or GERD? Simple feeding changes may help reduce your baby's reflux: Add rice cereal to your baby's bottle of formula or breastmilk. Check with your provider about how much to add. If the mixture is too thick, you can change the nipple size or cut a little \"x\" in the nipple to make the opening larger. Burp your baby after every 1 to 2 ounces of formula. If you breastfeed, burp your baby after nursing from each breast. Avoid overfeeding; give your baby the amount of formula or breast milk recommended. Hold your baby upright for 30 minutes after feedings. If you use formula and your provider thinks that your baby may be sensitive to milk protein, they may suggest switching to a different type of formula. Do not change formulas without talking to your provider. What are the treatments for my infant's GERD? If feeding changes do not help enough, your provider may recommend medicines to reduce stomach acid. Medicines aren't usually needed, and are only suggested if your baby still has regular GERD symptoms and: You have already tried some feeding changes Your baby has problems sleeping or feeding Your baby does not grow or gain weight properly Acid-blocking medicines may be given for a short time to see if they help. You shouldn't give your baby any medicines unless your provider tells you to. If medicines don't help and your baby still has severe symptoms, your provider might talk to you about surgery. Surgery is rarely needed for babies with GERD. It may be considered only if reflux causes serious breathing problems or if your baby isn't gaining enough weight. NIH: National Institute of Diabetes and Digestive and Kidney Diseases"
+        }
+      ],
+      "intended_answerability": "answerable",
+      "gold_evidence": [
+        "Stomach acid can move back up and irritate the esophagus.",
+        "Normally, washing your baby's hair every day with a mild shampoo and gently rubbing their scalp with your fingers or a soft brush can help."
+      ],
+      "expected_answer": "",
+      "allowed_source_ids": null,
+      "source_history": null
+    },
+    {
+      "id": "eff8202ad8713accc1",
+      "question": "What causes jaundice to turn the skin and whites of the eyes yellow?",
+      "answer": "Jaundice turns the skin and whites of the eyes yellow due to an excess of bilirubin, a yellow chemical found in hemoglobin. As red blood cells break down, the liver processes them; if the liver cannot handle this process, bilirubin builds up in the body, causing the yellowing [MLP-4452].",
+      "context": [
+        {
+          "id": "MLP-4452",
+          "title": "Jaundice",
+          "content": "Jaundice causes your skin and the whites of your eyes to turn yellow. Too much bilirubin causes jaundice. Bilirubin is a yellow chemical in hemoglobin, the substance that carries oxygen in your red blood cells. As red blood cells break down, your body builds new cells to replace them. The old ones are processed by the liver. If the liver cannot handle the blood cells as they break down, bilirubin builds up in the body and your skin may look yellow. Many healthy babies have some jaundice during the first week of life. It usually goes away. However, jaundice can happen at any age and may be a sign of a problem. Jaundice can happen for many reasons, such as: Blood diseases Genetic syndromes Liver diseases, such as hepatitis or cirrhosis Blockage of bile ducts Infections Medicines"
+        },
+        {
+          "id": "MLP-4645",
+          "title": "Gallbladder Cancer",
+          "content": "Your gallbladder is a pear-shaped organ under your liver. It stores bile, a fluid made by your liver to digest fat. As your stomach and intestines digest food, your gallbladder releases bile through a tube called the common bile duct. The duct connects your gallbladder and liver to your small intestine. Cancer of the gallbladder is rare. It is more common in women and Native Americans. Symptoms include Jaundice (yellowing of the skin and whites of the eyes) Pain above the stomach Fever Nausea and vomiting Bloating Lumps in the abdomen It is hard to diagnose gallbladder cancer in its early stages. Sometimes doctors find it when they remove the gallbladder for another reason. But people with gallstones rarely have gallbladder cancer. Because it is often found late, it can be hard to treat gallbladder cancer. Treatment options include surgery, chemotherapy, radiation, or a combination. NIH: National Cancer Institute"
+        },
+        {
+          "id": "MLP-310",
+          "title": "Liver Diseases",
+          "content": "Your liver is the largest organ inside your body. It helps your body digest food, store energy, and remove poisons. There are many kinds of liver diseases: Diseases caused by viruses, such as hepatitis A , hepatitis B , and hepatitis C . Diseases caused by drugs, poisons, or too much alcohol. Examples include steatotic liver disease and cirrhosis . Liver cancer . Inherited diseases, such as hemochromatosis and Wilson disease . Symptoms of liver disease can vary, but they often include swelling of the abdomen and legs, bruising easily, changes in the color of your stool and urine, and jaundice , or yellowing of the skin and eyes. Sometimes there are no symptoms. Tests such as imaging tests and liver function tests can check for liver damage and help to diagnose liver diseases."
+        }
+      ],
+      "intended_answerability": "answerable",
+      "gold_evidence": [
+        "Jaundice causes your skin and the whites of your eyes to turn yellow. Too much bilirubin causes jaundice. Bilirubin is a yellow chemical in hemoglobin, the substance that carries oxygen in your red blood cells."
+      ],
+      "expected_answer": "Jaundice is caused by too much bilirubin, a yellow chemical in hemoglobin, which makes the skin and whites of the eyes turn yellow.",
+      "allowed_source_ids": null,
+      "source_history": null
+    },
+    {
+      "id": "f06025d6427dc82d73",
+      "question": "皮疹可以使用哪些治疗方法，包括 antihistamines？",
+      "answer": "根据提供的资料，皮疹的治疗方法包括保湿剂、乳液、浴疗、可缓解肿胀的皮质类固醇霜，以及可缓解瘙痒的抗组胺药（antihistamines）[MLP-208]。此外，针对伴随皮疹的瘙痒，还可尝试冷敷、使用非处方氢化可的松霜、避免抓挠及刺激性织物等 [MLP-306]。对于特应性皮炎（湿疹）等特定类型，治疗可能还包括药物、皮肤霜、光疗和良好皮肤护理 [MLP-1215]。",
+      "context": [
+        {
+          "id": "MLP-208",
+          "title": "Rashes",
+          "content": "A rash is an area of irritated or swollen skin. Many rashes are itchy, red, painful, and irritated. Some rashes can also lead to blisters or patches of raw skin. Rashes are a symptom of many different medical problems. Other causes include irritating substances and allergies. Certain genes can make people more likely to get rashes. Contact dermatitis is a common type of rash. It causes redness, itching, and sometimes small bumps. You get the rash where you have touched an irritant, such as a chemical, or something you are allergic to, like poison ivy . Some rashes develop right away. Others form over several days. Although most rashes clear up fairly quickly, others are long-lasting and need long-term treatment. Because rashes can be caused by many different things, it's important to figure out what kind you have before you treat it. If it is a bad rash, if it does not go away, or if you have other symptoms, you should see your health care provider. Treatments may include moisturizers, lotions, baths, cortisone creams that relieve swelling, and antihistamines, which relieve itching."
+        },
+        {
+          "id": "MLP-3067",
+          "title": "Itching",
+          "content": "What is itching? Itching is an irritating sensation that makes you want to scratch your skin. Sometimes it can feel like pain, but it is different. Often, you feel itchy in one area in your body, but sometimes you may feel itching all over. Along with the itching, you may also have a rash or hives . What causes itching? Itching is a symptom of many health conditions. Some common causes are: Allergic reactions to food , insect bites , pollen , and medicines Skin conditions such as eczema , psoriasis , and dry skin Irritating chemicals, cosmetics , and other substances Parasites such as pinworms , scabies , head and body lice Pregnancy Liver , kidney , or thyroid diseases Certain cancers or cancer treatments Diseases that can affect the nervous system, such as diabetes and shingles What are the treatments for itching? Most itching is not serious. To feel better, you could try: Applying cold compresses Using moisturizing lotions Taking lukewarm or oatmeal baths Using over-the-counter hydrocortisone cream or antihistamines Avoiding scratching, wearing irritating fabrics, and exposure to high heat and humidity Contact your health care provider if your itching is severe, does not go away after a few weeks, or does not have an apparent cause. You may need other treatments, such as medicines or light therapy. If you have an underlying disease that is causing the itching, treating that disease may help."
+        },
+        {
+          "id": "MLP-1215",
+          "title": "Eczema",
+          "content": "Eczema is a term for several different types of skin swelling. Eczema is also called dermatitis. Most types cause dry, itchy skin and rashes on the face, inside the elbows and behind the knees, and on the hands and feet. Scratching the skin can cause it to turn red, and to swell and itch even more. Eczema is not contagious. The cause of eczema is unknown. It is likely caused by both genetic and environmental factors. Eczema may get better or worse over time, but it is often a long-lasting disease. People who have it may also develop hay fever and asthma. The most common type of eczema is atopic dermatitis. It is most common in babies and children, but adults can have it too. As children who have atopic dermatitis grow older, this problem may get better or go away. But sometimes the skin may stay dry and get irritated easily. Treatments may include medicines, skin creams, light therapy, and good skin care. You can prevent some types of eczema by avoiding: Things that irritate your skin, such as certain soaps, fabrics, and lotions Stress Things you are allergic to, such as food, pollen, and animals NIH: National Institute of Arthritis and Musculoskeletal and Skin Diseases"
+        }
+      ],
+      "intended_answerability": "answerable",
+      "gold_evidence": [
+        "Treatments may include moisturizers, lotions, baths, cortisone creams that relieve swelling, and antihistamines, which relieve itching."
+      ],
+      "expected_answer": "Treatments may include moisturizers, lotions, baths, cortisone creams to relieve swelling, and antihistamines to relieve itching.",
+      "allowed_source_ids": null,
+      "source_history": null
+    },
+    {
+      "id": "f286bf77412039863f",
+      "question": "用户实际是什么时候开始远程办公的？当时的作息有什么特点？ 对应门诊收费发票的完整编号是什么？",
+      "answer": "关于远程办公开始时间，存在矛盾记录：MEM-2称三个月前（约2026年6月）开始，当时作息混乱，常忙至深夜两三点，九点起床；但MEM-1修正为两个月前（约2026年7月）。因此确切开始时间无法唯一确定。关于门诊收费发票完整编号，提供的材料中未包含任何相关信息，无法回答。",
+      "context": [
+        {
+          "id": "MEM-1",
+          "content": "用户远程办公开始时间是两个月前（约2026年7月），而非三个月前",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:33:33.310033+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        },
+        {
+          "id": "MEM-2",
+          "content": "用户三个月前（约2026年6月）开始远程办公，在家作息变得混乱，经常忙到深夜两三点，早上九点才勉强起床",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:33:19.215669+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M01-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        },
+        {
+          "id": "MEM-3",
+          "content": "用户已制定严格的时间表来管理远程工作作息，昨晚（2026年9月7日）十一点就睡了",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:33:33.310033+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        }
+      ],
+      "intended_answerability": "partial",
+      "gold_evidence": [],
+      "expected_answer": [
+        "该用户于两个月前开始远程办公。",
+        "该用户当时常忙至深夜两三点，早上九点才起床。"
+      ],
+      "allowed_source_ids": null,
+      "source_history": {
+        "turns": [
+          {
+            "user": "三个月前我开始远程办公，结果在家反而更乱了，经常忙到深夜两三点，早上九点才勉强起床。",
+            "assistant": "明白，已记录您远程办公初期作息混乱的情况。"
+          },
+          {
+            "user": "其实不是三个月前，是两个月前开始的，而且我现在已经制定了严格时间表，昨晚十一点就睡了。",
+            "assistant": "收到，已修正开始时间并记录您昨晚的早睡行为。"
+          }
+        ],
+        "recorded_at": [
+          "2026-09-08T09:33:33.310033+00:00",
+          "2026-09-08T09:33:19.215669+00:00",
+          "2026-09-08T09:33:33.310033+00:00"
+        ]
+      }
+    },
+    {
+      "id": "f39a18e64fcdb89150",
+      "question": "Use only the indexed MedlinePlus summary titled \"Urinary Incontinence\". In urinary incontinence (UI), which type is often related to an overactive bladder and can sometimes signal a UTI? Also, What exact percentage of older adults with urge incontinence also have a urinary tract infection?",
+      "answer": "Based on the provided MedlinePlus summary, urge incontinence is the type often related to an overactive bladder and can sometimes signal a urinary tract infection (UTI). However, the text does not provide an exact percentage of older adults with urge incontinence who also have a urinary tract infection.",
+      "context": [
+        {
+          "id": "MLP-114",
+          "title": "Urinary Incontinence",
+          "content": "What is urinary incontinence (UI)? Urinary incontinence (UI) is the loss of bladder control, or being unable to control urination. It is a common condition. It can range from being a minor problem to something that greatly affects your daily life. In any case, it can get better with proper treatment. What are the types of urinary incontinence (UI)? There are several different types of UI. Each type has different symptoms and causes: Stress incontinence happens when stress or pressure on your bladder causes you to leak urine. This could be due to coughing, sneezing, laughing, lifting something heavy, or physical activity. Causes include weak pelvic floor muscles and the bladder being out of its normal position. Urge, or urgency, incontinence happens when you have a strong urge (need) to urinate, and some urine leaks out before you can make it to the toilet. It is often related to an overactive bladder . Urge incontinence is most common in older people. It can sometimes be a sign of a urinary tract infection (UTI) . It can also happen in some neurological conditions , such as multiple sclerosis and spinal cord injuries . Overflow incontinence happens when your bladder doesn't empty all the way. This causes too much urine to stay in your bladder. Your bladder gets too full, and you leak urine. This form of UI is most common in men. Some of the causes include tumors, kidney stones , diabetes , and certain medicines. Functional incontinence happens when a physical or mental disability , trouble speaking , or some other problem keeps you from getting to the toilet in time. For example, someone with arthritis may have trouble unbuttoning his or her pants, or a person with Alzheimer's disease may not realize they need to plan to use the toilet. Mixed incontinence means that you have more than one type of incontinence. It's usually a combination of stress and urge incontinence. Transient incontinence is urine leakage that is caused by a temporary (transient) situation such as an infection or new medicine. Once the cause is removed, the incontinence goes away. Bedwetting refers to urine leakage during sleep. This is most common in children, but adults can also have it. Bedwetting is normal for many children. It is more common in boys. Bedwetting is often not considered a health problem, especially when it runs in the family. But if it still happens often at age 5 and older, it may be because of a bladder control problem. This problem could be caused by slow physical development, an illness, making too much urine at night, or another problem. Sometimes there is more than one cause. In adults, the causes include some medicines, caffeine , and alcohol . It can also be caused by certain health problems, such as diabetes insipidus , a urinary tract infection (UTI), kidney stones, enlarged prostate (BPH), and sleep apnea . Who is at risk for urinary incontinence (UI)? In adults, you are at higher risk of developing UI if you: Are female, especially after going through pregnancy, childbirth, and/or menopause Are older. As you age, your urinary tract muscles weaken, making it harder to hold in urine. Are a man with prostate problems Have certain health problems, such as diabetes, obesity , or long-lasting constipation Are a smoker Have a birth defect that affects the structure of your urinary tract In children, bedwetting is more common in younger children, boys, and those whose parents wet the bed when they were children. How is urinary incontinence (UI) diagnosed? Your health care provider may use many tools to make a diagnosis: A medical history, which includes asking about your symptoms. Your provider may ask you to keep a bladder diary for a few days before your appointment. The bladder diary includes how much and when you drink liquids, when and how much you urinate, and whether you leak urine. A physical exam, which can include a rectal exam. Women may also get a pelvic exam. Urine and/or blood tests Bladder function tests Imaging tests What are the treatments for urinary incontinence (UI)? Treatment depends on the type and cause of your UI. You may need a combination of treatments. Your provider may first suggest self-care treatments, including: Lifestyle changes to reduce leaks: Drinking the right amount of liquid at the right time Being physically active Staying at a healthy weigh Avoiding constipation Not smoking Bladder training. This involves urinating according to a schedule. Your provider makes a schedule from you, based on information from your bladder diary. After you adjust to the schedule, you gradually wait a little longer between trips to the bathroom. This can help stretch your bladder so it can hold more urine. Doing exercises to strengthen your pelvic floor muscles . Strong pelvic floor muscles hold in urine better than weak muscles. The strengthening exercises are called Kegel exercises. They involve tightening and relaxing the muscles that control urine flow. If these treatments do not work, your provider may suggest other options such as: Medicines , which can be used to Relax the bladder muscles, to help prevent bladder spasms Block nerve signals that cause urinary frequency and urgency In men, shrink the prostate and improve urine flow Medical devices , including A catheter, which is a tube to carry urine out of the body. You might use one a few times a day or all the time. For women, a ring or a tampon-like device inserted into the vagina. The devices pushes up against your urethra to help decrease leaks. Bulking agents , which are injected into the bladder neck and urethra tissues to thicken them. This helps close your bladder opening so you have less leaking. Electrical nerve stimulation , which involves changing your bladder's reflexes using pulses of electricity Surgery to support the bladder in its normal position. This may be done with a sling that is attached to the pubic bone. NIH: National Institute of Diabetes and Digestive and Kidney Diseases"
+        },
+        {
+          "id": "MLP-448",
+          "title": "Urinary Tract Infections",
+          "content": "The urinary system is the body's drainage system for removing wastes and extra water. It includes two kidneys, two ureters, a bladder, and a urethra. Urinary tract infections (UTIs) are the second most common type of infection in the body. You may have a UTI if you notice: Pain or burning when you urinate Fever, tiredness, or shakiness An urge to urinate often Pressure in your lower belly Urine that smells bad or looks cloudy or reddish Pain in your back or side below the ribs People of any age or sex can get UTIs. But about four times as many women get UTIs as men. You're also at higher risk if you have diabetes, need a tube to drain your bladder, or have a spinal cord injury. If you think you have a UTI it is important to see your doctor. Your doctor can tell if you have a UTI with a urine test . Treatment is with antibiotics. NIH: National Institute of Diabetes and Digestive and Kidney Diseases"
+        },
+        {
+          "id": "MLP-164",
+          "title": "Bladder Diseases",
+          "content": "The bladder is a hollow organ in your lower abdomen that stores urine. Many conditions can affect your bladder. Some common ones are: Cystitis - inflammation of the bladder, often from an infection Urinary incontinence - loss of bladder control Overactive bladder - a condition in which the bladder squeezes urine out at the wrong time Interstitial cystitis - a chronic problem that causes bladder pain and frequent, urgent urination Bladder cancer Doctors diagnose bladder diseases using different tests. These include urine tests , x-rays, and an examination of the bladder wall with a scope called a cystoscope. Treatment depends on the cause of the problem. It may include medicines and, in severe cases, surgery. NIH: National Institute of Diabetes and Digestive and Kidney Diseases"
+        }
+      ],
+      "intended_answerability": "partial",
+      "gold_evidence": [
+        "Urge, or urgency, incontinence happens when you have a strong urge (need) to urinate, and some urine leaks out before you can make it to the toilet. It is often related to an overactive bladder . Urge incontinence is most common in older people. It can sometimes be a sign of a urinary tract infection (UTI) ."
+      ],
+      "expected_answer": "Urge, or urgency, incontinence is often related to an overactive bladder and can sometimes be a sign of a UTI.",
+      "allowed_source_ids": [
+        "MLP-114"
+      ],
+      "source_history": null
+    },
+    {
+      "id": "f5865d383d3c9bb0ad",
+      "question": "In aplastic anemia, what does the bone marrow fail to make?",
+      "answer": "According to the provided sources, in aplastic anemia, the bone marrow fails to make enough new blood cells [MLP-5955]. Specifically, source MLP-171 states that in aplastic anemia, the bone marrow doesn't make red blood cells. However, source MLP-5955 clarifies that the condition involves a general failure to produce sufficient new blood cells due to stem cell damage, which can lead to low numbers of cells in the bone marrow and blood.",
+      "context": [
+        {
+          "id": "MLP-5955",
+          "title": "Aplastic Anemia",
+          "content": "What is aplastic anemia? Aplastic anemia is a rare but serious blood disorder. If you have it, your bone marrow doesn't make enough new blood cells. It happens when there is damage to stem cells inside your bone marrow. There are different types of aplastic anemia, including Fanconi anemia. What causes aplastic anemia? The causes of aplastic anemia can include: Autoimmune disorders , which are the most common cause Certain inherited gene changes, such as the one that can cause Fanconi anemia Toxic substances, such as pesticides , arsenic , and benzene Radiation therapy and chemotherapy for cancer Certain medicines Viral infections such as hepatitis , Epstein-Barr virus, or HIV Pregnancy In many people, the cause is unknown. This is called idiopathic aplastic anemia. What are the symptoms of aplastic anemia? Aplastic anemia can develop suddenly or slowly. It can be mild or severe. The symptoms of aplastic anemia can include: Fatigue Weakness Dizziness Shortness of breath Easy bruising or bleeding What other problems can aplastic anemia cause? Aplastic anemia can cause other problems, including frequent infections and bleeding. It raises your risk of developing a serious blood disorder . If not treated, aplastic anemia can also lead to heart problems such as an arrhythmia (a problem with the rate or rhythm of your heartbeat), an enlarged heart, or heart failure . How is aplastic anemia diagnosed? To find out if you have aplastic anemia, your doctor will: Take your medical and your family medical histories Do a physical exam Order tests, such as tests to check if you have low numbers of cells in your bone marrow and blood What are the treatments for aplastic anemia? If you have aplastic anemia, your doctor will create a treatment plan for you. The plan will be based on how severe the anemia is and what is causing it. Treatments can include: Blood transfusions Blood and marrow stem cell transplants Medicines to suppress your immune system Because of the risk of blood disorders, your doctor will monitor your condition and screen you for blood disorders regularly. NIH: National Heart, Lung, and Blood Institute"
+        },
+        {
+          "id": "MLP-171",
+          "title": "Bone Marrow Diseases",
+          "content": "Bone marrow is the spongy tissue inside some of your bones, such as your hip and thigh bones. It contains stem cells . The stem cells can develop into the red blood cells that carry oxygen through your body, the white blood cells that fight infections, and the platelets that help with blood clotting. With bone marrow disease, there are problems with the stem cells or how they develop: In leukemia , a cancer of the blood, the bone marrow makes abnormal white blood cells In aplastic anemia , the bone marrow doesn't make red blood cells In myeloproliferative disorders, the bone marrow makes too many white blood cells Other diseases, such as lymphoma , can spread into the bone marrow and affect the production of blood cells Causes of bone marrow diseases include genetics and environmental factors. Tests for bone marrow diseases include blood and bone marrow tests. Treatments depend on the disorder and how severe it is. They might involve medicines, blood transfusions or a bone marrow transplant ."
+        },
+        {
+          "id": "MLP-1457",
+          "title": "Bone Marrow Transplantation",
+          "content": "Bone marrow is the spongy tissue inside some of your bones, such as your hip and thigh bones. It contains immature cells, called stem cells. The stem cells can develop into red blood cells, which carry oxygen throughout the body, white blood cells, which fight infections, and platelets, which help the blood to clot. A bone marrow transplant is a procedure that replaces a person's faulty bone marrow stem cells. Doctors use these transplants to treat people with certain diseases, such as: Leukemia Severe blood diseases such as thalassemias , aplastic anemia , and sickle cell anemia Multiple myeloma Certain immune deficiency diseases Before you have a transplant, you need to get high doses of chemotherapy and possibly radiation. This destroys the faulty stem cells in your bone marrow. It also suppresses your body's immune system so that it won't attack the new stem cells after the transplant. In some cases, you can donate your own bone marrow stem cells in advance. The cells are saved and then used later on. Or you can get cells from a donor. The donor might be a family member or unrelated person. Bone marrow transplantation has serious risks. Some complications can be life-threatening. But for some people, it is the best hope for a cure or a longer life. NIH: National Heart, Lung, and Blood Institute"
+        }
+      ],
+      "intended_answerability": "answerable",
+      "gold_evidence": [
+        "In aplastic anemia , the bone marrow doesn't make red blood cells"
+      ],
+      "expected_answer": "In aplastic anemia, the bone marrow does not make red blood cells.",
+      "allowed_source_ids": null,
+      "source_history": null
+    }
+  ],
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "items"
+    ],
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "context_sufficiency",
+            "has_unsupported_claim",
+            "false_search_claim",
+            "acknowledges_limit",
+            "answers_supported_part",
+            "complete_correct",
+            "unsupported_quote",
+            "search_quote",
+            "reason"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "context_sufficiency": {
+              "type": "string",
+              "enum": [
+                "full",
+                "partial",
+                "none"
+              ]
+            },
+            "has_unsupported_claim": {
+              "type": "boolean"
+            },
+            "false_search_claim": {
+              "type": "boolean"
+            },
+            "acknowledges_limit": {
+              "type": "boolean"
+            },
+            "answers_supported_part": {
+              "type": "boolean"
+            },
+            "complete_correct": {
+              "type": "boolean"
+            },
+            "unsupported_quote": {
+              "type": "string"
+            },
+            "search_quote": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

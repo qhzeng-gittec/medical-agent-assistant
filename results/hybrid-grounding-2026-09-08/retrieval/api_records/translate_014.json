@@ -1,0 +1,82 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"R226\", \"query\": \"我和伴侣都对乳胶过敏；有没有其他类型的避孕套可以降低感染淋病的风险？\"}, {\"id\": \"R228\", \"query\": \"如果皮肤上有开放性伤口，人们是如何通过接触感染炭疽的？\"}, {\"id\": \"R230\", \"query\": \"煤矿工人吸入煤尘后会患上哪种特定的肺部疾病？\"}, {\"id\": \"R232\", \"query\": \"不良姿势（如驼背）会导致哪些具体的健康问题？\"}, {\"id\": \"R234\", \"query\": \"纳曲酮（Naltrexone）这种药物如何帮助酒精使用障碍患者？\"}, {\"id\": \"R236\", \"query\": \"坐骨神经痛的一些常见原因是什么？\"}, {\"id\": \"R238\", \"query\": \"为什么良性肿瘤即使不扩散到身体其他部位也可能是危险的？\"}, {\"id\": \"R240\", \"query\": \"癌症的补充和替代医学（CAM）疗法有哪些例子？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "error_type": "ConnectError"
+    },
+    {
+      "attempt": 2,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875382-6Rer5XcjLhkJgLKkSGLV",
+    "object": "chat.completion",
+    "created": 1788875382,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Phala",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"R226\",\n      \"query\": \"My partner and I are both allergic to latex; are there other types of condoms that can reduce the risk of gonorrhea infection?\"\n    },\n    {\n      \"id\": \"R228\",\n      \"query\": \"How do people contract anthrax through contact if there are open wounds on the skin?\"\n    },\n    {\n      \"id\": \"R230\",\n      \"query\": \"What specific lung disease do coal miners develop after inhaling coal dust?\"\n    },\n    {\n      \"id\": \"R232\",\n      \"query\": \"What specific health problems can poor posture (such as hunchback) cause?\"\n    },\n    {\n      \"id\": \"R234\",\n      \"query\": \"How does the drug Naltrexone help patients with alcohol use disorder?\"\n    },\n    {\n      \"id\": \"R236\",\n      \"query\": \"What are some common causes of sciatica?\"\n    },\n    {\n      \"id\": \"R238\",\n      \"query\": \"Why can benign tumors be dangerous even if they do not spread to other parts of the body?\"\n    },\n    {\n      \"id\": \"R240\",\n      \"query\": \"What are some examples of complementary and alternative medicine (CAM) therapies for cancer?\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 285,
+      "completion_tokens": 330,
+      "total_tokens": 615,
+      "cost": 0.0008775,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0008775,
+        "upstream_inference_prompt_cost": 8.55e-05,
+        "upstream_inference_completions_cost": 0.000792
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 18.922
+}

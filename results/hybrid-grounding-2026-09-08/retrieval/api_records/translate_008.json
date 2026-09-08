@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"R130\", \"query\": \"恐慌症如何影响一个人日常去某些地方的行为？\"}, {\"id\": \"R132\", \"query\": \"我听说汉坦病毒通常是由啮齿动物传播的，但在什么情况下我会从另一个人那里感染呢？\"}, {\"id\": \"R134\", \"query\": \"如果我患有 2 型糖尿病，我能否仅通过改变生活方式而不吃药来控制病情？\"}, {\"id\": \"R136\", \"query\": \"我的孩子腹泻已经超过一天并且看起来很烦躁；我应该立即联系医生吗？\"}, {\"id\": \"R138\", \"query\": \"健康统计数据如何帮助研究人员了解不同人群之间健康结果的差异？\"}, {\"id\": \"R140\", \"query\": \"我可以采取哪些具体措施来降低患血管疾病的风险？\"}, {\"id\": \"R142\", \"query\": \"如果我患有睡眠呼吸暂停，在呼吸暂停后重新开始呼吸时通常会发出什么声音？\"}, {\"id\": \"R144\", \"query\": \"在怀孕的最后一个月，我预计多久需要去看一次医生进行产前检查？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875365-MIf6JSpbI1iQmttlbQ6l",
+    "object": "chat.completion",
+    "created": 1788875365,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Phala",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"R130\",\n      \"query\": \"How does panic disorder affect a person's behavior regarding going to certain places in daily life?\"\n    },\n    {\n      \"id\": \"R132\",\n      \"query\": \"I heard that hantavirus is usually transmitted by rodents, but under what circumstances would I get infected from another person?\"\n    },\n    {\n      \"id\": \"R134\",\n      \"query\": \"If I have type 2 diabetes, can I control the condition solely by changing my lifestyle without taking medication?\"\n    },\n    {\n      \"id\": \"R136\",\n      \"query\": \"My child has had diarrhea for more than a day and seems irritable; should I contact a doctor immediately?\"\n    },\n    {\n      \"id\": \"R138\",\n      \"query\": \"How do health statistics help researchers understand differences in health outcomes among different populations?\"\n    },\n    {\n      \"id\": \"R140\",\n      \"query\": \"What specific measures can I take to reduce the risk of vascular disease?\"\n    },\n    {\n      \"id\": \"R142\",\n      \"query\": \"If I have sleep apnea, what sound is typically made when breathing resumes after an apnea episode?\"\n    },\n    {\n      \"id\": \"R144\",\n      \"query\": \"During the last month of pregnancy, how often am I expected to see a doctor for prenatal checkups?\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 305,
+      "completion_tokens": 354,
+      "total_tokens": 659,
+      "cost": 0.0009411,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0009411,
+        "upstream_inference_prompt_cost": 9.15e-05,
+        "upstream_inference_completions_cost": 0.0008496
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 13.516
+}

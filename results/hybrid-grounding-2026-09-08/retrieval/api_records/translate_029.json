@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"R393\", \"query\": \"请告诉我快递柜取件码。\"}, {\"id\": \"R394\", \"query\": \"请告诉我网盘文件分享密码。\"}, {\"id\": \"R395\", \"query\": \"请告诉我自行车车锁密码。\"}, {\"id\": \"R396\", \"query\": \"请告诉我相机镜头的购买价格。\"}, {\"id\": \"R397\", \"query\": \"请告诉我游戏账号等级。\"}, {\"id\": \"R398\", \"query\": \"请告诉我公司报销单审批人。\"}, {\"id\": \"R399\", \"query\": \"请告诉我停车场车位编号。\"}, {\"id\": \"R400\", \"query\": \"请告诉我上次网购订单编号。\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875422-pwbyHPUvztFHpcHE28Er",
+    "object": "chat.completion",
+    "created": 1788875422,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Phala",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"R393\",\n      \"query\": \"Please tell me the locker pickup code.\"\n    },\n    {\n      \"id\": \"R394\",\n      \"query\": \"Please tell me the cloud drive file sharing password.\"\n    },\n    {\n      \"id\": \"R395\",\n      \"query\": \"Please tell me the bicycle lock password.\"\n    },\n    {\n      \"id\": \"R396\",\n      \"query\": \"Please tell me the purchase price of the camera lens.\"\n    },\n    {\n      \"id\": \"R397\",\n      \"query\": \"Please tell me the game account level.\"\n    },\n    {\n      \"id\": \"R398\",\n      \"query\": \"Please tell me the company reimbursement form approver.\"\n    },\n    {\n      \"id\": \"R399\",\n      \"query\": \"Please tell me the parking space number.\"\n    },\n    {\n      \"id\": \"R400\",\n      \"query\": \"Please tell me the last online shopping order number.\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 234,
+      "completion_tokens": 270,
+      "total_tokens": 504,
+      "cost": 0.0007182,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0007182,
+        "upstream_inference_prompt_cost": 7.02e-05,
+        "upstream_inference_completions_cost": 0.000648
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 10.75
+}

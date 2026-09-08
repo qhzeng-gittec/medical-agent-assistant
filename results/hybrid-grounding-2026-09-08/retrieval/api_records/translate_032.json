@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"X017-paraphrase\", \"query\": \"在骨关节炎或OA中，受影响关节里的软骨和骨头会发生什么？\"}, {\"id\": \"X018-paraphrase\", \"query\": \"三叉神经痛TN是什么，它会造成什么样的面部疼痛？\"}, {\"id\": \"X019-paraphrase\", \"query\": \"什么是药物相互作用，涉及阿司匹林、他汀类、葡萄柚或血液稀释剂的例子有哪些？\"}, {\"id\": \"X020-paraphrase\", \"query\": \"在眼球运动障碍中，斜视和眼球震颤分别是什么？\"}, {\"id\": \"X021-paraphrase\", \"query\": \"在重症肌无力MG中，乙酰胆碱和抗体在神经肌肉接头处起什么作用？\"}, {\"id\": \"X022-paraphrase\", \"query\": \"神经纤维瘤病的三种类型是什么，包括NF1和NF2，它们会引起哪些症状？\"}, {\"id\": \"X023-paraphrase\", \"query\": \"如果 Hib（Haemophilus influenzae type b）病菌扩散到孩子的肺部或血液中，可能会导致哪些严重问题？\"}, {\"id\": \"X024-paraphrase\", \"query\": \"身体需要较大量的哪些矿物质被列为常量矿物质？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788876799-4kX0wcYcXkXvwVdPZQ0W",
+    "object": "chat.completion",
+    "created": 1788876799,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "SiliconFlow",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"X017-paraphrase\",\n      \"query\": \"What happens to cartilage and bone in affected joints in osteoarthritis or OA?\"\n    },\n    {\n      \"id\": \"X018-paraphrase\",\n      \"query\": \"What is trigeminal neuralgia TN, and what kind of facial pain does it cause?\"\n    },\n    {\n      \"id\": \"X019-paraphrase\",\n      \"query\": \"What is a drug interaction, and what are examples involving aspirin, statins, grapefruit, or blood thinners?\"\n    },\n    {\n      \"id\": \"X020-paraphrase\",\n      \"query\": \"In eye movement disorders, what are strabismus and nystagmus?\"\n    },\n    {\n      \"id\": \"X021-paraphrase\",\n      \"query\": \"In myasthenia gravis MG, what roles do acetylcholine and antibodies play at the neuromuscular junction?\"\n    },\n    {\n      \"id\": \"X022-paraphrase\",\n      \"query\": \"What are the three types of neurofibromatosis, including NF1 and NF2, and what symptoms do they cause?\"\n    },\n    {\n      \"id\": \"X023-paraphrase\",\n      \"query\": \"If Hib (Haemophilus influenzae type b) bacteria spread to a child's lungs or bloodstream, what serious problems can occur?\"\n    },\n    {\n      \"id\": \"X024-paraphrase\",\n      \"query\": \"Which minerals, required in larger amounts by the body, are classified as macrominerals?\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 341,
+      "completion_tokens": 398,
+      "total_tokens": 739,
+      "cost": 0.00088125,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00088125,
+        "upstream_inference_prompt_cost": 8.525e-05,
+        "upstream_inference_completions_cost": 0.000796
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 15.047
+}

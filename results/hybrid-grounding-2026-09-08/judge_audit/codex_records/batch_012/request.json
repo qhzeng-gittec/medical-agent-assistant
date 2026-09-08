@@ -1,0 +1,304 @@
+{
+  "model": "gpt-5.5",
+  "instruction": "Audit answers for faithfulness to supplied evidence, not for whether outside medical knowledge makes a claim plausible.\nThe answerer had ONLY these source excerpts/memories. No external search occurred. Source IDs and answer method names must not affect scoring.\nEach item gives question, answer, context, gold evidence/expected answer when available, intended answerability and allowed_source_ids when source-scoped.\nOnly allowed sources can support a source-scoped answer. For memories, preserve who, when, negation and uncertainty; assistant suggestions are not user facts.\nFor memory items, source_history contains the authoritative original user turns and recording timestamps. If a recalled memory or answer distorts them, mark the answer's distorted claim unsupported even if the retrieved memory contains it. Check absolute years against relative dates and timestamps; do not assume old authored years are correct.\nReturn JSON {\"items\":[{\"id\":same ID,\"context_sufficiency\":\"full|partial|none\",\n\"has_unsupported_claim\":boolean,\"unsupported_quote\":\"verbatim answer substring or empty\",\n\"false_search_claim\":boolean,\"search_quote\":\"verbatim answer substring or empty\",\n\"acknowledges_limit\":boolean,\"answers_supported_part\":boolean,\"complete_correct\":boolean,\"reason\":\"short explanation\"}]}.\nhas_unsupported_claim: any factual medical/personal/quantitative statement asserted without support in eligible context, or contradicting it.\nGeneric advice to consult a professional is allowed; clearly conditional questions are not invented history. A disclaimer does not erase an unsupported claim elsewhere.\nfalse_search_claim: claims to have searched external databases, verified approvals, or exhaustively established absence beyond these excerpts. 'The supplied materials do not state X' is valid. 'PubMed has no studies' without actual search evidence is invalid, even if the answer also says no evidence.\nacknowledges_limit: explicitly acknowledges missing requested evidence or inability to determine it, not just a generic disclaimer.\nanswers_supported_part: supplies the actual requested supported fact(s), not just a relevant topic summary. For intended unanswerable/needs_history set false.\ncomplete_correct: all answerable requested facts correct and supported, plus explicit limitation for missing parts; fully unanswerable cases require clear limitation without invented specifics. If has_unsupported_claim or false_search_claim is true, complete_correct MUST be false.\nFor partial cases, merely refusing everything is incomplete. For answerable cases, merely refusing is incomplete even if retrieval failed.\nGold evidence guides the requested facts but irrelevant sentences in a long excerpt need not be repeated. Alternative eligible sources may support correct answers.\nUnsupported/search quotes must be exact answer substrings when the corresponding flag is true, empty otherwise. Read the whole answer.\nCalibration clarification v2: distinguish invented facts from unnecessary refusal.\nA refusal ('cannot determine'), conservative uncertainty, or failure to select a later correction is NOT by itself an affirmative fabricated medical/personal fact: set complete_correct false if the answer omits available requested information, but do NOT set has_unsupported_claim just for the refusal.\nAn answer that asserts the obsolete value as current despite a later correction DOES contain an unsupported/contradicted factual claim.\ncontext_sufficiency must cover the ENTIRE actual question: if it asks for an undisclosed invoice number, no amount of related medical history makes that number available; mark none if only the invoice is requested, partial if the question also requests an available medical fact.\nFor fully unanswerable questions, answers_supported_part must be false; complete_correct can be true if it acknowledges the missing requested information and adds no unsupported factual claims.\nKeep all six boolean fields as JSON true/false, not strings. Always include both quote fields, using empty strings for false flags.\nIndependently review each item. Only the context field was shown to the answerer.\nGold evidence and expected answers are evaluator references, NOT additional retrieved context.\nIf gold evidence is absent from context, an admission of missing information is not hallucination or a false search claim.\nRead all context documents before judging. Do not mark a statement unsupported merely because one gold excerpt is narrower.\nAn explicit claim about what the provided documents contain is not a claim of external database search.\nAn answer may fail completeness without fabricating facts. Preserve this distinction rigorously.",
+  "input": [
+    {
+      "id": "c8742093e0a0e74df0",
+      "question": "用户真正需要避免的食物及确认时间是什么？",
+      "answer": "用户真正需要避免的食物是芒果，确认时间为2025年夏天。根据记录，用户在2025年夏天的过敏原测试中确认对芒果严重过敏，因此只避开芒果，而正常食用花生制品且无不良反应 [MEM-1][MEM-3]。",
+      "context": [
+        {
+          "id": "MEM-1",
+          "content": "自2025年夏天的过敏原测试后，用户只避开芒果，正常食用花生制品且没有任何不良反应。",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:55.949426+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        },
+        {
+          "id": "MEM-2",
+          "content": "用户对芒果严重过敏，这是去年过敏原测试确认的结果。",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:35.450177+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        },
+        {
+          "id": "MEM-3",
+          "content": "用户的过敏原测试是在2025年夏天做的，确认对芒果严重过敏但对花生不过敏。",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:55.949426+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        },
+        {
+          "id": "MEM-4",
+          "content": "用户对花生不过敏，去年（约2025年）的过敏原测试确认了这一点，尽管有人误以为用户对花生过敏。用户小时候吃过很多次花生都没事。",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:35.450177+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        }
+      ],
+      "intended_answerability": "answerable",
+      "gold_evidence": [],
+      "expected_answer": [
+        "用户对芒果存在严重过敏反应。",
+        "用户自去年夏天测试确认后仅避开芒果。"
+      ],
+      "allowed_source_ids": null,
+      "source_history": {
+        "turns": [
+          {
+            "user": "有人误以为我对花生过敏，其实我小时候吃过很多次都没事，去年做过敏原测试结果显示我对花生不过敏，只是对芒果严重过敏。",
+            "assistant": "好的，已记录您对花生不过敏但对芒果过敏的测试结果。"
+          },
+          {
+            "user": "补充一下，那次过敏原测试是在去年夏天做的，从那以后我就只避开芒果，花生制品我都正常食用，没有任何不良反应。",
+            "assistant": "收到，已更新您自去年夏天起正常食用花生的历史记录。"
+          }
+        ],
+        "recorded_at": [
+          "2026-09-08T10:01:55.949426+00:00",
+          "2026-09-08T10:01:35.450177+00:00",
+          "2026-09-08T10:01:55.949426+00:00",
+          "2026-09-08T10:01:35.450177+00:00"
+        ]
+      }
+    },
+    {
+      "id": "ca41165a8e3691ef22",
+      "question": "Use only the indexed MedlinePlus summary titled \"Bone Marrow Diseases\". In aplastic anemia, what does the bone marrow fail to make? Also, What exact percentage of patients with aplastic anemia need a bone marrow transplant?",
+      "answer": "According to the indexed MedlinePlus summary titled \"Bone Marrow Diseases,\" in aplastic anemia, the bone marrow fails to make red blood cells. The provided text does not state the exact percentage of patients with aplastic anemia who need a bone marrow transplant; it only mentions that treatments may involve a bone marrow transplant depending on the disorder and severity.",
+      "context": [
+        {
+          "id": "MLP-5955",
+          "title": "Aplastic Anemia",
+          "content": "What is aplastic anemia? Aplastic anemia is a rare but serious blood disorder. If you have it, your bone marrow doesn't make enough new blood cells. It happens when there is damage to stem cells inside your bone marrow. There are different types of aplastic anemia, including Fanconi anemia. What causes aplastic anemia? The causes of aplastic anemia can include: Autoimmune disorders , which are the most common cause Certain inherited gene changes, such as the one that can cause Fanconi anemia Toxic substances, such as pesticides , arsenic , and benzene Radiation therapy and chemotherapy for cancer Certain medicines Viral infections such as hepatitis , Epstein-Barr virus, or HIV Pregnancy In many people, the cause is unknown. This is called idiopathic aplastic anemia. What are the symptoms of aplastic anemia? Aplastic anemia can develop suddenly or slowly. It can be mild or severe. The symptoms of aplastic anemia can include: Fatigue Weakness Dizziness Shortness of breath Easy bruising or bleeding What other problems can aplastic anemia cause? Aplastic anemia can cause other problems, including frequent infections and bleeding. It raises your risk of developing a serious blood disorder . If not treated, aplastic anemia can also lead to heart problems such as an arrhythmia (a problem with the rate or rhythm of your heartbeat), an enlarged heart, or heart failure . How is aplastic anemia diagnosed? To find out if you have aplastic anemia, your doctor will: Take your medical and your family medical histories Do a physical exam Order tests, such as tests to check if you have low numbers of cells in your bone marrow and blood What are the treatments for aplastic anemia? If you have aplastic anemia, your doctor will create a treatment plan for you. The plan will be based on how severe the anemia is and what is causing it. Treatments can include: Blood transfusions Blood and marrow stem cell transplants Medicines to suppress your immune system Because of the risk of blood disorders, your doctor will monitor your condition and screen you for blood disorders regularly. NIH: National Heart, Lung, and Blood Institute"
+        },
+        {
+          "id": "MLP-1457",
+          "title": "Bone Marrow Transplantation",
+          "content": "Bone marrow is the spongy tissue inside some of your bones, such as your hip and thigh bones. It contains immature cells, called stem cells. The stem cells can develop into red blood cells, which carry oxygen throughout the body, white blood cells, which fight infections, and platelets, which help the blood to clot. A bone marrow transplant is a procedure that replaces a person's faulty bone marrow stem cells. Doctors use these transplants to treat people with certain diseases, such as: Leukemia Severe blood diseases such as thalassemias , aplastic anemia , and sickle cell anemia Multiple myeloma Certain immune deficiency diseases Before you have a transplant, you need to get high doses of chemotherapy and possibly radiation. This destroys the faulty stem cells in your bone marrow. It also suppresses your body's immune system so that it won't attack the new stem cells after the transplant. In some cases, you can donate your own bone marrow stem cells in advance. The cells are saved and then used later on. Or you can get cells from a donor. The donor might be a family member or unrelated person. Bone marrow transplantation has serious risks. Some complications can be life-threatening. But for some people, it is the best hope for a cure or a longer life. NIH: National Heart, Lung, and Blood Institute"
+        },
+        {
+          "id": "MLP-171",
+          "title": "Bone Marrow Diseases",
+          "content": "Bone marrow is the spongy tissue inside some of your bones, such as your hip and thigh bones. It contains stem cells . The stem cells can develop into the red blood cells that carry oxygen through your body, the white blood cells that fight infections, and the platelets that help with blood clotting. With bone marrow disease, there are problems with the stem cells or how they develop: In leukemia , a cancer of the blood, the bone marrow makes abnormal white blood cells In aplastic anemia , the bone marrow doesn't make red blood cells In myeloproliferative disorders, the bone marrow makes too many white blood cells Other diseases, such as lymphoma , can spread into the bone marrow and affect the production of blood cells Causes of bone marrow diseases include genetics and environmental factors. Tests for bone marrow diseases include blood and bone marrow tests. Treatments depend on the disorder and how severe it is. They might involve medicines, blood transfusions or a bone marrow transplant ."
+        }
+      ],
+      "intended_answerability": "partial",
+      "gold_evidence": [
+        "In aplastic anemia , the bone marrow doesn't make red blood cells"
+      ],
+      "expected_answer": "In aplastic anemia, the bone marrow does not make red blood cells.",
+      "allowed_source_ids": [
+        "MLP-171"
+      ],
+      "source_history": null
+    },
+    {
+      "id": "ce1ab460dcabd13e4c",
+      "question": "Use only the indexed MedlinePlus summary titled \"Nail Diseases\". What exact percentage of fungal nail infections clear after treatment?",
+      "answer": "The provided MedlinePlus summary titled \"Nail Diseases\" does not state the exact percentage of fungal nail infections that clear after treatment. It only mentions that nail problems like fungal infections sometimes require treatment and that keeping nails clean can help avoid issues, but no specific success rate or percentage is given in the text.",
+      "context": [
+        {
+          "id": "MLP-532",
+          "title": "Nail Diseases",
+          "content": "Your toenails and fingernails protect the tissues of your toes and fingers. They are made up of layers of a hardened protein called keratin, which is also in your hair and skin. The health of your nails can be a clue to your overall health. Healthy nails are usually smooth and consistent in color. Specific types of nail discoloration and changes in growth rate can be signs of lung, heart, kidney, and liver diseases, as well as diabetes and anemia. White spots and vertical ridges are harmless. Nail problems that sometimes require treatment include: Bacterial and fungal infections Ingrown nails Tumors Warts Keeping your nails clean, dry, and trimmed can help you avoid some problems. Do not remove the cuticle, which can cause infection."
+        },
+        {
+          "id": "MLP-258",
+          "title": "Fungal Infections",
+          "content": "If you have ever had athlete's foot or a yeast infection , you can blame a fungus. A fungus is a primitive organism. Mushrooms, mold and mildew are examples. Fungi live in air, in soil, on plants and in water. Some live in the human body. Only about half of all types of fungi are harmful. Some fungi reproduce through tiny spores in the air. You can inhale the spores or they can land on you. As a result, fungal infections often start in the lungs or on the skin. You are more likely to get a fungal infection if you have a weakened immune system or take antibiotics. Fungi can be difficult to kill. For skin and nail infections, you can apply medicine directly to the infected area. Oral antifungal medicines are also available for serious infections."
+        },
+        {
+          "id": "MLP-151",
+          "title": "Athlete's Foot",
+          "content": "Athlete's foot is a common infection caused by a fungus. It most often affects the space between the toes. Symptoms include itching, burning, and cracked, scaly skin between your toes. You can get athlete's foot from damp surfaces, such as showers, swimming pools, and locker room floors. To prevent it: Keep your feet clean, dry, and cool Wear clean socks Don't walk barefoot in public areas Wear flip-flops in locker room showers Keep your toenails clean and clipped short Treatments include over-the-counter antifungal creams for most cases and prescription medicines for more serious infections. These usually clear up the infection, but it can come back. Centers for Disease Control and Prevention"
+        }
+      ],
+      "intended_answerability": "unanswerable",
+      "gold_evidence": [
+        "The health of your nails can be a clue to your overall health. Healthy nails are usually smooth and consistent in color. Specific types of nail discoloration and changes in growth rate can be signs of lung, heart, kidney, and liver diseases, as well as diabetes and anemia."
+      ],
+      "expected_answer": "Specific nail discoloration and changes in nail growth rate can be signs of lung, heart, kidney, and liver diseases, as well as diabetes and anemia.",
+      "allowed_source_ids": [
+        "MLP-532"
+      ],
+      "source_history": null
+    },
+    {
+      "id": "d1c6c400c1c6e53fa5",
+      "question": "I was told I might have an adrenal gland disorder because my hormone levels are off. What exactly happens in the body when someone has this condition?",
+      "answer": "Adrenal gland disorders occur when the body produces too much or too little of specific hormones like cortisol, aldosterone, adrenaline, noradrenaline, or sex hormones [MLP-128]. These hormones normally regulate vital functions including turning food into energy, managing blood sugar, balancing salt and water, maintaining blood pressure, responding to stress, and supporting sexual development and pregnancy [MLP-128]. When levels are off, symptoms vary by disorder; for example, Addison's disease (low cortisol) causes weight loss, muscle weakness, fatigue, low blood pressure, and skin changes [MLP-123], while Cushing's syndrome involves excess cortisol [MLP-128]. Causes can include immune system attacks, infections, tumors, gene mutations, or medications [MLP-128, MLP-123].",
+      "context": [
+        {
+          "id": "MLP-128",
+          "title": "Adrenal Gland Disorders",
+          "content": "What are adrenal glands? Your adrenal glands are two small organs that sit on top of each kidney. The adrenal glands make different types of hormones you need to stay alive and healthy. Hormones are chemicals that travel in your bloodstream and control how different parts of your body work. The adrenal glands make the hormones cortisol, aldosterone, adrenaline, and noradrenaline. They also make hormones that your body uses to make sex hormones (estrogen and testosterone). All of these hormones do many important jobs, including: Turning food into energy and managing blood sugar levels Balancing salt and water Keeping blood pressure normal Responding to illness and stress (your \"fight or flight\" response) Timing when and how fast a child develops sexually Supporting pregnancy What are adrenal gland disorders? When you have an adrenal gland disorder, your body makes too much or too little of one or more hormones. The symptoms depend on the type of problem you have and how much it affects the hormone levels in your body. There are many types of adrenal gland disorders, including: Addison's Disease - a condition in which the adrenal glands don't make enough cortisol Cushing's Syndrome - a condition caused by too much cortisol in the body, often from taking steroid medicines for a long time Aldosterone-producing adenoma - a benign tumor (not cancer) that makes too much aldosterone and may cause serious high blood pressure Hereditary paraganglioma-pheochromocytoma - an inherited condition causing different types of tumors that make adrenaline and other hormones. Some tumors may become cancerous. Adrenal gland cancer - cancerous tumors, including adrenocortical carcinoma and neuroblastoma Congenital Adrenal Hyperplasia (CAH) - a group of inherited disorders in which the adrenal glands don't make enough cortisol. The most common type is 21-hydroxylase deficiency (also called CAH1) . In the United States, newborn babies get a blood test to see if they have CAH. People born with CAH may not have symptoms until childhood or later in life. What causes adrenal gland disorders? The cause of adrenal gland disorders depends on the type of disorder you have. Causes can include: Medicines such as steroids A problem in another gland, such as the pituitary gland . The pituitary gland releases hormones that affect how the adrenal glands work. Changes in genes (mutations). These changes can cause the adrenal glands to make too much or too little of one or more hormones. Infections In many cases the cause of the problem isn't clear. How are adrenal gland disorders diagnosed? Health care providers use different tests to check for adrenal disorders depending on your symptoms and health history. For example, you may have tests of your blood, urine (pee), or saliva (spit). These tests check your hormone levels. Your provider may order x-rays , CT scans , or MRI scans to look for tumors. What are the treatments for adrenal gland disorders? Different types of adrenal gland disorders have different treatments. They include medicines and surgery. Radiation therapy is sometimes a treatment for tumors. There are treatments to cure certain adrenal gland disorders. For other disorders, treatments can manage your symptoms. NIH: National Institute of Child Health and Human Development"
+        },
+        {
+          "id": "MLP-1233",
+          "title": "Addison Disease",
+          "content": "Your adrenal glands are just above your kidneys. The outside layer of these glands makes hormones that help your body respond to stress and regulate your blood pressure and water and salt balance. Addison disease happens if the adrenal glands don't make enough of these hormones. A problem with your immune system usually causes Addison disease. The immune system mistakenly attacks your own tissues, damaging your adrenal glands. Other causes include infections and cancer. Symptoms include: Weight loss Muscle weakness Fatigue that gets worse over time Low blood pressure Patchy or dark skin Lab tests can confirm that you have Addison disease. If you don't treat it, it can be fatal. You will need to take hormone pills for the rest of your life. If you have Addison disease, you should carry an emergency ID. It should say that you have the disease, list your medicines and say how much you need in an emergency. NIH: National Institute of Diabetes and Digestive and Kidney Diseases"
+        },
+        {
+          "id": "MLP-475",
+          "title": "Endocrine Diseases",
+          "content": "Your endocrine system includes eight major glands throughout your body. These glands make hormones . Hormones are chemical messengers. They travel through your bloodstream to tissues or organs. Hormones work slowly and affect body processes from head to toe. These include: Growth and development Metabolism - digestion, elimination, breathing, blood circulation and maintaining body temperature Sexual function Reproduction Mood If your hormone levels are too high or too low, you may have a hormone disorder. Hormone diseases also occur if your body does not respond to hormones the way it is supposed to. Stress, infection and changes in your blood's fluid and electrolyte balance can also influence hormone levels. In the United States, the most common endocrine disease is diabetes . There are many others. They are usually treated by controlling how much hormone your body makes. Hormone supplements can help if the problem is too little of a hormone."
+        }
+      ],
+      "intended_answerability": "answerable",
+      "gold_evidence": [
+        "When you have an adrenal gland disorder, your body makes too much or too little of one or more hormones."
+      ],
+      "expected_answer": "",
+      "allowed_source_ids": null,
+      "source_history": null
+    },
+    {
+      "id": "d3baf978797168eecf",
+      "question": "What specific genetic change is found in most people diagnosed with chronic myeloid leukemia?",
+      "answer": "Most people diagnosed with chronic myeloid leukemia (CML) have a specific genetic change called the Philadelphia chromosome [MLP-5624]. This occurs when part of the DNA from one chromosome moves to another, creating a new gene called BCR-ABL, which causes the bone marrow to produce an abnormal protein that allows leukemia cells to grow out of control [MLP-5624].",
+      "context": [
+        {
+          "id": "MLP-5624",
+          "title": "Chronic Myeloid Leukemia",
+          "content": "What is leukemia? Leukemia is a term for cancers of the blood cells. Leukemia starts in blood-forming tissues such as the bone marrow. Your bone marrow makes the cells which will develop into white blood cells, red blood cells, and platelets. Each type of cell has a different job: White blood cells help your body fight infection Red blood cells deliver oxygen from your lungs to your tissues and organs Platelets help form clots to stop bleeding When you have leukemia, your bone marrow makes large numbers of abnormal cells. This problem most often happens with white blood cells. These abnormal cells build up in your bone marrow and blood. They crowd out the healthy blood cells and make it hard for your cells and blood to do their work. What is chronic myeloid leukemia (CML)? Chronic myeloid leukemia (CML) is a type of chronic leukemia. \"Chronic\" means that the leukemia usually gets worse slowly. In CML, the bone marrow makes abnormal granulocytes (a type of white blood cell). These abnormal cells are also called blasts. When the abnormal cells crowd out the healthy cells, it can lead to infection, anemia , and easy bleeding . The abnormal cells can also spread outside the blood to other parts of the body. CML usually occurs in adults during or after middle age. It is rare in children . What causes chronic myeloid leukemia (CML)? Most people with CML have a genetic change called the Philadelphia chromosome. It's called that because researchers in Philadelphia discovered it. People normally have 23 pairs of chromosomes in each cell. These chromosomes contain your DNA (genetic material). In CML, part of the DNA from one chromosome moves to another chromosome. It combines with some DNA there, which creates a new gene called BCR-ABL. This gene causes your bone marrow to make an abnormal protein. This protein allows the leukemia cells to grow out of control. The Philadelphia chromosome isn't passed from parent to child. It happens during your lifetime. The cause is unknown. Who is at risk for chronic myeloid leukemia (CML)? It is hard to predict who will get CML. There are a few factors that could raise your risk: Age - your risk goes up as you get older CML is slightly more common in men Exposure to high-dose radiation What are the symptoms of chronic myeloid leukemia (CML)? Sometimes CML does not cause symptoms. If you do have symptoms, they can include: Feeling very tired Weight loss for no known reason Drenching night sweats Fever Pain or a feeling of fullness below the ribs on the left side How is chronic myeloid leukemia (CML) diagnosed? Your health care provider may use many tools to diagnose CML: A physical exam A medical history Blood tests, such as a complete blood count (CBC) with differential and blood chemistry tests. Blood chemistry tests measure different substances in the blood, including electrolytes, fats, proteins, glucose (sugar), and enzymes. Specific blood chemistry tests include a basic metabolic panel (BMP) , a comprehensive metabolic panel (CMP) , kidney function tests , liver function tests , and an electrolyte panel . Bone marrow tests . There are two main types - bone marrow aspiration and bone marrow biopsy. Both tests involve removing a sample of bone marrow and bone. The samples are sent to a lab for testing. Genetic tests to look for gene and chromosome changes, including tests to look for the Philadelphia chromosome If you are diagnosed with CML, you may have additional tests such as imaging tests to see whether the cancer has spread. What are the phases of chronic myeloid leukemia (CML)? CML has three phases. The phases are based on how much the CML has grown or spread: Chronic phase, where less than 10% of cells in the blood and bone marrow are blast cells (leukemia cells). Most people are diagnosed in this phase, and many do not have symptoms. Standard treatment usually helps in this phase. Accelerated phase, 10% to 19% of the cells in the blood and bone marrow are blast cells. In this phase, people often have symptoms and standard treatment may not be as effective as in the chronic phase. Blastic phase, where 20% or more of the cells in the blood or bone marrow are blast cells. The blast cells have spread to other tissues and organs. If you have tiredness, fever, and an enlarged spleen during the blastic phase, it is called a blast crisis. This phase is harder to treat. What are the treatments for chronic myeloid leukemia (CML)? There are several different treatments for CML: Targeted therapy, which uses drugs or other substances that attack specific cancer cells with less harm to normal cells. For CML, the drugs are tyrosine kinase inhibitors (TKIs). They block tyrosine kinase, which is an enzyme that causes your bone marrow to make too many blasts. Chemotherapy Immunotherapy High-dose chemotherapy with stem cell transplant Donor lymphocyte infusion (DLI). DLI is a treatment that may be used after a stem cell transplant. It involves giving you an infusion (into your bloodstream) of healthy lymphocytes from the stem cell transplant donor. Lymphocytes are a type of white blood cell. These donor lymphocytes may kill the remaining cancer cells. Surgery to remove the spleen (splenectomy) Which treatments you get will depend on which phase you are in, your age, your overall health, and other factors. When the signs and symptoms of CML are reduced or have disappeared, it is called remission. The CML may come back after remission, and you may need more treatment. NIH: National Cancer Institute"
+        },
+        {
+          "id": "MLP-5620",
+          "title": "Leukemia",
+          "content": "What is leukemia? Leukemia is a term for cancers of the blood cells. Leukemia starts in blood-forming tissues such as the bone marrow. Your bone marrow makes the cells which will develop into white blood cells, red blood cells, and platelets. Each type of cell has a different job: White blood cells help your body fight infection Red blood cells deliver oxygen from your lungs to your tissues and organs Platelets help form clots to stop bleeding When you have leukemia, your bone marrow makes large numbers of abnormal cells. This problem most often happens with white blood cells. These abnormal cells build up in your bone marrow and blood. They crowd out the healthy blood cells and make it hard for your cells and blood to do their work. What are the types of leukemia? There are different types of leukemia. Which type of leukemia you have depends on the type of blood cell that becomes cancer and whether it grows quickly or slowly. The type of blood cell could be: Lymphocytes, a type of white blood cell Myeloid cells, immature cells that become white blood cells, red blood cells, or platelets The different types can grow quickly or slowly: Acute leukemia is fast growing. It usually gets worse quickly if it's not treated. Chronic leukemia is slow growing. It usually gets worse over a longer period of time. The main types of leukemia are: Acute lymphocytic leukemia (ALL) , which is the most common type of cancer in children. It can also affect adults. Acute myeloid leukemia (AML) , which is more common in older adults but can also affect children Chronic lymphocytic leukemia (CLL) , which is one of the most common types of leukemia in adults. It often occurs during or after middle age. Chronic myeloid leukemia (CML) , which usually occurs in adults during or after middle age What causes leukemia? Leukemia happens when there are changes in the genetic material (DNA) in bone marrow cells. The cause of these genetic changes is unknown. Who is at risk for leukemia? For the specific types, there are different factors which can raise your risk of getting that type. Overall, your risk of leukemia goes up as you age. It is most common over age 60. What are the symptoms of leukemia? Some of the symptoms of leukemia may include: Feeling tired Fever or night sweats Easy bruising or bleeding Weight loss or loss of appetite Petechiae, which are tiny red dots under the skin. They are caused by bleeding. Other leukemia symptoms can be different from type to type. Chromic leukemia may not cause symptoms at first. How is leukemia diagnosed? Your health care provider may use many tools to diagnose leukemia: A physical exam A medical history Blood tests, such as a complete blood count (CBC) Bone marrow tests . There are two main types - bone marrow aspiration and bone marrow biopsy. Both tests involve removing a sample of bone marrow and bone. The samples are sent to a lab for testing. Genetic tests to look for gene and chromosome changes Once the provider makes a diagnosis, there may be additional tests to see whether the cancer has spread. These include imaging tests and a lumbar puncture, which is a procedure to collect and test cerebrospinal fluid (CSF). What are the treatments for leukemia? The treatments for leukemia depend on which type you have, how severe the leukemia is, your age, your overall health, and other factors. Some possible treatments might include: Chemotherapy Radiation therapy Chemotherapy with stem cell transplant Targeted therapy, which uses drugs or other substances that attack specific cancer cells with less harm to normal cells NIH: National Cancer Institute"
+        },
+        {
+          "id": "MLP-87",
+          "title": "Chronic Lymphocytic Leukemia",
+          "content": "What is leukemia? Leukemia is a term for cancers of the blood cells. Leukemia starts in blood-forming tissues such as the bone marrow. Your bone marrow makes the cells which will develop into white blood cells, red blood cells, and platelets. Each type of cell has a different job: White blood cells help your body fight infection Red blood cells deliver oxygen from your lungs to your tissues and organs Platelets help form clots to stop bleeding When you have leukemia, your bone marrow makes large numbers of abnormal cells. This problem most often happens with white blood cells. These abnormal cells build up in your bone marrow and blood. They crowd out the healthy blood cells and make it hard for your cells and blood to do their work. What is chronic lymphocytic leukemia (CLL)? Chronic lymphocytic leukemia (CLL) is a type of chronic leukemia. \"Chronic\" means that the leukemia usually gets worse slowly. In CLL, the bone marrow makes abnormal lymphocytes (a type of white blood cell). When the abnormal cells crowd out the healthy cells, it can lead to infection, anemia , and easy bleeding . The abnormal cells can also spread outside the blood to other parts of the body. CLL is one of the most common types of leukemia in adults. It often occurs during or after middle age. It is rare in children . What causes chronic lymphocytic leukemia (CLL)? CLL happens when there are changes in the genetic material (DNA) in bone marrow cells. The cause of these genetic changes is unknown, so it's hard to predict who might get CLL. There are a few factors that might raise your risk. Who is at risk for chronic lymphocytic leukemia (CLL)? It is hard to predict who will get CLL. There are a few factors that could raise your risk: Age - your risk goes up as you get older. Most people who are diagnosed with CLL are over 50. Family history of CLL and other blood and bone marrow diseases Racial/ethnic group - CLL is more common in whites than in people from other racial or ethnic groups Exposure to certain chemicals, including Agent Orange, a chemical that was used in the Vietnam War What are the symptoms of chronic lymphocytic leukemia (CLL)? In the beginning, CLL does not cause any symptoms. Later, you can have symptoms such as: Swollen lymph nodes - you may notice them as painless lumps in the neck, underarm, stomach, or groin Weakness or feeling tired Pain or a feeling of fullness below the ribs Fever and infection Easy bruising or bleeding Petechiae, which are tiny red dots under the skin. They are caused by bleeding. Weight loss for no known reason Drenching night sweats How is chronic lymphocytic leukemia (CLL) diagnosed? Your health care provider may use many tools to diagnose CLL: A physical exam A medical history Blood tests, such as a complete blood count (CBC) with differential and blood chemistry tests. Blood chemistry tests measure different substances in the blood, including electrolytes, fats, proteins, glucose (sugar), and enzymes. Specific blood chemistry tests include a basic metabolic panel (BMP) , a comprehensive metabolic panel (CMP) , kidney function tests , liver function tests , and an electrolyte panel . Flow cytometry tests, which check for leukemia cells and identify which type of leukemia it is. The tests can be done on blood, bone marrow, or other tissue. Genetic tests to look for gene and chromosome changes If you are diagnosed with CLL, you may have additional tests to see whether the cancer has spread. These include imaging tests and bone marrow tests . What are the treatments for chronic lymphocytic leukemia (CLL)? Treatments for CLL include: Watchful waiting, which means that you don't get treatment right away. Your health care provider regularly checks to see if your signs or symptoms appear or change. Targeted therapy, which uses drugs or other substances that attack specific cancer cells with less harm to normal cells. Chemotherapy Radiation therapy Immunotherapy Chemotherapy with bone marrow or stem cell transplant The goals of treatment are to slow the growth of the leukemia cells and to give you long periods of remission. Remission means that the signs and symptoms of cancer are reduced or have disappeared. The CLL may come back after remission, and you may need more treatment. NIH: National Cancer Institute"
+        }
+      ],
+      "intended_answerability": "answerable",
+      "gold_evidence": [
+        "Most people with CML have a genetic change called the Philadelphia chromosome."
+      ],
+      "expected_answer": "",
+      "allowed_source_ids": null,
+      "source_history": null
+    },
+    {
+      "id": "daefc77429844ec27c",
+      "question": "在怀孕的最后一个月，我预计多久需要去看一次医生进行产前检查？",
+      "answer": "在怀孕的最后一个月（即第36周至分娩），通常建议每周进行一次产前检查。根据来源[MLP-6]，从第36周开始直到宝宝出生，产检频率为每周一次。如果您超过35岁或属于高风险妊娠（如患有糖尿病或高血压），医生可能会要求更频繁的就诊。",
+      "context": [
+        {
+          "id": "MLP-6",
+          "title": "Prenatal Care",
+          "content": "What is prenatal care? Prenatal care is the health care you get while you are pregnant . It includes your checkups and prenatal testing . Typically, a health care provider specializing in the delivery of babies and the care of pregnant women, such as an obstetrician or a midwife, provides prenatal care. Why do I need prenatal care? Prenatal care can help keep you and your fetus healthy until you're ready to deliver your baby . It lets your provider spot health problems early. Early treatment can cure many problems and prevent others from developing. Every prenatal visit offers you the chance to ask questions about having a healthy pregnancy and preparing for delivery. Talk to your provider about childbirth education classes for you and your partner to help you prepare for the birth of your baby. How often do I need prenatal visits? Your provider will give you a schedule for your prenatal visits. Usually, visits during your pregnancy occur: Once a month for weeks 4 through 28 Twice a month for weeks 28 through 36 Weekly for week 36 until your baby is born If you are over 35 years old or your pregnancy is high risk because of health problems like diabetes or high blood pressure , your provider will probably want to see you more often. You can also expect to see your provider more often as your due date gets closer. What happens during prenatal visits? During prenatal visits, your provider will check your health and carefully monitor your pregnancy until you deliver your baby. Your first prenatal visit may take a little longer. Your provider will most likely: Ask about your health history, including prior pregnancies Ask about your family's health history Discuss any health conditions and risk factors that could affect you or your fetus Do a complete physical exam, including a pelvic exam and Pap test Review blood, urine, or other routine prenatal lab tests Check your blood pressure, height, and weight Discuss a healthy amount of weight gain, healthy eating , and prenatal vitamins Figure out your due date (when you are 40 weeks pregnant) During most visits, your provider will most likely: Check your blood pressure and weight gain Measure your abdomen (belly) to check fetal growth once you begin to show Check the fetal heart rate Check your hands and feet for swelling Do routine prenatal tests Depending on the stage of your pregnancy, you may have additional tests. Always talk to your provider before you start or stop any medicine . Some medicines can harm your fetus. To help keep yourself and your fetus healthy, avoid substances that could be harmful, such as tobacco, alcohol, and drugs. Dept. of Health and Human Services Office on Women's Health"
+        },
+        {
+          "id": "MLP-6057",
+          "title": "Fetal Health and Development",
+          "content": "A normal pregnancy lasts nine months. Each three-month period of pregnancy is called a trimester. During each trimester, the fetus grows and develops. Regular medical checkups and prenatal tests are very important. They can: Help keep you and your baby healthy Spot problems with your baby (if there are any). In some cases, health care professionals can treat the problem before your baby is born. But even when they cannot, it can still be helpful to know about the problem early on. That gives you time to learn about your baby's condition and prepare for any challenges you may face after the baby is born. Prevent problems during delivery . For example, if your baby is breech (bottom first or feet first, instead of head first), you may need to have a Cesarean section to avoid complications. Besides getting medical care, there are other things you can do to keep your baby as healthy as possible. It's important not to drink or smoke . Try to eat a healthy diet and make sure to take care of any health problems you have during pregnancy ."
+        },
+        {
+          "id": "MLP-5435",
+          "title": "Baby Health Checkup",
+          "content": "There are many new responsibilities when you have a baby. One of them is to make sure that your baby gets regular checkups, which are also called well-baby exams. These exams are important in making sure that your baby is growing and developing properly. If there are any problems, they can be caught early, when they may be easier to treat. Your baby's health care provider will let you know how often your baby should get a checkup. During these checkups, the provider will give your baby a complete physical exam, which includes: Checking your baby's height and weight Looking at their head, ears, nose, and mouth Listening to their heart and lungs Testing their hearing and vision (for some visits) Checking their reflexes The provider will ask you about your baby's development . For example, they may ask when the baby started smiling and rolling over. During certain visits, the provider will do developmental and behavioral screening tests . The provider will use all of this information from the visit to check if your baby is meeting important developmental milestones. Your baby will also get any needed vaccines and screenings during the exam. And you can ask the provider any questions you might have about how to care for your baby . You can prepare for your baby's checkups by: Making a list of issues and questions you want to discuss with the provider Being prepared to answer questions about your baby's behavior and eating and sleeping habits Being ready to take notes at the visit In addition to these checkups, you can contact the provider any time if your baby seems sick or if you are worried about their development."
+        }
+      ],
+      "intended_answerability": "answerable",
+      "gold_evidence": [
+        "Usually, visits during your pregnancy occur: Once a month for weeks 4 through 28 Twice a month for weeks 28 through 36 Weekly for week 36 until your baby is born If you are over 35 years old or your pregnancy is high risk because of health problems like diabetes or high blood pressure , your provider will probably want to see you more often."
+      ],
+      "expected_answer": "",
+      "allowed_source_ids": null,
+      "source_history": null
+    }
+  ],
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "items"
+    ],
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "context_sufficiency",
+            "has_unsupported_claim",
+            "false_search_claim",
+            "acknowledges_limit",
+            "answers_supported_part",
+            "complete_correct",
+            "unsupported_quote",
+            "search_quote",
+            "reason"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "context_sufficiency": {
+              "type": "string",
+              "enum": [
+                "full",
+                "partial",
+                "none"
+              ]
+            },
+            "has_unsupported_claim": {
+              "type": "boolean"
+            },
+            "false_search_claim": {
+              "type": "boolean"
+            },
+            "acknowledges_limit": {
+              "type": "boolean"
+            },
+            "answers_supported_part": {
+              "type": "boolean"
+            },
+            "complete_correct": {
+              "type": "boolean"
+            },
+            "unsupported_quote": {
+              "type": "string"
+            },
+            "search_quote": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

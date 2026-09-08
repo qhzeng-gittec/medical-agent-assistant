@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"R034\", \"query\": \"我张嘴时听到下巴有咔哒声，但并不疼。这是否意味着我肯定患有颞下颌关节紊乱病？\"}, {\"id\": \"R036\", \"query\": \"如果医生并不总能治疗在宝宝出生前发现的问题，为什么定期的产前检查仍然很重要？\"}, {\"id\": \"R038\", \"query\": \"随着年龄增长变得健忘是衰老的正常部分，还是表明患有痴呆症？\"}, {\"id\": \"R040\", \"query\": \"导致随时间推移造成永久性损伤的慢性胰腺炎最常见的病因是什么？\"}, {\"id\": \"R042\", \"query\": \"如果我患有高血压，但饮食和运动等生活方式的改变不足以控制病情，医生接下来可能会给我开什么药？\"}, {\"id\": \"R044\", \"query\": \"在像戈谢病这样的脂质代谢紊乱中，当酶无法正确分解脂肪时，体内会发生什么情况？\"}, {\"id\": \"R046\", \"query\": \"对于患有G6PD缺乏症的人来说，红细胞被过快破坏的一些常见迹象是什么？\"}, {\"id\": \"R048\", \"query\": \"如果我增加纤维摄入的速度太快，可能会出现哪些消化方面的副作用？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875350-ghbpz4P9TNDuwugAXt2D",
+    "object": "chat.completion",
+    "created": 1788875350,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"R034\",\n      \"query\": \"I hear a clicking sound in my jaw when I open my mouth, but it is not painful. Does this mean I definitely have temporomandibular joint disorder?\"\n    },\n    {\n      \"id\": \"R036\",\n      \"query\": \"If doctors cannot always treat problems found before the baby is born, why are regular prenatal checkups still important?\"\n    },\n    {\n      \"id\": \"R038\",\n      \"query\": \"Is becoming forgetful with age a normal part of aging, or does it indicate dementia?\"\n    },\n    {\n      \"id\": \"R040\",\n      \"query\": \"What is the most common cause of chronic pancreatitis that leads to permanent damage over time?\"\n    },\n    {\n      \"id\": \"R042\",\n      \"query\": \"If I have high blood pressure and lifestyle changes such as diet and exercise are not enough to control it, what medication might my doctor prescribe next?\"\n    },\n    {\n      \"id\": \"R044\",\n      \"query\": \"In lipid metabolism disorders like Gaucher disease, what happens in the body when enzymes cannot properly break down fats?\"\n    },\n    {\n      \"id\": \"R046\",\n      \"query\": \"For people with G6PD deficiency, what are some common signs that red blood cells are being destroyed too quickly?\"\n    },\n    {\n      \"id\": \"R048\",\n      \"query\": \"What digestive side effects may occur if I increase my fiber intake too quickly?\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 331,
+      "completion_tokens": 377,
+      "total_tokens": 708,
+      "cost": 0.000652665,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000652665,
+        "upstream_inference_prompt_cost": 6.4545e-05,
+        "upstream_inference_completions_cost": 0.00058812
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 6.359
+}

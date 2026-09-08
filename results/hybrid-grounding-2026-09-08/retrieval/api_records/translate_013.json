@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"R210\", \"query\": \"在医学伦理的背景下，关于临终护理中营养供给的一个伦理问题例子是什么？\"}, {\"id\": \"R212\", \"query\": \"我正在考虑做输精管结扎术作为避孕措施。手术后需要等多久才能生效？在此期间我该怎么办？\"}, {\"id\": \"R214\", \"query\": \"我的朋友在事故中撞到了头。有哪些具体的警示信号表明他可能患有中度或重度脑外伤，需要立即就医？\"}, {\"id\": \"R216\", \"query\": \"我听说军团病是由受污染的水系统引起的。你能解释一下人们是如何感染这种细菌的吗？\"}, {\"id\": \"R218\", \"query\": \"当一个人患有心肌病时，心肌具体会发生什么变化？\"}, {\"id\": \"R220\", \"query\": \"我的皮肤如何帮助保护身体免受有害细菌和感染的侵害？\"}, {\"id\": \"R222\", \"query\": \"我计划去西非农村地区旅行，那里的拉沙热病毒是由哪些特定动物携带的？\"}, {\"id\": \"R224\", \"query\": \"如果我的肾结石卡住并引起剧烈疼痛，除了手术之外还有哪些治疗方法？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875377-0v2CfvXAYy4BOKEoB1Ps",
+    "object": "chat.completion",
+    "created": 1788875377,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "DeepInfra",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"R210\",\n      \"query\": \"In the context of medical ethics, what is an example of an ethical issue regarding nutrition provision in end-of-life care?\"\n    },\n    {\n      \"id\": \"R212\",\n      \"query\": \"I am considering a vasectomy as a contraceptive method. How long after the surgery does it take to become effective? What should I do in the meantime?\"\n    },\n    {\n      \"id\": \"R214\",\n      \"query\": \"My friend hit his head in an accident. What specific warning signs indicate he may have moderate or severe traumatic brain injury requiring immediate medical attention?\"\n    },\n    {\n      \"id\": \"R216\",\n      \"query\": \"I heard that Legionnaires' disease is caused by contaminated water systems. Can you explain how people become infected with this bacteria?\"\n    },\n    {\n      \"id\": \"R218\",\n      \"query\": \"When a person has cardiomyopathy, what specific changes occur in the heart muscle?\"\n    },\n    {\n      \"id\": \"R220\",\n      \"query\": \"How does my skin help protect the body from harmful bacteria and infections?\"\n    },\n    {\n      \"id\": \"R222\",\n      \"query\": \"I plan to travel to rural West Africa. Which specific animals carry the Lassa fever virus there?\"\n    },\n    {\n      \"id\": \"R224\",\n      \"query\": \"If my kidney stone gets stuck and causes severe pain, what treatment options are available besides surgery?\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 328,
+      "completion_tokens": 375,
+      "total_tokens": 703,
+      "cost": 0.00106028,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00106028,
+        "upstream_inference_prompt_cost": 8.528e-05,
+        "upstream_inference_completions_cost": 0.000975
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 10.593
+}

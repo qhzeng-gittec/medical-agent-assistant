@@ -1,0 +1,342 @@
+{
+  "model": "gpt-5.5",
+  "instruction": "Audit answers for faithfulness to supplied evidence, not for whether outside medical knowledge makes a claim plausible.\nThe answerer had ONLY these source excerpts/memories. No external search occurred. Source IDs and answer method names must not affect scoring.\nEach item gives question, answer, context, gold evidence/expected answer when available, intended answerability and allowed_source_ids when source-scoped.\nOnly allowed sources can support a source-scoped answer. For memories, preserve who, when, negation and uncertainty; assistant suggestions are not user facts.\nFor memory items, source_history contains the authoritative original user turns and recording timestamps. If a recalled memory or answer distorts them, mark the answer's distorted claim unsupported even if the retrieved memory contains it. Check absolute years against relative dates and timestamps; do not assume old authored years are correct.\nReturn JSON {\"items\":[{\"id\":same ID,\"context_sufficiency\":\"full|partial|none\",\n\"has_unsupported_claim\":boolean,\"unsupported_quote\":\"verbatim answer substring or empty\",\n\"false_search_claim\":boolean,\"search_quote\":\"verbatim answer substring or empty\",\n\"acknowledges_limit\":boolean,\"answers_supported_part\":boolean,\"complete_correct\":boolean,\"reason\":\"short explanation\"}]}.\nhas_unsupported_claim: any factual medical/personal/quantitative statement asserted without support in eligible context, or contradicting it.\nGeneric advice to consult a professional is allowed; clearly conditional questions are not invented history. A disclaimer does not erase an unsupported claim elsewhere.\nfalse_search_claim: claims to have searched external databases, verified approvals, or exhaustively established absence beyond these excerpts. 'The supplied materials do not state X' is valid. 'PubMed has no studies' without actual search evidence is invalid, even if the answer also says no evidence.\nacknowledges_limit: explicitly acknowledges missing requested evidence or inability to determine it, not just a generic disclaimer.\nanswers_supported_part: supplies the actual requested supported fact(s), not just a relevant topic summary. For intended unanswerable/needs_history set false.\ncomplete_correct: all answerable requested facts correct and supported, plus explicit limitation for missing parts; fully unanswerable cases require clear limitation without invented specifics. If has_unsupported_claim or false_search_claim is true, complete_correct MUST be false.\nFor partial cases, merely refusing everything is incomplete. For answerable cases, merely refusing is incomplete even if retrieval failed.\nGold evidence guides the requested facts but irrelevant sentences in a long excerpt need not be repeated. Alternative eligible sources may support correct answers.\nUnsupported/search quotes must be exact answer substrings when the corresponding flag is true, empty otherwise. Read the whole answer.\nCalibration clarification v2: distinguish invented facts from unnecessary refusal.\nA refusal ('cannot determine'), conservative uncertainty, or failure to select a later correction is NOT by itself an affirmative fabricated medical/personal fact: set complete_correct false if the answer omits available requested information, but do NOT set has_unsupported_claim just for the refusal.\nAn answer that asserts the obsolete value as current despite a later correction DOES contain an unsupported/contradicted factual claim.\ncontext_sufficiency must cover the ENTIRE actual question: if it asks for an undisclosed invoice number, no amount of related medical history makes that number available; mark none if only the invoice is requested, partial if the question also requests an available medical fact.\nFor fully unanswerable questions, answers_supported_part must be false; complete_correct can be true if it acknowledges the missing requested information and adds no unsupported factual claims.\nKeep all six boolean fields as JSON true/false, not strings. Always include both quote fields, using empty strings for false flags.\nIndependently review each item. Only the context field was shown to the answerer.\nGold evidence and expected answers are evaluator references, NOT additional retrieved context.\nIf gold evidence is absent from context, an admission of missing information is not hallucination or a false search claim.\nRead all context documents before judging. Do not mark a statement unsupported merely because one gold excerpt is narrower.\nAn explicit claim about what the provided documents contain is not a claim of external database search.\nAn answer may fail completeness without fabricating facts. Preserve this distinction rigorously.",
+  "input": [
+    {
+      "id": "0c0695a71ea5835cca",
+      "question": "I have two separate questions: What is the most common underlying cause of a heart attack? What is the primary cause of Addison disease related to the immune system?",
+      "answer": "The provided materials do not state the most common underlying cause of a heart attack; they only note that coronary artery disease is the most common type of heart disease and that plaque buildup can lead to heart attacks [MLP-277]. Regarding Addison disease, the primary immune-related cause is when the immune system mistakenly attacks the body's own tissues, specifically damaging the adrenal glands [MLP-1233].",
+      "context": [
+        {
+          "id": "MLP-1233",
+          "title": "Addison Disease",
+          "content": "Your adrenal glands are just above your kidneys. The outside layer of these glands makes hormones that help your body respond to stress and regulate your blood pressure and water and salt balance. Addison disease happens if the adrenal glands don't make enough of these hormones. A problem with your immune system usually causes Addison disease. The immune system mistakenly attacks your own tissues, damaging your adrenal glands. Other causes include infections and cancer. Symptoms include: Weight loss Muscle weakness Fatigue that gets worse over time Low blood pressure Patchy or dark skin Lab tests can confirm that you have Addison disease. If you don't treat it, it can be fatal. You will need to take hormone pills for the rest of your life. If you have Addison disease, you should carry an emergency ID. It should say that you have the disease, list your medicines and say how much you need in an emergency. NIH: National Institute of Diabetes and Digestive and Kidney Diseases"
+        },
+        {
+          "id": "MLP-154",
+          "title": "Autoimmune Diseases",
+          "content": "What are autoimmune diseases? Your immune system protects you from disease and infection by attacking germs that get into your body, such as viruses and bacteria. Your immune system can tell that the germs aren't part of you, so it destroys them. If you have an autoimmune disease, your immune system attacks the healthy cells of your organs and tissues by mistake. There are more than 80 types of autoimmune diseases. They can affect almost any part of your body. For example, alopecia areata is an autoimmune disease of the skin that causes hair loss. Autoimmune hepatitis affects the liver. In type 1 diabetes , the immune system attacks the pancreas. And in rheumatoid arthritis , the immune system can attack many parts of the body, including the joints, lungs, and eyes. What causes autoimmune diseases? No one is sure why autoimmune diseases happen. But you can't catch them from other people. Autoimmune diseases do tend to run in families, which means that certain genes may make some people more likely to develop a problem. Viruses, certain chemicals, and other things in the environment may trigger an autoimmune disease if you already have the genes for it. Who is at risk for autoimmune diseases? Millions of Americans of all ages have autoimmune diseases. Women develop many types of autoimmune diseases much more often than men. And if you have one autoimmune disease, you are more likely to get another. What are the symptoms of autoimmune diseases? The symptoms of an autoimmune disease depend on the part of your body that's affected. Many types of autoimmune diseases cause redness, swelling, heat, and pain, which are the signs and symptoms of inflammation. But other illnesses can cause the same symptoms. The symptoms of autoimmune diseases can come and go. During a flare-up, your symptoms may get severe for a while. Later on, you may have a remission, which means that your symptoms get better or disappear for a period of time. How are autoimmune diseases diagnosed? Doctors often have a hard time diagnosing autoimmune diseases. There's usually not a specific test to show whether you have a certain autoimmune disease. And the symptoms can be confusing. That's because many autoimmune diseases have similar symptoms. And some symptoms, such as muscle aches, are common in many other illnesses. So it can take a long time and some visits to different types of doctors to get a diagnosis. To help your doctor find out if an autoimmune disease is causing your symptoms,: Learn about the health conditions in your family history . What health problems did your grandparents, aunts, uncles, and cousins have? Write down what you learn and share it with your doctor. Keep track of your symptoms, including how long they last and what makes them better or worse. Share your notes with your doctor. See a specialist who deals with the symptoms that bother you most. For example, if you have rash, see a dermatologist (skin doctor). What are the treatments for autoimmune diseases? The treatment depends on the disease. In most cases, the goal of treatment is to suppress (slow down) your immune system, and ease swelling, redness, and pain from inflammation. Your doctor may give you corticosteroids or other medicines to help you feel better. For some diseases, you may need treatment for the rest of your life."
+        },
+        {
+          "id": "MLP-277",
+          "title": "Heart Diseases",
+          "content": "What is heart disease? Heart disease is a general term that includes many types of heart problems. It's a type of cardiovascular disease, which means heart and blood vessel disease. Heart disease is the leading cause of death in the United States, but there are ways to prevent and manage many types of heart disease. What are the types of heart disease? There are many different types of heart disease. Some you may be born with, called congenital heart disease . Other types develop during your lifetime. Coronary artery disease (also called coronary heart disease) is the most common type of heart disease. It happens slowly over time when a sticky substance called plaque builds up in the arteries that supply your heart muscle with blood. The plaque narrows or blocks blood flow to the heart muscle and can lead to other heart problems: Angina - chest pain from lack of blood flow Heart attacks - when part of the heart muscle dies from loss of blood flow Heart failure - when your heart can't pump enough blood to meet your body's needs Arrhythmia - a problem with the rate or rhythm of your heartbeat Other types of heart diseases may affect your heart valves or heart muscle ( cardiomyopathy ). What causes heart diseases? The causes of heart disease depend on the type of disease. Some possible causes include lifestyle, genetics, infections, medicines, and other diseases. Who is more likely to develop heart diseases? There are many different factors that can make you more likely to develop heart disease. Some of these factors you can change, but others you cannot. Age. Your risk of heart disease goes up as you get older. Sex. Some factors may affect heart disease risk differently in women than in men. Family history and genetics. A family history of early heart disease raises your risk. And research has shown that some genes are linked to a higher risk of certain heart diseases. Race/ethnicity. Heart disease is the leading cause of death in most racial and ethnic groups in the United States. However, certain groups have higher risks than others. This includes Black people, White people, and American Indian/Alaska Native people. Lifestyle habits. Over time, unhealthy lifestyle habits can raise your risk of heart disease. These can include: Eating a diet high in saturated fats , refined carbohydrates, and salt . Not getting enough physical activity . Drinking too much alcohol . Smoking and exposure to secondhand smoke . Too much stress . Having other medical conditions can raise your risk of heart diseases. These conditions include: High blood pressure . High cholesterol levels . Diabetes . Obesity . Autoimmune and inflammatory diseases. Chronic kidney disease . Metabolic syndrome . What are the symptoms of heart disease? Your symptoms will depend on the type of heart disease you have. You may not have symptoms at first. In some cases, you may not know you have heart disease until you have a complication such as a heart attack. How are heart diseases diagnosed? To find out if you have heart disease, your health care provider will: Ask about your medical history , including your symptoms Ask about your family health history , including relatives who have had heart disease Do a physical exam Likely run heart tests and blood tests In some cases, your provider may refer you to a cardiologist (a doctor who specializes in heart diseases) for tests, diagnosis, and care. What are the treatments for heart disease? Treatment plans for heart disease depend on the type of heart disease you have, how serious your symptoms are, and what other health conditions you have. Possible treatments may include: Heart-healthy lifestyle changes Medicines Procedures or surgeries Cardiac rehabilitation Can heart diseases be prevented? You may be able to lower your risk of certain heart diseases by making heart-healthy lifestyle changes and managing any other medical conditions you have. NIH: National Heart, Lung, and Blood Institute"
+        }
+      ],
+      "intended_answerability": "answerable",
+      "gold_evidence": [
+        "The most common cause of heart attacks is coronary artery disease (CAD).",
+        "The immune system mistakenly attacks your own tissues, damaging your adrenal glands."
+      ],
+      "expected_answer": "",
+      "allowed_source_ids": null,
+      "source_history": null
+    },
+    {
+      "id": "0fc4ccfff63224c643",
+      "question": "哪些指甲变化可能是肺病、心脏病、肾病、肝病、糖尿病和贫血的征象？",
+      "answer": "根据提供的资料，特定的指甲变色和生长速率变化可能是肺病、心脏病、肾病、肝病、糖尿病和贫血的征象 [MLP-532]。然而，资料中并未具体说明哪些特定的指甲变化（如颜色或形状的具体类型）分别对应上述哪种疾病。资料仅提到白点和垂直脊是无害的，而细菌和真菌感染、嵌甲、肿瘤和疣是需要治疗的指甲问题 [MLP-532]。因此，无法从现有材料中确定具体的指甲变化与特定疾病的对应关系。",
+      "context": [
+        {
+          "id": "MLP-532",
+          "title": "Nail Diseases",
+          "content": "Your toenails and fingernails protect the tissues of your toes and fingers. They are made up of layers of a hardened protein called keratin, which is also in your hair and skin. The health of your nails can be a clue to your overall health. Healthy nails are usually smooth and consistent in color. Specific types of nail discoloration and changes in growth rate can be signs of lung, heart, kidney, and liver diseases, as well as diabetes and anemia. White spots and vertical ridges are harmless. Nail problems that sometimes require treatment include: Bacterial and fungal infections Ingrown nails Tumors Warts Keeping your nails clean, dry, and trimmed can help you avoid some problems. Do not remove the cuticle, which can cause infection."
+        },
+        {
+          "id": "MLP-1327",
+          "title": "Foot Health",
+          "content": "Each step you take involves a complex network of bones, muscles, tendons, and ligaments. This, combined with all of the weight they carry, explains why feet can have problems. To keep your feet healthy: Examine your feet regularly Wear comfortable shoes that fit Wash your feet daily with soap and lukewarm water Trim your toenails straight across and not too short Your foot health can be a clue to your overall health. For example, joint stiffness could mean arthritis. Tingling or numbness could be a sign of diabetes. Swelling might indicate kidney disease, heart disease, or high blood pressure. Good foot care and regular foot checks are an important part of your health care. If you have foot problems, be sure to talk to your doctor. NIH: National Institute on Aging"
+        },
+        {
+          "id": "MLP-4567",
+          "title": "Diabetes Complications",
+          "content": "What is diabetes? If you have diabetes , your blood glucose, or blood sugar , levels are too high. Glucose comes from the foods you eat. A hormone called insulin helps the glucose get into your cells to give them energy. With type 1 diabetes , your body does not make insulin. With type 2 diabetes , your body does not make or use insulin well. Without enough insulin, the glucose stays in your blood. What health problems can diabetes cause? Over time, having too much glucose in your blood can cause complications, including: Eye disease , due to changes in fluid levels, swelling in the tissues, and damage to the blood vessels in the eyes. Foot problems , caused by damage to the nerves and reduced blood flow to your feet. Gum disease and other dental problems, because a high amount of glucose in your saliva helps harmful bacteria grow in your mouth. The bacteria combine with food to form a soft, sticky film called plaque. Plaque also comes from eating foods that contain sugars or starches. Some types of plaque cause gum disease and bad breath . Other types cause tooth decay and cavities. Heart disease and stroke , caused by damage to your blood vessels and the nerves that control your heart and blood vessels. Kidney disease , due to damage to the blood vessels in your kidneys. Many people with diabetes develop high blood pressure . That can also damage your kidneys. Nerve problems (diabetic neuropathy), caused by damage to the nerves and the small blood vessels that nourish your nerves with oxygen and nutrients. Sexual and bladder problems, caused by damage to the nerves and reduced blood flow in the genitals and bladder. Skin conditions , some of which are caused by changes in the small blood vessels and reduced circulation. People with diabetes are also more likely to have infections, including skin infections . What other problems can people with diabetes have? If you have diabetes, you need to watch out for blood glucose levels that are too high (hyperglycemia) or too low for you (hypoglycemia). These can happen quickly and can become dangerous. Some of the causes include having another illness or infection and certain medicines. They can also happen if you don't get the right amount of diabetes medicines . To try to prevent these problems, make sure to take your diabetes medicines correctly, follow your diabetic diet , and check your blood glucose regularly. NIH: National Institute of Diabetes and Digestive and Kidney Diseases"
+        }
+      ],
+      "intended_answerability": "answerable",
+      "gold_evidence": [
+        "The health of your nails can be a clue to your overall health. Healthy nails are usually smooth and consistent in color. Specific types of nail discoloration and changes in growth rate can be signs of lung, heart, kidney, and liver diseases, as well as diabetes and anemia."
+      ],
+      "expected_answer": "Specific nail discoloration and changes in nail growth rate can be signs of lung, heart, kidney, and liver diseases, as well as diabetes and anemia.",
+      "allowed_source_ids": null,
+      "source_history": null
+    },
+    {
+      "id": "146c2449e5d02c5168",
+      "question": "患者因腰部问题被禁止哪些动作？",
+      "answer": "患者因腰部问题被禁止的动作包括弯腰提东西和长时间坐着 [MEM-1]。其他具体禁止动作无法从现有资料中确定。",
+      "context": [
+        {
+          "id": "MEM-1",
+          "content": "用户因腰部问题被要求避免弯腰提东西和长时间坐着，目前只能短时间站立或缓慢行走。",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:41.040978+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M02-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        },
+        {
+          "id": "MEM-2",
+          "content": "用户目前尽量控制活动时间以应对腰部问题",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:36:57.453507+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M02-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        },
+        {
+          "id": "MEM-3",
+          "content": "医生告知用户如果出现麻木感需要立刻躺下休息",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:36:57.453507+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M02-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        }
+      ],
+      "intended_answerability": "answerable",
+      "gold_evidence": [],
+      "expected_answer": [
+        "患者被禁止弯腰提东西和长时间坐着。"
+      ],
+      "allowed_source_ids": null,
+      "source_history": {
+        "turns": [
+          {
+            "user": "由于腰部问题，我被要求避免弯腰提东西和长时间坐着。现在我只能短时间站立或缓慢行走。",
+            "assistant": "好的，已记录您的腰部活动限制。"
+          },
+          {
+            "user": "医生还说，如果出现麻木感，需要立刻躺下休息。目前我尽量控制活动时间。",
+            "assistant": "明白，已更新您的注意事项。"
+          }
+        ],
+        "recorded_at": [
+          "2026-09-08T09:35:41.040978+00:00",
+          "2026-09-08T09:36:57.453507+00:00",
+          "2026-09-08T09:36:57.453507+00:00"
+        ]
+      }
+    },
+    {
+      "id": "15292cc6a6153d2357",
+      "question": "刚才说的情况，具体应该怎么理解？",
+      "answer": "无法确定“刚才说的情况”具体指代什么，因为提供的材料中未包含前文对话记录。但根据现有资料，若涉及医疗安全或医患沟通，可理解为：患者应积极参与自身护理，通过提问、携带亲友协助、保持诚实和记录笔记来确保理解医嘱。具体包括：列出所有药物（含非处方药和补充剂）及过敏史，确认药物名称、剂量和副作用，并在不理解时要求书面说明或寻求第二意见。这些措施有助于减少医疗错误并提高治疗效果。",
+      "context": [
+        {
+          "id": "MLP-616",
+          "title": "Patient Safety",
+          "content": "You can help prevent medical errors by being an active member of your health care team. Research shows that patients who are more involved with their care tend to get better results. To reduce the risk of medical errors, you can: Ask questions if you have doubts or concerns. Take a relative or friend to your doctor appointment to help you ask questions and understand answers. Make sure you understand what will happen if you need surgery Tell your health care providers about all the medicines you take, including over-the-counter drugs and dietary supplements. Tell them if you have any allergies or bad reactions to anesthesia. Make sure you know how to take your medications correctly . Get a second opinion about treatment options Keep a copy of your own medical history Agency for Healthcare Research and Quality"
+        },
+        {
+          "id": "MLP-5719",
+          "title": "Medication Errors",
+          "content": "Medicines treat infectious diseases, prevent problems from chronic diseases, and ease pain. But medicines can also cause harmful reactions if not used correctly. Errors can happen in the hospital, at the health care provider's office, at the pharmacy, or at home. You can help prevent errors by: Knowing your medicines. When you get a prescription, ask the name of the medicine and check to make sure that the pharmacy gave you the right medicine. Make sure that you understand how often you should take the medicine and how long you should take it. Keeping a list of medicines. Write down all of the medicines that you are taking, including the names of your medicines, how much you take, and when you take them. Make sure to include any over-the-counter medicines , vitamins , supplements , and herbs that you take. List the medicines that you are allergic to or that have caused you problems in the past. Take this list with you every time you see a health care provider. Reading medicine labels and following the directions. Don't just rely on your memory - read the medication label every time. Be especially careful when giving medicines to children . Asking questions. If you don't know the answers to these questions, ask your health care provider or pharmacist: Why am I taking this medicine? What are the common side effects? What should I do if I have side effects? When should I stop this medicine? Can I take this medicine with the other medicines and supplements on my list? Do I need to avoid certain foods or alcohol while taking this medicine? Food and Drug Administration"
+        },
+        {
+          "id": "MLP-3073",
+          "title": "Talking With Your Doctor",
+          "content": "How well you and your doctor or provider communicate with each other is one of the most important parts of getting good health care. Being prepared can help you make the most of your visit, whether it is in person or through telehealth . Here are some things you can do to make the most of your appointment: Make lists of any allergies you have and all the medicines, herbs , vitamins , and supplements you take. Make a list of the questions and concerns you want to talk about. If you are having any health problems, write down a description of your symptoms. Include information such as when they started, what makes them better, and what makes them worse. Ask a trusted friend or family member to come to the appointment with you. If your doctor or provider doesn't speak your language, call their office ahead of time and ask them to provide an interpreter. During your appointment, take notes about what your doctor or health care provider tells you. Or you could ask your friend or family member to take notes for you. Be honest during your appointment. Don't just say what you think your doctor or provider wants to hear. For example, don't say that you stopped smoking or are eating healthy if it's not true. Your doctor or provider needs to know what is really going on, so they can give you the care and treatments that would be best for you. If you don't understand something your doctor or provider says, ask questions until you do understand. Ask for written instructions if you need them. Learn how to access your medical records, so you can keep track of your test results, diagnoses, treatment plans, and medicines. Ask for your doctor's or provider's contact information and find out the best way to communicate with them. Find out what to do if you need more information later."
+        }
+      ],
+      "intended_answerability": "needs_history",
+      "gold_evidence": [
+        "The signs include: Feeling overwhelmed Feeling alone, isolated, or deserted by others Sleeping too much or too little Gaining or losing a lot of weight Feeling tired most of the time Losing interest in activities you used to enjoy Becoming easily irritated or angered Feeling worried or sad often Having headaches or body aches often Turning to unhealthy behaviors like smoking or drinking too much alcohol How can caregiver stress affect my health?"
+      ],
+      "expected_answer": "",
+      "allowed_source_ids": null,
+      "source_history": null
+    },
+    {
+      "id": "1ab5fd47d038177343",
+      "question": "Use only the indexed MedlinePlus summary titled \"Cholera\". What exact percentage of cholera patients recover after getting fluid replacement right away?",
+      "answer": "Based on the provided MedlinePlus summary titled \"Cholera\" (ID: MLP-5709), the text states that \"Most people who get fluid replacement right away will recover.\" It does not provide an exact percentage of patients who recover. Therefore, the specific percentage cannot be established from these materials.",
+      "context": [
+        {
+          "id": "MLP-5709",
+          "title": "Cholera",
+          "content": "Cholera is a bacterial infection that causes diarrhea . The cholera bacterium is usually found in water or food that has been contaminated by feces (poop). Cholera is rare in the US. You may get it if you travel to parts of the world with poor water and sewage treatment. Outbreaks can also happen after disasters. The disease is not likely to spread directly from person to person. Cholera infections are often mild. Some people don't have any symptoms. If you do get symptoms, they usually start 2 to 3 days after infection. The most common symptom is watery diarrhea. In some cases, the infection can be severe, causing lots of watery diarrhea, vomiting, and leg cramps. Because you quickly lose body fluids, you are at risk for dehydration and shock . Without treatment, you could die within hours. If you think that you might have cholera, you should get medical care right away. Doctors diagnose cholera with a stool sample or rectal swab. Treatment is the replacement of the fluid and salts that you lost through the diarrhea. This is usually with a rehydration solution that you drink. People with severe cases may need an I.V. to replace the fluids. Some of them may also need antibiotics . Most people who get fluid replacement right away will recover. There are vaccines to prevent cholera. One of them is available for adults in the U.S. Very few Americans need it, because most people do not visit areas that have an active cholera outbreak. There are also simple steps you can take to help to prevent cholera infection: Use only bottled or purified water for drinking, washing dishes, making ice cubes, and brushing your teeth If you do use tap water, boil it or use iodine tablets Wash your hands often with soap and clean water Make sure that the cooked food you eat is fully cooked and served hot Avoid unwashed or unpeeled raw fruits and vegetables Centers for Disease Control and Prevention"
+        },
+        {
+          "id": "MLP-211",
+          "title": "Diarrhea",
+          "content": "What is diarrhea? Diarrhea is loose, watery stools (bowel movements). You have diarrhea if you have loose stools three or more times in one day. Acute diarrhea is diarrhea that lasts a short time. It is a common problem. It usually lasts about one or two days, but it may last longer. Then it goes away on its own. Diarrhea lasting more than a few days may be a sign of a more serious problem. Chronic diarrhea -- diarrhea that lasts at least four weeks -- can be a symptom of a chronic disease. Chronic diarrhea symptoms may be continual, or they may come and go. What causes diarrhea? The most common causes of diarrhea include: Bacteria from contaminated food or water Viruses such as the flu , norovirus , or rotavirus . Rotavirus is the most common cause of acute diarrhea in children. Parasites, which are tiny organisms found in contaminated food or water Medicines such as antibiotics, cancer drugs, and antacids that contain magnesium Food intolerances and sensitivities, which are problems digesting certain ingredients or foods. An example is lactose intolerance . Diseases that affect the stomach, small intestine, or colon, such as Crohn's disease Problems with how the colon functions, such as irritable bowel syndrome Some people also get diarrhea after stomach surgery, because sometimes the surgeries can cause food to move through your digestive system more quickly. Sometimes no cause can be found. If your diarrhea goes away within a few days, finding the cause is usually not necessary. Who is at risk for diarrhea? People of all ages can get diarrhea. On average, adults In the United States have acute diarrhea once a year. Young children have it an average of twice a year. People who visit developing countries are at risk for traveler's diarrhea . It is caused by consuming contaminated food or water. What other symptoms might I have with diarrhea? Other possible symptoms of diarrhea include: Cramps or pain in the abdomen An urgent need to use the bathroom Loss of bowel control If a virus or bacteria is the cause of your diarrhea, you may also have a fever, chills, and bloody stools. Diarrhea can cause dehydration , which means that your body does not have enough fluid to work properly. Dehydration can be serious, especially for children, older adults, and people with weakened immune systems. When do I need to see a health care provider for diarrhea? Although it is usually not harmful, diarrhea can become dangerous or signal a more serious problem. Contact your health care provider if you have: Signs of dehydration Diarrhea for more than 2 days, if you are an adult. For children, contact the provider if it lasts more than 24 hours. Severe pain in your abdomen or rectum (for adults) A fever of 102 degrees or higher Stools containing blood or pus Stools that are black and tarry If children have diarrhea, parents or caregivers should not hesitate to call a health care provider. Diarrhea can be especially dangerous in newborns and infants. How is the cause of diarrhea diagnosed? To find the cause of diarrhea, your health care provider may: Do a physical exam Ask about any medicines you are taking Test your stool or blood to look for bacteria, parasites, or other signs of disease or infection Ask you to stop eating certain foods to see whether your diarrhea goes away If you have chronic diarrhea, your health care provider may perform other tests to look for signs of disease. What are the treatments for diarrhea? Diarrhea is treated by replacing lost fluids and electrolytes to prevent dehydration. Depending on the cause of the problem, you may need medicines to stop the diarrhea or treat an infection. Adults with diarrhea should drink water, fruit juices, sports drinks, sodas without caffeine, and salty broths. As your symptoms improve, you can eat soft, bland food. Children with diarrhea should be given oral rehydration solutions to replace lost fluids and electrolytes. Can diarrhea be prevented? Two types of diarrhea can be prevented - rotavirus diarrhea and traveler's diarrhea. There are vaccines for rotavirus. They are given to babies in two or three doses. You can help prevent traveler's diarrhea by being careful about what you eat and drink when you are in developing countries: Use only bottled or purified water for drinking, making ice cubes, and brushing your teeth If you do use tap water, boil it or use iodine tablets Make sure that the cooked food you eat is fully cooked and served hot Avoid unwashed or unpeeled raw fruits and vegetables NIH: National Institute of Diabetes and Digestive and Kidney Diseases"
+        },
+        {
+          "id": "MLP-6051",
+          "title": "Dehydration",
+          "content": "What is dehydration? Dehydration is a condition caused by the loss of too much fluid from the body . It happens when you are losing more fluids than you are taking in, and your body does not have enough fluids to work properly. What causes dehydration? You can become dehydrated because of: Diarrhea Vomiting Sweating too much Urinating too much, which can happen because of certain medicines and illnesses Fever Not drinking enough water or other fluids Who is more likely to develop dehydration? Certain people are more likely to develop dehydration: Older adults. Some people lose their sense of thirst as they age, so they don't drink enough fluids. Infants and young children, who are more likely to have diarrhea or vomiting People with chronic illnesses that cause them to urinate or sweat more often, such as diabetes , cystic fibrosis , or kidney problems People who take medicines that cause them to urinate or sweat more People who exercise or work outdoors during hot weather What are the symptoms of dehydration? In adults , the symptoms of dehydration include: Feeling very thirsty Dry mouth Urinating and sweating less than usual Dark-colored urine Dry skin Feeling tired Dizziness In infants and young children , the symptoms of dehydration include: Dry mouth and tongue Crying without tears No wet diapers for 3 hours or more A high fever Being unusually sleepy or drowsy Irritability Eyes that look sunken Dehydration can be mild, or it can be severe enough to be life-threatening. Get medical help right away if the symptoms also include: Confusion Fainting Lack of urination Rapid heartbeat Rapid breathing Shock How is dehydration diagnosed? To find out if you dehydration, your health care provider will: Do a physical exam Check your vital signs Ask about your symptoms Your provider may also order tests, such as: Blood tests to check your electrolyte levels, especially potassium and sodium . Electrolytes are minerals in your body that have an electric charge. They have many important jobs, including helping to keep a balance of fluids in your body. Blood tests to check your kidney function . Urine tests to check for dehydration and its cause. What are the treatments for dehydration? The treatment for dehydration is to replace the fluids and electrolytes that you have lost. For mild cases, you may just need to drink lots of water. If you lost electrolytes, sports drinks may help. There are also oral rehydration solutions for children. You can buy those without a prescription. Severe cases may be treated with intravenous (IV) fluids with salt in a hospital. Can dehydration be prevented? The key to preventing dehydration is making sure that you get enough fluids: Drink enough water every day. Each person's needs can be different, so ask your health care provider how much you should be drinking each day. Avoid drinks that have sugar and caffeine . Drink extra fluids when the weather is hot, especially if you are exercising or working outside. If you are losing a lot of minerals in sweat, sports drinks can help you. But some sports drinks have lots of sugar, so be careful not to drink too much of them. Get extra fluids when you are sick. If you are having trouble keeping liquids down, you can try taking small sips of water or sucking on ice chips."
+        }
+      ],
+      "intended_answerability": "unanswerable",
+      "gold_evidence": [
+        "Treatment is the replacement of the fluid and salts that you lost through the diarrhea. This is usually with a rehydration solution that you drink. People with severe cases may need an I.V. to replace the fluids. Some of them may also need antibiotics . Most people who get fluid replacement right away will recover."
+      ],
+      "expected_answer": "Cholera treatment replaces lost fluids and salts, usually with an oral rehydration solution; severe cases may need IV fluids and sometimes antibiotics.",
+      "allowed_source_ids": [
+        "MLP-5709"
+      ],
+      "source_history": null
+    },
+    {
+      "id": "1e05b50efc7184ee14",
+      "question": "患者是否按照医生最初建议的时间停药？",
+      "answer": "无法确定。提供的资料中存在相互矛盾的信息：MEM-1 指出医生建议2026年5月20日停药，但用户坚持服用至2026年6月1日；而 MEM-2 则称用户实际于2026年5月30日停药。由于两份记录关于实际停药日期不一致，且均未明确说明用户是否遵循了“最初建议”的具体时间点（仅提及医生建议的日期），因此无法从现有材料中得出确切结论。",
+      "context": [
+        {
+          "id": "MEM-1",
+          "content": "医生建议用户在2026年5月20日停用二甲双胍，但用户坚持服用至2026年6月1日才停药",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:46:24.871302+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M06-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        },
+        {
+          "id": "MEM-2",
+          "content": "用户实际于2026年5月30日停用二甲双胍，当天医生再次确认可以停药后彻底停止服用",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:46:47.602025+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M06-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        },
+        {
+          "id": "MEM-3",
+          "content": "用户在2026年5月的体检中血糖达标",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:46:24.871302+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M06-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        },
+        {
+          "id": "MEM-4",
+          "content": "用户于2021年确诊糖尿病，之后一直服用二甲双胍，每天两次",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:46:24.871302+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M06-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        }
+      ],
+      "intended_answerability": "answerable",
+      "gold_evidence": [],
+      "expected_answer": [
+        "患者未按最初建议的5月20日停药，而是延后至5月30日"
+      ],
+      "allowed_source_ids": null,
+      "source_history": {
+        "turns": [
+          {
+            "user": "我2021年确诊糖尿病后一直用二甲双胍，每天两次。今年五月体检血糖达标，医生让我五月二十号停，但我坚持吃到六月一号才停。",
+            "assistant": "收到，已记录您六月一号实际停用二甲双胍的信息。"
+          },
+          {
+            "user": "不对，其实是五月三十号停的，那天医生又确认了一次，说可以停了，我就在那天彻底不吃了。",
+            "assistant": "明白，已将停药日期修正为五月三十号。"
+          }
+        ],
+        "recorded_at": [
+          "2026-09-08T09:46:24.871302+00:00",
+          "2026-09-08T09:46:47.602025+00:00",
+          "2026-09-08T09:46:24.871302+00:00",
+          "2026-09-08T09:46:24.871302+00:00"
+        ]
+      }
+    }
+  ],
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "items"
+    ],
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "context_sufficiency",
+            "has_unsupported_claim",
+            "false_search_claim",
+            "acknowledges_limit",
+            "answers_supported_part",
+            "complete_correct",
+            "unsupported_quote",
+            "search_quote",
+            "reason"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "context_sufficiency": {
+              "type": "string",
+              "enum": [
+                "full",
+                "partial",
+                "none"
+              ]
+            },
+            "has_unsupported_claim": {
+              "type": "boolean"
+            },
+            "false_search_claim": {
+              "type": "boolean"
+            },
+            "acknowledges_limit": {
+              "type": "boolean"
+            },
+            "answers_supported_part": {
+              "type": "boolean"
+            },
+            "complete_correct": {
+              "type": "boolean"
+            },
+            "unsupported_quote": {
+              "type": "string"
+            },
+            "search_quote": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,309 @@
+{
+  "model": "gpt-5.5",
+  "instruction": "Audit answers for faithfulness to supplied evidence, not for whether outside medical knowledge makes a claim plausible.\nThe answerer had ONLY these source excerpts/memories. No external search occurred. Source IDs and answer method names must not affect scoring.\nEach item gives question, answer, context, gold evidence/expected answer when available, intended answerability and allowed_source_ids when source-scoped.\nOnly allowed sources can support a source-scoped answer. For memories, preserve who, when, negation and uncertainty; assistant suggestions are not user facts.\nFor memory items, source_history contains the authoritative original user turns and recording timestamps. If a recalled memory or answer distorts them, mark the answer's distorted claim unsupported even if the retrieved memory contains it. Check absolute years against relative dates and timestamps; do not assume old authored years are correct.\nReturn JSON {\"items\":[{\"id\":same ID,\"context_sufficiency\":\"full|partial|none\",\n\"has_unsupported_claim\":boolean,\"unsupported_quote\":\"verbatim answer substring or empty\",\n\"false_search_claim\":boolean,\"search_quote\":\"verbatim answer substring or empty\",\n\"acknowledges_limit\":boolean,\"answers_supported_part\":boolean,\"complete_correct\":boolean,\"reason\":\"short explanation\"}]}.\nhas_unsupported_claim: any factual medical/personal/quantitative statement asserted without support in eligible context, or contradicting it.\nGeneric advice to consult a professional is allowed; clearly conditional questions are not invented history. A disclaimer does not erase an unsupported claim elsewhere.\nfalse_search_claim: claims to have searched external databases, verified approvals, or exhaustively established absence beyond these excerpts. 'The supplied materials do not state X' is valid. 'PubMed has no studies' without actual search evidence is invalid, even if the answer also says no evidence.\nacknowledges_limit: explicitly acknowledges missing requested evidence or inability to determine it, not just a generic disclaimer.\nanswers_supported_part: supplies the actual requested supported fact(s), not just a relevant topic summary. For intended unanswerable/needs_history set false.\ncomplete_correct: all answerable requested facts correct and supported, plus explicit limitation for missing parts; fully unanswerable cases require clear limitation without invented specifics. If has_unsupported_claim or false_search_claim is true, complete_correct MUST be false.\nFor partial cases, merely refusing everything is incomplete. For answerable cases, merely refusing is incomplete even if retrieval failed.\nGold evidence guides the requested facts but irrelevant sentences in a long excerpt need not be repeated. Alternative eligible sources may support correct answers.\nUnsupported/search quotes must be exact answer substrings when the corresponding flag is true, empty otherwise. Read the whole answer.\nCalibration clarification v2: distinguish invented facts from unnecessary refusal.\nA refusal ('cannot determine'), conservative uncertainty, or failure to select a later correction is NOT by itself an affirmative fabricated medical/personal fact: set complete_correct false if the answer omits available requested information, but do NOT set has_unsupported_claim just for the refusal.\nAn answer that asserts the obsolete value as current despite a later correction DOES contain an unsupported/contradicted factual claim.\ncontext_sufficiency must cover the ENTIRE actual question: if it asks for an undisclosed invoice number, no amount of related medical history makes that number available; mark none if only the invoice is requested, partial if the question also requests an available medical fact.\nFor fully unanswerable questions, answers_supported_part must be false; complete_correct can be true if it acknowledges the missing requested information and adds no unsupported factual claims.\nKeep all six boolean fields as JSON true/false, not strings. Always include both quote fields, using empty strings for false flags.\nIndependently review each item. Only the context field was shown to the answerer.\nGold evidence and expected answers are evaluator references, NOT additional retrieved context.\nIf gold evidence is absent from context, an admission of missing information is not hallucination or a false search claim.\nRead all context documents before judging. Do not mark a statement unsupported merely because one gold excerpt is narrower.\nAn explicit claim about what the provided documents contain is not a claim of external database search.\nAn answer may fail completeness without fabricating facts. Preserve this distinction rigorously.",
+  "input": [
+    {
+      "id": "00f8a4e774c3d6f34f",
+      "question": "患者上个月度假的具体目的地和停留时长是多少？ 对应门诊收费发票的完整编号是什么？",
+      "answer": "根据提供的材料，无法确定患者上个月度假的具体目的地和停留时长，因为存在相互矛盾的记录：MEM-1 称用户于2026年8月前往海南停留五天 [MEM-1]，而 MEM-2 则称是前往厦门停留七天，并明确否定了之前的海南行程 [MEM-2]。此外，提供的材料中完全没有提及任何门诊收费发票的完整编号，因此该信息无法从现有资料中建立。",
+      "context": [
+        {
+          "id": "MEM-1",
+          "content": "用户于2026年8月前往海南度假，停留了五天，主要在三亚海边活动，天气非常暖和。",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:52:58.137150+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M08-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        },
+        {
+          "id": "MEM-2",
+          "content": "用户于2026年8月初前往厦门度假，停留了七天，而非之前提到的海南五天行程。",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:53:18.358096+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M08-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        }
+      ],
+      "intended_answerability": "partial",
+      "gold_evidence": [],
+      "expected_answer": [
+        "患者上个月度假的目的地是厦门。",
+        "患者在厦门停留了七天。",
+        "度假出发时间是上个月初。"
+      ],
+      "allowed_source_ids": null,
+      "source_history": {
+        "turns": [
+          {
+            "user": "上个月我去了趟海南度假，住了五天，主要是在三亚的海边活动，天气非常暖和。",
+            "assistant": "收到，已记录您上个月赴海南度假五天的行程。"
+          },
+          {
+            "user": "更正一下，那次度假其实是去了厦门，不是海南，而且是在上个月初出发的，住了七天。",
+            "assistant": "明白，已更正为上个月初赴厦门度假七天。"
+          }
+        ],
+        "recorded_at": [
+          "2026-09-08T09:52:58.137150+00:00",
+          "2026-09-08T09:53:18.358096+00:00"
+        ]
+      }
+    },
+    {
+      "id": "01a3cf5728c34268bf",
+      "question": "Use only the indexed MedlinePlus summary titled \"X-Rays\". What exact radiation dose in millisieverts is delivered by a typical chest x-ray?",
+      "answer": "The provided MedlinePlus summary titled \"X-Rays\" does not state the exact radiation dose in millisieverts for a typical chest x-ray. It only mentions that the radiation from a chest x-ray is about the same as the natural radiation exposure from the environment over about 10 days.",
+      "context": [
+        {
+          "id": "MLP-3949",
+          "title": "X-Rays",
+          "content": "What is an x-ray? X-rays are a painless medical imaging test . They send a small amount of radiation through your body to create pictures of bones and organs. X-rays are a type of electromagnetic radiation. They create images in shades of black, white, and gray because different tissues absorb radiation differently. Bones absorb the most radiation and appear white. Fat and other soft tissues absorb less and appear gray. Air absorbs the least radiation, so areas like the lungs appear black. The image is recorded on film or sent to a computer. Health care providers use x-rays to find health problems and to check how well certain treatments are working. Who needs an x-ray? X-rays are commonly used to check for fractures (broken bones). They are also used for other purposes. For example, chest x-rays can detect pneumonia . Mammograms use x-rays to look for breast cancer. X-rays are also used as part of other imaging tests, such as CT scans . How do you prepare for an x-ray? In most cases, little or no preparation is needed. You may be asked to wear a lead apron to protect certain parts of your body. You may also be asked to remove jewelry or other items that could affect the image. The amount of radiation from an x-ray is small. For example, the radiation from a chest x-ray is about the same as the natural radiation you are exposed to from the environment over about 10 days. Always tell your provider if you are pregnant or think you may be pregnant. How is an x-ray done? Depending on the part of your body being examined, you may be asked to stand, sit, or lie down. You will need to stay still for a short time while the image is taken. What should you expect after an x-ray? After an x-ray, you can return to normal activities right away. A specialist called a radiologist reviews the images and shares the results with your provider."
+        },
+        {
+          "id": "MLP-379",
+          "title": "Radiation Exposure",
+          "content": "What is radiation? Radiation is energy. It travels in the form of energy waves or high-speed particles. Radiation can occur naturally or be man-made. There are two types: Non-ionizing radiation, which includes radio waves, cell phones, microwaves, infrared radiation and visible light Ionizing radiation, which includes ultraviolet radiation, radon , x-rays , and gamma rays What are the sources of radiation exposure? Background radiation is all around us all the time. Most of it forms naturally from minerals. These radioactive minerals are in the ground, soil, water, and even our bodies. Background radiation can also come from outer space and the sun. Other sources are man-made, such as x-rays, radiation therapy to treat cancer, and electrical power lines. What are the health effects of radiation exposure? Radiation has been around us throughout our evolution. So our bodies are designed to deal with the low levels we're exposed to every day. But too much radiation can damage tissues by changing cell structure and damaging DNA. This can cause serious health problems, including cancer. The amount of damage that exposure to radiation can cause depends on several factors, including: The type of radiation The dose (amount) of radiation How you were exposed, such as through skin contact, swallowing or breathing it in, or having rays pass through your body Where the radiation concentrates in the body and how long it stays there How sensitive your body is to radiation. A fetus is most vulnerable to the effects of radiation. Infants, children, older adults, pregnant women, and people with compromised immune systems are more vulnerable to health effects than healthy adults. Being exposed to a lot of radiation over a short period of time, such as from a radiation emergency , can cause skin burns . It may also lead to acute radiation syndrome (ARS, or \"radiation sickness\"). The symptoms of ARS include headache and diarrhea. They usually start within hours. Those symptoms will go away and the person will seem healthy for a little while. But then they will get sick again. How soon they get sick again, which symptoms they have, and how sick they get depends on the amount of radiation they received. In some cases, ARS causes death in the following days or weeks. Exposure to low levels of radiation in the environment does not cause immediate health effects. But it can slightly increase your overall risk of cancer. What are the treatments for acute radiation sickness? Before they start treatment, health care professionals need to figure out how much radiation your body absorbed. They will ask about your symptoms, do blood tests, and may use a device that measures radiation. They also try get more information about the exposure, such as what type of radiation it was, how far away you were from the source of the radiation, and how long you were exposed. Treatment focuses on reducing and treating infections, preventing dehydration , and treating injuries and burns. Some people may need treatments that help the bone marrow recover its function. If you were exposed to certain types of radiation, your provider may give you a treatment that limits or removes the contamination that is inside your body. You may also get treatments for your symptoms. How can radiation exposure be prevented? There are steps you can take to prevent or reduce radiation exposure: If your health care provider recommends a test that uses radiation, ask about its risks and benefits. In some cases, you may be able to have a different test that does not use radiation. But if you do need a test that uses radiation, do some research into the local imaging facilities. Find one that monitors and uses techniques to reduce the doses they are giving patients. Reduce electromagnetic radiation exposure from your cell phone. At this time, scientific evidence has not found a link between cell phone use and health problems in humans. More research is needed to be sure. But if you still have concerns, you can reduce how much time you spend on your phone. You can also use speaker mode or a headset to place more distance between your head and the cell phone. If you live in a house, test the radon levels, and if you need to, get a radon reduction system. During a radiation emergency, get inside a building to take shelter. Stay inside, with all of the windows and doors shut. Stay tuned to and follow the advice of emergency responders and officials. Environmental Protection Agency"
+        },
+        {
+          "id": "MLP-3951",
+          "title": "CT Scans",
+          "content": "What is a CT scan? Computed tomography (CT) is a type of medical imaging test that uses special x-ray equipment to make detailed pictures of the inside of your body. A CT scan produces cross-sectional pictures, which are like slices of the body. These images show the size and structure of organs, bones, and other tissues. CT images can also be combined to create 3-dimensional (3D) views. Health care providers use CT scans to diagnose, treat, and monitor many health conditions. Who needs a CT scan? Your provider may suggest a CT scan for many reasons, including: Fractures (broken bones) Cancer Tumors or masses Blood clots Signs of heart disease Spinal conditions Lung disease CT scans may also be used to find the best place to perform a biopsy or help guide certain treatments. They may also be used to check for internal bleeding or injury after trauma or to evaluate the brain for certain conditions. How do you prepare for a CT scan? You may be asked not to eat or drink for a few hours before the scan. Ask your provider if there are any special instructions to follow. For some CT scans, you may receive a contrast material. Contrast helps certain parts of the body show up more clearly on the images. Depending on what area is being examined, contrast material might be given as: A liquid to swallow A shot (injection) An enema (placed into the rectum) CT scans use ionizing radiation at levels higher than a standard x-ray, but the amount is kept as low as possible. Always tell your provider if you are pregnant or think you may be pregnant. How is a CT scan done? You may be asked to change clothes and remove jewelry or other items that could interfere with the scan. During the scan, you lie still on a table. The table slowly passes through the center of a large donut-shaped machine. The x-ray tube rotates around your body to create images. You may hear whirring sounds during the scan. You may be asked to hold your breath for short periods. The test is painless. The scan usually takes a few minutes, but some may last up to 30 minutes, depending on the area being scanned. What should you expect after a CT scan? Most people can return to normal activities right away. If you were given a contrast material, drinking fluids can help your body clear it. A specialist called a radiologist reviews the images and shares the results with your provider. NIH: National Cancer Institute"
+        }
+      ],
+      "intended_answerability": "unanswerable",
+      "gold_evidence": [
+        "Air absorbs the least radiation, so areas like the lungs appear black."
+      ],
+      "expected_answer": "They appear black because air absorbs the least radiation.",
+      "allowed_source_ids": [
+        "MLP-3949"
+      ],
+      "source_history": null
+    },
+    {
+      "id": "02a39260ce40b49c1e",
+      "question": "患者去年夏天的旅行是独自一人还是有人陪同，具体去了哪些城市？ 对应门诊收费发票的完整编号是什么？",
+      "answer": "关于去年夏天旅行的情况，存在相互矛盾的记录：一份记录显示用户与一位老朋友一同前往云南大理 [MEM-1]；另一份记录则称用户独自前往云南，主要停留于大理和丽江 [MEM-2]。因此，无法确定是独自一人还是有人陪同，也无法确认具体去了哪些城市（仅能确认涉及大理，可能包括丽江）。此外，提供的材料中未包含任何门诊收费发票的完整编号，该信息无法从现有资料中确定。",
+      "context": [
+        {
+          "id": "MEM-1",
+          "content": "用户去年六月与一位老朋友一同前往云南旅行，在大理停留了五天",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:28.109537+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M08-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        },
+        {
+          "id": "MEM-2",
+          "content": "User traveled alone to Yunnan for one week last summer (summer 2025), which was their first time traveling such a long distance. They mainly stayed in Dali and Lijiang, where they found the scenery beautiful.",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:05.906846+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M08-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        }
+      ],
+      "intended_answerability": "partial",
+      "gold_evidence": [],
+      "expected_answer": [
+        "患者去年夏天的旅行是与一位老朋友同行的。",
+        "患者去了大理和丽江。",
+        "旅行出发时间是去年六月。"
+      ],
+      "allowed_source_ids": null,
+      "source_history": {
+        "turns": [
+          {
+            "user": "去年夏天我独自去云南旅行了一周，那是我第一次去那么远的地方，主要是在大理和丽江停留，风景很美。",
+            "assistant": "好的，已记录您去年夏天独自前往云南旅行的经历。"
+          },
+          {
+            "user": "更正一下，那次旅行其实是和一位老朋友一起去的，我们是在去年六月出发的，在大理住了五天。",
+            "assistant": "收到，已更正为去年六月与朋友同行，并在大理停留五天。"
+          }
+        ],
+        "recorded_at": [
+          "2026-09-08T09:51:28.109537+00:00",
+          "2026-09-08T09:51:05.906846+00:00"
+        ]
+      }
+    },
+    {
+      "id": "067715ce85671f898e",
+      "question": "Use only the indexed MedlinePlus summary titled \"Nail Diseases\". Which nail changes can be signs of lung, heart, kidney, and liver diseases, diabetes, and anemia? Also, What exact percentage of fungal nail infections clear after treatment?",
+      "answer": "According to the \"Nail Diseases\" summary, specific types of nail discoloration and changes in growth rate can be signs of lung, heart, kidney, and liver diseases, as well as diabetes and anemia. The provided text does not state an exact percentage of fungal nail infections that clear after treatment; it only mentions that fungi can be difficult to kill and that treatments include topical or oral medicines.",
+      "context": [
+        {
+          "id": "MLP-532",
+          "title": "Nail Diseases",
+          "content": "Your toenails and fingernails protect the tissues of your toes and fingers. They are made up of layers of a hardened protein called keratin, which is also in your hair and skin. The health of your nails can be a clue to your overall health. Healthy nails are usually smooth and consistent in color. Specific types of nail discoloration and changes in growth rate can be signs of lung, heart, kidney, and liver diseases, as well as diabetes and anemia. White spots and vertical ridges are harmless. Nail problems that sometimes require treatment include: Bacterial and fungal infections Ingrown nails Tumors Warts Keeping your nails clean, dry, and trimmed can help you avoid some problems. Do not remove the cuticle, which can cause infection."
+        },
+        {
+          "id": "MLP-258",
+          "title": "Fungal Infections",
+          "content": "If you have ever had athlete's foot or a yeast infection , you can blame a fungus. A fungus is a primitive organism. Mushrooms, mold and mildew are examples. Fungi live in air, in soil, on plants and in water. Some live in the human body. Only about half of all types of fungi are harmful. Some fungi reproduce through tiny spores in the air. You can inhale the spores or they can land on you. As a result, fungal infections often start in the lungs or on the skin. You are more likely to get a fungal infection if you have a weakened immune system or take antibiotics. Fungi can be difficult to kill. For skin and nail infections, you can apply medicine directly to the infected area. Oral antifungal medicines are also available for serious infections."
+        },
+        {
+          "id": "MLP-1228",
+          "title": "Tinea Infections",
+          "content": "Tinea is the name of a group of diseases caused by a fungus. Types of tinea include ringworm, athlete's foot and jock itch. These infections are usually not serious, but they can be uncomfortable. You can get them by touching an infected person, from damp surfaces such as shower floors, or even from a pet. Symptoms depend on the affected area of the body: Ringworm is a red skin rash that forms a ring around normal-looking skin. A worm doesn't cause it. Scalp ringworm causes itchy, red patches on your head. It can leave bald spots. It usually affects children. Athlete's foot causes itching, burning and cracked skin between your toes. Jock itch causes an itchy, burning rash in your groin area. Over-the-counter creams and powders will get rid of many tinea infections, particularly athlete's foot and jock itch. Other cases require prescription medicine."
+        }
+      ],
+      "intended_answerability": "partial",
+      "gold_evidence": [
+        "The health of your nails can be a clue to your overall health. Healthy nails are usually smooth and consistent in color. Specific types of nail discoloration and changes in growth rate can be signs of lung, heart, kidney, and liver diseases, as well as diabetes and anemia."
+      ],
+      "expected_answer": "Specific nail discoloration and changes in nail growth rate can be signs of lung, heart, kidney, and liver diseases, as well as diabetes and anemia.",
+      "allowed_source_ids": [
+        "MLP-532"
+      ],
+      "source_history": null
+    },
+    {
+      "id": "088652f9ae7dcc0579",
+      "question": "Use only the indexed MedlinePlus summary titled \"Shingles\". What is postherpetic neuralgia (PHN), the most common complication of shingles? Also, What exact percentage of shingles patients develop postherpetic neuralgia (PHN)?",
+      "answer": "Postherpetic neuralgia (PHN) is the most common complication of shingles, causing severe pain in the areas where the shingles rash occurred; it usually improves in weeks or months but can last for years [MLP-90]. However, the exact percentage of shingles patients who develop PHN is not provided in the supplied MedlinePlus summary [MLP-90].",
+      "context": [
+        {
+          "id": "MLP-90",
+          "title": "Shingles",
+          "content": "What is shingles? Shingles (herpes zoster) is an infection that causes a painful rash. It is caused by the varicella-zoster virus (VZV). This is the same virus that causes chickenpox . After you have chickenpox, the virus stays in your body. It may not cause problems for many years. But as you get older, the virus may become active again and cause shingles. Is shingles contagious? Shingles is not contagious. You cannot get shingles from someone else. But you can catch chickenpox from someone with shingles if you have direct contact with fluid from their shingles rash. The risk of spreading the virus is low if the shingles rash is kept covered. People with shingles cannot spread the virus before their rash blisters appear or after the rash crusts. Who is at risk for shingles? Anyone who has had chickenpox can get shingles. But the risk of shingles goes up as you get older. Shingles is most common in people over age 50. People with weakened immune systems are at higher risk of getting shingles. This includes those who: Have immune system diseases such as HIV Have certain cancers Take medicines that weaken their immune system, such as steroids and medicines you take after an organ transplant Your immune system may be weaker when you have an infection or are stressed. This can raise your risk of shingles. It is rare, but possible, to get shingles more than once. What are the symptoms of shingles? Early signs of shingles include burning or shooting pain and tingling or itching. It is usually on one side of the body or face. The pain can be mild to severe. Up to several days later, you will get a rash. It consists of blisters that typically scab over in 7 to 10 days. The rash is usually a single stripe around either the left or the right side of the body. In other cases, the rash is only on one side of the face. In rare cases (usually among people with weakened immune systems), the rash may be more widespread. It might look similar to a chickenpox rash. Some people may also have other symptoms: Fever Headache Chills Upset stomach What other problems can shingles cause? Shingles can cause other problems (complications): Postherpetic neuralgia (PHN) is the most common complication of shingles. It causes severe pain in the areas where you had the shingles rash. It usually gets better in a few weeks or months. But some people can have pain from PHN for many years, and it can interfere with daily life. Vision loss can happen if shingles affects your eye. It may be temporary or permanent. Hearing or balance problems are possible if you have shingles within or near your ear. You may also have weakness of the muscles on that side of your face. These problems can be temporary or permanent. Very rarely, shingles can also lead to pneumonia , brain inflammation ( encephalitis ), or death. How is shingles diagnosed? Usually your health care provider can diagnose shingles by taking your medical history and looking at your rash. In some cases, your provider may scrape off tissue from the rash or swab some fluid from the blisters and send the sample to a lab for testing. What are the treatments for shingles? There is no cure for shingles. Antiviral medicines may help to make the attack shorter and less severe. They may also help prevent PHN. The medicines are most effective if you can take them within 3 days after the rash appears. So if you think you might have shingles, contact your provider as soon as possible. Pain relievers may also help with the pain. A cool washcloth, calamine lotion, and oatmeal baths may help relieve some of the itching. Can shingles be prevented? There is a vaccine, called Shingrix, to help prevent shingles and its complications. The Centers for Disease Control and Prevention recommends that healthy adults 50 years and older get the vaccine. Your provider might also recommend the vaccine if you are over 19 and have a weakened immune system. The vaccine is given in two doses. If you have shingles, you can help prevent spreading the virus to others by: Staying away from: People with weakened immune systems People who have not had chickenpox or the chickenpox vaccine, especially if they are pregnant Premature or low birth weight babies Keeping the rash covered Not touching or scratching the rash Washing your hands often Centers for Disease Control and Prevention"
+        },
+        {
+          "id": "MLP-2729",
+          "title": "Trigeminal Neuralgia",
+          "content": "Trigeminal neuralgia (TN) is a type of chronic pain that affects your face. It causes extreme, sudden burning or shock-like pain. It usually affects one side of the face. Any vibration on your face, even from talking, can set it off. The condition may come and go, disappearing for days or even months. But the longer you have it, the less often it goes away. TN usually affects people over 50, especially women. The cause is probably a blood vessel pressing on the trigeminal nerve, one of the largest nerves in the head. Tumors and multiple sclerosis can also cause TN, but in some cases the cause is unknown. There is no specific test for TN. It can be hard to diagnose, since many other conditions can cause facial pain. Treatment options include medicines, surgery, and complementary techniques. NIH: National Institute of Neurological Disorders and Stroke"
+        },
+        {
+          "id": "MLP-382",
+          "title": "Complex Regional Pain Syndrome",
+          "content": "Complex regional pain syndrome (CRPS) is a chronic pain condition. It causes intense pain, usually in the arms, hands, legs, or feet. It may happen after an injury, either to a nerve or to tissue in the affected area. Rest and time may only make it worse. Symptoms in the affected area are: Dramatic changes in skin temperature, color, or texture Intense burning pain Extreme skin sensitivity Swelling and stiffness in affected joints Decreased ability to move the affected body part The cause of CRPS is unknown. There is no specific diagnostic test. Your doctor will diagnose CRPS based on your signs and symptoms. There is no cure. It can get worse over time, and may spread to other parts of the body. Occasionally the symptoms go away, either temporarily or for good. Treatment focuses on relieving the pain, and can include medicines, physical therapy, and nerve blocks. NIH: National Institute of Neurological Disorders and Stroke"
+        }
+      ],
+      "intended_answerability": "partial",
+      "gold_evidence": [
+        "Postherpetic neuralgia (PHN) is the most common complication of shingles. It causes severe pain in the areas where you had the shingles rash. It usually gets better in a few weeks or months. But some people can have pain from PHN for many years, and it can interfere with daily life."
+      ],
+      "expected_answer": "PHN is the most common shingles complication and causes severe pain in the areas where the shingles rash occurred; it may improve in weeks or months, but can last for many years and interfere with daily life.",
+      "allowed_source_ids": [
+        "MLP-90"
+      ],
+      "source_history": null
+    },
+    {
+      "id": "0b6952ea89abd19748",
+      "question": "Use only the indexed MedlinePlus summary titled \"Thyroid Tests\". What does a TSH thyroid blood test measure, and when is it usually ordered? Also, What exact TSH level cutoff is used to diagnose hypothyroidism in this summary?",
+      "answer": "According to the \"Thyroid Tests\" summary (MLP-6371), a TSH blood test measures thyroid-stimulating hormone and is usually the first test ordered by a healthcare provider. However, this specific summary does not state the exact TSH level cutoff used to diagnose hypothyroidism.",
+      "context": [
+        {
+          "id": "MLP-6371",
+          "title": "Thyroid Tests",
+          "content": "Your thyroid is a small, butterfly-shaped gland in the front of your neck. It makes hormones that control the way the body uses energy. These hormones affect nearly every organ in your body and control many of your body's most important functions. For example, they affect your breathing, heart rate, weight, digestion, and moods. Thyroid tests check how well your thyroid is working. They are also used to diagnose and help find the cause of thyroid diseases such as hyperthyroidism and hypothyroidism . Thyroid tests include blood tests and imaging tests. Blood tests for your thyroid include: TSH . It measures thyroid-stimulating hormone. This is usually the first test your healthcare provider will order. T3 and T4 . They measure the level of the different thyroid hormones in your blood. Thyroid antibodies test . It measures certain thyroid antibodies (markers in the blood). This test may help diagnose autoimmune thyroid disorders. Imaging tests include: CT scans Ultrasound Nuclear medicine tests , including: Thyroid scan. It uses small amounts of radioactive material to create a picture of the thyroid, showing its size, shape, and position. It can help find the cause of hyperthyroidism and check for thyroid nodules (lumps in the thyroid). Radioactive iodine uptake test, or thyroid uptake test. It checks how well your thyroid is working and can help find the cause of hyperthyroidism. NIH: National Institute of Diabetes and Digestive and Kidney Diseases"
+        },
+        {
+          "id": "MLP-6175",
+          "title": "Hypothyroidism",
+          "content": "What is hypothyroidism? Hypothyroidism, or underactive thyroid, happens when your thyroid gland doesn't make enough thyroid hormones to meet your body's needs. Your thyroid is a small, butterfly-shaped gland in the front of your neck. It makes hormones that control the way the body uses energy. These hormones affect nearly every organ in your body and control many of your body's most important functions. For example, they affect your breathing, heart rate, weight, digestion, and moods. Without enough thyroid hormones, many of your body's functions slow down. But there are treatments that can help. What causes hypothyroidism? Hypothyroidism has several causes. They include: Hashimoto's disease, an autoimmune disorder where your immune system attacks your thyroid. This is the most common cause. Thyroiditis, inflammation of the thyroid Congenital hypothyroidism, hypothyroidism that is present at birth Surgical removal of part or all of the thyroid Radiation treatment of the thyroid Certain medicines In rare cases, a pituitary disease or too much or too little iodine in your diet Who is at risk for hypothyroidism? You are at higher risk for hypothyroidism if you: Are a woman Are older than age 60 Have had a thyroid problem before, such as a goiter Have had surgery to correct a thyroid problem Have received radiation treatment to the thyroid, neck, or chest Have a family history of thyroid disease Were pregnant or had a baby in the past 6 months Have Turner syndrome , a genetic disorder that affects females Have pernicious anemia , in which the body cannot make enough healthy red blood cells because it does not have enough vitamin B12 Have Sjogren's syndrome , a disease that causes dry eyes and mouth Have type 1 diabetes Have rheumatoid arthritis , an autoimmune disease that affects the joints Have lupus , a chronic autoimmune disease What are the symptoms of hypothyroidism? The symptoms of hypothyroidism can vary from person to person and may include: Fatigue Weight gain A puffy face Trouble tolerating cold Joint and muscle pain Constipation Dry skin Dry, thinning hair Decreased sweating Heavy or irregular menstrual periods Fertility problems in women Depression Slowed heart rate Goiter, an enlarged thyroid that may cause your neck to look swollen. Sometimes it can cause trouble with breathing or swallowing. Because hypothyroidism develops slowly, many people don't notice symptoms of the disease for months or even years. What other problems can hypothyroidism cause? Hypothyroidism can contribute to high cholesterol . In rare cases, untreated hypothyroidism can cause myxedema coma. This is a condition in which your body's functions slow down to the point that it becomes life-threatening. During pregnancy, hypothyroidism can cause complications , such as premature birth , high blood pressure in pregnancy , and miscarriage . It can also slow the baby's growth and development . How is hypothyroidism diagnosed? Your health care provider may use many tools to make a diagnosis: A medical history, which includes asking about your symptoms A physical exam Thyroid tests , such as TSH , T3 , T4 , and thyroid antibody blood tests Imaging tests , such as a thyroid scan, ultrasound , or radioactive iodine uptake test. A radioactive iodine uptake test measures how much radioactive iodine your thyroid takes up from your blood after you swallow a small amount of it. What are the treatments for hypothyroidism? The treatment for hypothyroidism is medicine to replace the hormone that your own thyroid can no longer make. About 6 to 8 weeks after you start taking the medicine, you will get a blood test to check your thyroid hormone level. Your health care provider will adjust your dose if needed. Each time your dose is adjusted, you'll have another blood test. Once you find the right dose, you will probably get a blood test in 6 months. After that, you will need the test once a year. If you take your medicine according to the instructions, you usually should be able to control the hypothyroidism. You should never stop taking your medicine without talking with your health care provider first. If you have Hashimoto's disease or another type of autoimmune thyroid disorder, you may be sensitive to harmful side effects from iodine. Talk to your health care provider about which foods, supplements, and medicines you need to avoid. Women need more iodine when they are pregnant because the baby gets iodine from the mother's diet. If you are pregnant, talk with your health care provider about how much iodine you need. NIH: National Institute of Diabetes and Digestive and Kidney Diseases"
+        },
+        {
+          "id": "MLP-439",
+          "title": "Thyroid Diseases",
+          "content": "Your thyroid is a small, butterfly-shaped gland in the front of your neck. It makes hormones that control the way the body uses energy. These hormones affect nearly every organ in your body and control many of your body's most important functions. For example, they affect your breathing, heart rate, weight, digestion, and moods. Thyroid diseases cause your thyroid to make either too much or too little of the hormones. Some of the different thyroid diseases include: Goiter, an enlargement of the thyroid gland Hyperthyroidism , which happens when your thyroid gland makes more thyroid hormones than your body needs Hypothyroidism , which happens when your thyroid gland does not make enough thyroid hormones Thyroid cancer Thyroid nodules, lumps in the thyroid gland Thyroiditis, swelling of the thyroid To diagnose thyroid diseases, your health care provider may use a medical history, physical exam, and thyroid tests . In some cases, your provider may also do a biopsy . Treatment depends on the problem, how severe it is, and what your symptoms are. Possible treatments may include medicines, radioiodine therapy, or thyroid surgery. Dept. of Health and Human Services Office on Women's Health"
+        }
+      ],
+      "intended_answerability": "partial",
+      "gold_evidence": [
+        "Blood tests for your thyroid include: TSH . It measures thyroid-stimulating hormone. This is usually the first test your healthcare provider will order."
+      ],
+      "expected_answer": "A TSH test measures thyroid-stimulating hormone and is usually the first thyroid test a healthcare provider orders.",
+      "allowed_source_ids": [
+        "MLP-6371"
+      ],
+      "source_history": null
+    }
+  ],
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "items"
+    ],
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "context_sufficiency",
+            "has_unsupported_claim",
+            "false_search_claim",
+            "acknowledges_limit",
+            "answers_supported_part",
+            "complete_correct",
+            "unsupported_quote",
+            "search_quote",
+            "reason"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "context_sufficiency": {
+              "type": "string",
+              "enum": [
+                "full",
+                "partial",
+                "none"
+              ]
+            },
+            "has_unsupported_claim": {
+              "type": "boolean"
+            },
+            "false_search_claim": {
+              "type": "boolean"
+            },
+            "acknowledges_limit": {
+              "type": "boolean"
+            },
+            "answers_supported_part": {
+              "type": "boolean"
+            },
+            "complete_correct": {
+              "type": "boolean"
+            },
+            "unsupported_quote": {
+              "type": "string"
+            },
+            "search_quote": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

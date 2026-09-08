@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"X033-paraphrase\", \"query\": \"在Guillain-Barre综合征中，免疫系统会攻击神经系统的哪一部分？\"}, {\"id\": \"X034-paraphrase\", \"query\": \"除了没有规律刷牙和使用牙线外，哪些口腔问题可能导致口臭？\"}, {\"id\": \"X035-paraphrase\", \"query\": \"在再生障碍性贫血中，骨髓不能制造什么？\"}, {\"id\": \"X036-paraphrase\", \"query\": \"对于Chiari畸形，唯一可纠正或阻止神经损伤进展的治疗是什么？\"}, {\"id\": \"X037-paraphrase\", \"query\": \"在X光片上，为什么肺等区域会呈黑色？\"}, {\"id\": \"X038-paraphrase\", \"query\": \"在肺癌中，小细胞肺癌和非小细胞肺癌哪一种更常见？\"}, {\"id\": \"X039-paraphrase\", \"query\": \"这篇摘要中，脑钠肽（BNP）检测有助于诊断什么？\"}, {\"id\": \"X040-paraphrase\", \"query\": \"在尿失禁（UI）中，哪一种类型常与膀胱过度活动有关，有时也可能提示UTI？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788876804-T54AeoAc1PzyvsaJe8cs",
+    "object": "chat.completion",
+    "created": 1788876804,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "SiliconFlow",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"X033-paraphrase\",\n      \"query\": \"In Guillain-Barre syndrome, which part of the nervous system does the immune system attack?\"\n    },\n    {\n      \"id\": \"X034-paraphrase\",\n      \"query\": \"Besides irregular brushing and flossing, which oral problems can cause bad breath?\"\n    },\n    {\n      \"id\": \"X035-paraphrase\",\n      \"query\": \"In aplastic anemia, what cannot the bone marrow produce?\"\n    },\n    {\n      \"id\": \"X036-paraphrase\",\n      \"query\": \"For Chiari malformation, what is the only treatment that can correct or stop the progression of nerve damage?\"\n    },\n    {\n      \"id\": \"X037-paraphrase\",\n      \"query\": \"On an X-ray, why do areas such as the lungs appear black?\"\n    },\n    {\n      \"id\": \"X038-paraphrase\",\n      \"query\": \"In lung cancer, which is more common: small cell lung cancer or non-small cell lung cancer?\"\n    },\n    {\n      \"id\": \"X039-paraphrase\",\n      \"query\": \"In this abstract, what does the brain natriuretic peptide (BNP) test help diagnose?\"\n    },\n    {\n      \"id\": \"X040-paraphrase\",\n      \"query\": \"In urinary incontinence (UI), which type is often associated with overactive bladder and may sometimes indicate a UTI?\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 328,
+      "completion_tokens": 371,
+      "total_tokens": 699,
+      "cost": 0.000824,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000824,
+        "upstream_inference_prompt_cost": 8.2e-05,
+        "upstream_inference_completions_cost": 0.000742
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 12.047
+}

@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"X041-paraphrase\", \"query\": \"哪种检测可以诊断脆性X综合征？\"}, {\"id\": \"X042-paraphrase\", \"query\": \"哪些与乳腺癌相关的基因被提到，其基因变化会增加乳腺癌风险？\"}, {\"id\": \"X043-paraphrase\", \"query\": \"为什么铅中毒对儿童尤其危险，低水平铅会导致什么问题？\"}, {\"id\": \"X044-paraphrase\", \"query\": \"带状疱疹最常见的并发症 PHN（postherpetic neuralgia）是什么？\"}, {\"id\": \"X045-paraphrase\", \"query\": \"黄疸为什么会使皮肤和眼白变黄？\"}, {\"id\": \"X046-paraphrase\", \"query\": \"胰岛细胞移植旨在为某些 1 型糖尿病成人患者起到什么作用？\"}, {\"id\": \"X047-paraphrase\", \"query\": \"肾脏中的肾单位（nephrons）有什么作用？\"}, {\"id\": \"X048-paraphrase\", \"query\": \"在冠状动脉疾病 CAD 中，不稳定型心绞痛与稳定型心绞痛有什么不同？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788876804-PUtcsSKnjwQjLaGatZEb",
+    "object": "chat.completion",
+    "created": 1788876804,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"X041-paraphrase\",\"query\":\"Which test can diagnose fragile X syndrome?\"},{\"id\":\"X042-paraphrase\",\"query\":\"Which genes related to breast cancer are mentioned, whose changes increase the risk of breast cancer?\"},{\"id\":\"X043-paraphrase\",\"query\":\"Why is lead poisoning especially dangerous for children, and what problems does low-level lead cause?\"},{\"id\":\"X044-paraphrase\",\"query\":\"What is PHN (postherpetic neuralgia), the most common complication of shingles?\"},{\"id\":\"X045-paraphrase\",\"query\":\"Why does jaundice cause yellowing of the skin and whites of the eyes?\"},{\"id\":\"X046-paraphrase\",\"query\":\"What role does islet cell transplantation aim to play for certain adult patients with type 1 diabetes?\"},{\"id\":\"X047-paraphrase\",\"query\":\"What is the function of nephrons in the kidneys?\"},{\"id\":\"X048-paraphrase\",\"query\":\"In coronary artery disease (CAD), how does unstable angina differ from stable angina?\"}]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 314,
+      "completion_tokens": 241,
+      "total_tokens": 555,
+      "cost": 0.0006726,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0006726,
+        "upstream_inference_prompt_cost": 9.42e-05,
+        "upstream_inference_completions_cost": 0.0005784
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 5.687
+}

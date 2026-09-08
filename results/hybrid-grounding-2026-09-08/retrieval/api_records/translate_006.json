@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"R098\", \"query\": \"既然无法在验血中直接测量极低密度脂蛋白（VLDL），医生会测量什么指标来估算它？\"}, {\"id\": \"R100\", \"query\": \"除了疼痛和肿胀外，手术后还可能发生哪些计划外的并发症？\"}, {\"id\": \"R102\", \"query\": \"我戴着假牙，担心会烫伤口腔；有什么具体的感觉是我可能更难察觉到的？\"}, {\"id\": \"R104\", \"query\": \"我被诊断出患有风湿性多肌痛；休息后我应该预期出现什么主要症状？\"}, {\"id\": \"R106\", \"query\": \"我的医生怀疑我患有帕金森病；这种病症中哪种脑化学物质产生不足？\"}, {\"id\": \"R108\", \"query\": \"我担心口腔癌的风险；除了烟草和酒精使用外，哪种感染被列为致病原因？\"}, {\"id\": \"R110\", \"query\": \"我注意到脚部有刺痛或麻木感；这可能是哪种潜在健康问题的迹象？\"}, {\"id\": \"R112\", \"query\": \"我从晚秋开始每个冬天都感到情绪低落和疲惫。医生推荐这种季节性抑郁的主要治疗方法是什么？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875358-EeMuT4eCZUWAlGQhcZQw",
+    "object": "chat.completion",
+    "created": 1788875358,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"R098\",\n      \"query\": \"Since very low-density lipoprotein (VLDL) cannot be directly measured in a blood test, what indicator do doctors measure to estimate it?\"\n    },\n    {\n      \"id\": \"R100\",\n      \"query\": \"Besides pain and swelling, what unplanned complications may occur after surgery?\"\n    },\n    {\n      \"id\": \"R102\",\n      \"query\": \"I wear dentures and worry about burning my mouth; what specific sensation might I find harder to detect?\"\n    },\n    {\n      \"id\": \"R104\",\n      \"query\": \"I have been diagnosed with polymyalgia rheumatica; what main symptom should I expect after rest?\"\n    },\n    {\n      \"id\": \"R106\",\n      \"query\": \"My doctor suspects I have Parkinson's disease; which brain chemical is produced insufficiently in this condition?\"\n    },\n    {\n      \"id\": \"R108\",\n      \"query\": \"I am concerned about the risk of oral cancer; besides tobacco and alcohol use, which infection is listed as a causative factor?\"\n    },\n    {\n      \"id\": \"R110\",\n      \"query\": \"I notice tingling or numbness in my feet; could this be a sign of which underlying health issue?\"\n    },\n    {\n      \"id\": \"R112\",\n      \"query\": \"I have felt depressed and tired every winter since late autumn. What is the primary treatment recommended by doctors for this seasonal depression?\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 332,
+      "completion_tokens": 375,
+      "total_tokens": 707,
+      "cost": 0.00064974,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00064974,
+        "upstream_inference_prompt_cost": 6.474e-05,
+        "upstream_inference_completions_cost": 0.000585
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 6.328
+}

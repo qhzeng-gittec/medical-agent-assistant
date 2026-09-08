@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"X097-paraphrase\", \"query\": \"健康筛查旨在在症状出现前发现什么？\"}, {\"id\": \"X098-paraphrase\", \"query\": \"感染弯曲杆菌后，症状通常多久开始？\"}, {\"id\": \"X099-paraphrase\", \"query\": \"人畜共患病是什么？\"}, {\"id\": \"X100-paraphrase\", \"query\": \"1到3岁儿童的正常发育包括哪些方面？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788876819-xlaMz6Wl7semrDvB27ao",
+    "object": "chat.completion",
+    "created": 1788876819,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"X097-paraphrase\",\"query\":\"What does health screening aim to detect before symptoms appear?\"},{\"id\":\"X098-paraphrase\",\"query\":\"How long after Campylobacter infection do symptoms typically begin?\"},{\"id\":\"X099-paraphrase\",\"query\":\"What are zoonotic diseases?\"},{\"id\":\"X100-paraphrase\",\"query\":\"What aspects are included in normal development for children aged 1 to 3 years?\"}]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 171,
+      "completion_tokens": 107,
+      "total_tokens": 278,
+      "cost": 0.0003081,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0003081,
+        "upstream_inference_prompt_cost": 5.13e-05,
+        "upstream_inference_completions_cost": 0.0002568
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 2.531
+}

@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"R290\", \"query\": \"我有两个不同的问题：如果某人患有软组织肉瘤，需要使用哪种医学检查来确诊？ 在火山爆发期间，哪些人群最容易因气体和火山灰而遭受肺部损伤？\"}, {\"id\": \"R292\", \"query\": \"我有两个不同的问题：如果我的眼睛里进了化学品，为什么闭上眼睛等待是危险的？ 除了吃药，哪些生活方式的改变可能有助于改善勃起功能障碍？\"}, {\"id\": \"R294\", \"query\": \"我有两个不同的问题：有哪些有毒物质可能导致再生障碍性贫血？ 儿童反流多久发生一次才被认为是胃食管反流病（GERD）的迹象？\"}, {\"id\": \"R296\", \"query\": \"我有两个不同的问题：在亲密伴侣关系中，什么算作经济虐待？ 体温低于多少度会被视为低体温症的医疗紧急情况？\"}, {\"id\": \"R298\", \"query\": \"我有两个不同的问题：在回肠造口术中，肠道的哪一部分连接到造口？ 为什么含酒精的免洗洗手液不能有效预防脊髓灰质炎传播？\"}, {\"id\": \"R300\", \"query\": \"我有两个不同的问题：心脏病发作最常见的根本原因是什么？ 与免疫系统相关的艾迪生病的主要病因是什么？\"}, {\"id\": \"R302\", \"query\": \"我有两个不同的问题：我听说有甲型H1N1猪流感爆发，如果我感染了，可能会出现哪些常见症状？ 如果我决定今天戒烟，我的身体会立即出现哪些好处？\"}, {\"id\": \"R304\", \"query\": \"我有两个不同的问题：医生提到结节病会影响肺部，患有这种病时我可能会出现哪些具体的呼吸问题？ 作为一名想要健康饮食的老年人，我应该避免吃哪些高热量但营养很少的食物？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875393-MRCuwADRJpQFR5QjxN4D",
+    "object": "chat.completion",
+    "created": 1788875393,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "DeepInfra",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"R290\",\n      \"query\": \"I have two different questions: If someone has soft tissue sarcoma, which medical test is needed for diagnosis? During a volcanic eruption, which groups are most likely to suffer lung damage from gases and ash?\"\n    },\n    {\n      \"id\": \"R292\",\n      \"query\": \"I have two different questions: If chemicals get into my eyes, why is closing my eyes and waiting dangerous? Besides medication, which lifestyle changes may help improve erectile dysfunction?\"\n    },\n    {\n      \"id\": \"R294\",\n      \"query\": \"I have two different questions: Which toxic substances can cause aplastic anemia? How often must reflux occur in children to be considered a sign of gastroesophageal reflux disease (GERD)?\"\n    },\n    {\n      \"id\": \"R296\",\n      \"query\": \"I have two different questions: In an intimate partner relationship, what counts as economic abuse? Below what temperature is hypothermia considered a medical emergency?\"\n    },\n    {\n      \"id\": \"R298\",\n      \"query\": \"I have two different questions: In an ileostomy, which part of the intestine is connected to the stoma? Why is alcohol-based hand sanitizer ineffective at preventing the spread of polio?\"\n    },\n    {\n      \"id\": \"R300\",\n      \"query\": \"I have two different questions: What is the most common underlying cause of a heart attack? What is the main cause of Addison's disease related to the immune system?\"\n    },\n    {\n      \"id\": \"R302\",\n      \"query\": \"I have two different questions: I heard there is an H1N1 swine flu outbreak; if I get infected, what common symptoms might appear? If I decide to quit smoking today, what immediate benefits will my body experience?\"\n    },\n    {\n      \"id\": \"R304\",\n      \"query\": \"I have two different questions: My doctor mentioned that sarcoidosis affects the lungs; what specific breathing problems might I experience with this condition? As an elderly person wanting to eat healthily, which high-calorie, low-nutrient foods should I avoid?\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 450,
+      "completion_tokens": 512,
+      "total_tokens": 962,
+      "cost": 0.0014482,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0014482,
+        "upstream_inference_prompt_cost": 0.000117,
+        "upstream_inference_completions_cost": 0.0013312
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 11.235
+}

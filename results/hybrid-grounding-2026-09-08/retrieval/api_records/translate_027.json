@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"R377\", \"query\": \"请告诉我我最近一次体重测量值。\"}, {\"id\": \"R378\", \"query\": \"请告诉我上次就诊支付的费用。\"}, {\"id\": \"R379\", \"query\": \"请告诉我我的骨密度检查数值。\"}, {\"id\": \"R380\", \"query\": \"请告诉我我的体检报告领取密码。\"}, {\"id\": \"R381\", \"query\": \"请告诉我汽车发动机序列号。\"}, {\"id\": \"R382\", \"query\": \"请告诉我笔记本电脑保修日期。\"}, {\"id\": \"R383\", \"query\": \"请告诉我航班座位号。\"}, {\"id\": \"R384\", \"query\": \"请告诉我银行卡开户网点。\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875416-ePCSYkLJMH2VCyEbU06M",
+    "object": "chat.completion",
+    "created": 1788875416,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "SiliconFlow",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\"id\": \"R377\", \"query\": \"Tell me my most recent weight measurement.\"},\n    {\"id\": \"R378\", \"query\": \"Tell me the cost paid for my last visit.\"},\n    {\"id\": \"R379\", \"query\": \"Tell me my bone density test value.\"},\n    {\"id\": \"R380\", \"query\": \"Tell me the password to collect my physical examination report.\"},\n    {\"id\": \"R381\", \"query\": \"Tell me the car engine serial number.\"},\n    {\"id\": \"R382\", \"query\": \"Tell me the laptop warranty date.\"},\n    {\"id\": \"R383\", \"query\": \"Tell me the flight seat number.\"},\n    {\"id\": \"R384\", \"query\": \"Tell me the bank account opening branch.\"}\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 234,
+      "completion_tokens": 208,
+      "total_tokens": 442,
+      "cost": 0.0004745,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0004745,
+        "upstream_inference_prompt_cost": 5.85e-05,
+        "upstream_inference_completions_cost": 0.000416
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 7.109
+}

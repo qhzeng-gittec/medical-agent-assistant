@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"X057-paraphrase\", \"query\": \"为了预防心脏病，成年人每晚应尽量睡多少小时？\"}, {\"id\": \"X058-paraphrase\", \"query\": \"HPV 和疱疹这类 STI 除了阴道、口腔或肛交外，还可能怎样传播？\"}, {\"id\": \"X059-paraphrase\", \"query\": \"个人健康记录中应包括哪些药物信息？\"}, {\"id\": \"X060-paraphrase\", \"query\": \"出国旅行前，如果可能需要疫苗或预防特定疾病的药物，应在什么时候看医生？\"}, {\"id\": \"X061-paraphrase\", \"query\": \"产后如果女性极度悲伤，或无法照顾自己或宝宝，可能是什么情况？\"}, {\"id\": \"X062-paraphrase\", \"query\": \"正常情况下，少量尿液多久会从输尿管流入膀胱一次？\"}, {\"id\": \"X063-paraphrase\", \"query\": \"什么是 hyperhidrosis，它可能由哪些健康问题引起？\"}, {\"id\": \"X064-paraphrase\", \"query\": \"他汀类药物如何降低 LDL 胆固醇，并怎样影响心脏病发作和中风风险？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788876816-TohlPfwilYZ9NFc8yVCa",
+    "object": "chat.completion",
+    "created": 1788876816,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "\"{\"",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 321,
+      "completion_tokens": 3,
+      "total_tokens": 324,
+      "cost": 0.0001035,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0001035,
+        "upstream_inference_prompt_cost": 9.63e-05,
+        "upstream_inference_completions_cost": 7.2e-06
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 3.015
+}

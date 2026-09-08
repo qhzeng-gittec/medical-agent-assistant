@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"X081-paraphrase\", \"query\": \"肌营养不良症（MD）是什么？\"}, {\"id\": \"X082-paraphrase\", \"query\": \"破坏性行为持续多久才算儿童行为障碍？\"}, {\"id\": \"X083-paraphrase\", \"query\": \"什么是神经源性口吃，它可能由哪些脑损伤引起？\"}, {\"id\": \"X084-paraphrase\", \"query\": \"心脏骤停 SCA 和心脏病发作有什么不同？\"}, {\"id\": \"X085-paraphrase\", \"query\": \"哪种疝发生在腹股沟，并被描述为最常见的类型？\"}, {\"id\": \"X086-paraphrase\", \"query\": \"对于伤口和损伤，伤口很深或出血不止时，什么时候应该就医？\"}, {\"id\": \"X087-paraphrase\", \"query\": \"在 Paget 骨病中，骨骼过度分解和再生会使受影响的骨骼发生什么变化？\"}, {\"id\": \"X088-paraphrase\", \"query\": \"类风湿关节炎 RA 会对关节造成什么影响，炎症还可能影响哪些身体部位？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788876820-ALypylKCbRQ3J0uTXy9M",
+    "object": "chat.completion",
+    "created": 1788876820,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Phala",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"X081-paraphrase\",\n      \"query\": \"What is Muscular Dystrophy (MD)?\"\n    },\n    {\n      \"id\": \"X082-paraphrase\",\n      \"query\": \"How long must disruptive behavior persist to be considered a childhood behavioral disorder?\"\n    },\n    {\n      \"id\": \"X083-paraphrase\",\n      \"query\": \"What is neurogenic stuttering, and what brain injuries may cause it?\"\n    },\n    {\n      \"id\": \"X084-paraphrase\",\n      \"query\": \"What is the difference between Sudden Cardiac Arrest (SCA) and a heart attack?\"\n    },\n    {\n      \"id\": \"X085-paraphrase\",\n      \"query\": \"Which hernia occurs in the groin and is described as the most common type?\"\n    },\n    {\n      \"id\": \"X086-paraphrase\",\n      \"query\": \"For wounds and injuries, when should one seek medical attention if the wound is deep or bleeding does not stop?\"\n    },\n    {\n      \"id\": \"X087-paraphrase\",\n      \"query\": \"In Paget's disease of bone, what changes occur in affected bones due to excessive bone breakdown and regeneration?\"\n    },\n    {\n      \"id\": \"X088-paraphrase\",\n      \"query\": \"What effects does Rheumatoid Arthritis (RA) have on joints, and what other body parts may be affected by inflammation?\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 311,
+      "completion_tokens": 366,
+      "total_tokens": 677,
+      "cost": 0.0009717,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0009717,
+        "upstream_inference_prompt_cost": 9.33e-05,
+        "upstream_inference_completions_cost": 0.0008784
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 14.547
+}

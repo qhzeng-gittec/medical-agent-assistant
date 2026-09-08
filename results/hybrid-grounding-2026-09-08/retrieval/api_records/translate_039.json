@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"X073-paraphrase\", \"query\": \"腹泻何时算慢性？\"}, {\"id\": \"X074-paraphrase\", \"query\": \"未治疗的AFib会导致什么？\"}, {\"id\": \"X075-paraphrase\", \"query\": \"诊断PMS时症状须何时出现？\"}, {\"id\": \"X076-paraphrase\", \"query\": \"异位妊娠为什么危险？\"}, {\"id\": \"X077-paraphrase\", \"query\": \"水痘由什么病毒引起？\"}, {\"id\": \"X078-paraphrase\", \"query\": \"李斯特菌病由什么引起？\"}, {\"id\": \"X079-paraphrase\", \"query\": \"OCD的ERP是什么？\"}, {\"id\": \"X080-paraphrase\", \"query\": \"外显子组测序检查什么？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788876818-OxK1PtGmxAOL0M9lRl9a",
+    "object": "chat.completion",
+    "created": 1788876818,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "SiliconFlow",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"X073-paraphrase\",\n      \"query\": \"When is diarrhea considered chronic?\"\n    },\n    {\n      \"id\": \"X074-paraphrase\",\n      \"query\": \"What does untreated AFib lead to?\"\n    },\n    {\n      \"id\": \"X075-paraphrase\",\n      \"query\": \"When must symptoms appear for PMS diagnosis?\"\n    },\n    {\n      \"id\": \"X076-paraphrase\",\n      \"query\": \"Why is ectopic pregnancy dangerous?\"\n    },\n    {\n      \"id\": \"X077-paraphrase\",\n      \"query\": \"What virus causes chickenpox?\"\n    },\n    {\n      \"id\": \"X078-paraphrase\",\n      \"query\": \"What causes listeriosis?\"\n    },\n    {\n      \"id\": \"X079-paraphrase\",\n      \"query\": \"What is ERP in OCD?\"\n    },\n    {\n      \"id\": \"X080-paraphrase\",\n      \"query\": \"What does exome sequencing check?\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 256,
+      "completion_tokens": 277,
+      "total_tokens": 533,
+      "cost": 0.000618,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000618,
+        "upstream_inference_prompt_cost": 6.4e-05,
+        "upstream_inference_completions_cost": 0.000554
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 10.812
+}

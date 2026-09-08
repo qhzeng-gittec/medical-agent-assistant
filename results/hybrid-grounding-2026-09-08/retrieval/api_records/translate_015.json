@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"R242\", \"query\": \"我有两个不同的问题：我的宝宝在怀孕满 37 周之前出生了。这种类型的出生在医学上叫什么？ 我在建筑工地工作，经常翻动含有鸟粪的土壤。人们通常是如何感染组织胞浆菌病的？\"}, {\"id\": \"R244\", \"query\": \"我有两个不同的问题：如果医生怀疑我有激素紊乱，可以检测哪些样本以测量我的激素水平？ 我得了轻症新冠，但几个月后仍然感到疲劳。只有轻症的人也会发展成长期症状吗？\"}, {\"id\": \"R246\", \"query\": \"我有两个不同的问题：基因疗法在修复遗传问题时，与药物或手术等传统治疗方法有何不同？ 我听说第五病会有“巴掌脸”皮疹，这种红疹通常是先出现在脸上吗？\"}, {\"id\": \"R248\", \"query\": \"我有两个不同的问题：我的手指感觉卡住了然后突然弹直，这种情况叫什么？ 因为高血压通常没有预警症状，我该怎么知道自己有没有高血压？\"}, {\"id\": \"R250\", \"query\": \"我有两个不同的问题：如果我怀疑自己得了脑膜炎，有哪些主要症状意味着我需要立即看医生？ 我正在考虑用激素疗法治疗潮热，我应该和医生讨论哪些严重的健康风险？\"}, {\"id\": \"R252\", \"query\": \"我有两个不同的问题：我被诊断出患有克罗恩病。你能告诉我这种病最常影响消化道的哪些部位吗？ 如果外科医生使用另一个人的骨头来修复我断裂的髋骨，这种骨移植叫什么名字？\"}, {\"id\": \"R254\", \"query\": \"我有两个不同的问题：我的医生提到青光眼是一种视神经疾病。在这种病中，通常是什么原因导致眼内压力升高？ 我担心会从认识的人那里感染脑膜炎球菌病。仅仅呼吸他们待过的空气就会让我感染吗？\"}, {\"id\": \"R256\", \"query\": \"我有两个不同的问题：如果我目前吸烟，为了治疗肺气肿，我能做的最重要的生活方式改变是什么？ 我被诊断出患有胸廓出口综合征。由于神经受压，我的手臂、手和手指可能会出现哪些具体的感觉？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875381-LXL2mXI4MDboBZtHR6et",
+    "object": "chat.completion",
+    "created": 1788875381,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "DeepInfra",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"R242\",\n      \"query\": \"I have two different questions: My baby was born before 37 weeks of pregnancy. What is this type of birth called in medicine? I work at a construction site and often turn over soil containing bird droppings. How do people typically get infected with histoplasmosis?\"\n    },\n    {\n      \"id\": \"R244\",\n      \"query\": \"I have two different questions: If a doctor suspects I have a hormone disorder, what samples can be tested to measure my hormone levels? I had mild COVID-19, but I still feel fatigued months later. Do only people with mild cases develop long-term symptoms?\"\n    },\n    {\n      \"id\": \"R246\",\n      \"query\": \"I have two different questions: How does gene therapy differ from traditional treatments like drugs or surgery when fixing genetic problems? I heard that fifth disease causes a 'slapped cheek' rash. Does this red rash usually appear on the face first?\"\n    },\n    {\n      \"id\": \"R248\",\n      \"query\": \"I have two different questions: My finger feels stuck and then suddenly straightens. What is this condition called? Since high blood pressure usually has no warning symptoms, how can I know if I have high blood pressure?\"\n    },\n    {\n      \"id\": \"R250\",\n      \"query\": \"I have two different questions: If I suspect I have meningitis, what are the main symptoms that mean I need to see a doctor immediately? I am considering hormone therapy to treat hot flashes. What serious health risks should I discuss with my doctor?\"\n    },\n    {\n      \"id\": \"R252\",\n      \"query\": \"I have two different questions: I have been diagnosed with Crohn's disease. Can you tell me which parts of the digestive tract are most commonly affected by this disease? If a surgeon uses another person's bone to repair my broken hip bone, what is this bone graft called?\"\n    },\n    {\n      \"id\": \"R254\",\n      \"query\": \"I have two different questions: My doctor mentioned that glaucoma is a disease of the optic nerve. In this disease, what usually causes the pressure inside the eye to increase? I am worried about getting meningococcal disease from someone I know. Will simply breathing the air they were in cause me to get infected?\"\n    },\n    {\n      \"id\": \"R256\",\n      \"query\": \"I have two different questions: If I currently smoke, what is the most important lifestyle change I can make to treat emphysema? I have been diagnosed with thoracic outlet syndrome. Due to nerve compression, what specific sensations might I experience in my arm, hand, and fingers?\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 533,
+      "completion_tokens": 631,
+      "total_tokens": 1164,
+      "cost": 0.00177918,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00177918,
+        "upstream_inference_prompt_cost": 0.00013858,
+        "upstream_inference_completions_cost": 0.0016406
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 14.141
+}

@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Audit answers for faithfulness to supplied evidence, not for whether outside medical knowledge makes a claim plausible.\nThe answerer had ONLY these source excerpts/memories. No external search occurred. Source IDs and answer method names must not affect scoring.\nEach item gives question, answer, context, gold evidence/expected answer when available, intended answerability and allowed_source_ids when source-scoped.\nOnly allowed sources can support a source-scoped answer. For memories, preserve who, when, negation and uncertainty; assistant suggestions are not user facts.\nFor memory items, source_history contains the authoritative original user turns and recording timestamps. If a recalled memory or answer distorts them, mark the answer's distorted claim unsupported even if the retrieved memory contains it. Check absolute years against relative dates and timestamps; do not assume old authored years are correct.\nReturn JSON {\"items\":[{\"id\":same ID,\"context_sufficiency\":\"full|partial|none\",\n\"has_unsupported_claim\":boolean,\"unsupported_quote\":\"verbatim answer substring or empty\",\n\"false_search_claim\":boolean,\"search_quote\":\"verbatim answer substring or empty\",\n\"acknowledges_limit\":boolean,\"answers_supported_part\":boolean,\"complete_correct\":boolean,\"reason\":\"short explanation\"}]}.\nhas_unsupported_claim: any factual medical/personal/quantitative statement asserted without support in eligible context, or contradicting it.\nGeneric advice to consult a professional is allowed; clearly conditional questions are not invented history. A disclaimer does not erase an unsupported claim elsewhere.\nfalse_search_claim: claims to have searched external databases, verified approvals, or exhaustively established absence beyond these excerpts. 'The supplied materials do not state X' is valid. 'PubMed has no studies' without actual search evidence is invalid, even if the answer also says no evidence.\nacknowledges_limit: explicitly acknowledges missing requested evidence or inability to determine it, not just a generic disclaimer.\nanswers_supported_part: supplies the actual requested supported fact(s), not just a relevant topic summary. For intended unanswerable/needs_history set false.\ncomplete_correct: all answerable requested facts correct and supported, plus explicit limitation for missing parts; fully unanswerable cases require clear limitation without invented specifics. If has_unsupported_claim or false_search_claim is true, complete_correct MUST be false.\nFor partial cases, merely refusing everything is incomplete. For answerable cases, merely refusing is incomplete even if retrieval failed.\nGold evidence guides the requested facts but irrelevant sentences in a long excerpt need not be repeated. Alternative eligible sources may support correct answers.\nUnsupported/search quotes must be exact answer substrings when the corresponding flag is true, empty otherwise. Read the whole answer."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"55e8b5a949e4440872\", \"question\": \"患者十年前因什么事故受伤，做了什么治疗，康复后有什么遗留症状？ 对应门诊收费发票的完整编号是什么？\", \"answer\": \"根据提供的资料，患者十年前因车祸导致左腿骨折并进行了手术，康复后遗留症状为阴雨天膝盖疼痛 [MEM-1]。关于门诊收费发票的完整编号，现有材料中未提及，无法确定。\", \"context\": [{\"id\": \"MEM-1\", \"content\": \"用户五十二岁，十年前因车祸导致左腿骨折并进行了手术，术后康复了半年，走路基本正常，但阴雨天膝盖仍会疼痛\", \"metadata\": {\"evaluation\": \"synthetic-component-v2\", \"type\": \"consultation_event\", \"timestamp\": \"2026-09-08T09:59:16.941090+00:00\", \"source_session_id\": \"session-1\", \"user_id\": \"M11-05\", \"agent_id\": \"component-v2\", \"attributed_to\": \"user\"}}, {\"id\": \"MEM-2\", \"content\": \"用户五年前爬山时扭伤右腿，当时未骨折只是拉伤，休息两周后恢复，但之后右腿偶尔会酸胀，不影响日常活动\", \"metadata\": {\"evaluation\": \"synthetic-component-v2\", \"type\": \"consultation_event\", \"timestamp\": \"2026-09-08T09:59:25.362077+00:00\", \"source_session_id\": \"session-2\", \"user_id\": \"M11-05\", \"agent_id\": \"component-v2\", \"attributed_to\": \"user\"}}], \"intended_answerability\": \"unanswerable\", \"gold_evidence\": [], \"expected_answer\": [], \"allowed_source_ids\": null, \"source_history\": {\"turns\": [{\"user\": \"我五十二岁，十年前因为车祸导致左腿骨折，做了手术，术后康复了半年，走路基本正常，但阴雨天膝盖还是会疼。\", \"assistant\": \"明白，已记录您十年前的车祸骨折及手术康复历史。\"}, {\"user\": \"补充一下，五年前我因为爬山扭伤了右腿，当时没骨折，只是拉伤，休息了两周就好了，但之后右腿偶尔也会酸胀，不过不影响日常活动。\", \"assistant\": \"收到，已更新您五年前右腿拉伤及后续症状的记录。\"}], \"recorded_at\": [\"2026-09-08T09:59:16.941090+00:00\", \"2026-09-08T09:59:25.362077+00:00\"]}}, {\"id\": \"56a180eba26069f932\", \"question\": \"患者曾提及对何种解热镇痛药存在过敏史，且服药后出现了哪些具体的身体反应？ 对应门诊收费发票的完整编号是什么？\", \"answer\": \"患者对阿司匹林过敏，服药后出现嘴唇和舌头麻木肿胀、皮肤严重瘙痒及血管性水肿 [MEM-1, MEM-2]。关于门诊收费发票的完整编号，提供的材料中未包含相关信息，无法确定。\", \"context\": [{\"id\": \"MEM-1\", \"content\": \"用户对阿司匹林过敏，三年前服药后不到半小时出现过敏反应，症状包括嘴唇和舌头麻木肿胀、皮肤严重瘙痒\", \"metadata\": {\"evaluation\": \"synthetic-component-v2\", \"type\": \"consultation_event\", \"timestamp\": \"2026-09-08T09:39:10.987769+00:00\", \"source_session_id\": \"session-1\", \"user_id\": \"M03-02\", \"agent_id\": \"component-v2\", \"attributed_to\": \"user\"}}, {\"id\": \"MEM-2\", \"content\": \"用户补充说明阿司匹林过敏发作发生在2021年初，当时误以为是普通感冒而服药，引发严重血管性水肿，后去医院确诊为药物过敏\", \"metadata\": {\"evaluation\": \"synthetic-component-v2\", \"type\": \"consultation_event\", \"timestamp\": \"2026-09-08T09:39:22.727720+00:00\", \"source_session_id\": \"session-2\", \"user_id\": \"M03-02\", \"agent_id\": \"component-v2\", \"attributed_to\": \"user\"}}], \"intended_answerability\": \"unanswerable\", \"gold_evidence\": [], \"expected_answer\": [], \"allowed_source_ids\": null, \"source_history\": {\"turns\": [{\"user\": \"我想确认一下，我之前说过对阿司匹林过敏。那是三年前的事，吃完药不到半小时，我的嘴唇和舌头就开始发麻肿胀，皮肤也痒得厉害。\", \"assistant\": \"明白，已备注您对阿司匹林的过敏情况。\"}, {\"user\": \"再补充一点，那次发作是在2021年初，当时我还误以为只是普通感冒吃了药，结果引发了严重的血管性水肿，后来去医院才确诊是药物过敏。\", \"assistant\": \"好的，已完善您关于阿司匹林过敏的时间线和症状描述。\"}], \"recorded_at\": [\"2026-09-08T09:39:10.987769+00:00\", \"2026-09-08T09:39:22.727720+00:00\"]}}, {\"id\": \"56e7ba56d252f07f1c\", \"question\": \"患者在进行何种医疗操作时因使用特定麻醉药而出现循环系统异常反应？ 对应门诊收费发票的完整编号是什么？\", \"answer\": \"根据提供的资料，患者在2017年夏季进行**拔牙**（tooth extraction）操作时，因使用**普鲁卡因**（procaine）麻醉而出现循环系统异常反应（如心悸、手脚颤抖、皮肤苍白、血压骤降等过敏性休克早期症状）。\\n\\n关于“对应门诊收费发票的完整编号”，提供的资料中**无法确定**，因为文中未包含任何发票或收费记录信息。\", \"context\": [{\"id\": \"MEM-1\", \"content\": \"During the 2017 procaine allergy reaction, the doctor promptly identified the symptoms and switched to a different anesthesia method, preventing further complications.\", \"metadata\": {\"evaluation\": \"synthetic-component-v2\", \"type\": \"consultation_event\", \"timestamp\": \"2026-09-08T09:40:18.452946+00:00\", \"source_session_id\": \"session-2\", \"user_id\": \"M03-07\", \"agent_id\": \"component-v2\", \"attributed_to\": \"user\"}}, {\"id\": \"MEM-2\", \"content\": \"User has an allergy to procaine (普鲁卡因) anesthesia, first experienced during a tooth extraction in summer 2017. Symptoms included palpitations, trembling hands and feet, pale skin, and early signs of anaphylactic shock with sudden blood pressure drop.\", \"metadata\": {\"evaluation\": \"synthetic-component-v2\", \"type\": \"consultation_event\", \"timestamp\": \"2026-09-08T09:40:18.452946+00:00\", \"source_session_id\": \"session-2\", \"user_id\": \"M03-07\", \"agent_id\": \"component-v2\", \"attributed_to\": \"user\"}}], \"intended_answerability\": \"unanswerable\", \"gold_evidence\": [], \"expected_answer\": [], \"allowed_source_ids\": null, \"source_history\": {\"turns\": [{\"user\": \"我记得提过对普鲁卡因麻醉药过敏。那是七年前拔牙的时候，打完麻药没过多久，我就觉得心慌意乱，手脚开始发抖，脸色也变得苍白。\", \"assistant\": \"已记录您关于普鲁卡因麻醉药过敏的牙科就诊经历。\"}, {\"user\": \"再补充点细节，那是2017年夏天，除了心慌和颤抖，我还出现了过敏性休克的早期迹象，血压骤降，幸好医生及时发现并更换了其他麻醉方式。\", \"assistant\": \"收到，已完善您关于普鲁卡因过敏的严重性及处理过程记录。\"}], \"recorded_at\": [\"2026-09-08T09:40:18.452946+00:00\", \"2026-09-08T09:40:18.452946+00:00\"]}}, {\"id\": \"576514950b22e1e5b8\", \"question\": \"用户视力下降的真实原因是什么？\", \"answer\": \"根据提供的资料，用户视力下降的真实原因是近视度数加深。MEM-1指出这是由于长时间看电脑导致的；MEM-2进一步确认，医生在排除青光眼（眼压正常、视野无缺损）后，确诊视力下降系近视加深所致 [MEM-1, MEM-2]。\", \"context\": [{\"id\": \"MEM-1\", \"content\": \"用户最近看东西模糊是因为长时间看电脑导致近视度数增加\", \"metadata\": {\"evaluation\": \"synthetic-component-v2\", \"type\": \"consultation_event\", \"timestamp\": \"2026-09-08T10:03:12.577754+00:00\", \"source_session_id\": \"session-2\", \"user_id\": \"M12-10\", \"agent_id\": \"component-v2\", \"attributed_to\": \"user\"}}, {\"id\": \"MEM-2\", \"content\": \"用户于2026年9月7日进行了眼压和视野检查，结果显示眼压正常、视野无缺损，医生排除了青光眼诊断，确认视力下降是由于近视加深所致\", \"metadata\": {\"evaluation\": \"synthetic-component-v2\", \"type\": \"consultation_event\", \"timestamp\": \"2026-09-08T10:02:46.073521+00:00\", \"source_session_id\": \"session-1\", \"user_id\": \"M12-10\", \"agent_id\": \"component-v2\", \"attributed_to\": \"user\"}}, {\"id\": \"MEM-3\", \"content\": \"用户以前每年体检眼压都是正常的\", \"metadata\": {\"evaluation\": \"synthetic-component-v2\", \"type\": \"consultation_event\", \"timestamp\": \"2026-09-08T10:03:12.577754+00:00\", \"source_session_id\": \"session-2\", \"user_id\": \"M12-10\", \"agent_id\": \"component-v2\", \"attributed_to\": \"user\"}}], \"intended_answerability\": \"answerable\", \"gold_evidence\": [], \"expected_answer\": [\"用户视力下降是因为长时间看电脑导致近视加深。\", \"用户视力问题与青光眼无关。\"], \"allowed_source_ids\": null, \"source_history\": {\"turns\": [{\"user\": \"有人说我视力下降是青光眼，但我昨天做了眼压和视野检查，医生说我眼压正常，视野也没缺损，根本没有青光眼，只是近视加深了。\", \"assistant\": \"好的，已记录您昨日检查排除青光眼的结果。\"}, {\"user\": \"是的，我最近看东西模糊是因为长时间看电脑，度数涨了，但这跟青光眼没关系，以前每年体检眼压都是正常的。\", \"assistant\": \"明白，已补充您视力下降源于近视加深而非青光眼的记录。\"}], \"recorded_at\": [\"2026-09-08T10:03:12.577754+00:00\", \"2026-09-08T10:02:46.073521+00:00\", \"2026-09-08T10:03:12.577754+00:00\"]}}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 5500,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875667-uPbtgt1DBc0g1xN9d1E8",
+    "object": "chat.completion",
+    "created": 1788875667,
+    "model": "minimax/minimax-m2.5",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"items\": [\n    {\n      \"id\": \"55e8b5a949e4440872\",\n      \"context_sufficiency\": \"full\",\n      \"has_unsupported_claim\": false,\n      \"unsupported_quote\": \"\",\n      \"false_search_claim\": false,\n      \"search_quote\": \"\",\n      \"acknowledges_limit\": true,\n      \"answers_supported_part\": true,\n      \"complete_correct\": true,\n      \"reason\": \"答案完整准确：十年前车祸导致左腿骨折并手术，康复后遗留阴雨天膝盖疼痛。明确承认无法确定发票编号。\"\n    },\n    {\n      \"id\": \"56a180eba26069f932\",\n      \"context_sufficiency\": \"full\",\n      \"has_unsupported_claim\": false,\n      \"unsupported_quote\": \"\",\n      \"false_search_claim\": false,\n      \"search_quote\": \"\",\n      \"acknowledges_limit\": true,\n      \"answers_supported_part\": true,\n      \"complete_correct\": true,\n      \"reason\": \"答案完整准确：对阿司匹林过敏，症状包括嘴唇和舌头麻木肿胀、皮肤严重瘙痒、血管性水肿。明确承认无法确定发票编号。\"\n    },\n    {\n      \"id\": \"56e7ba56d252f07f1c\",\n      \"context_sufficiency\": \"full\",\n      \"has_unsupported_claim\": false,\n      \"unsupported_quote\": \"\",\n      \"false_search_claim\": false,\n      \"search_quote\": \"\",\n      \"acknowledges_limit\": true,\n      \"answers_supported_part\": true,\n      \"complete_correct\": true,\n      \"reason\": \"答案完整准确：2017年夏天拔牙时使用普鲁卡因麻醉，出现心悸、手脚颤抖、皮肤苍白、血压骤降等过敏性休克早期症状。明确承认无法确定发票编号。\"\n    },\n    {\n      \"id\": \"576514950b22e1e5b8\",\n      \"context_sufficiency\": \"full\",\n      \"has_unsupported_claim\": false,\n      \"unsupported_quote\": \"\",\n      \"false_search_claim\": false,\n      \"search_quote\": \"\",\n      \"acknowledges_limit\": false,\n      \"answers_supported_part\": true,\n      \"complete_correct\": true,\n      \"reason\": \"答案完整准确：视力下降真实原因是长时间看电脑导致近视加深，已排除青光眼（眼压正常、视野无缺损）。\"\n    }\n  ]\n}\n```",
+          "refusal": null,
+          "reasoning": "让我逐一分析每个问题：\n\n**问题1 (55e8b5a949e4440872):**\n- 问题：患者十年前因什么事故受伤，做了什么治疗，康复后有什么遗留症状？对应门诊收费发票的完整编号是什么？\n- 答案：患者十年前因车祸导致左腿骨折并进行了手术，康复后遗留症状为阴雨天膝盖疼痛。关于门诊收费发票的完整编号，现有材料中未提及，无法确定。\n- 评估：\n  - 受伤原因：车祸 ✓ (MEM-1)\n  - 受伤情况：左腿骨折 ✓ (MEM-1)\n  - 治疗：手术 ✓ (MEM-1)\n  - 遗留症状：阴雨天膝盖疼痛 ✓ (MEM-1)\n  - 门诊收费发票编号：材料中确实没有提及 ✓\n  - 答案正确且完整，但关于发票编号部分承认无法确定\n  - has_unsupported_claim: false\n  - acknowledges_limit: true (明确说无法确定发票编号)\n  - answers_supported_part: true\n  - complete_correct: true\n\n**问题2 (56a180eba26069f932):**\n- 问题：患者曾提及对何种解热镇痛药存在过敏史，且服药后出现了哪些具体的身体反应？对应门诊收费发票的完整编号是什么？\n\n\n- 答案：患者对阿司匹林过敏，服药后出现嘴唇和舌头麻木肿胀、皮肤严重瘙痒及血管性水肿。关于门诊收费发票的完整编号，提供的材料中未包含相关信息，无法确定。\n- 评估：\n  - 过敏药物：阿司匹林 ✓ (MEM-1, MEM-2)\n  - 症状：嘴唇和舌头麻木肿胀、皮肤严重瘙痒、血管性水肿 ✓ (MEM-1, MEM-2)\n  - 发病时间：三年前 ✓ (MEM-1)\n  - 症状出现时间：服药后不到半小时 ✓ (MEM-1)\n  - 门诊收费发票编号：材料中确实没有提及 ✓\n  - has_unsupported_claim: false\n  - acknowledges_limit: true\n  - answers_supported_part: true\n  - complete_correct: true\n\n**问题3 (56e7ba56d252f07f1c):**\n- 问题：患者在进行何种医疗操作时因使用特定麻醉药而出现循环系统异常反应？对应门诊收费发票的完整编号是什么？\n- 答案：患者在2017年夏季进行拔牙操作时，因使用普鲁卡因麻醉而出现循环系统异常反应（如心悸、手脚颤抖、皮肤苍白、血压骤降等过敏性休克早期症状）。关于门诊收费发票的完整编号，提供的资料中无法确定。\n\n评估：\n- 医疗操作：拔牙 ✓ (MEM-2)\n- 麻醉药：普鲁卡因 ✓ (MEM-1, MEM-2)\n- 时间：2017年夏天 ✓ (MEM-2)\n- 症状：心悸、手脚颤抖、皮肤苍白、血压骤降等过敏性休克早期症状 ✓ (MEM-2)\n- 门诊收费发票编号：材料中确实没有提及 ✓\n- has_unsupported_claim: false\n- acknowledges_limit: true\n- answers_supported_part: true\n- complete_correct: true\n\n**问题4 (576514950b22e1e5b8):**\n- 问题：用户视力下降的真实原因是什么？\n- 答案：根据提供的资料，用户视力下降的真实原因是近视度数加深。MEM-1指出这是由于长时间看电脑导致的；MEM-2进一步确认，医生在排除青光眼（眼压正常、视野无缺损）后，确诊视力下降系近视加深所致。\n\n评估：\n- 视力下降原因：近视度数加深 ✓ (MEM-1, MEM-2)\n- 原因细节：长时间看电脑 ✓ (MEM-1)\n- 排除青光眼：眼压正常、视野无缺损 ✓ (MEM-2)\n- has_unsupported_claim: false\n- acknowledges_limit: false (问题已完全回答)\n- answers_supported_part: true\n- complete_correct: true\n\n所有问题的答案都准确无误，且有充分的医学记录支持。\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "让我逐一分析每个问题：\n\n**问题1 (55e8b5a949e4440872):**\n- 问题：患者十年前因什么事故受伤，做了什么治疗，康复后有什么遗留症状？对应门诊收费发票的完整编号是什么？\n- 答案：患者十年前因车祸导致左腿骨折并进行了手术，康复后遗留症状为阴雨天膝盖疼痛。关于门诊收费发票的完整编号，现有材料中未提及，无法确定。\n- 评估：\n  - 受伤原因：车祸 ✓ (MEM-1)\n  - 受伤情况：左腿骨折 ✓ (MEM-1)\n  - 治疗：手术 ✓ (MEM-1)\n  - 遗留症状：阴雨天膝盖疼痛 ✓ (MEM-1)\n  - 门诊收费发票编号：材料中确实没有提及 ✓\n  - 答案正确且完整，但关于发票编号部分承认无法确定\n  - has_unsupported_claim: false\n  - acknowledges_limit: true (明确说无法确定发票编号)\n  - answers_supported_part: true\n  - complete_correct: true\n\n**问题2 (56a180eba26069f932):**\n- 问题：患者曾提及对何种解热镇痛药存在过敏史，且服药后出现了哪些具体的身体反应？对应门诊收费发票的完整编号是什么？\n\n\n- 答案：患者对阿司匹林过敏，服药后出现嘴唇和舌头麻木肿胀、皮肤严重瘙痒及血管性水肿。关于门诊收费发票的完整编号，提供的材料中未包含相关信息，无法确定。\n- 评估：\n  - 过敏药物：阿司匹林 ✓ (MEM-1, MEM-2)\n  - 症状：嘴唇和舌头麻木肿胀、皮肤严重瘙痒、血管性水肿 ✓ (MEM-1, MEM-2)\n  - 发病时间：三年前 ✓ (MEM-1)\n  - 症状出现时间：服药后不到半小时 ✓ (MEM-1)\n  - 门诊收费发票编号：材料中确实没有提及 ✓\n  - has_unsupported_claim: false\n  - acknowledges_limit: true\n  - answers_supported_part: true\n  - complete_correct: true\n\n**问题3 (56e7ba56d252f07f1c):**\n- 问题：患者在进行何种医疗操作时因使用特定麻醉药而出现循环系统异常反应？对应门诊收费发票的完整编号是什么？\n- 答案：患者在2017年夏季进行拔牙操作时，因使用普鲁卡因麻醉而出现循环系统异常反应（如心悸、手脚颤抖、皮肤苍白、血压骤降等过敏性休克早期症状）。关于门诊收费发票的完整编号，提供的资料中无法确定。\n\n评估：\n- 医疗操作：拔牙 ✓ (MEM-2)\n- 麻醉药：普鲁卡因 ✓ (MEM-1, MEM-2)\n- 时间：2017年夏天 ✓ (MEM-2)\n- 症状：心悸、手脚颤抖、皮肤苍白、血压骤降等过敏性休克早期症状 ✓ (MEM-2)\n- 门诊收费发票编号：材料中确实没有提及 ✓\n- has_unsupported_claim: false\n- acknowledges_limit: true\n- answers_supported_part: true\n- complete_correct: true\n\n**问题4 (576514950b22e1e5b8):**\n- 问题：用户视力下降的真实原因是什么？\n- 答案：根据提供的资料，用户视力下降的真实原因是近视度数加深。MEM-1指出这是由于长时间看电脑导致的；MEM-2进一步确认，医生在排除青光眼（眼压正常、视野无缺损）后，确诊视力下降系近视加深所致。\n\n评估：\n- 视力下降原因：近视度数加深 ✓ (MEM-1, MEM-2)\n- 原因细节：长时间看电脑 ✓ (MEM-1)\n- 排除青光眼：眼压正常、视野无缺损 ✓ (MEM-2)\n- has_unsupported_claim: false\n- acknowledges_limit: false (问题已完全回答)\n- answers_supported_part: true\n- complete_correct: true\n\n所有问题的答案都准确无误，且有充分的医学记录支持。\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2988,
+      "completion_tokens": 1383,
+      "total_tokens": 4371,
+      "cost": 0.00254106,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00254106,
+        "upstream_inference_prompt_cost": 0.00088146,
+        "upstream_inference_completions_cost": 0.0016596
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 859,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 21.797
+}

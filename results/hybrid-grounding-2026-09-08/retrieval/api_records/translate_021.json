@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"R329\", \"query\": \"刚才说的情况，具体应该怎么理解？\"}, {\"id\": \"R330\", \"query\": \"有人告诉我我可能患有药物性狼疮。在开始服用新药后，症状通常多久会出现？ 具体应该怎么理解？\"}, {\"id\": \"R331\", \"query\": \"刚才说的情况，具体应该怎么理解？\"}, {\"id\": \"R332\", \"query\": \"如果我受了严重或脏的伤口，距离上次破伤风疫苗接种后多久可能需要再打一针加强针？ 具体应该怎么理解？\"}, {\"id\": \"R333\", \"query\": \"刚才说的情况，具体应该怎么理解？\"}, {\"id\": \"R334\", \"query\": \"有哪些疾病可能会影响结肠的正常功能？ 具体应该怎么理解？\"}, {\"id\": \"R335\", \"query\": \"刚才说的情况，具体应该怎么理解？\"}, {\"id\": \"R336\", \"query\": \"除了提问之外，我还可以采取什么措施带人陪同看医生，以帮助减少医疗差错？ 具体应该怎么理解？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875397-S6cFEcEzvapKNddrRf7m",
+    "object": "chat.completion",
+    "created": 1788875397,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"R329\",\n      \"query\": \"How should the situation just mentioned be understood specifically?\"\n    },\n    {\n      \"id\": \"R330\",\n      \"query\": \"Someone told me I might have drug-induced lupus. How long after starting a new medication do symptoms usually appear? How should this be understood specifically?\"\n    },\n    {\n      \"id\": \"R331\",\n      \"query\": \"How should the situation just mentioned be understood specifically?\"\n    },\n    {\n      \"id\": \"R332\",\n      \"query\": \"If I have a severe or dirty wound, how long after my last tetanus vaccination might I need a booster shot? How should this be understood specifically?\"\n    },\n    {\n      \"id\": \"R333\",\n      \"query\": \"How should the situation just mentioned be understood specifically?\"\n    },\n    {\n      \"id\": \"R334\",\n      \"query\": \"What diseases might affect normal colon function? How should this be understood specifically?\"\n    },\n    {\n      \"id\": \"R335\",\n      \"query\": \"How should the situation just mentioned be understood specifically?\"\n    },\n    {\n      \"id\": \"R336\",\n      \"query\": \"Besides asking questions, what measures can I take by bringing someone to accompany me to the doctor to help reduce medical errors? How should this be understood specifically?\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 303,
+      "completion_tokens": 343,
+      "total_tokens": 646,
+      "cost": 0.000594165,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000594165,
+        "upstream_inference_prompt_cost": 5.9085e-05,
+        "upstream_inference_completions_cost": 0.00053508
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 4.125
+}

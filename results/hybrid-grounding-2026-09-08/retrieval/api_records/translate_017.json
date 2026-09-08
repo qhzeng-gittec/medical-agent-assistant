@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"R274\", \"query\": \"我有两个不同的问题：我的脚踝因积液而肿胀；除了心力衰竭，这种类型的肿胀还有哪些常见原因？ 我被诊断出患有 HIV；每天服用抗逆转录病毒疗法药物的主要目标是什么？\"}, {\"id\": \"R276\", \"query\": \"我有两个不同的问题：有人告诉我我可能患有嗜铬细胞瘤；这种肿瘤产生的多余激素会引起哪些身体症状？ 我听说抗生素常用于治疗感染，但如果我得了流感等病毒感染，它们会有帮助吗？\"}, {\"id\": \"R278\", \"query\": \"我有两个不同的问题：我的医生提到我可能患有贫血。人们患上这种病最常见的原因是什么？ 如果我在车祸中受伤并感到胸部疼痛，这可能属于哪种类型的损伤？\"}, {\"id\": \"R280\", \"query\": \"我有两个不同的问题：我很担心西尼罗河病毒。有没有特定的疫苗或药物可以预防我感染它？ 我发现皮肤上的一个痣颜色变了并且变大了。我应该让专业人士检查一下吗？\"}, {\"id\": \"R282\", \"query\": \"我有两个不同的问题：如果我有一位近亲患有双相情感障碍，这会增加我患病的风险吗？ 因神经性贪食症而频繁呕吐会导致牙齿出现哪些身体迹象？\"}, {\"id\": \"R284\", \"query\": \"我有两个不同的问题：为什么1型糖尿病患者需要每天注射胰岛素或使用胰岛素泵？ 在我接受子宫切除术后，我的月经会发生什么变化？\"}, {\"id\": \"R286\", \"query\": \"我有两个不同的问题：远程医疗如何帮助那些住在偏远地区、距离专科医生很远的农村居民？ 我被诊断出患有膀胱过度活动症。有哪些因素可能导致这种情况？\"}, {\"id\": \"R288\", \"query\": \"我有两个不同的问题：我的医生提到我可能患有胃食管反流病（GERD）。在这种疾病中，胃酸是如何影响我的食道的？ 我的宝宝头皮上有摇篮帽（乳痂）。有什么简单的日常护理方法可以在家里帮助缓解？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875386-IzSPfWLcyF92OeF6mOty",
+    "object": "chat.completion",
+    "created": 1788875386,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"R274\",\n      \"query\": \"I have two different questions: My ankle is swollen due to fluid accumulation; besides heart failure, what are other common causes of this type of swelling? I was diagnosed with HIV; what is the main goal of taking antiretroviral therapy medications daily?\"\n    },\n    {\n      \"id\": \"R276\",\n      \"query\": \"I have two different questions: Someone told me I might have a pheochromocytoma; what physical symptoms can the excess hormones produced by this tumor cause? I heard that antibiotics are commonly used to treat infections, but would they help if I had a viral infection like the flu?\"\n    },\n    {\n      \"id\": \"R278\",\n      \"query\": \"I have two different questions: My doctor mentioned I might have anemia. What are the most common causes of this condition? If I am injured in a car accident and feel chest pain, what type of injury could this be?\"\n    },\n    {\n      \"id\": \"R280\",\n      \"query\": \"I have two different questions: I am very concerned about West Nile virus. Are there specific vaccines or medications to prevent me from getting infected? I noticed a mole on my skin has changed color and grown larger. Should I have it checked by a professional?\"\n    },\n    {\n      \"id\": \"R282\",\n      \"query\": \"I have two different questions: If I have a close relative with bipolar disorder, does this increase my risk of developing it? What physical signs on teeth can result from frequent vomiting due to bulimia nervosa?\"\n    },\n    {\n      \"id\": \"R284\",\n      \"query\": \"I have two different questions: Why do people with type 1 diabetes need to inject insulin daily or use an insulin pump? After I undergo a hysterectomy, what changes will occur to my menstrual period?\"\n    },\n    {\n      \"id\": \"R286\",\n      \"query\": \"I have two different questions: How can telemedicine help rural residents living in remote areas far from specialists? I was diagnosed with overactive bladder. What factors could lead to this condition?\"\n    },\n    {\n      \"id\": \"R288\",\n      \"query\": \"I have two different questions: My doctor mentioned I might have gastroesophageal reflux disease (GERD). In this condition, how does stomach acid affect my esophagus? My baby has cradle cap (seborrheic dermatitis) on their scalp. Are there simple daily care methods at home that can help relieve it?\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 505,
+      "completion_tokens": 591,
+      "total_tokens": 1096,
+      "cost": 0.001020435,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.001020435,
+        "upstream_inference_prompt_cost": 9.8475e-05,
+        "upstream_inference_completions_cost": 0.00092196
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 6.797
+}

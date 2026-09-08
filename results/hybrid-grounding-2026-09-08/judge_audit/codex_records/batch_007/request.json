@@ -1,0 +1,397 @@
+{
+  "model": "gpt-5.5",
+  "instruction": "Audit answers for faithfulness to supplied evidence, not for whether outside medical knowledge makes a claim plausible.\nThe answerer had ONLY these source excerpts/memories. No external search occurred. Source IDs and answer method names must not affect scoring.\nEach item gives question, answer, context, gold evidence/expected answer when available, intended answerability and allowed_source_ids when source-scoped.\nOnly allowed sources can support a source-scoped answer. For memories, preserve who, when, negation and uncertainty; assistant suggestions are not user facts.\nFor memory items, source_history contains the authoritative original user turns and recording timestamps. If a recalled memory or answer distorts them, mark the answer's distorted claim unsupported even if the retrieved memory contains it. Check absolute years against relative dates and timestamps; do not assume old authored years are correct.\nReturn JSON {\"items\":[{\"id\":same ID,\"context_sufficiency\":\"full|partial|none\",\n\"has_unsupported_claim\":boolean,\"unsupported_quote\":\"verbatim answer substring or empty\",\n\"false_search_claim\":boolean,\"search_quote\":\"verbatim answer substring or empty\",\n\"acknowledges_limit\":boolean,\"answers_supported_part\":boolean,\"complete_correct\":boolean,\"reason\":\"short explanation\"}]}.\nhas_unsupported_claim: any factual medical/personal/quantitative statement asserted without support in eligible context, or contradicting it.\nGeneric advice to consult a professional is allowed; clearly conditional questions are not invented history. A disclaimer does not erase an unsupported claim elsewhere.\nfalse_search_claim: claims to have searched external databases, verified approvals, or exhaustively established absence beyond these excerpts. 'The supplied materials do not state X' is valid. 'PubMed has no studies' without actual search evidence is invalid, even if the answer also says no evidence.\nacknowledges_limit: explicitly acknowledges missing requested evidence or inability to determine it, not just a generic disclaimer.\nanswers_supported_part: supplies the actual requested supported fact(s), not just a relevant topic summary. For intended unanswerable/needs_history set false.\ncomplete_correct: all answerable requested facts correct and supported, plus explicit limitation for missing parts; fully unanswerable cases require clear limitation without invented specifics. If has_unsupported_claim or false_search_claim is true, complete_correct MUST be false.\nFor partial cases, merely refusing everything is incomplete. For answerable cases, merely refusing is incomplete even if retrieval failed.\nGold evidence guides the requested facts but irrelevant sentences in a long excerpt need not be repeated. Alternative eligible sources may support correct answers.\nUnsupported/search quotes must be exact answer substrings when the corresponding flag is true, empty otherwise. Read the whole answer.\nCalibration clarification v2: distinguish invented facts from unnecessary refusal.\nA refusal ('cannot determine'), conservative uncertainty, or failure to select a later correction is NOT by itself an affirmative fabricated medical/personal fact: set complete_correct false if the answer omits available requested information, but do NOT set has_unsupported_claim just for the refusal.\nAn answer that asserts the obsolete value as current despite a later correction DOES contain an unsupported/contradicted factual claim.\ncontext_sufficiency must cover the ENTIRE actual question: if it asks for an undisclosed invoice number, no amount of related medical history makes that number available; mark none if only the invoice is requested, partial if the question also requests an available medical fact.\nFor fully unanswerable questions, answers_supported_part must be false; complete_correct can be true if it acknowledges the missing requested information and adds no unsupported factual claims.\nKeep all six boolean fields as JSON true/false, not strings. Always include both quote fields, using empty strings for false flags.\nIndependently review each item. Only the context field was shown to the answerer.\nGold evidence and expected answers are evaluator references, NOT additional retrieved context.\nIf gold evidence is absent from context, an admission of missing information is not hallucination or a false search claim.\nRead all context documents before judging. Do not mark a statement unsupported merely because one gold excerpt is narrower.\nAn explicit claim about what the provided documents contain is not a claim of external database search.\nAn answer may fail completeness without fabricating facts. Preserve this distinction rigorously.",
+  "input": [
+    {
+      "id": "660ddf97d9b56d3a9c",
+      "question": "患者设定的晚餐结束时间是什么时候？这一习惯持续了多久？",
+      "answer": "患者设定的晚餐结束时间是晚上十点前 [MEM-1, MEM-2]。关于这一习惯持续的时间，存在两种说法：一种是已坚持十年 [MEM-1]，另一种是从七年前开始严格执行该规则，之前只是偶尔这样做 [MEM-2]。因此，确切的持续时间无法从现有材料中唯一确定。",
+      "context": [
+        {
+          "id": "MEM-1",
+          "content": "用户习惯在晚上十点前吃完晚餐，之后不再进食固体食物，这是为了保持体重和避免睡前胃胀，已坚持十年",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:59:56.327065+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M10-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        },
+        {
+          "id": "MEM-2",
+          "content": "用户从七年前开始严格执行晚上十点前吃完晚餐的规则，之前只是偶尔这样做",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:00:11.916609+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M10-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        },
+        {
+          "id": "MEM-3",
+          "content": "如果不得不晚吃，用户会选择喝温牛奶而不是吃固体食物",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:00:11.916609+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M10-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        }
+      ],
+      "intended_answerability": "answerable",
+      "gold_evidence": [],
+      "expected_answer": [
+        "该患者习惯在晚上十点前结束晚餐。",
+        "该患者严格执行此规则已有七年时间。"
+      ],
+      "allowed_source_ids": null,
+      "source_history": {
+        "turns": [
+          {
+            "user": "我习惯晚上十点前吃完晚餐，之后不再进食固体食物。这是为了保持体重，也避免睡前胃胀，已经坚持了十年。",
+            "assistant": "已记录您的晚餐截止时间及长期饮食习惯。"
+          },
+          {
+            "user": "更正一下，其实我是从七年前开始严格执行这个规则的，之前只是偶尔这样做。而且如果不得不晚吃，我会选择喝点温牛奶而不是吃东西。",
+            "assistant": "已修正晚餐时间规则的执行起始时间及替代方案。"
+          }
+        ],
+        "recorded_at": [
+          "2026-09-08T09:59:56.327065+00:00",
+          "2026-09-08T10:00:11.916609+00:00",
+          "2026-09-08T10:00:11.916609+00:00"
+        ]
+      }
+    },
+    {
+      "id": "6770b0f4fba2d291e8",
+      "question": "我有两个不同的问题：什么样的天气事件或自然灾害会导致我所在地区发生洪水？ 高密度脂蛋白（HDL），通常被称为“好”胆固醇，在体内的主要作用是什么？",
+      "answer": "无法从提供的材料中确定导致您所在地区发生洪水的天气事件或自然灾害，因为文档未包含任何关于洪水成因的信息。关于高密度脂蛋白（HDL），其主要作用是将身体其他部位的胆固醇运回肝脏，以便肝脏将其排出体外 [MLP-6785, MLP-26, MLP-6783]。",
+      "context": [
+        {
+          "id": "MLP-6785",
+          "title": "HDL: The \"Good\" Cholesterol",
+          "content": "What is cholesterol? Cholesterol is a waxy, fat-like substance that's found in all the cells in your body. Your liver makes cholesterol, and it is also in some foods, such as meat and dairy products. Your body needs some cholesterol to work properly. But having too much cholesterol in your blood raises your risk of coronary artery disease . What are HDL and LDL? HDL and LDL are two types of lipoproteins.They are a combination of fat (lipid) and protein. The lipids need to be attached to the proteins so they can move through the blood. HDL and LDL have different purposes: HDL stands for high-density lipoproteins. It is sometimes called the \"good\" cholesterol because it carries cholesterol from other parts of your body back to your liver. Your liver then removes the cholesterol from your body. LDL stands for low-density lipoproteins. It is sometimes called the \"bad\" cholesterol because a high LDL level leads to a buildup of cholesterol in your arteries. How do I know what my HDL level is? A blood test can measure your cholesterol levels, including HDL. When and how often you should get this test depends on your age, risk factors, and family history. The general recommendations are: For people who are age 19 or younger: The first test should be between ages 9 to 11 Children should have the test again every 5 years Some children may have this test starting at age 2 if there is a family history of high blood cholesterol, heart attack, or stroke For people who are age 20 or older: Younger adults should have the test every 5 years Men ages 45 to 65 and women ages 55 to 65 should have it every 1 to 2 years What should my HDL level be? With HDL cholesterol, higher numbers are better, because a high HDL level can lower your risk for coronary artery disease and stroke . How high your HDL should be depends on your age and sex: Group Healthy HDL Level Age 19 or younger More than 45mg/dl Men age 20 or older More than 40mg/dl Women age 20 or older More than 50mg/dl How can I raise my HDL level? If your HDL level is too low, lifestyle changes may help. These changes may also help prevent other diseases and make you feel better overall: Eat a healthy diet. To raise your HDL level, you need to eat good fats instead of bad fats. This means limiting saturated fats, which include full-fat milk and cheese, high-fat meats like sausage and bacon, and foods made with butter, lard, and shortening. You should also avoid trans fats, which may be in some margarines, fried foods, and processed foods like baked goods. Instead, eat unsaturated fats, which are found in avocado, vegetable oils like olive oil, and nuts. Limit carbohydrates, especially sugar. Also try to eat more foods naturally high in fiber, such as oatmeal and beans. Stay at a healthy weight. You can boost your HDL level by losing weight, especially if you have lots of fat around your waist. Exercise. Getting regular exercise can raise your HDL level, as well as lower your LDL. You should try to do 30 minutes of moderate to vigorous aerobic exercise on most, if not all, days. Avoid cigarettes. Smoking and exposure to secondhand smoke can lower your HDL level. If you are a smoker, ask your health care provider for help in finding the best way for you to quit . You should also try to avoid secondhand smoke. Limit alcohol. Moderate alcohol may lower your HDL level, although more studies are needed to confirm that. What we do know is that too much alcohol can make you gain weight, and that lowers your HDL level. Some cholesterol medicines , including certain statins , can raise your HDL level, in addition to lowering your LDL level. Health care providers don't usually prescribe medicines only to raise HDL. But if you have a low HDL and high LDL level, you might need medicine. What else can affect my HDL level? Taking certain medicines can lower HDL levels in some people. They include: Beta blockers, a type of blood pressure medicine Anabolic steroids , including testosterone, a male hormone Progestins, which are female hormones that are in some birth control pills and hormone therapy for menopause Benzodiazepines, sedatives that are often used for anxiety and insomnia If you are taking one of these and you have a very low HDL level, ask your provider if you should continue to take them. Diabetes can also lower your HDL level, so that gives you another reason to manage your diabetes ."
+        },
+        {
+          "id": "MLP-26",
+          "title": "Cholesterol",
+          "content": "What is cholesterol? Cholesterol is a waxy, fat-like substance that's found in all the cells in your body. Your body needs some cholesterol to make hormones , vitamin D , and substances that help you digest foods. Your body makes all the cholesterol it needs. Cholesterol is also found in foods from animal sources, such as egg yolks, meat, and cheese. If you have too much cholesterol in your blood, it can combine with other substances in the blood to form plaque. Plaque sticks to the walls of your arteries. This buildup of plaque is known as atherosclerosis . It can lead to coronary artery disease , a condition in which your coronary arteries become narrow or even blocked. What are HDL, LDL, and VLDL? HDL, LDL, and VLDL are lipoproteins. They are a combination of fat (lipid) and protein. The lipids need to be attached to the proteins so they can move through the blood. Different types of lipoproteins have different purposes: HDL stands for high-density lipoprotein. It is sometimes called \"good\" cholesterol because it helps your body get rid of cholesterol. It carries cholesterol from other parts of your body back to your liver. Your liver then removes the cholesterol from your body. LDL stands for low-density lipoprotein. It is sometimes called \"bad\" cholesterol because a high LDL level leads to the buildup of plaque in your arteries. VLDL stands for very low-density lipoprotein. Some people also call VLDL a \"bad\" cholesterol because it too contributes to the buildup of plaque in your arteries. But VLDL and LDL are different; VLDL mainly carries triglycerides and LDL mainly carries cholesterol. What causes high cholesterol? The most common cause of high cholesterol is an unhealthy lifestyle. This can include: Unhealthy eating habits, such as eating lots of saturated fats . These fats are found in red meats, full-fat dairy products, chocolate, some baked goods, and many deep-fried and processed foods. Eating too much saturated fat can raise your LDL (bad) cholesterol. Lack of physical activity , with lots of sitting and little exercise. This lowers your HDL (good) cholesterol. Smoking , which lowers HDL cholesterol, especially in women. It also raises your LDL cholesterol. Stress , which may raise levels of certain hormones such as corticosteroids. These can cause your body to make more cholesterol. Drinking too much alcohol , which can raise your total cholesterol level. Genetics may also cause people to have high cholesterol. For example, familial hypercholesterolemia (FH) is an inherited condition that causes very high levels of cholesterol in the blood. Other medical conditions and certain medicines may also raise LDL cholesterol levels or lower HDL cholesterol levels. What can raise my risk of high cholesterol? A variety of things can raise your risk of high cholesterol: Age. Your cholesterol levels tend to rise as you get older. Even though it is less common, younger people, including children and teens , can also have high cholesterol. Sex. Between ages 20 and 39, men have a greater risk of high total cholesterol than women. But after menopause , a woman's risk goes up. This happens because menopause lowers levels of female hormones that may protect against high blood cholesterol. Family history. High blood cholesterol can run in families. Other health conditions. Conditions such as diabetes , chronic kidney disease , HIV , and lupus can raise your risk of high cholesterol. Medicines. Certain medicines can raise your level of LDL cholesterol or lower your level of HDL cholesterol, including: Steroids Some chemotherapy medicines Medicines taken after an organ transplant Medicines for certain heart conditions Certain acne medicines Race or ethnicity. People from certain racial or ethnic groups may have an increased risk of high cholesterol. For example, Asian Americans are more likely to have high levels of LDL cholesterol than other groups. And non-Hispanic White people are more likely than other groups to have high levels of total cholesterol. Weight. Being overweight or having obesity raises your cholesterol level. What other health problems can high cholesterol cause? Undiagnosed or untreated high blood cholesterol can lead to serious health problems: If you have large deposits of plaque in your arteries, an area of plaque can rupture (break open). This can cause a blood clot to form on the surface of the plaque. If the clot becomes large enough, it can mostly or completely block blood flow in a coronary artery. If the flow of oxygen-rich blood to your heart muscle is reduced or blocked, it can cause angina (chest pain) or a heart attack . Plaque also can build up in other arteries in your body, including the arteries that bring oxygen-rich blood to your brain and limbs. This can lead to problems such as carotid artery disease , stroke , and peripheral arterial disease . How is high cholesterol diagnosed? There are usually no signs or symptoms that you have high cholesterol. A blood test can measure your cholesterol levels . When and how often you should get this test depends on your age, risk factors, and family history. The general recommendations are: For people who are age 19 or younger: The first test should be between ages 9 to 11 Children should have the test again every 5 years Some children may have this test starting at age 2 if there is a family history of high blood cholesterol, heart attack, or stroke For people who are ages 20 to 65: Younger adults should have the test every 5 years Men ages 45 to 65 and women ages 55 to 65 should have it every 1 to 2 years For people over age 65: They should be tested every year How can I lower my cholesterol? You can lower your cholesterol through heart-healthy lifestyle changes. They include a heart-healthy eating plan , weight management , and regular physical activity . If the lifestyle changes alone do not lower your cholesterol enough, you may also need to take medicines. There are several types of cholesterol-lowering medicines available, including statins . If you take medicines to lower your cholesterol, you still should continue with the lifestyle changes. Some people with familial hypercholesterolemia (FH) may receive a treatment called lipoprotein apheresis. This treatment uses a filtering machine to remove LDL cholesterol from the blood. Then the machine returns the rest of the blood back to the person. NIH: National Heart, Lung, and Blood Institute"
+        },
+        {
+          "id": "MLP-6783",
+          "title": "LDL: The \"Bad\" Cholesterol",
+          "content": "What is cholesterol? Cholesterol is a waxy, fat-like substance that's found in all the cells in your body. Your liver makes cholesterol, and it is also in some foods, such as meat and dairy products. Your body needs some cholesterol to work properly. But having too much cholesterol in your blood raises your risk of coronary artery disease . What are LDL and HDL? LDL and HDL are two types of lipoproteins. They are a combination of fat (lipid) and protein. The lipids need to be attached to the proteins so they can move through the blood. LDL and HDL have different purposes: LDL stands for low-density lipoproteins. It is sometimes called the \"bad\" cholesterol because a high LDL level leads to a buildup of cholesterol in your arteries. HDL stands for high-density lipoproteins. It is sometimes called the \"good\" cholesterol because it carries cholesterol from other parts of your body back to your liver. Your liver then removes the cholesterol from your body. How can a high LDL level raise my risk of coronary artery disease and other diseases? If you have a high LDL level, this means that you have too much LDL cholesterol in your blood. This extra LDL, along with other substances, forms plaque. The plaque builds up in your arteries; this is a condition called atherosclerosis . Coronary artery disease happens when the plaque buildup is in the arteries of your heart. It causes the arteries to become hardened and narrowed, which slows down or blocks the blood flow to your heart. Because your blood carries oxygen to your heart, this means that your heart may not be able to get enough oxygen. This can cause angina (chest pain), or if the blood flow is completely blocked, a heart attack . How do I know what my LDL level is? A blood test can measure your cholesterol levels, including LDL. When and how often you should get this test depends on your age, risk factors, and family history. The general recommendations are: For people who are age 19 or younger: : The first test should be between ages 9 to 11 Children should have the test again every 5 years Some children may have this test starting at age 2 if there is a family history of high blood cholesterol, heart attack, or stroke For people who are age 20 or older: : Younger adults should have the test every 5 years Men ages 45 to 65 and women ages 55 to 65 should have it every 1 to 2 years For people who are older than 65: They should have the test every year. You may need to get your cholesterol checked more often if you have heart disease , diabetes , or a family history of high cholesterol. What can affect my LDL level? Things that can affect your LDL level include: Diet. Saturated fat and cholesterol in the food you eat make your LDL level rise Weight. Being overweight tends to raise your LDL level, lower your HDL level, and increase your total cholesterol level Physical Activity. A lack of physical activity can lead to weight gain, which can raise your LDL level Smoking. Cigarette smoking lowers your HDL cholesterol. Since HDL helps to remove LDL from your arteries, if you have less HDL, that can contribute to you having a higher LDL level. Age and Sex. As women and men get older, their cholesterol levels rise. Before the age of menopause, women have lower total cholesterol levels than men of the same age. After the age of menopause, women's LDL levels tend to rise. Genetics. Your genes partly determine how much cholesterol your body makes. High cholesterol can run in families. For example, familial hypercholesterolemia (FH) is an inherited form of high blood cholesterol. Medicines. Certain medicines, including steroids , some blood pressure medicines , and HIV medicines , can raise your LDL level. Other medical conditions. Diseases such as chronic kidney disease , diabetes, and HIV can cause a higher LDL level. Race or ethnicity. People from certain racial or ethnic groups may have an increased risk of high blood cholesterol. For example, African Americans typically have higher HDL and LDL cholesterol levels than White Americans. Asian Americans are more likely to have higher LDL levels than other groups. What should my LDL level be? With LDL cholesterol, lower numbers are better, because a high LDL level can raise your risk for coronary artery disease and related problems. The general ranges for healthy adults are: LDL (Bad) Cholesterol Level LDL Cholesterol Category Less than 100 mg/dL Optimal 100-129 mg/dL Near optimal/above optimal 130-159 mg/dL Borderline high 160-189 mg/dL High 190 mg/dL and above Very High If you have coronary artery disease or are at high risk for it, your health care provider may have different goals for your LDL level. How can I lower my LDL level? There are two main ways to lower your LDL cholesterol level: Heart-healthy lifestyle changes, which include: Heart-healthy eating. A heart-healthy eating plan limits the amount of saturated and trans fats that you eat. Examples of eating plans that can lower your LDL level include the Therapeutic Lifestyle Changes diet and the DASH eating plan . Weight management . If you are overweight, losing weight can help lower your LDL level. Physical Activity. Everyone should get regular physical activity . Drug Treatment. If lifestyle changes alone do not lower your LDL level enough, you may also need to take medicines. There are several types of cholesterol-lowering drugs available, including statins . The medicines work in different ways and can have different side effects. Talk to your provider about which one is right for you. While you are taking medicines to lower your LDL level, you still should continue with the lifestyle changes. Some people with familial hypercholesterolemia (FH) may receive a treatment called lipoprotein apheresis. This treatment uses a filtering machine to remove LDL cholesterol from the blood. Then the machine returns the rest of the blood back to the person. NIH: National Heart, Lung, and Blood Institute"
+        }
+      ],
+      "intended_answerability": "answerable",
+      "gold_evidence": [
+        "Weather such as heavy rain, thunderstorms, hurricanes , or tsunamis can cause flooding.",
+        "It is sometimes called \"good\" cholesterol because it helps your body get rid of cholesterol."
+      ],
+      "expected_answer": "",
+      "allowed_source_ids": null,
+      "source_history": null
+    },
+    {
+      "id": "6a0ed235bd80bc55ba",
+      "question": "患者实际停止服用降糖药的具体日期是哪天？",
+      "answer": "根据提供的资料，存在关于患者停止服用降糖药（二甲双胍）日期的矛盾记录。MEM-1指出用户坚持服用至2026年6月1日才停药 [MEM-1]；而MEM-2则称用户实际于2026年5月30日停用 [MEM-2]。由于两份来源对具体日期记载不一致，无法从现有材料中确定唯一的准确停药日期。",
+      "context": [
+        {
+          "id": "MEM-1",
+          "content": "医生建议用户在2026年5月20日停用二甲双胍，但用户坚持服用至2026年6月1日才停药",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:46:24.871302+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M06-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        },
+        {
+          "id": "MEM-2",
+          "content": "用户实际于2026年5月30日停用二甲双胍，当天医生再次确认可以停药后彻底停止服用",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:46:47.602025+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M06-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        },
+        {
+          "id": "MEM-3",
+          "content": "用户在2026年5月的体检中血糖达标",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:46:24.871302+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M06-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        },
+        {
+          "id": "MEM-4",
+          "content": "用户于2021年确诊糖尿病，之后一直服用二甲双胍，每天两次",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:46:24.871302+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M06-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        }
+      ],
+      "intended_answerability": "answerable",
+      "gold_evidence": [],
+      "expected_answer": [
+        "患者在5月30日停止服用二甲双胍"
+      ],
+      "allowed_source_ids": null,
+      "source_history": {
+        "turns": [
+          {
+            "user": "我2021年确诊糖尿病后一直用二甲双胍，每天两次。今年五月体检血糖达标，医生让我五月二十号停，但我坚持吃到六月一号才停。",
+            "assistant": "收到，已记录您六月一号实际停用二甲双胍的信息。"
+          },
+          {
+            "user": "不对，其实是五月三十号停的，那天医生又确认了一次，说可以停了，我就在那天彻底不吃了。",
+            "assistant": "明白，已将停药日期修正为五月三十号。"
+          }
+        ],
+        "recorded_at": [
+          "2026-09-08T09:46:24.871302+00:00",
+          "2026-09-08T09:46:47.602025+00:00",
+          "2026-09-08T09:46:24.871302+00:00",
+          "2026-09-08T09:46:24.871302+00:00"
+        ]
+      }
+    },
+    {
+      "id": "6e18937f3a0470586a",
+      "question": "患者计划何时进行乳腺超声复查？",
+      "answer": "患者计划于2026年9月10日（周四）下午两点半进行乳腺超声复查 [MEM-1]。",
+      "context": [
+        {
+          "id": "MEM-1",
+          "content": "用户想预约2026年9月10日（周四）下午两点半的乳腺超声复查，上次检查发现有个小结节，这次需要对比影像。用户询问是否需要携带之前的胶片还是电子版报告就行。",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:09.651610+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        },
+        {
+          "id": "MEM-2",
+          "content": "用户更正说明手头只有上次的纸质报告单，没有胶片了。用户询问周四下午两点半到院后能否先调取系统里的历史影像，还是必须回家找胶片。",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:28.833361+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        }
+      ],
+      "intended_answerability": "answerable",
+      "gold_evidence": [],
+      "expected_answer": [
+        "患者计划在本周四下午进行乳腺超声复查。"
+      ],
+      "allowed_source_ids": null,
+      "source_history": {
+        "turns": [
+          {
+            "user": "我想约本周四下午的乳腺超声复查。上次检查发现有个小结节，这次需要对比影像。我周四下午两点半到，请问需要携带之前的胶片还是电子版报告就行？",
+            "assistant": "好的，已记录您本周四下午的乳腺超声复查预约及关于携带影像资料的询问。"
+          },
+          {
+            "user": "更正一下，我手头只有上次的纸质报告单，没有胶片了。那我周四下午两点半到院后，能否先调取系统里的历史影像，还是必须回家找胶片？",
+            "assistant": "收到，已更新您仅有纸质报告无胶片的情况，以及对调取历史影像的询问。"
+          }
+        ],
+        "recorded_at": [
+          "2026-09-08T09:49:09.651610+00:00",
+          "2026-09-08T09:49:28.833361+00:00"
+        ]
+      }
+    },
+    {
+      "id": "6e21e55027c9977e45",
+      "question": "Use only the indexed MedlinePlus summary titled \"Genetic Counseling\". According to the summary, at what specific maternal age threshold is genetic counseling recommended for individuals planning or expecting a pregnancy? Also, What is the specific percentage increase in the risk of chromosomal abnormalities for a woman who is 36 years old compared to a woman who is 30 years old?",
+      "answer": "According to the MedlinePlus summary titled 'Genetic Counseling' (MLP-3811), genetic counseling is recommended for individuals who are pregnant or planning to be pregnant after age 35. However, the provided text does not contain information about the specific percentage increase in the risk of chromosomal abnormalities for a woman who is 36 years old compared to a woman who is 30 years old.",
+      "context": [
+        {
+          "id": "MLP-3811",
+          "title": "Genetic Counseling",
+          "content": "Genetic counseling provides information and support to people who have, or may be at risk for, genetic disorders . A genetic counselor meets with you to discuss genetic risks. The counseling may be for yourself or a family member. Or you may get it when you are planning or expecting a baby. You may follow up with genetic testing . There are many reasons to seek genetic counseling. You may consider it if you : Have a personal or family history of a genetic condition or birth defect Are pregnant or planning to be pregnant after age 35 Already have a child with a genetic disorder or birth defect Have had two or more pregnancy losses or a baby who died Have had ultrasound or screening tests that suggest a possible problem"
+        },
+        {
+          "id": "MLP-1127",
+          "title": "Birth Defects",
+          "content": "What are birth defects? A birth defect is a problem that happens while a baby is developing in the mother's body. Most birth defects happen during the first 3 months of pregnancy. One out of every 33 babies in the United States is born with a birth defect. A birth defect may affect how the body looks, works, or both. Some birth defects like cleft lip or neural tube defects are structural problems that can be easy to see. Others, like heart disease , are found using special tests. Birth defects can range from mild to severe. How a birth defect affects a child's life depends mostly on which organ or body part is involved and how severe the defect is. What causes birth defects? For some birth defects, researchers know the cause. But for many birth defects, the exact cause is unknown. Researchers think that most birth defects are caused by a complex mix of factors, which can include: Genetics. One or more genes might have a change or mutation that prevents them from working properly. For example, this happens in Fragile X syndrome . With some defects, a gene or part of the gene might be missing. Chromosomal problems. In some cases, a chromosome or part of a chromosome might be missing. This is what happens in Turner syndrome . In other cases, such as with Down syndrome , the child has an extra chromosome. Exposures to medicines , chemicals, or other toxic substances . For example, alcohol misuse can cause fetal alcohol spectrum disorders . Infections during pregnancy . For example, infection with Zika virus during pregnancy can cause a serious defect in the brain . Lack of certain nutrients. Not getting enough folic acid before and during pregnancy is a key factor in causing neural tube defects. Who is at risk of having a baby with birth defects? Certain factors may increase the chances of having a baby with a birth defect, such as: Smoking, drinking alcohol, or taking certain \"street\" drugs during pregnancy Having certain medical conditions, such as obesity or uncontrolled diabetes , before and during pregnancy Taking certain medicines Having someone in your family with a birth defect. To learn more about your risk of having a baby with a birth defect, you can talk with a genetic counselor , Being an older mother, typically over the age of 34 years How are birth defects diagnosed? Health care providers can diagnose some birth defects during pregnancy, using prenatal testing . That's why it important to get regular prenatal care . Other birth defects may not be found until after the baby is born. Providers may find them through newborn screening . Some defects, such as club foot, are obvious right away. Other times, the health care provider may not discover a defect until later in life, when the child has symptoms. What are the treatments for birth defects? Children with birth defects often need special care and treatments. Because the symptoms and problems caused by birth defects vary, the treatments also vary. Possible treatments may include surgery, medicines, assistive devices , physical therapy, and speech therapy. Often, children with birth defects need a variety of services and may need to see several specialists. The primary health care provider can coordinate the special care that the child needs. Can birth defects be prevented? Not all birth defects can be prevented. But there are things you can do before and during pregnancy to increase your chance of having a healthy baby: Start prenatal care as soon as you think you might be pregnant, and see your health care provider regularly during pregnancy Get 400 micrograms (mcg) of folic acid every day. If possible, you should start taking it at least one month before you get pregnant. Don't drink alcohol, smoke, or use \"street\" drugs Talk to your health care provider about any medicines you are taking or thinking about taking. This includes prescription and over-the-counter medicines, as well as dietary or herbal supplements. Learn how to prevent infections during pregnancy If you have any medical conditions, try to get them under control before you get pregnant Centers for Disease Control and Prevention"
+        },
+        {
+          "id": "MLP-1520",
+          "title": "Twins, Triplets, Multiple Births",
+          "content": "If you are pregnant with more than one baby, you are far from alone. Multiple births are up in the United States. More women are having babies after age 30 and more are taking fertility drugs. Both boost the chance of carrying more than one baby. A family history of twins also makes multiples more likely. Years ago, most twins came as a surprise. Now, most women know about a multiple pregnancy early. Women with multiple pregnancies should see their health care providers more often than women who are expecting one baby. Multiple pregnancy babies have a much higher risk of being born prematurely and having a low birth weight . There is also more of a risk of disabilities. Some women have to go on bed rest to delay labor. Finally, they may deliver by C-section , especially if there are three babies or more. Parenting multiples can be a challenge. Volunteer help and support groups for parents of multiples can help. Dept. of Health and Human Services Office on Women's Health"
+        }
+      ],
+      "intended_answerability": "partial",
+      "gold_evidence": [
+        "You may consider it if you : Have a personal or family history of a genetic condition or birth defect Are pregnant or planning to be pregnant after age 35 Already have a child with a genetic disorder or birth defect Have had two or more pregnancy losses or a baby who died Have had ultrasound or screening tests that suggest a possible problem"
+      ],
+      "expected_answer": "Genetic counseling is recommended for those who are pregnant or planning to be pregnant after age 35.",
+      "allowed_source_ids": [
+        "MLP-3811"
+      ],
+      "source_history": null
+    },
+    {
+      "id": "7319d2ff830cbefc79",
+      "question": "请确认患者最近一次度假的地点和具体天数。",
+      "answer": "根据提供的资料，无法确定患者最近一次度假的确切地点和天数。MEM-1 提到用户于2026年8月前往海南度假，停留了五天 [MEM-1]；而 MEM-2 则指出用户于2026年8月初前往厦门度假，停留了七天，并明确否定了之前提到的海南五天行程 [MEM-2]。由于两条记录存在冲突且未提供进一步澄清信息，因此无法确认哪次是最近一次的度假。",
+      "context": [
+        {
+          "id": "MEM-1",
+          "content": "用户于2026年8月前往海南度假，停留了五天，主要在三亚海边活动，天气非常暖和。",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:52:58.137150+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M08-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        },
+        {
+          "id": "MEM-2",
+          "content": "用户于2026年8月初前往厦门度假，停留了七天，而非之前提到的海南五天行程。",
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:53:18.358096+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M08-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          }
+        }
+      ],
+      "intended_answerability": "answerable",
+      "gold_evidence": [],
+      "expected_answer": [
+        "患者上个月初去了厦门。",
+        "患者停留了七天。",
+        "度假发生在上个月。"
+      ],
+      "allowed_source_ids": null,
+      "source_history": {
+        "turns": [
+          {
+            "user": "上个月我去了趟海南度假，住了五天，主要是在三亚的海边活动，天气非常暖和。",
+            "assistant": "收到，已记录您上个月赴海南度假五天的行程。"
+          },
+          {
+            "user": "更正一下，那次度假其实是去了厦门，不是海南，而且是在上个月初出发的，住了七天。",
+            "assistant": "明白，已更正为上个月初赴厦门度假七天。"
+          }
+        ],
+        "recorded_at": [
+          "2026-09-08T09:52:58.137150+00:00",
+          "2026-09-08T09:53:18.358096+00:00"
+        ]
+      }
+    }
+  ],
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "items"
+    ],
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "context_sufficiency",
+            "has_unsupported_claim",
+            "false_search_claim",
+            "acknowledges_limit",
+            "answers_supported_part",
+            "complete_correct",
+            "unsupported_quote",
+            "search_quote",
+            "reason"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "context_sufficiency": {
+              "type": "string",
+              "enum": [
+                "full",
+                "partial",
+                "none"
+              ]
+            },
+            "has_unsupported_claim": {
+              "type": "boolean"
+            },
+            "false_search_claim": {
+              "type": "boolean"
+            },
+            "acknowledges_limit": {
+              "type": "boolean"
+            },
+            "answers_supported_part": {
+              "type": "boolean"
+            },
+            "complete_correct": {
+              "type": "boolean"
+            },
+            "unsupported_quote": {
+              "type": "string"
+            },
+            "search_quote": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

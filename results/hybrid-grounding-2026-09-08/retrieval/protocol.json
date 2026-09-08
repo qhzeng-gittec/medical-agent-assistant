@@ -1,0 +1,114 @@
+{
+  "dataset": {
+    "sha256": {
+      "extension.jsonl": "26f30eeb0603704f36dcf0a6be303ba4933cf6f5f5031e31c6ed7af778f681c4",
+      "base_queries": "1cd55a80a656464c61402885890efec9b09341cbb8609cf87527da3b6fd13bac",
+      "corpus": "8f242e8affd4383ff3d25b7f463ecf729da023141957f4c92b8500e93cf8c185"
+    },
+    "counts": {
+      "dev": 80,
+      "test": 320
+    },
+    "families": 100,
+    "source_overlap_with_old_gold": 0,
+    "authorship_by_query": {
+      "qwen/qwen3.5-27b": 48,
+      "gpt-5.5": 352
+    }
+  },
+  "corpus_documents": 1016,
+  "queries": 800,
+  "bm25": {
+    "k1": 1.2,
+    "b": 0.75,
+    "text": "same content as dense; no title/label enrichment"
+  },
+  "rrf_grid": [
+    {
+      "dense_weight": 0.25,
+      "rank_constant": 10,
+      "window": 20
+    },
+    {
+      "dense_weight": 0.25,
+      "rank_constant": 10,
+      "window": 50
+    },
+    {
+      "dense_weight": 0.25,
+      "rank_constant": 60,
+      "window": 20
+    },
+    {
+      "dense_weight": 0.25,
+      "rank_constant": 60,
+      "window": 50
+    },
+    {
+      "dense_weight": 0.5,
+      "rank_constant": 10,
+      "window": 20
+    },
+    {
+      "dense_weight": 0.5,
+      "rank_constant": 10,
+      "window": 50
+    },
+    {
+      "dense_weight": 0.5,
+      "rank_constant": 60,
+      "window": 20
+    },
+    {
+      "dense_weight": 0.5,
+      "rank_constant": 60,
+      "window": 50
+    },
+    {
+      "dense_weight": 0.75,
+      "rank_constant": 10,
+      "window": 20
+    },
+    {
+      "dense_weight": 0.75,
+      "rank_constant": 10,
+      "window": 50
+    },
+    {
+      "dense_weight": 0.75,
+      "rank_constant": 60,
+      "window": 20
+    },
+    {
+      "dense_weight": 0.75,
+      "rank_constant": 60,
+      "window": 50
+    },
+    {
+      "dense_weight": 0.9,
+      "rank_constant": 10,
+      "window": 20
+    },
+    {
+      "dense_weight": 0.9,
+      "rank_constant": 10,
+      "window": 50
+    },
+    {
+      "dense_weight": 0.9,
+      "rank_constant": 60,
+      "window": 20
+    },
+    {
+      "dense_weight": 0.9,
+      "rank_constant": 60,
+      "window": 50
+    }
+  ],
+  "selection": "Dev answerable complete@3; tie: larger dense weight, rank constant, smaller window. Select native and translated separately.",
+  "query_translation": "Actual Qwen3.5-27B API; only query text and id, no corpus, evidence or paired English questions.",
+  "primary": "Top3; same context document budget, no score threshold. RRF scores are not cosine similarities.",
+  "embedding_model": "qwen/qwen3-embedding-8b",
+  "base_vectors_sha256": "796bfb19b1019d211979e59e1121f82875e2d187fbddfccd4eb96b1738699277",
+  "bootstrap": "paired source-family clusters; 4000 resamples; 95% percentile; descriptive secondary strata"
+}

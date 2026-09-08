@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"X025-paraphrase\", \"query\": \"医生可能用 Botox 治疗哪种会导致严重颈部和肩部肌肉收缩的神经系统疾病？\"}, {\"id\": \"X026-paraphrase\", \"query\": \"儿童哮喘有哪些常见症状，包括 wheezing？\"}, {\"id\": \"X027-paraphrase\", \"query\": \"神经肌肉疾病有哪些例子，包括 myasthenia gravis？\"}, {\"id\": \"X028-paraphrase\", \"query\": \"体虱会传播哪些疾病，例如 typhus？\"}, {\"id\": \"X029-paraphrase\", \"query\": \"哪些常见慢性疾病可能使妊娠复杂化，包括 PCOS？\"}, {\"id\": \"X030-paraphrase\", \"query\": \"肺栓塞（PE）通常由什么引起？\"}, {\"id\": \"X031-paraphrase\", \"query\": \"妊娠期糖尿病通常在怀孕什么时候出现？\"}, {\"id\": \"X032-paraphrase\", \"query\": \"皮疹可以使用哪些治疗方法，包括 antihistamines？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788876798-ERMKk6DkTveWGKMHb0QK",
+    "object": "chat.completion",
+    "created": 1788876798,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"X025-paraphrase\",\n      \"query\": \"Which neurological disease causing severe neck and shoulder muscle contractions might doctors treat with Botox?\"\n    },\n    {\n      \"id\": \"X026-paraphrase\",\n      \"query\": \"What are common symptoms of childhood asthma, including wheezing?\"\n    },\n    {\n      \"id\": \"X027-paraphrase\",\n      \"query\": \"What are examples of neuromuscular diseases, including myasthenia gravis?\"\n    },\n    {\n      \"id\": \"X028-paraphrase\",\n      \"query\": \"What diseases can body lice transmit, such as typhus?\"\n    },\n    {\n      \"id\": \"X029-paraphrase\",\n      \"query\": \"Which common chronic diseases may complicate pregnancy, including PCOS?\"\n    },\n    {\n      \"id\": \"X030-paraphrase\",\n      \"query\": \"What usually causes pulmonary embolism (PE)?\"\n    },\n    {\n      \"id\": \"X031-paraphrase\",\n      \"query\": \"When during pregnancy does gestational diabetes typically appear?\"\n    },\n    {\n      \"id\": \"X032-paraphrase\",\n      \"query\": \"What treatments can be used for rashes, including antihistamines?\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 301,
+      "completion_tokens": 332,
+      "total_tokens": 633,
+      "cost": 0.000576615,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000576615,
+        "upstream_inference_prompt_cost": 5.8695e-05,
+        "upstream_inference_completions_cost": 0.00051792
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 4.719
+}

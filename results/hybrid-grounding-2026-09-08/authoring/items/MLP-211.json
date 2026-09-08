@@ -1,0 +1,28 @@
+{
+  "source_id": "MLP-211",
+  "split": "test",
+  "value": {
+    "positive_en": "When is diarrhea chronic?",
+    "positive_zh": "腹泻何时算慢性？",
+    "evidence": "Chronic diarrhea -- diarrhea that lasts at least four weeks -- can be a symptom of a chronic disease.",
+    "expected_answer": "When it lasts at least four weeks.",
+    "missing_en": "Within this exact summary, what percentage recover in two days?",
+    "missing_reason": "No percentage; only usual duration is given."
+  },
+  "author_model": "gpt-5.5",
+  "review_model": "minimax/minimax-m2.5",
+  "review": {
+    "positive_supported": true,
+    "translation_equivalent": false,
+    "missing_absent": true,
+    "reason": "The evidence explicitly states 'Chronic diarrhea -- diarrhea that lasts at least four weeks' which directly answers positive_en with the expected answer. The Chinese question asks the same thing as the English question, but the source does provide the answer (at least four weeks), so it's not translation_equivalent. The missing_en asks for a percentage about recovery in two days, which is not provided in the source - it only says diarrhea 'usually lasts about one or two days' without any percentage figures."
+  },
+  "adjudication": {
+    "source_id": "MLP-211",
+    "review_record_sha256": "ce55474590009d2cd2a222ac92e4468d2b6a7142950dbf53aee749ebf4e100b5",
+    "decision": "accept unchanged authored questions",
+    "reviewer": "assistant source/translation audit, not clinical expert review",
+    "reason": "The displayed Chinese and English questions ask the same information need and neither embeds the answer. The reviewer either supplied no reason for its false translation flag or confused the answer being present in the source/evidence with it being present in the question. Original review and unchanged questions are retained.",
+    "phase": "before freezing extension and before its retrieval outcomes"
+  }
+}

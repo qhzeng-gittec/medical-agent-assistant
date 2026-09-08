@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"R321\", \"query\": \"刚才说的情况，具体应该怎么理解？\"}, {\"id\": \"R322\", \"query\": \"我的宝宝被诊断出患有脑部畸形。你能解释一下通常在出生前是什么导致了这些情况的发生吗？ 具体应该怎么理解？\"}, {\"id\": \"R323\", \"query\": \"刚才说的情况，具体应该怎么理解？\"}, {\"id\": \"R324\", \"query\": \"我患有银屑病，很担心关节疼痛。我应该留意银屑病关节炎的哪些主要症状？ 具体应该怎么理解？\"}, {\"id\": \"R325\", \"query\": \"刚才说的情况，具体应该怎么理解？\"}, {\"id\": \"R326\", \"query\": \"我的孩子被诊断出患有佝偻病。通常导致这种情况的主要营养缺乏是什么？ 具体应该怎么理解？\"}, {\"id\": \"R327\", \"query\": \"刚才说的情况，具体应该怎么理解？\"}, {\"id\": \"R328\", \"query\": \"我们担心家族中有泰-萨克斯病。这种疾病中有害物质的堆积是如何影响大脑的？ 具体应该怎么理解？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875395-17Eoq9ouXGsIknEShdVu",
+    "object": "chat.completion",
+    "created": 1788875395,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Phala",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"R321\",\n      \"query\": \"How should the previously mentioned situation be specifically understood?\"\n    },\n    {\n      \"id\": \"R322\",\n      \"query\": \"My baby was diagnosed with brain malformation. Can you explain what usually causes these conditions before birth? How should this be specifically understood?\"\n    },\n    {\n      \"id\": \"R323\",\n      \"query\": \"How should the previously mentioned situation be specifically understood?\"\n    },\n    {\n      \"id\": \"R324\",\n      \"query\": \"I have psoriasis and am worried about joint pain. What are the main symptoms of psoriatic arthritis I should watch for? How should this be specifically understood?\"\n    },\n    {\n      \"id\": \"R325\",\n      \"query\": \"How should the previously mentioned situation be specifically understood?\"\n    },\n    {\n      \"id\": \"R326\",\n      \"query\": \"My child was diagnosed with rickets. What is the main nutritional deficiency that usually causes this condition? How should this be specifically understood?\"\n    },\n    {\n      \"id\": \"R327\",\n      \"query\": \"How should the previously mentioned situation be specifically understood?\"\n    },\n    {\n      \"id\": \"R328\",\n      \"query\": \"We are concerned about Tay-Sachs disease in the family. How does the accumulation of harmful substances affect the brain in this disease? How should this be specifically understood?\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 309,
+      "completion_tokens": 357,
+      "total_tokens": 666,
+      "cost": 0.0009495,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0009495,
+        "upstream_inference_prompt_cost": 9.27e-05,
+        "upstream_inference_completions_cost": 0.0008568
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 13.687
+}

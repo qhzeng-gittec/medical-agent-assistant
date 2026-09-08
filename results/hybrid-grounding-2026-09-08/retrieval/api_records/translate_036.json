@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"X049-paraphrase\", \"query\": \"宫颈癌筛查中的 HPV/Pap 联合检测会检查什么？\"}, {\"id\": \"X050-paraphrase\", \"query\": \"为什么药物成瘾被认为是一种复发性疾病？\"}, {\"id\": \"X051-paraphrase\", \"query\": \"重症监护是什么，通常在哪里进行？\"}, {\"id\": \"X052-paraphrase\", \"query\": \"为什么跌倒对患有骨质疏松症的老年人可能尤其严重？\"}, {\"id\": \"X053-paraphrase\", \"query\": \"如果正在服用处方药，在使用未经证实或不太了解的健康产品之前应该怎么做？\"}, {\"id\": \"X054-paraphrase\", \"query\": \"为什么标着天然的草药并不一定安全，特别是同时服用处方药或非处方药时？\"}, {\"id\": \"X055-paraphrase\", \"query\": \"过敏性支气管肺曲霉病 ABPA 提到的症状有哪些？\"}, {\"id\": \"X056-paraphrase\", \"query\": \"有恐惧症的人如果无法避开害怕的事物，可能会出现哪些身体症状？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788876810-ZXJQZJcohv4sqE0wxxWb",
+    "object": "chat.completion",
+    "created": 1788876810,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "SiliconFlow",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"X049-paraphrase\",\n      \"query\": \"What does the combined HPV/Pap test check for in cervical cancer screening?\"\n    },\n    {\n      \"id\": \"X050-paraphrase\",\n      \"query\": \"Why is drug addiction considered a recurrent disease?\"\n    },\n    {\n      \"id\": \"X051-paraphrase\",\n      \"query\": \"What is intensive care, and where is it usually performed?\"\n    },\n    {\n      \"id\": \"X052-paraphrase\",\n      \"query\": \"Why might falls be especially serious for older adults with osteoporosis?\"\n    },\n    {\n      \"id\": \"X053-paraphrase\",\n      \"query\": \"What should be done before using unproven or unfamiliar health products if taking prescription medications?\"\n    },\n    {\n      \"id\": \"X054-paraphrase\",\n      \"query\": \"Why are herbs labeled as natural not necessarily safe, especially when taken with prescription or over-the-counter medications?\"\n    },\n    {\n      \"id\": \"X055-paraphrase\",\n      \"query\": \"What symptoms are mentioned for allergic bronchopulmonary aspergillosis (ABPA)?\"\n    },\n    {\n      \"id\": \"X056-paraphrase\",\n      \"query\": \"What physical symptoms may occur in people with phobias if they cannot avoid the feared object?\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 307,
+      "completion_tokens": 350,
+      "total_tokens": 657,
+      "cost": 0.00077675,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00077675,
+        "upstream_inference_prompt_cost": 7.675e-05,
+        "upstream_inference_completions_cost": 0.0007
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 9.891
+}

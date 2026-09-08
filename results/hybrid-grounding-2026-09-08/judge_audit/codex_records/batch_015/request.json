@@ -1,0 +1,187 @@
+{
+  "model": "gpt-5.5",
+  "instruction": "Audit answers for faithfulness to supplied evidence, not for whether outside medical knowledge makes a claim plausible.\nThe answerer had ONLY these source excerpts/memories. No external search occurred. Source IDs and answer method names must not affect scoring.\nEach item gives question, answer, context, gold evidence/expected answer when available, intended answerability and allowed_source_ids when source-scoped.\nOnly allowed sources can support a source-scoped answer. For memories, preserve who, when, negation and uncertainty; assistant suggestions are not user facts.\nFor memory items, source_history contains the authoritative original user turns and recording timestamps. If a recalled memory or answer distorts them, mark the answer's distorted claim unsupported even if the retrieved memory contains it. Check absolute years against relative dates and timestamps; do not assume old authored years are correct.\nReturn JSON {\"items\":[{\"id\":same ID,\"context_sufficiency\":\"full|partial|none\",\n\"has_unsupported_claim\":boolean,\"unsupported_quote\":\"verbatim answer substring or empty\",\n\"false_search_claim\":boolean,\"search_quote\":\"verbatim answer substring or empty\",\n\"acknowledges_limit\":boolean,\"answers_supported_part\":boolean,\"complete_correct\":boolean,\"reason\":\"short explanation\"}]}.\nhas_unsupported_claim: any factual medical/personal/quantitative statement asserted without support in eligible context, or contradicting it.\nGeneric advice to consult a professional is allowed; clearly conditional questions are not invented history. A disclaimer does not erase an unsupported claim elsewhere.\nfalse_search_claim: claims to have searched external databases, verified approvals, or exhaustively established absence beyond these excerpts. 'The supplied materials do not state X' is valid. 'PubMed has no studies' without actual search evidence is invalid, even if the answer also says no evidence.\nacknowledges_limit: explicitly acknowledges missing requested evidence or inability to determine it, not just a generic disclaimer.\nanswers_supported_part: supplies the actual requested supported fact(s), not just a relevant topic summary. For intended unanswerable/needs_history set false.\ncomplete_correct: all answerable requested facts correct and supported, plus explicit limitation for missing parts; fully unanswerable cases require clear limitation without invented specifics. If has_unsupported_claim or false_search_claim is true, complete_correct MUST be false.\nFor partial cases, merely refusing everything is incomplete. For answerable cases, merely refusing is incomplete even if retrieval failed.\nGold evidence guides the requested facts but irrelevant sentences in a long excerpt need not be repeated. Alternative eligible sources may support correct answers.\nUnsupported/search quotes must be exact answer substrings when the corresponding flag is true, empty otherwise. Read the whole answer.\nCalibration clarification v2: distinguish invented facts from unnecessary refusal.\nA refusal ('cannot determine'), conservative uncertainty, or failure to select a later correction is NOT by itself an affirmative fabricated medical/personal fact: set complete_correct false if the answer omits available requested information, but do NOT set has_unsupported_claim just for the refusal.\nAn answer that asserts the obsolete value as current despite a later correction DOES contain an unsupported/contradicted factual claim.\ncontext_sufficiency must cover the ENTIRE actual question: if it asks for an undisclosed invoice number, no amount of related medical history makes that number available; mark none if only the invoice is requested, partial if the question also requests an available medical fact.\nFor fully unanswerable questions, answers_supported_part must be false; complete_correct can be true if it acknowledges the missing requested information and adds no unsupported factual claims.\nKeep all six boolean fields as JSON true/false, not strings. Always include both quote fields, using empty strings for false flags.\nIndependently review each item. Only the context field was shown to the answerer.\nGold evidence and expected answers are evaluator references, NOT additional retrieved context.\nIf gold evidence is absent from context, an admission of missing information is not hallucination or a false search claim.\nRead all context documents before judging. Do not mark a statement unsupported merely because one gold excerpt is narrower.\nAn explicit claim about what the provided documents contain is not a claim of external database search.\nAn answer may fail completeness without fabricating facts. Preserve this distinction rigorously.",
+  "input": [
+    {
+      "id": "fa0c777d0d7f951775",
+      "question": "What are some examples of complementary and alternative medicine (CAM) therapies for cancer?",
+      "answer": "Examples of complementary and alternative medicine (CAM) therapies for cancer include acupuncture, chiropractic, and herbal medicines [MLP-3192]. Other methods mentioned involve special foods, supplements, or diets, as well as techniques focusing on breathing or body movements to promote relaxation [MLP-3192]. Additionally, meditation is cited as a relaxation method used to cope with cancer [MLP-1540]. The sources note that while some CAM therapies like acupuncture may help manage side effects such as nausea and pain, their safety and effectiveness are often still under study [MLP-3192, MLP-132].",
+      "context": [
+        {
+          "id": "MLP-3192",
+          "title": "Cancer Alternative Therapies",
+          "content": "What are complementary and alternative therapies for cancer care? You have many choices to make about your cancer treatment. One choice you might consider is using complementary and alternative medicine (CAM). CAM is the term for medical products and therapies that are not part of standard medical care. CAM for cancer treatment involves caring for your mind, body, and spirit. Some methods focus on your breathing or body movements to help you relax. Other CAM therapies may use special foods, supplements , or diets. Examples of CAM therapies include acupuncture , chiropractic , and herbal medicines . CAM claims can sound promising, but often, researchers don't know how safe some are or how well they work. Studies are ongoing to find out the safety and usefulness of many of these methods. How are complementary and alternative therapies used for cancer care? If you're thinking about using CAM along with your standard care, it's called integrative medicine. Some methods, such as acupuncture, might help with nausea , pain, and other side effects of cancer treatment. A few reasons that people with cancer may use CAM include to: Help cope with the side effects of cancer treatments Ease worries about cancer treatment and related stress Feel that they are doing something more to help their care CAM treatments don't work for everyone. Some products might interact with your other medicines. Talk to your health care provider about all the different types of treatment you use. Your provider can help you make sure that everything you're using for your cancer care works well together. NIH: National Cancer Institute"
+        },
+        {
+          "id": "MLP-132",
+          "title": "Complementary and Integrative Medicine",
+          "content": "Many Americans use medical treatments that are not part of mainstream medicine. When you are using these types of care, it may be called complementary, integrative, or alternative medicine. Complementary medicine is used together with mainstream medical care. An example is using acupuncture to help with side effects of cancer treatment. When health care providers and facilities offer both types of care, it is called integrative medicine. Alternative medicine is used instead of mainstream medical care. The claims that non-mainstream practitioners make can sound promising. However, researchers do not know how safe many of these treatments are or how well they work. Studies are underway to determine the safety and usefulness of many of these practices. To minimize the health risks of a non-mainstream treatment: Discuss it with your doctor. It might have side effects or interact with other medicines. Find out what the research says about it Choose practitioners carefully Tell all of your doctors and practitioners about all of the different types of treatments you use NIH: National Center for Complementary and Integrative Health"
+        },
+        {
+          "id": "MLP-1540",
+          "title": "Cancer--Living with Cancer",
+          "content": "Learning to live with cancer Cancer is a common disease. Many Americans will be diagnosed with cancer during their lifetimes. Even though cancer may be life-threatening, many people have successful treatment. Others live with cancer for a very long time. For most people with cancer, learning to live with the disease is one of the biggest challenges they've ever faced. That's because having cancer touches just about every part of your life and the lives of those around you. Cancer and its treatment may change: Your daily routines and ability to work Your important relationships The way you look, feel, and think about yourself If you learn what to expect, you may feel more in control and prepared to cope with these changes. Your health care provider can help you find information and support services that are right for you. Coping with feelings about having cancer Having cancer may cause a range of strong emotions, such as sadness, anger, fear, worry, or guilt. These feelings are normal, and they're likely to change over time. It's helpful to sort out your feelings in a way that's comfortable for you. You might try: Talking openly with someone you trust Writing about your feelings Using relaxation methods, such as meditation and other complementary and alternative medicine (CAM) Doing the things you enjoy, giving yourself a break from focusing on cancer If your emotions seem to take over your life, tell your provider. You may need extra support if you have symptoms of depression , stress , anxiety , or panic disorder . Communicating with your health care team During cancer treatment, you usually have a team of providers. Along with doctors and nurses, you may be able to talk with social workers, pharmacists, dietitians, and other health professionals. These professionals are prepared to help you deal with the issues that cancer brings up, including concerns about finances . But it's up to you to let your team know what's on your mind. Good communication with your providers may help you feel more in control and satisfied with your care. Your communications may be better if you: Tell your providers how much you want to know about your cancer and its treatment. Do you want all the details or just the big picture? Write down your questions and concerns before your visits. Bring a family member or a friend to your visits. This person can help by listening, taking notes, and asking questions. Talking openly with family and friends Cancer changes the daily routines and roles of the people who love and support you. They may need to start doing the things you've always done for them. And you may need their help doing things you've always done for yourself. These changes can be difficult for everyone. It may help to have an honest talk about changing roles and needs. If that sounds too hard, ask a social worker or another member of your care team to help you talk with family and friends who are helping with your care. These caregivers may need some support , too. Dealing with changes in your self-image Cancer and its treatment may cause some big changes in how you look, feel, and think about yourself. For example, you may have: Less energy Temporary or permanent changes in your body, such as scars , or hair loss from chemotherapy Problems being sexually close or doubts about dating Coping with these changes can be hard. But most people find ways to feel more positive over time. If you feel well enough, you might try: Exercise . Walking, yoga, or other types of movement may help you feel stronger and more in control of your body. But check with your provider first. Staying involved in life and helping others. Think about volunteering, hobbies, or other activities that might make you feel good about yourself. Counseling for sexual problems. Talking with a professional, either with a partner or on your own, may help. Adjusting to life after treatment After treatment, you'll have regular cancer follow-up care. Your provider will explain the schedule of checkups and tests you'll need. This is a good time to discuss the challenges you may face ahead. Knowing what to expect may help you make plans as you find a \"new normal\" with cancer as part of your life. NIH: National Cancer Institute"
+        }
+      ],
+      "intended_answerability": "answerable",
+      "gold_evidence": [
+        "Examples of CAM therapies include acupuncture , chiropractic , and herbal medicines ."
+      ],
+      "expected_answer": "",
+      "allowed_source_ids": null,
+      "source_history": null
+    },
+    {
+      "id": "fa521cfee78d600687",
+      "question": "什么是药物相互作用，涉及阿司匹林、他汀类、葡萄柚或血液稀释剂的例子有哪些？",
+      "answer": "药物相互作用是指当药物与特定其他药物、食物、补充剂或医疗状况同时存在时，药物在体内的作用方式发生改变[MLP-5603]。涉及的例子包括：\n1. 阿司匹林与血液稀释剂：两者同用属于药物间的相互作用[MLP-5603]。\n2. 他汀类与葡萄柚：葡萄柚会影响肝脏分解某些他汀类药物，属于药物与食物的相互作用[MLP-4909]。\n3. 血液稀释剂：除与阿司匹林相互作用外，还可能与银杏等补充剂发生相互作用[MLP-5603]。",
+      "context": [
+        {
+          "id": "MLP-5603",
+          "title": "Drug Reactions",
+          "content": "Most of the time, medicines make our lives better. They reduce aches and pains, fight infections, and control problems such as high blood pressure or diabetes. But medicines can also cause unwanted reactions, such as drug interactions, side effects, and allergies. What is a drug interaction? A drug interaction is a change in the way a drug acts in the body when taken with certain other drugs, foods, or supplements or when taken while you have certain medical conditions. Examples include: Two drugs, such as aspirin and blood thinners Drugs and food, such as statins and grapefruit Drugs and supplements, such as gingko and blood thinners Drugs and medical conditions, such as aspirin and peptic ulcers Interactions could cause a drug to be more or less effective, cause side effects, or change the way one or both drugs work. What are side effects? Side effects are unwanted, usually unpleasant, effects caused by medicines. Most are mild, such as a stomachache, dry mouth , or drowsiness, and go away after you stop taking the medicine. Others can be more serious. Sometimes a drug can interact with a disease that you have and cause a side effect. For example, if you have a heart condition, certain decongestants can cause you to have a rapid heartbeat. What are drug allergies? Drug allergies are another type of reaction. They can range from mild to life-threatening. Skin reactions, such as hives and rashes , are the most common type. Anaphylaxis , a serious allergic reaction, is less common. How can I stay safe when taking medicines? When you start a new prescription or over-the-counter medicine, make sure you understand how to take it correctly . Know which other medicines, foods, and supplements you need to avoid. Always talk to your health care provider or pharmacist if you have questions about your medicines."
+        },
+        {
+          "id": "MLP-4861",
+          "title": "Blood Thinners",
+          "content": "What are blood thinners? Blood thinners are medicines that prevent blood clots from forming. They do not break up clots that you already have. But they can stop those clots from getting bigger. It's important to treat blood clots, because clots in your blood vessels and heart can cause heart attacks , strokes , and blockages. Who needs blood thinners? You may need a blood thinner if you have: Certain heart or blood vessel diseases An abnormal heart rhythm called atrial fibrillation A heart valve replacement A risk of blood clots after surgery Congenital heart defects What are the different types of blood thinners? There are different types of blood thinners: Anticoagulants, such as heparin or warfarin (also called Coumadin), slow down your body's process of making clots. Antiplatelets, such as aspirin and clopidogrel, prevent blood cells called platelets from clumping together to form a clot. Antiplatelets are mainly taken by people who have had a heart attack or stroke. How can I take blood thinners safely? When you take a blood thinner, follow the directions carefully. Blood thinners may interact with certain foods, medicines, vitamins, and alcohol. Make sure that your health care provider knows all of the medicines and supplements you are using. You may need regular blood tests to check how well your blood is clotting. It is important to make sure that you're taking enough medicine to prevent clots, but not so much that it causes bleeding. What are the side effects of blood thinners? Bleeding is the most common side effect of blood thinners. They can also cause an upset stomach, nausea , and diarrhea . Other possible side effects can depend on which type of blood thinner that you are taking. Call your provider if you have any sign of serious bleeding, such as: Menstrual bleeding that is much heavier than normal Red or brown urine Bowel movements that are red or black Bleeding from the gums or nose that does not stop quickly Vomit that is brown or bright red Coughing up something red Severe pain, such as a headache or stomachache Unusual bruising A cut that does not stop bleeding A serious fall or bump on the head Dizziness or weakness"
+        },
+        {
+          "id": "MLP-4909",
+          "title": "Statins",
+          "content": "What is cholesterol? Cholesterol is a waxy, fat-like substance that's found in all the cells in your body. Your body needs some cholesterol to work properly. But if you have too much of it in your blood, it can stick to the walls of your arteries and narrow or even block them. This puts you at risk for coronary artery disease and other heart diseases . Cholesterol is made by your liver. It travels through the blood on proteins called lipoproteins. One type of lipoprotein, LDL , is sometimes called the \"bad\" cholesterol. A high LDL level leads to a buildup of cholesterol in your arteries. Another type, HDL , is sometimes called the \"good\" cholesterol. It carries cholesterol from other parts of your body back to your liver. Then your liver removes the cholesterol from your body. What are statins? Statins are a type of cholesterol medicine . Your health care provider may prescribe them if you have high cholesterol and making lifestyle changes does not lower your cholesterol enough. Statins are the most common medicines used to treat high cholesterol. How do statins lower cholesterol? Statins lower LDL cholesterol by slowing down how much cholesterol the liver makes. They also increase your liver's ability to remove LDL cholesterol that is already in the blood. This can slow the formation of plaques in your arteries. Studies have shown that statins lower the risk of heart attack and stroke in people with high LDL cholesterol. Statins can lower your triglyceride level as well. Triglycerides are another type of fat in your blood that can raise the risk of heart disease. Statins may also increase your HDL cholesterol. What are the risks of taking statins? Statins usually don't cause side effects , but they may raise the risk of type 2 diabetes . However, this mainly happens in people already at high risk of diabetes, such as those who are overweight or have obesity , prediabetes , or metabolic syndrome . Statins may also cause abnormal results on liver enzymes tests, but actual liver damage is very rare. Another uncommon side effect is muscle damage. In rare cases, this muscle damage can lead to muscle pain and kidney damage. You should not take statins if you are pregnant or breastfeeding . They are also not recommended for people who have certain types of liver disease . How can I safely take statins? To safely take statins, you should: Take your statin as prescribed. You should not stop taking this medicine on your own, since that can lead to a serious problem or, in rare cases, even cause death. Talk to your provider if you have any concerns about your statin or if you would like to stop or change to a different treatment. Ask your provider which other medicines, supplements , or foods you should avoid. Some of these can interact with statins and cause serious side effects or make statins less effective. For example, grapefruit (fresh or as juice) affects how your liver breaks down some statins. Tell your provider about any symptoms or side effects you are having. Sometimes, people report muscle problems while taking statins. If you start having muscle pain, your provider may order a blood test to look look for muscle damage. The pain may go away if you switch to a different statin. Muscle damage with statins is rare, and your muscles may heal when you switch to a different medicine."
+        }
+      ],
+      "intended_answerability": "answerable",
+      "gold_evidence": [
+        "A drug interaction is a change in the way a drug acts in the body when taken with certain other drugs, foods, or supplements or when taken while you have certain medical conditions. Examples include: Two drugs, such as aspirin and blood thinners Drugs and food, such as statins and grapefruit Drugs and supplements, such as gingko and blood thinners Drugs and medical conditions, such as aspirin and peptic ulcers"
+      ],
+      "expected_answer": "A drug interaction is a change in how a drug acts in the body when combined with certain drugs, foods, supplements, or medical conditions; examples include aspirin with blood thinners, statins with grapefruit, gingko with blood thinners, and aspirin with peptic ulcers.",
+      "allowed_source_ids": null,
+      "source_history": null
+    },
+    {
+      "id": "fb72295454133d1b6f",
+      "question": "Which nail changes can be signs of lung, heart, kidney, and liver diseases, diabetes, and anemia?",
+      "answer": "Specific types of nail discoloration and changes in growth rate can be signs of lung, heart, kidney, and liver diseases, as well as diabetes and anemia [MLP-532]. The provided materials do not specify which exact discolorations or growth changes correspond to each specific disease.",
+      "context": [
+        {
+          "id": "MLP-532",
+          "title": "Nail Diseases",
+          "content": "Your toenails and fingernails protect the tissues of your toes and fingers. They are made up of layers of a hardened protein called keratin, which is also in your hair and skin. The health of your nails can be a clue to your overall health. Healthy nails are usually smooth and consistent in color. Specific types of nail discoloration and changes in growth rate can be signs of lung, heart, kidney, and liver diseases, as well as diabetes and anemia. White spots and vertical ridges are harmless. Nail problems that sometimes require treatment include: Bacterial and fungal infections Ingrown nails Tumors Warts Keeping your nails clean, dry, and trimmed can help you avoid some problems. Do not remove the cuticle, which can cause infection."
+        },
+        {
+          "id": "MLP-1327",
+          "title": "Foot Health",
+          "content": "Each step you take involves a complex network of bones, muscles, tendons, and ligaments. This, combined with all of the weight they carry, explains why feet can have problems. To keep your feet healthy: Examine your feet regularly Wear comfortable shoes that fit Wash your feet daily with soap and lukewarm water Trim your toenails straight across and not too short Your foot health can be a clue to your overall health. For example, joint stiffness could mean arthritis. Tingling or numbness could be a sign of diabetes. Swelling might indicate kidney disease, heart disease, or high blood pressure. Good foot care and regular foot checks are an important part of your health care. If you have foot problems, be sure to talk to your doctor. NIH: National Institute on Aging"
+        },
+        {
+          "id": "MLP-4083",
+          "title": "Peripheral Arterial Disease",
+          "content": "Peripheral arterial disease (PAD) happens when there is a narrowing of the blood vessels outside of your heart. The cause of PAD is atherosclerosis . This happens when plaque builds up on the walls of the arteries that supply blood to the arms and legs. Plaque is a substance made up of fat and cholesterol. It causes the arteries to narrow or become blocked. This can reduce or stop blood flow, usually to the legs. If severe enough, blocked blood flow can cause tissue death and can sometimes lead to amputation of the foot or leg. The main risk factor for PAD is smoking. Other risk factors include older age and diseases like diabetes, high blood cholesterol, high blood pressure, heart disease, and stroke. Many people who have PAD don't have any symptoms. If you have symptoms, they may include: Pain, numbness, achiness, or heaviness in the leg muscles. This happens when walking or climbing stairs. Weak or absent pulses in the legs or feet Sores or wounds on the toes, feet, or legs that heal slowly, poorly, or not at all A pale or bluish color to the skin A lower temperature in one leg than the other leg Poor nail growth on the toes and decreased hair growth on the legs Erectile dysfunction, especially among men who have diabetes PAD can increase your risk of heart attack , stroke , and transient ischemic attack . Doctors diagnose PAD with a physical exam and heart and imaging tests. Treatments include lifestyle changes, medicines, and sometimes surgery. Lifestyle changes include dietary changes, exercise, and efforts to lower high cholesterol levels and high blood pressure . NIH: National Heart, Lung, and Blood Institute"
+        }
+      ],
+      "intended_answerability": "answerable",
+      "gold_evidence": [
+        "The health of your nails can be a clue to your overall health. Healthy nails are usually smooth and consistent in color. Specific types of nail discoloration and changes in growth rate can be signs of lung, heart, kidney, and liver diseases, as well as diabetes and anemia."
+      ],
+      "expected_answer": "Specific nail discoloration and changes in nail growth rate can be signs of lung, heart, kidney, and liver diseases, as well as diabetes and anemia.",
+      "allowed_source_ids": null,
+      "source_history": null
+    },
+    {
+      "id": "fce517801970e603d6",
+      "question": "My partner and I have been trying to have a baby for over a year without success. What are some common physical reasons a man might have trouble getting a woman pregnant?",
+      "answer": "Common physical reasons for male infertility include physical problems with the testicles, blockages in the ducts that carry sperm, and hormone problems [MLP-5656]. Additionally, a history of high fevers or mumps can contribute to these issues [MLP-5656]. While sexual problems like erectile dysfunction or ejaculation issues are noted as common in men, the provided text does not explicitly list them as direct causes of infertility, though they may affect conception [MLP-5571]. The documents do not provide further specific details on other physical causes beyond those listed.",
+      "context": [
+        {
+          "id": "MLP-5656",
+          "title": "Male Infertility",
+          "content": "Infertility is a term doctors use if a man hasn't been able to get a woman pregnant after at least one year of trying. Causes of male infertility include: Physical problems with the testicles Blockages in the ducts that carry sperm Hormone problems A history of high fevers or mumps Genetic disorders Lifestyle or environmental factors About a third of the time, infertility is because of a problem with the man. One third of the time, it is a problem with the woman . Sometimes no cause can be found. If you suspect you are infertile, see your doctor. There are tests that may tell if you have fertility problems. When it is possible to find the cause, treatments may include medicines, surgery, or assisted reproductive technology . Happily, many couples treated for infertility are able to have babies. NIH: National Institute of Child Health and Human Development"
+        },
+        {
+          "id": "MLP-5571",
+          "title": "Sexual Problems in Men",
+          "content": "Many men have sexual problems. They become more common as men age. Problems can include: Erectile dysfunction Reduced or lost interest in sex Problems with ejaculation Low testosterone Stress, illness, medicines, or emotional problems may also be factors. Occasional problems with sexual function are common. If problems last more than a few months or cause distress for you or your partner, you should see your health care provider."
+        },
+        {
+          "id": "MLP-5654",
+          "title": "Female Infertility",
+          "content": "Infertility means not being able to get pregnant after at least one year of trying (or 6 months if the woman is over age 35). If a woman keeps having miscarriages , it is also called infertility. Female infertility can result from age, physical problems, hormone problems, and lifestyle or environmental factors. Most cases of infertility in women result from problems with producing eggs. In primary ovarian insufficiency , the ovaries stop functioning before natural menopause. In polycystic ovary syndrome (PCOS), the ovaries may not release an egg regularly or they may not release a healthy egg. About a third of the time, infertility is because of a problem with the woman. One third of the time, it is a problem with the man . Sometimes no cause can be found. If you think you might be infertile, see your doctor. There are tests that may tell if you have fertility problems. When it is possible to find the cause, treatments may include medicines, surgery, or assisted reproductive technologies . Happily, many couples treated for infertility are able to have babies. Dept. of Health and Human Services Office on Women's Health"
+        }
+      ],
+      "intended_answerability": "answerable",
+      "gold_evidence": [
+        "Causes of male infertility include: Physical problems with the testicles Blockages in the ducts that carry sperm Hormone problems A history of high fevers or mumps Genetic disorders Lifestyle or environmental factors About a third of the time, infertility is because of a problem with the man."
+      ],
+      "expected_answer": "",
+      "allowed_source_ids": null,
+      "source_history": null
+    }
+  ],
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "items"
+    ],
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "context_sufficiency",
+            "has_unsupported_claim",
+            "false_search_claim",
+            "acknowledges_limit",
+            "answers_supported_part",
+            "complete_correct",
+            "unsupported_quote",
+            "search_quote",
+            "reason"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "context_sufficiency": {
+              "type": "string",
+              "enum": [
+                "full",
+                "partial",
+                "none"
+              ]
+            },
+            "has_unsupported_claim": {
+              "type": "boolean"
+            },
+            "false_search_claim": {
+              "type": "boolean"
+            },
+            "acknowledges_limit": {
+              "type": "boolean"
+            },
+            "answers_supported_part": {
+              "type": "boolean"
+            },
+            "complete_correct": {
+              "type": "boolean"
+            },
+            "unsupported_quote": {
+              "type": "string"
+            },
+            "search_quote": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

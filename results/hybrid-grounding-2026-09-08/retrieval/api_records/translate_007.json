@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"R114\", \"query\": \"我的医生提到我可能需要心脏瓣膜置换术。如果我安装了机械瓣膜，我余生可能必须服用什么药物？\"}, {\"id\": \"R116\", \"query\": \"我计划去一个疟疾流行的国家旅行。有没有可以预防像疟疾这样的寄生虫病的疫苗？\"}, {\"id\": \"R118\", \"query\": \"我听说大多数宫颈癌是由病毒引起的。导致几乎所有病例的特定病毒叫什么名字？\"}, {\"id\": \"R120\", \"query\": \"我被处方了家庭氧疗。既然涉及氧气，关于火灾隐患我必须遵守的最重要的安全规则是什么？\"}, {\"id\": \"R122\", \"query\": \"肾上腺在身体的哪个部位？\"}, {\"id\": \"R124\", \"query\": \"医生主要用什么检查来诊断视力障碍？\"}, {\"id\": \"R126\", \"query\": \"为什么定期的婴儿健康检查对新生儿的健康很重要？\"}, {\"id\": \"R128\", \"query\": \"血液中的哪一部分负责将氧气输送到组织和器官？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875362-4xCxoAgJJSKBwCWmwlU4",
+    "object": "chat.completion",
+    "created": 1788875362,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "SiliconFlow",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"R114\",\n      \"query\": \"My doctor mentioned I may need heart valve replacement. If I get a mechanical valve, what medication might I have to take for the rest of my life?\"\n    },\n    {\n      \"id\": \"R116\",\n      \"query\": \"I plan to travel to a malaria-endemic country. Is there a vaccine to prevent parasitic diseases like malaria?\"\n    },\n    {\n      \"id\": \"R118\",\n      \"query\": \"I heard most cervical cancers are caused by a virus. What is the name of the specific virus that causes almost all cases?\"\n    },\n    {\n      \"id\": \"R120\",\n      \"query\": \"I was prescribed home oxygen therapy. Since oxygen is involved, what is the most important safety rule I must follow regarding fire hazards?\"\n    },\n    {\n      \"id\": \"R122\",\n      \"query\": \"Where are the adrenal glands located in the body?\"\n    },\n    {\n      \"id\": \"R124\",\n      \"query\": \"What test do doctors mainly use to diagnose vision impairment?\"\n    },\n    {\n      \"id\": \"R126\",\n      \"query\": \"Why are regular infant health checkups important for newborn health?\"\n    },\n    {\n      \"id\": \"R128\",\n      \"query\": \"Which part of the blood is responsible for delivering oxygen to tissues and organs?\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 298,
+      "completion_tokens": 350,
+      "total_tokens": 648,
+      "cost": 0.0007745,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0007745,
+        "upstream_inference_prompt_cost": 7.45e-05,
+        "upstream_inference_completions_cost": 0.0007
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 14.547
+}

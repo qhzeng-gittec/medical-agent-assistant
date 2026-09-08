@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"R162\", \"query\": \"我的手臂肿了一段时间，听说这可能是淋巴水肿。到底是什么原因导致液体在我的组织里积聚的？\"}, {\"id\": \"R164\", \"query\": \"医生告诉我我可能有肾上腺疾病，因为我的激素水平不正常。当一个人患有这种病时，身体里具体会发生什么？\"}, {\"id\": \"R166\", \"query\": \"我和伴侣尝试怀孕一年多都没有成功。男性导致女性难以怀孕的常见身体原因有哪些？\"}, {\"id\": \"R168\", \"query\": \"我最近因为严重受伤失去了腿。听说有些人会在已经不存在的肢体上感到疼痛，这种感觉叫什么？\"}, {\"id\": \"R170\", \"query\": \"我的医生开了一项扫描检查我的内脏。这些能生成体内图像的成像检查的一般目的是什么？\"}, {\"id\": \"R172\", \"query\": \"除了病毒感染，喉咙问题的其他常见原因有哪些？\"}, {\"id\": \"R174\", \"query\": \"对于昏迷持续数年的人来说，最常见的死亡原因是什么？\"}, {\"id\": \"R176\", \"query\": \"为了检测癌症和骨骼问题，建议女性进行哪些具体的健康筛查？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875369-iIPtkUQSk8A2ha9VAWfn",
+    "object": "chat.completion",
+    "created": 1788875369,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "SiliconFlow",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"R162\",\n      \"query\": \"My arm has been swollen for a while; I heard this might be lymphedema. What causes fluid to accumulate in my tissues?\"\n    },\n    {\n      \"id\": \"R164\",\n      \"query\": \"My doctor told me I might have an adrenal disease because my hormone levels are abnormal. What exactly happens in the body when someone has this condition?\"\n    },\n    {\n      \"id\": \"R166\",\n      \"query\": \"My partner and I have been trying to conceive for over a year without success. What are the common physical causes in men that make it difficult for women to conceive?\"\n    },\n    {\n      \"id\": \"R168\",\n      \"query\": \"I recently lost my leg due to a severe injury. I heard some people feel pain in a limb that no longer exists; what is this sensation called?\"\n    },\n    {\n      \"id\": \"R170\",\n      \"query\": \"My doctor ordered a scan to examine my internal organs. What is the general purpose of imaging tests that generate images of the inside of the body?\"\n    },\n    {\n      \"id\": \"R172\",\n      \"query\": \"Besides viral infections, what are other common causes of throat problems?\"\n    },\n    {\n      \"id\": \"R174\",\n      \"query\": \"For people who have been in a coma for several years, what is the most common cause of death?\"\n    },\n    {\n      \"id\": \"R176\",\n      \"query\": \"What specific health screenings are recommended for women to detect cancer and bone problems?\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 319,
+      "completion_tokens": 395,
+      "total_tokens": 714,
+      "cost": 0.00086975,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00086975,
+        "upstream_inference_prompt_cost": 7.975e-05,
+        "upstream_inference_completions_cost": 0.00079
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 12.765
+}

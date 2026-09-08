@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"X065-paraphrase\", \"query\": \"玫瑰痤疮会在皮肤和眼睛上引起哪些症状？\"}, {\"id\": \"X066-paraphrase\", \"query\": \"TSH 甲状腺血液检查测量什么，通常什么时候会被安排？\"}, {\"id\": \"X067-paraphrase\", \"query\": \"polymyositis 和 dermatomyositis 在症状上有什么不同？\"}, {\"id\": \"X068-paraphrase\", \"query\": \"FDA 在批准美国处方药或非处方药上市前会评估哪些内容？\"}, {\"id\": \"X069-paraphrase\", \"query\": \"霍乱腹泻丢失的液体和盐分用什么治疗来补充？\"}, {\"id\": \"X070-paraphrase\", \"query\": \"Hashimoto's disease 与甲状腺功能减退有什么关系？\"}, {\"id\": \"X071-paraphrase\", \"query\": \"创伤性脑损伤 TBI 是什么，它可能怎样发生？\"}, {\"id\": \"X072-paraphrase\", \"query\": \"老年人精神障碍有哪些涉及情绪、睡眠、退缩或自伤想法的警示信号？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788876813-LCmDVAbMiMCNALzdZKc3",
+    "object": "chat.completion",
+    "created": 1788876813,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"X065-paraphrase\",\n      \"query\": \"What symptoms does rosacea cause on the skin and eyes?\"\n    },\n    {\n      \"id\": \"X066-paraphrase\",\n      \"query\": \"What does the TSH thyroid blood test measure, and when is it typically ordered?\"\n    },\n    {\n      \"id\": \"X067-paraphrase\",\n      \"query\": \"How do polymyositis and dermatomyositis differ in symptoms?\"\n    },\n    {\n      \"id\": \"X068-paraphrase\",\n      \"query\": \"What does the FDA evaluate before approving prescription or over-the-counter drugs for marketing in the US?\"\n    },\n    {\n      \"id\": \"X069-paraphrase\",\n      \"query\": \"What treatment is used to replace fluids and salts lost due to cholera diarrhea?\"\n    },\n    {\n      \"id\": \"X070-paraphrase\",\n      \"query\": \"What is the relationship between Hashimoto's disease and hypothyroidism?\"\n    },\n    {\n      \"id\": \"X071-paraphrase\",\n      \"query\": \"What is traumatic brain injury (TBI), and how can it occur?\"\n    },\n    {\n      \"id\": \"X072-paraphrase\",\n      \"query\": \"What warning signs involving mood, sleep, withdrawal, or self-harm thoughts indicate mental disorders in older adults?\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 318,
+      "completion_tokens": 351,
+      "total_tokens": 669,
+      "cost": 0.00060957,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00060957,
+        "upstream_inference_prompt_cost": 6.201e-05,
+        "upstream_inference_completions_cost": 0.00054756
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 4.766
+}

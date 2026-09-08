@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"R178\", \"query\": \"医生在诊断威尔逊病时，寻找的最具特征性的眼部体征是什么？\"}, {\"id\": \"R180\", \"query\": \"神经细胞受损或死亡的退行性疾病有哪些例子？\"}, {\"id\": \"R182\", \"query\": \"医生说我体内的嗜酸性粒细胞偏高。我的身体产生更多这种细胞的常见原因有哪些？\"}, {\"id\": \"R184\", \"query\": \"有人告诉我我可能感染了猴痘。接触病毒后，症状通常多久会出现？\"}, {\"id\": \"R186\", \"query\": \"我的宝宝出生时患有唇裂。修复嘴唇的手术通常什么时候进行？\"}, {\"id\": \"R188\", \"query\": \"我出汗很多且感到头晕。成年人脱水的迹象有哪些？\"}, {\"id\": \"R190\", \"query\": \"我想开始锻炼以改善平衡并预防跌倒。我应该专注于哪种类型的运动？\"}, {\"id\": \"R192\", \"query\": \"我知道吸烟会导致肺癌，但它也会导致身体其他部位（如膀胱或胃）的癌症吗？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875370-zoXsE5Jc4uoTmcRPJSgg",
+    "object": "chat.completion",
+    "created": 1788875370,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"R178\",\n      \"query\": \"What is the most characteristic eye sign doctors look for when diagnosing Wilson's disease?\"\n    },\n    {\n      \"id\": \"R180\",\n      \"query\": \"What are examples of degenerative diseases involving nerve cell damage or death?\"\n    },\n    {\n      \"id\": \"R182\",\n      \"query\": \"My doctor said my eosinophil count is high. What are common reasons my body produces more of these cells?\"\n    },\n    {\n      \"id\": \"R184\",\n      \"query\": \"Someone told me I might have monkeypox. How long after exposure do symptoms usually appear?\"\n    },\n    {\n      \"id\": \"R186\",\n      \"query\": \"My baby was born with a cleft lip. When is surgery to repair the lip usually performed?\"\n    },\n    {\n      \"id\": \"R188\",\n      \"query\": \"I am sweating a lot and feeling dizzy. What are signs of dehydration in adults?\"\n    },\n    {\n      \"id\": \"R190\",\n      \"query\": \"I want to start exercising to improve balance and prevent falls. What type of exercise should I focus on?\"\n    },\n    {\n      \"id\": \"R192\",\n      \"query\": \"I know smoking causes lung cancer, but can it also cause cancers in other parts of the body, such as the bladder or stomach?\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 307,
+      "completion_tokens": 354,
+      "total_tokens": 661,
+      "cost": 0.000612105,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000612105,
+        "upstream_inference_prompt_cost": 5.9865e-05,
+        "upstream_inference_completions_cost": 0.00055224
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 4.375
+}

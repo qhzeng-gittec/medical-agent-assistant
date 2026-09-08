@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful medical information assistant. Answer the user's question with the provided context.\nAnswer in the user's language, concisely (at most 150 words). Return JSON {\"answer\":\"your response\"}."
+      },
+      {
+        "role": "user",
+        "content": "{\"question\": \"Use only the indexed MedlinePlus summary titled \\\"Eye Movement Disorders\\\". What exact percentage of patients with nystagmus improve after eye muscle surgery?\", \"context\": [{\"id\": \"MLP-5873\", \"title\": \"Eye Movement Disorders\", \"content\": \"When you look at an object, you're using several muscles to move both eyes to focus on it. If you have a problem with the muscles, the eyes don't work properly. There are many kinds of eye movement disorders. Two common ones are: Strabismus - a disorder in which the two eyes don't line up in the same direction. This results in \\\"crossed eyes\\\" or \\\"walleye.\\\" Nystagmus - fast, uncontrollable movements of the eyes, sometimes called \\\"dancing eyes\\\" Some eye movement disorders are present at birth. Others develop over time and may be associated with other problems, such as injuries. Treatments include glasses, patches, eye muscle exercises, and surgery. There is no cure for some kinds of eye movement disorders, such as most kinds of nystagmus.\"}, {\"id\": \"MLP-1404\", \"title\": \"Laser Eye Surgery\", \"content\": \"For many people, laser eye surgery can correct their vision so they no longer need glasses or contact lenses. Laser eye surgery reshapes the cornea, the clear front part of the eye. This changes its focusing power. There are different types of laser eye surgery. LASIK - laser-assisted in situ keratomileusis - is one of the most common. Many patients who have LASIK end up with 20/20 vision. But, like all medical procedures, it has both risks and benefits. Only your eye doctor can tell if you are a good candidate for laser eye surgery.\"}, {\"id\": \"MLP-4359\", \"title\": \"Friedreich Ataxia\", \"content\": \"Friedreich ataxia is an inherited disease that damages your nervous system. The damage affects your spinal cord and the nerves that control muscle movement in your arms and legs. Symptoms usually begin between the ages of 5 and 15. The main symptom is ataxia, which means trouble coordinating movements. Specific symptoms include: Difficulty walking Muscle weakness Speech problems Involuntary eye movements Scoliosis (curving of the spine to one side) Heart palpitations, from the heart disease which can happen along with Friedreich ataxia People with Friedreich ataxia usually need a wheelchair 15 to 20 years after symptoms first appear. In severe cases, people become incapacitated. There is no cure. You can treat symptoms with medicines, braces, surgery, and physical therapy. NIH: National Institute of Neurological Disorders and Stroke\"}]}"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 1400,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788877366-KwtH2t4Pwzgj91uQ7Ppv",
+    "object": "chat.completion",
+    "created": 1788877366,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"answer\": \"The provided MedlinePlus summary titled \\\"Eye Movement Disorders\\\" does not state an exact percentage of patients with nystagmus who improve after eye muscle surgery. It mentions that treatments include surgery but notes there is no cure for most kinds of nystagmus.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 645,
+      "completion_tokens": 63,
+      "total_tokens": 708,
+      "cost": 0.00031023,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00031023,
+        "upstream_inference_prompt_cost": 0.00017415,
+        "upstream_inference_completions_cost": 0.00013608
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 4.25
+}

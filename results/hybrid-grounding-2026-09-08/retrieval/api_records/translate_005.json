@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"R082\", \"query\": \"我即将开始癌症的放射治疗，通常需要多久治疗才会开始杀死癌细胞？\"}, {\"id\": \"R084\", \"query\": \"医生诊断我患有肝硬化，在美国导致这种情况的最常见原因是什么？\"}, {\"id\": \"R086\", \"query\": \"我被诊断出患有肠易激综合征，有哪些常见的方法可以控制症状？\"}, {\"id\": \"R088\", \"query\": \"我患有垂体瘤，切除肿瘤最常用的治疗方法是什么？\"}, {\"id\": \"R090\", \"query\": \"我的儿子患有克氏综合征，确诊这种病需要做什么具体的基因检测？\"}, {\"id\": \"R092\", \"query\": \"既然线粒体疾病会影响细胞产生能量的方式，那么哪些类型的细胞因为需要大量能量而最容易出现問題？\"}, {\"id\": \"R094\", \"query\": \"如果我在被诊断为癌症后感到被恐惧或内疚等强烈情绪压得喘不过气，我可以尝试哪些方法来理清这些感受？\"}, {\"id\": \"R096\", \"query\": \"哪种特定的病毒已知会导致卡波西肉瘤？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875355-Ynh6qSw7cZQChlNBEoqP",
+    "object": "chat.completion",
+    "created": 1788875355,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"R082\",\n      \"query\": \"I am about to start radiation therapy for cancer. How long does it typically take for treatment to begin killing cancer cells?\"\n    },\n    {\n      \"id\": \"R084\",\n      \"query\": \"My doctor diagnosed me with liver cirrhosis. What is the most common cause of this condition in the United States?\"\n    },\n    {\n      \"id\": \"R086\",\n      \"query\": \"I have been diagnosed with irritable bowel syndrome. What are some common methods to control symptoms?\"\n    },\n    {\n      \"id\": \"R088\",\n      \"query\": \"I have a pituitary tumor. What is the most commonly used treatment method to remove the tumor?\"\n    },\n    {\n      \"id\": \"R090\",\n      \"query\": \"My son has Klinefelter syndrome. What specific genetic tests are needed to confirm this diagnosis?\"\n    },\n    {\n      \"id\": \"R092\",\n      \"query\": \"Since mitochondrial diseases affect how cells produce energy, which types of cells are most likely to experience problems due to their high energy requirements?\"\n    },\n    {\n      \"id\": \"R094\",\n      \"query\": \"If I feel overwhelmed by intense emotions such as fear or guilt after being diagnosed with cancer, what methods can I try to sort through these feelings?\"\n    },\n    {\n      \"id\": \"R096\",\n      \"query\": \"Which specific virus is known to cause Kaposi sarcoma?\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 316,
+      "completion_tokens": 372,
+      "total_tokens": 688,
+      "cost": 0.00064194,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00064194,
+        "upstream_inference_prompt_cost": 6.162e-05,
+        "upstream_inference_completions_cost": 0.00058032
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 8.938
+}

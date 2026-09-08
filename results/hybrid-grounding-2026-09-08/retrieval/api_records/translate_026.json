@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"R369\", \"query\": \"请告诉我昨天检验单上的肌酐数值。\"}, {\"id\": \"R370\", \"query\": \"请告诉我我的疫苗接种日期。\"}, {\"id\": \"R371\", \"query\": \"请告诉我我的药物过敏检测结果。\"}, {\"id\": \"R372\", \"query\": \"请告诉我上周影像报告的原文。\"}, {\"id\": \"R373\", \"query\": \"请告诉我我的主治医生姓名。\"}, {\"id\": \"R374\", \"query\": \"请告诉我我下一次复诊的医院。\"}, {\"id\": \"R375\", \"query\": \"请告诉我我的血型检验结果。\"}, {\"id\": \"R376\", \"query\": \"请告诉我我的家族基因检测结果。\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875410-VtSx24l39UY3xOIiYjM4",
+    "object": "chat.completion",
+    "created": 1788875410,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"R369\",\"query\":\"Tell me the creatinine value on yesterday's lab report.\"},{\"id\":\"R370\",\"query\":\"Tell me my vaccination date.\"},{\"id\":\"R371\",\"query\":\"Tell me my drug allergy test results.\"},{\"id\":\"R372\",\"query\":\"Tell me the original text of last week's imaging report.\"},{\"id\":\"R373\",\"query\":\"Tell me my attending physician's name.\"},{\"id\":\"R374\",\"query\":\"Tell me the hospital for my next follow-up visit.\"},{\"id\":\"R375\",\"query\":\"Tell me my blood type test results.\"},{\"id\":\"R376\",\"query\":\"Tell me my family genetic test results.\"}]}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 240,
+      "completion_tokens": 158,
+      "total_tokens": 398,
+      "cost": 0.00040608,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00040608,
+        "upstream_inference_prompt_cost": 6.48e-05,
+        "upstream_inference_completions_cost": 0.00034128
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 13.891
+}

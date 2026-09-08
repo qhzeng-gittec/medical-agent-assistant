@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"R194\", \"query\": \"化肥是如何导致湖泊和池塘的水污染的？\"}, {\"id\": \"R196\", \"query\": \"母亲的年龄会影响生出唐氏综合征婴儿的几率吗？\"}, {\"id\": \"R198\", \"query\": \"如果我患有唾液腺疾病，我可能会出现哪些常见症状？\"}, {\"id\": \"R200\", \"query\": \"经历灾难后出现睡眠或饮食困难是正常的吗？\"}, {\"id\": \"R202\", \"query\": \"在美国，一种疾病必须影响多少人才能被正式归类为罕见病？\"}, {\"id\": \"R204\", \"query\": \"感染基孔肯雅热时，人们最常见的两种症状是什么？\"}, {\"id\": \"R206\", \"query\": \"除了溶剂、气溶胶喷雾和气体外，第四种主要的吸入剂物质类型是什么？\"}, {\"id\": \"R208\", \"query\": \"如果父母一方患有亨廷顿舞蹈症，他们的孩子遗传缺陷基因的几率是多少？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875379-vi0nHmn1YJUVTERwtRm2",
+    "object": "chat.completion",
+    "created": 1788875379,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"R194\",\"query\":\"How do fertilizers cause water pollution in lakes and ponds?\"},{\"id\":\"R196\",\"query\":\"Does maternal age affect the likelihood of having a baby with Down syndrome?\"},{\"id\":\"R198\",\"query\":\"What are common symptoms if I have a salivary gland disease?\"},{\"id\":\"R200\",\"query\":\"Is it normal to experience sleep or eating difficulties after experiencing a disaster?\"},{\"id\":\"R202\",\"query\":\"In the United States, how many people must be affected by a disease for it to be officially classified as rare?\"},{\"id\":\"R204\",\"query\":\"What are the two most common symptoms when infected with chikungunya fever?\"},{\"id\":\"R206\",\"query\":\"Besides solvents, aerosol sprays, and gases, what is the fourth major type of inhalant substance?\"},{\"id\":\"R208\",\"query\":\"If one parent has Huntington's disease, what is the chance their child will inherit the defective gene?\"}]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 289,
+      "completion_tokens": 223,
+      "total_tokens": 512,
+      "cost": 0.00055971,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00055971,
+        "upstream_inference_prompt_cost": 7.803e-05,
+        "upstream_inference_completions_cost": 0.00048168
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 9.61
+}

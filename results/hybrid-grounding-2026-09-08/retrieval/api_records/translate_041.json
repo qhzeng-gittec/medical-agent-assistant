@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"X089-paraphrase\", \"query\": \"慢性支气管炎的黏液积聚会怎样影响呼吸？\"}, {\"id\": \"X090-paraphrase\", \"query\": \"如果地震发生在人口密集地区，可能造成哪些危害？\"}, {\"id\": \"X091-paraphrase\", \"query\": \"Cooley's anemia 是什么，通常什么时候出现？\"}, {\"id\": \"X092-paraphrase\", \"query\": \"儿童脑肿瘤有哪些症状时应该去咨询医生？\"}, {\"id\": \"X093-paraphrase\", \"query\": \"血管成形术（也叫PCI）用于对被斑块变窄或堵塞的冠状动脉做什么？\"}, {\"id\": \"X094-paraphrase\", \"query\": \"在食管裂孔疝的情况下，GERD指的是什么？\"}, {\"id\": \"X095-paraphrase\", \"query\": \"味觉和嗅觉障碍的人可能会经历哪些变化？\"}, {\"id\": \"X096-paraphrase\", \"query\": \"低血容量性休克是由什么引起的？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788876820-gO063UcN3DERt3yQlQzs",
+    "object": "chat.completion",
+    "created": 1788876820,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "\"{\"",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 298,
+      "completion_tokens": 3,
+      "total_tokens": 301,
+      "cost": 8.694e-05,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 8.694e-05,
+        "upstream_inference_prompt_cost": 8.046e-05,
+        "upstream_inference_completions_cost": 6.48e-06
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 3.078
+}

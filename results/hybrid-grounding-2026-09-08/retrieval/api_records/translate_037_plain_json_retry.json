@@ -1,0 +1,75 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"X057-paraphrase\", \"query\": \"为了预防心脏病，成年人每晚应尽量睡多少小时？\"}, {\"id\": \"X058-paraphrase\", \"query\": \"HPV 和疱疹这类 STI 除了阴道、口腔或肛交外，还可能怎样传播？\"}, {\"id\": \"X059-paraphrase\", \"query\": \"个人健康记录中应包括哪些药物信息？\"}, {\"id\": \"X060-paraphrase\", \"query\": \"出国旅行前，如果可能需要疫苗或预防特定疾病的药物，应在什么时候看医生？\"}, {\"id\": \"X061-paraphrase\", \"query\": \"产后如果女性极度悲伤，或无法照顾自己或宝宝，可能是什么情况？\"}, {\"id\": \"X062-paraphrase\", \"query\": \"正常情况下，少量尿液多久会从输尿管流入膀胱一次？\"}, {\"id\": \"X063-paraphrase\", \"query\": \"什么是 hyperhidrosis，它可能由哪些健康问题引起？\"}, {\"id\": \"X064-paraphrase\", \"query\": \"他汀类药物如何降低 LDL 胆固醇，并怎样影响心脏病发作和中风风险？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788876930-ZL70L9jx1wx8slCM4OuF",
+    "object": "chat.completion",
+    "created": 1788876930,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"items\": [\n    {\n      \"id\": \"X057-paraphrase\",\n      \"query\": \"How many hours should adults sleep each night to prevent heart disease?\"\n    },\n    {\n      \"id\": \"X058-paraphrase\",\n      \"query\": \"Besides vaginal, oral, or anal sex, how else can STIs like HPV and herpes be transmitted?\"\n    },\n    {\n      \"id\": \"X059-paraphrase\",\n      \"query\": \"What medication information should be included in a personal health record?\"\n    },\n    {\n      \"id\": \"X060-paraphrase\",\n      \"query\": \"When should you see a doctor before traveling abroad if vaccines or medications to prevent specific diseases might be needed?\"\n    },\n    {\n      \"id\": \"X061-paraphrase\",\n      \"query\": \"If a woman feels extremely sad after childbirth or cannot care for herself or her baby, what condition might this indicate?\"\n    },\n    {\n      \"id\": \"X062-paraphrase\",\n      \"query\": \"Under normal conditions, how often does a small amount of urine flow from the ureters into the bladder?\"\n    },\n    {\n      \"id\": \"X063-paraphrase\",\n      \"query\": \"What is hyperhidrosis, and what health conditions might cause it?\"\n    },\n    {\n      \"id\": \"X064-paraphrase\",\n      \"query\": \"How do statins lower LDL cholesterol, and how do they affect the risk of heart attack and stroke?\"\n    }\n  ]\n}\n```",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 319,
+      "completion_tokens": 372,
+      "total_tokens": 691,
+      "cost": 0.0009885,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0009885,
+        "upstream_inference_prompt_cost": 9.57e-05,
+        "upstream_inference_completions_cost": 0.0008928
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 10.391
+}

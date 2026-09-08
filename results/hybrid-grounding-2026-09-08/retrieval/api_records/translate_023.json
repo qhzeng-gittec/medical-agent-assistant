@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate medical search questions into concise English without answering, expanding facts or adding synonyms not present. Preserve negation, numbers and identifiers. Return JSON {\"items\":[{\"id\":same id,\"query\":English translation}]} in input order."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"R345\", \"query\": \"刚才说的情况，具体应该怎么理解？\"}, {\"id\": \"R346\", \"query\": \"除了感到头晕目眩外，如果我有眩晕症，还可能出现哪些其他身体症状？ 具体应该怎么理解？\"}, {\"id\": \"R347\", \"query\": \"刚才说的情况，具体应该怎么理解？\"}, {\"id\": \"R348\", \"query\": \"打网球或高尔夫等运动时常见的导致肘部疼痛的原因是什么？ 具体应该怎么理解？\"}, {\"id\": \"R349\", \"query\": \"刚才说的情况，具体应该怎么理解？\"}, {\"id\": \"R350\", \"query\": \"滑囊炎如何影响关节中位于骨头和移动部分之间的小垫子内的液体水平？ 具体应该怎么理解？\"}, {\"id\": \"R351\", \"query\": \"刚才说的情况，具体应该怎么理解？\"}, {\"id\": \"R352\", \"query\": \"如果我感染了诺如病毒，我应该预期会出现哪些主要症状？ 具体应该怎么理解？\"}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 4500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788875404-CGRD7ECd0xMJreB8I6Vt",
+    "object": "chat.completion",
+    "created": 1788875404,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"R345\",\"query\":\"How should the situation just mentioned be understood specifically?\"},{\"id\":\"R346\",\"query\":\"Besides feeling dizzy, if I have vertigo, what other physical symptoms might occur? How should this be understood specifically?\"},{\"id\":\"R347\",\"query\":\"How should the situation just mentioned be understood specifically?\"},{\"id\":\"R348\",\"query\":\"What are the common causes of elbow pain during sports like tennis or golf? How should this be understood specifically?\"},{\"id\":\"R349\",\"query\":\"How should the situation just mentioned be understood specifically?\"},{\"id\":\"R350\",\"query\":\"How does bursitis affect fluid levels in the small cushion located between bones and moving parts within a joint? How should this be understood specifically?\"},{\"id\":\"R351\",\"query\":\"How should the situation just mentioned be understood specifically?\"},{\"id\":\"R352\",\"query\":\"If I am infected with norovirus, what major symptoms should I expect? How should this be understood specifically?\"}]}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 298,
+      "completion_tokens": 223,
+      "total_tokens": 521,
+      "cost": 0.00056214,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00056214,
+        "upstream_inference_prompt_cost": 8.046e-05,
+        "upstream_inference_completions_cost": 0.00048168
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 4.828
+}
