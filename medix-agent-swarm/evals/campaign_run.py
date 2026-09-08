@@ -25,7 +25,9 @@ OUTPUT = Path(__file__).parent / "results" / "full_system_v1"
 def parse_json_answer(content: str) -> dict:
     text = content.strip()
     if text.startswith("```") and text.endswith("```"):
-        text = text.split("\n", 1)[1].rsplit("```", 1)[0]
+        text = text[3:-3].strip()
+        if text.startswith("json"):
+            text = text[4:].strip()
     return json.loads(text)
 
 
@@ -60,7 +62,7 @@ async def unavailable_deep_research(query: str, max_iterations=2):
             "answer": "本次测试未配置独立外网搜索服务；可使用现有本地知识库工具，不能声称已完成外网研究。"}
 
 
-def build_system(gateway, model, trace, kb, profile_path):
+def build_system(gateway, model, trace, kb, profile_path, long_term_memory=None):
     from agents import ConsultationAgent, DiagnosticAgent, ResearchAgent
     from memory import LongTermMemory, PatientProfileStore, ShortTermMemory
     from swarm.supervisor_agent import MedicalSupervisorAgent
@@ -85,7 +87,8 @@ def build_system(gateway, model, trace, kb, profile_path):
     supervisor = MedicalSupervisorAgent(
         llm_client=ModelAdapter(gateway, model, trace, "supervisor"), workers=workers,
         short_term_memory=ShortTermMemory(storage_type="memory"),
-        long_term_memory=LongTermMemory(config={}), patient_profiles=profile,
+        long_term_memory=long_term_memory if long_term_memory is not None else LongTermMemory(config={}),
+        patient_profiles=profile,
         max_rounds=4, worker_timeout=120)
     original_formatter = supervisor._assistant_message
     supervisor._assistant_message = (

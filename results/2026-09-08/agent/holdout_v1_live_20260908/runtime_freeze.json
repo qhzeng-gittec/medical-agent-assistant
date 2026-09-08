@@ -1,0 +1,90 @@
+{
+  "created_at": "2026-09-08T05:13:37.157294+00:00",
+  "configuration": {
+    "schema_version": 1,
+    "dataset_root": "medix-agent-swarm\\evals\\holdout_v1_20260908",
+    "dataset_freeze_sha256": "99c96aba37edcce4f39f04db75e68ad16f99c5a3d5cc56a9c8946668772b7db6",
+    "project_root": "medix-agent-swarm",
+    "harness_sha256": {
+      "evals/holdout_run.py": "9470052ca337befabdd21276745441013a338b42544660030f1adae630244dd7",
+      "evals/holdout_services.py": "a498dc37b2d04710c187f1bf5c31dcc1414a5a8f6aaf9b068aca5fd384303588",
+      "evals/campaign_run.py": "8d485a30498909013ef014f8f8770e5751a41374caf5dd0f71b71affca33530a",
+      "evals/campaign_gateway.py": "cb5d6fc1bc4d50a2c24e16f8d726f768362aaecddc8c0b490953bdfdefd0eb97",
+      "evals/campaign_rag.py": "4eb043e588e35ce2d77ab8b8abe618f2095246106d015db5d9f67bccb010cec6",
+      "evals/campaign_grade.py": "9094827e214a7609e758dd8b832b6823cbb971379f9e240e41a2318ffc634f43",
+      "evals/holdout_grade.py": "8c3302f7db68098ba4da6757dbaa871c5d7e687182893c017414198176f6e41b",
+      "evals/run_holdout.mjs": "fb3d59b2fad79c42bd0a9ba76164ade36c92339100835d835baf7cfe99fa3e59"
+    },
+    "python": {
+      "version": "3.11.15",
+      "executable": "[LOCAL_PATH]"
+    },
+    "dependencies": {
+      "httpx": "0.28.1",
+      "openai": "3.8.0",
+      "mem0ai": "2.0.20",
+      "numpy": "2.4.6",
+      "pydantic": "2.13.5",
+      "loguru": "0.7.3",
+      "PyYAML": "6.0.3"
+    },
+    "models": [
+      "minimax/minimax-m2.5",
+      "qwen/qwen3.5-27b",
+      "gemini-3.5-flash"
+    ],
+    "patient_selector": "qwen/qwen3.5-27b",
+    "temperature": 0.2,
+    "reasoning_effort": "low",
+    "max_output_tokens": 8192,
+    "supervisor_rounds": 4,
+    "worker_tool_budget": 2,
+    "worker_timeout_seconds": 120,
+    "limits": {
+      "max_patient_replies": 3,
+      "max_scripted_followups": 12,
+      "max_seed_user_turns": 24,
+      "turn_timeout_seconds": 600,
+      "case_timeout_seconds": 7200,
+      "patient_selector_max_output_tokens": 1024
+    },
+    "services": {
+      "models": [
+        "minimax/minimax-m2.5",
+        "qwen/qwen3.5-27b",
+        "gemini-3.5-flash"
+      ],
+      "embedding_model": "qwen/qwen3-embedding-8b",
+      "temperature": 0.2,
+      "target_max_output_tokens": 8192,
+      "request_timeout_seconds": 180,
+      "transient_http_max_attempts": 3,
+      "budget_cap_usd": null,
+      "budget_authorization": "User explicitly removed previous cap on 2026-09-08",
+      "mem0_threshold": 0.3,
+      "mem0_observation_timeout_seconds": 120,
+      "mem0_observation": "Settle accepted writes and list actual records between user turns",
+      "seed_policy": "Actual product user replay for profile; original authored dialogue via real Mem0 add for events",
+      "controlled_retrieval": "Authored candidate pool, no semantic ranking; not a real-retrieval score",
+      "live_rag_corpus": "Existing frozen 15-chunk corpus; no holdout-driven corpus expansion",
+      "external_deep_research": "Explicit not-configured error; not fake web search",
+      "fine_tuned_medical_model": "Not served; no fine-tuned endpoint configured",
+      "corpus_sha256": "77b4970c7300ea2ab032ca2f44f9d309f65efa2f0f02bbf76d5446c00a8aa406",
+      "artifacts": {
+        "corpus_vectors.json": "510cd3bbcdb82dd7ee20f5a4388bef539270f5eea5c20754d89f67e73da8d070",
+        "provider_catalog.json": "f88f5501b5dfee1a6f6764c8fb8e2937ed75ed2ac290a4e8416bec2cbad0d0ed"
+      }
+    },
+    "spend_cap_usd": null,
+    "budget_authorization": "User explicitly removed former five-dollar cap",
+    "seed_method": "profile_actual_user_replay_with_authored_prefix; event_memory_authored_history_real_add",
+    "identity_isolation": "batch/run/model/repetition/attempt/user/session",
+    "execution_isolation": "one target case per child process",
+    "turn_numbering": "one-based actual visible target turns; seed turns separate",
+    "patient_selector_input": "patient_facts/current_doctor_answer/already_revealed_only",
+    "unknown_patient_answer": "这点我不清楚。",
+    "execution_matrix": "all 72 x 3 models x r1; 18 stratified cases x 3 models x r2/r3",
+    "repeat_selection": "first 2 per domain/difficulty by SHA256(medix-holdout-v1-repeat-selection: + case_id)",
+    "clinical_review": "pending; synthetic engineering evaluation only"
+  }
+}

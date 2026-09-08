@@ -1,0 +1,20 @@
+# 2026-09-08 评测快照
+
+本次新增的精选结果与可追溯状态。41 份结构化文件可直接浏览，434 份详细执行记录见 [下载结果附件](https://github.com/qhzeng-gittec/medical-agent-assistant/releases/download/evaluation-results-2026-09-08/evaluation-details-2026-09-08.zip)（约 13.03 MiB）。历史 9 月 7 日附件继续保留，不覆盖旧结果，也不把多个版本的分数合并。
+
+| 内容 | 报告 | 机器可读证据 |
+| --- | --- | --- |
+| 8 场景、3 模型改前/改后 | [改进与失败](agent_improvements.md) | [汇总](agent/improvement_v2/summary.json)；`agent/improvement_v2/runs/` 逐轮档案与回答 |
+| 72 场景 × 3 模型及固定重复 | [执行与未完成双评](agent_holdout.md) | [分层分母](agent/holdout_v1_live_20260908/holdout_metrics.json)、[运行遥测](agent/holdout_v1_live_20260908/telemetry_summary.json)；`runs/` 完成记录与 `errors/` 失败记录 |
+| 单/多 Agent、Worker 串并行 | [架构对照](architecture.md) | [汇总](agent/architecture_compare_20260908_v2/comparison_summary.json)、`runs/`、`scheduler/` |
+| CPT/SFT/RL 与知识调用 | [机制报告](model_diagnostics.md) | [312 题配对](training/mechanism_diagnosis_20260908/mechanisms/analysis.json)、[逐题状态](training/mechanism_diagnosis_20260908/mechanisms/states.json) |
+| 冻结 128 个 RL 训练题 | [训练题完整统计](training/mechanism_diagnosis_20260908/rl_frozen_eval/analysis.json) | [逐题状态](training/mechanism_diagnosis_20260908/rl_frozen_eval/states.json)、[五道改善复核](training/mechanism_diagnosis_20260908/rl_frozen_eval/train_greedy_gain_review.json) |
+| 600 题旧模型选择题诊断 | [原标签结果](training/medical_holdout600_v1/results.json) | [输入审查](training/medical_holdout600_v1/input_quality_review.json)、[语义评分未完成](training/medical_holdout600_v1/semantic_scoring_status.json) |
+
+机器结果中的 `runs/...`、`scheduler/...`、`errors/...` 等路径位于 ZIP 对应实验目录；本目录保留汇总与模型逐题状态，没有打包全部服务请求和历史评分尝试。模型 `states.json` 提供逐题评分与干预状态，原始生成全文只在部分人工式复核材料中保留。费用包含模型和检索的实验观测值，不是当前供应商报价。
+
+## 计数与验证
+
+[manifest.json](manifest.json) 记录精选源文件与公开副本各自 SHA-256；路径已规范化，账号标识匿名化，凭据和私有运行字段已排除。它描述文件级快照，不表示异步评分已经完成。新 600 题涉及更早的旧权重，不代表本次新增 expanded-chain 的测试成绩。
+
+下载 ZIP 后，从仓库根目录运行 `python results/verify_september08.py --assets-dir path/to/downloads`，校验本次文件并复核主要汇总和计数关系。该脚本不调用模型、不重新评判医学正确性。阅读首页应同时检查分母、评分状态、训练/开发/诊断用途与单种子限制。

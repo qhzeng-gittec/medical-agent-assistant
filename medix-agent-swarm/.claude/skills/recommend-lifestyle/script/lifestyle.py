@@ -19,7 +19,7 @@ def get_knowledge_base():
 
 async def recommend_lifestyle(diagnosis: str) -> Dict[str, Any]:
     """
-    提供生活方式建议
+    检索生活方式候选资料，不评定其对当前患者的适用性
 
     Args:
         diagnosis: 疾病名称或症状
@@ -39,16 +39,15 @@ async def recommend_lifestyle(diagnosis: str) -> Dict[str, Any]:
     # 从 Milvus 检索生活方式建议
     results = kb.search(
         query=f"{diagnosis} 生活方式建议 饮食 运动 用药",
-        top_k=1,
+        top_k=3,
         filter_type="lifestyle"
     )
 
-    if results and results[0]["score"] > 0.1:
-        doc = results[0]
-
+    if results:
         return {
-            "answer": "生活方式资料见 documents，仅供参考，具体请咨询医生或营养师。",
-            "documents": [document_block(doc)],
+            "answer": "以下为检索候选，不代表已匹配该疾病或适用于该患者。请依据资料实际主题和内容判断；无适用资料时明确说明证据不足。",
+            "status": "candidates",
+            "documents": [document_block(doc) for doc in results],
             "diagnosis": diagnosis,
             "categories": ["diet", "exercise", "lifestyle", "medication"],
             "source": "向量数据库"
@@ -57,6 +56,8 @@ async def recommend_lifestyle(diagnosis: str) -> Dict[str, Any]:
         # 未找到相关内容
         logger.warning(f"No lifestyle advice found in vector DB for {diagnosis}")
         return {
+            "status": "no_results",
+            "documents": [],
             "answer": f"未找到关于'{diagnosis}'的生活方式建议，请尝试更具体的疾病名称或联系医生咨询。",
             "diagnosis": diagnosis,
             "categories": [],

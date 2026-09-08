@@ -1,0 +1,56 @@
+{
+  "repository": "starttoshow/medix-qwen3.5-2b-cpt-sft-gspo-20260908",
+  "revision": "de402e41385ff36aea0e1e7301f633925f0f5402",
+  "release_date": "2026-09-08",
+  "base_model": "Qwen/Qwen3.5-2B",
+  "base_revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+  "merge_dtype": "bfloat16",
+  "stage_loading": "Merge each listed dependency sequentially, then attach the selected stage.",
+  "stages": {
+    "cpt": {
+      "merge_before": [],
+      "source_weight_sha256": "79b9508ba3667c097927b801046668c90205447ec4ab5a17a9893abdece1de16",
+      "rank": 32,
+      "alpha": 64,
+      "files": {
+        "adapter_config.json": "7d5e22a10dd209efe815ea59a9240b25787955d5723e9828812ba0a0ca014a7d",
+        "adapter_model.safetensors": "79b9508ba3667c097927b801046668c90205447ec4ab5a17a9893abdece1de16"
+      }
+    },
+    "sft": {
+      "merge_before": [
+        "cpt"
+      ],
+      "source_weight_sha256": "832bf319c1a4c3c89f5831c8c897ca9f35c6eb020fa37572a4e0dcfcf3d54a22",
+      "rank": 8,
+      "alpha": 16,
+      "files": {
+        "adapter_config.json": "e8f9596e5d377837aed5bd2e099ab8c8a17fbef83e7eb828b01ac01d97b96303",
+        "adapter_model.safetensors": "832bf319c1a4c3c89f5831c8c897ca9f35c6eb020fa37572a4e0dcfcf3d54a22"
+      }
+    },
+    "sft_only": {
+      "merge_before": [],
+      "source_weight_sha256": "3dee81a8bdf798f6d32f1e9837ffd48e8c52c26f45ecd0dfa8f9e069b2fd023c",
+      "rank": 8,
+      "alpha": 16,
+      "files": {
+        "adapter_config.json": "e8f9596e5d377837aed5bd2e099ab8c8a17fbef83e7eb828b01ac01d97b96303",
+        "adapter_model.safetensors": "3dee81a8bdf798f6d32f1e9837ffd48e8c52c26f45ecd0dfa8f9e069b2fd023c"
+      }
+    },
+    "rl": {
+      "merge_before": [
+        "cpt",
+        "sft"
+      ],
+      "source_weight_sha256": "99a6538aaff276c7bc2e3c33b006af720ee2b14d0088deb5262c7d7d3a1f3473",
+      "rank": 8,
+      "alpha": 16,
+      "files": {
+        "adapter_config.json": "1d58a7acdd606c4007bcc150191145deba90e9bbd67e59661df3e916d2e2df5d",
+        "adapter_model.safetensors": "99a6538aaff276c7bc2e3c33b006af720ee2b14d0088deb5262c7d7d3a1f3473"
+      }
+    }
+  }
+}

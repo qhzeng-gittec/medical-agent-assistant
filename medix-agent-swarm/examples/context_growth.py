@@ -93,10 +93,14 @@ async def build_trace():
     research_answer = "依据合成资料A、B，可以区分用户已提供的事实和待确认信息。资料仅用于软件演示，不构成个体化医学判断。"
     final_answer = "已整理：已知信息、待确认信息和资料来源。依据是合成资料A、B，仅供演示，不提供具体运动或用药方案。"
     supervisor_client = TraceClient("supervisor", [
+        invoke("profile-1", "update_patient_profile", updates=[
+            {"category": "medications", "value": "二甲双胍", "status": "active", "evidence": "目前服用二甲双胍"}]),
         invoke("delegate-r1", "call_research_agent", task="核对运动咨询的资料范围和用户信息更正的处理"),
         invoke("delegate-c1", "call_consultation_agent", task="仅将研究结论整理成易读说明，不增加医学判断"),
         reply(final_answer),
         reply("已知信息需区分来源。缺失信息需要确认。本例资料仅供软件演示。"),
+        invoke("profile-2", "update_patient_profile", updates=[
+            {"category": "medications", "value": "二甲双胍", "status": "stopped", "evidence": "我已经停用二甲双胍了"}]),
         invoke("delegate-r2", "call_research_agent", task="用户已停药，请重新核对资料适用边界，不提供用药判断"),
         reply("已按你的最新自述将药物状态更新为停用。旧回答需要按新事实重新核对；本例不提供临床结论。"),
     ], trace, clock)

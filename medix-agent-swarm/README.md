@@ -60,3 +60,11 @@ python evals/campaign_run.py --output evals/results/my_run --repetition 1 --conc
 ## 离线演示
 
 在本目录运行 `python -m examples.context_growth`，可查看真实编排代码收到的消息与证据复用轨迹。模型回复和知识库内容均使用固定模拟数据，不发送付费请求。回归测试位于 `tests/`。
+
+## 2026-09-08 更新与实测
+
+档案更新改为 Supervisor 通过 `update_patient_profile` 提议、执行层校验原话证据和用户作用域；新增 `search_patient_history` 主动补查。Mem0 写入保留真实角色和来源；生活方式检索返回 Top 3 候选并明确空结果；Worker 背景只注入一次。Evidence Store 的正文复用仍限于同一 Worker 迭代，不保证跨 Worker 检索去重。
+
+[8 场景改前/改后](../results/2026-09-08/agent_improvements.md)、[72 场景新执行](../results/2026-09-08/agent_holdout.md)、[单/多 Agent 及串并行](../results/2026-09-08/architecture.md)分别保留协议、分母和失败。完整架构未证明更快、更准；新版留出中仍发现虚假完成声明、档案更正不完整、Mem0 metadata 超限和证据归因错误。
+
+开发集、模型/服务采样与受控记录池不互相冒充。发布后的这些场景已公开，后续最终验收须另建未参与调试的独立数据。

@@ -58,7 +58,10 @@ def test_add_turn_uses_real_roles_and_user_scope():
     assert call["app_id"] == "medix-test"
     assert call["run_id"] == "session-1"
     assert [message["role"] for message in call["messages"]] == ["user", "assistant"]
-    assert call["metadata"]["type"] == "conversation_turn"
+    assert call["metadata"]["type"] == "consultation_event"
+    assert call["metadata"]["user_statement"] == "我经常上夜班，最近睡不好"
+    assert call["metadata"]["assistant_response"] == "可以先记录一周睡眠时间。"
+    assert "custom_instructions" in call
 
 
 def test_search_uses_current_filters_and_deduplicates_content():

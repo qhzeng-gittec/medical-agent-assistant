@@ -69,8 +69,9 @@ def train():
     plan = json.loads((ROOT/'plan.json').read_text(encoding='utf-8'))
     assert sha(SOURCE/'recipes'/RECIPE/'train.jsonl') == plan['sft_train_sha256']
     jobs = [
-      ('cpt',[sys.executable,'-u',"-m", "training.cpt"],CPT.parent),
-      ('sft',[sys.executable,'-u',"-m", "training.sft",'--recipe',RECIPE,
+      ('cpt',[sys.executable,'-u','-m', 'training.cpt','--data-dir',str(DATA),
+              '--output-dir',str(CPT.parent),'--batch-size','2'],CPT.parent),
+      ('sft',[sys.executable,'-u','-m', 'training.sft','--recipe',RECIPE,
         '--recipes-dir',str(SOURCE/'recipes'),'--output-root',str(ROOT/'sft_seed42'),
         '--base-adapter-dir',str(CPT),'--lora-scope','attention_ffn','--batch-size','2',
         '--gradient-accumulation-steps','2','--image-max-edge','768','--epochs','1',

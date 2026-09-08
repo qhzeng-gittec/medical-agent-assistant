@@ -6,13 +6,12 @@ LLM客户端
 import sys
 import asyncio
 import json
-from pathlib import Path
 from typing import List, Dict, Any, Optional
 from dataclasses import dataclass
 from openai import AsyncOpenAI
 from loguru import logger
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+sys.path.insert(0, '[LOCAL_PATH]')
 from config import LLM_CONFIG
 
 

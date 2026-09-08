@@ -58,3 +58,28 @@ python -m pytest tests --ignore=tests/test_native_reasoning.py -q
 [247 题留出测试报告](reports/training_report.md)只比较知识与上下文；[T0–T3 对照](reports/format_factorial.md)来自开发集。[GSPO 对比](reports/gspo_comparison.json)记录 93 道验证题、16 张图像，SFT 到 GSPO 的归一化评审分为 60.75 → 66.13；只有一个训练种子，不能表述为稳定诊断准确率提升。
 
 数据包、配置和最终权重支持重新运行评测。[完整结果](../results/README.md)提供逐题输出、评分和历史诊断附件，并附主要指标复算脚本。尚未证明临床安全性或 Agent 端到端收益。
+
+## 新增 CPT→SFT→GSPO 实验链
+
+[2026-09-08 模型包](https://huggingface.co/starttoshow/medix-qwen3.5-2b-cpt-sft-gspo-20260908)发布 CPT、依赖 CPT 的 SFT、直接 SFT 对照和依赖 CPT+SFT 的 RL 四组权重。固定版本与每个权重/config 哈希见 [expanded_chain.json](configs/expanded_chain.json)。按 BF16 顺序合并依赖，再挂载所选适配器；不要把依赖增量直接挂到原始基座。
+
+从 `MediX-R1/` 执行：
+
+```powershell
+$env:HF_DEACTIVATE_ASYNC_LOAD = "1"
+python -m examples.inference_chain --verify-only
+python -m examples.inference_chain --stage rl --question "What is the purpose of a randomized control group?" --device cuda
+python -m examples.inference_chain --stage sft_only --question "What is the purpose of a randomized control group?" --device cuda
+```
+
+默认下载固定 revision；`--package` 指向本地完整模型包，`--base-model` 指向本地 Qwen3.5-2B，默认设备为 CPU。演示是带总 token 上限的贪心生成，不能用两三个示例代替 512/384 token 机制评测。权重链不自动接入 Agent。
+
+[阶段诊断](../results/2026-09-08/model_diagnostics.md)记录 150 知识题、91 个两问法事实族、312 知识/病例题以及 128 个 RL 训练题的冻结复评。部分知识参与过 CPT 选材；不是未见知识泛化测验。RL 未证明完整知识/病例净收益，原 A–F 与 VQA-GSPO 模型继续保留。
+
+新增入口包括 `python -m training.train_cpt_rl_rounds`、`python -m experiments.run_cpt_coverage_experiment` 和 `python -m data_processing.prepare_cpt_expanded_candidate`。它们依赖已准备的 CPT 语料、训练数据、协议及上游适配器；完整 CPT 语料没有随此模型包发布。可选 Windows FLA/Triton 加速内核没有打包，默认使用普通 PyTorch 路径，只有自行准备对应环境后才设置 `MEDICAL_CPT_FAST_KERNELS=1`。
+
+新评分桥接器使用 Node.js 20+ 和环境变量 `GEMINI_API_KEY`，可设置 `GEMINI_BASE_URL`；无需另一私有项目的配置。接口遵循 [Google 的 OpenAI 兼容说明](https://ai.google.dev/gemini-api/docs/openai)。模型 ID 保留原实验值，实际可访问性由服务商决定；发布检查使用本地模拟服务，没有重新调用付费评审。历史分数来自原实验传输层，不能宣称修改后的桥接器已通过线上等价性验收。
+
+新 600 题语义评分依赖此前选定的 round2 协议和本地评测输入，当前结果尚未完整评分。相关测试将真实数据/本地 tokenizer 检查与合成输入的单元测试分开，缺少前者时明确跳过。
+
+发布前验证：Agent/评测工具 198 项离线测试通过；训练模块 64 项通过、3 项本地资料依赖检查跳过（另按既有说明排除 native 数据集成测试）。四组适配器哈希匹配；Windows CPU 上完成原始基座→合并 CPT→合并 SFT→挂载 RL 的真实加载和 2-token 生成冒烟。短生成只验证链路可执行，不是回答质量评分；未重新进行付费评审或全量 GPU 训练。

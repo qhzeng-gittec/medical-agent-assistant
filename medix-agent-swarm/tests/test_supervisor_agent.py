@@ -63,7 +63,7 @@ class ProfileStub:
         self.updates = []
         self.update_calls = []
 
-    def update_from_user_message(self, user_id, message, session_id):
+    def apply_updates(self, user_id, message, session_id, updates):
         self.update_calls.append((user_id, message, session_id))
         return list(self.updates)
 
@@ -242,7 +242,6 @@ def test_user_scoped_long_term_memory_is_injected_into_context():
     payload = json.loads(llm.calls[0]["messages"][1]["content"])
     assert payload["context"]["historical_memories"] == [{
         "memory": "用户以前晨跑时因膝盖不适而停止。",
-        "score": 0.82,
     }]
     assert long_memory.searches == [("我想开始运动", "user-7", 3)]
     assert long_memory.summaries[0]["user_id"] == "user-7"
@@ -282,13 +281,9 @@ def test_structured_patient_profile_is_injected_before_mem0_context():
 
     payload = json.loads(llm.calls[0]["messages"][1]["content"])
     assert payload["context"]["patient_profile"]["allergies"][0]["value"] == "青霉素"
-    assert profiles.update_calls == [(
-        "user-9",
-        "我对青霉素过敏，这个药能吃吗？",
-        "session-9",
-    )]
+    assert profiles.update_calls == []  # Reading context never writes a new fact.
     assert result["patient_profile_enabled"] is True
-    assert result["profile_updates"] == profiles.updates
+    assert result["profile_updates"] == []
 
 
 def test_supervisor_does_not_share_evidence_cache_between_workers():
@@ -489,3 +484,82 @@ def test_each_real_worker_exposes_only_role_specific_skills():
     assert set(research.skill_registry.get_all()) == {
         "clinical_guideline", "deep_research", "search_knowledge",
     }
+
+
+def memory_call(call_id, name, **arguments):
+    return ToolCall(call_id, name, arguments)
+
+
+def test_memory_write_precedes_same_round_worker_and_pairs_results(tmp_path):
+    from memory import PatientProfileStore
+    workers = {f"call_{role}_agent": WorkerStub(f"{role}_agent", "完成")
+               for role in ("consultation", "diagnostic", "research")}
+    proposal = {"category": "allergies", "value": "某药", "status": "active", "evidence": "我对某药过敏"}
+    llm = ScriptedLLM([
+        response(call("worker", "call_consultation_agent", "只解释用户问题"),
+                 memory_call("write", "update_patient_profile", updates=[proposal])),
+        response(content="已记录您的自述。"),
+    ])
+    supervisor, _, _ = build_supervisor(llm, workers)
+    supervisor.patient_profiles = PatientProfileStore(tmp_path)
+    result = asyncio.run(supervisor.process("我对某药过敏。", user_id="u", session_id="s"))
+    context = workers["call_consultation_agent"].inputs[0]["context"]
+    assert "case_context" not in context
+    assert context["user_context"]["patient_profile"]["allergies"][0]["value"] == "某药"
+    assert result["agents_involved"] == ["consultation_agent"]
+    assert result["subtasks_completed"] == 1
+    assert len(result["profile_updates"]) == 1
+    assert [m["tool_call_id"] for m in llm.calls[1]["messages"] if m["role"] == "tool"] == ["worker", "write"]
+    assert supervisor.patient_profiles.get_context("other-user") == {}
+
+
+def test_history_search_is_bound_to_current_user_and_keeps_event_source():
+    workers = {f"call_{role}_agent": WorkerStub(f"{role}_agent", "unused")
+               for role in ("consultation", "diagnostic", "research")}
+    llm = ScriptedLLM([response(memory_call("history", "search_patient_history", query="工作作息", limit=5)),
+                       response(content="记录显示您轮班工作。")])
+    supervisor, _, memory = build_supervisor(llm, workers)
+    memory.search_results = [{"memory_id": "m1", "content": "用户轮班工作", "score": .8,
+                              "metadata": {"user_statement": "我轮班工作", "assistant_response": "建议记录作息"}}]
+    result = asyncio.run(supervisor.process("整理一下我的作息记录", user_id="u", session_id="s"))
+    assert memory.searches == [("整理一下我的作息记录", "u", 3), ("工作作息", "u", 5)]
+    tool = json.loads(llm.calls[1]["messages"][-1]["content"])["result"]
+    assert tool["memories"][0]["assistant_response"] == "建议记录作息"
+    assert "score" not in tool["memories"][0]
+    assert result["agents_involved"] == []
+    assert result["recalled_memories"] == 1
+
+
+def test_memory_tools_deny_missing_user_or_identity_override():
+    workers = {f"call_{role}_agent": WorkerStub(f"{role}_agent", "unused")
+               for role in ("consultation", "diagnostic", "research")}
+    for user, arguments, error_type in [(None, {"query": "病史"}, "PolicyDenied"),
+                                        ("u", {"query": "病史", "user_id": "victim"}, "ValueError"),
+                                        ("u", {"query": "病史", "limit": 99}, "ValueError")]:
+        llm = ScriptedLLM([response(memory_call("bad", "search_patient_history", **arguments)), response(content="未执行越权查询")])
+        supervisor, _, memory = build_supervisor(llm, workers)
+        result = asyncio.run(supervisor.process("查历史", user_id=user, session_id="s"))
+        assert result["call_trace"][0]["result"]["error_type"] == error_type
+        assert all(query != "病史" for query, _, _ in memory.searches)
+
+
+def test_personal_history_keywords_do_not_require_a_consultation_agent():
+    workers = {f"call_{role}_agent": WorkerStub(f"{role}_agent", "unused")
+               for role in ("consultation", "diagnostic", "research")}
+    llm = ScriptedLLM([response(content="需要补充个人历史。")])
+    supervisor, _, _ = build_supervisor(llm, workers)
+    asyncio.run(supervisor.process("整理我的运动和作息历史。", session_id="s"))
+    payload = json.loads(llm.calls[0]["messages"][1]["content"])
+    assert payload["required_agents_from_safety_policy"] == []
+
+
+def test_disabled_memory_search_is_not_advertised_or_executed():
+    workers = {f"call_{role}_agent": WorkerStub(f"{role}_agent", "unused")
+               for role in ("consultation", "diagnostic", "research")}
+    llm = ScriptedLLM([response(memory_call("bad", "search_patient_history", query="病史")), response(content="历史服务未启用")])
+    supervisor, _, memory = build_supervisor(llm, workers)
+    memory.enabled = False
+    result = asyncio.run(supervisor.process("查历史", user_id="u", session_id="s"))
+    assert "search_patient_history" not in [t["function"]["name"] for t in llm.calls[0]["tools"]]
+    assert result["call_trace"][0]["result"]["error_type"] == "PolicyDenied"
+    assert not memory.searches

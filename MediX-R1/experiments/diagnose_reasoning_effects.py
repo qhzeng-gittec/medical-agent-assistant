@@ -207,7 +207,7 @@ def score_question(row, responses, folder):
     by_id = {r['id']: r for r in judged['candidates']}
     result = dict(source_id=row['source_id'], task=row['task'], cohort=row['cohort'], question=row['user_text'],
                   reference=row['reference'], reference_valid=judged['reference_valid'], reference_comment=judged['reference_comment'],
-                  call_sha256=key, models={arm:dict(response, diagnosis=by_id[response_id(response)]) for arm,response in responses.items()})
+                  call_sha256=key, judge_model=TEACHER, models={arm:dict(response, diagnosis=by_id[response_id(response)]) for arm,response in responses.items()})
     save(ROOT/folder/'questions'/f"{row['source_id']}.json", result)
     return result
 

@@ -72,7 +72,7 @@ class ResearchAgent(BaseAgent, SkillRegistryMixin):
 
 **研究原则**：
 - 优先使用权威指南（如 WHO、中华医学会、美国医学会）
-- 引用证据等级（A 级：高质量随机对照试验，B 级：队列研究，C 级：专家共识）
+- 说明证据类型和局限性；仅在来源明确提供评级体系和等级时引用评级
 - 提供文献来源和发表年份
 - 明确指出信息的局限性和适用范围
 
@@ -82,10 +82,9 @@ class ResearchAgent(BaseAgent, SkillRegistryMixin):
 3. deep_research: 深度医学研究（网络搜索 + 知识库 + 证据综合，适用于最新信息、复杂问题）
 
 **Skills 使用策略**：
-- 优先使用 `clinical_guideline`（快速获取权威指南）
+- 按分派任务和证据缺口选择工具，已有结果足够时直接交付
 - 需要最新信息或复杂问题时使用 `deep_research`
 - 可以结合其他 Skills（如 `search_knowledge`）补充信息
-- 最多 2-3 次 Skill 调用
 - 先阅读自己本次循环已有的检索结果；只在证据缺口不同时发起新检索
 - 综合多个信息来源，提供证据等级
 
@@ -98,7 +97,7 @@ class ResearchAgent(BaseAgent, SkillRegistryMixin):
 【证据摘要】
 1. 文献/指南名称（来源，年份）
    - 核心发现：...
-   - 证据等级：A/B/C 级
+   - 证据类型与适用范围：...
    - 临床建议：...
 
 2. 文献/指南名称（来源，年份）

@@ -3,6 +3,7 @@
 import argparse
 import asyncio
 import json
+import uuid
 from pathlib import Path
 
 from campaign_gateway import Gateway, MODELS, dump, sha
@@ -61,7 +62,7 @@ def validate_ids(content, criteria, lines):
     return checks
 
 
-async def regrade(gateway, result, case, judge, retry_errors=False):
+async def regrade(gateway, result, case, judge, retry_errors=False, claim_owner=None):
     label = judge.replace("/", "_")
     destination = gateway.root / "grades_v2" / f"{result['run_id']}__judge_{label}.json"
     if destination.exists():
@@ -70,7 +71,9 @@ async def regrade(gateway, result, case, judge, retry_errors=False):
             return
         destination = gateway.root / "grades_v2_retries" / destination.name
         if destination.exists():
-            return
+            claim = json.loads(destination.read_text(encoding="utf-8"))
+            if not claim_owner or claim.get("claim_owner") != claim_owner or claim["status"] != "running":
+                return
     trace = json.loads((gateway.root / "traces" / f"{result['run_id']}.json").read_text(encoding="utf-8"))
     criteria = case["criteria"] + COMMON_CRITERIA
     dialogue, lines = numbered_dialogue(result["turns"])
@@ -130,17 +133,47 @@ async def main(args):
     else:
         runs = [json.loads(p.read_text(encoding="utf-8")) for p in (args.output / "runs").glob(f"*__r{args.repetition}.json")]
     # The same two judges grade both target models. No headline comparison based on different graders.
-    dump(args.output / "grading_protocol_v2.json", {"judges": MODELS[:2], "max_output_tokens": 6144,
+    protocol_name = "grading_protocol_v2.json"
+    claim_owner = None
+    jobs = [(r, judge) for r in runs if r["turns"] for judge in MODELS[:2]]
+    if args.claim_range:
+        lower, upper = args.claim_range
+        if not args.retry_errors or not 1 <= lower <= upper <= 24:
+            raise ValueError("--claim-range requires --retry-errors and case bounds 1..24")
+        claim_owner = uuid.uuid4().hex
+        protocol_name = f"grading_protocol_v2_claim_{lower}_{upper}.json"
+        claimed_jobs = []
+        for result, judge in jobs:
+            if not lower <= int(result["case_id"].split("-")[1]) <= upper:
+                continue
+            name = f"{result['run_id']}__judge_{judge.replace('/', '_')}.json"
+            original = args.output / "grades_v2" / name
+            if not original.exists() or json.loads(original.read_text(encoding="utf-8"))["status"] != "judge_error":
+                continue
+            destination = args.output / "grades_v2_retries" / name
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            try:
+                handle = destination.open("x", encoding="utf-8")
+            except FileExistsError:
+                continue
+            with handle:
+                json.dump({"status": "running", "claim_owner": claim_owner,
+                           "run_id": result["run_id"], "judge": judge}, handle)
+            claimed_jobs.append((result, judge))
+        jobs = claimed_jobs
+        print(json.dumps({"claimed_grading_jobs": len(jobs), "case_range": args.claim_range}), flush=True)
+    dump(args.output / protocol_name, {"judges": MODELS[:2], "max_output_tokens": 6144,
          "script_sha256": sha(Path(__file__)), "purpose": "Development rubric ratings; not clinician-validated",
          "evidence": "IDs referencing actual answer lines; invalid IDs cause judge_error",
-         "judge_concurrency": args.concurrency, "retry_errors": args.retry_errors})
+         "judge_concurrency": args.concurrency, "retry_errors": args.retry_errors,
+         "claim_range": args.claim_range, "claim_owner": claim_owner})
     semaphore = asyncio.Semaphore(args.concurrency)
 
     async def one(result, judge):
         async with semaphore:
-            await regrade(gateway, result, cases[result["case_id"]], judge, args.retry_errors)
+            await regrade(gateway, result, cases[result["case_id"]], judge, args.retry_errors, claim_owner)
 
-    await asyncio.gather(*(one(r, judge) for r in runs if r["turns"] for judge in MODELS[:2]))
+    await asyncio.gather(*(one(r, judge) for r, judge in jobs))
 
 
 if __name__ == "__main__":
@@ -149,4 +182,6 @@ if __name__ == "__main__":
     parser.add_argument("--output", type=Path, default=OUTPUT)
     parser.add_argument("--concurrency", type=int, choices=range(1, 9), default=1)
     parser.add_argument("--retry-errors", action="store_true")
+    parser.add_argument("--claim-range", type=int, nargs=2, metavar=("FIRST_CASE", "LAST_CASE"),
+                        help="Reserve an unstarted future case range so an existing serial retry process skips it")
     asyncio.run(main(parser.parse_args()))

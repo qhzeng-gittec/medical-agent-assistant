@@ -238,13 +238,4 @@ class ConstraintValidator:
                     f"（{rule['reason']}）"
                 )
 
-            # 检查一般关键词
-            if_keywords = rule.get('if_keywords', [])
-            if any(kw in question for kw in if_keywords):
-                required_agents.extend(rule['must_include'])
-                logger.info(
-                    f"💡 检测到关键词，推荐包含: {rule['must_include']}"
-                    f"（{rule['reason']}）"
-                )
-
         return list(set(required_agents))  # 去重

@@ -174,8 +174,8 @@ def test_offline_example_captures_real_context_growth():
 
     trace = asyncio.run(build_trace())
     snapshots = trace["snapshots"]
-    assert [len(s["request"]["messages"]) for s in snapshots] == [2, 2, 4, 6, 4, 2, 6, 2, 2, 2, 4, 4]
-    research_messages = snapshots[3]["request"]["messages"]
+    assert [len(s["request"]["messages"]) for s in snapshots] == [2, 4, 2, 4, 6, 6, 2, 8, 2, 2, 4, 2, 4, 6]
+    research_messages = snapshots[4]["request"]["messages"]
     assert sum(BODY_A in (m.get("content") or "") for m in research_messages) == 1
     duplicate = json.loads(research_messages[-1]["content"])["documents"][0]
     assert duplicate["reference"] == {"tool_call_id": "search-1"}
@@ -184,15 +184,16 @@ def test_offline_example_captures_real_context_growth():
             assert BODY_A not in json.dumps(snapshot["request"]["messages"], ensure_ascii=False)
             for message in snapshot["request"]["messages"]:
                 assert "search-1" not in str(message.get("content"))
-    second_turn = json.loads(snapshots[7]["request"]["messages"][1]["content"])
+    second_turn = json.loads(snapshots[8]["request"]["messages"][1]["content"])
     assert len(second_turn["context"]["recent_history"]) == 2
     assert trace["turns"][1]["agents_involved"] == []
-    third_turn = json.loads(snapshots[8]["request"]["messages"][1]["content"])
-    assert third_turn["context"]["patient_profile"]["medications"][0]["status"] == "stopped"
+    third_turn = json.loads(snapshots[9]["request"]["messages"][1]["content"])
+    assert third_turn["context"]["patient_profile"]["medications"][0]["status"] == "active"
+    assert json.loads(snapshots[10]["request"]["messages"][-1]["content"])["result"]["updates"][0]["status"] == "stopped"
     assert len(third_turn["context"]["recent_history"]) == 4
     assert len(trace["knowledge_base_calls"]) == 3
     assert trace["knowledge_base_calls"][0] == trace["knowledge_base_calls"][2]
-    new_result = json.loads(snapshots[10]["request"]["messages"][-1]["content"])
+    new_result = json.loads(snapshots[12]["request"]["messages"][-1]["content"])
     assert new_result["documents"][0]["content"] == BODY_A
     assert [m["role"] for m in trace["persisted_conversation"]] == ["user", "assistant"] * 3
 
@@ -216,3 +217,26 @@ def test_real_kb_tools_return_structured_bodies_once(monkeypatch, skill, script,
     assert result["documents"]
     assert "唯一的模拟知识库原文" not in result["answer"]
     assert result["documents"][0]["content"] == "唯一的模拟知识库原文"
+
+
+def test_lifestyle_returns_candidates_not_validated_advice(monkeypatch):
+    class CandidateKB:
+        def search(self, **kwargs):
+            assert kwargs["top_k"] == 3
+            return [document("另一疾病的材料", score=.2), {**document("更相关的候选材料"), "id": "d2"}]
+    execute = load_skill_function("recommend-lifestyle", "lifestyle", "recommend_lifestyle")
+    monkeypatch.setitem(execute.__globals__, "_kb_instance", CandidateKB())
+    result = asyncio.run(execute(diagnosis="目标疾病"))
+    assert result["status"] == "candidates"
+    assert len(result["documents"]) == 2
+    assert "不代表已匹配" in result["answer"]
+
+
+def test_empty_lifestyle_retrieval_is_explicit(monkeypatch):
+    class EmptyKB:
+        def search(self, **kwargs):
+            return []
+    execute = load_skill_function("recommend-lifestyle", "lifestyle", "recommend_lifestyle")
+    monkeypatch.setitem(execute.__globals__, "_kb_instance", EmptyKB())
+    result = asyncio.run(execute(diagnosis="目标疾病"))
+    assert result["status"] == "no_results" and result["documents"] == []

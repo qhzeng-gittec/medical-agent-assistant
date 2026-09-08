@@ -1,0 +1,89 @@
+{
+  "reviewer": "Assistant analyst, not a clinician panel",
+  "reviews": [
+    {
+      "source_id": "medmcqa-524d41bf-ef51-49b4-8662-dcaf2c2798fb",
+      "include_application_failure": true,
+      "answer_bearing": true,
+      "category": "prompted_knowledge_retrieval_and_drug_category_error",
+      "finding": "两种问法均知道二甲双胍与严重肾损害禁忌，也能识别高肌酐。原题却选择不属于降糖药的糖皮质激素，并虚构题目存在药物列表；通用检查和自身前提回填均纠正最终答案。支持可提示调用的知识未被原题正确使用，不证明所有必要知识在无提示时均稳定。",
+      "caveat": "前提直接包含目标药物名称，审查的无答案泄露标记错误。肌酐升高本身不证明急性病程；原/检查解释中仍有过度推断，不能把最终答案改对当作完整推理全部正确。",
+      "sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=59a485b1-8299-5d02-e053-2a91aa0a42e3&type=display"
+      ]
+    },
+    {
+      "source_id": "medmcqa-6456df80-5db3-44f0-bc53-e3209b525d2f",
+      "include_application_failure": true,
+      "answer_bearing": true,
+      "category": "task_conditioned_retrieval",
+      "finding": "直接询问可逆性弛缓性瘫痪的电解质原因，两问均答低钾；知道应测血钾。原病例却选择血糖，泛化检查与干扰背景均不纠正，相关自身知识回填后纠正。",
+      "caveat": "前提措辞已非常接近原题，且包含目标检查，因此更适合作为任务条件下的检索失败，不宜包装为复杂多步逻辑证明；属于提示辅助而非自主分解。",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC3788282/"
+      ]
+    },
+    {
+      "source_id": "medmcqa-62081a5c-5ffc-4a88-9aca-c9e430490e73",
+      "include_application_failure": false,
+      "answer_bearing": true,
+      "category": "reference_and_premise_ambiguity",
+      "finding": "题目严重会阴出血、气道状态未述；将先止血/评估循环一律判不全对，而把任何创伤都先气道作为绝对前提，不适合作为可靠的已知前提推理失败证据。",
+      "caveat": "ATLS11已采用xABCDE，对致命性外出血可优先止血。题目没有足够信息明确是否属于该情形，因此标记有歧义，而不是武断认定模型答案必然完全正确。原分数保留，敏感性分析排除此题。",
+      "sources": [
+        "https://www.facs.org/quality-programs/trauma/education/trauma-evaluation-and-management-course/",
+        "https://www.facs.org/media/vfzn3war/2025-acs-annual-report.pdf"
+      ]
+    },
+    {
+      "source_id": "medmcqa-641830d8-81c8-4a90-abaf-1d0fc4de838d",
+      "include_application_failure": false,
+      "answer_bearing": true,
+      "category": "intervention_premise_scope_mismatch",
+      "finding": "前提关于无症状、正常CA125的低风险囊肿，原病例有腹痛、家族史、CA125未知。给定前提中的5–10cm监测阈值过宽，前提充分且正确的审查不成立。自身前提回填后模型直接假设CA125正常，展示了把条件性知识误当病例已知事实的问题。",
+      "caveat": "不能用这个不适配的前提来统计纯知识已知下的推理失败。最终答案写CA125和超声也不代表推理无误，正确前提条件下生成还出现不需随访与最终随访的矛盾。",
+      "sources": [
+        "https://www.rcog.org.uk/guidance/browse-all-guidance/green-top-guidelines/ovarian-cysts-in-postmenopausal-women-green-top-guideline-no-34/",
+        "https://www.rcog.org.uk/media/4v3ncfib/gtg_34.pdf"
+      ]
+    },
+    {
+      "source_id": "medmcqa-5d739a5a-3864-4e86-b99b-d1d9f687f1a1",
+      "include_application_failure": false,
+      "answer_bearing": true,
+      "category": "nonexclusive_reference_with_reasoning_fact_error",
+      "finding": "题目只问也用于三叉神经痛的心境稳定药，没有限定一线。丙戊酸有三叉神经痛用药研究，故不能仅因不是卡马西平就断言最终答案完全错误。原解释称卡马西平不是心境稳定剂则是可独立确认的错误，与直接知识问答矛盾。",
+      "caveat": "干扰背景与通用检查也均使答案变成卡马西平，不能把改善特异归因于正确知识回填。剔除出严格最终答案应用失败统计，保留为知识调用/解释一致性案例。",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/6776393/",
+        "https://www.accessdata.fda.gov/drugsatfda_docs/label/2022/021710s018lbl.pdf"
+      ]
+    },
+    {
+      "source_id": "medmcqa-0c369ac7-6572-43c6-8f9c-64812d384024",
+      "include_application_failure": true,
+      "answer_bearing": false,
+      "category": "calculation_and_final_answer_binding",
+      "finding": "知道760mmHg与21%两组事实的两种问法，原题仍答150。自身前提和检查提示使答案变成160；正确前提条件下解释明确写出0.21×760，最终仍答150，直接显示公式到数值结论衔接错误。",
+      "caveat": "前提探针没有单独检验道尔顿定律，故不能据两条事实答对宣称所有规则都已掌握。150接近湿化吸入气氧分压，可能有近邻概念干扰，但未通过特异干预证明该机制。",
+      "sources": [
+        "https://www.ncbi.nlm.nih.gov/books/NBK54114/",
+        "https://www.ncbi.nlm.nih.gov/books/NBK54103/"
+      ]
+    },
+    {
+      "source_id": "medmcqa-12c59d09-8bbd-4578-becc-220bf5b2dc5d",
+      "include_application_failure": true,
+      "answer_bearing": true,
+      "category": "condition_direction_and_option_binding",
+      "finding": "心衰降低有效动脉充盈、RAAS增强与AngII促口渴，两种直接问法均答对。原题却选心房扩张。自身前提回填后解释写对心衰→AngII→口渴，最终却答AngII，忽略题中选项是降低的AngII；正确事实回填才答心衰。",
+      "caveat": "前提直接提及心衰，与目标心功能衰竭同义，应标为含答案背景；自身回填仍由参考辅助选择问题，不能当作自主推理能力。",
+      "sources": [
+        "https://www.ncbi.nlm.nih.gov/books/NBK25/",
+        "https://pubmed.ncbi.nlm.nih.gov/11828179/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC5957508/"
+      ]
+    }
+  ],
+  "policy": "Original machine judgments are preserved. Manual exclusions and answer-bearing overrides define separately reported sensitivity analyses, not silent score edits."
+}

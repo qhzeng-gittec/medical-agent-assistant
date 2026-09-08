@@ -1,5 +1,7 @@
 # 完整评测结果
 
+**最新增量：[2026-09-08 新评测与代码更新](2026-09-08/README.md)**。以下为继续保留的 9 月 7 日历史发布。
+
 2026-09-07 结果快照。包含 35 组结果目录、14,055 份结构化文件：正式留出评测、开发实验、消融、历史诊断与性能探针。目录数和文件数不是独立题目数。
 
 [下载全部结果附件](https://github.com/qhzeng-gittec/medical-agent-assistant/releases/tag/evaluation-results-2026-09-07) · [文件与版本清单](index.json) · [Agent 逐任务结果](agent_cases.csv) · [模型分组指标](model_scores.csv)

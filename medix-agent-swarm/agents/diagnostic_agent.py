@@ -5,6 +5,7 @@ DiagnosticAgent：症状诊断推理 Agent
 1. 参与 Swarm 协作
 2. 自主认领任务
 3. 调用医疗工具
+4. 将结果写入 SharedContext
 """
 from typing import Dict, Any, Optional
 from loguru import logger
@@ -65,7 +66,7 @@ class DiagnosticAgent(BaseAgent, SkillRegistryMixin):
 3. 评估每个诊断的可能性
 
 **诊断原则**：
-- 使用医学推理方法（如 VINDICATE 框架）
+- 根据当前事实进行医学推理，保留尚未确认的信息
 - 考虑常见病优先，但不忽略危险疾病
 - 明确需要进一步检查的项目
 - 永远不做确诊，只提供诊断思路
@@ -76,12 +77,11 @@ class DiagnosticAgent(BaseAgent, SkillRegistryMixin):
 3. disease_code: 查询 ICD-10 疾病编码
 
 **Skills 使用策略**：
-- 首先使用 assess_risk 评估风险
-- 然后使用 analyze_symptoms 分析模式
+- 优先明确紧急风险，按本次任务和信息缺口选择工具，不必机械遍历
 - 如果需要疾病编码，使用 disease_code
 - 如需权威指南或通用医学知识，在结果中说明需要核验的问题，由 Supervisor 调用 ResearchAgent
 - 基于 Skill 结果进行诊断推理
-- 最多2-3次 Skill 调用，然后给出诊断思路
+- 已有信息足够时交付结论，信息不足时说明必要的追问或核验
 
 **Supervisor 协作模式**：
 - 你接收 Supervisor 提供的病例事实和已有上下文
@@ -99,10 +99,10 @@ class DiagnosticAgent(BaseAgent, SkillRegistryMixin):
 症状关联性：...
 
 【鉴别诊断】
-1. 诊断A（可能性XX%）
+1. 需要考虑的疾病或原因（不虚构概率）
    - 支持证据：...
    - 反对证据：...
-2. 诊断B（可能性XX%）
+2. 其他需要考虑的原因
    ...
 
 【建议检查】

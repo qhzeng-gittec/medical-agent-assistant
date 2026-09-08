@@ -1,0 +1,306 @@
+{
+  "schema_version": 1,
+  "audit_date": "2026-09-08",
+  "reviewed_report": "测试发现与会议讲解.md",
+  "reviewed_report_snapshot_utc": "2026-09-08T06:22:58Z",
+  "status": "complete_for_stated_scope",
+  "result": "重点数量和证据范围得到本地原始记录支持。提出的两处归因或分母表述修正已在复读版本中落实；在本次核验范围内无未解决的事实纠正项。自动评分未结束，本审计不审核最终分数。",
+  "scope": {
+    "base_path": "medix-agent-swarm/evals/results/holdout_v1_live_20260908",
+    "paid_api_calls": 0,
+    "external_requests": 0,
+    "product_dataset_or_evaluator_edits": 0,
+    "files_written_by_this_auditor": [
+      "report_claim_audit.json"
+    ],
+    "primary_focus": [
+      "执行完成、失败尝试、未开始计划的分母",
+      "当前对话阶段 Mem0 add 与 search 调用数、错误类型和配额归因",
+      "真实 RAG 配置与实际触发覆盖，72 个既有探针的解释范围",
+      "局部手工复核、执行完成率及自动评分不支持总体临床错误率或模型能力因果归因"
+    ],
+    "technical_boundary_scope": "已阅读并行产出的 technical_boundary_audit.json/md 方法、汇总、校验与局限，将第7节最新数字逐项与之核对；没有重复其全量工具配对与异常响应原始审计。"
+  },
+  "method": {
+    "execution_population": "读取 runs/*.json 的277份 canonical completed 记录和 errors/*.json 的23份 finalized error 记录，以 run_id 验证互不重叠，再与 execution_plan.expected_runs 及 external_quota_pause.blocked_unexecuted_run_ids 比较。",
+    "mem0_recount": "仅读取上述300份记录的 attempt_trace_path；仅计算 event=mem0_operation、phase=target、operation=add或search 的原始事件。每份 attempt trace 只计算一次，不再叠加 canonical trace 或 state 副本，不包含 calibration、seed、seed_fixture 阶段。",
+    "rag_recount": "从三个冻结 authors JSONL 的 private.environment 统计配置覆盖；从 HE-023 完成运行的 attempt trace 计算实际 retrieval 事件；从 rag_regression/results.json 的原始候选分数按 Top-3、threshold>=0.4 复算结果。",
+    "causal_standard": "区分直接可见行为、工程实现缺口和未经对照验证的能力归因。调用、轮次、检查点和重复运行均不当作独立病例；有意挑选的手工复核样本不用于总体错误率。"
+  },
+  "checks": [
+    {
+      "id": "execution_counts",
+      "status": "supported_by_raw_records",
+      "observed": {
+        "expected_runs": 324,
+        "canonical_completed": 277,
+        "finalized_errors": 23,
+        "distinct_attempted_run_ids": 300,
+        "completed_error_run_id_overlap": 0,
+        "unstarted_run_ids": 24,
+        "unstarted_ids_equal_quota_pause_ids": true,
+        "quota_pause_ids_with_finalized_record": 0,
+        "primary_completed": {
+          "minimax/minimax-m2.5": 69,
+          "qwen/qwen3.5-27b": 69,
+          "gemini-3.5-flash": 68
+        },
+        "finalized_error_types": {
+          "ConnectError": 16,
+          "ConnectTimeout": 1,
+          "RateLimitError": 6
+        }
+      },
+      "interpretation": "300 是已经开始并结束尝试的计划运行数，部分终止于种子或评测观测阶段；277 是执行完成数，不是临床通过数。报告已正确使用完成/未完成口径。",
+      "evidence": [
+        "execution_plan.json#/expected_runs",
+        "runs/*.json#/status",
+        "errors/*.json#/error_type",
+        "external_quota_pause.json#/blocked_unexecuted_run_ids",
+        "telemetry_summary.json#/coverage"
+      ]
+    },
+    {
+      "id": "mem0_add",
+      "status": "supported_by_raw_traces",
+      "observed": {
+        "target_add_total": 183,
+        "rpc_completed": 130,
+        "rpc_error": 53,
+        "metadata_limit_validation_errors": 53,
+        "error_fraction": 0.2896174863387978,
+        "errors_by_model": {
+          "gemini-3.5-flash": 19,
+          "minimax/minimax-m2.5": 13,
+          "qwen/qwen3.5-27b": 21
+        }
+      },
+      "interpretation": "约29.0%是本轮已结束尝试中当前对话阶段的add调用错误比例，包含重复运行；不是独立病例失败率。130次RPC完成不自动等价于正确记忆形成。报告已声明这些限制。",
+      "evidence": [
+        "runs/*.json#/attempt_trace_path",
+        "errors/*.json#/attempt_trace_path",
+        "traces/attempts/HE-011__minimax_minimax-m2.5__r1__8ce8b07d59eb4cc3af2d531983ace938.json#/35",
+        "telemetry_summary.json#/completed/by_model_stage_phase",
+        "telemetry_summary.json#/failed_attempts/by_model_stage_phase"
+      ]
+    },
+    {
+      "id": "mem0_search_and_quota",
+      "status": "supported_by_raw_traces",
+      "observed": {
+        "target_search_total": 199,
+        "rpc_completed": 198,
+        "rpc_error": 1,
+        "quota_limit": 1000,
+        "quota_used": 1000,
+        "quota_reset": "2026-10-01T00:00:00+00:00",
+        "terminal_rate_limit_runs": 6,
+        "rate_limit_runs_with_list_error": 6,
+        "rate_limit_runs_with_target_search_error": 1
+      },
+      "interpretation": "SEARCH 是服务返回的账户周期配额类型。六个RateLimitError终止运行都有评测list错误，只有一个也观察到产品search配额错误；不能把六个当作六次患者搜索错误，也不能把1000当成本批患者查询数。",
+      "evidence": [
+        "external_quota_pause.json",
+        "errors/HH-012__gemini-3.5-flash__r2__35b9b1c8bc0d4516acb3bc84bd068654.json#/error",
+        "traces/attempts/HH-012__gemini-3.5-flash__r2__35b9b1c8bc0d4516acb3bc84bd068654.json#/66",
+        "traces/attempts/HH-012__gemini-3.5-flash__r2__35b9b1c8bc0d4516acb3bc84bd068654.json#/76"
+      ]
+    },
+    {
+      "id": "case_and_service_coverage",
+      "status": "supported_by_frozen_cases_and_raw_traces",
+      "observed": {
+        "unique_cases": 72,
+        "primary_plan_runs": 216,
+        "preselected_repeat_cases": 18,
+        "additional_repeat_plan_runs": 108,
+        "memory_modes": {
+          "live_mem0": 28,
+          "controlled": 2,
+          "not_needed": 24,
+          "off": 18
+        },
+        "rag_modes": {
+          "live_rag": 1,
+          "controlled": 20,
+          "empty_retrieval": 1,
+          "retrieval_timeout": 1,
+          "not_needed": 49
+        },
+        "live_rag_case_id": "HE-023",
+        "live_rag_expected_runs": 9,
+        "live_rag_completed_runs": 8,
+        "live_rag_retrieval_events_in_completed_runs": 23
+      },
+      "interpretation": "报告的1个真实RAG病例配置正确。23次真实检索事件来自一个病例家族的模型与重复执行，不是23个独立病例；受控文档不验证向量召回。报告无需把这些额外调用数补成新的覆盖分母。",
+      "evidence": [
+        "../../holdout_v1_20260908/sealed/authors/consultation.jsonl",
+        "../../holdout_v1_20260908/sealed/authors/history.jsonl",
+        "../../holdout_v1_20260908/sealed/authors/evidence.jsonl (case_id=HE-023)",
+        "execution_plan.json#/repeat_case_ids",
+        "runs/HE-023*.json#/attempt_trace_path",
+        "runtime_freeze.json#/configuration/services"
+      ]
+    },
+    {
+      "id": "rag_development_regression",
+      "status": "supported_by_raw_results",
+      "observed": {
+        "total_old_probes": 72,
+        "boundary_probes": 60,
+        "near_miss_probes": 12,
+        "top_k": 3,
+        "threshold": 0.4,
+        "answerable": 40,
+        "any_gold_group_hit": 40,
+        "all_gold_groups_hit": 39,
+        "all_groups_miss_case": "R25",
+        "obvious_unanswerable": 12,
+        "obvious_unanswerable_with_candidate": 0,
+        "near_miss_unanswerable": 12,
+        "near_miss_with_candidate": 11,
+        "other_boundary_probe_categories": {
+          "filtered_out": 3,
+          "needs_history": 3,
+          "needs_clarification": 2
+        }
+      },
+      "interpretation": "报告40/40、39/40、0/12、11/12均可从原始候选分数复算。72是旧开发探针总数，表格呈现其中的可回答、明显无答案和near-miss部分，不是新留出得分。返回候选不等于观察到最终答案幻觉。",
+      "evidence": [
+        "rag_regression/results.json#/rag_boundary",
+        "rag_regression/results.json#/rag_near_miss",
+        "rag_regression/summary.json#/scope",
+        "rag_regression/summary.json#/source_case_hashes",
+        "rag_regression/trace.json (provider=openrouter, endpoint=embeddings, model=qwen/qwen3-embedding-8b)"
+      ]
+    },
+    {
+      "id": "profile_correction_example",
+      "status": "supported_by_raw_run",
+      "observed": {
+        "run_id": "HH-011__minimax_minimax-m2.5__r1",
+        "first_answer_claims_correction": true,
+        "old_epilepsy_condition_still_active_after_turn_2": true,
+        "new_migraine_condition_active": true,
+        "second_answer_uses_migraine": true
+      },
+      "interpretation": "这是答案声明与持久化状态不一致的具体反例，不能从单例推导该模型的总体记忆错误率。",
+      "evidence": [
+        "runs/HH-011__minimax_minimax-m2.5__r1.json#/turns/0/answer",
+        "runs/HH-011__minimax_minimax-m2.5__r1.json#/turns/1/answer",
+        "runs/HH-011__minimax_minimax-m2.5__r1.json#/turns/1/profile_record_after/conditions",
+        "sealed_adjudication/history_review.json"
+      ]
+    },
+    {
+      "id": "metadata_calibration_examples",
+      "status": "supported_by_raw_traces_and_source",
+      "observed": {
+        "minimax_metadata_chars": 4704,
+        "qwen_metadata_chars": 3936,
+        "gemini_metadata_chars": 4697,
+        "service_limit_chars": 2000,
+        "question_and_answer_metadata_character_slice": 1000
+      },
+      "evidence": [
+        "calibration/PUBLIC-CALIBRATION__minimax_minimax-m2.5_trace.json#/64",
+        "calibration/PUBLIC-CALIBRATION__qwen_qwen3.5-27b_trace.json#/49",
+        "calibration/PUBLIC-CALIBRATION__gemini-3.5-flash_trace.json#/35",
+        "../../../memory/long_term.py:79"
+      ]
+    },
+    {
+      "id": "long_judge_input_example",
+      "status": "supported_by_raw_judge_trace",
+      "observed": {
+        "model": "minimax/minimax-m2.5",
+        "prompt_tokens": 57286,
+        "max_tokens": 16384,
+        "completion_tokens": 16384,
+        "finish_reason": "length"
+      },
+      "interpretation": "支持报告中的一个长输入截断实例，不说明所有评审输入都达到此长度，不代表临床失败；未据此重算最终评分。",
+      "evidence": [
+        "judge_traces/HC-009__gemini-3.5-flash__r1.judge1.turn4.json#/0/payload/max_tokens",
+        "judge_traces/HC-009__gemini-3.5-flash__r1.judge1.turn4.json#/0/response/usage",
+        "judge_traces/HC-009__gemini-3.5-flash__r1.judge1.turn4.json#/0/response/choices/0/finish_reason"
+      ]
+    },
+    {
+      "id": "technical_boundary_report_crosscheck",
+      "status": "supported_by_independent_technical_audit",
+      "observed": {
+        "completed_target_unadvertised_proposals": 161,
+        "completed_target_all_denied": true,
+        "completed_seed_proposals": 10,
+        "failed_seed_proposals": 4,
+        "completed_target_qwen_empty_tool_responses": 13,
+        "completed_seed_qwen_empty_tool_responses": 1,
+        "empty_tool_responses_with_worker_typeerror": 14,
+        "completed_target_responses_with_choices": 2366,
+        "failed_target_responses_with_choices": 41,
+        "requested_max_tokens": 8192,
+        "observed_length_or_max_tokens_finish_reasons": 0,
+        "completed_requests_without_choices": 16,
+        "failed_requests_without_choices": 12
+      },
+      "interpretation": "报告第7节模型分层表、target/seed分离、一个后续ConnectError不作预算拒绝因果归因、14个Qwen异常及新增输出额度观察，均与技术审计汇总一致。未出现截断标志不等于内容完整，也不能覆盖没有choices的请求。",
+      "evidence": [
+        "technical_boundary_audit.json#/totals",
+        "technical_boundary_audit.json#/summaries",
+        "technical_boundary_audit.json#/verification",
+        "technical_boundary_audit.json#/empty_tool_call_responses",
+        "technical_boundary_audit.json#/finish_reason_audit",
+        "technical_boundary_audit.md"
+      ]
+    },
+    {
+      "id": "model_and_manual_review_inference_limits",
+      "status": "appropriate_after_report_revision",
+      "observed": {
+        "consultation_review_runs": 12,
+        "consultation_review_case_families": 8,
+        "history_review_expected_runs": 9,
+        "history_review_completed_runs": 8,
+        "history_review_case_families": 3,
+        "evidence_review_runs": 9,
+        "evidence_review_case_families": 3,
+        "model_identity_visible": true,
+        "clinician_review": false
+      },
+      "interpretation": "报告已限制自动总分、风险导向局部样本、模型身份可见、患者模拟漏答、服务错误和缺失评分的解释；不宣称强/弱模型因果、临床排名、微调收益或单/多Agent优劣。医学知识不足不能仅凭输出被排除，这一表述已经修正。",
+      "evidence": [
+        "sealed_adjudication/consultation_review.md",
+        "sealed_adjudication/history_review.md",
+        "sealed_adjudication/evidence_review.md",
+        "runtime_freeze.json#/configuration/services",
+        "测试发现与会议讲解.md sections 2, 6, 10 and report boundaries"
+      ]
+    }
+  ],
+  "resolved_findings": [
+    {
+      "id": "R1_overstrong_knowledge_causal_exclusion",
+      "report_section": 6,
+      "original_text": "这不是医学知识背得不够，而是患者事实、模型推断和一般医学知识混在了一起。",
+      "issue": "原始观察支持把未知当成明确阴性，不能排除知识不足参与错误。",
+      "verified_revised_text": "这里直接观察到的是患者事实与模型推断混淆：把未提及当作明确否认。仅凭这些输出，还不能判断医学知识水平是否也参与了错误。",
+      "status": "resolved_by_parent_report_edit"
+    },
+    {
+      "id": "R2_seed_population_shift",
+      "report_section": 7,
+      "original_text": "另有14次发生在历史种子初始化阶段",
+      "issue": "前句分母是277个完成运行；seed14却含完成seed10与失败attempt seed4，需要明确改变了统计人口。",
+      "verified_revised_text": "历史种子阶段另有 14 次：10 次来自已完成运行，4 次来自失败尝试，也全部被拒绝，不能混入上述当前对话数字。",
+      "status": "resolved_by_parent_report_edit"
+    }
+  ],
+  "unresolved_corrections": [],
+  "limitations": [
+    "审计期间报告与自动评分文件仍可能变化；报告复读快照时间已记录。本文件不代表双评全部完成。",
+    "未独立进行临床审核或重新打开医学来源网页；对文中医学引用仅检查本地复核记录的解释边界。",
+    "工具拒绝逐次配对、Qwen异常响应因果链及finish_reason全量分布交由独立技术审计记录，本审计不重复统计。",
+    "没有从单例、调用总数或有意选择的手工样本推导总体病例错误率。"
+  ]
+}

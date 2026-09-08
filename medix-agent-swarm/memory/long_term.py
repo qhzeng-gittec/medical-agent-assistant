@@ -77,9 +77,11 @@ class LongTermMemory:
         self._validate_scope(user_id, session_id)
 
         memory_metadata = {
-            "type": "conversation_turn",
-            "timestamp": datetime.now(timezone.utc).isoformat(),
             **(metadata or {}),
+            "type": "consultation_event",
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "user_statement": question[:1000],
+            "assistant_response": answer[:1000],
         }
         try:
             result = self.client.add(
@@ -91,6 +93,12 @@ class LongTermMemory:
                 app_id=self.app_id,
                 run_id=session_id,
                 metadata=memory_metadata,
+                custom_instructions=(
+                    "Remember useful consultation events and reported changes, with the speaker, event time when stated, "
+                    "and unresolved follow-up. Preserve negation and uncertainty. Distinguish the user's reports from "
+                    "the assistant's hypotheses and recommendations; the latter are not confirmed patient facts. "
+                    "Omit generic explanations and routine acknowledgements."
+                ),
             )
         except Exception as error:
             raise LongTermMemoryError(f"Mem0 add failed: {error}") from error

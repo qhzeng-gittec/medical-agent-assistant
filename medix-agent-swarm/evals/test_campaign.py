@@ -9,7 +9,7 @@ from campaign_gateway import ApiAccessBlocked, Gateway, ModelAdapter
 from campaign_rag import LocalRAG
 from campaign_run import DATA, parse_json_answer, patient_reply
 from campaign_grade import protocol_checks, validate_verdict
-from campaign_regrade import anonymous_profile, numbered_dialogue, validate_ids
+from campaign_regrade import anonymous_profile, numbered_dialogue, regrade, validate_ids
 
 
 class FakeGateway:
@@ -74,6 +74,8 @@ def test_patient_selector_cannot_invent_fact_values(tmp_path):
 
 def test_parse_json_does_not_silently_accept_prose():
     assert parse_json_answer('```json\n{"a":1}\n```') == {"a": 1}
+    assert parse_json_answer('```json{"a":1}\n```') == {"a": 1}
+    assert parse_json_answer('```\n{"a":1}\n```') == {"a": 1}
     with pytest.raises(json.JSONDecodeError):
         parse_json_answer('Here is the answer: {"a":1}')
 
@@ -124,3 +126,21 @@ def test_gateway_does_not_send_more_requests_after_billing_pause():
     with pytest.raises(ApiAccessBlocked, match="402"):
         gateway.request("chat/completions", {"model": "test"}, trace, "judge")
     assert trace == []
+
+
+def test_serial_grader_skips_reserved_future_job_and_valid_grade(tmp_path):
+    result = {"run_id": "case"}
+    name = "case__judge_test.json"
+    original = tmp_path / "grades_v2" / name
+    retry = tmp_path / "grades_v2_retries" / name
+    original.parent.mkdir()
+    retry.parent.mkdir()
+    original.write_text('{"status":"judge_error"}', encoding="utf-8")
+    retry.write_text('{"status":"running","claim_owner":"worker-b"}', encoding="utf-8")
+    gateway = FakeGateway(tmp_path)
+    asyncio.run(regrade(gateway, result, {}, "test", retry_errors=True))
+    asyncio.run(regrade(gateway, result, {}, "test", retry_errors=True, claim_owner="worker-c"))
+    assert json.loads(retry.read_text(encoding="utf-8"))["status"] == "running"
+    original.write_text('{"status":"graded"}', encoding="utf-8")
+    asyncio.run(regrade(gateway, result, {}, "test", retry_errors=True, claim_owner="worker-b"))
+    assert gateway.calls == []
