@@ -1,5 +1,7 @@
 # 2026-09-08 评测快照
 
+新增 [CPT+SFT 科学推理基准实测](../general-benchmarks-2026-09-08/README.md)：ARC-Challenge 固定 500 题，`acc_norm` **44.2% → 51.2%（+7.0 个百分点）**；提供三项基准完整数据与离线复算。
+
 建议先读 [Agent 关键设计与测评方法](agent_improvements.md)，了解每项设计解决的问题、对照数据和测量方式；再读 [整体验收](agent_holdout.md) 与 [架构对照](architecture.md)。
 
 新增 [RAG / Mem0 独立组件测评](../component-benchmark-2026-09-08/README.md)：公开 1,016 篇语料、400 条 RAG 查询、120 个 Mem0 场景、真实 API 记录和完整复算脚本。[RAG](../component-benchmark-2026-09-08/rag/README.md)给出 Top-K、阈值与上下文对照，[Mem0](../component-benchmark-2026-09-08/memory/README.md)给出真实抽取、重开后检索和逐事实评分。新套件单独冻结与校验，下方原快照继续保留。
