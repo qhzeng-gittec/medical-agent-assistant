@@ -1,0 +1,336 @@
+{
+  "audit_date": "2026-09-08",
+  "snapshots": {
+    "trained_corpus": {
+      "source": "data/cpt_expanded_candidate_v1/manifest.json",
+      "source_sha256": "6ac1ac23aa34279c6d4311f00a73cb8e7410dd34d6d7786c3619c5cf25ccc519",
+      "data": {
+        "experiment_type": "expanded_candidate_not_full_coverage",
+        "semantic_full_coverage_verified": false,
+        "seed": 42,
+        "max_length": 2048,
+        "max_tokens_per_document": 4096,
+        "objective": "raw medical prose next-token prediction; original task question-answer pairs excluded",
+        "train_tokens": 8081502,
+        "medical_train_tokens": 8000479,
+        "replay_train_tokens": 81023,
+        "medical_tokens_by_bucket": {
+          "vqa": 511843,
+          "context": 2227788,
+          "case": 1404263,
+          "knowledge": 254541,
+          "Anatomy": 511529,
+          "Biochemistry": 621230,
+          "Microbiology": 603484,
+          "Pathology": 630787,
+          "Pharmacology": 605398,
+          "Physiology": 629616
+        },
+        "medical_tokens_by_source": {
+          "existing_reviewed_prose": 16264,
+          "reviewed_textbook_excerpt": 324,
+          "existing_study_context": 320533,
+          "retrieved_textbooks": 390765,
+          "retrieved_statpearls": 626985,
+          "guideline_background": 6645608
+        },
+        "prioritized_evidence_tokens": 1354871,
+        "train_blocks": 5008,
+        "validation_blocks": 143,
+        "document_end_token": "<|endoftext|>",
+        "document_end_token_id": 248044,
+        "packing": {
+          "method": "Greedy whole-excerpt packing with EOS; up to 2048 tokens per row",
+          "long_new_prose": "Lossless adjacent spans <=2047 content tokens; prefer sentence/paragraph boundary in the latter half of each window",
+          "guideline_background": "Reuse previously frozen stratified source windows",
+          "overlap": 0,
+          "dropped_packing_tokens": 0,
+          "attention": "ordinary causal attention across EOS; no document-isolated attention"
+        },
+        "quality_exclusions": {
+          "short_or_heading": 109,
+          "ocr_joined_words": 47,
+          "duplicate_body_or_validation_body": 617,
+          "question_answer_format": 13,
+          "editorial_or_index_page": 58
+        },
+        "selected_medical_documents": 13906,
+        "source_hashes": {
+          "background_manifest": "d1982817bc8bb8f56ce8c001f1c5a84a59c2ea9f0e90924fe0ecaab723fe20e3",
+          "priority_evidence": "8b540516a7b66f40828ea8ed092ee05e74bd358d92485e8cabb5ee1653fe28f4"
+        },
+        "limitations": [
+          "Retrieval candidates have not all passed semantic review; this is not a full-knowledge-coverage corpus.",
+          "Train, validation and test answer knowledge was intentionally used for evidence selection.",
+          "PubMed full-source retrieval is still incomplete; no newly downloaded PubMed passages are included in this snapshot.",
+          "Existing guideline excerpts were sampled; new selected prose is retained without token truncation."
+        ],
+        "train_sha256": "beafdede487393916b6673c90444f8f00f124c5de63e2e5e416028331c35e7d0",
+        "validation_sha256": "f569551a03246bb33b883a6e0b61422d3d6929d8e819977dff73a7e8c9ceb718",
+        "documents_sha256": "3598b56c92d7a209019420891762cb763bc792a376a1a9b944684f295004535a",
+        "evaluation_sha256": "bbdcc66ff95c9749722a5bc1cf8f285e59c87e0e4f07a1dcc7afc4c416d57327",
+        "candidate_map_sha256": "04002101d6c9bc007088ee49c07ee6817a82b68f995dd3ed0e96ed4f957a55b1"
+      }
+    },
+    "coverage_gate": {
+      "source": "data/cpt_expanded_candidate_v1/coverage_status.json",
+      "source_sha256": "d8cc10b36ff47db73dd17d2446b40ab9c39eff96b8fb9b8bf507fdc9b0c92700",
+      "data": {
+        "ready_for_training": false,
+        "required": 6435,
+        "accepted": 0,
+        "reason": "Semantic full coverage has not been verified. Candidate corpus only; requires an explicitly authorized exploratory run.",
+        "corpus_manifest_sha256": "6ac1ac23aa34279c6d4311f00a73cb8e7410dd34d6d7786c3619c5cf25ccc519"
+      }
+    },
+    "retrieval_snapshot": {
+      "source": "outputs/cpt_expanded_coverage_v1/summary.json",
+      "source_sha256": "2ac770c0bde9869555a90f456692afb630c2047dd6bd0dfeff4bf193f22a51be",
+      "data": {
+        "required_priority_questions": 1353,
+        "by_task": {
+          "case": 1038,
+          "knowledge": 315
+        },
+        "datasets": [
+          "textbooks",
+          "statpearls"
+        ],
+        "source_snapshots": {
+          "textbooks": {
+            "indexed_files": 18,
+            "indexed_passages": 125847,
+            "inputs_sha256": "e96dbe556f2674c82a18782eb96172f0271ab886bb11126bb913f3d376167f73"
+          },
+          "statpearls": {
+            "indexed_files": 1,
+            "indexed_passages": 355180,
+            "inputs_sha256": "61468fe0192ee2f6ecd5c8af3413019ee4ca26695cacc47242ffdd870d85acec"
+          }
+        },
+        "questions_with_candidates": 1353,
+        "semantic_reviewed": 4,
+        "model_api_calls": 0,
+        "ready_for_training": false,
+        "note": "BM25 and local TF-IDF rank candidates only. Exact original excerpts, no generated prose. Full-coverage training requires semantic and token inclusion audits."
+      }
+    },
+    "initial_inventory": {
+      "source": "outputs/cpt_reuse_inventory_v1/summary.json",
+      "source_sha256": "f2d051cc6190adf162b0c0a05fcbeb0313a7eaf0d72f1e3ab041ef67b541eecf",
+      "data": {
+        "total_questions": 6435,
+        "model_api_calls": 0,
+        "gpu_training_started": false,
+        "actual_corpus_sha256": "9343dd102402cb49c5b5e764e683621ed9d3f3ea94132198c72359329897ef8d",
+        "reviewed_evidence_unique_ids": 322,
+        "skipped_review_records": {},
+        "reviewed_evidence_records": 332,
+        "standalone_reviewed_ids": 47,
+        "format_review_flag_ids": 6,
+        "reviewed_evidence_characters": 89432,
+        "existing_context_count": 953,
+        "existing_context_characters": 1324244,
+        "status_counts": {
+          "needs_further_local_review": 3554,
+          "strong_raw_source_candidate": 823,
+          "strong_actual_training_candidate": 1736,
+          "reviewed_evidence_available": 322
+        },
+        "by_task": {
+          "case": {
+            "strong_actual_training_candidate": 658,
+            "strong_raw_source_candidate": 358,
+            "needs_further_local_review": 1038,
+            "reviewed_evidence_available": 11
+          },
+          "context": {
+            "needs_further_local_review": 880,
+            "reviewed_evidence_available": 14,
+            "strong_actual_training_candidate": 40,
+            "strong_raw_source_candidate": 19
+          },
+          "knowledge": {
+            "strong_actual_training_candidate": 711,
+            "reviewed_evidence_available": 289,
+            "strong_raw_source_candidate": 178,
+            "needs_further_local_review": 315
+          },
+          "vqa": {
+            "needs_further_local_review": 1321,
+            "strong_raw_source_candidate": 268,
+            "strong_actual_training_candidate": 327,
+            "reviewed_evidence_available": 8
+          }
+        },
+        "by_split": {
+          "train": {
+            "needs_further_local_review": 3012,
+            "strong_raw_source_candidate": 656,
+            "strong_actual_training_candidate": 1484,
+            "reviewed_evidence_available": 266
+          },
+          "validation": {
+            "needs_further_local_review": 241,
+            "strong_actual_training_candidate": 130,
+            "strong_raw_source_candidate": 79,
+            "reviewed_evidence_available": 53
+          },
+          "test": {
+            "needs_further_local_review": 301,
+            "strong_actual_training_candidate": 122,
+            "strong_raw_source_candidate": 88,
+            "reviewed_evidence_available": 3
+          }
+        },
+        "retrieval_rule": "Weighted TF-IDF question .35, rationale .45, target .2; candidate score >=.18 and >=50% literal answer anchors. Heuristic only.",
+        "limitations": [
+          "No retrieval category proves all necessary facts are present or absent.",
+          "Reviewed rationale/probe evidence does not always have a standalone-prose audit.",
+          "Source evidence is not necessarily inside actual training tokens.",
+          "Context and VQA depend on supplied study/image; CPT text cannot establish visual learning.",
+          "Original questions/answers are retained only in audit output, not added to CPT.",
+          "Confirmed semantic gaps and final paid generation volume remain undetermined."
+        ]
+      }
+    },
+    "token_provenance": {
+      "source": "outputs/mechanism_diagnosis_20260908/cpt_source_provenance_totals.json",
+      "source_sha256": "0711a3eb306caec3f27b63e2dfd3d3675c31101a07144b67799e245573b1a48f",
+      "data": {
+        "all_used_tokens_by_origin": {
+          "existing_reviewed_prose": 16264,
+          "reviewed_textbook_excerpt": 324,
+          "existing_study_context": 320533,
+          "retrieved_textbooks": 390765,
+          "retrieved_statpearls": 626985,
+          "wikidoc": 5136102,
+          "pubmed": 455540,
+          "nice": 688331,
+          "cdc": 89824,
+          "cco": 15036,
+          "spor": 111348,
+          "cma": 108110,
+          "who": 41317,
+          "Salesforce/wikitext": 81023
+        },
+        "all_documents_by_origin": {
+          "existing_reviewed_prose": 209,
+          "reviewed_textbook_excerpt": 3,
+          "existing_study_context": 953,
+          "retrieved_textbooks": 2102,
+          "retrieved_statpearls": 3994,
+          "wikidoc": 6182,
+          "pubmed": 121,
+          "nice": 219,
+          "cdc": 30,
+          "cco": 7,
+          "spor": 32,
+          "cma": 43,
+          "who": 11,
+          "Salesforce/wikitext": 378
+        },
+        "background_documents": 6645,
+        "background_tokens": 6645608,
+        "background_original_sources": {
+          "wikidoc": 6182,
+          "pubmed": 121,
+          "nice": 219,
+          "cdc": 30,
+          "cco": 7,
+          "spor": 32,
+          "cma": 43,
+          "who": 11
+        }
+      }
+    },
+    "pubmed_download": {
+      "source": "data/cpt_sources_v1/pubmed_status.json",
+      "source_sha256": "17bad9364a01b216b6ca1d0988b8f24b5c22c9ce0b8d0db0abf57b665f2d2316",
+      "data": {
+        "dataset": "pubmed",
+        "state": "failed",
+        "completed_files": 651,
+        "completed_bytes": 28901457456,
+        "total_files": 1167,
+        "total_bytes": 70007695109,
+        "failed_path": "pubmed/chunk/pubmed23n0654.jsonl",
+        "error_type": "FileNotFoundError"
+      }
+    },
+    "pubmed_index": {
+      "source": "data/cpt_sources_v1/pubmed_index_status.json",
+      "source_sha256": "c221b43987ee23ad38b0cd39079038df5c944d0ed341c06fb83fda68af3bff9d",
+      "data": {
+        "dataset": "pubmed",
+        "indexed_files": 651,
+        "indexed_passages": 10870765,
+        "elapsed_seconds": 8144,
+        "download_state": "failed"
+      }
+    },
+    "full_source_mining": {
+      "source": "outputs/cpt_expanded_coverage_v1/full_source_mining_status.json",
+      "source_sha256": "a83f3ec270dcf26f046dd77bec3a54831a3c73af6158359a059b0f35a218f97c",
+      "data": {
+        "state": "failed",
+        "reason": "A source download failed."
+      }
+    }
+  },
+  "candidate_map_test_counts": {
+    "knowledge": {
+      "total": 150,
+      "with_candidate_map": 45
+    },
+    "case": {
+      "total": 162,
+      "with_candidate_map": 95
+    },
+    "context": {
+      "total": 97,
+      "with_candidate_map": 97
+    },
+    "vqa": {
+      "total": 105,
+      "with_candidate_map": 0
+    }
+  },
+  "target_questions": 6435,
+  "targets_by_split": {
+    "train": 5418,
+    "validation": 503,
+    "test": 514
+  },
+  "targets_by_task": {
+    "vqa": 1924,
+    "context": 953,
+    "case": 2065,
+    "knowledge": 1493
+  },
+  "retrieval_policy": {
+    "query_fields": [
+      "question",
+      "reasoning_content",
+      "target"
+    ],
+    "weights": [
+      0.35,
+      0.45,
+      0.2
+    ],
+    "compact_tfidf_candidates": 30,
+    "fts_candidates_per_query_per_source": 16,
+    "final_candidates_per_question": 5,
+    "fts_max_general_terms": 14,
+    "fts_max_answer_terms": 6,
+    "task_filter": [
+      "knowledge",
+      "case"
+    ],
+    "input_queue_questions": 1353,
+    "synonym_expansion": false,
+    "complete_document_recovery": false
+  },
+  "status": "Audit of existing artifacts; no new corpus, training, download, or semantic coverage certification."
+}

@@ -1,5 +1,7 @@
 # 2026-09-08 评测快照
 
+新增 [训练动机与错题拆解](../training-motivation-2026-09-08/README.md)：从312题、427个前提的原始回答和评分复算错题类别，区分知识持续答错、问法不稳和应用失败；附[CPT关键词选材核查与改进方案](../training-motivation-2026-09-08/cpt_data_construction.md)。该补充包单独提供文件哈希，不改写下面的历史快照。
+
 新增 [CPT+SFT 三项通用基准实测](../general-benchmarks-2026-09-08/README.md)：各 500 题，MMLU **61.2% → 59.0%**、ARC-Challenge **44.2% → 51.2%**、HellaSwag **65.8% → 67.4%**；提供配对区间、完整数据与离线复算。
 
 建议先读 [Agent 关键设计与测评方法](agent_improvements.md)，了解每项设计解决的问题、对照数据和测量方式；再读 [整体验收](agent_holdout.md) 与 [架构对照](architecture.md)。
