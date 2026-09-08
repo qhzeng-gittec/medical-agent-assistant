@@ -1,24 +1,28 @@
-# CPT+SFT 科学推理基准实测：ARC-Challenge 提升 7 个百分点
+# CPT+SFT 通用基准实测：MMLU、ARC-Challenge 与 HellaSwag
 
-在固定抽取的 **500 道 ARC-Challenge 科学选择题**上，Qwen3.5-2B 经过医学 CPT 与 Attention+FFN LoRA SFT 后，零样本、按答案字符长度归一化的候选似然准确率（`acc_norm`）由 **44.2% 提升至 51.2%**。同题配对提升 **7.0 个百分点**，95% bootstrap 区间为 **[+3.8, +10.2]**；三项预设主检验经 Holm 校正后，p = **0.000117**。
+对原始 Qwen3.5-2B 与医学 CPT + Attention+FFN LoRA SFT 模型，使用 **MMLU、ARC-Challenge、HellaSwag 各 500 道固定抽样题**进行同题对比，共 **1,500 道独立题、两组模型**。三项零样本候选似然主指标完整列于下表，分别覆盖跨学科知识、科学问答与日常常识续写。
 
-这个结果展示了医学领域适配后在 ARC-Challenge 科学问答基准上的得分提升。评测保留逐题分数、模型身份、冻结协议和离线复算入口。
+其中，ARC-Challenge 的 `acc_norm` 由 **44.2% 提升至 51.2%（+7.0 个百分点）**，配对 95% bootstrap 区间为 **[+3.8, +10.2]**。评测保留逐题分数、模型身份、冻结协议和离线复算入口。
 
-## 展示结果
+## 三项基准完整主结果
 
-| 指标 | 原始 Qwen3.5-2B | 医学 CPT+SFT |
-| --- | ---: | ---: |
-| ARC-Challenge 正确题数 | 221 / 500 | 256 / 500 |
-| ARC-Challenge `acc_norm` | 44.2% | **51.2%** |
-| 相对基线的准确率差 | — | **+7.0 个百分点** |
+| 基准与指标 | 原始 Qwen3.5-2B | 医学 CPT+SFT | 变化（百分点） | 配对 95% 区间 | Holm 校正 p |
+| --- | ---: | ---: | ---: | --- | ---: |
+| MMLU 子集 · `acc` | 306/500 · 61.2% | 295/500 · 59.0% | −2.2 | [−5.6, +1.4] | 0.400977 |
+| ARC-Challenge · `acc_norm` | 221/500 · 44.2% | 256/500 · **51.2%** | **+7.0** | **[+3.8, +10.2]** | **0.000117** |
+| HellaSwag · `acc_norm` | 329/500 · 65.8% | 337/500 · 67.4% | +1.6 | [−0.6, +3.8] | 0.400977 |
 
-配对变化与区间来自同一组题目；不是将两个独立抽样的分数相减。统计结果描述本次单训练种子、固定检查点的表现。
+变化按“CPT+SFT − 原始模型”计算。ARC-Challenge 的提升在三项主检验经 Holm 校正后仍达到统计显著；MMLU 与 HellaSwag 的差值区间包含 0。配对变化与区间来自同一组题目；统计结果描述本次单训练种子、固定检查点的表现。三个任务分别计分，不合成为一个总分。
 
 ## 数据与评测方式
 
-本页突出展示 ARC-Challenge。它来自 [Allen Institute for AI 的 ARC 数据集](https://huggingface.co/datasets/allenai/ai2_arc)，由科学考试选择题构成，覆盖科学知识与基础推理。本次使用 Challenge 的 test 划分，固定随机种子 `20260908`，抽取 500 道独立题目。
+| 数据集 | 考察内容 | 本次使用的划分与抽样 |
+| --- | --- | --- |
+| [MMLU](https://huggingface.co/datasets/cais/mmlu) | 数学、历史、法律、经济、计算机等跨学科知识与解题 | test；排除六个医学科目，在其余 51 个学科内按学科比例抽取 500 题 |
+| [ARC-Challenge](https://huggingface.co/datasets/allenai/ai2_arc) | 科学知识、因果关系与基础科学推理 | Challenge test；固定抽取 500 道科学考试选择题 |
+| [HellaSwag](https://huggingface.co/datasets/Rowan/hellaswag) | 日常活动常识与事件续写判断 | 有公开答案的 validation；固定抽取 500 题 |
 
-同次评测还固定抽取了 [MMLU](https://huggingface.co/datasets/cais/mmlu) 500 题和 [HellaSwag](https://huggingface.co/datasets/Rowan/hellaswag) 500 题，总计 **1,500 道独立题、两组模型**。MMLU 按学科比例抽样并排除六个医学科目；HellaSwag 使用有公开答案的 validation 划分。三个基准的全部预设指标和辅助聊天指标均在 [完整汇总表](comparison.csv) 与 [机器可读统计](results.json)中分别列出。
+抽样种子固定为 `20260908`，两组模型使用完全相同的题目和选项。三个基准的全部预设指标和辅助指标均在 [完整汇总表](comparison.csv) 与 [机器可读统计](results.json)中分别列出。
 
 ARC 主评分采用 `Question: …\nAnswer:` 提示，计算各候选答案完整 token 序列的条件对数概率，再除以候选答案的字符数，选取最高分答案。它是答案选择指标，不给推理过程打分；无需调用外部模型裁判。MMLU 使用选项字母的候选似然，HellaSwag 使用续写候选的长度归一化似然。
 
