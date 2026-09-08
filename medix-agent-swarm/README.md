@@ -67,4 +67,4 @@ python evals/campaign_run.py --output evals/results/my_run --repetition 1 --conc
 
 [关键设计报告](../results/2026-09-08/agent_improvements.md)逐项给出解决的问题、实测数据、对照条件与适用范围；[整体验收](../results/2026-09-08/agent_holdout.md)说明 72 个合成场景如何构造、逐轮检查和双评；[架构对照](../results/2026-09-08/architecture.md)分别报告子任务并行收益及完整流程代价。
 
-已测得固定子任务阶段耗时缩短 59.5%、Top 3 检索完整证据覆盖 39/40；完整多 Agent 流程尚未测出相对单 Agent 的提速或质量提升。组件测试、单场景观察和整体验收各自保留分母，原始轨迹与复算入口见 [结果索引](../results/2026-09-08/README.md)。
+固定子任务阶段实测耗时缩短 **59.5%**，Top 3 检索完整证据覆盖 **39/40**；完整流程的单/多 Agent 对照另外报告耗时、请求数与费用。组件测试、单场景观察和整体验收各自保留分母，原始轨迹与复算入口见 [结果索引](../results/2026-09-08/README.md)。
