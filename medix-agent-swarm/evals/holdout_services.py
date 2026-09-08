@@ -21,8 +21,8 @@ from campaign_rag import LocalRAG
 
 PROJECT = Path(__file__).resolve().parents[1]
 DATA = PROJECT / "evals/campaign_v1"
-MODELS = ["minimax/minimax-m2.5", "qwen/qwen3.5-27b", "gemini-3.5-flash"]
-GOOGLE_BASE = "https://generativelanguage.googleapis.com/v1beta/openai"
+MODELS = ["minimax/minimax-m2.5", "qwen/qwen3.5-27b", "gpt-5.5"]
+from codex_gateway import request as codex_request
 TARGET_ROLES = {"supervisor", "diagnostic_agent", "consultation_agent", "research_agent"}
 SERVICE_CONFIG = {
     "models": MODELS, "embedding_model": EMBED_MODEL, "temperature": 0.2,
@@ -59,11 +59,6 @@ class HoldoutGateway:
         self.root = Path(root)
         self.root.mkdir(parents=True, exist_ok=True)
         self.key = os.environ["OPENROUTER_API_KEY"]
-        self.google_key = os.environ["MEDIX_GEMINI_API_KEY"]
-        if os.environ.get("MEDIX_GEMINI_BASE_URL", "").rstrip("/") != GOOGLE_BASE:
-            raise ValueError("Unrecognized Google endpoint; no credential sent")
-        if os.environ.get("MEDIX_GEMINI_MODEL") != MODELS[2]:
-            raise ValueError("Configured Google model differs from frozen model")
         self.lock = threading.RLock()
         self.spent = 0.0
         self.halted = {}
@@ -82,14 +77,12 @@ class HoldoutGateway:
                                      if m["id"] in MODELS[:2] + [EMBED_MODEL]})
             if set(MODELS[:2] + [EMBED_MODEL]) - self.catalog.keys():
                 raise ValueError("An evaluation model is absent from the current official catalog")
-            self.catalog[MODELS[2]] = {"id": MODELS[2], "provider": "google_direct",
-                "pricing": {"prompt": "0.0000015", "completion": "0.000009"},
-                "cost_status": "estimated_standard_list_price_not_invoice",
-                "price_source": "https://ai.google.dev/gemini-api/docs/pricing"}
             dump(catalog_path, self.catalog)
+        self.catalog[MODELS[2]] = dict(id=MODELS[2],provider='codex_chatgpt',pricing={'prompt':'0','completion':'0'},cost_status='chatgpt_quota')
+        dump(catalog_path,self.catalog)
 
     def redact(self, text):
-        for key in (self.key, self.google_key, os.getenv("MEM0_API_KEY")):
+        for key in (self.key, os.getenv("MEM0_API_KEY")):
             if key:
                 text = str(text).replace(key, "[REDACTED]")
         return str(text)
@@ -100,17 +93,18 @@ class HoldoutGateway:
 
     def request(self, endpoint, payload, trace, role):
         model = payload["model"]
-        google = model == MODELS[2]
-        provider = "google_direct" if google else "openrouter"
+        if model == MODELS[2]:
+            if endpoint != "chat/completions":
+                raise ValueError("Codex does not provide embeddings")
+            return codex_request(self.root,payload,trace,role)
+        provider = "openrouter"
         if model not in self.catalog or endpoint not in {"embeddings", "chat/completions"}:
             raise ValueError("Request outside the frozen provider configuration")
-        if google and endpoint != "chat/completions":
-            raise ValueError("Google is not used for embeddings")
         halt_path = self.root / f"provider_halt_{provider}.json"
         if halt_path.exists():
             raise RuntimeError(f"{provider} has an unresolved authentication/credit halt")
-        url = (GOOGLE_BASE if google else "https://openrouter.ai/api/v1") + "/" + endpoint
-        key = self.google_key if google else self.key
+        url = "https://openrouter.ai/api/v1" + "/" + endpoint
+        key = self.key
         prices = self.catalog[model]["pricing"]
         for attempt in range(3):
             request_id = str(uuid.uuid4())
@@ -142,10 +136,8 @@ class HoldoutGateway:
                     cost_status = "provider_reported"
                 elif usage.get("prompt_tokens") is not None:
                     completion = usage.get("completion_tokens", 0)
-                    if google:
-                        completion = max(completion, usage.get("total_tokens", 0) - usage["prompt_tokens"])
                     cost = usage["prompt_tokens"] * float(prices["prompt"]) + completion * float(prices.get("completion", 0))
-                    cost_status = "estimated_standard_list_price_not_invoice" if google else "estimated_from_usage_and_catalog"
+                    cost_status = "estimated_from_usage_and_catalog"
                 else:
                     cost, cost_status = 0.0, "unknown_not_zero_cost"
                 event.update(status="ok", cost_usd=cost, cost_status=cost_status,

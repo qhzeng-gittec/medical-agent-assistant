@@ -57,7 +57,7 @@ def run(root, args):
     config = dict(data_sha256=hashlib.sha256(data_path.read_bytes()).hexdigest(),
         profile_definitions={name:PROFILES[name] for name in args.profiles}, selected_ids={t:[r['source_id'] for r in rows] for t,rows in selected.items()},
         generation_seed_policy='reuse each original sample_seed', image_max_edge=768, gpu_memory_fraction=.8,
-        judge_model='gpt-5.6-sol', source_url='https://huggingface.co/Qwen/Qwen3.5-2B',
+        judge_model='gpt-5.5', source_url='https://huggingface.co/Qwen/Qwen3.5-2B',
         sampling_profiles={str((thinking,image)):qwen_sampling_parameters(thinking,image) for thinking in (True,False) for image in (True,False)})
     if any(PROFILES[name].get('stop_repetition') for name in args.profiles):
         config['repetition_stop'] = dict(min_tokens=512, check_every=64, window_tokens=2048,

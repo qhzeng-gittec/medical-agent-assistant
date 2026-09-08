@@ -11,13 +11,13 @@ from pathlib import Path
 from loguru import logger
 
 from campaign_gateway import Gateway, MODELS, dump, sha
-from campaign_gemini_memory import GoogleGateway, MODEL as GOOGLE_MODEL, ROOT as PREVIOUS_GOOGLE
+from campaign_gemini_memory import CodexGateway, MODEL as CODEX_MODEL
 from campaign_grade import protocol_checks
 from campaign_rag import LocalRAG
 from campaign_run import DATA, OUTPUT, PROJECT, build_system, trace_metrics
 
 
-ROOT = OUTPUT.parent / "improvement_v2"
+ROOT = OUTPUT.parent / "improvement_codex_v2"
 CASES = Path(__file__).with_name("improvement_cases.json")
 
 
@@ -25,16 +25,9 @@ def read(path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-class ComparisonGoogle(GoogleGateway):
+class ComparisonCodex(CodexGateway):
     def __init__(self, embeddings):
         super().__init__(ROOT, embedding_gateway=embeddings, max_requests=120)
-        latest = {}
-        for line in (PREVIOUS_GOOGLE / "google_api_ledger.jsonl").read_text(encoding="utf-8").splitlines():
-            row = json.loads(line)
-            latest[row["request_id"]] = row
-        if any(r["status"] == "started" for r in latest.values()):
-            raise RuntimeError("Previous Google experiment has unresolved requests")
-        self.spent += sum(r["charged_or_reserved_usd"] for r in latest.values())
 
 
 class ControlledMemory:
@@ -114,7 +107,7 @@ async def run(gateway, model, case, variant):
                           "seconds": time.monotonic() - turn_started})
         record.update(status="completed", storage_checks=storage_checks(case, turns))
     except Exception as error:
-        record.update(status="error", error=f"{type(error).__name__}: {error}".replace(gateway.key, "[REDACTED]"))
+        record.update(status="error", error=f"{type(error).__name__}: {error}")
         raise
     finally:
         record.update(seconds=time.monotonic() - started, metrics=trace_metrics(trace), protocol=protocol_checks(trace))
@@ -127,7 +120,7 @@ async def run(gateway, model, case, variant):
 def report():
     rows = [read(p) for p in sorted((ROOT / "runs").glob("*.json"))]
     groups = []
-    for model in MODELS[:2] + [GOOGLE_MODEL]:
+    for model in MODELS[:2] + [CODEX_MODEL]:
         for variant in ("baseline", "candidate"):
             selected = [r for r in rows if r["model"] == model and r["variant"] == variant]
             done = [r for r in selected if r["status"] == "completed"]
@@ -165,13 +158,13 @@ async def main(args):
                 "sources": {str(p.relative_to(selected_root)): sha(p) for p in sources},
                 "corpus_sha256": sha(DATA / "corpus.jsonl"), "temperature": .2, "max_tokens": 2048,
                 "memory": "controlled record pool, bounded by requested limit; no cloud writes",
-                "single_sample_per_case": True, "google_total_cap_usd": 1, "openrouter_total_cap_usd": 4}
+                "single_sample_per_case": True, "codex_max_requests": 120, "openrouter_total_cap_usd": 4}
     protocol_path = ROOT / f"protocol_{args.variant}.json"
     if protocol_path.exists() and read(protocol_path) != protocol:
         raise ValueError("Frozen product or dataset changed during comparison")
     dump(protocol_path, protocol)
     embeddings = Gateway(OUTPUT, limit=4)
-    gateway = ComparisonGoogle(embeddings) if args.model == GOOGLE_MODEL else embeddings
+    gateway = ComparisonCodex(embeddings) if args.model == CODEX_MODEL else embeddings
     try:
         for case in read(CASES)["cases"]:
             await run(gateway, args.model, case, args.variant)
@@ -182,6 +175,6 @@ async def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--variant", choices=["baseline", "candidate"], default="candidate")
-    parser.add_argument("--model", choices=MODELS[:2] + [GOOGLE_MODEL], default=GOOGLE_MODEL)
+    parser.add_argument("--model", choices=MODELS[:2] + [CODEX_MODEL], default=CODEX_MODEL)
     parser.add_argument("--report-only", action="store_true")
     asyncio.run(main(parser.parse_args()))

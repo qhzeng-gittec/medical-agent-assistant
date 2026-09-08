@@ -78,7 +78,9 @@ python -m examples.inference_chain --stage sft_only --question "What is the purp
 
 新增入口包括 `python -m training.train_cpt_rl_rounds`、`python -m experiments.run_cpt_coverage_experiment` 和 `python -m data_processing.prepare_cpt_expanded_candidate`。它们依赖已准备的 CPT 语料、训练数据、协议及上游适配器；完整 CPT 语料没有随此模型包发布。可选 Windows FLA/Triton 加速内核没有打包，默认使用普通 PyTorch 路径，只有自行准备对应环境后才设置 `MEDICAL_CPT_FAST_KERNELS=1`。
 
-新评分桥接器使用 Node.js 20+ 和环境变量 `GEMINI_API_KEY`，可设置 `GEMINI_BASE_URL`；无需另一私有项目的配置。接口遵循 [Google 的 OpenAI 兼容说明](https://ai.google.dev/gemini-api/docs/openai)。模型 ID 保留原实验值，实际可访问性由服务商决定；发布检查使用本地模拟服务，没有重新调用付费评审。历史分数来自原实验传输层，不能宣称修改后的桥接器已通过线上等价性验收。
+当前通用标注与 RL 评分入口使用已通过 ChatGPT 账号登录的 **Codex CLI / GPT-5.5**。`common/medical_teacher.py` 统一提交结构化输出请求，`common/codex_judge.py` 和 `common/codex_judge_transport.py` 保存请求、输出、调用事件及用量，`evaluation/rl_codex_judge.py` 为 RL 提供评分与调用预算管理。新评分缓存使用独立的模型命名空间。运行这些入口会使用已登录账号的额度；本次代码验证使用模拟调用，冻结成绩对应各报告中的原始运行。
+
+历史 Gemini 评审对照入口 `compare_gemini_judge.py`、`optimize_gemini_judge.py`、`iterate_gemini_judge.py` 保留原来的模型、输出目录与汇总字段，对应原始报告。这些入口通过 `gemini_judge_bridge.mjs` 调用 Gemini，需要 Node.js 20+ 和 `GEMINI_API_KEY`，可用 `GEMINI_BASE_URL` 配置兼容地址；历史分数按原始模型标签保留。
 
 新 600 题语义评分依赖此前选定的 round2 协议和本地评测输入，当前结果尚未完整评分。相关测试将真实数据/本地 tokenizer 检查与合成输入的单元测试分开，缺少前者时明确跳过。
 

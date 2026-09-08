@@ -1,4 +1,4 @@
-"""Five on-policy medical GSPO rounds, Gemini rewards, and frozen validation monitoring."""
+"""Five on-policy medical GSPO rounds, GPT-5.5 rewards, and frozen validation monitoring."""
 import argparse
 import csv
 import hashlib
@@ -25,7 +25,7 @@ from transformers import AutoProcessor, Qwen3_5ForConditionalGeneration
 from common.io import load_jsonl, save_jsonl
 from data_processing.download_cpt_sources import save
 from common.native_reasoning import SYSTEM_PROMPT, parse_completion
-from evaluation.rl_gemini_judge import GeminiJudge, MODEL, RUBRIC, digest
+from evaluation.rl_codex_judge import CodexJudge, MODEL, RUBRIC, digest
 from training.cpt import TARGETS
 from training.gspo import format_score, policy_loss, trim_completion
 
@@ -76,7 +76,7 @@ def prepare(prompts=64):
         optimizer='AdamW, no weight decay, clip gradient norm to 1; optimizer retained across rounds',
         initialization='Original base -> merge CPT -> merge attention-only SFT -> fresh attention+FFN RL LoRA',
         reference_policy='Frozen merged CPT+SFT, accessed by disabling only the new RL adapter',
-        reward='.9 * min(Gemini answer_score, reasoning_score)/2 + .1 * complete native format',
+        reward='.9 * min(GPT-5.5 answer_score, reasoning_score)/2 + .1 * complete native format',
         invalid_reference='Zero advantage for that training group; report invalid validation judgments in the fixed denominator',
         judge_model=MODEL, judge_rubric_sha256=digest(RUBRIC), judge_workers=2,
         max_judge_calls=5*prompts+6*60+1, planned_judge_calls=5*prompts+6*60,
@@ -89,7 +89,7 @@ def prepare(prompts=64):
                    'training reward and pass-at-4','zero-advantage groups','sampled KL to SFT','nonzero gradient updates'],
         limitations=['Semantic CPT coverage remains unverified.',
                      'Validation knowledge was intentionally exposed to CPT; validation questions are excluded from RL updates.',
-                     'Gemini provides a proxy reward and metric, not clinician ground truth; reward hacking remains possible.',
+                     'GPT-5.5 provides a proxy reward and metric, not clinician ground truth; reward hacking remains possible.',
                      'No no-CPT RL arm: improvement cannot be attributed uniquely to knowledge acquired in CPT.',
                      'Five rounds revisit the same training questions with fresh on-policy samples. No adaptive test-set selection.',
                      'This bounded pilot measures knowledge and cases, not image perception or research-context retention.']))
@@ -237,6 +237,8 @@ def run():
     plan = read(ROOT/'plan.json')
     if (ROOT/'training_complete.json').exists():
         return
+    if plan['judge_model'] != MODEL:
+        raise ValueError('Cannot resume historical rewards with a different judge; use --output-root for a new GPT-5.5 run.')
     for name in ['train','validation']:
         assert sha(ROOT/f'{name}.jsonl') == plan[name+'_sha256']
         assert sha(DATA/f'{name}.jsonl') == plan['source_'+name+'_sha256']
@@ -274,7 +276,7 @@ def run():
         torch.set_rng_state(state['rng']); torch.cuda.set_rng_state(state['cuda_rng'])
         assert {int(v['step']) for v in optimizer.state.values()} == {len(steps)}
     train=load_jsonl(ROOT/'train.jsonl'); validation=load_jsonl(ROOT/'validation.jsonl')
-    judge=GeminiJudge(ROOT/'judge',plan['max_judge_calls'])
+    judge=CodexJudge(ROOT/'judge',plan['max_judge_calls'])
     if not (ROOT/'round_0_metrics.json').exists():
         assert not checkpoint
         save(ROOT/'status.json',dict(stage='rl_validation',state='running',round=0,updates=0,worker_pid=os.getpid()))
@@ -376,7 +378,9 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser()
     parser.add_argument('stage',choices=['prepare','run'])
     parser.add_argument('--prompts',type=int,choices=[64,128],default=64)
+    parser.add_argument('--output-root',type=Path,default=ROOT)
     args=parser.parse_args()
+    ROOT=args.output_root
     if args.stage=='prepare':
         prepare(args.prompts)
     else:

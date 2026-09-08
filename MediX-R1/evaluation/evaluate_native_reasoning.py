@@ -125,7 +125,7 @@ def main() -> None:
     parser.add_argument("--image-max-edge", type=int, help="Must match adapter training; for the base model use the same setting as the comparison runs.")
     parser.add_argument("--gpu-memory-fraction", type=float, default=1.0)
     parser.add_argument("--limit-per-task", type=int, default=20, help="Random samples per task; 0 evaluates the complete split.")
-    parser.add_argument("--judge-model", default="gpt-5.6-sol")
+    parser.add_argument("--judge-model", default="gpt-5.5")
     parser.add_argument("--decoding", choices=("sample", "greedy"), default="sample")
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--reasoning-budget", type=int, help="Maximum thinking tokens; default reserves 256 tokens for the final response.")

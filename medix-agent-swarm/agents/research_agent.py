@@ -8,7 +8,6 @@ ResearchAgent：医学文献检索和证据支持 Agent
 - 提供文献来源和证据等级
 """
 from typing import Dict, Any, Optional
-from loguru import logger
 
 from .base_agent import BaseAgent
 from .skill_registry_mixin import SkillRegistryMixin
@@ -83,10 +82,11 @@ class ResearchAgent(BaseAgent, SkillRegistryMixin):
 
 **Skills 使用策略**：
 - 按分派任务和证据缺口选择工具，已有结果足够时直接交付
+- 检索或来源核验任务必须基于实际取得的资料完成；仅在已有可追溯资料满足本次要求且无需更新时复用，不能用自身知识代替检索并声称已核验
 - 需要最新信息或复杂问题时使用 `deep_research`
 - 可以结合其他 Skills（如 `search_knowledge`）补充信息
 - 先阅读自己本次循环已有的检索结果；只在证据缺口不同时发起新检索
-- 综合多个信息来源，提供证据等级
+- 将结论对应到实际取得的来源及其支持范围；链接、年份和证据等级仅在资料明确提供时引用，缺失则说明，不为填满输出格式补造
 
 **Supervisor 协作模式**：
 - 你接收原始病例事实和已有诊断发现，但要独立核验证据，避免锚定偏差
@@ -114,38 +114,8 @@ class ResearchAgent(BaseAgent, SkillRegistryMixin):
 - 避免过度解读有限的证据
 - 提醒循证医学证据的适用范围
 - 只交付最终结论、来源与局限性，不复述query、原始文档正文和检索步骤
+- 工具调用通过工具接口执行，不把调用文本当作研究结果；工具失败、无相关结果或证据不足时，明确交付未解决的缺口，不声称完成核验
 """
-
-    async def post_process_result(
-        self,
-        result: Dict[str, Any],
-        final_response: str
-    ) -> Dict[str, Any]:
-        """
-        结果后处理：提取文献引用和证据等级
-
-        这里可以添加更复杂的解析逻辑
-        """
-        # 尝试识别证据等级
-        evidence_level = "unknown"
-        if "A级" in final_response or "A 级" in final_response:
-            evidence_level = "A"
-        elif "B级" in final_response or "B 级" in final_response:
-            evidence_level = "B"
-        elif "C级" in final_response or "C 级" in final_response:
-            evidence_level = "C"
-
-        # 统计文献数量
-        literature_count = final_response.count("文献")
-
-        result.update({
-            "evidence_level": evidence_level,
-            "literature_count": literature_count,
-            "evidence_provided": True
-        })
-
-        return result
-
 
 
 # 便捷函数

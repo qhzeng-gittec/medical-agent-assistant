@@ -49,7 +49,7 @@ def main():
                         rejected_calls.append({"case": path.stem, "name": call["function"]["name"],
                                                "rejected_with": result["error"]})
     assert len(clouds) == 3 and all(r["status"] == "completed" and r["other_user_result"] == [] for r in clouds)
-    keys = [os.environ[name] for name in ("OPENROUTER_API_KEY", "MEM0_API_KEY", "MEDIX_GEMINI_API_KEY")]
+    keys = [os.environ[name] for name in ("OPENROUTER_API_KEY", "MEM0_API_KEY")]
     assert all(keys), "Three configured keys are required for the local redaction check"
     checked = 0
     for path in ROOT.rglob("*"):

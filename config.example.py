@@ -11,7 +11,11 @@ LLM_CONFIG = {
 }
 
 MEM0_CONFIG = {
-    "api_key": os.getenv("MEM0_API_KEY", ""),
     "app_id": "medix-agent-swarm",
+    "storage_path": ".mem0",
+    "llm_model": "qwen/qwen3.5-27b",
+    "embedding_model": "qwen/qwen3-embedding-8b",
+    "embedding_dims": 4096,
     "threshold": 0.3,
 }
+# Optional local memory reads OPENROUTER_API_KEY; MEM0_LOCAL_PATH overrides storage_path.

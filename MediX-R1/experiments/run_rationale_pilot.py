@@ -6,7 +6,7 @@ import statistics
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-from common.io import load_jsonl, save_jsonl, save
+from common.io import load_jsonl, save_jsonl
 from evaluation.llm_judge import judge_responses, summarize_judgments
 from common.medical_teacher import call_teacher
 
@@ -14,7 +14,7 @@ from common.medical_teacher import call_teacher
 LAB = Path(__file__).resolve().parents[1]
 DATA = LAB / 'data/rationale_pilot_v1'
 ROOT = LAB / 'outputs/rationale_pilot_v1'
-MODEL = 'gpt-5.6-sol'
+MODEL = 'gpt-5.5'
 NAMES = ('unchanged_C', 'original', 'structured')
 DIAGNOSTIC_SCHEMA = {
     'type': 'object', 'additionalProperties': False, 'required': ['judgments'],
@@ -24,6 +24,13 @@ DIAGNOSTIC_SCHEMA = {
         'properties': {'id': {'type': 'string'}, 'explanation': {'type': 'string'},
                        **{key: {'type': ['boolean', 'null']} for key in
                           ('final_answer_correct', 'reasoning_fact_error', 'reasoning_answer_contradiction')}}}}}}
+
+
+def save(path, value):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + '.tmp')
+    temporary.write_text(json.dumps(value, ensure_ascii=False, indent=2), encoding='utf-8')
+    temporary.replace(path)
 
 
 def generate_arm(name, data_dir=DATA, output_root=ROOT):

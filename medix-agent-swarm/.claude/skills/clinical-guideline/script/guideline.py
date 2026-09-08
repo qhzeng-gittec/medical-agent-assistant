@@ -39,7 +39,7 @@ async def clinical_guideline(query: str, max_results: int = 1) -> Dict[str, Any]
 
     # 使用 Milvus 检索临床指南
     results = kb.search(
-        query=f"{query} 临床指南 诊疗规范",
+        query=query,
         top_k=max_results,  # 使用传入的 max_results 参数
         filter_type="clinical_guideline"
     )

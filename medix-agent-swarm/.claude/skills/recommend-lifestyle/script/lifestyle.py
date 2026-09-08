@@ -38,7 +38,7 @@ async def recommend_lifestyle(diagnosis: str) -> Dict[str, Any]:
 
     # 从 Milvus 检索生活方式建议
     results = kb.search(
-        query=f"{diagnosis} 生活方式建议 饮食 运动 用药",
+        query=diagnosis,
         top_k=3,
         filter_type="lifestyle"
     )

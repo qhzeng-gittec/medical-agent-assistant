@@ -38,7 +38,7 @@ async def disease_code(disease_name: str) -> Dict[str, Any]:
 
     # 使用 Milvus 检索疾病编码
     results = kb.search(
-        query=f"{disease_name} ICD-10编码 疾病分类",
+        query=disease_name,
         top_k=1,
         filter_type="disease_classification"
     )

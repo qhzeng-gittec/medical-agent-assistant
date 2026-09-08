@@ -19,7 +19,14 @@ python medix-agent-swarm/main.py
 
 Linux/macOS 使用 `source .venv/bin/activate`、`cp config.example.py config.py` 和 `export` 设置相同环境变量。
 
-`config.py` 已被 Git 忽略。Mem0 通过可选 `MEM0_API_KEY` 配置，未配置时不启用远端记忆。
+`config.py` 已被 Git 忽略。可选长期记忆使用 Mem0 OSS 和本地 Qdrant，通过 `OPENROUTER_API_KEY` 调用 Qwen3.5-27B 抽取及 Qwen3-Embedding-8B 嵌入；未配置该变量时不启用长期记忆。数据库默认保存在 `medix-agent-swarm/.mem0/`，可用 `MEM0_LOCAL_PATH` 指定其他目录。
+
+```powershell
+$env:OPENROUTER_API_KEY = "你的 OpenRouter API key"
+python medix-agent-swarm/main.py
+```
+
+记忆按用户和应用隔离，跨会话检索保留来源与时间；入口在请求结束时关闭存储连接。数据保存在本机，抽取和嵌入请求会发送到配置的 API。
 
 ## 知识库
 
@@ -53,7 +60,7 @@ python medix-agent-swarm/evals/run_components.py
 python evals/campaign_run.py --output evals/results/my_run --repetition 1 --concurrency 1
 ```
 
-这会调用付费外部 API。运行器里的模型 ID 是实验配置，使用前确认账号可访问。`campaign_resume.py`、`campaign_report.py` 等保留原实验的恢复和汇总逻辑，含固定批次选择，不能直接当作任意新实验的通用报告生成器。
+当前整体验收运行器使用 MiniMax M2.5、Qwen3.5-27B 和 GPT-5.5。前两者与嵌入通过 OpenRouter 调用，GPT-5.5 通过本机已登录 ChatGPT 账号的 Codex CLI 调用，需要 `codex` 在 PATH 中可用。调用记录区分 API 费用与 ChatGPT 账号额度。`campaign_resume.py`、`campaign_report.py` 等保留原实验的恢复和汇总逻辑，含固定批次选择；新评测使用新的输出目录。已发布报告中的历史模型与数据按各自冻结协议保留。
 
 关键设计的数据与测量方式见 [Agent 测评报告](../results/2026-09-08/agent_improvements.md)，完整场景验收见 [测评方法与评分表](../results/2026-09-08/agent_holdout.md)。运行器将新实验的轨迹和评分保存到指定输出目录。
 
@@ -67,4 +74,6 @@ python evals/campaign_run.py --output evals/results/my_run --repetition 1 --conc
 
 [关键设计报告](../results/2026-09-08/agent_improvements.md)逐项给出解决的问题、实测数据、对照条件与适用范围；[整体验收](../results/2026-09-08/agent_holdout.md)说明 72 个合成场景如何构造、逐轮检查和双评；[架构对照](../results/2026-09-08/architecture.md)分别报告子任务并行收益及完整流程代价。
 
-固定子任务阶段实测耗时缩短 **59.5%**，Top 3 检索完整证据覆盖 **39/40**；完整流程的单/多 Agent 对照另外报告耗时、请求数与费用。组件测试、单场景观察和整体验收各自保留分母，原始轨迹与复算入口见 [结果索引](../results/2026-09-08/README.md)。
+新增 [RAG / Mem0 独立组件测评](../results/component-benchmark-2026-09-08/README.md)：RAG 在 1,016 篇语料、400 条查询上测试，冻结测试集 Top 1 → Top 3 的完整目标来源覆盖为 **183/272 → 249/272**；Mem0 在 120 个场景上测试，测试集 Top 3 → Top 10 的全部事实支持为 **176/192 → 184/192**。数据、脚本和原始记录均可直接下载。
+
+当前总控结合完整语义选择分派与并行顺序，症状工具返回候选证据，专业 Agent 负责分析并交付实际来源。执行层校验工具可用性、用户作用域和调用预算。既有固定子任务并行对照记录 **59.5%** 的耗时缩短，原始配置与记录见 [结果索引](../results/2026-09-08/README.md)。

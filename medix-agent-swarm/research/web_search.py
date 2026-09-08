@@ -95,9 +95,6 @@ class WebSearchTool:
             try:
                 logger.info(f"Web searching (attempt {attempt + 1}): {query} (max_results={max_results})")
 
-                # 在查询中添加医学相关关键词，提高结果相关性
-                enhanced_query = f"{query} 医学" if "医学" not in query else query
-
                 # 使用 DDGS 搜索（参考 shanglv：多后端尝试，不使用上下文管理器）
                 results = []
                 search_results = []
@@ -107,7 +104,7 @@ class WebSearchTool:
                     try:
                         ddgs = DDGS()
                         raw = ddgs.text(
-                            enhanced_query,
+                            query,
                             max_results=max_results * 2,  # 获取更多结果用于过滤
                             safesearch=safesearch,
                             region=region,

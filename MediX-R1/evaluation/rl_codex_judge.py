@@ -1,9 +1,9 @@
-"""Budgeted, cached Gemini judgments for multi-round medical RL."""
+"""Budgeted, cached Codex GPT-5.5 judgments for multi-round medical RL."""
 import copy
 import hashlib
 import json
 import re
-import subprocess
+from common.codex_judge import MODEL, judge_request
 import threading
 from pathlib import Path
 
@@ -11,7 +11,6 @@ from experiments.diagnose_reasoning_effects import FLAGS, RUBRIC, SCORE_SCHEMA
 from data_processing.download_cpt_sources import save
 
 LAB = Path(__file__).resolve().parents[1]
-MODEL = 'gemini-3.5-flash'
 
 
 def digest(value):
@@ -20,7 +19,7 @@ def digest(value):
 
 def parse_judgment(raw, expected):
     if raw['requested_model'] != MODEL or raw['finish_reason'] != 'stop':
-        raise ValueError('Gemini model mismatch or truncated judgment; cached raw response retained.')
+        raise ValueError('Codex model mismatch or truncated judgment; cached raw response retained.')
     visible = raw['message']['content'].strip()
     while visible.startswith('<thought>'):
         _, separator, visible = visible.partition('</thought>')
@@ -44,9 +43,9 @@ def parse_judgment(raw, expected):
     return result
 
 
-class GeminiJudge:
+class CodexJudge:
     def __init__(self, root, max_calls):
-        self.root, self.max_calls = Path(root), max_calls
+        self.root, self.max_calls = Path(root)/'codex_gpt55', max_calls
         self.lock = threading.Lock()
         for name in ['requests', 'attempts', 'calls']:
             (self.root/name).mkdir(parents=True, exist_ok=True)
@@ -73,21 +72,15 @@ class GeminiJudge:
             if not call.exists():
                 attempt = self.root/'attempts'/f'{key}.json'
                 if attempt.exists():
-                    raise RuntimeError('Unresolved prior Gemini attempt; inspect it before any retry to avoid duplicate billing.')
+                    raise RuntimeError('Unresolved prior Codex attempt; inspect it before retrying.')
                 if len(list((self.root/'attempts').glob('*.json'))) >= self.max_calls:
-                    raise RuntimeError('Frozen Gemini request budget exhausted.')
+                    raise RuntimeError('Frozen Codex request budget exhausted.')
                 save(self.root/'requests'/f'{key}.json', request)
                 save(attempt, dict(state='submitted', source_id=row['source_id']))
         if call.exists():
             raw = json.loads(call.read_text(encoding='utf-8'))
         else:
-            process = subprocess.run(['node', str(LAB/'gemini_judge_bridge.mjs')],
-                input=json.dumps(request, ensure_ascii=False), capture_output=True, text=True,
-                encoding='utf-8', timeout=120)
-            if process.returncode:
-                save(self.root/'attempts'/f'{key}.json', dict(state='failed', error=process.stderr[-2000:]))
-                raise RuntimeError(f'Gemini bridge failed; inspect attempt {key}.')
-            raw = json.loads(process.stdout)
+            raw = judge_request(request, self.root/'structured'/f'{key}.json')
             save(call, raw)
             save(self.root/'attempts'/f'{key}.json', dict(state='response_saved', source_id=row['source_id']))
         recovery = self.root/'recoveries'/f'{key}.json'

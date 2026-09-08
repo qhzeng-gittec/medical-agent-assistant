@@ -5,7 +5,7 @@ from pathlib import Path
 from common.io import load_jsonl, save_jsonl
 from common.medical_teacher import call_teacher
 from data_processing.prepare_rationale_v2 import schema
-from common.io import save
+from experiments.run_rationale_pilot import save
 
 LAB = Path(__file__).resolve().parents[1]
 DATA = LAB / 'data/knowledge_atomic_v1'
@@ -33,7 +33,7 @@ def main():
     audit_schema = schema({'valid': {'type':'boolean'}, 'explanation': {'type':'string'}})
     path = DATA / 'audit.json'
     path.with_suffix('.prompt.txt').write_text(prompt, encoding='utf-8')
-    result = json.loads(path.read_text(encoding='utf-8')) if path.exists() else call_teacher(prompt, [], audit_schema, path, 'gpt-5.6-sol')
+    result = json.loads(path.read_text(encoding='utf-8')) if path.exists() else call_teacher(prompt, [], audit_schema, path, 'gpt-5.5')
     checks = {r['id']:r for r in result['items']}
     assert len(checks) == len(rows) and set(checks) == {r['source_id'] for r in rows}
     accepted = [r for r in rows if checks[r['source_id']]['valid']]

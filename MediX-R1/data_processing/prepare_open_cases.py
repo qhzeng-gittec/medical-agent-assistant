@@ -90,7 +90,7 @@ def convert_batch(items: list[dict], output: Path, model: str) -> list[dict]:
 def main():
     parser = argparse.ArgumentParser(description="Convert accepted cases to questions that do not expose answer choices.")
     parser.add_argument("--output-dir", type=Path, default=DATA_DIR / "open_cases")
-    parser.add_argument("--model", default="gpt-5.6-sol")
+    parser.add_argument("--model", default="gpt-5.5")
     parser.add_argument("--workers", type=int, default=6)
     parser.add_argument("--batch-size", type=int, default=32)
     parser.add_argument("--limit-batches", type=int, default=0)

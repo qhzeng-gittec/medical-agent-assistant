@@ -64,16 +64,9 @@ class SingleAgent(MedicalSupervisorAgent):
             '不存在可委派的子Agent。你可使用全部专业工具；检查来源适用性，不虚构来源或评级。'
             '按任务需要选择工具，不必机械遍历；已有资料足够时直接完成。')
 
-    def _initial_messages(self, question, context, required_agents):
-        return [{'role': 'system', 'content': self.get_system_prompt()},
-                {'role': 'user', 'content': json.dumps({'question': question, 'context': context,
-                 'risk_assessment_required': bool(required_agents)}, ensure_ascii=False)}]
-
-    def _available_tools(self, round_number, force_diagnostic, user_id=None):
+    def _available_tools(self, round_number, user_id=None):
         if round_number == 1:
             self.raw_calls = 0
-        if round_number == 1 and force_diagnostic:
-            return [t for t in self.raw_tools if t['function']['name'] == 'assess_risk']
         return (self.raw_tools if self.raw_calls < 24 else []) + ([PROFILE_UPDATE_TOOL] if user_id else [])
 
     async def _execute_calls(self, calls, question, context, prior_records, round_number,

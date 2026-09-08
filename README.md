@@ -17,6 +17,8 @@
 
 项目包含两条可独立运行的工程链路：通过 OpenAI 兼容 API 驱动的医疗 Agent，以及 Qwen3.5-2B 的 LoRA 训练与推理。
 
+**当前实现：** Supervisor 结合完整语义和任务依赖决定分派、并行与补查；专业 Agent 返回实际证据，执行层约束工具调用和用户范围。跨会话记忆采用 **Mem0 OSS + 本地 Qdrant / SQLite**，由 Qwen3.5-27B 抽取事实、Qwen3-Embedding-8B 生成向量。当前标注与自动评审入口已接入 **GPT-5.5 / Codex CLI**；下方冻结测评按原始记录标注模型和参数，便于复算对照。
+
 ```mermaid
 flowchart LR
     User[用户] --> Supervisor[MedicalSupervisorAgent]

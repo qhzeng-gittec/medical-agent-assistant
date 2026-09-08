@@ -2,6 +2,9 @@ import asyncio
 import json
 import sys
 from pathlib import Path
+from unittest.mock import AsyncMock, Mock
+
+import pytest
 
 
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -11,6 +14,22 @@ from agents import ConsultationAgent, DiagnosticAgent, ResearchAgent
 from core import LLMResponse, SkillParameter, SkillRegistry, ToolCall
 from memory import LongTermMemoryError
 from swarm.supervisor_agent import MedicalSupervisorAgent
+
+
+@pytest.mark.parametrize("fail", [False, True])
+def test_public_entrypoint_releases_local_memory_after_each_request(monkeypatch, fail):
+    from swarm import supervisor_agent
+    instance = Mock()
+    instance.process = AsyncMock(return_value={"answer": "done"})
+    if fail:
+        instance.process.side_effect = RuntimeError("processing failed")
+    monkeypatch.setattr(supervisor_agent, "MedicalSupervisorAgent", lambda: instance)
+    if fail:
+        with pytest.raises(RuntimeError, match="processing failed"):
+            asyncio.run(supervisor_agent.process_medical_question("question"))
+    else:
+        assert asyncio.run(supervisor_agent.process_medical_question("question")) == {"answer": "done"}
+    instance.long_term_memory.close.assert_called_once_with()
 
 
 class ScriptedLLM:
@@ -172,8 +191,8 @@ def test_diagnostic_first_then_parallel_workers():
     ))
 
     first_tool_names = [tool["function"]["name"] for tool in llm.calls[0]["tools"]]
-    assert first_tool_names == ["call_diagnostic_agent"]
-    assert llm.calls[0]["tool_choice"] == "required"
+    assert set(first_tool_names) == set(workers) | {"update_patient_profile", "search_patient_history"}
+    assert llm.calls[0]["tool_choice"] == "auto"
     assert [item["agent_id"] for item in result["call_trace"]] == [
         "diagnostic_agent",
         "consultation_agent",
@@ -184,6 +203,8 @@ def test_diagnostic_first_then_parallel_workers():
     assert result["subtasks_completed"] == 3
     assert consultation.inputs[0]["context"]["prior_agent_findings"][0]["agent"] == "diagnostic_agent"
     assert research.inputs[0]["context"]["original_question"].startswith("我胸痛")
+    assert [item["agent"] for item in consultation.inputs[0]["context"]["prior_agent_findings"]] == ["diagnostic_agent"]
+    assert [item["agent"] for item in research.inputs[0]["context"]["prior_agent_findings"]] == ["diagnostic_agent"]
     assert [role for _, role, _ in short_memory.messages] == ["user", "assistant"]
     assert len(long_memory.summaries) == 1
     assert long_memory.summaries[0]["user_id"] == "user-1"
@@ -368,18 +389,27 @@ def test_only_final_answer_crosses_worker_boundary():
     assert "PRIVATE_" not in json.dumps([llm.calls, context, result])
 
 
-def test_high_risk_cannot_skip_required_first_diagnostic_call():
-    import pytest
-
+@pytest.mark.parametrize("question,answer", [
+    ("我没有胸痛或呼吸困难，请只整理这条记录。", "记录：您否认胸痛或呼吸困难。"),
+    ("材料中写着‘确诊为’，请原样引用，不是在说我患病。", "原文：确诊为。"),
+    ("我胸痛且呼吸困难，现在应该先做什么？", "请立即拨打120，不要等待在线咨询。"),
+    ("他刚刚突然说不出完整的话，一侧手臂也抬不起来。", "请立即联系急救，不要等待进一步检索。"),
+])
+def test_model_can_answer_without_keyword_routing_or_rewriting(question, answer):
     workers = {
         "call_consultation_agent": WorkerStub("consultation_agent", "unused"),
         "call_diagnostic_agent": WorkerStub("diagnostic_agent", "unused"),
         "call_research_agent": WorkerStub("research_agent", "unused"),
     }
-    llm = ScriptedLLM([response(content="直接回答")])
+    llm = ScriptedLLM([response(content=answer)])
     supervisor, _, _ = build_supervisor(llm, workers)
-    with pytest.raises(RuntimeError, match="第一轮必须"):
-        asyncio.run(supervisor.process("我胸痛且呼吸困难", session_id="risk"))
+    result = asyncio.run(supervisor.process(question, session_id="semantic"))
+    assert result["answer"] == answer
+    assert not result["call_trace"]
+    assert all(not worker.inputs for worker in workers.values())
+    assert {tool["function"]["name"] for tool in llm.calls[0]["tools"]} == set(workers)
+    assert llm.calls[0]["tool_choice"] == "auto"
+    assert json.loads(llm.calls[0]["messages"][1]["content"]) == {"question": question, "context": {}}
 
 
 def test_mem0_failures_are_reported_without_losing_the_answer():
@@ -452,22 +482,27 @@ def test_round_limit_forces_final_answer():
     assert llm.calls[-1]["tools"] is None
 
 
-def test_high_risk_first_round_rejects_non_diagnostic_tool():
+def test_model_can_choose_parallel_first_round_despite_symptom_words():
+    probe = ConcurrencyProbe()
     workers = {
-        "call_consultation_agent": WorkerStub("consultation_agent", "不应执行"),
-        "call_diagnostic_agent": WorkerStub("diagnostic_agent", "诊断结果"),
-        "call_research_agent": WorkerStub("research_agent", "不应执行"),
+        "call_consultation_agent": WorkerStub("consultation_agent", "整理结果", probe),
+        "call_diagnostic_agent": WorkerStub("diagnostic_agent", "unused"),
+        "call_research_agent": WorkerStub("research_agent", "来源核验", probe),
     }
     llm = ScriptedLLM([
-        response(call("wrong-1", "call_consultation_agent", "直接给建议")),
-        response(content="建议立即就医。"),
+        response(call("c1", "call_consultation_agent", "整理既往材料"),
+                 call("r1", "call_research_agent", "独立核验资料来源")),
+        response(content="材料整理及来源核验完成。"),
     ])
     supervisor, _, _ = build_supervisor(llm, workers)
 
-    result = asyncio.run(supervisor.process("我胸痛而且呼吸困难", session_id="s5"))
+    result = asyncio.run(supervisor.process("请整理教材中的胸痛案例并独立核验文献，不是本人症状。", session_id="s5"))
 
-    assert result["call_trace"][0]["result"]["error_type"] == "PolicyDenied"
-    assert not workers["call_consultation_agent"].inputs
+    assert all(item["success"] for item in result["call_trace"])
+    assert probe.max_active == 2
+    assert not workers["call_diagnostic_agent"].inputs
+    for name in ("call_consultation_agent", "call_research_agent"):
+        assert workers[name].inputs[0]["context"]["prior_agent_findings"] == []
 
 
 def test_each_real_worker_exposes_only_role_specific_skills():
@@ -550,7 +585,7 @@ def test_personal_history_keywords_do_not_require_a_consultation_agent():
     supervisor, _, _ = build_supervisor(llm, workers)
     asyncio.run(supervisor.process("整理我的运动和作息历史。", session_id="s"))
     payload = json.loads(llm.calls[0]["messages"][1]["content"])
-    assert payload["required_agents_from_safety_policy"] == []
+    assert "required_agents_from_safety_policy" not in payload
 
 
 def test_disabled_memory_search_is_not_advertised_or_executed():

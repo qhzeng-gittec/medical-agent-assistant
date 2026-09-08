@@ -1,11 +1,11 @@
 ---
 name: recommend-lifestyle
-description: Provide lifestyle and medication guidance based on disease or symptoms. Use when user asks about diet, exercise, sleep advice, or basic medication guidance for specific conditions.
+description: Retrieve candidate medical references for lifestyle questions. Results require relevance and applicability checks; they are not validated advice or personal patient history.
 ---
 
 # Recommend Lifestyle (生活方式建议)
 
-根据疾病或症状提供生活方式建议，包括饮食、运动、睡眠和基础用药指导。
+根据疾病或症状检索生活方式候选资料。由调用模型判断相关性和适用范围，资料不足时报告缺口。
 
 ## When to Use
 

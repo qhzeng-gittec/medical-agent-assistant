@@ -27,8 +27,8 @@ from campaign_run import PROJECT, build_system, parse_json_answer, trace_metrics
 
 
 DATA = Path(__file__).parent / "holdout_v1_20260908"
-OUTPUT = Path(__file__).parent / "results" / "holdout_v1_live_20260908"
-MODELS = ["minimax/minimax-m2.5", "qwen/qwen3.5-27b", "gemini-3.5-flash"]
+OUTPUT = Path(__file__).parent / "results" / "holdout_v1_codex_20260908"
+MODELS = ["minimax/minimax-m2.5", "qwen/qwen3.5-27b", "gpt-5.5"]
 PATIENT_MODEL = "qwen/qwen3.5-27b"
 TARGET_ROLES = {"supervisor", "diagnostic_agent", "consultation_agent", "research_agent"}
 SEED_METHOD = "profile_actual_user_replay_with_authored_prefix; event_memory_authored_history_real_add"
@@ -38,7 +38,7 @@ LIMITS = {"max_patient_replies": 3, "max_scripted_followups": 12,
 HARNESS_FILES = ["evals/holdout_run.py", "evals/holdout_services.py",
                  "evals/campaign_run.py", "evals/campaign_gateway.py",
                  "evals/campaign_rag.py", "evals/campaign_grade.py",
-                 "evals/holdout_grade.py", "evals/run_holdout.mjs"]
+                 "evals/holdout_grade.py", "evals/run_holdout.mjs", "evals/codex_gateway.py"]
 
 
 class IncompleteExecution(RuntimeError):

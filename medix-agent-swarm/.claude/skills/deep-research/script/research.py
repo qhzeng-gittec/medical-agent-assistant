@@ -99,7 +99,7 @@ def format_research_report(query: str, report) -> str:
         output.append(f"综合分析：\n{report.summary}\n")
 
     # 证据等级
-    output.append(f"证据等级：{report.evidence_level} 级")
+    output.append(f"证据等级：{report.evidence_level}")
 
     # 置信度
     confidence_percent = f"{report.confidence:.0%}"

@@ -32,3 +32,16 @@ def test_single_budget_denies_execution():
     assert not records[0]['success']
     assert records[0]['result']['error_type']=='PolicyDenied'
     assert not agent.bench_trace
+
+
+def test_single_comparison_uses_semantic_supervisor_contract():
+    agent = SingleAgent.__new__(SingleAgent)
+    agent.raw_tools = [{"function": {"name": "lookup"}}]
+    agent.raw_calls = 24
+    assert agent._available_tools(1) == agent.raw_tools
+    assert agent.raw_calls == 0
+    messages = agent._initial_messages("教材中的胸痛病例，不是本人症状", {})
+    import json
+    assert json.loads(messages[1]["content"]) == {
+        "question": "教材中的胸痛病例，不是本人症状", "context": {},
+    }

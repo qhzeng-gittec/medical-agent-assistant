@@ -13,7 +13,7 @@ from common.medical_teacher import call_teacher
 LAB = Path(__file__).resolve().parents[1]
 SOURCE = LAB / "data/medmcqa_knowledge_candidates_v1"
 OUTPUT = LAB / "data/medmcqa_knowledge_reviewed_v1"
-MODEL = "gpt-5.6-sol"
+MODEL = "gpt-5.5"
 
 
 def schema(fields):

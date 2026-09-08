@@ -1,11 +1,11 @@
 ---
 name: analyze-symptoms
-description: Analyze symptom patterns and potential disease associations. Use when user describes multiple symptoms and needs pattern analysis or differential diagnosis suggestions.
+description: Retrieve candidate evidence for symptom analysis from the full case description, preserving negation, timing, subject and context. The agent reasons about symptom relationships and differential diagnoses; this tool does not map keywords to diseases.
 ---
 
 # Analyze Symptoms (症状分析)
 
-分析症状模式和潜在疾病关联，用于鉴别诊断。
+检索症状分析候选资料，由诊断 Agent 判断症状关联和鉴别方向。
 
 ## When to Use
 
@@ -15,9 +15,9 @@ description: Analyze symptom patterns and potential disease associations. Use wh
 
 ## 底层实现
 
-- 技术: 症状分类规则引擎 + Milvus 向量数据库
-- 数据源: 本地症状规则库 + 医学知识库（RAG）
-- 增强: 从知识库检索疾病详细信息
+- 将模型提供的完整描述直接用于 Milvus 语义检索，不拆分症状关键词。
+- 不维护身体系统关键词表或系统到疾病的固定映射。
+- 返回候选文档及 candidates / no_results 状态；相关性、风险和诊断思路由 Agent 结合上下文判断。
 
 ## 调用方式
 

@@ -4,6 +4,8 @@
 
 新增 [RAG / Mem0 独立组件测评](../component-benchmark-2026-09-08/README.md)：公开 1,016 篇语料、400 条 RAG 查询、120 个 Mem0 场景、真实 API 记录和完整复算脚本。[RAG](../component-benchmark-2026-09-08/rag/README.md)给出 Top-K、阈值与上下文对照，[Mem0](../component-benchmark-2026-09-08/memory/README.md)给出真实抽取、重开后检索和逐事实评分。新套件单独冻结与校验，下方原快照继续保留。
 
+另公开 [72 条 RAG 开发回归探针及离线复算](../rag-2026-09-08/README.md)：包含最初 60 题与 12 条近义无答案题、15 个资料块、实际查询向量和完整排名，用于查看上下文补全、类型过滤及阈值对检索的影响。它与上述 400 条查询套件、72 个 Agent 整体场景分别统计。
+
 这里保存精选结果与可追溯状态。41 份结构化文件可直接浏览，434 份详细执行记录见 [下载结果附件](https://github.com/qhzeng-gittec/medical-agent-assistant/releases/download/evaluation-results-2026-09-08/evaluation-details-2026-09-08.zip)（约 13.03 MiB）。各实验按独立快照归档，历史附件提供追溯入口。
 
 | 内容 | 报告 | 机器可读证据 |

@@ -11,9 +11,10 @@ import uuid
 from pathlib import Path
 
 import httpx
+from codex_gateway import request as codex_request
 
 
-MODELS = ["minimax/minimax-m2.5", "qwen/qwen3.5-27b", "google/gemini-3.8-flash"]
+MODELS = ["minimax/minimax-m2.5", "qwen/qwen3.5-27b", "gpt-5.5"]
 EMBED_MODEL = "qwen/qwen3-embedding-8b"
 
 
@@ -58,8 +59,9 @@ class Gateway:
             for model in response.json()["data"]:
                 if model["id"] in MODELS + [EMBED_MODEL]:
                     self.catalog[model["id"]] = model
-        if set(MODELS + [EMBED_MODEL]) - self.catalog.keys():
+        if set(MODELS[:2] + [EMBED_MODEL]) - self.catalog.keys():
             raise ValueError("Requested model missing from current catalog")
+        self.catalog[MODELS[2]] = dict(id=MODELS[2],provider="codex_chatgpt",pricing={"prompt":"0","completion":"0"},cost_status="chatgpt_quota")
         dump(root / "models_snapshot.json", self.catalog)
 
     def _append(self, row: dict) -> None:
@@ -67,6 +69,10 @@ class Gateway:
             handle.write(json.dumps(row, ensure_ascii=False) + "\n")
 
     def request(self, endpoint: str, payload: dict, trace: list, role: str) -> dict:
+        if payload["model"] == MODELS[2]:
+            if endpoint != "chat/completions":
+                raise ValueError("Codex does not provide embeddings")
+            return codex_request(self.root,payload,trace,role)
         prices = self.catalog[payload["model"]]["pricing"]
         size = len(json.dumps(payload, ensure_ascii=False).encode("utf-8"))
         reserve = ((size * 2 + 2048) * float(prices["prompt"])

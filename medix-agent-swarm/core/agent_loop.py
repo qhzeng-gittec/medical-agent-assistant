@@ -2,7 +2,7 @@
 Agent循环引擎
 实现 LLM 驱动的 Skill 调用循环
 支持短期记忆集成
-支持约束验证（Harness Engineering）
+语义判断由模型完成，循环负责工具协议和执行预算
 """
 import uuid
 import json
@@ -13,15 +13,6 @@ from .state_manager import StateManager, TaskStatus
 from .llm_client import LLMResponse
 from .evidence_store import EvidenceStore, use_evidence_store
 from .rag_context import compact_rag_result
-
-# Harness Engineering: 约束验证和自动修复
-try:
-    from constraints import ConstraintValidator
-    from validation import AutoFixer
-    CONSTRAINTS_ENABLED = True
-except ImportError:
-    logger.warning("Constraints module not found, running without constraint validation")
-    CONSTRAINTS_ENABLED = False
 
 
 class AgentLoop:
@@ -47,12 +38,6 @@ class AgentLoop:
         self.max_tool_calls = max_tool_calls
         self.state_manager = StateManager()
         self.short_term_memory = short_term_memory
-
-        # Harness Engineering: 约束验证器和自动修复器
-        self.validator = ConstraintValidator() if CONSTRAINTS_ENABLED else None
-        self.auto_fixer = AutoFixer() if CONSTRAINTS_ENABLED else None
-        if CONSTRAINTS_ENABLED:
-            logger.debug("✅ Constraint validation enabled")
 
     async def run(self, agent, input_data: Dict[str, Any], session_id: Optional[str] = None) -> Dict[str, Any]:
         # A fresh scope for every invocation, even when the Agent object is reused.
@@ -149,17 +134,6 @@ class AgentLoop:
 
                         # 执行每个 Skill 调用
                         for tool_call in llm_response.tool_calls:
-                            # Harness Engineering: 验证调用
-                            if self.validator:
-                                validation_result = self.validator.validate_tool_call(
-                                    agent.agent_id,
-                                    tool_call.name
-                                )
-                                if not validation_result.get("valid"):
-                                    logger.warning(
-                                        f"⚠️ 约束警告: {validation_result.get('reason')}"
-                                    )
-
                             if tool_call_count >= self.max_tool_calls:
                                 tool_result = {"success": False, "error": "ToolCallBudgetExceeded"}
                             else:
@@ -195,29 +169,7 @@ class AgentLoop:
                     else:
                         logger.info(f"LLM provided final response (no tool calls)")
 
-                        # Harness Engineering: 验证和修复输出
                         final_answer = llm_response.content
-
-                        if self.validator and final_answer:
-                            validation_result = self.validator.validate_output(
-                                agent.agent_id,
-                                final_answer
-                            )
-
-                            if not validation_result.get("valid"):
-                                logger.warning(
-                                    f"⚠️ 输出约束违规: {validation_result.get('violations')}"
-                                )
-
-                                # 自动修复
-                                if self.auto_fixer and validation_result.get("auto_fixable"):
-                                    fixed_answer = self.auto_fixer.fix_output(
-                                        final_answer,
-                                        validation_result.get("auto_fixable", [])
-                                    )
-                                    if fixed_answer != final_answer:
-                                        logger.info("🔧 输出已自动修复")
-                                        final_answer = fixed_answer
 
                         # 记录最终回答到短期记忆
                         if self.short_term_memory and session_id:

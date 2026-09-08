@@ -94,7 +94,7 @@ def annotate_batch(items: list[dict], output: Path, model: str, allow_repair: bo
 def main():
     parser = argparse.ArgumentParser(description="Complete reasoning for every eligible image, paper and case.")
     parser.add_argument("--output-dir", type=Path, default=DATA_DIR / "reasoning_full")
-    parser.add_argument("--model", default="gpt-5.6-sol")
+    parser.add_argument("--model", default="gpt-5.5")
     parser.add_argument("--workers", type=int, default=6)
     parser.add_argument("--batch-size", type=int, default=24)
     parser.add_argument("--limit-batches", type=int, default=0)

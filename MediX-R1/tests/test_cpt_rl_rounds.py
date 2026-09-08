@@ -9,7 +9,7 @@ from unittest.mock import patch, MagicMock
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import torch
 import training.train_cpt_rl_rounds as rl
-import evaluation.rl_gemini_judge as judging
+import evaluation.rl_codex_judge as judging
 import experiments.run_cpt_coverage_experiment as experiment
 
 
@@ -44,13 +44,12 @@ class RlTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             judging.parse_judgment(raw,['a'])
         with tempfile.TemporaryDirectory() as directory:
-            judge=judging.GeminiJudge(directory,1)
+            judge=judging.CodexJudge(directory,1)
             row=dict(task='knowledge',user_text='Question',reference='Reference',source_id='one')
             responses=[dict(reasoning='Evidence',final_answer='Answer'),dict(reasoning='Other',final_answer='Other')]
-            def run(*args,**kwargs):
-                request=json.loads(kwargs['input'])
-                return SimpleNamespace(returncode=0,stdout=json.dumps(raw_judgment([c['id'] for c in request['payload']['candidates']])))
-            with patch.object(judging.subprocess,'run',side_effect=run) as api:
+            def run(request, output_path):
+                return raw_judgment([c['id'] for c in request['payload']['candidates']])
+            with patch.object(judging,'judge_request',side_effect=run) as api:
                 first=judge.score(row,responses)
                 second=judge.score(row,list(reversed(responses)))
                 self.assertEqual(first,list(reversed(second)))
@@ -61,10 +60,10 @@ class RlTests(unittest.TestCase):
 
     def test_uncertain_attempt_never_automatically_billed_again(self):
         with tempfile.TemporaryDirectory() as directory:
-            judge=judging.GeminiJudge(directory,2)
+            judge=judging.CodexJudge(directory,2)
             row=dict(task='case',user_text='Question',reference='Reference',source_id='one')
             responses=[dict(reasoning='Evidence',final_answer='Answer')]
-            with patch.object(judging.subprocess,'run',side_effect=TimeoutError('uncertain')) as api:
+            with patch.object(judging,'judge_request',side_effect=TimeoutError('uncertain')) as api:
                 with self.assertRaises(TimeoutError):
                     judge.score(row,responses)
                 with self.assertRaisesRegex(RuntimeError,'Unresolved prior'):
@@ -73,12 +72,12 @@ class RlTests(unittest.TestCase):
 
     def test_audited_truncation_replacement_is_cached_and_preserves_original(self):
         with tempfile.TemporaryDirectory() as directory:
-            root=Path(directory); judge=judging.GeminiJudge(root,2)
+            judge=judging.CodexJudge(Path(directory),2); root=judge.root
             row=dict(task='knowledge',user_text='Question',reference='Reference',source_id='one')
             responses=[dict(reasoning='Evidence',final_answer='Answer')]
             candidate=judging.digest(responses[0])[:20]
             truncated=raw_judgment([candidate]); truncated['finish_reason']='length'
-            with patch.object(judging.subprocess,'run',return_value=SimpleNamespace(returncode=0,stdout=json.dumps(truncated))) as api:
+            with patch.object(judging,'judge_request',return_value=truncated) as api:
                 with self.assertRaises(ValueError):
                     judge.score(row,responses)
                 original=next((root/'calls').glob('*.json'))
@@ -126,7 +125,7 @@ class RlTests(unittest.TestCase):
             (adapter.parent/'run_config.json').write_text(json.dumps(dict(estimated_steps=1355)))
             (adapter.parent/'training_complete.json').write_text(json.dumps(dict(global_step=1355)))
             process=MagicMock()
-            process.cmdline.return_value=['python','training.sft','--output-root',str(root/'sft_seed42')]
+            process.cmdline.return_value=['python','-m','training.sft','--output-root',str(root/'sft_seed42')]
             with patch.object(experiment,'ROOT',root), patch.object(experiment,'SFT',adapter), patch.object(experiment.psutil,'Process',return_value=process), patch.object(experiment.subprocess,'run') as launch:
                 experiment.adopt_training(42,'sft')
                 process.wait.assert_called_once()
