@@ -1,0 +1,448 @@
+{
+  "case": {
+    "id": "M08-01",
+    "category": "搬家旅行与生活环境变化",
+    "turns": [
+      {
+        "user": "我上个月刚把家从喧闹的市中心搬到了城郊的安静小区，因为那里离我新工作的地方更近，而且空气也更好一些。",
+        "assistant": "收到，已记录您上个月搬家至城郊新居的情况。"
+      },
+      {
+        "user": "补充一下，这次搬家其实是因为我在新公司附近租到了这套房子，所以从市中心搬走是上周正式完成的。",
+        "assistant": "明白，已更新您上周完成从市中心搬至新公司附近城郊的记录。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "M08-01-Q1",
+        "query": "请告诉我这位患者最近一次更换居住地的具体时间以及搬往了哪里？",
+        "expected_facts": [
+          "患者于上周正式完成了搬家。",
+          "患者从市中心搬到了城郊的新小区。",
+          "搬家原因是为了靠近新工作地点。"
+        ],
+        "required_groups": [
+          [
+            "上周",
+            "上个月"
+          ],
+          [
+            "城郊",
+            "郊区",
+            "新小区"
+          ],
+          [
+            "市中心",
+            "市区"
+          ]
+        ]
+      },
+      {
+        "id": "M08-01-Q2",
+        "query": "患者之前住在哪里，现在又住在哪里，这次变动发生在什么时候？",
+        "expected_facts": [
+          "患者之前居住在市中心。",
+          "患者现在居住在城郊的新小区。",
+          "这次变动发生在上周。"
+        ],
+        "required_groups": [
+          [
+            "之前",
+            "原来",
+            "以前"
+          ],
+          [
+            "现在",
+            "目前",
+            "当前"
+          ],
+          [
+            "上周",
+            "最近"
+          ]
+        ]
+      }
+    ],
+    "split": "dev",
+    "family_id": "M08-01",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860272-Q860u3LekvjJFBLdS0ot",
+      "usage": {
+        "prompt_tokens": 59,
+        "total_tokens": 59,
+        "cost": 5.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.9e-07,
+          "upstream_inference_prompt_cost": 5.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860274-NT79GVTTIZxXo4QNntPU",
+      "usage": {
+        "prompt_tokens": 8357,
+        "completion_tokens": 278,
+        "total_tokens": 8635,
+        "cost": 0.00289562,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00289562,
+          "upstream_inference_prompt_cost": 0.00217282,
+          "upstream_inference_completions_cost": 0.0007228
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 214,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户上个月（约2026年8月）从喧闹的市中心搬到了城郊的安静小区，原因是那里离新工作地点更近且空气更好\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860341-ZHO3Dk08WPtzea86DY1W",
+      "usage": {
+        "prompt_tokens": 38,
+        "total_tokens": 38,
+        "cost": 1.52e-06,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.52e-06,
+          "upstream_inference_prompt_cost": 1.52e-06,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860342-tuq91CdyXWKhjLF9XW4H",
+      "usage": {
+        "prompt_tokens": 56,
+        "total_tokens": 56,
+        "cost": 5.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.6e-07,
+          "upstream_inference_prompt_cost": 5.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860362-QapwOUnOjQTYCYSiL2MP",
+      "usage": {
+        "prompt_tokens": 8457,
+        "completion_tokens": 199,
+        "total_tokens": 8656,
+        "cost": 0.00271323,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00271323,
+          "upstream_inference_prompt_cost": 0.00228339,
+          "upstream_inference_completions_cost": 0.00042984
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 100,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户上周（约2026年9月1日）正式完成了从市中心搬至新公司附近城郊的搬家，这次搬家是因为在新公司附近租到了这套房子\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860370-HT5XRrGWc4OaHXdkwiH2",
+      "usage": {
+        "prompt_tokens": 40,
+        "total_tokens": 40,
+        "cost": 4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4e-07,
+          "upstream_inference_prompt_cost": 4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860372-Vsh0g2LJ1ZiRMvpaMQMn",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860375-Jfgl2qToFAg7NjorBGh1",
+      "usage": {
+        "prompt_tokens": 16,
+        "total_tokens": 16,
+        "cost": 1.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.6e-07,
+          "upstream_inference_prompt_cost": 1.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860392-oQDv6ohRtS1b4DliGNp0",
+      "usage": {
+        "prompt_tokens": 28,
+        "total_tokens": 28,
+        "cost": 2.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.8e-07,
+          "upstream_inference_prompt_cost": 2.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860407-S5Wnl1v45g3BOiPlWHGn",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860408-CTbtMhBijfj5zQzf2K0D",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "M08-01-Q1",
+        "query": "请告诉我这位患者最近一次更换居住地的具体时间以及搬往了哪里？",
+        "expected_facts": [
+          "患者于上周正式完成了搬家。",
+          "患者从市中心搬到了城郊的新小区。",
+          "搬家原因是为了靠近新工作地点。"
+        ],
+        "required_groups": [
+          [
+            "上周",
+            "上个月"
+          ],
+          [
+            "城郊",
+            "郊区",
+            "新小区"
+          ],
+          [
+            "市中心",
+            "市区"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "7496cf73-9504-47e1-b296-8bda3f1fa8ef",
+          "content": "用户上周（约2026年9月1日）正式完成了从市中心搬至新公司附近城郊的搬家，这次搬家是因为在新公司附近租到了这套房子",
+          "score": 0.6695718305767231,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:39:01.323419+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M08-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:39:29.921538+00:00"
+        },
+        {
+          "memory_id": "4d4919aa-95c2-401d-bdd5-89f50cdc437b",
+          "content": "用户上个月（约2026年8月）从喧闹的市中心搬到了城郊的安静小区，原因是那里离新工作地点更近且空气更好",
+          "score": 0.5312759519946758,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:37:51.382015+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M08-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:39:01.298173+00:00"
+        }
+      ],
+      "seconds": 4.579
+    },
+    {
+      "query": {
+        "id": "M08-01-Q2",
+        "query": "患者之前住在哪里，现在又住在哪里，这次变动发生在什么时候？",
+        "expected_facts": [
+          "患者之前居住在市中心。",
+          "患者现在居住在城郊的新小区。",
+          "这次变动发生在上周。"
+        ],
+        "required_groups": [
+          [
+            "之前",
+            "原来",
+            "以前"
+          ],
+          [
+            "现在",
+            "目前",
+            "当前"
+          ],
+          [
+            "上周",
+            "最近"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "7496cf73-9504-47e1-b296-8bda3f1fa8ef",
+          "content": "用户上周（约2026年9月1日）正式完成了从市中心搬至新公司附近城郊的搬家，这次搬家是因为在新公司附近租到了这套房子",
+          "score": 0.7268765400053925,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:39:01.323419+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M08-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:39:29.921538+00:00"
+        },
+        {
+          "memory_id": "4d4919aa-95c2-401d-bdd5-89f50cdc437b",
+          "content": "用户上个月（约2026年8月）从喧闹的市中心搬到了城郊的安静小区，原因是那里离新工作地点更近且空气更好",
+          "score": 0.5390582745692621,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:37:51.382015+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M08-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:39:01.298173+00:00"
+        }
+      ],
+      "seconds": 16.656
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "请告诉我这位患者最近一次更换居住地的具体时间以及搬往了哪里？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "7496cf73-9504-47e1-b296-8bda3f1fa8ef",
+        "content": "用户上周（约2026年9月1日）正式完成了从市中心搬至新公司附近城郊的搬家，这次搬家是因为在新公司附近租到了这套房子",
+        "score": 0.7126422997733509,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:39:01.323419+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M08-01",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:39:29.921538+00:00"
+      },
+      {
+        "memory_id": "4d4919aa-95c2-401d-bdd5-89f50cdc437b",
+        "content": "用户上个月（约2026年8月）从喧闹的市中心搬到了城郊的安静小区，原因是那里离新工作地点更近且空气更好",
+        "score": 0.5122251911862583,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:37:51.382015+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M08-01",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:39:01.298173+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 149.312
+}

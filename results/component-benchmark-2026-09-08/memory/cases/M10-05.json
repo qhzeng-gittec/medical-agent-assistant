@@ -1,0 +1,475 @@
+{
+  "case": {
+    "id": "M10-05",
+    "category": "饮食偏好与个人生活习惯",
+    "turns": [
+      {
+        "user": "我习惯晚上十点前吃完晚餐，之后不再进食固体食物。这是为了保持体重，也避免睡前胃胀，已经坚持了十年。",
+        "assistant": "已记录您的晚餐截止时间及长期饮食习惯。"
+      },
+      {
+        "user": "更正一下，其实我是从七年前开始严格执行这个规则的，之前只是偶尔这样做。而且如果不得不晚吃，我会选择喝点温牛奶而不是吃东西。",
+        "assistant": "已修正晚餐时间规则的执行起始时间及替代方案。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "患者设定的晚餐结束时间是什么时候？这一习惯持续了多久？",
+        "expected_facts": [
+          "该患者习惯在晚上十点前结束晚餐。",
+          "该患者严格执行此规则已有七年时间。"
+        ],
+        "required_groups": [
+          [
+            "晚上十点",
+            "22点",
+            "十点前"
+          ],
+          [
+            "七年",
+            "7年",
+            "七年前开始"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "若患者被迫在晚餐时间后进食，通常会选择什么替代品？",
+        "expected_facts": [
+          "该患者在晚餐后若需进食会选择喝温牛奶。",
+          "该患者晚餐后避免食用固体食物。"
+        ],
+        "required_groups": [
+          [
+            "温牛奶",
+            "热牛奶",
+            "牛奶"
+          ],
+          [
+            "固体食物",
+            "吃东西",
+            "固体"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M10-05",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861597-XE4LTGFmS9QC9bO3aMAC",
+      "usage": {
+        "prompt_tokens": 50,
+        "total_tokens": 50,
+        "cost": 5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5e-07,
+          "upstream_inference_prompt_cost": 5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861600-MMRuzeRxLaAYHYk1MXUb",
+      "usage": {
+        "prompt_tokens": 8349,
+        "completion_tokens": 251,
+        "total_tokens": 8600,
+        "cost": 0.00282334,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00282334,
+          "upstream_inference_prompt_cost": 0.00217074,
+          "upstream_inference_completions_cost": 0.0006526
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 206,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户习惯在晚上十点前吃完晚餐，之后不再进食固体食物，这是为了保持体重和避免睡前胃胀，已坚持十年\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861603-AZfHoVl5UN9LmhedUaFN",
+      "usage": {
+        "prompt_tokens": 30,
+        "total_tokens": 30,
+        "cost": 3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3e-07,
+          "upstream_inference_prompt_cost": 3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861612-5EmEjL9AIAGkDUUJnTTf",
+      "usage": {
+        "prompt_tokens": 57,
+        "total_tokens": 57,
+        "cost": 5.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.7e-07,
+          "upstream_inference_prompt_cost": 5.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861616-s3iBhoqkFWNH0Z6XT4bQ",
+      "usage": {
+        "prompt_tokens": 8441,
+        "completion_tokens": 1101,
+        "total_tokens": 9542,
+        "cost": 0.00505726,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00505726,
+          "upstream_inference_prompt_cost": 0.00219466,
+          "upstream_inference_completions_cost": 0.0028626
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1182,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户从七年前开始严格执行晚上十点前吃完晚餐的规则，之前只是偶尔这样做\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"如果不得不晚吃，用户会选择喝温牛奶而不是吃固体食物\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861631-eDCFTqyM35cbhoARRXjB",
+      "usage": {
+        "prompt_tokens": 35,
+        "total_tokens": 35,
+        "cost": 3.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.5e-07,
+          "upstream_inference_prompt_cost": 3.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861635-32XAVZFu3BaaH5eEfsYM",
+      "usage": {
+        "prompt_tokens": 16,
+        "total_tokens": 16,
+        "cost": 1.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.6e-07,
+          "upstream_inference_prompt_cost": 1.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861638-F0SOjPn8nAMkGCwmx2Z7",
+      "usage": {
+        "prompt_tokens": 16,
+        "total_tokens": 16,
+        "cost": 6.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.4e-07,
+          "upstream_inference_prompt_cost": 6.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861650-2ohPn7lR9GkCNteAN7Jo",
+      "usage": {
+        "prompt_tokens": 26,
+        "total_tokens": 26,
+        "cost": 2.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.6e-07,
+          "upstream_inference_prompt_cost": 2.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861650-dy0N5RS4wdLS5C49El9n",
+      "usage": {
+        "prompt_tokens": 16,
+        "total_tokens": 16,
+        "cost": 1.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.6e-07,
+          "upstream_inference_prompt_cost": 1.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861658-1B8DIHcGBqcaay5w1vOC",
+      "usage": {
+        "prompt_tokens": 16,
+        "total_tokens": 16,
+        "cost": 1.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.6e-07,
+          "upstream_inference_prompt_cost": 1.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "患者设定的晚餐结束时间是什么时候？这一习惯持续了多久？",
+        "expected_facts": [
+          "该患者习惯在晚上十点前结束晚餐。",
+          "该患者严格执行此规则已有七年时间。"
+        ],
+        "required_groups": [
+          [
+            "晚上十点",
+            "22点",
+            "十点前"
+          ],
+          [
+            "七年",
+            "7年",
+            "七年前开始"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "9b6ff694-6c59-4505-84d9-9a4a69fa3442",
+          "content": "用户习惯在晚上十点前吃完晚餐，之后不再进食固体食物，这是为了保持体重和避免睡前胃胀，已坚持十年",
+          "score": 0.7977255189895041,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:59:56.327065+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M10-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:11.890649+00:00"
+        },
+        {
+          "memory_id": "22f4583b-d778-4ebe-8a3e-4e717b816d4a",
+          "content": "用户从七年前开始严格执行晚上十点前吃完晚餐的规则，之前只是偶尔这样做",
+          "score": 0.7515988775825015,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:00:11.916609+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M10-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:33.549748+00:00"
+        },
+        {
+          "memory_id": "4f000861-5d7b-441c-a7e9-7831dcc48251",
+          "content": "如果不得不晚吃，用户会选择喝温牛奶而不是吃固体食物",
+          "score": 0.5468323463310718,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:00:11.916609+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M10-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:33.549748+00:00"
+        }
+      ],
+      "seconds": 3.813
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "若患者被迫在晚餐时间后进食，通常会选择什么替代品？",
+        "expected_facts": [
+          "该患者在晚餐后若需进食会选择喝温牛奶。",
+          "该患者晚餐后避免食用固体食物。"
+        ],
+        "required_groups": [
+          [
+            "温牛奶",
+            "热牛奶",
+            "牛奶"
+          ],
+          [
+            "固体食物",
+            "吃东西",
+            "固体"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "4f000861-5d7b-441c-a7e9-7831dcc48251",
+          "content": "如果不得不晚吃，用户会选择喝温牛奶而不是吃固体食物",
+          "score": 0.728794203703403,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:00:11.916609+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M10-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:33.549748+00:00"
+        },
+        {
+          "memory_id": "9b6ff694-6c59-4505-84d9-9a4a69fa3442",
+          "content": "用户习惯在晚上十点前吃完晚餐，之后不再进食固体食物，这是为了保持体重和避免睡前胃胀，已坚持十年",
+          "score": 0.6051783683200143,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:59:56.327065+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M10-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:11.890649+00:00"
+        },
+        {
+          "memory_id": "22f4583b-d778-4ebe-8a3e-4e717b816d4a",
+          "content": "用户从七年前开始严格执行晚上十点前吃完晚餐的规则，之前只是偶尔这样做",
+          "score": 0.5396298065933676,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:00:11.916609+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M10-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:33.549748+00:00"
+        }
+      ],
+      "seconds": 11.703
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者设定的晚餐结束时间是什么时候？这一习惯持续了多久？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "9b6ff694-6c59-4505-84d9-9a4a69fa3442",
+        "content": "用户习惯在晚上十点前吃完晚餐，之后不再进食固体食物，这是为了保持体重和避免睡前胃胀，已坚持十年",
+        "score": 0.6263663387263712,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:59:56.327065+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M10-05",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:00:11.890649+00:00"
+      },
+      {
+        "memory_id": "22f4583b-d778-4ebe-8a3e-4e717b816d4a",
+        "content": "用户从七年前开始严格执行晚上十点前吃完晚餐的规则，之前只是偶尔这样做",
+        "score": 0.6195083592450819,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:00:11.916609+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M10-05",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:00:33.549748+00:00"
+      },
+      {
+        "memory_id": "4f000861-5d7b-441c-a7e9-7831dcc48251",
+        "content": "如果不得不晚吃，用户会选择喝温牛奶而不是吃固体食物",
+        "score": 0.4369412620964744,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:00:11.916609+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M10-05",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:00:33.549748+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 62.609
+}

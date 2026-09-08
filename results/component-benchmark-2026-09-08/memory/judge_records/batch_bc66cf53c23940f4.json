@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"abf70a04539368daac4a\", \"query\": \"患者昨天进行了什么评估，结果状态怎样？\", \"expected_facts\": [\"患者昨天做了心理量表测试。\", \"评分结果尚未出来。\", \"需要等待评估报告确认诊断。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户于2026年9月7日做了心理量表测试，医生告知需等待评分结果，目前尚未确诊抑郁症，仅根据症状猜测，正在等待评估报告。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:46:07.203420+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户最近（2026年9月左右）经常失眠，晚上难以入睡且白天精神不佳，因工作压力大怀疑自己可能患有抑郁症并请求评估。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:44:19.179218+00:00\"}]}, {\"id\": \"ad73dea0b3e09049209e\", \"query\": \"患者八年前确诊了什么肝脏问题，医生建议什么措施，他执行得如何？\", \"expected_facts\": [\"患者八年前被查出轻度脂肪肝。\", \"医生建议减重和戒酒。\", \"患者戒酒了但体重未明显下降。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户四十五岁，八年前被查出有轻度脂肪肝\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:58:57.186690+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户的脂肪肝指标一直维持在轻度水平\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:58:57.186690+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"三年前用户因应酬多又喝了几次酒，体检发现脂肪肝稍微加重\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:59:32.998878+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"医生建议用户减重和戒酒以改善脂肪肝情况\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:58:57.186690+00:00\"}, {\"memory_id\": \"m4\", \"content\": \"用户彻底戒酒后开始每周游泳三次，坚持了一年，脂肪肝指标回到轻度水平\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:59:32.998878+00:00\"}, {\"memory_id\": \"m5\", \"content\": \"用户已戒酒但体重没有明显下降\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:58:57.186690+00:00\"}]}, {\"id\": \"ad8efb7a306e9fbe5d52\", \"query\": \"用户何时决定结束夜班生活？目前的行动是什么？\", \"expected_facts\": [\"该用户于昨天申请调回白班。\", \"该用户今天已开始尝试早睡早起。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户于2026年9月1日正式转为夜班，而非上个月\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:33:40.716812+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户于2026年9月7日申请调回白班\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:33:40.716812+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户于2026年9月8日开始尝试早睡早起\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:33:40.716812+00:00\"}]}, {\"id\": \"ade3c93db76fe9beff98\", \"query\": \"请回顾一下患者之前提到的对哪种抗生素产生过严重不良反应，以及当时出现的具体症状有哪些？\", \"expected_facts\": [\"患者在2019年夏天对青霉素类药物产生了严重过敏反应。\", \"当时的症状包括全身大片红疹、呼吸困难和喉咙肿胀。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户补充说明青霉素过敏反应发生在2019年夏天，症状包括全身红疹、呼吸急促和喉咙肿胀，此后严格避免接触任何含青霉素的药物。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:34:36.635612+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户对青霉素类药物有严重过敏反应，五年前住院期间发生，症状包括全身大片红疹和呼吸困难，经医生紧急处理后好转。用户上周在诊所提及了这一过敏史。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:03.124123+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862070-KYmOeFsDaZH1Qtcp7ZcD",
+    "object": "chat.completion",
+    "created": 1788862070,
+    "model": "minimax/minimax-m2.5",
+    "provider": "StreamLake",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"abf70a04539368daac4a\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states user did psychological scale test on Sept 7 (yesterday relative to Sept 8 recording).\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states scoring results are pending and not yet available.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states user is waiting for evaluation report to confirm diagnosis.\"}]},{\"id\":\"ad73dea0b3e09049209e\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory confirms user was found to have mild fatty liver eight years ago.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m3\"}],\"reason\":\"Memory records doctor recommended weight loss and alcohol cessation.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m5\"}],\"reason\":\"Memory confirms user quit alcohol but weight did not significantly decrease.\"}]},{\"id\":\"ad8efb7a306e9fbe5d52\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory shows user applied to transfer back to day shift on Sept 7 (yesterday relative to Sept 8).\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m2\"}],\"reason\":\"Memory records user started attempting early sleep and wake-up on Sept 8 (today).\"}]},{\"id\":\"ade3c93db76fe9beff98\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory specifies penicillin allergy occurred in summer 2019.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"Both memories describe symptoms including全身红疹,呼吸困难/呼吸急促,喉咙肿胀.\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item and determine whether the expected facts are supported by the provided memories.\n\n**Item 1: abf70a04539368daac4a**\n\nQuery: \"患者昨天进行了什么评估，结果状态怎样？\"\nExpected facts:\n1. \"患者昨天做了心理量表测试。\" - Looking at m0: \"用户于2026年9月7日做了心理量表测试\" - This is the same day (Sept 7), but the query asks about \"昨天\" (yesterday). The recording is on Sept 8, so \"昨天\" would be Sept 7. The memory says \"于2026年9月7日做了心理量表测试\" - this IS yesterday relative to Sept 8. So this is SUPPORTED.\n2. \"评分结果尚未出来。\" - m0 says \"医生告知需等待评分结果，目前尚未确诊抑郁症\" - This supports that the results haven't come out yet. SUPPORTED.\n3. \"需要等待评估报告确认诊断。\" - m0 says \"正在等待评估报告\" - This is supported. SUPPORTED.\n\nAll three facts are supported.\n\n**Item 2: ad73dea0b3e09049209e**\n\nQuery: \"患者八年前确诊了什么肝脏问题，医生建议什么措施，他执行得如何？\"\nExpected facts:\n1. \"患者八年前被查出轻度脂肪肝。\" - m0: \"八年前被查出有轻度脂肪肝\" - SUPPORTED.\n2. \"医生建议减重和戒酒。\" - m3: \"医生建议用户减重和戒酒以改善脂肪肝情况\" - SUPPORTED.\n3. \"患者戒酒了但体重未明显下降。\" - m5: \"用户已戒酒但体重没有明显下降\" - SUPPORTED.\n\n\nAll three facts are supported.\n\n**Item 3: ad8efb7a306e9fbe5d52**\n\nQuery: \"用户何时决定结束夜班生活？目前的行动是什么？\"\nExpected facts:\n1. \"该用户于昨天申请调回白班。\" - m1: \"用户于2026年9月7日申请调回白班\" - The recording is Sept 8, so \"昨天\" would be Sept 7. This matches. SUPPORTED.\n2. \"该用户今天已开始尝试早睡早起。\" - m2: \"用户于2026年9月8日开始尝试早睡早起\" - Today is Sept 8. This matches. SUPPORTED.\n\nAll three facts are supported.\n\n**Item 4: ade3c93db76fe9beff98**\n\nQuery: \"请回顾一下患者之前提到的对哪种抗生素产生过严重不良反应，以及当时出现的具体症状有哪些？\"\nExpected facts:\n1. \"患者在2019年夏天对青霉素类药物产生了严重过敏反应。\" - m0: \"青霉素过敏反应发生在2019年夏天\" - SUPPORTED.\n2. \"当时的症状包括全身大片红疹、呼吸困难和喉咙肿胀。\" - m0: \"症状包括全身红疹、呼吸急促和喉咙肿胀\" - This matches (breathing difficulty = respiratory distress). m1 also mentions \"全身大片红疹和呼吸困难\". SUPPORTED.\n\nAll facts are supported.\n\nI'll verify the details systematically. Each item requires careful cross-referencing of dates, events, and specific details to ensure complete accuracy.\n\nThe first item confirms psychological scale testing from the previous day, with results still pending. The second item validates an eight-year-old diagnosis of fatty liver, with recommended weight reduction and alcohol cessation - partially implemented. The third item confirms a day-shift transfer request from the previous day, with current early sleep and wake-up attempts. The fourth item substantiates a penicillin allergy from summer 2019, with specific symptoms noted.\n\nThe systematic verification reveals consistent support across multiple medical history dimensions, demonstrating precise tracking of personal health information.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item and determine whether the expected facts are supported by the provided memories.\n\n**Item 1: abf70a04539368daac4a**\n\nQuery: \"患者昨天进行了什么评估，结果状态怎样？\"\nExpected facts:\n1. \"患者昨天做了心理量表测试。\" - Looking at m0: \"用户于2026年9月7日做了心理量表测试\" - This is the same day (Sept 7), but the query asks about \"昨天\" (yesterday). The recording is on Sept 8, so \"昨天\" would be Sept 7. The memory says \"于2026年9月7日做了心理量表测试\" - this IS yesterday relative to Sept 8. So this is SUPPORTED.\n2. \"评分结果尚未出来。\" - m0 says \"医生告知需等待评分结果，目前尚未确诊抑郁症\" - This supports that the results haven't come out yet. SUPPORTED.\n3. \"需要等待评估报告确认诊断。\" - m0 says \"正在等待评估报告\" - This is supported. SUPPORTED.\n\nAll three facts are supported.\n\n**Item 2: ad73dea0b3e09049209e**\n\nQuery: \"患者八年前确诊了什么肝脏问题，医生建议什么措施，他执行得如何？\"\nExpected facts:\n1. \"患者八年前被查出轻度脂肪肝。\" - m0: \"八年前被查出有轻度脂肪肝\" - SUPPORTED.\n2. \"医生建议减重和戒酒。\" - m3: \"医生建议用户减重和戒酒以改善脂肪肝情况\" - SUPPORTED.\n3. \"患者戒酒了但体重未明显下降。\" - m5: \"用户已戒酒但体重没有明显下降\" - SUPPORTED.\n\n\nAll three facts are supported.\n\n**Item 3: ad8efb7a306e9fbe5d52**\n\nQuery: \"用户何时决定结束夜班生活？目前的行动是什么？\"\nExpected facts:\n1. \"该用户于昨天申请调回白班。\" - m1: \"用户于2026年9月7日申请调回白班\" - The recording is Sept 8, so \"昨天\" would be Sept 7. This matches. SUPPORTED.\n2. \"该用户今天已开始尝试早睡早起。\" - m2: \"用户于2026年9月8日开始尝试早睡早起\" - Today is Sept 8. This matches. SUPPORTED.\n\nAll three facts are supported.\n\n**Item 4: ade3c93db76fe9beff98**\n\nQuery: \"请回顾一下患者之前提到的对哪种抗生素产生过严重不良反应，以及当时出现的具体症状有哪些？\"\nExpected facts:\n1. \"患者在2019年夏天对青霉素类药物产生了严重过敏反应。\" - m0: \"青霉素过敏反应发生在2019年夏天\" - SUPPORTED.\n2. \"当时的症状包括全身大片红疹、呼吸困难和喉咙肿胀。\" - m0: \"症状包括全身红疹、呼吸急促和喉咙肿胀\" - This matches (breathing difficulty = respiratory distress). m1 also mentions \"全身大片红疹和呼吸困难\". SUPPORTED.\n\nAll facts are supported.\n\nI'll verify the details systematically. Each item requires careful cross-referencing of dates, events, and specific details to ensure complete accuracy.\n\nThe first item confirms psychological scale testing from the previous day, with results still pending. The second item validates an eight-year-old diagnosis of fatty liver, with recommended weight reduction and alcohol cessation - partially implemented. The third item confirms a day-shift transfer request from the previous day, with current early sleep and wake-up attempts. The fourth item substantiates a penicillin allergy from summer 2019, with specific symptoms noted.\n\nThe systematic verification reveals consistent support across multiple medical history dimensions, demonstrating precise tracking of personal health information.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1443,
+      "completion_tokens": 1192,
+      "total_tokens": 2635,
+      "cost": 0.001614762,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.001614762,
+        "upstream_inference_prompt_cost": 0.000327402,
+        "upstream_inference_completions_cost": 0.00128736
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 794,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 23.625
+}

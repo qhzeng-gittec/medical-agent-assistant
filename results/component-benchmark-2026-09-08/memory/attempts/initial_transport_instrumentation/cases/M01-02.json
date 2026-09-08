@@ -1,0 +1,562 @@
+{
+  "case": {
+    "id": "M01-02",
+    "category": "工作作息与睡眠时间变化",
+    "turns": [
+      {
+        "user": "上个月换班后，我被迫改成夜班，从晚上十点干到早上六点，导致白天完全睡不着，只能眯半小时。",
+        "assistant": "好的，已记录您上个月转为夜班后的睡眠困扰。"
+      },
+      {
+        "user": "更正一下，其实我是这个月一号才正式转夜班的，而且昨天刚申请调回白班，今天已经开始尝试早睡早起了。",
+        "assistant": "收到，已修正您的夜班起始时间并记录今日调回白班的计划。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "用户实际是从哪一天开始执行夜班工作的？当时的睡眠状况如何？",
+        "expected_facts": [
+          "该用户从本月一号正式转为夜班工作。",
+          "该用户当时白天无法入睡，仅能小憩半小时。"
+        ],
+        "required_groups": [
+          [
+            "这个月一号",
+            "本月一日"
+          ],
+          [
+            "白天完全睡不着",
+            "白天无法入睡"
+          ],
+          [
+            "只能眯半小时",
+            "仅能小憩半小时"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "用户何时决定结束夜班生活？目前的行动是什么？",
+        "expected_facts": [
+          "该用户于昨天申请调回白班。",
+          "该用户今天已开始尝试早睡早起。"
+        ],
+        "required_groups": [
+          [
+            "昨天",
+            "昨日"
+          ],
+          [
+            "调回白班",
+            "转回白班"
+          ],
+          [
+            "尝试早睡早起",
+            "开始早睡早起"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M01-02",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859815-GByYnlSuZzg04YAZRV8e",
+      "usage": {
+        "prompt_tokens": 57,
+        "total_tokens": 57,
+        "cost": 5.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.7e-07,
+          "upstream_inference_prompt_cost": 5.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788859827-YfkAsjBuax6IGQEkgJIN",
+      "usage": {
+        "prompt_tokens": 8351,
+        "completion_tokens": 450,
+        "total_tokens": 8801,
+        "cost": 0.00322677,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00322677,
+          "upstream_inference_prompt_cost": 0.00225477,
+          "upstream_inference_completions_cost": 0.000972
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 368,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户上个月（约2026年8月）被迫转为夜班，工作时间为晚上十点到早上六点，导致白天完全无法入睡，只能小睡半小时。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859864-r8XTFDRBcWdj9wjAH64I",
+      "usage": {
+        "prompt_tokens": 41,
+        "total_tokens": 41,
+        "cost": 4.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.1e-07,
+          "upstream_inference_prompt_cost": 4.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859875-TUPdjBEHmwl9JWXQlcUb",
+      "usage": {
+        "prompt_tokens": 61,
+        "total_tokens": 61,
+        "cost": 6.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.1e-07,
+          "upstream_inference_prompt_cost": 6.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788859876-far6Hp4ihh1Q6FWhdQO5",
+      "usage": {
+        "prompt_tokens": 8453,
+        "completion_tokens": 1072,
+        "total_tokens": 9525,
+        "cost": 0.00459783,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00459783,
+          "upstream_inference_prompt_cost": 0.00228231,
+          "upstream_inference_completions_cost": 0.00231552
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 896,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户于2026年9月1日正式转为夜班工作，而非之前记录的上个月（约8月）\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户在2026年9月7日申请调回白班工作\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"2\",\n      \"text\": \"用户从2026年9月8日开始尝试早睡早起以调整作息\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859902-fnJ49elHBKeKgsgiXVUV",
+      "usage": {
+        "prompt_tokens": 29,
+        "total_tokens": 29,
+        "cost": 2.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.9e-07,
+          "upstream_inference_prompt_cost": 2.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859902-djRFEVbHDXaZ3v6iln2L",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859903-DhmzuppcHVZ7QrovYvqp",
+      "usage": {
+        "prompt_tokens": 21,
+        "total_tokens": 21,
+        "cost": 2.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.1e-07,
+          "upstream_inference_prompt_cost": 2.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859905-OzftYh6HSmtUOZL7KvNG",
+      "usage": {
+        "prompt_tokens": 17,
+        "total_tokens": 17,
+        "cost": 1.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.7e-07,
+          "upstream_inference_prompt_cost": 1.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859906-APFx45K0bhQmrxY4xQMn",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 14,
+        "cost": 1.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.4e-07,
+          "upstream_inference_prompt_cost": 1.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859907-n07YJHgP4ZvlLG3wtgY9",
+      "usage": {
+        "prompt_tokens": 27,
+        "total_tokens": 27,
+        "cost": 2.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.7e-07,
+          "upstream_inference_prompt_cost": 2.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859907-osh720ZLiioxOEJL2Ur5",
+      "usage": {
+        "prompt_tokens": 17,
+        "total_tokens": 17,
+        "cost": 1.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.7e-07,
+          "upstream_inference_prompt_cost": 1.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859909-w3vJoEZyNOZvkQzTFiXM",
+      "usage": {
+        "prompt_tokens": 17,
+        "total_tokens": 17,
+        "cost": 1.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.7e-07,
+          "upstream_inference_prompt_cost": 1.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "用户实际是从哪一天开始执行夜班工作的？当时的睡眠状况如何？",
+        "expected_facts": [
+          "该用户从本月一号正式转为夜班工作。",
+          "该用户当时白天无法入睡，仅能小憩半小时。"
+        ],
+        "required_groups": [
+          [
+            "这个月一号",
+            "本月一日"
+          ],
+          [
+            "白天完全睡不着",
+            "白天无法入睡"
+          ],
+          [
+            "只能眯半小时",
+            "仅能小憩半小时"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "53bb1c7f-5eec-4f1b-ae45-14929c999c70",
+          "content": "用户上个月（约2026年8月）被迫转为夜班，工作时间为晚上十点到早上六点，导致白天完全无法入睡，只能小睡半小时。",
+          "score": 0.7617914757013117,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:30:12.992793+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M01-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:31:14.138540+00:00"
+        },
+        {
+          "memory_id": "cc22a40f-18ec-40d1-9e77-c7a6a0cbde8c",
+          "content": "用户于2026年9月1日正式转为夜班工作，而非之前记录的上个月（约8月）",
+          "score": 0.7245190838545704,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:31:14.172270+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:31:44.121431+00:00"
+        },
+        {
+          "memory_id": "f78927a0-4ba6-456b-baec-c1530582cbcd",
+          "content": "用户在2026年9月7日申请调回白班工作",
+          "score": 0.6297225870555541,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:31:14.172270+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:31:44.121431+00:00"
+        },
+        {
+          "memory_id": "bf157580-46cc-4aec-9d9d-eddde4d4d0be",
+          "content": "用户从2026年9月8日开始尝试早睡早起以调整作息",
+          "score": 0.627703838582067,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:31:14.172270+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:31:44.121431+00:00"
+        }
+      ],
+      "seconds": 1.25
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "用户何时决定结束夜班生活？目前的行动是什么？",
+        "expected_facts": [
+          "该用户于昨天申请调回白班。",
+          "该用户今天已开始尝试早睡早起。"
+        ],
+        "required_groups": [
+          [
+            "昨天",
+            "昨日"
+          ],
+          [
+            "调回白班",
+            "转回白班"
+          ],
+          [
+            "尝试早睡早起",
+            "开始早睡早起"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "cc22a40f-18ec-40d1-9e77-c7a6a0cbde8c",
+          "content": "用户于2026年9月1日正式转为夜班工作，而非之前记录的上个月（约8月）",
+          "score": 0.6272996678012719,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:31:14.172270+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:31:44.121431+00:00"
+        },
+        {
+          "memory_id": "f78927a0-4ba6-456b-baec-c1530582cbcd",
+          "content": "用户在2026年9月7日申请调回白班工作",
+          "score": 0.590805969456424,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:31:14.172270+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:31:44.121431+00:00"
+        },
+        {
+          "memory_id": "bf157580-46cc-4aec-9d9d-eddde4d4d0be",
+          "content": "用户从2026年9月8日开始尝试早睡早起以调整作息",
+          "score": 0.5770175584910855,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:31:14.172270+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:31:44.121431+00:00"
+        },
+        {
+          "memory_id": "53bb1c7f-5eec-4f1b-ae45-14929c999c70",
+          "content": "用户上个月（约2026年8月）被迫转为夜班，工作时间为晚上十点到早上六点，导致白天完全无法入睡，只能小睡半小时。",
+          "score": 0.5551540772994579,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:30:12.992793+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M01-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:31:14.138540+00:00"
+        }
+      ],
+      "seconds": 0.891
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "用户实际是从哪一天开始执行夜班工作的？当时的睡眠状况如何？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "cc22a40f-18ec-40d1-9e77-c7a6a0cbde8c",
+        "content": "用户于2026年9月1日正式转为夜班工作，而非之前记录的上个月（约8月）",
+        "score": 0.716648126246165,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:31:14.172270+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M01-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:31:44.121431+00:00"
+      },
+      {
+        "memory_id": "53bb1c7f-5eec-4f1b-ae45-14929c999c70",
+        "content": "用户上个月（约2026年8月）被迫转为夜班，工作时间为晚上十点到早上六点，导致白天完全无法入睡，只能小睡半小时。",
+        "score": 0.6914255219021381,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:30:12.992793+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M01-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:31:14.138540+00:00"
+      },
+      {
+        "memory_id": "f78927a0-4ba6-456b-baec-c1530582cbcd",
+        "content": "用户在2026年9月7日申请调回白班工作",
+        "score": 0.626575376830614,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:31:14.172270+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M01-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:31:44.121431+00:00"
+      },
+      {
+        "memory_id": "bf157580-46cc-4aec-9d9d-eddde4d4d0be",
+        "content": "用户从2026年9月8日开始尝试早睡早起以调整作息",
+        "score": 0.5827177031391153,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:31:14.172270+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M01-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:31:44.121431+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 98.813
+}

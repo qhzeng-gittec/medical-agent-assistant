@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"4eed43168d4a964b23d2\", \"query\": \"患者关于抗凝药物的决定是什么，并计划何时到院？\", \"expected_facts\": [\"患者根据医生建议决定不停用阿司匹林。\", \"患者计划于下周三下午两点到达医院。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户于2026年9月7日咨询主治医生，获知颈动脉彩超检查前无需停用阿司匹林\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:49:29.260828+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户担心颈动脉彩超检查前是否需要停用阿司匹林，纠结于出血风险和血栓风险之间的平衡\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:49:18.366478+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户计划于2026年9月16日下午两点到医院进行颈动脉彩超检查\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:49:29.260828+00:00\"}]}, {\"id\": \"4fb189660cecf6de7c66\", \"query\": \"患者去年冬季旅行的具体目的地和停留时长是多少？\", \"expected_facts\": [\"患者去年冬季旅行的目的地是长春。\", \"患者在长春停留了四天。\", \"旅行时间是去年一月。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户去年一月（2025年1月）去了长春旅行，住了四天\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:39:11.832507+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户去年冬天（2025-2026年冬季）去了哈尔滨看雪，住了三天，主要在中央大街附近活动，天气非常冷\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:38:35.396953+00:00\"}]}, {\"id\": \"50777688ca4e0491b992\", \"query\": \"这次药物过敏事件发生在哪一年的春季，患者现在对含该成分的药物有何具体要求？\", \"expected_facts\": [\"事件发生在2021年春天。\", \"患者要求在做无痛检查时避开含利多卡因的药物。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户2021年春天利多卡因凝胶过敏反应除口腔溃烂外，还出现面部浮肿和呼吸困难，必须吸氧才能缓解。从那以后做无痛检查都要求避开含利多卡因的药物。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:40:58.100622+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户对利多卡因凝胶过敏。2021年春天做胃镜前使用该药后，口腔黏膜迅速起泡溃烂，出现吞咽困难。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:40:40.221555+00:00\"}]}, {\"id\": \"510e4b56aa8e5d44b0e3\", \"query\": \"患者是否按照医生最初建议的时间停药？\", \"expected_facts\": [\"患者未按最初建议的4月20日停药，而是延后至4月22日\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户实际于2026年4月22日停用非布司他，当天医生再次确认可以停药，用户在那天彻底停止服用。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:47:57.450875+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户2020年因痛风开始每天服用一片非布司他。2026年4月医生告知尿酸正常，指示4月20日停药，但用户实际坚持服用至4月25日才停用。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:47:19.940157+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861956-oU7EOM4lF0LPOlzSKLrS",
+    "object": "chat.completion",
+    "created": 1788861956,
+    "model": "minimax/minimax-m2.5",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"4eed43168d4a964b23d2\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"医生告知检查前无需停用阿司匹林，支持患者决定不停用该药。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m2\"}],\"reason\":\"记录显示患者计划于2026年9月16日下午两点到院，与下周三日期吻合。\"}]},{\"id\":\"4fb189660cecf6de7c66\",\"facts\":[{\"supported\":false,\"evidence\":[],\"reason\":\"记忆显示目的地是长春且停留四天，但另一记忆显示去哈尔滨且住三天，时间地点均冲突。\"},{\"supported\":false,\"evidence\":[],\"reason\":\"无记忆支持在长春停留四天，哈尔滨记忆显示停留三天且目的地不符。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确显示旅行时间是2025年1月，即去年一月。\"}]},{\"id\":\"50777688ca4e0491b992\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"两条记忆均确认事件发生在2021年春天。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确记录患者要求在做无痛检查时避开含利多卡因的药物。\"}]},{\"id\":\"510e4b56aa8e5d44b0e3\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"两记忆均显示医生原建议4月20日停药，但实际延后至4月22日才停药。\"},{\"supported\":false,\"evidence\":[],\"reason\":\"无记忆支持停药延后至4月25日，m0显示实际停药日为4月22日。\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item:\n\n**Item 1: id=\"4eed43168d4a964b23d2\"**\n- Query: 患者关于抗凝药物的决定是什么，并计划何时到院？\n- Expected facts:\n  1. 患者根据医生建议决定不停用阿司匹林。\n  2. 患者计划于下周三下午两点到达医院。\n\nMemories:\n- m0: 用户于2026年9月7日咨询主治医生，获知颈动脉彩超检查前无需停用阿司匹林\n- m1: 用户担心颈动脉彩超检查前是否需要停用阿司匹林，纠结于出血风险和血栓风险之间的平衡\n- m2: 用户计划于2026年9月16日下午两点到医院进行颈动脉彩超检查\n\nAnalysis:\n1. Fact 1: \"患者根据医生建议决定不停用阿司匹林\" - m0 says the doctor said no need to stop aspirin (无需停用阿司匹林), which supports that the patient decided not to stop aspirin based on doctor's advice. This is supported.\n2. Fact 2: \"患者计划于下周三下午两点到达医院\" - m2 says the patient plans to go to the hospital at 2026年9月16日下午两点. The query mentions \"下周三\" (next Wednesday). The recorded_at is 2026-09-08, so the next Wednesday would be September 16, 2026. This matches. Supported.\n\n**Item 2: id=\"4fb189660cecf6de7c66\"**\n- Query: 患者去年冬季旅行的具体目的地和停留时长是多少？\n- Expected facts:\n  1. 患者去年冬季旅行的目的地是长春。\n  2. 患者在长春停留了四天。\n  3. 旅行时间是去年一月。\n\nMemories:\n- m0: 用户去年一月（2025年1月）去了长春旅行，住了四天\n- m1: 用户去年冬天（2025-2026年冬季）去了哈尔滨看雪，住了三天\n\nI notice conflicting travel information between the memories. The memories present different travel destinations and durations, which complicates verifying the expected facts. The query specifically asks about last winter's travel details, but the memories show multiple potential trips with varying details.\n\nThe key discrepancy is between Changchun and Harbin as potential destinations, with different trip durations. This requires careful cross-referencing of the specific details to determine the accurate travel information.\n\nThe first fact about the destination being Changchun seems partially supported, but the trip duration doesn't align perfectly. The second fact about staying four days is contradicted by the three-day stay mentioned in another memory. The third fact about the travel timing appears consistent, with January 2025 matching the expected timeframe.\n\nThe evidence suggests conflicting details about the trip's specifics, making it challenging to definitively confirm all expected facts. The memories provide nuanced but slightly inconsistent information about the winter travel.\n\nThe key discrepancies center on the destination (Changchun versus Harbin) and the precise duration of the stay, which requires careful verification against the original query's requirements.\n\nFor the first fact about Changchun, the evidence is partially supported - the destination matches, but the duration is incorrect. The second fact about the four-day stay lacks supporting documentation. The third fact about travel timing appears consistent with the January 2025 reference.\n\nThe analysis reveals nuanced challenges in matching the expected facts with the available memory evidence, highlighting the need for precise cross-referencing of details.\n\nThe subsequent query introduces additional complexity, focusing on a 2021 spring drug allergy incident and current medication avoidance requirements. The memories provide detailed context about a lidocaine gel allergic reaction, including specific symptoms and subsequent medical precautions.\n\nI verify the supporting evidence systematically: the timing matches, and the current medical directive to avoid lidocaine-containing drugs is confirmed through direct memory documentation. Each fact receives explicit validation from the source information.\n\nThe next query appears to involve medication discontinuation details, with memories capturing nuanced information about stopping febuxostat. I'll carefully examine the evidence to confirm the specific circumstances surrounding the medication adjustment.\n\nThe first fact reveals a discrepancy between the recommended and actual stopping date. While the initial recommendation was April 20th, the actual discontinuation occurred on April 22nd, not April 25th as initially suggested in another memory source. This subtle difference requires precise verification.\n\nThe second fact appears unsupported, with no clear evidence matching the expected detail about extending the medication period to April 25th. I'll need to cross-reference the memory sources to confirm the precise timeline and rationale behind the medication modification.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item:\n\n**Item 1: id=\"4eed43168d4a964b23d2\"**\n- Query: 患者关于抗凝药物的决定是什么，并计划何时到院？\n- Expected facts:\n  1. 患者根据医生建议决定不停用阿司匹林。\n  2. 患者计划于下周三下午两点到达医院。\n\nMemories:\n- m0: 用户于2026年9月7日咨询主治医生，获知颈动脉彩超检查前无需停用阿司匹林\n- m1: 用户担心颈动脉彩超检查前是否需要停用阿司匹林，纠结于出血风险和血栓风险之间的平衡\n- m2: 用户计划于2026年9月16日下午两点到医院进行颈动脉彩超检查\n\nAnalysis:\n1. Fact 1: \"患者根据医生建议决定不停用阿司匹林\" - m0 says the doctor said no need to stop aspirin (无需停用阿司匹林), which supports that the patient decided not to stop aspirin based on doctor's advice. This is supported.\n2. Fact 2: \"患者计划于下周三下午两点到达医院\" - m2 says the patient plans to go to the hospital at 2026年9月16日下午两点. The query mentions \"下周三\" (next Wednesday). The recorded_at is 2026-09-08, so the next Wednesday would be September 16, 2026. This matches. Supported.\n\n**Item 2: id=\"4fb189660cecf6de7c66\"**\n- Query: 患者去年冬季旅行的具体目的地和停留时长是多少？\n- Expected facts:\n  1. 患者去年冬季旅行的目的地是长春。\n  2. 患者在长春停留了四天。\n  3. 旅行时间是去年一月。\n\nMemories:\n- m0: 用户去年一月（2025年1月）去了长春旅行，住了四天\n- m1: 用户去年冬天（2025-2026年冬季）去了哈尔滨看雪，住了三天\n\nI notice conflicting travel information between the memories. The memories present different travel destinations and durations, which complicates verifying the expected facts. The query specifically asks about last winter's travel details, but the memories show multiple potential trips with varying details.\n\nThe key discrepancy is between Changchun and Harbin as potential destinations, with different trip durations. This requires careful cross-referencing of the specific details to determine the accurate travel information.\n\nThe first fact about the destination being Changchun seems partially supported, but the trip duration doesn't align perfectly. The second fact about staying four days is contradicted by the three-day stay mentioned in another memory. The third fact about the travel timing appears consistent, with January 2025 matching the expected timeframe.\n\nThe evidence suggests conflicting details about the trip's specifics, making it challenging to definitively confirm all expected facts. The memories provide nuanced but slightly inconsistent information about the winter travel.\n\nThe key discrepancies center on the destination (Changchun versus Harbin) and the precise duration of the stay, which requires careful verification against the original query's requirements.\n\nFor the first fact about Changchun, the evidence is partially supported - the destination matches, but the duration is incorrect. The second fact about the four-day stay lacks supporting documentation. The third fact about travel timing appears consistent with the January 2025 reference.\n\nThe analysis reveals nuanced challenges in matching the expected facts with the available memory evidence, highlighting the need for precise cross-referencing of details.\n\nThe subsequent query introduces additional complexity, focusing on a 2021 spring drug allergy incident and current medication avoidance requirements. The memories provide detailed context about a lidocaine gel allergic reaction, including specific symptoms and subsequent medical precautions.\n\nI verify the supporting evidence systematically: the timing matches, and the current medical directive to avoid lidocaine-containing drugs is confirmed through direct memory documentation. Each fact receives explicit validation from the source information.\n\nThe next query appears to involve medication discontinuation details, with memories capturing nuanced information about stopping febuxostat. I'll carefully examine the evidence to confirm the specific circumstances surrounding the medication adjustment.\n\nThe first fact reveals a discrepancy between the recommended and actual stopping date. While the initial recommendation was April 20th, the actual discontinuation occurred on April 22nd, not April 25th as initially suggested in another memory source. This subtle difference requires precise verification.\n\nThe second fact appears unsupported, with no clear evidence matching the expected detail about extending the medication period to April 25th. I'll need to cross-reference the memory sources to confirm the precise timeline and rationale behind the medication modification.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1252,
+      "completion_tokens": 1341,
+      "total_tokens": 2593,
+      "cost": 0.00192336,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00192336,
+        "upstream_inference_prompt_cost": 0.00031416,
+        "upstream_inference_completions_cost": 0.0016092
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 1161,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 18.437
+}

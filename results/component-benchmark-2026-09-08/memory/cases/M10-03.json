@@ -1,0 +1,471 @@
+{
+  "case": {
+    "id": "M10-03",
+    "category": "饮食偏好与个人生活习惯",
+    "turns": [
+      {
+        "user": "我有喝咖啡的习惯，每天早晨必须喝一杯黑咖啡才能清醒。但我对咖啡因很敏感，下午三点后喝就会失眠，所以严格控制在上午饮用。",
+        "assistant": "已记录您的咖啡饮用时间及对咖啡因的敏感度。"
+      },
+      {
+        "user": "补充说明，我其实是从三年前才开始养成这个习惯的，之前并不怎么喝咖啡。而且如果不小心喝了加糖的咖啡，我会感到胃部不适。",
+        "assistant": "已补充咖啡习惯的起始时间及对加糖咖啡的反应。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "患者每日饮用咖啡的时间段有何限制？若违反此限制会出现什么后果？",
+        "expected_facts": [
+          "该患者仅在上午饮用咖啡，下午三点后不喝。",
+          "该患者若在下午三点后饮用咖啡会导致失眠。"
+        ],
+        "required_groups": [
+          [
+            "上午",
+            "早上"
+          ],
+          [
+            "下午三点后",
+            "午后",
+            "失眠"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "患者何时开始形成每日饮咖的习惯？饮用何种配方的咖啡会引起身体不适？",
+        "expected_facts": [
+          "该患者从三年前开始养成每日饮咖习惯。",
+          "该患者饮用加糖咖啡时会感到胃部不适。"
+        ],
+        "required_groups": [
+          [
+            "三年前",
+            "3年前"
+          ],
+          [
+            "加糖咖啡",
+            "含糖咖啡",
+            "胃部不适"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M10-03",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861420-EJ63oNaabBruf1fsY3Ya",
+      "usage": {
+        "prompt_tokens": 59,
+        "total_tokens": 59,
+        "cost": 5.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.9e-07,
+          "upstream_inference_prompt_cost": 5.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861423-SnwswaGTVvITvgw0WhS4",
+      "usage": {
+        "prompt_tokens": 8353,
+        "completion_tokens": 252,
+        "total_tokens": 8605,
+        "cost": 0.00259225,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00259225,
+          "upstream_inference_prompt_cost": 0.00208825,
+          "upstream_inference_completions_cost": 0.000504
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 213,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户有每天早晨喝一杯黑咖啡的习惯，必须喝才能清醒。但对咖啡因很敏感，下午三点后饮用会导致失眠，因此严格控制在上午饮用。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861435-uwpd7AFWCC5vIlhtcz7S",
+      "usage": {
+        "prompt_tokens": 37,
+        "total_tokens": 37,
+        "cost": 3.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.7e-07,
+          "upstream_inference_prompt_cost": 3.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861440-UtQrF0kJYvzwcU24KRJl",
+      "usage": {
+        "prompt_tokens": 61,
+        "total_tokens": 61,
+        "cost": 6.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.1e-07,
+          "upstream_inference_prompt_cost": 6.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861442-snL0BCDPoJ2jF3zfB2XC",
+      "usage": {
+        "prompt_tokens": 8452,
+        "completion_tokens": 213,
+        "total_tokens": 8665,
+        "cost": 0.0030468,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0030468,
+          "upstream_inference_prompt_cost": 0.0025356,
+          "upstream_inference_completions_cost": 0.0005112
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 107,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户从三年前才开始养成每天早晨喝黑咖啡的习惯，之前并不怎么喝咖啡。\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户如果不小心喝了加糖的咖啡会感到胃部不适。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861457-499zPBlgKE9MbCsvsRfG",
+      "usage": {
+        "prompt_tokens": 36,
+        "total_tokens": 36,
+        "cost": 3.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.6e-07,
+          "upstream_inference_prompt_cost": 3.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861458-kh3EuC7k9Gt72BRa4WkY",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861459-U7e0xknoolprJBQwHoDO",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861460-ocrnFmR9GBPB0pcDEJVT",
+      "usage": {
+        "prompt_tokens": 28,
+        "total_tokens": 28,
+        "cost": 2.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.8e-07,
+          "upstream_inference_prompt_cost": 2.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861461-3mzjYYyDQrWZNWJe3ibr",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861462-3ppDsMTpgpUWqjBDESef",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "患者每日饮用咖啡的时间段有何限制？若违反此限制会出现什么后果？",
+        "expected_facts": [
+          "该患者仅在上午饮用咖啡，下午三点后不喝。",
+          "该患者若在下午三点后饮用咖啡会导致失眠。"
+        ],
+        "required_groups": [
+          [
+            "上午",
+            "早上"
+          ],
+          [
+            "下午三点后",
+            "午后",
+            "失眠"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "67b3e5eb-3411-4bc2-b460-3330a95940d4",
+          "content": "用户有每天早晨喝一杯黑咖啡的习惯，必须喝才能清醒。但对咖啡因很敏感，下午三点后饮用会导致失眠，因此严格控制在上午饮用。",
+          "score": 0.7503494108071473,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:56:59.100126+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M10-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:57:19.653463+00:00"
+        },
+        {
+          "memory_id": "753e2a0e-125f-4206-b75a-71d6556d19c2",
+          "content": "用户从三年前才开始养成每天早晨喝黑咖啡的习惯，之前并不怎么喝咖啡。",
+          "score": 0.6987660105923016,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:57:19.684321+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M10-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:57:36.969873+00:00"
+        },
+        {
+          "memory_id": "ffe0ae24-c8c9-4afd-82bc-f555ecd7b989",
+          "content": "用户如果不小心喝了加糖的咖啡会感到胃部不适。",
+          "score": 0.6427085585573638,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:57:19.684321+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M10-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:57:36.969873+00:00"
+        }
+      ],
+      "seconds": 1.532
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "患者何时开始形成每日饮咖的习惯？饮用何种配方的咖啡会引起身体不适？",
+        "expected_facts": [
+          "该患者从三年前开始养成每日饮咖习惯。",
+          "该患者饮用加糖咖啡时会感到胃部不适。"
+        ],
+        "required_groups": [
+          [
+            "三年前",
+            "3年前"
+          ],
+          [
+            "加糖咖啡",
+            "含糖咖啡",
+            "胃部不适"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "753e2a0e-125f-4206-b75a-71d6556d19c2",
+          "content": "用户从三年前才开始养成每天早晨喝黑咖啡的习惯，之前并不怎么喝咖啡。",
+          "score": 0.7635618871778298,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:57:19.684321+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M10-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:57:36.969873+00:00"
+        },
+        {
+          "memory_id": "67b3e5eb-3411-4bc2-b460-3330a95940d4",
+          "content": "用户有每天早晨喝一杯黑咖啡的习惯，必须喝才能清醒。但对咖啡因很敏感，下午三点后饮用会导致失眠，因此严格控制在上午饮用。",
+          "score": 0.7000508647125651,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:56:59.100126+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M10-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:57:19.653463+00:00"
+        },
+        {
+          "memory_id": "ffe0ae24-c8c9-4afd-82bc-f555ecd7b989",
+          "content": "用户如果不小心喝了加糖的咖啡会感到胃部不适。",
+          "score": 0.6431910999605057,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:57:19.684321+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M10-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:57:36.969873+00:00"
+        }
+      ],
+      "seconds": 0.921
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者每日饮用咖啡的时间段有何限制？若违反此限制会出现什么后果？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "67b3e5eb-3411-4bc2-b460-3330a95940d4",
+        "content": "用户有每天早晨喝一杯黑咖啡的习惯，必须喝才能清醒。但对咖啡因很敏感，下午三点后饮用会导致失眠，因此严格控制在上午饮用。",
+        "score": 0.6215510007711569,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:56:59.100126+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M10-03",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:57:19.653463+00:00"
+      },
+      {
+        "memory_id": "753e2a0e-125f-4206-b75a-71d6556d19c2",
+        "content": "用户从三年前才开始养成每天早晨喝黑咖啡的习惯，之前并不怎么喝咖啡。",
+        "score": 0.6004691430607386,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:57:19.684321+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M10-03",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:57:36.969873+00:00"
+      },
+      {
+        "memory_id": "ffe0ae24-c8c9-4afd-82bc-f555ecd7b989",
+        "content": "用户如果不小心喝了加糖的咖啡会感到胃部不适。",
+        "score": 0.5537998541884115,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:57:19.684321+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M10-03",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:57:36.969873+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 44.672
+}

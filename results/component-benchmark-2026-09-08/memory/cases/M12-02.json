@@ -1,0 +1,471 @@
+{
+  "case": {
+    "id": "M12-02",
+    "category": "否定事实与助手建议区分",
+    "turns": [
+      {
+        "user": "很多人以为我有糖尿病，其实我去年体检时血糖完全正常，医生特意强调我没有患糖尿病，只是家族里有病史所以我比较注意饮食。",
+        "assistant": "好的，已记录您去年体检确认未患糖尿病的事实。"
+      },
+      {
+        "user": "对了，虽然我没病，但我确实坚持每天监测空腹血糖，这是从两年前开始的，主要是为了预防，毕竟父母都有这个病。",
+        "assistant": "收到，已补充您从两年前开始每日监测空腹血糖的预防习惯。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "用户是否被确诊患有糖尿病？",
+        "expected_facts": [
+          "用户去年体检时未被确诊患有糖尿病。",
+          "医生明确告知用户血糖正常且无糖尿病。"
+        ],
+        "required_groups": [
+          [
+            "未患",
+            "没有",
+            "无"
+          ],
+          [
+            "糖尿病",
+            "高血糖症"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "用户从何时开始进行血糖监测？",
+        "expected_facts": [
+          "用户从两年前开始坚持每天监测空腹血糖。",
+          "用户进行血糖监测是为了预防而非治疗。"
+        ],
+        "required_groups": [
+          [
+            "两年前",
+            "2年前"
+          ],
+          [
+            "监测血糖",
+            "测血糖",
+            "检查血糖"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M12-02",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861669-WSePCmyQHjtrmpyhaamB",
+      "usage": {
+        "prompt_tokens": 57,
+        "total_tokens": 57,
+        "cost": 5.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.7e-07,
+          "upstream_inference_prompt_cost": 5.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861673-2ALv0Ff5iVh8no2jzci2",
+      "usage": {
+        "prompt_tokens": 8353,
+        "completion_tokens": 344,
+        "total_tokens": 8697,
+        "cost": 0.00306618,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00306618,
+          "upstream_inference_prompt_cost": 0.00217178,
+          "upstream_inference_completions_cost": 0.0008944
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 257,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"很多人误以为用户患有糖尿病，但用户去年（约2025年）体检时血糖完全正常，医生特意强调用户没有患糖尿病\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户家族中有糖尿病病史，因此用户比较注意饮食\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861682-qRzUZikyvYTw7Bmw63aN",
+      "usage": {
+        "prompt_tokens": 45,
+        "total_tokens": 45,
+        "cost": 4.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.5e-07,
+          "upstream_inference_prompt_cost": 4.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861684-6zyktmCmn7ty5NgQyaDg",
+      "usage": {
+        "prompt_tokens": 57,
+        "total_tokens": 57,
+        "cost": 5.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.7e-07,
+          "upstream_inference_prompt_cost": 5.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861688-wlAxZZLNl80Jnry3WFqA",
+      "usage": {
+        "prompt_tokens": 8471,
+        "completion_tokens": 1553,
+        "total_tokens": 10024,
+        "cost": 0.0062685,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0062685,
+          "upstream_inference_prompt_cost": 0.0025413,
+          "upstream_inference_completions_cost": 0.0037272
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1469,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户坚持每天监测空腹血糖，这一习惯从两年前开始，主要是为了预防，因为用户的父母都患有糖尿病。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861740-TcsDtlOuKZbwxfYPg9Fx",
+      "usage": {
+        "prompt_tokens": 26,
+        "total_tokens": 26,
+        "cost": 2.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.6e-07,
+          "upstream_inference_prompt_cost": 2.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861742-qF1vvJNiji6MmLiVgmZX",
+      "usage": {
+        "prompt_tokens": 8,
+        "total_tokens": 8,
+        "cost": 8e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 8e-08,
+          "upstream_inference_prompt_cost": 8e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861746-WYjHliDpSMcFHlYlj9y8",
+      "usage": {
+        "prompt_tokens": 9,
+        "total_tokens": 9,
+        "cost": 9e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 9e-08,
+          "upstream_inference_prompt_cost": 9e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861748-skexAIWvVRUPBWRUmY3J",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861759-UbhV3hGvb5bnMYhyQkwL",
+      "usage": {
+        "prompt_tokens": 8,
+        "total_tokens": 8,
+        "cost": 8e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 8e-08,
+          "upstream_inference_prompt_cost": 8e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861759-hRMqi3Cz3zKifA10eEn2",
+      "usage": {
+        "prompt_tokens": 8,
+        "total_tokens": 8,
+        "cost": 8e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 8e-08,
+          "upstream_inference_prompt_cost": 8e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "用户是否被确诊患有糖尿病？",
+        "expected_facts": [
+          "用户去年体检时未被确诊患有糖尿病。",
+          "医生明确告知用户血糖正常且无糖尿病。"
+        ],
+        "required_groups": [
+          [
+            "未患",
+            "没有",
+            "无"
+          ],
+          [
+            "糖尿病",
+            "高血糖症"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "7497c8f1-189d-4567-ba5d-15c14c23ada5",
+          "content": "很多人误以为用户患有糖尿病，但用户去年（约2025年）体检时血糖完全正常，医生特意强调用户没有患糖尿病",
+          "score": 0.7666111221043381,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:06.441190+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:01:23.749220+00:00"
+        },
+        {
+          "memory_id": "3296efca-5f75-4f1b-a6f6-9aee0b2a159d",
+          "content": "用户家族中有糖尿病病史，因此用户比较注意饮食",
+          "score": 0.7486492424638682,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:06.441190+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:01:23.749220+00:00"
+        },
+        {
+          "memory_id": "96bb9e43-52f4-409e-909c-63daf30aeb6a",
+          "content": "用户坚持每天监测空腹血糖，这一习惯从两年前开始，主要是为了预防，因为用户的父母都患有糖尿病。",
+          "score": 0.7138609329477809,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:23.793991+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:02:20.504908+00:00"
+        }
+      ],
+      "seconds": 5.203
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "用户从何时开始进行血糖监测？",
+        "expected_facts": [
+          "用户从两年前开始坚持每天监测空腹血糖。",
+          "用户进行血糖监测是为了预防而非治疗。"
+        ],
+        "required_groups": [
+          [
+            "两年前",
+            "2年前"
+          ],
+          [
+            "监测血糖",
+            "测血糖",
+            "检查血糖"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "96bb9e43-52f4-409e-909c-63daf30aeb6a",
+          "content": "用户坚持每天监测空腹血糖，这一习惯从两年前开始，主要是为了预防，因为用户的父母都患有糖尿病。",
+          "score": 0.7567742699168998,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:23.793991+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:02:20.504908+00:00"
+        },
+        {
+          "memory_id": "3296efca-5f75-4f1b-a6f6-9aee0b2a159d",
+          "content": "用户家族中有糖尿病病史，因此用户比较注意饮食",
+          "score": 0.6792262235841247,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:06.441190+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:01:23.749220+00:00"
+        },
+        {
+          "memory_id": "7497c8f1-189d-4567-ba5d-15c14c23ada5",
+          "content": "很多人误以为用户患有糖尿病，但用户去年（约2025年）体检时血糖完全正常，医生特意强调用户没有患糖尿病",
+          "score": 0.6569178249919847,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:06.441190+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:01:23.749220+00:00"
+        }
+      ],
+      "seconds": 1.922
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "用户是否被确诊患有糖尿病？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "3296efca-5f75-4f1b-a6f6-9aee0b2a159d",
+        "content": "用户家族中有糖尿病病史，因此用户比较注意饮食",
+        "score": 0.6405264127814698,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:01:06.441190+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M12-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:01:23.749220+00:00"
+      },
+      {
+        "memory_id": "7497c8f1-189d-4567-ba5d-15c14c23ada5",
+        "content": "很多人误以为用户患有糖尿病，但用户去年（约2025年）体检时血糖完全正常，医生特意强调用户没有患糖尿病",
+        "score": 0.6334696793312826,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:01:06.441190+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M12-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:01:23.749220+00:00"
+      },
+      {
+        "memory_id": "96bb9e43-52f4-409e-909c-63daf30aeb6a",
+        "content": "用户坚持每天监测空腹血糖，这一习惯从两年前开始，主要是为了预防，因为用户的父母都患有糖尿病。",
+        "score": 0.5910897670090381,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:01:23.793991+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M12-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:02:20.504908+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 99.625
+}

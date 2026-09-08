@@ -1,0 +1,581 @@
+{
+  "case": {
+    "id": "M07-09",
+    "category": "预约复查与检查准备安排",
+    "turns": [
+      {
+        "user": "我想约下周二下午的心脏负荷试验。我有糖尿病，平时打胰岛素。检查过程中如果需要运动，我担心低血糖，请问检查前能不能吃早饭？",
+        "assistant": "收到，已记录您下周二下午的心脏负荷试验预约及关于糖尿病、胰岛素和低血糖风险的咨询。"
+      },
+      {
+        "user": "更正一下，我周二早上六点打了胰岛素。如果检查安排在下午两点，我中午可以正常吃饭吗？还是必须一直空腹到检查结束？",
+        "assistant": "明白，已更新您周二早晨六点的胰岛素注射记录，以及对中午进食安排的询问。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "患者预约了什么检查，涉及哪些基础疾病和用药情况？",
+        "expected_facts": [
+          "患者预约了下周二下午的心脏负荷试验。",
+          "患者患有糖尿病且平时使用胰岛素治疗。"
+        ],
+        "required_groups": [
+          [
+            "下周二下午",
+            "周二下午"
+          ],
+          [
+            "心脏负荷试验",
+            "运动平板试验"
+          ],
+          [
+            "糖尿病",
+            "血糖高"
+          ],
+          [
+            "胰岛素",
+            "打胰岛素"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "患者具体的用药时间和检查时间分别是多少，他对中间时段进食有何疑问？",
+        "expected_facts": [
+          "患者周二早上六点注射了胰岛素。",
+          "患者询问若检查在下午两点，中午是否可以正常吃饭。"
+        ],
+        "required_groups": [
+          [
+            "周二早上六点",
+            "六点打针"
+          ],
+          [
+            "下午两点",
+            "两点检查"
+          ],
+          [
+            "中午吃饭",
+            "午餐"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M07-09",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861041-FP96lQybakpiCCOlWRvm",
+      "usage": {
+        "prompt_tokens": 76,
+        "total_tokens": 76,
+        "cost": 7.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.6e-07,
+          "upstream_inference_prompt_cost": 7.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861044-PqWrekPbsAbGIi1oUkVv",
+      "usage": {
+        "prompt_tokens": 8365,
+        "completion_tokens": 1796,
+        "total_tokens": 10161,
+        "cost": 0.0056007,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 8128,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0056007,
+          "upstream_inference_prompt_cost": 0.0012903,
+          "upstream_inference_completions_cost": 0.0043104
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1639,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户患有糖尿病，平时打胰岛素。\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户预约了2026年9月15日（下周二）下午的心脏负荷试验。\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"2\",\n      \"text\": \"用户担心心脏负荷试验过程中若需运动会导致低血糖，并咨询检查前是否可以吃早饭。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861117-SOnPakGFlVovhYuQSuzu",
+      "usage": {
+        "prompt_tokens": 58,
+        "total_tokens": 58,
+        "cost": 5.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.8e-07,
+          "upstream_inference_prompt_cost": 5.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861119-dev3okgfqJzlPL0KGwrc",
+      "usage": {
+        "prompt_tokens": 69,
+        "total_tokens": 69,
+        "cost": 6.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.9e-07,
+          "upstream_inference_prompt_cost": 6.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861119-0bLOtTM3iw0t2UJNqGkG",
+      "usage": {
+        "prompt_tokens": 8508,
+        "completion_tokens": 781,
+        "total_tokens": 9289,
+        "cost": 0.003689,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.003689,
+          "upstream_inference_prompt_cost": 0.002127,
+          "upstream_inference_completions_cost": 0.001562
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 719,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户在周二（9月15日）早上六点注射了胰岛素。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"1\", \"2\"]\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户询问如果心脏负荷试验安排在下午两点，中午是否可以正常吃饭，还是必须一直空腹到检查结束。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\", \"2\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861139-9kZ2kYM3doE7gdTTOSSg",
+      "usage": {
+        "prompt_tokens": 47,
+        "total_tokens": 47,
+        "cost": 4.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.7e-07,
+          "upstream_inference_prompt_cost": 4.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861141-PG4zxyuRJHjzXmS35UnX",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861143-YKuOTKuQnoh7xbsxJuBe",
+      "usage": {
+        "prompt_tokens": 17,
+        "total_tokens": 17,
+        "cost": 1.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.7e-07,
+          "upstream_inference_prompt_cost": 1.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861144-uMG36O4AcJZCpZ5kiiUb",
+      "usage": {
+        "prompt_tokens": 25,
+        "total_tokens": 25,
+        "cost": 2.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.5e-07,
+          "upstream_inference_prompt_cost": 2.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861145-PZ9Ms7kAFlcBzlfI9qbB",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861159-nYaCUfeuJOoHoM5qfDj0",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "患者预约了什么检查，涉及哪些基础疾病和用药情况？",
+        "expected_facts": [
+          "患者预约了下周二下午的心脏负荷试验。",
+          "患者患有糖尿病且平时使用胰岛素治疗。"
+        ],
+        "required_groups": [
+          [
+            "下周二下午",
+            "周二下午"
+          ],
+          [
+            "心脏负荷试验",
+            "运动平板试验"
+          ],
+          [
+            "糖尿病",
+            "血糖高"
+          ],
+          [
+            "胰岛素",
+            "打胰岛素"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "286c8332-95cb-4583-9908-fa4090d9819f",
+          "content": "用户预约了2026年9月15日（下周二）下午的心脏负荷试验。",
+          "score": 0.6231598053890093,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:50:38.566304+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:57.895490+00:00"
+        },
+        {
+          "memory_id": "ccaab725-f85a-414f-a7fc-3c393de0ad1a",
+          "content": "用户担心心脏负荷试验过程中若需运动会导致低血糖，并咨询检查前是否可以吃早饭。",
+          "score": 0.6143138318120049,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:50:38.566304+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:57.895490+00:00"
+        },
+        {
+          "memory_id": "29c441b9-23d1-4f66-b39c-2307d2c1c12a",
+          "content": "用户患有糖尿病，平时打胰岛素。",
+          "score": 0.5823083724341758,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:50:38.566304+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:57.895490+00:00"
+        },
+        {
+          "memory_id": "04040299-7c05-4cb7-b6ce-414708e60fe2",
+          "content": "用户询问如果心脏负荷试验安排在下午两点，中午是否可以正常吃饭，还是必须一直空腹到检查结束。",
+          "score": 0.5491552717718049,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:57.967504+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:52:19.973924+00:00"
+        },
+        {
+          "memory_id": "d1a81e2e-f033-4f4a-985d-f8aabe2d3ab2",
+          "content": "用户在周二（9月15日）早上六点注射了胰岛素。",
+          "score": 0.40050133149148726,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:57.967504+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:52:19.973924+00:00"
+        }
+      ],
+      "seconds": 2.5
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "患者具体的用药时间和检查时间分别是多少，他对中间时段进食有何疑问？",
+        "expected_facts": [
+          "患者周二早上六点注射了胰岛素。",
+          "患者询问若检查在下午两点，中午是否可以正常吃饭。"
+        ],
+        "required_groups": [
+          [
+            "周二早上六点",
+            "六点打针"
+          ],
+          [
+            "下午两点",
+            "两点检查"
+          ],
+          [
+            "中午吃饭",
+            "午餐"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "04040299-7c05-4cb7-b6ce-414708e60fe2",
+          "content": "用户询问如果心脏负荷试验安排在下午两点，中午是否可以正常吃饭，还是必须一直空腹到检查结束。",
+          "score": 0.6673903103630144,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:57.967504+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:52:19.973924+00:00"
+        },
+        {
+          "memory_id": "ccaab725-f85a-414f-a7fc-3c393de0ad1a",
+          "content": "用户担心心脏负荷试验过程中若需运动会导致低血糖，并咨询检查前是否可以吃早饭。",
+          "score": 0.5976035346116702,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:50:38.566304+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:57.895490+00:00"
+        },
+        {
+          "memory_id": "29c441b9-23d1-4f66-b39c-2307d2c1c12a",
+          "content": "用户患有糖尿病，平时打胰岛素。",
+          "score": 0.5647651069101889,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:50:38.566304+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:57.895490+00:00"
+        },
+        {
+          "memory_id": "d1a81e2e-f033-4f4a-985d-f8aabe2d3ab2",
+          "content": "用户在周二（9月15日）早上六点注射了胰岛素。",
+          "score": 0.518579655191683,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:57.967504+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:52:19.973924+00:00"
+        },
+        {
+          "memory_id": "286c8332-95cb-4583-9908-fa4090d9819f",
+          "content": "用户预约了2026年9月15日（下周二）下午的心脏负荷试验。",
+          "score": 0.45530245714069745,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:50:38.566304+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:57.895490+00:00"
+        }
+      ],
+      "seconds": 1.031
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者预约了什么检查，涉及哪些基础疾病和用药情况？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "286c8332-95cb-4583-9908-fa4090d9819f",
+        "content": "用户预约了2026年9月15日（下周二）下午的心脏负荷试验。",
+        "score": 0.5848718569966285,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:50:38.566304+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M07-09",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:51:57.895490+00:00"
+      },
+      {
+        "memory_id": "29c441b9-23d1-4f66-b39c-2307d2c1c12a",
+        "content": "用户患有糖尿病，平时打胰岛素。",
+        "score": 0.5419784380196266,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:50:38.566304+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M07-09",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:51:57.895490+00:00"
+      },
+      {
+        "memory_id": "ccaab725-f85a-414f-a7fc-3c393de0ad1a",
+        "content": "用户担心心脏负荷试验过程中若需运动会导致低血糖，并咨询检查前是否可以吃早饭。",
+        "score": 0.5250721521490019,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:50:38.566304+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M07-09",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:51:57.895490+00:00"
+      },
+      {
+        "memory_id": "04040299-7c05-4cb7-b6ce-414708e60fe2",
+        "content": "用户询问如果心脏负荷试验安排在下午两点，中午是否可以正常吃饭，还是必须一直空腹到检查结束。",
+        "score": 0.4871547400279246,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:51:57.967504+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M07-09",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:52:19.973924+00:00"
+      },
+      {
+        "memory_id": "d1a81e2e-f033-4f4a-985d-f8aabe2d3ab2",
+        "content": "用户在周二（9月15日）早上六点注射了胰岛素。",
+        "score": 0.42924258184289565,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:51:57.967504+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M07-09",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:52:19.973924+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 121.297
+}

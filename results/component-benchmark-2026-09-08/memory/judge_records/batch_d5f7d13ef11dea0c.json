@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"35b4c88a5decaba19f5f\", \"query\": \"用户的会议安排何时会有变动？这对睡眠有何影响？\", \"expected_facts\": [\"该用户的会议时间将于下个月调整为下午。\", \"该用户预计下周起可恢复正常夜间睡眠。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户接手了新部门，每周二和周四需参加跨国会议，必须凌晨一点起床准备，导致这两天几乎整夜失眠。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:33:19.224193+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户预计从下周（2026年9月15日左右）开始能恢复正常夜间睡眠\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:34:48.023209+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户下个月（2026年10月）起跨国会议时间将调整到下午\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:34:48.023209+00:00\"}]}, {\"id\": \"3640dc03df44e4af3c9d\", \"query\": \"用户是否患有帕金森病？\", \"expected_facts\": [\"用户经神经内科医生诊断排除帕金森病。\", \"用户确诊为特发性震颤，非帕金森病。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的手抖现象从二十多岁开始，一直都很稳定。最近因为紧张稍微明显点，但医生确认它不会发展成帕金森病。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:02:52.158095+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"User has hand tremors (手抖). Relatives suggested it might be Parkinson's disease, but a neurologist diagnosed it as essential tremor (特发性震颤), which is very mild and definitely not Parkinson's disease. The doctor advised the user not to be too nervous about it.\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:02:34.640138+00:00\"}]}, {\"id\": \"36564b23874d0af30eae\", \"query\": \"患者预约了哪项检查，并在何时进行？\", \"expected_facts\": [\"患者预约了本周五下午的腰椎核磁共振检查。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"User needs to schedule a lumbar spine MRI for this Friday afternoon (around September 11, 2026)\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:48:39.048746+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"User plans to arrive at the hospital at 3 PM on Friday afternoon (September 11, 2026) for the lumbar spine MRI and wants to know how much time to allow for registration and changing clothes beforehand\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:48:51.129805+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"User's heart pacemaker model is MRI-compatible, as confirmed by the user after checking information\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:48:51.129805+00:00\"}]}, {\"id\": \"36618515ef872ab03125\", \"query\": \"患者预约了哪项检查，时间是何时？\", \"expected_facts\": [\"患者预约了本周五上午的腹部B超检查。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户预约了2026年9月11日（本周五）上午的腹部B超检查，医生要求检查前憋尿\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:49:51.723761+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户计划周五早上七点起床，喝完两瓶矿泉水，大约半小时后去排队做腹部B超检查\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:50:12.106110+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户询问如果到了现场医生说尿不够，是否需要再喝水\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:50:12.106110+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861927-ahBZjb4B4oowIv81ZLYn",
+    "object": "chat.completion",
+    "created": 1788861927,
+    "model": "minimax/minimax-m2.5",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"35b4c88a5decaba19f5f\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m2\"}],\"reason\":\"Memory states meeting time will adjust to afternoon starting next month (October 2026).\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory states user expects to resume normal nighttime sleep starting next week (around September 15, 2026).\"}]},{\"id\":\"3640dc03df44e4af3c9d\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"Memories confirm doctor ruled out Parkinson's disease, stating it will not develop into it.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory explicitly states neurologist diagnosed it as essential tremor (特发性震颤), not Parkinson's disease.\"}]},{\"id\":\"36564b23874d0af30eae\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"Memory confirms lumbar spine MRI scheduled for Friday afternoon (September 11, 2026) at 3 PM.\"}]},{\"id\":\"36618515ef872ab03125\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory confirms abdominal ultrasound scheduled for Friday morning (September 11, 2026).\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item according to the instructions:\n\n1. **Item 35b4c88a5decaba19f5f**\n   - Query: 用户的会议安排何时会有变动？这对睡眠有何影响？\n   - Expected facts:\n     1. \"该用户的会议时间将于下个月调整为下午。\" - Looking at m2: \"用户下个月（2026年10月）起跨国会议时间将调整到下午\" - This EXACTLY matches! Supported: true\n     2. \"该用户预计下周起可恢复正常夜间睡眠。\" - Looking at m1: \"用户预计从下周（2026年9月15日左右）开始能恢复正常夜间睡眠\" - This EXACTLY matches! Supported: true\n\n2. **Item 3640dc03df44e4af3c9d**\n   - Query: 用户是否患有帕金森病？\n   - Expected facts:\n     1. \"用户经神经内科医生诊断排除帕金森病。\" - Looking at m0: \"医生确认它不会发展成帕金森病\" and m1: \"a neurologist diagnosed it as essential tremor (特发性震颤), which is very mild and definitely not Parkinson's disease\" - This supports the fact that a doctor ruled out Parkinson's disease. Supported: true\n     2. \"用户确诊为特发性震颤，非帕金森病。\" - Looking at m1: \"a neurologist diagnosed it as essential tremor (特发性震颤), which is very mild and definitely not Parkinson's disease\" - This EXACTLY matches! Supported: true\n\n3. **Item 36564b23874d0af30eae**\n   - Query: 患者预约了哪项检查，并在何时进行？\n   - Expected facts:\n     1. \"患者预约了本周五下午的腰椎核磁共振检查。\" - Looking at m0: \"User needs to schedule a lumbar spine MRI for this Friday afternoon (around September 11, 2026)\" and m1: \"User plans to arrive at the hospital at 3 PM on Friday afternoon (September 11, 2026) for the lumbar spine MRI\" - This EXACTLY matches! Supported: true\n\n4. **Item 36618515ef872ab03125**\n   - Query: 患者预约了哪项检查，时间是何时？\n   - Expected facts:\n     1. \"患者预约了本周五上午的腹部B超检查。\" - Looking at m0: \"用户预约了2026年9月11日（本周五）上午的腹部B超检查\" - This EXACTLY matches! Supported: true\n\nI'll prepare the JSON output with the corresponding memory IDs for each item, ensuring precise matching of medical appointment details.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item according to the instructions:\n\n1. **Item 35b4c88a5decaba19f5f**\n   - Query: 用户的会议安排何时会有变动？这对睡眠有何影响？\n   - Expected facts:\n     1. \"该用户的会议时间将于下个月调整为下午。\" - Looking at m2: \"用户下个月（2026年10月）起跨国会议时间将调整到下午\" - This EXACTLY matches! Supported: true\n     2. \"该用户预计下周起可恢复正常夜间睡眠。\" - Looking at m1: \"用户预计从下周（2026年9月15日左右）开始能恢复正常夜间睡眠\" - This EXACTLY matches! Supported: true\n\n2. **Item 3640dc03df44e4af3c9d**\n   - Query: 用户是否患有帕金森病？\n   - Expected facts:\n     1. \"用户经神经内科医生诊断排除帕金森病。\" - Looking at m0: \"医生确认它不会发展成帕金森病\" and m1: \"a neurologist diagnosed it as essential tremor (特发性震颤), which is very mild and definitely not Parkinson's disease\" - This supports the fact that a doctor ruled out Parkinson's disease. Supported: true\n     2. \"用户确诊为特发性震颤，非帕金森病。\" - Looking at m1: \"a neurologist diagnosed it as essential tremor (特发性震颤), which is very mild and definitely not Parkinson's disease\" - This EXACTLY matches! Supported: true\n\n3. **Item 36564b23874d0af30eae**\n   - Query: 患者预约了哪项检查，并在何时进行？\n   - Expected facts:\n     1. \"患者预约了本周五下午的腰椎核磁共振检查。\" - Looking at m0: \"User needs to schedule a lumbar spine MRI for this Friday afternoon (around September 11, 2026)\" and m1: \"User plans to arrive at the hospital at 3 PM on Friday afternoon (September 11, 2026) for the lumbar spine MRI\" - This EXACTLY matches! Supported: true\n\n4. **Item 36618515ef872ab03125**\n   - Query: 患者预约了哪项检查，时间是何时？\n   - Expected facts:\n     1. \"患者预约了本周五上午的腹部B超检查。\" - Looking at m0: \"用户预约了2026年9月11日（本周五）上午的腹部B超检查\" - This EXACTLY matches! Supported: true\n\nI'll prepare the JSON output with the corresponding memory IDs for each item, ensuring precise matching of medical appointment details.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1322,
+      "completion_tokens": 871,
+      "total_tokens": 2193,
+      "cost": 0.00138036,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00138036,
+        "upstream_inference_prompt_cost": 0.00033516,
+        "upstream_inference_completions_cost": 0.0010452
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 729,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 15.078
+}

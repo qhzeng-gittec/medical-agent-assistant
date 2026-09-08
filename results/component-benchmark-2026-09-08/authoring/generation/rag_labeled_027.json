@@ -1,0 +1,72 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Create source-grounded retrieval evaluation questions. Return JSON {\"items\":[...]}.\nFor EACH supplied source return {\"id\":same id,\"en\":English patient question,\"zh\":Chinese patient question,\n\"evidence_id\":the exact id string of ONE supplied evidence_options entry supporting BOTH questions}.\nAsk one concrete question about a supported detail (cause, symptom, prevention, evaluation, management).\nThe two questions express the SAME information need, not two facts. Use ordinary patient language.\nInclude enough topic context to identify the condition but do not copy a source sentence into the question.\nSelect an evidence option and ask about a concrete detail stated in that option. Do not ask for a personalized dose or individual diagnosis. Do not invent content. No answers in questions.\nThese are synthetic topic-source retrieval labels, not a clinician-authored benchmark."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"MLP-1251\", \"title\": \"Thoracic Outlet Syndrome\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Thoracic outlet syndrome (TOS) causes pain in the shoulder , arm, and neck.\"}, {\"id\": \"S001\", \"text\": \"It happens when the nerves or blood vessels just below your neck are compressed, or squeezed.\"}, {\"id\": \"S002\", \"text\": \"The compression can happen between the muscles of your neck and shoulder or between the first rib and collarbone.\"}, {\"id\": \"S003\", \"text\": \"You may feel burning, tingling, and numbness along your arm, hand, and fingers.\"}, {\"id\": \"S004\", \"text\": \"If a nerve is compressed, you may also feel weakness in your hand.\"}, {\"id\": \"S005\", \"text\": \"If a vein is compressed, your hand might be sensitive to cold, or turn pale or bluish.\"}, {\"id\": \"S006\", \"text\": \"It usually starts between 20 and 50 years of age.\"}, {\"id\": \"S007\", \"text\": \"Doctors do nerve and imaging studies to diagnose it.\"}, {\"id\": \"S008\", \"text\": \"There are many causes of TOS, including: Injury Anatomical defects Tumors that press on nerves Poor posture that causes nerve compression Pregnancy Repetitive arm and shoulder movements and activity, such as from playing certain sports Treatment depends on what caused your TOS.\"}, {\"id\": \"S009\", \"text\": \"Medicines, physical therapy, and relaxation might help.\"}, {\"id\": \"S010\", \"text\": \"NIH: National Institute of Neurological Disorders and Stroke\"}]}, {\"id\": \"MLP-3017\", \"title\": \"Syphilis\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Syphilis is a sexually transmitted infection (STI) caused by bacteria.\"}, {\"id\": \"S001\", \"text\": \"It infects the genital area, lips, mouth, or anus of both men and women.\"}, {\"id\": \"S002\", \"text\": \"You usually get syphilis from sexual contact with someone who has it.\"}, {\"id\": \"S003\", \"text\": \"It can also pass from mother to baby during pregnancy.\"}, {\"id\": \"S004\", \"text\": \"The early stage of syphilis usually causes a single, small, painless sore.\"}, {\"id\": \"S005\", \"text\": \"Sometimes it causes swelling in nearby lymph nodes.\"}, {\"id\": \"S006\", \"text\": \"If you do not treat it, syphilis usually causes a non-itchy skin rash, often on your hands and feet.\"}, {\"id\": \"S007\", \"text\": \"Many people do not notice symptoms for years.\"}, {\"id\": \"S008\", \"text\": \"The sores caused by syphilis make it easier to get or give someone HIV during sex.\"}, {\"id\": \"S009\", \"text\": \"If you are pregnant, syphilis can cause complications, or you could lose your baby.\"}, {\"id\": \"S010\", \"text\": \"In rare cases, syphilis causes serious health problems and even death.\"}, {\"id\": \"S011\", \"text\": \"Syphilis is easy to cure with antibiotics if you catch it early.\"}, {\"id\": \"S012\", \"text\": \"Correct usage of latex condoms greatly reduces, but does not completely eliminate, the risk of catching or spreading syphilis.\"}, {\"id\": \"S013\", \"text\": \"If your or your partner is allergic to latex , you can use polyurethane condoms.\"}, {\"id\": \"S014\", \"text\": \"The most reliable way to avoid infection is to not have anal, vaginal, or oral sex.\"}, {\"id\": \"S015\", \"text\": \"Centers for Disease Control and Prevention\"}]}, {\"id\": \"MLP-1457\", \"title\": \"Bone Marrow Transplantation\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Bone marrow is the spongy tissue inside some of your bones, such as your hip and thigh bones.\"}, {\"id\": \"S001\", \"text\": \"It contains immature cells, called stem cells.\"}, {\"id\": \"S002\", \"text\": \"The stem cells can develop into red blood cells, which carry oxygen throughout the body, white blood cells, which fight infections, and platelets, which help the blood to clot.\"}, {\"id\": \"S003\", \"text\": \"A bone marrow transplant is a procedure that replaces a person's faulty bone marrow stem cells.\"}, {\"id\": \"S004\", \"text\": \"Doctors use these transplants to treat people with certain diseases, such as: Leukemia Severe blood diseases such as thalassemias , aplastic anemia , and sickle cell anemia Multiple myeloma Certain immune deficiency diseases Before you have a transplant, you need to get high doses of chemotherapy and possibly radiation.\"}, {\"id\": \"S005\", \"text\": \"This destroys the faulty stem cells in your bone marrow.\"}, {\"id\": \"S006\", \"text\": \"It also suppresses your body's immune system so that it won't attack the new stem cells after the transplant.\"}, {\"id\": \"S007\", \"text\": \"In some cases, you can donate your own bone marrow stem cells in advance.\"}, {\"id\": \"S008\", \"text\": \"The cells are saved and then used later on.\"}, {\"id\": \"S009\", \"text\": \"The donor might be a family member or unrelated person.\"}, {\"id\": \"S010\", \"text\": \"Bone marrow transplantation has serious risks.\"}, {\"id\": \"S011\", \"text\": \"Some complications can be life-threatening.\"}, {\"id\": \"S012\", \"text\": \"But for some people, it is the best hope for a cure or a longer life.\"}, {\"id\": \"S013\", \"text\": \"NIH: National Heart, Lung, and Blood Institute\"}]}, {\"id\": \"MLP-141\", \"title\": \"Aneurysms\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"An aneurysm is a bulge or \\\"ballooning\\\" in the wall of an artery.\"}, {\"id\": \"S001\", \"text\": \"Arteries are blood vessels that carry oxygen-rich blood from the heart to other parts of the body.\"}, {\"id\": \"S002\", \"text\": \"If an aneurysm grows large, it can burst and cause dangerous bleeding or even death.\"}, {\"id\": \"S003\", \"text\": \"Most aneurysms occur in the aorta , the main artery that runs from the heart through the chest and abdomen.\"}, {\"id\": \"S004\", \"text\": \"Aneurysms also can happen in arteries in the brain, heart and other parts of the body.\"}, {\"id\": \"S005\", \"text\": \"If an aneurysm in the brain bursts, it causes a stroke .\"}, {\"id\": \"S006\", \"text\": \"Aneurysms can develop and become large before causing any symptoms.\"}, {\"id\": \"S007\", \"text\": \"Often doctors can stop aneurysms from bursting if they find and treat them early.\"}, {\"id\": \"S008\", \"text\": \"They use imaging tests to find aneurysms.\"}, {\"id\": \"S009\", \"text\": \"Often aneurysms are found by chance during tests done for other reasons.\"}, {\"id\": \"S010\", \"text\": \"Medicines and surgery are the two main treatments for aneurysms.\"}, {\"id\": \"S011\", \"text\": \"NIH: National Heart, Lung, and Blood Institute\"}]}, {\"id\": \"MLP-3775\", \"title\": \"Skin Aging\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"You might notice wrinkles, age spots and dryness.\"}, {\"id\": \"S001\", \"text\": \"Your skin also becomes thinner and loses fat, making it less plump and smooth.\"}, {\"id\": \"S002\", \"text\": \"Sunlight is a major cause of skin aging.\"}, {\"id\": \"S003\", \"text\": \"You can protect yourself by staying out of the sun when it is strongest, using sunscreen with an SPF of 15 or higher, wearing protective clothing, and avoiding sunlamps and tanning beds.\"}, {\"id\": \"S004\", \"text\": \"Cigarette smoking also contributes to wrinkles.\"}, {\"id\": \"S005\", \"text\": \"The wrinkling increases with the amount of cigarettes and number of years a person has smoked.\"}, {\"id\": \"S006\", \"text\": \"Many products claim to revitalize aging skin or reduce wrinkles, but the Food and Drug Administration has approved only a few for sun-damaged or aging skin.\"}, {\"id\": \"S007\", \"text\": \"Various treatments soothe dry skin and reduce the appearance of age spots.\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 2500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788858755-oAKHemB7Lbb1hAhojxaW",
+    "object": "chat.completion",
+    "created": 1788858755,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"MLP-1251\",\n      \"en\": \"I have been diagnosed with Thoracic Outlet Syndrome. What specific sensations might I feel in my arm, hand, and fingers due to the nerve compression?\",\n      \"zh\": \"我被诊断出患有胸廓出口综合征。由于神经受压，我的手臂、手和手指可能会出现哪些具体的感觉？\",\n      \"evidence_id\": \"S003\"\n    },\n    {\n      \"id\": \"MLP-3017\",\n      \"en\": \"If I contract syphilis and do not get treatment, what kind of skin rash might appear on my hands and feet later on?\",\n      \"zh\": \"如果我感染了梅毒但没有接受治疗，后期我的手和脚上可能会出现什么样的皮疹？\",\n      \"evidence_id\": \"S006\"\n    },\n    {\n      \"id\": \"MLP-1457\",\n      \"en\": \"Before a bone marrow transplant is performed, why do doctors give high doses of chemotherapy or radiation?\",\n      \"zh\": \"在进行骨髓移植之前，医生为什么要给予大剂量的化疗或放疗？\",\n      \"evidence_id\": \"S005\"\n    },\n    {\n      \"id\": \"MLP-141\",\n      \"en\": \"What is the most serious risk if an aneurysm in the brain bursts?\",\n      \"zh\": \"如果脑动脉瘤破裂，最严重的风险是什么？\",\n      \"evidence_id\": \"S005\"\n    },\n    {\n      \"id\": \"MLP-3775\",\n      \"en\": \"Besides sunlight, what lifestyle habit is mentioned as a major contributor to wrinkles and skin aging?\",\n      \"zh\": \"除了阳光照射外，哪种生活习惯被提及是导致皱纹和皮肤老化的主要因素？\",\n      \"evidence_id\": \"S004\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2278,
+      "completion_tokens": 437,
+      "total_tokens": 2715,
+      "cost": 0.0017322,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0017322,
+        "upstream_inference_prompt_cost": 0.0006834,
+        "upstream_inference_completions_cost": 0.0010488
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 20.75
+}

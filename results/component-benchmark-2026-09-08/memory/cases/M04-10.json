@@ -1,0 +1,569 @@
+{
+  "case": {
+    "id": "M04-10",
+    "category": "用户和家人的经历区分",
+    "turns": [
+      {
+        "user": "我同事小王上个月因为流感发烧请假了一周，现在已经康复返岗。我自己免疫力很强，很少生病，去年冬天也没感冒过，一直全勤。",
+        "assistant": "好的，已记录您同事的病假情况及您良好的出勤记录。"
+      },
+      {
+        "user": "更正一下，是小李上个月因流感请假的，小王很健康。我自己确实很少生病，去年冬天全程未感冒，保持了全勤。",
+        "assistant": "收到，已更新为您同事小李的病假记录，并确认您的全勤状态。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "您的同事中，谁在上个月因流感发烧而请假一周？",
+        "expected_facts": [
+          "用户的同事小李在上个月因流感发烧请假一周。"
+        ],
+        "required_groups": [
+          [
+            "小李",
+            "同事"
+          ],
+          [
+            "上个月",
+            "上月"
+          ],
+          [
+            "流感",
+            "发烧"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "用户本人在去年冬天的健康状况如何，是否有请假记录？",
+        "expected_facts": [
+          "用户去年冬天未感冒，保持全勤，无请假记录。"
+        ],
+        "required_groups": [
+          [
+            "去年冬天",
+            "去年冬季"
+          ],
+          [
+            "未感冒",
+            "没生病"
+          ],
+          [
+            "全勤",
+            "没请假"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M04-10",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860619-gIAFc0y46Z02IIQDQQb2",
+      "usage": {
+        "prompt_tokens": 62,
+        "total_tokens": 62,
+        "cost": 6.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.2e-07,
+          "upstream_inference_prompt_cost": 6.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860624-U4kRNa7LBQ429FqjDMno",
+      "usage": {
+        "prompt_tokens": 8356,
+        "completion_tokens": 749,
+        "total_tokens": 9105,
+        "cost": 0.0043044,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0043044,
+          "upstream_inference_prompt_cost": 0.0025068,
+          "upstream_inference_completions_cost": 0.0017976
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 628,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\"memory\": [\n  {\"id\": \"0\", \"text\": \"用户同事小王上个月因流感发烧请假一周，现已康复返岗\", \"attributed_to\": \"user\"},\n  {\"id\": \"1\", \"text\": \"用户自身免疫力很强，很少生病\", \"attributed_to\": \"user\"},\n  {\"id\": \"2\", \"text\": \"用户去年冬天没有感冒过\", \"attributed_to\": \"user\"},\n  {\"id\": \"3\", \"text\": \"用户一直全勤\", \"attributed_to\": \"user\"}\n]}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860671-RBASBNQAcPeBKIxlBz5h",
+      "usage": {
+        "prompt_tokens": 37,
+        "total_tokens": 37,
+        "cost": 3.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.7e-07,
+          "upstream_inference_prompt_cost": 3.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860672-Q8yoRltN5ffD4odEEm17",
+      "usage": {
+        "prompt_tokens": 62,
+        "total_tokens": 62,
+        "cost": 6.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.2e-07,
+          "upstream_inference_prompt_cost": 6.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860673-e3h1bap6PCs7ZEZvmrgN",
+      "usage": {
+        "prompt_tokens": 8485,
+        "completion_tokens": 483,
+        "total_tokens": 8968,
+        "cost": 0.0034619,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0034619,
+          "upstream_inference_prompt_cost": 0.0022061,
+          "upstream_inference_completions_cost": 0.0012558
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 421,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户更正：上个月因流感请假的是同事小李，不是小王。小王很健康。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860682-cg3FJr1GnBB02MJTRtzI",
+      "usage": {
+        "prompt_tokens": 24,
+        "total_tokens": 24,
+        "cost": 2.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.4e-07,
+          "upstream_inference_prompt_cost": 2.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860683-Dfq4mOLHsDrqqOLregdn",
+      "usage": {
+        "prompt_tokens": 16,
+        "total_tokens": 16,
+        "cost": 1.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.6e-07,
+          "upstream_inference_prompt_cost": 1.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860687-Ow1hGQuxOgFkk2anFitb",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860688-if8hpSG3qkxfshxdyNbf",
+      "usage": {
+        "prompt_tokens": 26,
+        "total_tokens": 26,
+        "cost": 2.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.6e-07,
+          "upstream_inference_prompt_cost": 2.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860689-GXWutfmpUfLe5ylaRtFF",
+      "usage": {
+        "prompt_tokens": 16,
+        "total_tokens": 16,
+        "cost": 1.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.6e-07,
+          "upstream_inference_prompt_cost": 1.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860692-0LytykEtzsP85EBJzYWu",
+      "usage": {
+        "prompt_tokens": 16,
+        "total_tokens": 16,
+        "cost": 1.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.6e-07,
+          "upstream_inference_prompt_cost": 1.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "您的同事中，谁在上个月因流感发烧而请假一周？",
+        "expected_facts": [
+          "用户的同事小李在上个月因流感发烧请假一周。"
+        ],
+        "required_groups": [
+          [
+            "小李",
+            "同事"
+          ],
+          [
+            "上个月",
+            "上月"
+          ],
+          [
+            "流感",
+            "发烧"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "d279aa01-3dd2-4949-a13b-fd6a62a3280c",
+          "content": "用户更正：上个月因流感请假的是同事小李，不是小王。小王很健康。",
+          "score": 0.7575365501758363,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:44:31.474446+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M04-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:44:42.486837+00:00"
+        },
+        {
+          "memory_id": "0b0e8b70-50bd-4052-ac91-1ae92b219c55",
+          "content": "用户同事小王上个月因流感发烧请假一周，现已康复返岗",
+          "score": 0.7091608439192763,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:43:38.467852+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:44:31.420512+00:00"
+        },
+        {
+          "memory_id": "dbe068dc-dbf0-4278-99c3-f15e0163e028",
+          "content": "用户去年冬天没有感冒过",
+          "score": 0.5176991948714766,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:43:38.467852+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:44:31.420512+00:00"
+        },
+        {
+          "memory_id": "760df689-c30c-430d-a14a-387ff109007f",
+          "content": "用户自身免疫力很强，很少生病",
+          "score": 0.4390230566941271,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:43:38.467852+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:44:31.420512+00:00"
+        },
+        {
+          "memory_id": "bb22db7a-a487-4c4e-9a6c-1ea10102d609",
+          "content": "用户一直全勤",
+          "score": 0.409226923002048,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:43:38.467852+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:44:31.420512+00:00"
+        }
+      ],
+      "seconds": 4.0
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "用户本人在去年冬天的健康状况如何，是否有请假记录？",
+        "expected_facts": [
+          "用户去年冬天未感冒，保持全勤，无请假记录。"
+        ],
+        "required_groups": [
+          [
+            "去年冬天",
+            "去年冬季"
+          ],
+          [
+            "未感冒",
+            "没生病"
+          ],
+          [
+            "全勤",
+            "没请假"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "0b0e8b70-50bd-4052-ac91-1ae92b219c55",
+          "content": "用户同事小王上个月因流感发烧请假一周，现已康复返岗",
+          "score": 0.727389570048979,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:43:38.467852+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:44:31.420512+00:00"
+        },
+        {
+          "memory_id": "d279aa01-3dd2-4949-a13b-fd6a62a3280c",
+          "content": "用户更正：上个月因流感请假的是同事小李，不是小王。小王很健康。",
+          "score": 0.711592129219254,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:44:31.474446+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M04-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:44:42.486837+00:00"
+        },
+        {
+          "memory_id": "dbe068dc-dbf0-4278-99c3-f15e0163e028",
+          "content": "用户去年冬天没有感冒过",
+          "score": 0.703717389084608,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:43:38.467852+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:44:31.420512+00:00"
+        },
+        {
+          "memory_id": "bb22db7a-a487-4c4e-9a6c-1ea10102d609",
+          "content": "用户一直全勤",
+          "score": 0.5775204879251523,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:43:38.467852+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:44:31.420512+00:00"
+        },
+        {
+          "memory_id": "760df689-c30c-430d-a14a-387ff109007f",
+          "content": "用户自身免疫力很强，很少生病",
+          "score": 0.5709661090881059,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:43:38.467852+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:44:31.420512+00:00"
+        }
+      ],
+      "seconds": 1.078
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "您的同事中，谁在上个月因流感发烧而请假一周？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "d279aa01-3dd2-4949-a13b-fd6a62a3280c",
+        "content": "用户更正：上个月因流感请假的是同事小李，不是小王。小王很健康。",
+        "score": 0.7305912556309201,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:44:31.474446+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M04-10",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:44:42.486837+00:00"
+      },
+      {
+        "memory_id": "0b0e8b70-50bd-4052-ac91-1ae92b219c55",
+        "content": "用户同事小王上个月因流感发烧请假一周，现已康复返岗",
+        "score": 0.6739048338310584,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:43:38.467852+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M04-10",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:44:31.420512+00:00"
+      },
+      {
+        "memory_id": "dbe068dc-dbf0-4278-99c3-f15e0163e028",
+        "content": "用户去年冬天没有感冒过",
+        "score": 0.4967328000934438,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:43:38.467852+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M04-10",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:44:31.420512+00:00"
+      },
+      {
+        "memory_id": "bb22db7a-a487-4c4e-9a6c-1ea10102d609",
+        "content": "用户一直全勤",
+        "score": 0.41209491935498455,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:43:38.467852+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M04-10",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:44:31.420512+00:00"
+      },
+      {
+        "memory_id": "760df689-c30c-430d-a14a-387ff109007f",
+        "content": "用户自身免疫力很强，很少生病",
+        "score": 0.4081767584818862,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:43:38.467852+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M04-10",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:44:31.420512+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 74.485
+}

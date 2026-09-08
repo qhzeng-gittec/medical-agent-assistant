@@ -1,0 +1,434 @@
+{
+  "case": {
+    "id": "M03-02",
+    "category": "药物过敏及具体反应",
+    "turns": [
+      {
+        "user": "我想确认一下，我之前说过对阿司匹林过敏。那是三年前的事，吃完药不到半小时，我的嘴唇和舌头就开始发麻肿胀，皮肤也痒得厉害。",
+        "assistant": "明白，已备注您对阿司匹林的过敏情况。"
+      },
+      {
+        "user": "再补充一点，那次发作是在2021年初，当时我还误以为只是普通感冒吃了药，结果引发了严重的血管性水肿，后来去医院才确诊是药物过敏。",
+        "assistant": "好的，已完善您关于阿司匹林过敏的时间线和症状描述。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "患者曾提及对何种解热镇痛药存在过敏史，且服药后出现了哪些具体的身体反应？",
+        "expected_facts": [
+          "患者对阿司匹林存在过敏史。",
+          "服药后出现了嘴唇和舌头麻木肿胀、皮肤瘙痒及血管性水肿。"
+        ],
+        "required_groups": [
+          [
+            "阿司匹林"
+          ],
+          [
+            "嘴唇肿胀",
+            "舌头肿胀",
+            "口唇肿胀"
+          ],
+          [
+            "血管性水肿",
+            "皮肤痒",
+            "发麻"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "根据记录，患者是在哪一年遭遇了这次药物不良反应，当时是如何误服该药物的？",
+        "expected_facts": [
+          "患者的过敏事件发生在2021年初。",
+          "患者当时误以为是治疗普通感冒而服用了该药物。"
+        ],
+        "required_groups": [
+          [
+            "2021年",
+            "2021年初"
+          ],
+          [
+            "误以为",
+            "误服",
+            "当成感冒药"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M03-02",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860352-LeZiLT8NM4YgYqsqcOcE",
+      "usage": {
+        "prompt_tokens": 64,
+        "total_tokens": 64,
+        "cost": 6.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.4e-07,
+          "upstream_inference_prompt_cost": 6.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860355-uBKhjspSgcPfmrFlf8Wy",
+      "usage": {
+        "prompt_tokens": 8358,
+        "completion_tokens": 275,
+        "total_tokens": 8633,
+        "cost": 0.00288808,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00288808,
+          "upstream_inference_prompt_cost": 0.00217308,
+          "upstream_inference_completions_cost": 0.000715
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 219,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户对阿司匹林过敏，三年前服药后不到半小时出现过敏反应，症状包括嘴唇和舌头麻木肿胀、皮肤严重瘙痒\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860361-0d7cB0hLxHTxWFypuWr0",
+      "usage": {
+        "prompt_tokens": 33,
+        "total_tokens": 33,
+        "cost": 3.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.3e-07,
+          "upstream_inference_prompt_cost": 3.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860363-rmldkgQeVRl5JFtOcNVM",
+      "usage": {
+        "prompt_tokens": 65,
+        "total_tokens": 65,
+        "cost": 6.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.5e-07,
+          "upstream_inference_prompt_cost": 6.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860368-S03PWOj7Hr0S37x1S5ZJ",
+      "usage": {
+        "prompt_tokens": 8458,
+        "completion_tokens": 429,
+        "total_tokens": 8887,
+        "cost": 0.0032103,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0032103,
+          "upstream_inference_prompt_cost": 0.00228366,
+          "upstream_inference_completions_cost": 0.00092664
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 332,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户补充说明阿司匹林过敏发作发生在2021年初，当时误以为是普通感冒而服药，引发严重血管性水肿，后去医院确诊为药物过敏\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860380-25itjbggu84iDz2RzpfA",
+      "usage": {
+        "prompt_tokens": 39,
+        "total_tokens": 39,
+        "cost": 3.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.9e-07,
+          "upstream_inference_prompt_cost": 3.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860383-aBuHMdqkcjoVJ0cfPIgR",
+      "usage": {
+        "prompt_tokens": 25,
+        "total_tokens": 25,
+        "cost": 2.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.5e-07,
+          "upstream_inference_prompt_cost": 2.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860384-C4kN5SuGHE7FnOrvzVL6",
+      "usage": {
+        "prompt_tokens": 23,
+        "total_tokens": 23,
+        "cost": 2.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.3e-07,
+          "upstream_inference_prompt_cost": 2.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860385-X3LQzVTlriQ0b0WBONwk",
+      "usage": {
+        "prompt_tokens": 35,
+        "total_tokens": 35,
+        "cost": 3.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.5e-07,
+          "upstream_inference_prompt_cost": 3.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860386-Vip09qJ0D9nVGWBr3xjA",
+      "usage": {
+        "prompt_tokens": 25,
+        "total_tokens": 25,
+        "cost": 2.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.5e-07,
+          "upstream_inference_prompt_cost": 2.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860395-7k0QMD1fPda0ufddr4gG",
+      "usage": {
+        "prompt_tokens": 25,
+        "total_tokens": 25,
+        "cost": 2.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.5e-07,
+          "upstream_inference_prompt_cost": 2.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "患者曾提及对何种解热镇痛药存在过敏史，且服药后出现了哪些具体的身体反应？",
+        "expected_facts": [
+          "患者对阿司匹林存在过敏史。",
+          "服药后出现了嘴唇和舌头麻木肿胀、皮肤瘙痒及血管性水肿。"
+        ],
+        "required_groups": [
+          [
+            "阿司匹林"
+          ],
+          [
+            "嘴唇肿胀",
+            "舌头肿胀",
+            "口唇肿胀"
+          ],
+          [
+            "血管性水肿",
+            "皮肤痒",
+            "发麻"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "b581f83a-fd0d-46a2-9a98-0805c3f631e2",
+          "content": "用户对阿司匹林过敏，三年前服药后不到半小时出现过敏反应，症状包括嘴唇和舌头麻木肿胀、皮肤严重瘙痒",
+          "score": 0.7291720851252877,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:39:10.987769+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M03-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:39:22.696870+00:00"
+        },
+        {
+          "memory_id": "20a005f8-dc57-489d-8756-98c3aad5a13f",
+          "content": "用户补充说明阿司匹林过敏发作发生在2021年初，当时误以为是普通感冒而服药，引发严重血管性水肿，后去医院确诊为药物过敏",
+          "score": 0.6879848954220121,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:39:22.727720+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M03-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:39:41.584228+00:00"
+        }
+      ],
+      "seconds": 1.484
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "根据记录，患者是在哪一年遭遇了这次药物不良反应，当时是如何误服该药物的？",
+        "expected_facts": [
+          "患者的过敏事件发生在2021年初。",
+          "患者当时误以为是治疗普通感冒而服用了该药物。"
+        ],
+        "required_groups": [
+          [
+            "2021年",
+            "2021年初"
+          ],
+          [
+            "误以为",
+            "误服",
+            "当成感冒药"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "20a005f8-dc57-489d-8756-98c3aad5a13f",
+          "content": "用户补充说明阿司匹林过敏发作发生在2021年初，当时误以为是普通感冒而服药，引发严重血管性水肿，后去医院确诊为药物过敏",
+          "score": 0.5272571633424941,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:39:22.727720+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M03-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:39:41.584228+00:00"
+        },
+        {
+          "memory_id": "b581f83a-fd0d-46a2-9a98-0805c3f631e2",
+          "content": "用户对阿司匹林过敏，三年前服药后不到半小时出现过敏反应，症状包括嘴唇和舌头麻木肿胀、皮肤严重瘙痒",
+          "score": 0.49195692825656473,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:39:10.987769+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M03-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:39:22.696870+00:00"
+        }
+      ],
+      "seconds": 1.125
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者曾提及对何种解热镇痛药存在过敏史，且服药后出现了哪些具体的身体反应？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "b581f83a-fd0d-46a2-9a98-0805c3f631e2",
+        "content": "用户对阿司匹林过敏，三年前服药后不到半小时出现过敏反应，症状包括嘴唇和舌头麻木肿胀、皮肤严重瘙痒",
+        "score": 0.7246747060737819,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:39:10.987769+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M03-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:39:22.696870+00:00"
+      },
+      {
+        "memory_id": "20a005f8-dc57-489d-8756-98c3aad5a13f",
+        "content": "用户补充说明阿司匹林过敏发作发生在2021年初，当时误以为是普通感冒而服药，引发严重血管性水肿，后去医院确诊为药物过敏",
+        "score": 0.7099696572987908,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:39:22.727720+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M03-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:39:41.584228+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 45.938
+}

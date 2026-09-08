@@ -1,0 +1,514 @@
+{
+  "case": {
+    "id": "M12-06",
+    "category": "否定事实与助手建议区分",
+    "turns": [
+      {
+        "user": "同事总说我脸色不好是贫血，但我上周血常规检查各项指标都在正常范围内，医生说我根本不贫血，可能是最近熬夜太多气色差而已。",
+        "assistant": "了解，已记录您上周检查确认无贫血的事实。"
+      },
+      {
+        "user": "是的，我确实连续两周每晚只睡四小时，这是赶报告导致的，一旦休息好气色就恢复了，以前体检从来没发现过贫血问题。",
+        "assistant": "明白，已补充您近期因熬夜导致气色差而非贫血的记录。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "用户是否患有贫血？",
+        "expected_facts": [
+          "用户上周血常规检查显示不贫血。",
+          "医生确认用户各项指标正常，无贫血症状。"
+        ],
+        "required_groups": [
+          [
+            "不贫血",
+            "无贫血",
+            "指标正常"
+          ],
+          [
+            "贫血"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "用户脸色不好的真实原因及持续时间？",
+        "expected_facts": [
+          "用户脸色不好是因为连续两周每晚只睡四小时。",
+          "用户熬夜是由于赶报告工作所致。"
+        ],
+        "required_groups": [
+          [
+            "连续两周",
+            "2周"
+          ],
+          [
+            "熬夜",
+            "睡眠不足",
+            "赶报告"
+          ]
+        ]
+      }
+    ],
+    "split": "dev",
+    "family_id": "M12-06",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860538-Jl6geGBTZs0KCyG2n4j3",
+      "usage": {
+        "prompt_tokens": 54,
+        "total_tokens": 54,
+        "cost": 5.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.4e-07,
+          "upstream_inference_prompt_cost": 5.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860545-cOGVCKTmzCsI5Odik1zk",
+      "usage": {
+        "prompt_tokens": 8355,
+        "completion_tokens": 337,
+        "total_tokens": 8692,
+        "cost": 0.00298377,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00298377,
+          "upstream_inference_prompt_cost": 0.00225585,
+          "upstream_inference_completions_cost": 0.00072792
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 258,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"同事总说用户脸色不好是贫血，但用户上周血常规检查各项指标都在正常范围内，医生确认用户根本不贫血，可能是最近熬夜太多导致气色差\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860552-euIlJ5IXscrfFAukGpya",
+      "usage": {
+        "prompt_tokens": 36,
+        "total_tokens": 36,
+        "cost": 3.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.6e-07,
+          "upstream_inference_prompt_cost": 3.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860559-NBegl4SkzWoBzzaTHrV0",
+      "usage": {
+        "prompt_tokens": 62,
+        "total_tokens": 62,
+        "cost": 6.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.2e-07,
+          "upstream_inference_prompt_cost": 6.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860561-Rdo8nAv3vKWWRXcoighu",
+      "usage": {
+        "prompt_tokens": 8454,
+        "completion_tokens": 1698,
+        "total_tokens": 10152,
+        "cost": 0.0066114,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0066114,
+          "upstream_inference_prompt_cost": 0.0025362,
+          "upstream_inference_completions_cost": 0.0040752
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1576,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\"memory\": [\n  {\"id\": \"0\", \"text\": \"用户因赶报告连续两周每晚只睡四小时\", \"attributed_to\": \"user\", \"linked_memory_ids\": [\"0\"]},\n  {\"id\": \"1\", \"text\": \"用户休息好后气色即可恢复\", \"attributed_to\": \"user\", \"linked_memory_ids\": [\"0\"]},\n  {\"id\": \"2\", \"text\": \"用户以往体检从未发现过贫血问题\", \"attributed_to\": \"user\", \"linked_memory_ids\": [\"0\"]}\n]}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860643-haLvLft0XvbkStwvawG2",
+      "usage": {
+        "prompt_tokens": 31,
+        "total_tokens": 31,
+        "cost": 3.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.1e-07,
+          "upstream_inference_prompt_cost": 3.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860650-I3oTgSWby2G9uxH9SQZF",
+      "usage": {
+        "prompt_tokens": 6,
+        "total_tokens": 6,
+        "cost": 2.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.4e-07,
+          "upstream_inference_prompt_cost": 2.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860654-TEakm5y1j1XoNEdCjJwT",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860655-TkGZmuCbYFEQnGplVrmT",
+      "usage": {
+        "prompt_tokens": 16,
+        "total_tokens": 16,
+        "cost": 1.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.6e-07,
+          "upstream_inference_prompt_cost": 1.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860656-VaGcJN1NGz4cnSTMr0QO",
+      "usage": {
+        "prompt_tokens": 6,
+        "total_tokens": 6,
+        "cost": 6e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6e-08,
+          "upstream_inference_prompt_cost": 6e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860657-s1WPRc3v1q4BEr8Z093k",
+      "usage": {
+        "prompt_tokens": 6,
+        "total_tokens": 6,
+        "cost": 6e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6e-08,
+          "upstream_inference_prompt_cost": 6e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "用户是否患有贫血？",
+        "expected_facts": [
+          "用户上周血常规检查显示不贫血。",
+          "医生确认用户各项指标正常，无贫血症状。"
+        ],
+        "required_groups": [
+          [
+            "不贫血",
+            "无贫血",
+            "指标正常"
+          ],
+          [
+            "贫血"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "6a9e3b9f-0c40-4026-a551-257db4d5cbbd",
+          "content": "同事总说用户脸色不好是贫血，但用户上周血常规检查各项指标都在正常范围内，医生确认用户根本不贫血，可能是最近熬夜太多导致气色差",
+          "score": 0.750412253046011,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:16.440081+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:38.875845+00:00"
+        },
+        {
+          "memory_id": "0826664f-ab66-4594-9b02-fe033b0e4bea",
+          "content": "用户休息好后气色即可恢复",
+          "score": 0.7256578958310761,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:38.901661+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:44:08.634724+00:00"
+        },
+        {
+          "memory_id": "f9d479f4-de36-4e2e-b96f-8fd56cc773e1",
+          "content": "用户以往体检从未发现过贫血问题",
+          "score": 0.710635641011004,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:38.901661+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:44:08.634724+00:00"
+        },
+        {
+          "memory_id": "808a1572-bdff-42b5-9087-ef75af02fe3d",
+          "content": "用户因赶报告连续两周每晚只睡四小时",
+          "score": 0.5391435680132814,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:38.901661+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:44:08.634724+00:00"
+        }
+      ],
+      "seconds": 4.984
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "用户脸色不好的真实原因及持续时间？",
+        "expected_facts": [
+          "用户脸色不好是因为连续两周每晚只睡四小时。",
+          "用户熬夜是由于赶报告工作所致。"
+        ],
+        "required_groups": [
+          [
+            "连续两周",
+            "2周"
+          ],
+          [
+            "熬夜",
+            "睡眠不足",
+            "赶报告"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "6a9e3b9f-0c40-4026-a551-257db4d5cbbd",
+          "content": "同事总说用户脸色不好是贫血，但用户上周血常规检查各项指标都在正常范围内，医生确认用户根本不贫血，可能是最近熬夜太多导致气色差",
+          "score": 0.8090604035005664,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:16.440081+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:38.875845+00:00"
+        },
+        {
+          "memory_id": "0826664f-ab66-4594-9b02-fe033b0e4bea",
+          "content": "用户休息好后气色即可恢复",
+          "score": 0.7641521940623126,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:38.901661+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:44:08.634724+00:00"
+        },
+        {
+          "memory_id": "f9d479f4-de36-4e2e-b96f-8fd56cc773e1",
+          "content": "用户以往体检从未发现过贫血问题",
+          "score": 0.6381107477729873,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:38.901661+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:44:08.634724+00:00"
+        },
+        {
+          "memory_id": "808a1572-bdff-42b5-9087-ef75af02fe3d",
+          "content": "用户因赶报告连续两周每晚只睡四小时",
+          "score": 0.6250964781308148,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:38.901661+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:44:08.634724+00:00"
+        }
+      ],
+      "seconds": 0.656
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "用户是否患有贫血？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "f9d479f4-de36-4e2e-b96f-8fd56cc773e1",
+        "content": "用户以往体检从未发现过贫血问题",
+        "score": 0.7389184217197959,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:42:38.901661+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M12-06",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:44:08.634724+00:00"
+      },
+      {
+        "memory_id": "6a9e3b9f-0c40-4026-a551-257db4d5cbbd",
+        "content": "同事总说用户脸色不好是贫血，但用户上周血常规检查各项指标都在正常范围内，医生确认用户根本不贫血，可能是最近熬夜太多导致气色差",
+        "score": 0.6596545097280502,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:42:16.440081+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M12-06",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:42:38.875845+00:00"
+      },
+      {
+        "memory_id": "0826664f-ab66-4594-9b02-fe033b0e4bea",
+        "content": "用户休息好后气色即可恢复",
+        "score": 0.6009669483696323,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:42:38.901661+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M12-06",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:44:08.634724+00:00"
+      },
+      {
+        "memory_id": "808a1572-bdff-42b5-9087-ef75af02fe3d",
+        "content": "用户因赶报告连续两周每晚只睡四小时",
+        "score": 0.563584900061836,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:42:38.901661+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M12-06",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:44:08.634724+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 122.422
+}

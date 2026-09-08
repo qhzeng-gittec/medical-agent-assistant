@@ -1,0 +1,426 @@
+{
+  "case": {
+    "id": "M12-08",
+    "category": "否定事实与助手建议区分",
+    "turns": [
+      {
+        "user": "朋友说我咳嗽是老慢支，但我去医院做了肺功能测试，医生说我的肺功能完全正常，没有慢性支气管炎，只是换季时的普通感冒咳嗽。",
+        "assistant": "好的，已记录您经检查排除慢性支气管炎的诊断。"
+      },
+      {
+        "user": "对，这次咳嗽是十天前换季受凉引起的，现在已经快好了，以前我也经常换季咳嗽，但从来都不是慢性病。",
+        "assistant": "明白，已补充您咳嗽源于十天前换季受凉的记录。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "用户是否患有慢性支气管炎？",
+        "expected_facts": [
+          "用户肺功能测试显示无慢性支气管炎。",
+          "医生确认用户肺部功能正常，非老慢支。"
+        ],
+        "required_groups": [
+          [
+            "无",
+            "没有",
+            "排除"
+          ],
+          [
+            "慢性支气管炎",
+            "老慢支"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "用户本次咳嗽的起因和发生时间？",
+        "expected_facts": [
+          "用户咳嗽是十天前换季受凉引起的。",
+          "用户此次咳嗽属于普通感冒症状，非慢性病。"
+        ],
+        "required_groups": [
+          [
+            "十天前",
+            "10天前"
+          ],
+          [
+            "换季",
+            "受凉",
+            "感冒"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M12-08",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861737-8KczCJ6JXnfxc9Xiavqv",
+      "usage": {
+        "prompt_tokens": 65,
+        "total_tokens": 65,
+        "cost": 6.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.5e-07,
+          "upstream_inference_prompt_cost": 6.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861741-lZazK3uS5W1cXpLSQoeS",
+      "usage": {
+        "prompt_tokens": 8358,
+        "completion_tokens": 389,
+        "total_tokens": 8747,
+        "cost": 0.0030969,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0030969,
+          "upstream_inference_prompt_cost": 0.00225666,
+          "upstream_inference_completions_cost": 0.00084024
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 308,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户的朋友说用户的咳嗽是老慢支，但用户去医院做了肺功能测试，医生诊断肺功能完全正常，没有慢性支气管炎，只是换季时的普通感冒咳嗽\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861752-oSCnjSTVtrEm5iJ4rszN",
+      "usage": {
+        "prompt_tokens": 41,
+        "total_tokens": 41,
+        "cost": 4.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.1e-07,
+          "upstream_inference_prompt_cost": 4.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861753-YIIMvcsmsecp7KbUV2lY",
+      "usage": {
+        "prompt_tokens": 56,
+        "total_tokens": 56,
+        "cost": 5.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.6e-07,
+          "upstream_inference_prompt_cost": 5.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861755-WmyTsPwz0tRGzhEYVYjt",
+      "usage": {
+        "prompt_tokens": 8454,
+        "completion_tokens": 815,
+        "total_tokens": 9269,
+        "cost": 0.0037435,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0037435,
+          "upstream_inference_prompt_cost": 0.0021135,
+          "upstream_inference_completions_cost": 0.00163
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 848,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户这次咳嗽始于2026年9月28日左右，因换季受凉引起，目前已快好转。用户表示以前也经常换季咳嗽，但从来都不是慢性病。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861775-lyigAI3xF9FBknrnTHDq",
+      "usage": {
+        "prompt_tokens": 43,
+        "total_tokens": 43,
+        "cost": 4.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.3e-07,
+          "upstream_inference_prompt_cost": 4.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861777-dHJ19b8LgYZFRTz3GbSO",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861778-o1umn9fUcmxcqOQMYYHh",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861780-XiGtq9MpPNNULRMtHZon",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861784-OS8S2RN5ZuS7GYl5M6o2",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861785-EzrgpMKsu7KSQP4lNOEs",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "用户是否患有慢性支气管炎？",
+        "expected_facts": [
+          "用户肺功能测试显示无慢性支气管炎。",
+          "医生确认用户肺部功能正常，非老慢支。"
+        ],
+        "required_groups": [
+          [
+            "无",
+            "没有",
+            "排除"
+          ],
+          [
+            "慢性支气管炎",
+            "老慢支"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "430c6938-b335-4b85-a1c8-fded09425e8b",
+          "content": "用户的朋友说用户的咳嗽是老慢支，但用户去医院做了肺功能测试，医生诊断肺功能完全正常，没有慢性支气管炎，只是换季时的普通感冒咳嗽",
+          "score": 0.709247229399041,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:02:16.039638+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:02:32.592090+00:00"
+        },
+        {
+          "memory_id": "340df0e4-c1bc-4bc1-b89d-7623ad94b3d9",
+          "content": "用户这次咳嗽始于2026年9月28日左右，因换季受凉引起，目前已快好转。用户表示以前也经常换季咳嗽，但从来都不是慢性病。",
+          "score": 0.692246450986013,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:02:32.617520+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:02:55.820700+00:00"
+        }
+      ],
+      "seconds": 1.344
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "用户本次咳嗽的起因和发生时间？",
+        "expected_facts": [
+          "用户咳嗽是十天前换季受凉引起的。",
+          "用户此次咳嗽属于普通感冒症状，非慢性病。"
+        ],
+        "required_groups": [
+          [
+            "十天前",
+            "10天前"
+          ],
+          [
+            "换季",
+            "受凉",
+            "感冒"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "340df0e4-c1bc-4bc1-b89d-7623ad94b3d9",
+          "content": "用户这次咳嗽始于2026年9月28日左右，因换季受凉引起，目前已快好转。用户表示以前也经常换季咳嗽，但从来都不是慢性病。",
+          "score": 0.7647862164051744,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:02:32.617520+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:02:55.820700+00:00"
+        },
+        {
+          "memory_id": "430c6938-b335-4b85-a1c8-fded09425e8b",
+          "content": "用户的朋友说用户的咳嗽是老慢支，但用户去医院做了肺功能测试，医生诊断肺功能完全正常，没有慢性支气管炎，只是换季时的普通感冒咳嗽",
+          "score": 0.6338406568922952,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:02:16.039638+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:02:32.592090+00:00"
+        }
+      ],
+      "seconds": 2.078
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "用户是否患有慢性支气管炎？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "340df0e4-c1bc-4bc1-b89d-7623ad94b3d9",
+        "content": "用户这次咳嗽始于2026年9月28日左右，因换季受凉引起，目前已快好转。用户表示以前也经常换季咳嗽，但从来都不是慢性病。",
+        "score": 0.7242033902401379,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:02:32.617520+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M12-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:02:55.820700+00:00"
+      },
+      {
+        "memory_id": "430c6938-b335-4b85-a1c8-fded09425e8b",
+        "content": "用户的朋友说用户的咳嗽是老慢支，但用户去医院做了肺功能测试，医生诊断肺功能完全正常，没有慢性支气管炎，只是换季时的普通感冒咳嗽",
+        "score": 0.6886790129514948,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:02:16.039638+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M12-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:02:32.592090+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 49.641
+}

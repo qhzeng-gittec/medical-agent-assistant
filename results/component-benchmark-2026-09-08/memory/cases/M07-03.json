@@ -1,0 +1,436 @@
+{
+  "case": {
+    "id": "M07-03",
+    "category": "预约复查与检查准备安排",
+    "turns": [
+      {
+        "user": "我想约下个月十号上午的胸部CT增强扫描。因为要做增强，听说要抽血查肾功能，我上周刚做过一次验血，不知道结果能不能直接用，还是需要重新抽？",
+        "assistant": "了解，已登记您下月十号上午的CT增强预约及对既往验血结果的疑问。"
+      },
+      {
+        "user": "再补充一点，我上周是在社区医院做的血常规，不是肾功能检查。所以我可能需要重新抽血，请问下个月九号下午我可以先来抽个血吗？",
+        "assistant": "明白，已记录您上周仅做了血常规而非肾功能，以及希望下月九号下午提前抽血的请求。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "患者计划进行什么类型的影像学检查，具体日期是什么时候？",
+        "expected_facts": [
+          "患者计划在下个月十号上午进行胸部CT增强扫描。"
+        ],
+        "required_groups": [
+          [
+            "下个月十号上午",
+            "十号上午"
+          ],
+          [
+            "胸部CT增强扫描",
+            "胸部增强CT"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "患者上周进行的血液检查项目是什么，他打算何时进行新的抽血？",
+        "expected_facts": [
+          "患者上周在社区医院只做了血常规检查。",
+          "患者希望在下个月九号下午进行抽血。"
+        ],
+        "required_groups": [
+          [
+            "上周",
+            "上星期"
+          ],
+          [
+            "血常规",
+            "验血"
+          ],
+          [
+            "下个月九号下午",
+            "九号下午"
+          ],
+          [
+            "抽血",
+            "采血"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M07-03",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860924-0Pu252g3X3BryXyxrcuA",
+      "usage": {
+        "prompt_tokens": 77,
+        "total_tokens": 77,
+        "cost": 7.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.7e-07,
+          "upstream_inference_prompt_cost": 7.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860932-M3RcXUZfHOYlLuh6Wxpn",
+      "usage": {
+        "prompt_tokens": 8373,
+        "completion_tokens": 581,
+        "total_tokens": 8954,
+        "cost": 0.00351567,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00351567,
+          "upstream_inference_prompt_cost": 0.00226071,
+          "upstream_inference_completions_cost": 0.00125496
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 499,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户预约了2026年10月10日上午的胸部CT增强扫描，并询问上周做的验血结果是否可直接用于肾功能检查或需重新抽血\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860950-dMLMTBIGRKriRSxIpq8q",
+      "usage": {
+        "prompt_tokens": 39,
+        "total_tokens": 39,
+        "cost": 3.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.9e-07,
+          "upstream_inference_prompt_cost": 3.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860952-NgBzPBSmaWNksgBjeRzk",
+      "usage": {
+        "prompt_tokens": 75,
+        "total_tokens": 75,
+        "cost": 7.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.5e-07,
+          "upstream_inference_prompt_cost": 7.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860954-zz1EvHtd8o6e0dsvCCYR",
+      "usage": {
+        "prompt_tokens": 8485,
+        "completion_tokens": 2708,
+        "total_tokens": 11193,
+        "cost": 0.0090447,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0090447,
+          "upstream_inference_prompt_cost": 0.0025455,
+          "upstream_inference_completions_cost": 0.0064992
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 2596,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户上周（约2026年9月上旬）在社区医院仅做了血常规而非肾功能检查，并请求于2026年10月9日下午提前抽血检查肾功能，以便进行10月10日的胸部CT增强扫描。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861059-6FzJBIsTzQPzb32IA4Yy",
+      "usage": {
+        "prompt_tokens": 60,
+        "total_tokens": 60,
+        "cost": 6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6e-07,
+          "upstream_inference_prompt_cost": 6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861061-pirc9wfKFuRO6dlSp1sF",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6e-07,
+          "upstream_inference_prompt_cost": 6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861062-ycp9ub34VzYFNbRFhbag",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861063-tmb3KqeZlXELxYOn3bWu",
+      "usage": {
+        "prompt_tokens": 25,
+        "total_tokens": 25,
+        "cost": 2.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.5e-07,
+          "upstream_inference_prompt_cost": 2.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861064-ypQhvrVXykzatrvrjhtA",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861066-4vbf1AsJhhIvtgZOsRCE",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "患者计划进行什么类型的影像学检查，具体日期是什么时候？",
+        "expected_facts": [
+          "患者计划在下个月十号上午进行胸部CT增强扫描。"
+        ],
+        "required_groups": [
+          [
+            "下个月十号上午",
+            "十号上午"
+          ],
+          [
+            "胸部CT增强扫描",
+            "胸部增强CT"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "04d1c968-2cd0-4c1c-9846-7a9a1c96af70",
+          "content": "用户预约了2026年10月10日上午的胸部CT增强扫描，并询问上周做的验血结果是否可直接用于肾功能检查或需重新抽血",
+          "score": 0.6786940819193041,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:48:41.778146+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:49:10.690495+00:00"
+        },
+        {
+          "memory_id": "9d2d75db-2ea4-4147-9267-2d5326ab68e3",
+          "content": "用户上周（约2026年9月上旬）在社区医院仅做了血常规而非肾功能检查，并请求于2026年10月9日下午提前抽血检查肾功能，以便进行10月10日的胸部CT增强扫描。",
+          "score": 0.6647496997810651,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:10.716395+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:50:59.307203+00:00"
+        }
+      ],
+      "seconds": 2.438
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "患者上周进行的血液检查项目是什么，他打算何时进行新的抽血？",
+        "expected_facts": [
+          "患者上周在社区医院只做了血常规检查。",
+          "患者希望在下个月九号下午进行抽血。"
+        ],
+        "required_groups": [
+          [
+            "上周",
+            "上星期"
+          ],
+          [
+            "血常规",
+            "验血"
+          ],
+          [
+            "下个月九号下午",
+            "九号下午"
+          ],
+          [
+            "抽血",
+            "采血"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "04d1c968-2cd0-4c1c-9846-7a9a1c96af70",
+          "content": "用户预约了2026年10月10日上午的胸部CT增强扫描，并询问上周做的验血结果是否可直接用于肾功能检查或需重新抽血",
+          "score": 0.7267685866287337,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:48:41.778146+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:49:10.690495+00:00"
+        },
+        {
+          "memory_id": "9d2d75db-2ea4-4147-9267-2d5326ab68e3",
+          "content": "用户上周（约2026年9月上旬）在社区医院仅做了血常规而非肾功能检查，并请求于2026年10月9日下午提前抽血检查肾功能，以便进行10月10日的胸部CT增强扫描。",
+          "score": 0.6741217686947607,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:10.716395+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:50:59.307203+00:00"
+        }
+      ],
+      "seconds": 0.953
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者计划进行什么类型的影像学检查，具体日期是什么时候？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "04d1c968-2cd0-4c1c-9846-7a9a1c96af70",
+        "content": "用户预约了2026年10月10日上午的胸部CT增强扫描，并询问上周做的验血结果是否可直接用于肾功能检查或需重新抽血",
+        "score": 0.65662132992344,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:48:41.778146+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M07-03",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:49:10.690495+00:00"
+      },
+      {
+        "memory_id": "9d2d75db-2ea4-4147-9267-2d5326ab68e3",
+        "content": "用户上周（约2026年9月上旬）在社区医院仅做了血常规而非肾功能检查，并请求于2026年10月9日下午提前抽血检查肾功能，以便进行10月10日的胸部CT增强扫描。",
+        "score": 0.617176235475907,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:49:10.716395+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M07-03",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:50:59.307203+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 145.016
+}

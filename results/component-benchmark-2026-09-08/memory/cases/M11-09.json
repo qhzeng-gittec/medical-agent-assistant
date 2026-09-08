@@ -1,0 +1,442 @@
+{
+  "case": {
+    "id": "M11-09",
+    "category": "多项历史事实的跨会话汇总",
+    "turns": [
+      {
+        "user": "我四十三岁，八年前因为工作压力大出现焦虑情绪，医生开了抗焦虑药，我吃了半年，感觉好转就停了，后来偶尔还会紧张，但没再吃药。",
+        "assistant": "明白，已记录您八年前的焦虑情绪及用药历史。"
+      },
+      {
+        "user": "补充一下，三年前我因为家庭变故焦虑加重，这次我没吃药，而是找了心理咨询师，每周谈一次，坚持了半年，情绪稳定了，现在偶尔还会紧张，但能自己调节。",
+        "assistant": "收到，已更新您三年前心理咨询及情绪调节的记录。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "M11-09-Q1",
+        "query": "患者八年前因什么导致焦虑，医生开了什么药，吃了多久？",
+        "expected_facts": [
+          "患者八年前因工作压力大出现焦虑情绪。",
+          "医生开具了抗焦虑药物。",
+          "患者服用了半年后停药。"
+        ],
+        "required_groups": [
+          [
+            "工作压力",
+            "工作紧张"
+          ],
+          [
+            "抗焦虑药",
+            "焦虑药物"
+          ],
+          [
+            "半年",
+            "六个月"
+          ]
+        ]
+      },
+      {
+        "id": "M11-09-Q2",
+        "query": "三年前焦虑加重时他采取了什么非药物措施，频率如何，效果怎样？",
+        "expected_facts": [
+          "患者三年前因家庭变故焦虑加重。",
+          "患者每周进行心理咨询一次，坚持半年。",
+          "患者情绪稳定，能自行调节。"
+        ],
+        "required_groups": [
+          [
+            "家庭变故",
+            "家庭问题"
+          ],
+          [
+            "心理咨询",
+            "心理治疗"
+          ],
+          [
+            "自行调节",
+            "自己调节"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M11-09",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861629-oVKmvSoDWfVKywPhrf7n",
+      "usage": {
+        "prompt_tokens": 65,
+        "total_tokens": 65,
+        "cost": 6.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.5e-07,
+          "upstream_inference_prompt_cost": 6.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861632-xM2HU25UD0npqdlSFNOG",
+      "usage": {
+        "prompt_tokens": 8364,
+        "completion_tokens": 203,
+        "total_tokens": 8567,
+        "cost": 0.0029964,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0029964,
+          "upstream_inference_prompt_cost": 0.0025092,
+          "upstream_inference_completions_cost": 0.0004872
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 102,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"User is 43 years old and experienced anxiety symptoms eight years ago due to work stress, for which a doctor prescribed anti-anxiety medication that was taken for six months before being discontinued when symptoms improved. Occasional nervousness has persisted since then but no further medication has been used.\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861640-iMjOvSrjvGWqoUKePFnP",
+      "usage": {
+        "prompt_tokens": 59,
+        "total_tokens": 59,
+        "cost": 5.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.9e-07,
+          "upstream_inference_prompt_cost": 5.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861641-4LopT8SISmS6r5s4B7FD",
+      "usage": {
+        "prompt_tokens": 69,
+        "total_tokens": 69,
+        "cost": 6.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.9e-07,
+          "upstream_inference_prompt_cost": 6.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861643-YdKCIJPS97w11y3KPO0S",
+      "usage": {
+        "prompt_tokens": 8491,
+        "completion_tokens": 618,
+        "total_tokens": 9109,
+        "cost": 0.00381446,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00381446,
+          "upstream_inference_prompt_cost": 0.00220766,
+          "upstream_inference_completions_cost": 0.0016068
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 594,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"三年前（约2023年）因家庭变故导致焦虑加重，用户没有选择服药，而是寻求心理咨询师帮助，每周进行一次咨询，持续了半年，情绪逐渐稳定。现在偶尔仍会紧张，但已能自我调节。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861653-wKelkMGXtX5qfIAfwu9U",
+      "usage": {
+        "prompt_tokens": 56,
+        "total_tokens": 56,
+        "cost": 5.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.6e-07,
+          "upstream_inference_prompt_cost": 5.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861657-WLXlsAb8shNLTp0BcIh4",
+      "usage": {
+        "prompt_tokens": 17,
+        "total_tokens": 17,
+        "cost": 1.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.7e-07,
+          "upstream_inference_prompt_cost": 1.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861658-YMC7RueLYmvkDImwhdZ2",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861661-CczRyWms11pTvMBm6qyS",
+      "usage": {
+        "prompt_tokens": 27,
+        "total_tokens": 27,
+        "cost": 2.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.7e-07,
+          "upstream_inference_prompt_cost": 2.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861664-Qml9xB2CU75y3ArcW5t4",
+      "usage": {
+        "prompt_tokens": 17,
+        "total_tokens": 17,
+        "cost": 1.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.7e-07,
+          "upstream_inference_prompt_cost": 1.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861666-LQcvOh2vPSKtbePKET1t",
+      "usage": {
+        "prompt_tokens": 17,
+        "total_tokens": 17,
+        "cost": 1.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.7e-07,
+          "upstream_inference_prompt_cost": 1.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "M11-09-Q1",
+        "query": "患者八年前因什么导致焦虑，医生开了什么药，吃了多久？",
+        "expected_facts": [
+          "患者八年前因工作压力大出现焦虑情绪。",
+          "医生开具了抗焦虑药物。",
+          "患者服用了半年后停药。"
+        ],
+        "required_groups": [
+          [
+            "工作压力",
+            "工作紧张"
+          ],
+          [
+            "抗焦虑药",
+            "焦虑药物"
+          ],
+          [
+            "半年",
+            "六个月"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "bc6e0849-d4a2-453d-acd4-4e13cfa6068e",
+          "content": "三年前（约2023年）因家庭变故导致焦虑加重，用户没有选择服药，而是寻求心理咨询师帮助，每周进行一次咨询，持续了半年，情绪逐渐稳定。现在偶尔仍会紧张，但已能自我调节。",
+          "score": 0.6753285132877878,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:00:40.927352+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M11-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:56.081906+00:00"
+        },
+        {
+          "memory_id": "a23c2ef8-2be4-4dc0-a521-79f6dc592810",
+          "content": "User is 43 years old and experienced anxiety symptoms eight years ago due to work stress, for which a doctor prescribed anti-anxiety medication that was taken for six months before being discontinued when symptoms improved. Occasional nervousness has persisted since then but no further medication has been used.",
+          "score": 0.6110763999429282,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:00:26.688080+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:40.888877+00:00"
+        }
+      ],
+      "seconds": 1.843
+    },
+    {
+      "query": {
+        "id": "M11-09-Q2",
+        "query": "三年前焦虑加重时他采取了什么非药物措施，频率如何，效果怎样？",
+        "expected_facts": [
+          "患者三年前因家庭变故焦虑加重。",
+          "患者每周进行心理咨询一次，坚持半年。",
+          "患者情绪稳定，能自行调节。"
+        ],
+        "required_groups": [
+          [
+            "家庭变故",
+            "家庭问题"
+          ],
+          [
+            "心理咨询",
+            "心理治疗"
+          ],
+          [
+            "自行调节",
+            "自己调节"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "bc6e0849-d4a2-453d-acd4-4e13cfa6068e",
+          "content": "三年前（约2023年）因家庭变故导致焦虑加重，用户没有选择服药，而是寻求心理咨询师帮助，每周进行一次咨询，持续了半年，情绪逐渐稳定。现在偶尔仍会紧张，但已能自我调节。",
+          "score": 0.7741026250644703,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:00:40.927352+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M11-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:56.081906+00:00"
+        },
+        {
+          "memory_id": "a23c2ef8-2be4-4dc0-a521-79f6dc592810",
+          "content": "User is 43 years old and experienced anxiety symptoms eight years ago due to work stress, for which a doctor prescribed anti-anxiety medication that was taken for six months before being discontinued when symptoms improved. Occasional nervousness has persisted since then but no further medication has been used.",
+          "score": 0.551945534575611,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:00:26.688080+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:40.888877+00:00"
+        }
+      ],
+      "seconds": 2.532
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者八年前因什么导致焦虑，医生开了什么药，吃了多久？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "bc6e0849-d4a2-453d-acd4-4e13cfa6068e",
+        "content": "三年前（约2023年）因家庭变故导致焦虑加重，用户没有选择服药，而是寻求心理咨询师帮助，每周进行一次咨询，持续了半年，情绪逐渐稳定。现在偶尔仍会紧张，但已能自我调节。",
+        "score": 0.682661961298201,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:00:40.927352+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M11-09",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:00:56.081906+00:00"
+      },
+      {
+        "memory_id": "a23c2ef8-2be4-4dc0-a521-79f6dc592810",
+        "content": "User is 43 years old and experienced anxiety symptoms eight years ago due to work stress, for which a doctor prescribed anti-anxiety medication that was taken for six months before being discontinued when symptoms improved. Occasional nervousness has persisted since then but no further medication has been used.",
+        "score": 0.5399616993558735,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:00:26.688080+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M11-09",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:00:40.888877+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 39.75
+}

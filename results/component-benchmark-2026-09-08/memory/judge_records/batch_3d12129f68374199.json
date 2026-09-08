@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"2efd3cc97f8b96aad244\", \"query\": \"用户是否患有慢性支气管炎？\", \"expected_facts\": [\"用户肺功能测试显示无慢性支气管炎。\", \"医生确认用户肺部功能正常，非老慢支。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的朋友说用户的咳嗽是老慢支，但用户去医院做了肺功能测试，医生诊断肺功能完全正常，没有慢性支气管炎，只是换季时的普通感冒咳嗽\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:02:16.039638+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户这次咳嗽始于2026年9月28日左右，因换季受凉引起，目前已快好转。用户表示以前也经常换季咳嗽，但从来都不是慢性病。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:02:32.617520+00:00\"}]}, {\"id\": \"30959cd9add505d346a5\", \"query\": \"患者目前被禁止进行哪些手臂相关活动？\", \"expected_facts\": [\"患者被禁止举重物超过两公斤和做扩胸运动。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户肩膀受伤，医生限制不能举重物超过两公斤，也不能做扩胸运动，目前只能进行轻柔的拉伸\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:35:48.432004+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"医生强调如果用户感到刺痛，应立即停止任何手臂动作并休息\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:35:48.432004+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户目前每天只做轻微拉伸\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:35:48.432004+00:00\"}]}, {\"id\": \"33725fae2c275758a94d\", \"query\": \"用户是什么时候开始采取非药物措施来控制血压的？\", \"expected_facts\": [\"用户从三个月前开始进行减盐运动。\", \"用户通过减盐运动在三个月内使血压恢复正常。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户在开始减盐运动之前曾服用降压药半年\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:42:17.759006+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户从三个月前（约2026年6月）开始减盐运动，当时血压就恢复正常了\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:42:17.759006+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户上周复查时医生确认高血压已通过生活方式调整控制住，无需继续服用降压药，但用户担心突然停药可能会反弹\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:56.605404+00:00\"}]}, {\"id\": \"33a425807beb3411c4b5\", \"query\": \"患者昨天做了哪项检查，结果状态如何？\", \"expected_facts\": [\"患者昨天做了心电图检查。\", \"检查结果尚未出来。\", \"医生要求患者等待三天。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户于2026年9月7日做了心电图，结果尚未出来，医生建议等待三天。用户目前尚未确诊，只是怀疑可能有心脏问题，想了解后续流程。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:35:26.699009+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户的父亲有冠心病史\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:58.977359+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户因父亲有冠心病史而担心自己是否也患有冠心病，正在寻求医疗咨询\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:58.977359+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户自2026年9月1日左右开始感到胸口偶尔闷痛，尤其在爬楼梯时出现\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:58.977359+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861918-TCOgYZQgm6SNxvwnIcBz",
+    "object": "chat.completion",
+    "created": 1788861918,
+    "model": "minimax/minimax-m2.5",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "\n\n{\"items\":[{\"id\":\"2efd3cc97f8b96aad244\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确指出肺功能测试显示肺功能完全正常，没有慢性支气管炎。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确指出医生诊断肺功能完全正常，没有慢性支气管炎。\"}]},{\"id\":\"30959cd9add505d346a5\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确指出医生限制不能举重物超过两公斤也不能做扩胸运动。\"}]},{\"id\":\"33725fae2c275758a94d\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"记忆明确指出用户从三个月前开始减盐运动。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"},{\"memory_id\":\"m2\"}],\"reason\":\"记忆明确指出减盐运动后血压恢复正常，医生确认高血压已通过生活方式调整控制住。\"}]},{\"id\":\"33a425807beb3411c4b5\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确指出用户于2026年9月7日做了心电图检查。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确指出心电图结果尚未出来。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确指出医生建议等待三天。\"}]}]}",
+          "refusal": null,
+          "reasoning": "\nLet me analyze each item:\n\n**Item 1: 2efd3cc97f8b96aad244**\nQuery: 用户是否患有慢性支气管炎？\nExpected facts:\n1. 用户肺功能测试显示无慢性支气管炎。\n2. 医生确认用户肺部功能正常，非老慢支。\n\nMemories:\n- m0: 用户的朋友说用户的咳嗽是老慢支，但用户去医院做了肺功能测试，医生诊断肺功能完全正常，没有慢性支气管炎，只是换季时的普通感冒咳嗽\n- m1: 用户这次咳嗽始于2026年9月28日左右，因换季受凉引起，目前已快好转。用户表示以前也经常换季咳嗽，但从来都不是慢性病。\n\nAnalysis:\n- Fact 1: \"用户肺功能测试显示无慢性支气管炎\" - m0 explicitly mentions \"肺功能测试，医生诊断肺功能完全正常，没有慢性支气管炎\" - This supports the fact. Supported: true\n- Fact 2: \"医生确认用户肺部功能正常，非老慢支\" - m0 mentions \"医生诊断肺功能完全正常，没有慢性支气管炎\" - This supports the fact. Supported: true\n\n**Item 2: 30959cd9add505d346a5**\nQuery: 患者目前被禁止进行哪些手臂相关活动？\nExpected facts: [\"患者被禁止举重物超过两公斤和做扩胸运动。\"]\n\nMemories:\n- m0: 用户肩膀受伤，医生限制不能举重物超过两公斤，也不能做扩胸运动，目前只能进行轻柔的拉伸\n- m1: 医生强调如果用户感到刺痛，应立即停止任何手臂动作并休息\n- m2: 用户目前每天只做轻微拉伸\n\nAnalysis:\n- Fact: \"患者被禁止举重物超过两公斤和做扩胸运动\" - m0 explicitly says \"医生限制不能举重物超过两公斤，也不能做扩胸运动\" - This directly supports the fact. Supported: true\n\n**Item 3: 33725fae2c275758a94d**\n\n\nQuery: 用户从三个月前开始减盐运动控制血压，血压已恢复正常。医学检查显示血压控制良好，无需持续用药。\n\n**Item 4: 33a425807beb3411c4b5**\nQuery: 患者昨日接受心电图检查，结果待定。医嘱建议等待三天以获取完整诊断信息。\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "\nLet me analyze each item:\n\n**Item 1: 2efd3cc97f8b96aad244**\nQuery: 用户是否患有慢性支气管炎？\nExpected facts:\n1. 用户肺功能测试显示无慢性支气管炎。\n2. 医生确认用户肺部功能正常，非老慢支。\n\nMemories:\n- m0: 用户的朋友说用户的咳嗽是老慢支，但用户去医院做了肺功能测试，医生诊断肺功能完全正常，没有慢性支气管炎，只是换季时的普通感冒咳嗽\n- m1: 用户这次咳嗽始于2026年9月28日左右，因换季受凉引起，目前已快好转。用户表示以前也经常换季咳嗽，但从来都不是慢性病。\n\nAnalysis:\n- Fact 1: \"用户肺功能测试显示无慢性支气管炎\" - m0 explicitly mentions \"肺功能测试，医生诊断肺功能完全正常，没有慢性支气管炎\" - This supports the fact. Supported: true\n- Fact 2: \"医生确认用户肺部功能正常，非老慢支\" - m0 mentions \"医生诊断肺功能完全正常，没有慢性支气管炎\" - This supports the fact. Supported: true\n\n**Item 2: 30959cd9add505d346a5**\nQuery: 患者目前被禁止进行哪些手臂相关活动？\nExpected facts: [\"患者被禁止举重物超过两公斤和做扩胸运动。\"]\n\nMemories:\n- m0: 用户肩膀受伤，医生限制不能举重物超过两公斤，也不能做扩胸运动，目前只能进行轻柔的拉伸\n- m1: 医生强调如果用户感到刺痛，应立即停止任何手臂动作并休息\n- m2: 用户目前每天只做轻微拉伸\n\nAnalysis:\n- Fact: \"患者被禁止举重物超过两公斤和做扩胸运动\" - m0 explicitly says \"医生限制不能举重物超过两公斤，也不能做扩胸运动\" - This directly supports the fact. Supported: true\n\n**Item 3: 33725fae2c275758a94d**\n\n\nQuery: 用户从三个月前开始减盐运动控制血压，血压已恢复正常。医学检查显示血压控制良好，无需持续用药。\n\n**Item 4: 33a425807beb3411c4b5**\nQuery: 患者昨日接受心电图检查，结果待定。医嘱建议等待三天以获取完整诊断信息。\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1340,
+      "completion_tokens": 816,
+      "total_tokens": 2156,
+      "cost": 0.0013812,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0013812,
+        "upstream_inference_prompt_cost": 0.000402,
+        "upstream_inference_completions_cost": 0.0009792
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 490,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 9.328
+}

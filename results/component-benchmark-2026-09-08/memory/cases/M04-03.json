@@ -1,0 +1,524 @@
+{
+  "case": {
+    "id": "M04-03",
+    "category": "用户和家人的经历区分",
+    "turns": [
+      {
+        "user": "我的丈夫两年前因为高血压开始服药控制，最近血压稳定了。我自己体检时血糖稍微偏高，医生建议我注意饮食，但我没有糖尿病，只是处于临界状态。",
+        "assistant": "了解，已记录您丈夫的高血压病史及您目前的血糖状况。"
+      },
+      {
+        "user": "更正一下，是妻子两年前确诊高血压，不是丈夫。丈夫身体一直很棒。我自己确实是血糖偏高，但从未被诊断为糖尿病，只是需要注意生活方式。",
+        "assistant": "明白，已修正为您妻子的病史，并确认您目前的血糖临界状态。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "请问您的配偶中，谁在两年前被确诊为高血压并开始服药？",
+        "expected_facts": [
+          "用户的妻子在两年前确诊高血压并开始服药。"
+        ],
+        "required_groups": [
+          [
+            "妻子",
+            "老婆"
+          ],
+          [
+            "两年前",
+            "2年前"
+          ],
+          [
+            "高血压",
+            "血压高"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "用户本人的血糖情况如何，是否已经确诊为糖尿病？",
+        "expected_facts": [
+          "用户体检发现血糖偏高，但未确诊糖尿病，处于临界状态。"
+        ],
+        "required_groups": [
+          [
+            "血糖偏高",
+            "血糖高"
+          ],
+          [
+            "未确诊",
+            "没有糖尿病"
+          ],
+          [
+            "临界状态",
+            "注意饮食"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M04-03",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860478-ESLY56A7wHghjDJXT373",
+      "usage": {
+        "prompt_tokens": 65,
+        "total_tokens": 65,
+        "cost": 6.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.5e-07,
+          "upstream_inference_prompt_cost": 6.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860480-mM9O2w2OdiqVZF5b2mFJ",
+      "usage": {
+        "prompt_tokens": 8360,
+        "completion_tokens": 486,
+        "total_tokens": 8846,
+        "cost": 0.003062,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.003062,
+          "upstream_inference_prompt_cost": 0.00209,
+          "upstream_inference_completions_cost": 0.000972
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 421,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户的丈夫两年前（约2024年9月）因高血压开始服药控制，最近血压已稳定\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户体检时血糖稍微偏高，医生建议注意饮食，用户没有糖尿病但处于临界状态\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860501-oiJQjnud1L6srcLzDpmJ",
+      "usage": {
+        "prompt_tokens": 47,
+        "total_tokens": 47,
+        "cost": 4.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.7e-07,
+          "upstream_inference_prompt_cost": 4.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860503-i2pbTHuz8ZKhy4T8RzEC",
+      "usage": {
+        "prompt_tokens": 62,
+        "total_tokens": 62,
+        "cost": 6.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.2e-07,
+          "upstream_inference_prompt_cost": 6.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860507-pi3TuGNqIuSk7Ccl50E6",
+      "usage": {
+        "prompt_tokens": 8480,
+        "completion_tokens": 834,
+        "total_tokens": 9314,
+        "cost": 0.003788,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.003788,
+          "upstream_inference_prompt_cost": 0.00212,
+          "upstream_inference_completions_cost": 0.001668
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 825,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户更正：是妻子而非丈夫两年前（约2024年9月）确诊高血压并开始服药控制\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户的丈夫身体健康状况良好\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860528-TtxVQouCHdQ4I8kOoI4a",
+      "usage": {
+        "prompt_tokens": 33,
+        "total_tokens": 33,
+        "cost": 3.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.3e-07,
+          "upstream_inference_prompt_cost": 3.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860533-caPdha8FluDB9kD4gUyC",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860536-ahtRNR9iThjTOf2bZv9I",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 14,
+        "cost": 1.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.4e-07,
+          "upstream_inference_prompt_cost": 1.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860538-NH3MZwolXsEXPcEDee35",
+      "usage": {
+        "prompt_tokens": 28,
+        "total_tokens": 28,
+        "cost": 2.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.8e-07,
+          "upstream_inference_prompt_cost": 2.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860542-10buFq10Rb8WYSxqdZYa",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860543-ioDyr5utpsuP0v2saidU",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "请问您的配偶中，谁在两年前被确诊为高血压并开始服药？",
+        "expected_facts": [
+          "用户的妻子在两年前确诊高血压并开始服药。"
+        ],
+        "required_groups": [
+          [
+            "妻子",
+            "老婆"
+          ],
+          [
+            "两年前",
+            "2年前"
+          ],
+          [
+            "高血压",
+            "血压高"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "68680bf7-bd57-439d-90a1-befbc456c196",
+          "content": "用户更正：是妻子而非丈夫两年前（约2024年9月）确诊高血压并开始服药控制",
+          "score": 0.9012439720119713,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:42.150967+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M04-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:11.584747+00:00"
+        },
+        {
+          "memory_id": "0d38a7b9-091b-4fe0-ab8c-034176cce449",
+          "content": "用户的丈夫两年前（约2024年9月）因高血压开始服药控制，最近血压已稳定",
+          "score": 0.8524231137532985,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:16.917515+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:42.110067+00:00"
+        },
+        {
+          "memory_id": "58941339-07fd-4a6d-b601-a42505cca09a",
+          "content": "用户的丈夫身体健康状况良好",
+          "score": 0.5670151515666066,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:42.150967+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M04-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:11.584747+00:00"
+        },
+        {
+          "memory_id": "348f3c1b-82dd-463d-88c6-20632269dfdf",
+          "content": "用户体检时血糖稍微偏高，医生建议注意饮食，用户没有糖尿病但处于临界状态",
+          "score": 0.5301909576455921,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:16.917515+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:42.110067+00:00"
+        }
+      ],
+      "seconds": 3.5
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "用户本人的血糖情况如何，是否已经确诊为糖尿病？",
+        "expected_facts": [
+          "用户体检发现血糖偏高，但未确诊糖尿病，处于临界状态。"
+        ],
+        "required_groups": [
+          [
+            "血糖偏高",
+            "血糖高"
+          ],
+          [
+            "未确诊",
+            "没有糖尿病"
+          ],
+          [
+            "临界状态",
+            "注意饮食"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "348f3c1b-82dd-463d-88c6-20632269dfdf",
+          "content": "用户体检时血糖稍微偏高，医生建议注意饮食，用户没有糖尿病但处于临界状态",
+          "score": 0.7648268609219921,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:16.917515+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:42.110067+00:00"
+        },
+        {
+          "memory_id": "0d38a7b9-091b-4fe0-ab8c-034176cce449",
+          "content": "用户的丈夫两年前（约2024年9月）因高血压开始服药控制，最近血压已稳定",
+          "score": 0.5164577604638484,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:16.917515+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:42.110067+00:00"
+        },
+        {
+          "memory_id": "68680bf7-bd57-439d-90a1-befbc456c196",
+          "content": "用户更正：是妻子而非丈夫两年前（约2024年9月）确诊高血压并开始服药控制",
+          "score": 0.5085656668433701,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:42.150967+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M04-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:11.584747+00:00"
+        },
+        {
+          "memory_id": "58941339-07fd-4a6d-b601-a42505cca09a",
+          "content": "用户的丈夫身体健康状况良好",
+          "score": 0.44260453795287463,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:42.150967+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M04-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:11.584747+00:00"
+        }
+      ],
+      "seconds": 2.484
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "请问您的配偶中，谁在两年前被确诊为高血压并开始服药？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "68680bf7-bd57-439d-90a1-befbc456c196",
+        "content": "用户更正：是妻子而非丈夫两年前（约2024年9月）确诊高血压并开始服药控制",
+        "score": 0.7598073275436765,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:41:42.150967+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M04-03",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:42:11.584747+00:00"
+      },
+      {
+        "memory_id": "0d38a7b9-091b-4fe0-ab8c-034176cce449",
+        "content": "用户的丈夫两年前（约2024年9月）因高血压开始服药控制，最近血压已稳定",
+        "score": 0.7106764459849458,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:41:16.917515+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M04-03",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:41:42.110067+00:00"
+      },
+      {
+        "memory_id": "348f3c1b-82dd-463d-88c6-20632269dfdf",
+        "content": "用户体检时血糖稍微偏高，医生建议注意饮食，用户没有糖尿病但处于临界状态",
+        "score": 0.5496827039792551,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:41:16.917515+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M04-03",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:41:42.110067+00:00"
+      },
+      {
+        "memory_id": "58941339-07fd-4a6d-b601-a42505cca09a",
+        "content": "用户的丈夫身体健康状况良好",
+        "score": 0.5203921154687976,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:41:42.150967+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M04-03",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:42:11.584747+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 67.422
+}

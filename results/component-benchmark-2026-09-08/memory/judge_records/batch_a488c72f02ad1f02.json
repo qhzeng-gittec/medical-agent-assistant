@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"e5fd35cf32ecf0549f30\", \"query\": \"根据记录，患者是在哪一年遭遇了这次药物不良反应，当时是如何误服该药物的？\", \"expected_facts\": [\"患者的过敏事件发生在2021年初。\", \"患者当时误以为是治疗普通感冒而服用了该药物。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户补充说明阿司匹林过敏发作发生在2021年初，当时误以为是普通感冒而服药，引发严重血管性水肿，后去医院确诊为药物过敏\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:39:22.727720+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户对阿司匹林过敏，三年前服药后不到半小时出现过敏反应，症状包括嘴唇和舌头麻木肿胀、皮肤严重瘙痒\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:39:10.987769+00:00\"}]}, {\"id\": \"e704d1aa05add36eff8b\", \"query\": \"患者彻底戒酒的决定是基于什么具体经历做出的？\", \"expected_facts\": [\"该患者因一次醉酒呕吐严重而决定戒酒。\", \"该患者在二十多岁时有过饮酒尝试。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户完全不饮酒，因为父亲的酗酒对其影响很大，因此用户不仅自己滴酒不沾，家里也不存放任何酒精饮料。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:57:48.950492+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户在二十多岁时曾尝试喝啤酒，但经历一次严重醉酒呕吐后彻底戒酒，至今已保持十年滴酒不沾。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:58:34.058556+00:00\"}]}, {\"id\": \"e86028d52b40bd5d6df7\", \"query\": \"患者最终在哪一天停止了托吡酯的服用？\", \"expected_facts\": [\"患者在2023年7月22日停止服用托吡酯\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"User actually stopped taking topiramate on July 25th, 2026, five days after the doctor's recommended stop date of July 20th\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:48:26.376767+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"User corrected their topiramate (托吡酯) stop date to July 22nd, 2026 after reviewing their medical records and finding it was written as the 22nd, not the 20th\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:48:45.182599+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"In July 2026, the doctor told User their migraine attacks had decreased and instructed them to stop topiramate on July 20th\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:48:26.376767+00:00\"}]}, {\"id\": \"ea2e6d8c2116cfa4b8a4\", \"query\": \"这次过敏事件发生在哪一年的春季，医疗团队采取了什么紧急措施？\", \"expected_facts\": [\"事件发生在2022年春季。\", \"医生立即停止检查并进行紧急处理。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户在2022年春季进行CT检查时发生碘造影剂过敏反应，症状包括发热感、皮疹、喉头水肿和声音嘶哑，医生随即停止检查并进行紧急处理。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:40:07.862355+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862273-DWuuhR83xLD0rgdM0Odw",
+    "object": "chat.completion",
+    "created": 1788862273,
+    "model": "minimax/minimax-m2.5",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"e5fd35cf32ecf0549f30\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states the aspirin allergy occurred in early 2021.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states the patient mistakenly took the medication thinking it was for treating a common cold.\"}]},{\"id\":\"e704d1aa05add36eff8b\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory explicitly states the patient quit drinking after experiencing severe vomiting from drunkenness.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory explicitly states the patient tried beer in their twenties.\"}]},{\"id\":\"e86028d52b40bd5d6df7\",\"facts\":[{\"supported\":false,\"evidence\":[],\"reason\":\"All memories reference events in 2026, not 2023. The corrected date is July 22nd, 2026, but the actual stop date was July 25th, 2026.\"}]},{\"id\":\"ea2e6d8c2116cfa4b8a4\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states the allergy event occurred in spring 2022.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states the doctor immediately stopped the examination and performed emergency treatment.\"}]}]}",
+          "refusal": null,
+          "reasoning": "The user wants me to evaluate each item against the provided memories and determine if the expected facts are supported by the memories. Let me analyze each item:\n\n**Item 1 (e5fd35cf32ecf0549f30):**\n- Query: 患者是在哪一年遭遇了这次药物不良反应，当时是如何误服该药物的？\n- Expected facts:\n  1. 患者的过敏事件发生在2021年初。\n  2. 患者当时误以为是治疗普通感冒而服用了该药物。\n\n- Memories:\n  - m0: \"用户补充说明阿司匹林过敏发作发生在2021年初，当时误以为是普通感冒而服药，引发严重血管性水肿，后去医院确诊为药物过敏\"\n  - m1: \"用户对阿司匹林过敏，三年前服药后不到半小时出现过敏反应，症状包括嘴唇和舌头麻木肿胀、皮肤严重瘙痒\"\n\n- Analysis:\n  - Fact 1: \"患者的过敏事件发生在2021年初\" - m0 explicitly states \"阿司匹林过敏发作发生在2021年初\" - SUPPORTED by m0\n  - Fact 2: \"患者当时误以为是治疗普通感冒而服用了该药物\" - m0 explicitly states \"当时误以为是普通感冒而服药\" - SUPPORTED by m0\n\n**Item 2 (e704d1aa05add36eff8b):**\n- Query: 患者彻底戒酒的决定是基于什么具体经历做出的？\n- Expected facts:\n  1. 该患者因一次醉酒呕吐严重而决定戒酒。\n  2. 该患者在二十多岁时有过饮酒尝试。\n\n- Memories:\n  - m0: \"用户完全不饮酒，因为父亲的酗酒对其影响很大，因此用户不仅自己滴酒不沾，家里也不存放任何酒精饮料。\"\n  - m1: \"用户在二十多岁时曾尝试喝啤酒，但经历一次严重醉酒呕吐后彻底戒酒，至今已保持十年滴酒不沾。\"\n  \n- Analysis:\n  - Fact 1: \"该患者因一次醉酒呕吐严重而决定戒酒\" - m1 explicitly states \"经历一次严重醉酒呕吐后彻底戒酒\" - SUPPORTED by m1\n  - Fact 2: \"该患者在二十多岁时有过饮酒尝试\" - m1 explicitly states \"用户在二十多岁时曾尝试喝啤酒\" - SUPPORTED by m1\n\n**Item 3 (e86028d52b40bd5d6df7):**\n- Query: 患者最终在哪一天停止了托吡酯的服用？\n- Expected facts:\n  1. 患者停止服用托吡酯的日期需要进一步核实\n  2. 医嘱建议的停药时间为2026年7月20日，但实际执行有所延迟\n\nI notice a discrepancy between the expected fact and the memory details. The evidence suggests the patient stopped taking topiramate on July 25th, 2026, which differs from the expected July 22nd, 2023 date. The memories indicate the actual stop date was five days after the recommended July 20th, 2026 date.\n\nThe key details reveal a specific timeline: the doctor's recommended stop date was July 20th, 2026, but the patient actually stopped taking the medication on July 25th, 2026. Additionally, there's a correction noting the medical records were written as July 22nd, 2026, not July 20th.\n\nThis means the expected fact is not supported, as the actual stop date was July 25th, 2026, not July 22nd, 2023.\n\nThe memories consistently point to a 2026 date, with a specific correction from July 20th to July 22nd in the medical records. The evidence suggests the expected date is incorrect.\n\nI'll analyze the key details: the medical record correction indicates July 22nd, 2026, but the actual stop date was July 25th, 2026. This means the expected fact doesn't match the recorded information.\n\nThe evidence from m1 and m0 clearly shows the date discrepancy, with the corrected record being July 22nd, 2026, while the actual discontinuation occurred on July 25th, 2026.\n\nThe expected fact of \"2023年7月22日\" is definitively unsupported, as all memories consistently reference events in 2026, not 2023.\n\nFor the next item, I'll examine the spring 2022 allergy event and the emergency measures taken by the medical team.\n\nThe memory m0 explicitly confirms the event occurred in spring 2022 and describes the doctor's immediate response of stopping the examination and providing emergency treatment. This matches the expected facts precisely.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "The user wants me to evaluate each item against the provided memories and determine if the expected facts are supported by the memories. Let me analyze each item:\n\n**Item 1 (e5fd35cf32ecf0549f30):**\n- Query: 患者是在哪一年遭遇了这次药物不良反应，当时是如何误服该药物的？\n- Expected facts:\n  1. 患者的过敏事件发生在2021年初。\n  2. 患者当时误以为是治疗普通感冒而服用了该药物。\n\n- Memories:\n  - m0: \"用户补充说明阿司匹林过敏发作发生在2021年初，当时误以为是普通感冒而服药，引发严重血管性水肿，后去医院确诊为药物过敏\"\n  - m1: \"用户对阿司匹林过敏，三年前服药后不到半小时出现过敏反应，症状包括嘴唇和舌头麻木肿胀、皮肤严重瘙痒\"\n\n- Analysis:\n  - Fact 1: \"患者的过敏事件发生在2021年初\" - m0 explicitly states \"阿司匹林过敏发作发生在2021年初\" - SUPPORTED by m0\n  - Fact 2: \"患者当时误以为是治疗普通感冒而服用了该药物\" - m0 explicitly states \"当时误以为是普通感冒而服药\" - SUPPORTED by m0\n\n**Item 2 (e704d1aa05add36eff8b):**\n- Query: 患者彻底戒酒的决定是基于什么具体经历做出的？\n- Expected facts:\n  1. 该患者因一次醉酒呕吐严重而决定戒酒。\n  2. 该患者在二十多岁时有过饮酒尝试。\n\n- Memories:\n  - m0: \"用户完全不饮酒，因为父亲的酗酒对其影响很大，因此用户不仅自己滴酒不沾，家里也不存放任何酒精饮料。\"\n  - m1: \"用户在二十多岁时曾尝试喝啤酒，但经历一次严重醉酒呕吐后彻底戒酒，至今已保持十年滴酒不沾。\"\n  \n- Analysis:\n  - Fact 1: \"该患者因一次醉酒呕吐严重而决定戒酒\" - m1 explicitly states \"经历一次严重醉酒呕吐后彻底戒酒\" - SUPPORTED by m1\n  - Fact 2: \"该患者在二十多岁时有过饮酒尝试\" - m1 explicitly states \"用户在二十多岁时曾尝试喝啤酒\" - SUPPORTED by m1\n\n**Item 3 (e86028d52b40bd5d6df7):**\n- Query: 患者最终在哪一天停止了托吡酯的服用？\n- Expected facts:\n  1. 患者停止服用托吡酯的日期需要进一步核实\n  2. 医嘱建议的停药时间为2026年7月20日，但实际执行有所延迟\n\nI notice a discrepancy between the expected fact and the memory details. The evidence suggests the patient stopped taking topiramate on July 25th, 2026, which differs from the expected July 22nd, 2023 date. The memories indicate the actual stop date was five days after the recommended July 20th, 2026 date.\n\nThe key details reveal a specific timeline: the doctor's recommended stop date was July 20th, 2026, but the patient actually stopped taking the medication on July 25th, 2026. Additionally, there's a correction noting the medical records were written as July 22nd, 2026, not July 20th.\n\nThis means the expected fact is not supported, as the actual stop date was July 25th, 2026, not July 22nd, 2023.\n\nThe memories consistently point to a 2026 date, with a specific correction from July 20th to July 22nd in the medical records. The evidence suggests the expected date is incorrect.\n\nI'll analyze the key details: the medical record correction indicates July 22nd, 2026, but the actual stop date was July 25th, 2026. This means the expected fact doesn't match the recorded information.\n\nThe evidence from m1 and m0 clearly shows the date discrepancy, with the corrected record being July 22nd, 2026, while the actual discontinuation occurred on July 25th, 2026.\n\nThe expected fact of \"2023年7月22日\" is definitively unsupported, as all memories consistently reference events in 2026, not 2023.\n\nFor the next item, I'll examine the spring 2022 allergy event and the emergency measures taken by the medical team.\n\nThe memory m0 explicitly confirms the event occurred in spring 2022 and describes the doctor's immediate response of stopping the examination and providing emergency treatment. This matches the expected facts precisely.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1174,
+      "completion_tokens": 1274,
+      "total_tokens": 2448,
+      "cost": 0.00181956,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00181956,
+        "upstream_inference_prompt_cost": 0.00029076,
+        "upstream_inference_completions_cost": 0.0015288
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 1373,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 20.656
+}

@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"043bdd9f6aaa064af464\", \"query\": \"患者改变饮品习惯的具体时间节点是哪一年？\", \"expected_facts\": [\"患者从2022年开始调整饮品习惯。\", \"在2022年之前，患者每天饮用两杯咖啡。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户从2022年开始调整饮品习惯，从每天两杯咖啡改为每天一杯咖啡加一杯茶\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:56:20.134147+00:00\"}]}, {\"id\": \"04e0cf11b60b2295c84e\", \"query\": \"患者十五年前确诊了什么代谢疾病，医生建议什么措施，坚持了多久？\", \"expected_facts\": [\"患者十五年前被查出轻度糖尿病。\", \"医生建议控制饮食和运动。\", \"患者坚持了十年后血糖稳定。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户六十岁，十五年前被查出有轻度糖尿病，医生建议控制饮食和运动\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:00:25.654046+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户坚持饮食控制和运动十年，血糖一直稳定\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:00:25.654046+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户现在偶尔测血糖，基本没问题\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:00:39.961250+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户五年前体检发现血糖偏高，开始每天快走四十分钟，坚持两年后血糖恢复正常\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:00:39.961250+00:00\"}, {\"memory_id\": \"m4\", \"content\": \"用户退休后生活规律，不再监测血糖\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:00:25.654046+00:00\"}]}, {\"id\": \"050758f89311605125e1\", \"query\": \"患者对自己体内植入物的情况做了怎样的说明，并计划何时到达医院？\", \"expected_facts\": [\"患者确认其心脏起搏器型号兼容核磁共振检查。\", \"患者计划于周五下午三点到达医院。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"User's heart pacemaker model is MRI-compatible, as confirmed by the user after checking information\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:48:51.129805+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"User plans to arrive at the hospital at 3 PM on Friday afternoon (September 11, 2026) for the lumbar spine MRI and wants to know how much time to allow for registration and changing clothes beforehand\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:48:51.129805+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"User has a heart pacemaker and is concerned about whether it will affect the MRI examination or require special procedures\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:48:39.048746+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"User needs to schedule a lumbar spine MRI for this Friday afternoon (around September 11, 2026)\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:48:39.048746+00:00\"}]}, {\"id\": \"0521f919107bb5a1040a\", \"query\": \"请确认患者那次云南之行的具体行程细节和同行人员情况。\", \"expected_facts\": [\"患者在大理停留了五天。\", \"患者是与朋友一起前往云南的。\", \"旅行发生在去年六月。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户去年六月与一位老朋友一同前往云南旅行，在大理停留了五天\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:51:28.109537+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"User traveled alone to Yunnan for one week last summer (summer 2025), which was their first time traveling such a long distance. They mainly stayed in Dali and Lijiang, where they found the scenery beautiful.\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:51:05.906846+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861853-gYzBrnGtY4VULEzKtwAJ",
+    "object": "chat.completion",
+    "created": 1788861853,
+    "model": "minimax/minimax-m2.5",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"043bdd9f6aaa064af464\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确指出患者从2022年开始调整饮品习惯，从每天两杯咖啡改为每天一杯咖啡加一杯茶。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆显示患者从每天两杯咖啡改为一杯咖啡加一杯茶，可推断2022年前每天饮用两杯咖啡。\"}]},{\"id\":\"04e0cf11b60b2295c84e\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确指出患者十五年前被查出有轻度糖尿病。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆显示医生建议控制饮食和运动。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"记忆显示患者坚持饮食控制和运动十年，血糖一直稳定。\"}]},{\"id\":\"050758f89311605125e1\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确指出患者的心脏起搏器型号是MRI兼容的。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"记忆显示患者计划在周五下午三点到达医院。\"}]},{\"id\":\"0521f919107bb5a1040a\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确指出患者在大理停留了五天。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆显示患者与一位老朋友一同前往云南旅行。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确指出旅行发生在去年六月。\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item according to the instructions:\n\n1. **Item 043bdd9f6aaa064af464**: Query about when the patient changed drinking habits.\n   - Expected fact 1: \"患者从2022年开始调整饮品习惯。\" (Patient started adjusting drinking habits from 2022.)\n     - Memory m0 says: \"用户从2022年开始调整饮品习惯，从每天两杯咖啡改为每天一杯咖啡加一杯茶\" - This directly supports the fact that the patient started adjusting from 2022. ✓ Supported by m0.\n   - Expected fact 2: \"在2022年之前，患者每天饮用两杯咖啡。\" (Before 2022, patient drank two cups of coffee daily.)\n     - Memory m0 says they changed from \"每天两杯咖啡\" (two cups of coffee daily) to one coffee + one tea. This implies that before 2022, they drank two cups of coffee. ✓ Supported by m0.\n\n2. **Item 04e0cf11b60b2295c84e**: Query about metabolic disease diagnosed 15 years ago.\n   - Expected fact 1: \"患者十五年前被查出轻度糖尿病。\" (Patient was found to have mild diabetes 15 years ago.)\n     - Memory m0: \"十五年前被查出有轻度糖尿病\" - Directly supports this. ✓ Supported by m0.\n   - Expected fact 2: \"医生建议控制饮食和运动。\" (Doctor recommended diet control and exercise.)\n     - Memory m0: \"医生建议控制饮食和运动\" - Directly supports this. ✓ Supported by m0.\n   - Expected fact 3: \"患者坚持了十年后血糖稳定。\" (Patient persisted for ten years until blood sugar stabilized.)\n     - Memory m1: \"坚持饮食控制和运动十年，血糖一直稳定\" - Directly supports this. ✓ Supported by m1.\n\n3. **Item 050758f89311605125e1**: Query about implant and hospital arrival time.\n   - Expected fact 1: \"患者确认其心脏起搏器型号兼容核磁共振检查。\" (Patient confirmed their pacemaker model is MRI-compatible.)\n     - Memory m0: \"User's heart pacemaker model is MRI-compatible, as confirmed by the user after checking information\" - Directly supports this. ✓ Supported by m0.\n   - Expected fact 2: \"患者计划于周五下午三点到达医院。\" (Patient plans to arrive at hospital Friday afternoon at 3 PM.)\n     - Memory m1: \"User plans to arrive at the hospital at 3 PM on Friday afternoon\" - Directly supports this. ✓ Supported by m1.\n\n4. **Item 0521f919107bb5a1040a**: Query about Yunnan trip details.\n   - Expected fact 1: \"患者在大理停留了五天。\" (Patient stayed in Dali for five days.)\n     - Memory m0: \"在大理停留了五天\" - Directly supports this. ✓ Supported by m0.\n   - Expected fact 2: \"患者是与朋友一起前往云南的。\" (Patient went to Yunnan with a friend.)\n     - Memory m0: \"与一位老朋友一同前往云南\" - Directly supports this. ✓ Supported by m0.\n   - Expected fact 3: \"旅行发生在去年六月。\" (Travel occurred in June last year.)\n     - Memory m0: \"去年六月\" - Directly supports this. ✓ Supported by m0.\n\nAll facts are supported by the provided memories. Now I'll prepare the JSON output with the required format.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item according to the instructions:\n\n1. **Item 043bdd9f6aaa064af464**: Query about when the patient changed drinking habits.\n   - Expected fact 1: \"患者从2022年开始调整饮品习惯。\" (Patient started adjusting drinking habits from 2022.)\n     - Memory m0 says: \"用户从2022年开始调整饮品习惯，从每天两杯咖啡改为每天一杯咖啡加一杯茶\" - This directly supports the fact that the patient started adjusting from 2022. ✓ Supported by m0.\n   - Expected fact 2: \"在2022年之前，患者每天饮用两杯咖啡。\" (Before 2022, patient drank two cups of coffee daily.)\n     - Memory m0 says they changed from \"每天两杯咖啡\" (two cups of coffee daily) to one coffee + one tea. This implies that before 2022, they drank two cups of coffee. ✓ Supported by m0.\n\n2. **Item 04e0cf11b60b2295c84e**: Query about metabolic disease diagnosed 15 years ago.\n   - Expected fact 1: \"患者十五年前被查出轻度糖尿病。\" (Patient was found to have mild diabetes 15 years ago.)\n     - Memory m0: \"十五年前被查出有轻度糖尿病\" - Directly supports this. ✓ Supported by m0.\n   - Expected fact 2: \"医生建议控制饮食和运动。\" (Doctor recommended diet control and exercise.)\n     - Memory m0: \"医生建议控制饮食和运动\" - Directly supports this. ✓ Supported by m0.\n   - Expected fact 3: \"患者坚持了十年后血糖稳定。\" (Patient persisted for ten years until blood sugar stabilized.)\n     - Memory m1: \"坚持饮食控制和运动十年，血糖一直稳定\" - Directly supports this. ✓ Supported by m1.\n\n3. **Item 050758f89311605125e1**: Query about implant and hospital arrival time.\n   - Expected fact 1: \"患者确认其心脏起搏器型号兼容核磁共振检查。\" (Patient confirmed their pacemaker model is MRI-compatible.)\n     - Memory m0: \"User's heart pacemaker model is MRI-compatible, as confirmed by the user after checking information\" - Directly supports this. ✓ Supported by m0.\n   - Expected fact 2: \"患者计划于周五下午三点到达医院。\" (Patient plans to arrive at hospital Friday afternoon at 3 PM.)\n     - Memory m1: \"User plans to arrive at the hospital at 3 PM on Friday afternoon\" - Directly supports this. ✓ Supported by m1.\n\n4. **Item 0521f919107bb5a1040a**: Query about Yunnan trip details.\n   - Expected fact 1: \"患者在大理停留了五天。\" (Patient stayed in Dali for five days.)\n     - Memory m0: \"在大理停留了五天\" - Directly supports this. ✓ Supported by m0.\n   - Expected fact 2: \"患者是与朋友一起前往云南的。\" (Patient went to Yunnan with a friend.)\n     - Memory m0: \"与一位老朋友一同前往云南\" - Directly supports this. ✓ Supported by m0.\n   - Expected fact 3: \"旅行发生在去年六月。\" (Travel occurred in June last year.)\n     - Memory m0: \"去年六月\" - Directly supports this. ✓ Supported by m0.\n\nAll facts are supported by the provided memories. Now I'll prepare the JSON output with the required format.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1367,
+      "completion_tokens": 1103,
+      "total_tokens": 2470,
+      "cost": 0.00167226,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00167226,
+        "upstream_inference_prompt_cost": 0.00034866,
+        "upstream_inference_completions_cost": 0.0013236
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 952,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 19.0
+}

@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"81bde552d73712d03e4a\", \"query\": \"患者曾因治疗严重细菌感染输注何种抗生素导致特征性的皮肤反应和全身症状？\", \"expected_facts\": [\"患者因输注万古霉素治疗细菌感染引发过敏。\", \"症状包括紫红色条纹状皮疹、潮红发热及血压下降（红人综合征）。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户对万古霉素过敏，2014年因严重细菌感染接受输液治疗时，在输液过程中背部和四肢出现紫红色条纹状皮疹，非常痒。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:40:57.148530+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户2014年万古霉素输液反应被诊断为“红人综合征”，除皮疹外还出现潮红发热和血压下降，医生减慢滴速并给予抗组胺药后症状逐渐缓解。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:25.930604+00:00\"}]}, {\"id\": \"82fc9aee425796afcd8f\", \"query\": \"五年前他戒烟时用了什么辅助工具，坚持了多久，现在是否完全戒断？\", \"expected_facts\": [\"患者五年前因咳嗽加重再次戒烟。\", \"患者使用尼古丁贴片坚持了两年。\", \"患者去年冬天复吸，目前未完全戒断。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"五年前（约2021年），用户因咳嗽加重再次开始戒烟，使用尼古丁贴片作为辅助，坚持了两年\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:00:44.442511+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"在两年戒烟期间用户的咳嗽基本消失，但去年冬天（2025-2026年冬季）复吸了几次，现在偶尔咳一下\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:00:44.442511+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"医生建议戒烟后，用户成功戒了三年，症状减轻，但后来复吸了\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:00:29.739352+00:00\"}]}, {\"id\": \"8313bf6176e69f419968\", \"query\": \"患者二十年前确诊了什么疾病，当时采取了什么措施，坚持了多久？\", \"expected_facts\": [\"患者二十年前被诊断出轻度高血压。\", \"医生建议控制盐分摄入。\", \"患者坚持了五年后放松了控制。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户二十年前确诊轻度高血压时医生建议控制盐分摄入，坚持了五年后放松了饮食控制\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:58:29.303140+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户五十五岁，二十年前被诊断出有轻度高血压\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:58:29.303140+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户五年前因体检发现血压升高开始每天慢跑半小时，坚持了两年，期间血压保持稳定\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:58:56.364460+00:00\"}]}, {\"id\": \"8393351b841355f8fa91\", \"query\": \"患者家中哪位亲属被确认患有哮喘？\", \"expected_facts\": [\"患者的妹妹患有哮喘。\", \"患者的弟弟并不患有哮喘。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户有一个妹妹自幼患有哮喘，弟弟没有哮喘病史。用户之前误记了兄弟姐妹的顺序，现已更正。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:55:07.930284+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862030-IPwZu1IVPel07pTgW5OZ",
+    "object": "chat.completion",
+    "created": 1788862030,
+    "model": "minimax/minimax-m2.5",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"81bde552d73712d03e4a\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"记忆明确记录患者因输注万古霉素治疗细菌感染引发过敏反应。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"记忆记录紫红色条纹状皮疹、潮红发热及血压下降，符合红人综合征特征。\"}]},{\"id\":\"82fc9aee425796afcd8f\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确记录五年前（约2021年）因咳嗽加重再次戒烟。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确记录使用尼古丁贴片作为辅助，坚持了两年。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"},{\"memory_id\":\"m2\"}],\"reason\":\"记忆记录去年冬天复吸几次，目前偶尔咳嗽，表明未完全戒断。\"}]},{\"id\":\"8313bf6176e69f419968\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"记忆明确记录二十年前被诊断出轻度高血压。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确记录医生建议控制盐分摄入。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确记录坚持了五年后放松了饮食控制。\"}]},{\"id\":\"8393351b841355f8fa91\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确记录患者有一个妹妹自幼患有哮喘。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确记录弟弟没有哮喘病史。\"}]}]}",
+          "refusal": null,
+          "reasoning": "让我分析每个项目，根据记忆判断是否支持预期的事实。\n\n**项目1 (81bde552d73712d03e4a):**\n查询：患者曾因治疗严重细菌感染输注何种抗生素导致特征性的皮肤反应和全身症状？\n\n预期事实：\n1. 患者因输注万古霉素治疗细菌感染引发过敏。\n2. 症状包括紫红色条纹状皮疹、潮红发热及血压下降（红人综合征）。\n\n记忆：\n- m0: 用户对万古霉素过敏，2014年因严重细菌感染接受输液治疗时，在输液过程中背部和四肢出现紫红色条纹状皮疹，非常痒。\n- m1: 用户2014年万古霉素输液反应被诊断为\"红人综合征\"，除皮疹外还出现潮红发热和血压下降，医生减慢滴速并给予抗组胺药后症状逐渐缓解。\n\n分析：\n- 预期事实1：万古霉素过敏 ✓ - m0和m1都明确提到万古霉素\n- 预期事实2：紫红色条纹状皮疹、潮红发热及血压下降（红人综合征）✓ - m0提到紫红色条纹状皮疹，m1提到潮红发热和血压下降\n\n两个事实都得到支持。\n\n**项目2 (82fc9aee425796afcd8f):**\n查询：五年前他戒烟时用了什么辅助工具，坚持了多久，现在是否完全戒断？\n\n\n戒烟过程中使用了尼古丁贴片，坚持了两年，但去年冬天又复吸了。\n\n预期事实：\n1. 患者五年前因咳嗽加重再次戒烟。\n2. 患者使用尼古丁贴片坚持了两年。\n3. 患者去年冬天复吸，目前未完全戒断。\n\n记忆：\n- m0: 五年前（约2021年），用户因咳嗽加重再次开始戒烟，使用尼古丁贴片作为辅助，坚持了两年\n- m1: 在两年戒烟期间用户的咳嗽基本消失，但去年冬天（2025-2026年冬季）复吸了几次，现在偶尔咳一下\n- m2: 医生建议戒烟后，用户成功戒了三年，症状减轻，但后来复吸了\n\n分析：\n- 预期事实1：五年前因咳嗽加重戒烟 ✓ - m0明确提到\n- 预期事实2：使用尼古丁贴片坚持了两年 ✓ - m0明确提到\n- 预期事实3：去年冬天复吸，目前未完全戒断 ✓ - m1提到去年冬天复吸，m2提到后来复吸\n\n所有事实都得到支持。\n\n**项目3 (8313bf6176e69f419968):**\n查询：患者二十年前确诊了什么疾病，当时采取了什么措施，坚持了多久？\n\n预期事实：\n1. 患者二十年前被诊断出轻度高血压。\n2. 医生建议控制盐分摄入。\n3. 患者坚持了五年后放松了控制。\n\n记忆：\n- m0: 用户二十年前确诊轻度高血压时医生建议控制盐分摄入，坚持了五年后放松了饮食控制\n- m1: 用户五十五岁，二十年前被诊断出有轻度高血压\n- m2: 用户五年前因体检发现血压升高开始每天慢跑半小时，坚持了两年，期间血压保持稳定\n\n分析：\n- 预期事实1：二十年前诊断轻度高血压 ✓ - m0和m1都提到\n- 预期事实2：医生建议控制盐分摄入 ✓ - m0明确提到\n- 预期事实3：坚持了五年后放松控制 ✓ - m0明确提到\n\n所有事实都得到支持。\n\n**项目4 (8393351b841355f8fa91):**\n查询：患者家中哪位亲属被确认患有哮喘？\n\n预期事实：\n1. 患者的妹妹患有哮喘。\n2. 患者的弟弟并不患有哮喘。\n\n记忆：\n- m0: 用户有一个妹妹自幼患有哮喘，弟弟没有哮喘病史。用户之前误记了兄弟姐妹的顺序，现已更正。\n\n分析：\n- 预期事实1：妹妹患有哮喘 ✓ - m0明确提到妹妹有哮喘\n- 预期事实2：弟弟不患有哮喘 ✓ - m0明确提到弟弟没有哮喘病史\n\n两个事实都得到支持。\n\n所有项目的结果：\n- 项目1：两个事实都支持\n- 项目2：三个事实都支持\n- 项目3：三个事实都支持\n- 项目4：两个事实都支持\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "让我分析每个项目，根据记忆判断是否支持预期的事实。\n\n**项目1 (81bde552d73712d03e4a):**\n查询：患者曾因治疗严重细菌感染输注何种抗生素导致特征性的皮肤反应和全身症状？\n\n预期事实：\n1. 患者因输注万古霉素治疗细菌感染引发过敏。\n2. 症状包括紫红色条纹状皮疹、潮红发热及血压下降（红人综合征）。\n\n记忆：\n- m0: 用户对万古霉素过敏，2014年因严重细菌感染接受输液治疗时，在输液过程中背部和四肢出现紫红色条纹状皮疹，非常痒。\n- m1: 用户2014年万古霉素输液反应被诊断为\"红人综合征\"，除皮疹外还出现潮红发热和血压下降，医生减慢滴速并给予抗组胺药后症状逐渐缓解。\n\n分析：\n- 预期事实1：万古霉素过敏 ✓ - m0和m1都明确提到万古霉素\n- 预期事实2：紫红色条纹状皮疹、潮红发热及血压下降（红人综合征）✓ - m0提到紫红色条纹状皮疹，m1提到潮红发热和血压下降\n\n两个事实都得到支持。\n\n**项目2 (82fc9aee425796afcd8f):**\n查询：五年前他戒烟时用了什么辅助工具，坚持了多久，现在是否完全戒断？\n\n\n戒烟过程中使用了尼古丁贴片，坚持了两年，但去年冬天又复吸了。\n\n预期事实：\n1. 患者五年前因咳嗽加重再次戒烟。\n2. 患者使用尼古丁贴片坚持了两年。\n3. 患者去年冬天复吸，目前未完全戒断。\n\n记忆：\n- m0: 五年前（约2021年），用户因咳嗽加重再次开始戒烟，使用尼古丁贴片作为辅助，坚持了两年\n- m1: 在两年戒烟期间用户的咳嗽基本消失，但去年冬天（2025-2026年冬季）复吸了几次，现在偶尔咳一下\n- m2: 医生建议戒烟后，用户成功戒了三年，症状减轻，但后来复吸了\n\n分析：\n- 预期事实1：五年前因咳嗽加重戒烟 ✓ - m0明确提到\n- 预期事实2：使用尼古丁贴片坚持了两年 ✓ - m0明确提到\n- 预期事实3：去年冬天复吸，目前未完全戒断 ✓ - m1提到去年冬天复吸，m2提到后来复吸\n\n所有事实都得到支持。\n\n**项目3 (8313bf6176e69f419968):**\n查询：患者二十年前确诊了什么疾病，当时采取了什么措施，坚持了多久？\n\n预期事实：\n1. 患者二十年前被诊断出轻度高血压。\n2. 医生建议控制盐分摄入。\n3. 患者坚持了五年后放松了控制。\n\n记忆：\n- m0: 用户二十年前确诊轻度高血压时医生建议控制盐分摄入，坚持了五年后放松了饮食控制\n- m1: 用户五十五岁，二十年前被诊断出有轻度高血压\n- m2: 用户五年前因体检发现血压升高开始每天慢跑半小时，坚持了两年，期间血压保持稳定\n\n分析：\n- 预期事实1：二十年前诊断轻度高血压 ✓ - m0和m1都提到\n- 预期事实2：医生建议控制盐分摄入 ✓ - m0明确提到\n- 预期事实3：坚持了五年后放松控制 ✓ - m0明确提到\n\n所有事实都得到支持。\n\n**项目4 (8393351b841355f8fa91):**\n查询：患者家中哪位亲属被确认患有哮喘？\n\n预期事实：\n1. 患者的妹妹患有哮喘。\n2. 患者的弟弟并不患有哮喘。\n\n记忆：\n- m0: 用户有一个妹妹自幼患有哮喘，弟弟没有哮喘病史。用户之前误记了兄弟姐妹的顺序，现已更正。\n\n分析：\n- 预期事实1：妹妹患有哮喘 ✓ - m0明确提到妹妹有哮喘\n- 预期事实2：弟弟不患有哮喘 ✓ - m0明确提到弟弟没有哮喘病史\n\n两个事实都得到支持。\n\n所有项目的结果：\n- 项目1：两个事实都支持\n- 项目2：三个事实都支持\n- 项目3：三个事实都支持\n- 项目4：两个事实都支持\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1221,
+      "completion_tokens": 1288,
+      "total_tokens": 2509,
+      "cost": 0.00185046,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00185046,
+        "upstream_inference_prompt_cost": 0.00030486,
+        "upstream_inference_completions_cost": 0.0015456
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 1695,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 21.032
+}

@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"f27947a646b5aa0bac53\", \"query\": \"家里哪位亲属在五年前接受了甲状腺相关的手术治疗？\", \"expected_facts\": [\"用户的哥哥在五年前做了甲状腺结节切除手术。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的哥哥五年前（约2021年）因甲状腺结节做了切除手术，而非之前误记的姐姐\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:42:15.776891+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户去年（约2025年）体检时发现甲状腺有一个小结节，医生建议观察即可，不需要手术\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:36.015272+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户的姐姐五年前（约2021年）因甲状腺结节做了切除手术，恢复得很好\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:36.015272+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户的姐姐很健康，没有甲状腺问题\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:42:15.776891+00:00\"}, {\"memory_id\": \"m4\", \"content\": \"用户目前没有服用任何药物来治疗甲状腺结节\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:36.015272+00:00\"}]}, {\"id\": \"f2ab386ae82a8fad60dd\", \"query\": \"患者在进行哪项检查前使用了何种表面麻醉剂导致口腔及呼吸道严重反应？\", \"expected_facts\": [\"患者在做胃镜前使用利多卡因凝胶引发过敏。\", \"症状包括口腔黏膜起泡溃烂、吞咽困难、面部浮肿及呼吸困难。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户2021年春天利多卡因凝胶过敏反应除口腔溃烂外，还出现面部浮肿和呼吸困难，必须吸氧才能缓解。从那以后做无痛检查都要求避开含利多卡因的药物。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:40:58.100622+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户对利多卡因凝胶过敏。2021年春天做胃镜前使用该药后，口腔黏膜迅速起泡溃烂，出现吞咽困难。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:40:40.221555+00:00\"}]}, {\"id\": \"f308c4ec750b983f92b4\", \"query\": \"患者是否按照医生最初建议的时间停药？\", \"expected_facts\": [\"患者未按最初建议的5月20日停药，而是延后至5月30日\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"医生建议用户在2026年5月20日停用二甲双胍，但用户坚持服用至2026年6月1日才停药\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:46:24.871302+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户实际于2026年5月30日停用二甲双胍，当天医生再次确认可以停药后彻底停止服用\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:46:47.602025+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户在2026年5月的体检中血糖达标\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:46:24.871302+00:00\"}]}, {\"id\": \"f390688c7e90a92cbdfa\", \"query\": \"您的同事中，谁在上个月因流感发烧而请假一周？\", \"expected_facts\": [\"用户的同事小李在上个月因流感发烧请假一周。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户更正：上个月因流感请假的是同事小李，不是小王。小王很健康。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:44:31.474446+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户同事小王上个月因流感发烧请假一周，现已康复返岗\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:43:38.467852+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户去年冬天没有感冒过\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:43:38.467852+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户自身免疫力很强，很少生病\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:43:38.467852+00:00\"}, {\"memory_id\": \"m4\", \"content\": \"用户一直全勤\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:43:38.467852+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862294-F1PeRYfMIE3fPhJVwAu3",
+    "object": "chat.completion",
+    "created": 1788862294,
+    "model": "minimax/minimax-m2.5",
+    "provider": "Minimax",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"f27947a646b5aa0bac53\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"session-2明确纠正为哥哥做手术而非姐姐。\"}]},{\"id\":\"f2ab386ae82a8fad60dd\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"两条记录均确认胃镜前使用利多卡因凝胶及全部症状。\"}]},{\"id\":\"f308c4ec750b983f92b4\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"session-2的m1为更正记录，确认实际停药日为5月30日。\"}]},{\"id\":\"f390688c7e90a92cbdfa\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"session-2的m0明确更正为同事小李而非小王。\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item:\n\n**Item 1: f27947a646b5aa0bac53**\n- Query: \"家里哪位亲属在五年前接受了甲状腺相关的手术治疗？\"\n- Expected: \"用户的哥哥在五年前做了甲状腺结节切除手术。\"\n- Memories:\n  - m0: \"用户的哥哥五年前（约2021年）因甲状腺结节做了切除手术，而非之前误记的姐姐\" - This explicitly states the brother had the surgery\n  - m2: \"用户的姐姐五年前（约2021年）因甲状腺结节做了切除手术\" - This says the sister had it\n  - m3: \"用户的姐姐很健康，没有甲状腺问题\" - This contradicts m2\n\nThe later session (session-2, m0) explicitly corrects the earlier session-1, stating it was the brother, not the sister. The expected fact is \"用户的哥哥在五年前做了甲状腺结节切除手术\" which matches m0.\n- Supported: true, evidence: [m0]\n\n**Item 2: f2ab386ae82a8fad60dd**\n- Query: \"患者在进行哪项检查前使用了何种表面麻醉剂导致口腔及呼吸道严重反应？\"\n- Expected facts: \n  1. \"患者在做胃镜前使用利多卡因凝胶引发过敏。\"\n  2. \"症状包括口腔黏膜起泡溃烂、吞咽困难、面部浮肿及呼吸困难。\n\n\"\n- Memories:\n  - m0: \"用户2021年春天利多卡因凝胶过敏反应除口腔溃烂外，还出现面部浮肿和呼吸困难，必须吸氧才能缓解。从那以后做无痛检查都要求避开含利多卡因的药物。\" - This confirms the reaction to lidocaine gel during a procedure, with specific severe symptoms including facial swelling and breathing difficulties requiring oxygen.\n  - m1: \"用户对利多卡因凝胶过敏。2021年春天做胃镜前使用该药后，口腔黏膜迅速起泡溃烂，出现吞咽困难。\" - This directly connects the lidocaine gel allergy to a gastroscopy procedure, with immediate onset of mouth blistering and difficulty swallowing.\n- Supported: true, evidence: [m0, m1]\n\n**Item 3: f308c4ec750b983f92b4**\n- Query: \"患者是否按照医生最初建议的时间停药？\"\n- Expected fact: \"患者未按最初建议的5月20日停药，而是延后至5月30日\"\n- Memories:\n  - m0: \"医生建议用户在2026年5月20日停用二甲双胍，但用户坚持服用至2026年6月1日才停药\" - The doctor recommended stopping metformin on May 20, 2026, but the user continued until June 1, 2026.\n  - m1: \"用户实际于2026年5月30日停用二甲双胍，当天医生再次确认可以停药后彻底停止服用\" - The user actually stopped on May 30, 2026, after the doctor confirmed it was okay to stop.\n  - m2: \"用户在2026年5月的体检中血糖达标\" - The user's blood sugar was normal during the May 2026 checkup.\n\nThere's a discrepancy between the sources: m0 claims the user persisted until June 1st, while m1 indicates May 30th. Since m1 comes from a later session, it appears to be a correction. The actual stopping date was May 30th, not May 20th as originally suggested. The expected fact states the user postponed stopping until May 30th, which aligns with m1's corrected information rather than m0's earlier claim. Both statements conflict with the expected fact. m1 represents the corrected version from the later session, establishing the actual stop date as May 30th. m0, being from the earlier session, appears outdated. Given that m1 provides the authoritative account of what actually occurred, the expected fact that the patient delayed until May 30th aligns with the corrected record, making it the supported version.\n\nThe memory system resolves the discrepancy by treating m1 as the current correct information and m0 as superseded. This means the expected fact correctly reflects the final documented version.\n\nFor the colleague question, m0 is the authoritative source—it corrects the initial record and identifies Xiao Li as the one who took flu-related leave. The expected fact about Xiao Li matches this corrected information exactly. When historical records conflict, the later correction takes precedence as the current understanding.\n\nNow I'll format the results as JSON.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item:\n\n**Item 1: f27947a646b5aa0bac53**\n- Query: \"家里哪位亲属在五年前接受了甲状腺相关的手术治疗？\"\n- Expected: \"用户的哥哥在五年前做了甲状腺结节切除手术。\"\n- Memories:\n  - m0: \"用户的哥哥五年前（约2021年）因甲状腺结节做了切除手术，而非之前误记的姐姐\" - This explicitly states the brother had the surgery\n  - m2: \"用户的姐姐五年前（约2021年）因甲状腺结节做了切除手术\" - This says the sister had it\n  - m3: \"用户的姐姐很健康，没有甲状腺问题\" - This contradicts m2\n\nThe later session (session-2, m0) explicitly corrects the earlier session-1, stating it was the brother, not the sister. The expected fact is \"用户的哥哥在五年前做了甲状腺结节切除手术\" which matches m0.\n- Supported: true, evidence: [m0]\n\n**Item 2: f2ab386ae82a8fad60dd**\n- Query: \"患者在进行哪项检查前使用了何种表面麻醉剂导致口腔及呼吸道严重反应？\"\n- Expected facts: \n  1. \"患者在做胃镜前使用利多卡因凝胶引发过敏。\"\n  2. \"症状包括口腔黏膜起泡溃烂、吞咽困难、面部浮肿及呼吸困难。\n\n\"\n- Memories:\n  - m0: \"用户2021年春天利多卡因凝胶过敏反应除口腔溃烂外，还出现面部浮肿和呼吸困难，必须吸氧才能缓解。从那以后做无痛检查都要求避开含利多卡因的药物。\" - This confirms the reaction to lidocaine gel during a procedure, with specific severe symptoms including facial swelling and breathing difficulties requiring oxygen.\n  - m1: \"用户对利多卡因凝胶过敏。2021年春天做胃镜前使用该药后，口腔黏膜迅速起泡溃烂，出现吞咽困难。\" - This directly connects the lidocaine gel allergy to a gastroscopy procedure, with immediate onset of mouth blistering and difficulty swallowing.\n- Supported: true, evidence: [m0, m1]\n\n**Item 3: f308c4ec750b983f92b4**\n- Query: \"患者是否按照医生最初建议的时间停药？\"\n- Expected fact: \"患者未按最初建议的5月20日停药，而是延后至5月30日\"\n- Memories:\n  - m0: \"医生建议用户在2026年5月20日停用二甲双胍，但用户坚持服用至2026年6月1日才停药\" - The doctor recommended stopping metformin on May 20, 2026, but the user continued until June 1, 2026.\n  - m1: \"用户实际于2026年5月30日停用二甲双胍，当天医生再次确认可以停药后彻底停止服用\" - The user actually stopped on May 30, 2026, after the doctor confirmed it was okay to stop.\n  - m2: \"用户在2026年5月的体检中血糖达标\" - The user's blood sugar was normal during the May 2026 checkup.\n\nThere's a discrepancy between the sources: m0 claims the user persisted until June 1st, while m1 indicates May 30th. Since m1 comes from a later session, it appears to be a correction. The actual stopping date was May 30th, not May 20th as originally suggested. The expected fact states the user postponed stopping until May 30th, which aligns with m1's corrected information rather than m0's earlier claim. Both statements conflict with the expected fact. m1 represents the corrected version from the later session, establishing the actual stop date as May 30th. m0, being from the earlier session, appears outdated. Given that m1 provides the authoritative account of what actually occurred, the expected fact that the patient delayed until May 30th aligns with the corrected record, making it the supported version.\n\nThe memory system resolves the discrepancy by treating m1 as the current correct information and m0 as superseded. This means the expected fact correctly reflects the final documented version.\n\nFor the colleague question, m0 is the authoritative source—it corrects the initial record and identifies Xiao Li as the one who took flu-related leave. The expected fact about Xiao Li matches this corrected information exactly. When historical records conflict, the later correction takes precedence as the current understanding.\n\nNow I'll format the results as JSON.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1523,
+      "completion_tokens": 1164,
+      "total_tokens": 2687,
+      "cost": 0.0037074,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0037074,
+        "upstream_inference_prompt_cost": 0.0009138,
+        "upstream_inference_completions_cost": 0.0027936
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 951,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 18.406
+}

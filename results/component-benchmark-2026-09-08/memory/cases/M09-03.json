@@ -1,0 +1,440 @@
+{
+  "case": {
+    "id": "M09-03",
+    "category": "用户更正先前陈述",
+    "turns": [
+      {
+        "user": "我以前的阑尾炎切除手术是在北京做的。",
+        "assistant": "已记录您本次提供的信息。"
+      },
+      {
+        "user": "我之前说手术是在北京做的，后来翻到病历发现记错了，那台阑尾炎切除手术其实是在上海的一家医院完成的，时间是2020年5月。",
+        "assistant": "好的，已修正手术地点为上海，时间确认为2020年5月。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "Q1",
+        "query": "患者接受阑尾炎切除手术的实际城市是哪里？",
+        "expected_facts": [
+          "患者的阑尾炎切除手术是在上海进行的。",
+          "患者此前声称在北京手术的说法是错误的。"
+        ],
+        "required_groups": [
+          [
+            "上海",
+            "沪"
+          ],
+          [
+            "阑尾炎切除",
+            "切阑尾"
+          ],
+          [
+            "实际",
+            "真实",
+            "正确"
+          ]
+        ]
+      },
+      {
+        "id": "Q2",
+        "query": "该次手术发生的具体月份和年份是什么？",
+        "expected_facts": [
+          "手术发生在2020年5月。",
+          "患者曾错误记忆了手术地点。"
+        ],
+        "required_groups": [
+          [
+            "2020年",
+            "二零二零年"
+          ],
+          [
+            "5月",
+            "五月"
+          ],
+          [
+            "手术",
+            "开刀"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M09-03",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861222-ZVGXJJ7VZBPPZnV9MR3C",
+      "usage": {
+        "prompt_tokens": 27,
+        "total_tokens": 27,
+        "cost": 1.08e-06,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.08e-06,
+          "upstream_inference_prompt_cost": 1.08e-06,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861225-2abScmSGj4i4q3YZUpwW",
+      "usage": {
+        "prompt_tokens": 8328,
+        "completion_tokens": 469,
+        "total_tokens": 8797,
+        "cost": 0.0024048,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 8128,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0024048,
+          "upstream_inference_prompt_cost": 0.0012792,
+          "upstream_inference_completions_cost": 0.0011256
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 415,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户以前在北京做过阑尾炎切除手术。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861248-tH4PPdEeTxFRb5rb6aNw",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861252-6Ahi8coPgfECCFc7Lii4",
+      "usage": {
+        "prompt_tokens": 73,
+        "total_tokens": 73,
+        "cost": 7.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.3e-07,
+          "upstream_inference_prompt_cost": 7.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861256-zSUiFpdEawOoHHTPkihX",
+      "usage": {
+        "prompt_tokens": 8418,
+        "completion_tokens": 187,
+        "total_tokens": 8605,
+        "cost": 0.0029742,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0029742,
+          "upstream_inference_prompt_cost": 0.0025254,
+          "upstream_inference_completions_cost": 0.0004488
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 94,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户之前误以为阑尾炎切除手术在北京进行，后查阅病历发现实际是在上海的一家医院完成的，时间为2020年5月。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861264-PNTuOG1GPLJH7YmE7EVW",
+      "usage": {
+        "prompt_tokens": 36,
+        "total_tokens": 36,
+        "cost": 3.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.6e-07,
+          "upstream_inference_prompt_cost": 3.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861267-vxrZuVjKZu11gP2XJuJS",
+      "usage": {
+        "prompt_tokens": 13,
+        "total_tokens": 13,
+        "cost": 1.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.3e-07,
+          "upstream_inference_prompt_cost": 1.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861269-kixdqKcaeaRKnPtreNJR",
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 12,
+        "cost": 1.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.2e-07,
+          "upstream_inference_prompt_cost": 1.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861270-tTDZSd8uHJC28GWhjZY8",
+      "usage": {
+        "prompt_tokens": 23,
+        "total_tokens": 23,
+        "cost": 2.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.3e-07,
+          "upstream_inference_prompt_cost": 2.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861271-8gvk9ekdJmnQL7MWqnO9",
+      "usage": {
+        "prompt_tokens": 13,
+        "total_tokens": 13,
+        "cost": 1.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.3e-07,
+          "upstream_inference_prompt_cost": 1.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861273-3tME8Yrdzy7hFRV6Q2OV",
+      "usage": {
+        "prompt_tokens": 13,
+        "total_tokens": 13,
+        "cost": 1.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.3e-07,
+          "upstream_inference_prompt_cost": 1.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "Q1",
+        "query": "患者接受阑尾炎切除手术的实际城市是哪里？",
+        "expected_facts": [
+          "患者的阑尾炎切除手术是在上海进行的。",
+          "患者此前声称在北京手术的说法是错误的。"
+        ],
+        "required_groups": [
+          [
+            "上海",
+            "沪"
+          ],
+          [
+            "阑尾炎切除",
+            "切阑尾"
+          ],
+          [
+            "实际",
+            "真实",
+            "正确"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "0a2df7d8-40c5-426c-adb4-1d02e8297767",
+          "content": "用户之前误以为阑尾炎切除手术在北京进行，后查阅病历发现实际是在上海的一家医院完成的，时间为2020年5月。",
+          "score": 0.7156308379213128,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:54:11.181044+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M09-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:54:25.886653+00:00"
+        },
+        {
+          "memory_id": "1d7db0a4-9137-4264-bc38-5497d75dbccb",
+          "content": "用户以前在北京做过阑尾炎切除手术。",
+          "score": 0.711539856400607,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:53:39.415259+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M09-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:54:11.151310+00:00"
+        }
+      ],
+      "seconds": 2.968
+    },
+    {
+      "query": {
+        "id": "Q2",
+        "query": "该次手术发生的具体月份和年份是什么？",
+        "expected_facts": [
+          "手术发生在2020年5月。",
+          "患者曾错误记忆了手术地点。"
+        ],
+        "required_groups": [
+          [
+            "2020年",
+            "二零二零年"
+          ],
+          [
+            "5月",
+            "五月"
+          ],
+          [
+            "手术",
+            "开刀"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "0a2df7d8-40c5-426c-adb4-1d02e8297767",
+          "content": "用户之前误以为阑尾炎切除手术在北京进行，后查阅病历发现实际是在上海的一家医院完成的，时间为2020年5月。",
+          "score": 0.6677234280560582,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:54:11.181044+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M09-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:54:25.886653+00:00"
+        },
+        {
+          "memory_id": "1d7db0a4-9137-4264-bc38-5497d75dbccb",
+          "content": "用户以前在北京做过阑尾炎切除手术。",
+          "score": 0.5995782753157508,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:53:39.415259+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M09-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:54:11.151310+00:00"
+        }
+      ],
+      "seconds": 0.797
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者接受阑尾炎切除手术的实际城市是哪里？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "0a2df7d8-40c5-426c-adb4-1d02e8297767",
+        "content": "用户之前误以为阑尾炎切除手术在北京进行，后查阅病历发现实际是在上海的一家医院完成的，时间为2020年5月。",
+        "score": 0.6440603184960686,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:54:11.181044+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M09-03",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:54:25.886653+00:00"
+      },
+      {
+        "memory_id": "1d7db0a4-9137-4264-bc38-5497d75dbccb",
+        "content": "用户以前在北京做过阑尾炎切除手术。",
+        "score": 0.609471177410271,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:53:39.415259+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M09-03",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:54:11.151310+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 54.328
+}

@@ -1,0 +1,448 @@
+{
+  "case": {
+    "id": "M05-07",
+    "category": "确诊与待检查的不确定性区分",
+    "turns": [
+      {
+        "user": "我最近皮肤出现红斑，很痒，尤其是手臂和腿部。我怀疑自己是不是湿疹，因为换季时容易发作，想做个皮肤检查。",
+        "assistant": "已记录您的皮肤红斑症状及湿疹的自我怀疑。"
+      },
+      {
+        "user": "补充说明，我前天做了皮肤活检，医生说要等病理报告。我现在还没确诊湿疹，只是怀疑，需要等检查结果。",
+        "assistant": "明白，已更新您目前处于皮肤活检等待期且未确诊湿疹。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "M05-07-Q1",
+        "query": "患者目前是否已确诊患有湿疹？",
+        "expected_facts": [
+          "患者目前尚未确诊湿疹。",
+          "患者最近皮肤出现红斑，很痒。",
+          "患者怀疑自己可能患有湿疹。"
+        ],
+        "required_groups": [
+          [
+            "尚未确诊",
+            "未确诊",
+            "没确诊"
+          ],
+          [
+            "湿疹",
+            "皮肤过敏"
+          ],
+          [
+            "最近",
+            "近期"
+          ]
+        ]
+      },
+      {
+        "id": "M05-07-Q2",
+        "query": "患者前天做了什么检查，结果状态如何？",
+        "expected_facts": [
+          "患者前天做了皮肤活检。",
+          "病理报告尚未出来。",
+          "需要等待检查结果确认诊断。"
+        ],
+        "required_groups": [
+          [
+            "皮肤活检",
+            "活检",
+            "皮肤检查"
+          ],
+          [
+            "报告未出",
+            "没出来",
+            "等待结果"
+          ],
+          [
+            "前天",
+            "前两天"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M05-07",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860683-xtiblHTccZVfD66toACb",
+      "usage": {
+        "prompt_tokens": 56,
+        "total_tokens": 56,
+        "cost": 5.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.6e-07,
+          "upstream_inference_prompt_cost": 5.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860686-zB3B376Rs1W7VsKXz2XI",
+      "usage": {
+        "prompt_tokens": 8355,
+        "completion_tokens": 495,
+        "total_tokens": 8850,
+        "cost": 0.00332505,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00332505,
+          "upstream_inference_prompt_cost": 0.00225585,
+          "upstream_inference_completions_cost": 0.0010692
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 419,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户最近皮肤出现红斑，很痒，尤其是手臂和腿部。怀疑是湿疹，因为换季时容易发作，想做皮肤检查。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860698-DYMaWhgLJMCPTEkmE4Aw",
+      "usage": {
+        "prompt_tokens": 33,
+        "total_tokens": 33,
+        "cost": 3.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.3e-07,
+          "upstream_inference_prompt_cost": 3.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860700-VDVWd2aNUyryjcqu6Qpp",
+      "usage": {
+        "prompt_tokens": 60,
+        "total_tokens": 60,
+        "cost": 6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6e-07,
+          "upstream_inference_prompt_cost": 6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860704-Oi9Pw1L3LmFtDdItAujV",
+      "usage": {
+        "prompt_tokens": 8445,
+        "completion_tokens": 1217,
+        "total_tokens": 9662,
+        "cost": 0.0042351,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 8128,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0042351,
+          "upstream_inference_prompt_cost": 0.0013143,
+          "upstream_inference_completions_cost": 0.0029208
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1131,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户于2026年9月6日进行了皮肤活检，目前尚未确诊湿疹，正在等待病理报告结果。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860759-iki2HPS7pp8KwWDG7gkg",
+      "usage": {
+        "prompt_tokens": 29,
+        "total_tokens": 29,
+        "cost": 2.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.9e-07,
+          "upstream_inference_prompt_cost": 2.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860761-klFFHznbQpBygfLaiWxD",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860762-NU2MLpnHV3GYVYRj4BMu",
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 12,
+        "cost": 1.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.2e-07,
+          "upstream_inference_prompt_cost": 1.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860763-FDqvBRNBdIhQLDoOBE1F",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860764-5HHkKessT1vY9GCsqG7U",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860765-PORSVPvX9iBujidteb5A",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "M05-07-Q1",
+        "query": "患者目前是否已确诊患有湿疹？",
+        "expected_facts": [
+          "患者目前尚未确诊湿疹。",
+          "患者最近皮肤出现红斑，很痒。",
+          "患者怀疑自己可能患有湿疹。"
+        ],
+        "required_groups": [
+          [
+            "尚未确诊",
+            "未确诊",
+            "没确诊"
+          ],
+          [
+            "湿疹",
+            "皮肤过敏"
+          ],
+          [
+            "最近",
+            "近期"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "2777389b-0ca2-4d14-800a-201c759c7014",
+          "content": "用户最近皮肤出现红斑，很痒，尤其是手臂和腿部。怀疑是湿疹，因为换季时容易发作，想做皮肤检查。",
+          "score": 0.6496708797886152,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:44:40.911946+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M05-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:44:59.380290+00:00"
+        },
+        {
+          "memory_id": "53bf0ccc-8da2-46f6-afae-477b10fad068",
+          "content": "用户于2026年9月6日进行了皮肤活检，目前尚未确诊湿疹，正在等待病理报告结果。",
+          "score": 0.639883528383369,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:44:59.408190+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M05-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:45:59.882606+00:00"
+        }
+      ],
+      "seconds": 1.281
+    },
+    {
+      "query": {
+        "id": "M05-07-Q2",
+        "query": "患者前天做了什么检查，结果状态如何？",
+        "expected_facts": [
+          "患者前天做了皮肤活检。",
+          "病理报告尚未出来。",
+          "需要等待检查结果确认诊断。"
+        ],
+        "required_groups": [
+          [
+            "皮肤活检",
+            "活检",
+            "皮肤检查"
+          ],
+          [
+            "报告未出",
+            "没出来",
+            "等待结果"
+          ],
+          [
+            "前天",
+            "前两天"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "53bf0ccc-8da2-46f6-afae-477b10fad068",
+          "content": "用户于2026年9月6日进行了皮肤活检，目前尚未确诊湿疹，正在等待病理报告结果。",
+          "score": 0.4810982633976231,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:44:59.408190+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M05-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:45:59.882606+00:00"
+        },
+        {
+          "memory_id": "2777389b-0ca2-4d14-800a-201c759c7014",
+          "content": "用户最近皮肤出现红斑，很痒，尤其是手臂和腿部。怀疑是湿疹，因为换季时容易发作，想做皮肤检查。",
+          "score": 0.4303531876772153,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:44:40.911946+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M05-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:44:59.380290+00:00"
+        }
+      ],
+      "seconds": 1.625
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者目前是否已确诊患有湿疹？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "53bf0ccc-8da2-46f6-afae-477b10fad068",
+        "content": "用户于2026年9月6日进行了皮肤活检，目前尚未确诊湿疹，正在等待病理报告结果。",
+        "score": 0.6731130517076391,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:44:59.408190+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M05-07",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:45:59.882606+00:00"
+      },
+      {
+        "memory_id": "2777389b-0ca2-4d14-800a-201c759c7014",
+        "content": "用户最近皮肤出现红斑，很痒，尤其是手臂和腿部。怀疑是湿疹，因为换季时容易发作，想做皮肤检查。",
+        "score": 0.5343096299186334,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:44:40.911946+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M05-07",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:44:59.380290+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 86.656
+}

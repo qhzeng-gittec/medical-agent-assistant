@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"c66c9ebee909bb0a4a25\", \"query\": \"当关节僵硬时，患者应采取什么措施？\", \"expected_facts\": [\"如果关节僵硬，患者需要热敷并做轻柔伸展。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的手指关节炎护理方法：关节僵硬时需要热敷并做轻柔伸展，目前尽量控制使用时间\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:39:00.012455+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户患有手指关节炎，导致无法紧握物体或长时间打字，目前只能用单手操作轻物\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:38:27.379241+00:00\"}]}, {\"id\": \"c71646812b02bc4b6fc2\", \"query\": \"患者计划何时到院，并针对散瞳后的交通安排做了什么准备？\", \"expected_facts\": [\"患者计划于周六上午九点到达医院。\", \"患者计划若需散瞳则让家人开车接送。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户表示如果眼底照相需要散瞳，打算让家人开车来接\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:51:28.977830+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户计划于2026年9月13日（下周六）上午九点到院进行眼底照相检查\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:51:28.977830+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户预约了下周六上午的眼底照相检查\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:51:01.193172+00:00\"}]}, {\"id\": \"c794a5a34349034880a2\", \"query\": \"患者去年夏天的旅行是独自一人还是有人陪同，具体去了哪些城市？\", \"expected_facts\": [\"患者去年夏天的旅行是与一位老朋友同行的。\", \"患者去了大理和丽江。\", \"旅行出发时间是去年六月。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"User traveled alone to Yunnan for one week last summer (summer 2025), which was their first time traveling such a long distance. They mainly stayed in Dali and Lijiang, where they found the scenery beautiful.\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:51:05.906846+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户去年六月与一位老朋友一同前往云南旅行，在大理停留了五天\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:51:28.109537+00:00\"}]}, {\"id\": \"c8da183a521996819889\", \"query\": \"这位患者对哪种坚果有过敏反应？这种反应最早是在什么年龄段出现的？\", \"expected_facts\": [\"该患者对花生存在过敏反应。\", \"该患者在十岁时曾出现严重的过敏反应。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的花生过敏在十岁时反应最严重，后来虽然未完全痊愈，但轻微接触已无大碍。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:54.288716+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户从小对花生过敏，每次接触都会起红疹。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:40:43.423170+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户从2023年春天正式开始无麸质饮食。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:54.288716+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862205-8qP3A1xbIBh0pmKxNaQ6",
+    "object": "chat.completion",
+    "created": 1788862205,
+    "model": "minimax/minimax-m2.5",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"items\": [\n    {\n      \"id\": \"c66c9ebee909bb0a4a25\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\n              \"memory_id\": \"m0\",\n              \"content\": \"用户的手指关节炎护理方法：关节僵硬时需要热敷并做轻柔伸展，目前尽量控制使用时间\"\n            }\n          ],\n          \"reason\": \"Memory explicitly states hot compress and gentle stretching for joint stiffness.\"\n        }\n      ]\n    },\n    {\n      \"id\": \"c71646812b02bc4b6fc2\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\n              \"memory_id\": \"m1\",\n              \"content\": \"用户计划于2026年9月13日（下周六）上午九点到院进行眼底照相检查\"\n            }\n          ],\n          \"reason\": \"Memory confirms Saturday 9am hospital arrival for eye examination.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\n              \"memory_id\": \"m0\",\n              \"content\": \"用户表示如果眼底照相需要散瞳，打算让家人开车来接\"\n            }\n          ],\n          \"reason\": \"Memory confirms family will drive if dilation is needed.\"\n        }\n      ]\n    },\n    {\n      \"id\": \"c794a5a34349034880a2\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\n              \"memory_id\": \"m1\",\n              \"content\": \"用户去年六月与一位老朋友一同前往云南旅行，在大理停留了五天\"\n            }\n          ],\n          \"reason\": \"Session-2 (later) explicitly states traveling with an old friend, correcting earlier session-1.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\n              \"memory_id\": \"m0\",\n              \"content\": \"User traveled alone to Yunnan for one week last summer (summer 2025), which was their first time traveling such a long distance. They mainly stayed in Dali and Lijiang, where they found the scenery beautiful.\"\n            }\n          ],\n          \"reason\": \"Memory explicitly mentions Dali and Lijiang as travel destinations.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\n              \"memory_id\": \"m1\",\n              \"content\": \"用户去年六月与一位老朋友一同前往云南旅行，在大理停留了五天\"\n            }\n          ],\n          \"reason\": \"Memory explicitly states departure time as last June.\"\n        }\n      ]\n    },\n    {\n      \"id\": \"c8da183a521996819889\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\n              \"memory_id\": \"m0\",\n              \"content\": \"用户的花生过敏在十岁时反应最严重，后来虽然未完全痊愈，但轻微接触已无大碍。\"\n            },\n            {\n              \"memory_id\": \"m1\",\n              \"content\": \"用户从小对花生过敏，每次接触都会起红疹。\"\n            }\n          ],\n          \"reason\": \"Both memories confirm peanut allergy.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\n              \"memory_id\": \"m0\",\n              \"content\": \"用户的花生过敏在十岁时反应最严重，后来虽然未完全痊愈，但轻微接触已无大碍。\"\n            }\n          ],\n          \"reason\": \"Memory explicitly states the severe allergic reaction occurred at age ten.\"\n        }\n      ]\n    }\n  ]\n}\n```",
+          "refusal": null,
+          "reasoning": "Let me analyze each item according to the instructions:\n\n1. **Item c66c9ebee909bb0a4a25**: Query about what measures to take when joints are stiff.\n   - Expected fact: \"如果关节僵硬，患者需要热敷并做轻柔伸展。\"\n   - Memory m0: \"用户的手指关节炎护理方法：关节僵硬时需要热敷并做轻柔伸展，目前尽量控制使用时间\"\n   - This directly supports the expected fact - it mentions 热敷 (hot compress) and 轻柔伸展 (gentle stretching) for joint stiffness.\n   - Supported: true, evidence: m0\n\n2. **Item c71646812b02bc4b6fc2**: Query about hospital visit timing and transportation arrangements after dilation.\n   - Expected facts:\n     - \"患者计划于周六上午九点到达医院。\"\n     - \"患者计划若需散瞳则让家人开车接送。\"\n   - Memory m1: \"用户计划于2026年9月13日（下周六）上午九点到院进行眼底照相检查\" - supports the first fact\n   - Memory m0: \"用户表示如果眼底照相需要散瞳，打算让家人开车来接\" - supports the second fact\n   - Both supported: true, evidence: m1 for first fact, m0 for second fact\n\n3. **Item c794a5a34349034880a2**: Query about last summer's trip - alone or with companion, which cities, when.\n   - Expected facts:\n     - \"患者去年夏天的旅行是与一位老朋友同行的。\"\n     - \"患者去了大理和丽江。\"\n     - \"旅行出发时间是去年六月。\"\n   - Memory m0: \"User traveled alone to Yunnan for one week last summer (summer 2025), which was their first time traveling such a long distance. They mainly stayed in Dali and Lijiang, where they found the scenery beautiful.\"\n   - Memory m1: \"用户去年六月与一位老朋友一同前往云南旅行，在大理停留了五天\"\n   - There's a contradiction here. m0 says traveled alone, m1 says with an old friend. m0 mentions Dali and Lijiang, m1 mentions only Dali. m1 mentions June, m0 doesn't specify month.\n   - According to the instructions: \"A later correction to resolve an earlier assertion\" - session-2 (m1) is later than session-1 (m0), so m1 should be considered the correction.\n   - So: \n     - First fact (with old friend): supported by m1\n     - Second fact (Dali and Lijiang): m0 supports Dali and Lijiang, m1 only mentions Dali. The expected fact says both cities. m0 supports this.\n     - Third fact (June): m1 supports this\n   - All three supported with m1 and m0 providing evidence\n\n4. **Item c8da183a521996819889**: Query about nut allergy and when it first appeared.\n   - Expected facts:\n     - \"该患者对花生存在过敏反应。\"\n     - \"该患者在十岁时曾出现严重的过敏反应。\"\n   - Memory m0: \"用户的花生过敏在十岁时反应最严重，后来虽然未完全痊愈，但轻微接触已无大碍。\" - supports both facts\n   - Memory m1: \"用户从小对花生过敏，每次接触都会起红疹。\" - supports first fact but doesn't mention age\n   - Both facts supported: true, evidence: m0 for both\n\nI'll proceed with creating the JSON output, ensuring each fact is carefully verified and documented with the appropriate memory evidence.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item according to the instructions:\n\n1. **Item c66c9ebee909bb0a4a25**: Query about what measures to take when joints are stiff.\n   - Expected fact: \"如果关节僵硬，患者需要热敷并做轻柔伸展。\"\n   - Memory m0: \"用户的手指关节炎护理方法：关节僵硬时需要热敷并做轻柔伸展，目前尽量控制使用时间\"\n   - This directly supports the expected fact - it mentions 热敷 (hot compress) and 轻柔伸展 (gentle stretching) for joint stiffness.\n   - Supported: true, evidence: m0\n\n2. **Item c71646812b02bc4b6fc2**: Query about hospital visit timing and transportation arrangements after dilation.\n   - Expected facts:\n     - \"患者计划于周六上午九点到达医院。\"\n     - \"患者计划若需散瞳则让家人开车接送。\"\n   - Memory m1: \"用户计划于2026年9月13日（下周六）上午九点到院进行眼底照相检查\" - supports the first fact\n   - Memory m0: \"用户表示如果眼底照相需要散瞳，打算让家人开车来接\" - supports the second fact\n   - Both supported: true, evidence: m1 for first fact, m0 for second fact\n\n3. **Item c794a5a34349034880a2**: Query about last summer's trip - alone or with companion, which cities, when.\n   - Expected facts:\n     - \"患者去年夏天的旅行是与一位老朋友同行的。\"\n     - \"患者去了大理和丽江。\"\n     - \"旅行出发时间是去年六月。\"\n   - Memory m0: \"User traveled alone to Yunnan for one week last summer (summer 2025), which was their first time traveling such a long distance. They mainly stayed in Dali and Lijiang, where they found the scenery beautiful.\"\n   - Memory m1: \"用户去年六月与一位老朋友一同前往云南旅行，在大理停留了五天\"\n   - There's a contradiction here. m0 says traveled alone, m1 says with an old friend. m0 mentions Dali and Lijiang, m1 mentions only Dali. m1 mentions June, m0 doesn't specify month.\n   - According to the instructions: \"A later correction to resolve an earlier assertion\" - session-2 (m1) is later than session-1 (m0), so m1 should be considered the correction.\n   - So: \n     - First fact (with old friend): supported by m1\n     - Second fact (Dali and Lijiang): m0 supports Dali and Lijiang, m1 only mentions Dali. The expected fact says both cities. m0 supports this.\n     - Third fact (June): m1 supports this\n   - All three supported with m1 and m0 providing evidence\n\n4. **Item c8da183a521996819889**: Query about nut allergy and when it first appeared.\n   - Expected facts:\n     - \"该患者对花生存在过敏反应。\"\n     - \"该患者在十岁时曾出现严重的过敏反应。\"\n   - Memory m0: \"用户的花生过敏在十岁时反应最严重，后来虽然未完全痊愈，但轻微接触已无大碍。\" - supports both facts\n   - Memory m1: \"用户从小对花生过敏，每次接触都会起红疹。\" - supports first fact but doesn't mention age\n   - Both facts supported: true, evidence: m0 for both\n\nI'll proceed with creating the JSON output, ensuring each fact is carefully verified and documented with the appropriate memory evidence.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1210,
+      "completion_tokens": 1510,
+      "total_tokens": 2720,
+      "cost": 0.00210879,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00210879,
+        "upstream_inference_prompt_cost": 0.00029679,
+        "upstream_inference_completions_cost": 0.001812
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 751,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 26.5
+}

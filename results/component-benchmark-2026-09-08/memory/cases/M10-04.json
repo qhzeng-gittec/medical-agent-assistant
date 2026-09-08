@@ -1,0 +1,428 @@
+{
+  "case": {
+    "id": "M10-04",
+    "category": "饮食偏好与个人生活习惯",
+    "turns": [
+      {
+        "user": "我不吃辣，一点辣椒都受不了，一吃喉咙就痛。所以我点菜时总是特意要求免辣，哪怕是最微辣的汤底也不行。",
+        "assistant": "已记录您对辛辣食物的不耐受情况及点餐习惯。"
+      },
+      {
+        "user": "其实以前我能吃一点点辣，大概是五年前突然变得完全不能吃辣了，现在连闻着味道都觉得嗓子不舒服。",
+        "assistant": "已更新您辣味耐受度变化的时间点及当前症状描述。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "患者目前对辣味的耐受程度如何？进食或接触辣味后有何生理反应？",
+        "expected_facts": [
+          "该患者目前完全无法耐受任何辣味。",
+          "该患者接触辣味后会出现喉咙疼痛或不适。"
+        ],
+        "required_groups": [
+          [
+            "完全不能",
+            "一点都不能",
+            "完全无法"
+          ],
+          [
+            "喉咙痛",
+            "嗓子不舒服",
+            "喉咙不适"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "患者失去辣味耐受能力发生在什么时候？此前是否有过能吃辣的经历？",
+        "expected_facts": [
+          "该患者在五年前突然失去了对辣味的耐受能力。",
+          "该患者五年前之前能够少量食用辣味食物。"
+        ],
+        "required_groups": [
+          [
+            "五年前",
+            "5年前"
+          ],
+          [
+            "以前能吃",
+            "曾经能",
+            "过去能"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M10-04",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861431-5UTBXRbaWypTbp93pS1o",
+      "usage": {
+        "prompt_tokens": 59,
+        "total_tokens": 59,
+        "cost": 5.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.9e-07,
+          "upstream_inference_prompt_cost": 5.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861435-r0q1Ww7B6mvG14HbXEu5",
+      "usage": {
+        "prompt_tokens": 8355,
+        "completion_tokens": 231,
+        "total_tokens": 8586,
+        "cost": 0.00255075,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00255075,
+          "upstream_inference_prompt_cost": 0.00208875,
+          "upstream_inference_completions_cost": 0.000462
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 185,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户完全不能吃辣，一点辣椒都受不了，一吃喉咙就会痛。点菜时总是特意要求免辣，哪怕是最微辣的汤底也不行。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861444-23NkkTUuyi6Hf4vkD2Xn",
+      "usage": {
+        "prompt_tokens": 37,
+        "total_tokens": 37,
+        "cost": 3.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.7e-07,
+          "upstream_inference_prompt_cost": 3.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861444-yCu1IzcNHVyhaGKrVQHN",
+      "usage": {
+        "prompt_tokens": 52,
+        "total_tokens": 52,
+        "cost": 5.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.2e-07,
+          "upstream_inference_prompt_cost": 5.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861446-j4WKG2DHR4nRjh9VVwWM",
+      "usage": {
+        "prompt_tokens": 8448,
+        "completion_tokens": 370,
+        "total_tokens": 8818,
+        "cost": 0.00315848,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00315848,
+          "upstream_inference_prompt_cost": 0.00219648,
+          "upstream_inference_completions_cost": 0.000962
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 347,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户大约五年前突然从能耐受一点辣变成完全不能吃辣，现在连闻到辣味都会觉得嗓子不舒服\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861451-cLak9LgI3oDfLJ339xKx",
+      "usage": {
+        "prompt_tokens": 28,
+        "total_tokens": 28,
+        "cost": 1.12e-06,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.12e-06,
+          "upstream_inference_prompt_cost": 1.12e-06,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861452-i3vgZ8r7Uw08gu0Umy67",
+      "usage": {
+        "prompt_tokens": 22,
+        "total_tokens": 22,
+        "cost": 2.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.2e-07,
+          "upstream_inference_prompt_cost": 2.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861456-eOLDZNII8UXsg6b2SUDm",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861459-kdrxdR3SuAa9QKQh64ES",
+      "usage": {
+        "prompt_tokens": 32,
+        "total_tokens": 32,
+        "cost": 3.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.2e-07,
+          "upstream_inference_prompt_cost": 3.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861466-UGK7W9cqxMgKAxsAwyHX",
+      "usage": {
+        "prompt_tokens": 22,
+        "total_tokens": 22,
+        "cost": 2.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.2e-07,
+          "upstream_inference_prompt_cost": 2.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861467-yyLqkrG1sLGJH94X5LDG",
+      "usage": {
+        "prompt_tokens": 22,
+        "total_tokens": 22,
+        "cost": 2.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.2e-07,
+          "upstream_inference_prompt_cost": 2.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "患者目前对辣味的耐受程度如何？进食或接触辣味后有何生理反应？",
+        "expected_facts": [
+          "该患者目前完全无法耐受任何辣味。",
+          "该患者接触辣味后会出现喉咙疼痛或不适。"
+        ],
+        "required_groups": [
+          [
+            "完全不能",
+            "一点都不能",
+            "完全无法"
+          ],
+          [
+            "喉咙痛",
+            "嗓子不舒服",
+            "喉咙不适"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "21783583-28a7-4b64-9408-fc59d0d496c3",
+          "content": "用户大约五年前突然从能耐受一点辣变成完全不能吃辣，现在连闻到辣味都会觉得嗓子不舒服",
+          "score": 0.8359031053577788,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:57:23.604417+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M10-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:57:31.473165+00:00"
+        },
+        {
+          "memory_id": "39f509a6-4c63-45da-ac73-9d56dcfe437d",
+          "content": "用户完全不能吃辣，一点辣椒都受不了，一吃喉咙就会痛。点菜时总是特意要求免辣，哪怕是最微辣的汤底也不行。",
+          "score": 0.7636035081266406,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:57:09.473340+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M10-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:57:23.577643+00:00"
+        }
+      ],
+      "seconds": 3.86
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "患者失去辣味耐受能力发生在什么时候？此前是否有过能吃辣的经历？",
+        "expected_facts": [
+          "该患者在五年前突然失去了对辣味的耐受能力。",
+          "该患者五年前之前能够少量食用辣味食物。"
+        ],
+        "required_groups": [
+          [
+            "五年前",
+            "5年前"
+          ],
+          [
+            "以前能吃",
+            "曾经能",
+            "过去能"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "21783583-28a7-4b64-9408-fc59d0d496c3",
+          "content": "用户大约五年前突然从能耐受一点辣变成完全不能吃辣，现在连闻到辣味都会觉得嗓子不舒服",
+          "score": 0.8706401730801658,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:57:23.604417+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M10-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:57:31.473165+00:00"
+        },
+        {
+          "memory_id": "39f509a6-4c63-45da-ac73-9d56dcfe437d",
+          "content": "用户完全不能吃辣，一点辣椒都受不了，一吃喉咙就会痛。点菜时总是特意要求免辣，哪怕是最微辣的汤底也不行。",
+          "score": 0.7231057454196139,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:57:09.473340+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M10-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:57:23.577643+00:00"
+        }
+      ],
+      "seconds": 3.484
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者目前对辣味的耐受程度如何？进食或接触辣味后有何生理反应？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "21783583-28a7-4b64-9408-fc59d0d496c3",
+        "content": "用户大约五年前突然从能耐受一点辣变成完全不能吃辣，现在连闻到辣味都会觉得嗓子不舒服",
+        "score": 0.7710129378396153,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:57:23.604417+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M10-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:57:31.473165+00:00"
+      },
+      {
+        "memory_id": "39f509a6-4c63-45da-ac73-9d56dcfe437d",
+        "content": "用户完全不能吃辣，一点辣椒都受不了，一吃喉咙就会痛。点菜时总是特意要求免辣，哪怕是最微辣的汤底也不行。",
+        "score": 0.7130664586823203,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:57:09.473340+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M10-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:57:23.577643+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 39.469
+}

@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"b82b04e83ea44a292cc3\", \"query\": \"患者目前对辣味的耐受程度如何？进食或接触辣味后有何生理反应？\", \"expected_facts\": [\"该患者目前完全无法耐受任何辣味。\", \"该患者接触辣味后会出现喉咙疼痛或不适。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户大约五年前突然从能耐受一点辣变成完全不能吃辣，现在连闻到辣味都会觉得嗓子不舒服\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:57:23.604417+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户完全不能吃辣，一点辣椒都受不了，一吃喉咙就会痛。点菜时总是特意要求免辣，哪怕是最微辣的汤底也不行。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:57:09.473340+00:00\"}]}, {\"id\": \"b9a369d73c412e3cc225\", \"query\": \"患者周二晚间至周三早晨的饮食和用药安排是怎样的？\", \"expected_facts\": [\"患者周二晚饭后不再进食。\", \"患者计划周三早上七点前喝水并服用降压药。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户计划周二晚饭后不再进食，周三早上七点前喝一小杯温水送服降压药，并询问此安排是否符合胃镜检查的空腹要求\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:37:55.952994+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户平时在服用降压药，询问检查当天早上是否能照常服用\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:37:14.786590+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户希望预约2026年9月15日（下周三）上午的胃镜检查，并确认空腹八小时的具体流程\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:37:14.786590+00:00\"}]}, {\"id\": \"ba6a74d1635dc702dc1a\", \"query\": \"患者目前是否已确诊患有肺癌？\", \"expected_facts\": [\"患者目前尚未确诊肺癌。\", \"患者最近经常咳嗽，痰中有血丝。\", \"患者吸烟多年，担心肺癌。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户澄清目前尚未确诊肺癌，仅根据症状猜测，需等待CT报告确认\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:35:33.234448+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户有多年吸烟史，因此担心自己可能患有肺癌\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:35:13.539515+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户于2026年9月7日完成了胸部CT检查，目前正在等待影像报告结果\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:35:33.234448+00:00\"}]}, {\"id\": \"ba97f82dd3c7c3aede41\", \"query\": \"患者目前是否已确诊患有关节炎？\", \"expected_facts\": [\"患者目前尚未确诊关节炎。\", \"患者最近膝盖疼痛，上下楼梯困难。\", \"患者母亲有关节炎病史。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的妈妈有关节炎，用户担心自己可能遗传了关节炎，想做个检查确认一下\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:43:52.563242+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户于2026年9月6日（前天）拍摄了膝盖X光片，目前等待影像报告结果，尚未确诊关节炎，只是怀疑\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:44:15.008296+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户最近膝盖疼痛严重，上下楼梯都感到困难\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:43:52.563242+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862192-k3LHgaKaFc2aKqz4YKVL",
+    "object": "chat.completion",
+    "created": 1788862192,
+    "model": "minimax/minimax-m2.5",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "\n\n```json\n{\n  \"items\": [\n    {\n      \"id\": \"b82b04e83ea44a292cc3\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"},\n            {\"memory_id\": \"m1\"}\n          ],\n          \"reason\": \"记忆明确说明用户完全不能吃辣，一点辣椒都受不了。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"},\n            {\"memory_id\": \"m1\"}\n          ],\n          \"reason\": \"记忆明确提到闻到辣味会觉得嗓子不舒服，一吃喉咙就会痛。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"b9a369d73c412e3cc225\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"}\n          ],\n          \"reason\": \"记忆明确说用户计划周二晚饭后不再进食。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"}\n          ],\n          \"reason\": \"记忆明确说用户计划周三早上七点前喝一小杯温水送服降压药。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"ba6a74d1635dc702dc1a\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"}\n          ],\n          \"reason\": \"记忆明确说用户澄清目前尚未确诊肺癌。\"\n        },\n        {\n          \"supported\": false,\n          \"evidence\": [],\n          \"reason\": \"记忆未提及患者最近经常咳嗽或痰中有血丝的症状。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m1\"}\n          ],\n          \"reason\": \"记忆明确说用户有多年吸烟史，因此担心自己可能患有肺癌。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"ba97f82dd3c7c3aede41\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m1\"}\n          ],\n          \"reason\": \"记忆明确说用户尚未确诊关节炎，只是怀疑。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m2\"}\n          ],\n          \"reason\": \"记忆明确说用户最近膝盖疼痛严重，上下楼梯都感到困难。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"}\n          ],\n          \"reason\": \"记忆明确说用户的妈妈有关节炎，用户担心自己可能遗传了关节炎。\"\n        }\n      ]\n    }\n  ]\n}\n```",
+          "refusal": null,
+          "reasoning": "\n让我分析每个查询和记忆，评估每个预期事实是否被支持。\n\n**Item 1: b82b04e83ea44a292cc3**\n查询：患者目前对辣味的耐受程度如何？进食或接触辣味后有何生理反应？\n\n预期事实：\n1. \"该患者目前完全无法耐受任何辣味。\"\n2. \"该患者接触辣味后会出现喉咙疼痛或不适。\"\n\n记忆：\n- m0: \"用户大约五年前突然从能耐受一点辣变成完全不能吃辣，现在连闻到辣味都会觉得嗓子不舒服\"\n- m1: \"用户完全不能吃辣，一点辣椒都受不了，一吃喉咙就会痛。点菜时总是特意要求免辣，哪怕是最微辣的汤底也不行。\"\n\n评估：\n- 事实1：m0和m1都明确说\"完全不能吃辣\"，支持。\n- 事实2：m0说\"嗓子不舒服\"，m1说\"喉咙就会痛\"，支持。\n\n**Item 2: b9a369d73c412e3cc225**\n查询：患者周二晚间至周三早晨的饮食和用药安排是怎样的？\n\n预期事实：\n1. \"患者周二晚饭后不再进食。\"\n2. \"患者计划周三早上七点前喝水并服用降压药。\"\n\n记忆：\n- m0: \"用户计划周二晚饭后不再进食，周三早上七点前喝一小杯温水送服降压药，并询问此安排是否符合胃镜检查的空腹要求\"\n\n\n- m1: \"用户平时在服用降压药，询问检查当天早上是否能照常服用\"\n- m2: \"用户希望预约2026年9月15日（下周三）上午的胃镜检查，并确认空腹八小时的具体流程\"\n\n评估：\n- 事实1：m0直接确认患者周二晚饭后不再进食的计划。\n- 事实2：m0明确指出患者计划周三早上七点前用温水服用降压药。\n\n**Item 3: ba6a74d1635dc702dc1a**\n查询：患者目前是否已确诊患有肺癌？\n\n预期事实：\n1. \"患者目前尚未确诊肺癌。\"\n2. \"患者最近经常咳嗽，痰中有血丝。\"\n3. \"患者吸烟多年，担心肺癌。\"\n\n记忆：\n- m0: \"用户澄清目前尚未确诊肺癌，仅根据症状猜测，需等待CT报告确认\"\n- m1: \"用户有多年吸烟史，因此担\n\n我发现自己可能患有肺癌\"\n- m2: \"用户于2026年9月7日完成了胸部CT检查，目前正在等待影像报告结果\"\n\n评估：\n- 事实1：直接证实患者尚未最终确诊。\n- 事实2：存在症状担忧，但未获得明确医疗确认。\n- 事实3：长期吸烟增加肺癌风险，患者内心忧虑未得到医学定论。\n\n膝盖问题初步诊断存在不确定性：\n- 母亲有相关病史，增加遗传可能性\n- X光片检查尚未得出明确结论\n- 目前仅处于怀疑阶段，未正式确诊\n\n患者日常行动已受明显影响，膝盖疼痛严重影响上下楼梯。担心可能存在遗传风险，计划进一步医学检查确认。\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "\n让我分析每个查询和记忆，评估每个预期事实是否被支持。\n\n**Item 1: b82b04e83ea44a292cc3**\n查询：患者目前对辣味的耐受程度如何？进食或接触辣味后有何生理反应？\n\n预期事实：\n1. \"该患者目前完全无法耐受任何辣味。\"\n2. \"该患者接触辣味后会出现喉咙疼痛或不适。\"\n\n记忆：\n- m0: \"用户大约五年前突然从能耐受一点辣变成完全不能吃辣，现在连闻到辣味都会觉得嗓子不舒服\"\n- m1: \"用户完全不能吃辣，一点辣椒都受不了，一吃喉咙就会痛。点菜时总是特意要求免辣，哪怕是最微辣的汤底也不行。\"\n\n评估：\n- 事实1：m0和m1都明确说\"完全不能吃辣\"，支持。\n- 事实2：m0说\"嗓子不舒服\"，m1说\"喉咙就会痛\"，支持。\n\n**Item 2: b9a369d73c412e3cc225**\n查询：患者周二晚间至周三早晨的饮食和用药安排是怎样的？\n\n预期事实：\n1. \"患者周二晚饭后不再进食。\"\n2. \"患者计划周三早上七点前喝水并服用降压药。\"\n\n记忆：\n- m0: \"用户计划周二晚饭后不再进食，周三早上七点前喝一小杯温水送服降压药，并询问此安排是否符合胃镜检查的空腹要求\"\n\n\n- m1: \"用户平时在服用降压药，询问检查当天早上是否能照常服用\"\n- m2: \"用户希望预约2026年9月15日（下周三）上午的胃镜检查，并确认空腹八小时的具体流程\"\n\n评估：\n- 事实1：m0直接确认患者周二晚饭后不再进食的计划。\n- 事实2：m0明确指出患者计划周三早上七点前用温水服用降压药。\n\n**Item 3: ba6a74d1635dc702dc1a**\n查询：患者目前是否已确诊患有肺癌？\n\n预期事实：\n1. \"患者目前尚未确诊肺癌。\"\n2. \"患者最近经常咳嗽，痰中有血丝。\"\n3. \"患者吸烟多年，担心肺癌。\"\n\n记忆：\n- m0: \"用户澄清目前尚未确诊肺癌，仅根据症状猜测，需等待CT报告确认\"\n- m1: \"用户有多年吸烟史，因此担\n\n我发现自己可能患有肺癌\"\n- m2: \"用户于2026年9月7日完成了胸部CT检查，目前正在等待影像报告结果\"\n\n评估：\n- 事实1：直接证实患者尚未最终确诊。\n- 事实2：存在症状担忧，但未获得明确医疗确认。\n- 事实3：长期吸烟增加肺癌风险，患者内心忧虑未得到医学定论。\n\n膝盖问题初步诊断存在不确定性：\n- 母亲有相关病史，增加遗传可能性\n- X光片检查尚未得出明确结论\n- 目前仅处于怀疑阶段，未正式确诊\n\n患者日常行动已受明显影响，膝盖疼痛严重影响上下楼梯。担心可能存在遗传风险，计划进一步医学检查确认。\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1307,
+      "completion_tokens": 1233,
+      "total_tokens": 2540,
+      "cost": 0.0018717,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0018717,
+        "upstream_inference_prompt_cost": 0.0003921,
+        "upstream_inference_completions_cost": 0.0014796
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 647,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 12.797
+}

@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"ec9d2c4302c43ad1758d\", \"query\": \"用户何时决定结束夜班生活？目前的行动是什么？\", \"expected_facts\": [\"该用户于昨天申请调回白班。\", \"该用户今天已开始尝试早睡早起。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户于2026年9月1日正式转为夜班，而非上个月\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:33:40.716812+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户于2026年9月7日申请调回白班\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:33:40.716812+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户于2026年9月8日开始尝试早睡早起\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:33:40.716812+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户上个月换班后被迫改成夜班，从晚上十点工作到早上六点，导致白天完全睡不着，只能眯半小时\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:33:19.225192+00:00\"}]}, {\"id\": \"eee7a23634ac8358c8d2\", \"query\": \"患者对停药日期的记忆是否有过错误？\", \"expected_facts\": [\"患者最初误记为5月15日或20日，后更正为5月18日\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户更正孟鲁司特钠停药日期为2026年5月18日，而非之前说的5月20日。用户重新查看医嘱后发现医生写的是18日而非15日。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:48:15.856980+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户2022年因哮喘开始服用孟鲁司特钠，每晚一片。2026年5月医生告知症状缓解，建议5月15日停药，但用户实际拖到5月20日才停用。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:47:57.861742+00:00\"}]}, {\"id\": \"f175b7e3cb4f69d2fe67\", \"query\": \"用户本人的血糖情况如何，是否已经确诊为糖尿病？\", \"expected_facts\": [\"用户体检发现血糖偏高，但未确诊糖尿病，处于临界状态。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户体检时血糖稍微偏高，医生建议注意饮食，用户没有糖尿病但处于临界状态\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:16.917515+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户的丈夫两年前（约2024年9月）因高血压开始服药控制，最近血压已稳定\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:16.917515+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户更正：是妻子而非丈夫两年前（约2024年9月）确诊高血压并开始服药控制\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:42.150967+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户的丈夫身体健康状况良好\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:42.150967+00:00\"}]}, {\"id\": \"f23ffa242e1c69735796\", \"query\": \"患者计划进行什么类型的影像学检查，具体日期是什么时候？\", \"expected_facts\": [\"患者计划在下个月十号上午进行胸部CT增强扫描。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户预约了2026年10月10日上午的胸部CT增强扫描，并询问上周做的验血结果是否可直接用于肾功能检查或需重新抽血\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:48:41.778146+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户上周（约2026年9月上旬）在社区医院仅做了血常规而非肾功能检查，并请求于2026年10月9日下午提前抽血检查肾功能，以便进行10月10日的胸部CT增强扫描。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:49:10.716395+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862292-473MmqAuNBqEhyx48nD0",
+    "object": "chat.completion",
+    "created": 1788862292,
+    "model": "minimax/minimax-m2.5",
+    "provider": "Minimax",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"items\": [\n    {\n      \"id\": \"ec9d2c4302c43ad1758d\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m1\"}],\n          \"reason\": \"记忆显示用户于2026年9月7日申请调回白班，recorded_at为9月8日，因此昨天（9月7日）申请符合预期。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m2\"}],\n          \"reason\": \"记忆明确显示用户于2026年9月8日开始尝试早睡早起，与预期事实完全一致。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"eee7a23634ac8358c8d2\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}, {\"memory_id\": \"m1\"}],\n          \"reason\": \"m1显示最初医嘱为5月15日、实际停药为5月20日，m0显示更正为5月18日，证实患者有过误记并后经更正。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"f175b7e3cb4f69d2fe67\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"记忆明确指出用户血糖稍微偏高，没有糖尿病但处于临界状态，与预期事实完全吻合。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"f23ffa242e1c69735796\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}, {\"memory_id\": \"m1\"}],\n          \"reason\": \"两个记忆均显示患者预约2026年10月10日上午进行胸部CT增强扫描，m1补充说明需9日下午提前抽血查肾功能。\"\n        }\n      ]\n    }\n  ]\n}\n```",
+          "refusal": null,
+          "reasoning": "The user wants me to evaluate the retrieved memories against expected facts for each item. Let me go through each item:\n\n**Item 1 (ec9d2c4302c43ad1758d):**\nQuery: 用户何时决定结束夜班生活？目前的行动是什么？\nExpected facts:\n1. \"该用户于昨天申请调回白班。\" - Looking at memories:\n   - m1: \"用户于2026年9月7日申请调回白班\" (source_session_id: session-2, recorded_at: 2026-09-08)\n   - m2: \"用户于2026年9月8日开始尝试早睡早起\"\n   \n   The query context is asking about when the user decided to end night shift and current actions. The expected fact says \"yesterday\" (昨天) to apply for day shift. The memory shows 9月7日申请, and if today is 9月8日 (as shown by recorded_at), then 9月7日 is indeed \"yesterday\" relative to 9月8日. So this is supported by m1.\n\n2. \"该用户今天已开始尝试早睡早起。\" - m2 directly states \"用户于2026年9月8日开始尝试早睡早起\" - This is exactly the expected fact. Supported by m2.\n\n**Item 2 (eee7a23634ac8358c8d2):**\nQuery: 患者对停药日期的记忆是否有过错误？\nExpected fact: \"患者最初误记为5月15日或20日，后更正为5月18日\"\n- m0: \"用户更正孟鲁司特钠停药日期为2026年5月18日，而非之前说的5月20日。用户重新查看医嘱后发现医生写的是18日而非15日。\"\n- m1: \"2026年5月医生告知症状缓解，建议5月15日停药，但用户实际拖到5月20日才停用。\"\n \nI see a progression of memory correction. The initial memories show different dates - 5月15日 and 5月20日 - but the later memory reveals a more precise understanding. The final accurate date is 5月18日, which represents a correction of the previous misremembered dates. This supports the expected fact about the patient's memory error and subsequent correction.\n\nThe key details involve the patient's blood sugar status. The memory confirms slightly elevated blood sugar, no diabetes diagnosis, but a critical borderline condition. This precisely matches the expected medical assessment of being in a pre-diabetic state. The evidence validates the user's current health situation, highlighting the need for dietary monitoring.\n\nFor the imaging study details, I'm confirming the exact CT scan parameters. The evidence matches perfectly: scheduled for October 10th, 2026, in the morning, specifically a chest CT with contrast enhancement. The additional context about pre-procedure blood work on October 9th provides comprehensive preparation details.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "The user wants me to evaluate the retrieved memories against expected facts for each item. Let me go through each item:\n\n**Item 1 (ec9d2c4302c43ad1758d):**\nQuery: 用户何时决定结束夜班生活？目前的行动是什么？\nExpected facts:\n1. \"该用户于昨天申请调回白班。\" - Looking at memories:\n   - m1: \"用户于2026年9月7日申请调回白班\" (source_session_id: session-2, recorded_at: 2026-09-08)\n   - m2: \"用户于2026年9月8日开始尝试早睡早起\"\n   \n   The query context is asking about when the user decided to end night shift and current actions. The expected fact says \"yesterday\" (昨天) to apply for day shift. The memory shows 9月7日申请, and if today is 9月8日 (as shown by recorded_at), then 9月7日 is indeed \"yesterday\" relative to 9月8日. So this is supported by m1.\n\n2. \"该用户今天已开始尝试早睡早起。\" - m2 directly states \"用户于2026年9月8日开始尝试早睡早起\" - This is exactly the expected fact. Supported by m2.\n\n**Item 2 (eee7a23634ac8358c8d2):**\nQuery: 患者对停药日期的记忆是否有过错误？\nExpected fact: \"患者最初误记为5月15日或20日，后更正为5月18日\"\n- m0: \"用户更正孟鲁司特钠停药日期为2026年5月18日，而非之前说的5月20日。用户重新查看医嘱后发现医生写的是18日而非15日。\"\n- m1: \"2026年5月医生告知症状缓解，建议5月15日停药，但用户实际拖到5月20日才停用。\"\n \nI see a progression of memory correction. The initial memories show different dates - 5月15日 and 5月20日 - but the later memory reveals a more precise understanding. The final accurate date is 5月18日, which represents a correction of the previous misremembered dates. This supports the expected fact about the patient's memory error and subsequent correction.\n\nThe key details involve the patient's blood sugar status. The memory confirms slightly elevated blood sugar, no diabetes diagnosis, but a critical borderline condition. This precisely matches the expected medical assessment of being in a pre-diabetic state. The evidence validates the user's current health situation, highlighting the need for dietary monitoring.\n\nFor the imaging study details, I'm confirming the exact CT scan parameters. The evidence matches perfectly: scheduled for October 10th, 2026, in the morning, specifically a chest CT with contrast enhancement. The additional context about pre-procedure blood work on October 9th provides comprehensive preparation details.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1377,
+      "completion_tokens": 1045,
+      "total_tokens": 2422,
+      "cost": 0.0016671,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0016671,
+        "upstream_inference_prompt_cost": 0.0004131,
+        "upstream_inference_completions_cost": 0.001254
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 608,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 14.484
+}

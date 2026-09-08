@@ -1,0 +1,434 @@
+{
+  "case": {
+    "id": "M03-06",
+    "category": "药物过敏及具体反应",
+    "turns": [
+      {
+        "user": "我想确认一下，我对氯霉素眼药水有过过敏反应。大概五年前，也就是2019年，我因为结膜炎用了这个药，结果眼皮肿得像核桃，还流了很多眼泪。",
+        "assistant": "明白，已记录您使用氯霉素眼药水后的过敏表现。"
+      },
+      {
+        "user": "补充一下，那次反应非常迅速，用药后几分钟内就开始了，除了眼睑严重水肿，我还感到眼部剧痛，不得不立刻冲洗眼睛并停用该药。",
+        "assistant": "好的，已根据您的描述更新了过敏反应的时效性和症状细节。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "患者曾因治疗眼部感染使用何种药物导致局部严重过敏，具体症状是什么？",
+        "expected_facts": [
+          "患者因使用氯霉素眼药水治疗结膜炎导致过敏。",
+          "症状包括眼睑严重水肿（像核桃）、流泪及眼部剧痛。"
+        ],
+        "required_groups": [
+          [
+            "氯霉素",
+            "氯霉素眼药水"
+          ],
+          [
+            "眼睑水肿",
+            "眼皮肿",
+            "眼部肿胀"
+          ],
+          [
+            "剧痛",
+            "疼痛",
+            "眼睛痛"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "根据患者叙述，这次过敏反应发生在哪一年，从用药到发病经过了多长时间？",
+        "expected_facts": [
+          "事件发生在2019年。",
+          "用药后几分钟内即出现反应。"
+        ],
+        "required_groups": [
+          [
+            "2019年"
+          ],
+          [
+            "几分钟",
+            "数分钟",
+            "很快"
+          ]
+        ]
+      }
+    ],
+    "split": "dev",
+    "family_id": "M03-06",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860052-i6AfwyIOFzAzpWjU7n9n",
+      "usage": {
+        "prompt_tokens": 71,
+        "total_tokens": 71,
+        "cost": 7.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.1e-07,
+          "upstream_inference_prompt_cost": 7.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860054-0Sr5X9jwXVAT4oLIzoGo",
+      "usage": {
+        "prompt_tokens": 8366,
+        "completion_tokens": 364,
+        "total_tokens": 8730,
+        "cost": 0.00312156,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00312156,
+          "upstream_inference_prompt_cost": 0.00217516,
+          "upstream_inference_completions_cost": 0.0009464
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 329,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户于2019年因结膜炎使用氯霉素眼药水时出现过敏反应，症状包括眼皮严重肿胀和大量流泪\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860063-pUo2c1eMFP3CUae0TdZQ",
+      "usage": {
+        "prompt_tokens": 32,
+        "total_tokens": 32,
+        "cost": 3.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.2e-07,
+          "upstream_inference_prompt_cost": 3.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860064-Igh3vTRr3inmRxd3IcUP",
+      "usage": {
+        "prompt_tokens": 64,
+        "total_tokens": 64,
+        "cost": 6.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.4e-07,
+          "upstream_inference_prompt_cost": 6.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860065-oVrGVDjZvsXMYs62urCy",
+      "usage": {
+        "prompt_tokens": 8461,
+        "completion_tokens": 505,
+        "total_tokens": 8966,
+        "cost": 0.00351286,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00351286,
+          "upstream_inference_prompt_cost": 0.00219986,
+          "upstream_inference_completions_cost": 0.001313
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 495,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户补充说明2019年氯霉素眼药水过敏反应发生得非常迅速，用药后几分钟内就开始出现症状，除了眼睑严重水肿外还感到眼部剧痛，不得不立即冲洗眼睛并停用该药\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860076-6mDv6CtlIHpGvFVPkJpE",
+      "usage": {
+        "prompt_tokens": 50,
+        "total_tokens": 50,
+        "cost": 5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5e-07,
+          "upstream_inference_prompt_cost": 5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860078-Ji6m3EI2JCq3K7bE8mVC",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860079-vgnn0jdeS9y5EnTHgPxz",
+      "usage": {
+        "prompt_tokens": 21,
+        "total_tokens": 21,
+        "cost": 2.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.1e-07,
+          "upstream_inference_prompt_cost": 2.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860081-bUPQV2WpS4KGddnHiEsf",
+      "usage": {
+        "prompt_tokens": 29,
+        "total_tokens": 29,
+        "cost": 2.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.9e-07,
+          "upstream_inference_prompt_cost": 2.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860088-mzx1XDW5WWzB8IWzN7VI",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860091-nrH23DQqCK9WLsqFddcW",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "患者曾因治疗眼部感染使用何种药物导致局部严重过敏，具体症状是什么？",
+        "expected_facts": [
+          "患者因使用氯霉素眼药水治疗结膜炎导致过敏。",
+          "症状包括眼睑严重水肿（像核桃）、流泪及眼部剧痛。"
+        ],
+        "required_groups": [
+          [
+            "氯霉素",
+            "氯霉素眼药水"
+          ],
+          [
+            "眼睑水肿",
+            "眼皮肿",
+            "眼部肿胀"
+          ],
+          [
+            "剧痛",
+            "疼痛",
+            "眼睛痛"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "6473b780-a758-4e49-9a4d-50916cfc4fa3",
+          "content": "用户于2019年因结膜炎使用氯霉素眼药水时出现过敏反应，症状包括眼皮严重肿胀和大量流泪",
+          "score": 0.7492890262739618,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:11.460768+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M03-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:34:23.414927+00:00"
+        },
+        {
+          "memory_id": "6dbe4df1-995b-40b1-84cc-b615a0b229fd",
+          "content": "用户补充说明2019年氯霉素眼药水过敏反应发生得非常迅速，用药后几分钟内就开始出现症状，除了眼睑严重水肿外还感到眼部剧痛，不得不立即冲洗眼睛并停用该药",
+          "score": 0.7174301318458913,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:23.440088+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M03-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:34:36.875395+00:00"
+        }
+      ],
+      "seconds": 1.781
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "根据患者叙述，这次过敏反应发生在哪一年，从用药到发病经过了多长时间？",
+        "expected_facts": [
+          "事件发生在2019年。",
+          "用药后几分钟内即出现反应。"
+        ],
+        "required_groups": [
+          [
+            "2019年"
+          ],
+          [
+            "几分钟",
+            "数分钟",
+            "很快"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "6dbe4df1-995b-40b1-84cc-b615a0b229fd",
+          "content": "用户补充说明2019年氯霉素眼药水过敏反应发生得非常迅速，用药后几分钟内就开始出现症状，除了眼睑严重水肿外还感到眼部剧痛，不得不立即冲洗眼睛并停用该药",
+          "score": 0.7215785650417024,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:23.440088+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M03-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:34:36.875395+00:00"
+        },
+        {
+          "memory_id": "6473b780-a758-4e49-9a4d-50916cfc4fa3",
+          "content": "用户于2019年因结膜炎使用氯霉素眼药水时出现过敏反应，症状包括眼皮严重肿胀和大量流泪",
+          "score": 0.6697577147162779,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:11.460768+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M03-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:34:23.414927+00:00"
+        }
+      ],
+      "seconds": 1.5
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者曾因治疗眼部感染使用何种药物导致局部严重过敏，具体症状是什么？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "6473b780-a758-4e49-9a4d-50916cfc4fa3",
+        "content": "用户于2019年因结膜炎使用氯霉素眼药水时出现过敏反应，症状包括眼皮严重肿胀和大量流泪",
+        "score": 0.7552153505520829,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:34:11.460768+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M03-06",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:34:23.414927+00:00"
+      },
+      {
+        "memory_id": "6dbe4df1-995b-40b1-84cc-b615a0b229fd",
+        "content": "用户补充说明2019年氯霉素眼药水过敏反应发生得非常迅速，用药后几分钟内就开始出现症状，除了眼睑严重水肿外还感到眼部剧痛，不得不立即冲洗眼睛并停用该药",
+        "score": 0.7413520663830862,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:34:23.440088+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M03-06",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:34:36.875395+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 40.031
+}

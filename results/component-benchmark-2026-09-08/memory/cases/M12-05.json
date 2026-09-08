@@ -1,0 +1,512 @@
+{
+  "case": {
+    "id": "M12-05",
+    "category": "否定事实与助手建议区分",
+    "turns": [
+      {
+        "user": "有人误以为我对花生过敏，其实我小时候吃过很多次都没事，去年做过敏原测试结果显示我对花生不过敏，只是对芒果严重过敏。",
+        "assistant": "好的，已记录您对花生不过敏但对芒果过敏的测试结果。"
+      },
+      {
+        "user": "补充一下，那次过敏原测试是在去年夏天做的，从那以后我就只避开芒果，花生制品我都正常食用，没有任何不良反应。",
+        "assistant": "收到，已更新您自去年夏天起正常食用花生的历史记录。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "用户对花生是否存在过敏反应？",
+        "expected_facts": [
+          "用户去年过敏原测试显示对花生不过敏。",
+          "用户多年来食用花生从未出现不良反应。"
+        ],
+        "required_groups": [
+          [
+            "不过敏",
+            "无反应",
+            "正常食用"
+          ],
+          [
+            "花生"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "用户真正需要避免的食物及确认时间是什么？",
+        "expected_facts": [
+          "用户对芒果存在严重过敏反应。",
+          "用户自去年夏天测试确认后仅避开芒果。"
+        ],
+        "required_groups": [
+          [
+            "去年夏天",
+            "去年夏季"
+          ],
+          [
+            "芒果",
+            "严重过敏"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M12-05",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861697-GmUSrrVoAKRWZdKl0eNb",
+      "usage": {
+        "prompt_tokens": 60,
+        "total_tokens": 60,
+        "cost": 6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6e-07,
+          "upstream_inference_prompt_cost": 6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861699-OA5lFwew9IlRpsYXzMby",
+      "usage": {
+        "prompt_tokens": 8356,
+        "completion_tokens": 438,
+        "total_tokens": 8794,
+        "cost": 0.002965,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.002965,
+          "upstream_inference_prompt_cost": 0.002089,
+          "upstream_inference_completions_cost": 0.000876
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 320,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户对花生不过敏，去年（约2025年）的过敏原测试确认了这一点，尽管有人误以为用户对花生过敏。用户小时候吃过很多次花生都没事。\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户对芒果严重过敏，这是去年过敏原测试确认的结果。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861715-ACGNfGeGYiMo6BS40wwl",
+      "usage": {
+        "prompt_tokens": 57,
+        "total_tokens": 57,
+        "cost": 5.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.7e-07,
+          "upstream_inference_prompt_cost": 5.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861716-lHU2cQYq46htzAttGDVU",
+      "usage": {
+        "prompt_tokens": 55,
+        "total_tokens": 55,
+        "cost": 5.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.5e-07,
+          "upstream_inference_prompt_cost": 5.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861718-zhB0B7ZBkl3Ut0zEip4d",
+      "usage": {
+        "prompt_tokens": 8482,
+        "completion_tokens": 1001,
+        "total_tokens": 9483,
+        "cost": 0.0044523,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0044523,
+          "upstream_inference_prompt_cost": 0.00229014,
+          "upstream_inference_completions_cost": 0.00216216
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 852,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户的过敏原测试是在2025年夏天做的，确认对芒果严重过敏但对花生不过敏。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\", \"1\"]\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"自2025年夏天的过敏原测试后，用户只避开芒果，正常食用花生制品且没有任何不良反应。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"1\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861737-vC7ZkuR5w40cxPKRL22t",
+      "usage": {
+        "prompt_tokens": 53,
+        "total_tokens": 53,
+        "cost": 2.12e-06,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.12e-06,
+          "upstream_inference_prompt_cost": 2.12e-06,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861743-qYs3KevmQy5EtIrGc3H1",
+      "usage": {
+        "prompt_tokens": 8,
+        "total_tokens": 8,
+        "cost": 8e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 8e-08,
+          "upstream_inference_prompt_cost": 8e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861744-oyqAGnyeIwbe6jwoyfHM",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861745-Kj5NOc1EhqXWgItSp8aM",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861748-r0vpbJttU1tWTHmeZy4X",
+      "usage": {
+        "prompt_tokens": 8,
+        "total_tokens": 8,
+        "cost": 8e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 8e-08,
+          "upstream_inference_prompt_cost": 8e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861749-jWedkt4Khb2wibEcHAWo",
+      "usage": {
+        "prompt_tokens": 8,
+        "total_tokens": 8,
+        "cost": 8e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 8e-08,
+          "upstream_inference_prompt_cost": 8e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "用户对花生是否存在过敏反应？",
+        "expected_facts": [
+          "用户去年过敏原测试显示对花生不过敏。",
+          "用户多年来食用花生从未出现不良反应。"
+        ],
+        "required_groups": [
+          [
+            "不过敏",
+            "无反应",
+            "正常食用"
+          ],
+          [
+            "花生"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "6b8cad3b-eff9-4dea-a7a0-2bc4d0679dd3",
+          "content": "用户对芒果严重过敏，这是去年过敏原测试确认的结果。",
+          "score": 0.6332417372892933,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:35.450177+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:01:55.912519+00:00"
+        },
+        {
+          "memory_id": "bfff680d-d910-4007-b528-e9d652e9db59",
+          "content": "用户的过敏原测试是在2025年夏天做的，确认对芒果严重过敏但对花生不过敏。",
+          "score": 0.6322442189175154,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:55.949426+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:02:21.819648+00:00"
+        },
+        {
+          "memory_id": "5c322d2a-8ec2-49d3-a70c-a92b80fc08ab",
+          "content": "用户对花生不过敏，去年（约2025年）的过敏原测试确认了这一点，尽管有人误以为用户对花生过敏。用户小时候吃过很多次花生都没事。",
+          "score": 0.6285467951663537,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:35.450177+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:01:55.912519+00:00"
+        },
+        {
+          "memory_id": "30cead69-54ed-4010-b06b-6f94ab08dd9d",
+          "content": "自2025年夏天的过敏原测试后，用户只避开芒果，正常食用花生制品且没有任何不良反应。",
+          "score": 0.61193490102125,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:55.949426+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:02:21.819648+00:00"
+        }
+      ],
+      "seconds": 1.281
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "用户真正需要避免的食物及确认时间是什么？",
+        "expected_facts": [
+          "用户对芒果存在严重过敏反应。",
+          "用户自去年夏天测试确认后仅避开芒果。"
+        ],
+        "required_groups": [
+          [
+            "去年夏天",
+            "去年夏季"
+          ],
+          [
+            "芒果",
+            "严重过敏"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "30cead69-54ed-4010-b06b-6f94ab08dd9d",
+          "content": "自2025年夏天的过敏原测试后，用户只避开芒果，正常食用花生制品且没有任何不良反应。",
+          "score": 0.5503850663920149,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:55.949426+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:02:21.819648+00:00"
+        },
+        {
+          "memory_id": "6b8cad3b-eff9-4dea-a7a0-2bc4d0679dd3",
+          "content": "用户对芒果严重过敏，这是去年过敏原测试确认的结果。",
+          "score": 0.5387839787760921,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:35.450177+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:01:55.912519+00:00"
+        },
+        {
+          "memory_id": "bfff680d-d910-4007-b528-e9d652e9db59",
+          "content": "用户的过敏原测试是在2025年夏天做的，确认对芒果严重过敏但对花生不过敏。",
+          "score": 0.5314461464948323,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:55.949426+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:02:21.819648+00:00"
+        },
+        {
+          "memory_id": "5c322d2a-8ec2-49d3-a70c-a92b80fc08ab",
+          "content": "用户对花生不过敏，去年（约2025年）的过敏原测试确认了这一点，尽管有人误以为用户对花生过敏。用户小时候吃过很多次花生都没事。",
+          "score": 0.4777886455379229,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:35.450177+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:01:55.912519+00:00"
+        }
+      ],
+      "seconds": 1.109
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "用户对花生是否存在过敏反应？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "6b8cad3b-eff9-4dea-a7a0-2bc4d0679dd3",
+        "content": "用户对芒果严重过敏，这是去年过敏原测试确认的结果。",
+        "score": 0.6007701825346254,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:01:35.450177+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M12-05",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:01:55.912519+00:00"
+      },
+      {
+        "memory_id": "bfff680d-d910-4007-b528-e9d652e9db59",
+        "content": "用户的过敏原测试是在2025年夏天做的，确认对芒果严重过敏但对花生不过敏。",
+        "score": 0.5949329221929099,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:01:55.949426+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M12-05",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:02:21.819648+00:00"
+      },
+      {
+        "memory_id": "30cead69-54ed-4010-b06b-6f94ab08dd9d",
+        "content": "自2025年夏天的过敏原测试后，用户只避开芒果，正常食用花生制品且没有任何不良反应。",
+        "score": 0.5834710883859431,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:01:55.949426+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M12-05",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:02:21.819648+00:00"
+      },
+      {
+        "memory_id": "5c322d2a-8ec2-49d3-a70c-a92b80fc08ab",
+        "content": "用户对花生不过敏，去年（约2025年）的过敏原测试确认了这一点，尽管有人误以为用户对花生过敏。用户小时候吃过很多次花生都没事。",
+        "score": 0.5551322604347844,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:01:35.450177+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M12-05",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:01:55.912519+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 59.188
+}

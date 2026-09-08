@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"ae625fe161325e696733\", \"query\": \"请确认患者去年秋季出行的地点和具体天数。\", \"expected_facts\": [\"患者去年十月去了意大利。\", \"患者停留了十天。\", \"旅行发生在去年秋季。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户更正其首次出国旅行的信息：实际目的地为意大利（非巴黎和伦敦），出发时间为2025年10月（非9月），行程持续十天（非两周）\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:53:01.639956+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户于2025年9月前往欧洲旅行两周，主要在巴黎和伦敦停留，这是用户第一次出国旅游\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:52:39.868072+00:00\"}]}, {\"id\": \"afb86226470400eea813\", \"query\": \"患者昨天进行了什么检查，结果状态怎样？\", \"expected_facts\": [\"患者昨天做了胸部CT检查。\", \"影像报告尚未出来。\", \"需要等待报告确认诊断。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户于2026年9月7日完成了胸部CT检查，目前正在等待影像报告结果\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:35:33.234448+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户澄清目前尚未确诊肺癌，仅根据症状猜测，需等待CT报告确认\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:35:33.234448+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户计划进行CT检查以确认健康状况\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:35:13.539515+00:00\"}]}, {\"id\": \"aff52d69c0a2092248a4\", \"query\": \"患者父亲的慢性病史实际上是什么疾病？\", \"expected_facts\": [\"患者父亲患有高血压。\", \"患者父亲并不患有糖尿病。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的父亲患有糖尿病，用户希望记录这段家族病史\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:53:40.711652+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户更正了家族病史信息：父亲实际患有高血压，母亲患有糖尿病且于2015年确诊。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:54:30.319447+00:00\"}]}, {\"id\": \"b1929372544affc4940e\", \"query\": \"用户回程当天的睡眠情况如何？\", \"expected_facts\": [\"该用户回程当天直接睡了十二个小时。\", \"该用户通过长睡恢复了体力。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户从行业峰会回程后直接睡了十二个小时才缓过来。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:35:05.836965+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户于2026年8月参加行业峰会，为赶飞机连续三天凌晨两点出发，导致那几天几乎没怎么睡觉。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:17.683105+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户参加行业峰会期间实际连续四天凌晨两点出发赶飞机，而非之前记录的三天。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:35:05.836965+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862082-KfU9Fb7cMXfqmpyPReJH",
+    "object": "chat.completion",
+    "created": 1788862082,
+    "model": "minimax/minimax-m2.5",
+    "provider": "Minimax",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"items\": [\n    {\n      \"id\": \"ae625fe161325e696733\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"记忆明确指出目的地为意大利，出发时间为2025年10月。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"记忆明确记录行程持续十天。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"2025年10月属于秋季，与记录时间2026年9月相对应。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"afb86226470400eea813\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"记忆明确记录用户于2026年9月7日完成胸部CT检查。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"记忆明确表示正在等待影像报告结果，报告尚未出来。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m1\"}],\n          \"reason\": \"记忆明确指出需等待CT报告确认诊断。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"aff52d69c0a2092248a4\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m1\"}],\n          \"reason\": \"记忆明确更正父亲实际患有高血压。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m1\"}],\n          \"reason\": \"记忆更正后表明母亲患有糖尿病，父亲不再患有糖尿病。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"b1929372544affc4940e\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"记忆明确记录回程后直接睡了十二个小时。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"记忆明确表示睡了十二个小时才缓过来，表明体力恢复。\"\n        }\n      ]\n    }\n  ]\n}\n```",
+          "refusal": null,
+          "reasoning": "让我分析每个查询和记忆，确定哪些事实得到支持。\n\n**项目1: ae625fe161325e696733**\n查询：患者去年秋季出行的地点和具体天数\n预期事实：\n1. \"患者去年十月去了意大利。\"\n2. \"患者停留了十天。\"\n3. \"旅行发生在去年秋季。\"\n\n记忆：\n- m0: 用户更正其首次出国旅行的信息：实际目的地为意大利（非巴黎和伦敦），出发时间为2025年10月（非9月），行程持续十天（非两周）\n- m1: 用户于2025年9月前往欧洲旅行两周，主要在巴黎和伦敦停留，这是用户第一次出国旅游\n\n分析：\n- 事实1：患者去年十月去了意大利 → m0明确说\"实际目的地为意大利，出发时间为2025年10月\"，支持\n- 事实2：患者停留了十天 → m0说\"行程持续十天\"，支持\n- 事实3：旅行发生在去年秋季 → 10月属于秋季，支持（2025年10月是\"去年秋季\"因为记录时间是2026年9月）\n\n**项目2: afb86226470400eea813**\n查询：患者昨天进行了什么检查，结果状态怎样\n预期事实：\n1. \"患者昨天做了胸部CT检查。\"\n2. \"影像报告尚未出来。\"\n3. \"需要等待报告确认诊断。\"\n\n记忆：\n- m0: 用户于2026年9月7日完成了胸部CT检查，目前正在等待影像报告结果\n\n\n- m1: 用户澄清目前尚未确诊肺癌，仅根据症状猜测，需等待CT报告确认\n- m2: 用户计划进行CT检查以确认健康状况\n\n分析：\n- 事实1：患者昨天做了胸部CT检查 → m0说\"于2026年9月7日完成了胸部CT检查\"，记录时间是9月8日，所以昨天（9月7日）做了CT，支持\n- 事实2：影像报告尚未出来 → m0说\"正在等待影像报告结果\"，支持\n- 事实3：需要等待报告确认诊断 → 等待CT报告确认健康状况，支持\n\n**项目3: aff52d69c0a2092248a4**\n查询：患者父亲的慢性病史实际上是什么疾病？\n预期事实：\n1. \"患者父亲患有高血压。\"\n2. \"患者父亲并不患有糖尿病。\"\n\n记忆：\n- m0: 用户的父亲患有糖尿病，用户希望记录这段家族病史\n- m1: 用户更正了家族病史信息：父亲实际患有高血压，母亲患有糖尿病且于2015年确诊。\n\n分析：\n- 事实1：患者父亲患有高血压 → m1说\"父亲实际患有高血压\"，支持\n- 事实2：患者父亲并不患有糖尿病 → m1说\"母亲患有糖尿病\"而非父亲，且m0的\n\n父亲糖尿病信息被m1更正，支持\n\n**项目4: b1929372544affc4940e**\n查询：用户回程当天的睡眠情况如何？\n预期事实：\n1. \"该用户回程当天直接睡了十二个小时。\"\n2. \"该用户通过长睡恢复了体力。\"\n\n记忆：\n- m0: 用户从行业峰会回程后直接睡了十二个小时才缓过来。\n- m1: 用户于2026年8月参加行业峰会，为赶飞机连续三天凌晨两点出发，导致那几天几乎没怎么睡觉。\n- m2: 用户参加行业峰会期间实际连续四天凌晨两点出发赶飞机，而非之前记录的三天。\n\n分析：\n- 事实1：该用户回程当天直接睡了十二个小时 → m0明确说\"直接睡了十二个小时\"，支持\n- 事实2：该用户通过长睡恢复了体力 → m0说\"才缓过来\"，暗示恢复了体力，支持",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "让我分析每个查询和记忆，确定哪些事实得到支持。\n\n**项目1: ae625fe161325e696733**\n查询：患者去年秋季出行的地点和具体天数\n预期事实：\n1. \"患者去年十月去了意大利。\"\n2. \"患者停留了十天。\"\n3. \"旅行发生在去年秋季。\"\n\n记忆：\n- m0: 用户更正其首次出国旅行的信息：实际目的地为意大利（非巴黎和伦敦），出发时间为2025年10月（非9月），行程持续十天（非两周）\n- m1: 用户于2025年9月前往欧洲旅行两周，主要在巴黎和伦敦停留，这是用户第一次出国旅游\n\n分析：\n- 事实1：患者去年十月去了意大利 → m0明确说\"实际目的地为意大利，出发时间为2025年10月\"，支持\n- 事实2：患者停留了十天 → m0说\"行程持续十天\"，支持\n- 事实3：旅行发生在去年秋季 → 10月属于秋季，支持（2025年10月是\"去年秋季\"因为记录时间是2026年9月）\n\n**项目2: afb86226470400eea813**\n查询：患者昨天进行了什么检查，结果状态怎样\n预期事实：\n1. \"患者昨天做了胸部CT检查。\"\n2. \"影像报告尚未出来。\"\n3. \"需要等待报告确认诊断。\"\n\n记忆：\n- m0: 用户于2026年9月7日完成了胸部CT检查，目前正在等待影像报告结果\n\n\n- m1: 用户澄清目前尚未确诊肺癌，仅根据症状猜测，需等待CT报告确认\n- m2: 用户计划进行CT检查以确认健康状况\n\n分析：\n- 事实1：患者昨天做了胸部CT检查 → m0说\"于2026年9月7日完成了胸部CT检查\"，记录时间是9月8日，所以昨天（9月7日）做了CT，支持\n- 事实2：影像报告尚未出来 → m0说\"正在等待影像报告结果\"，支持\n- 事实3：需要等待报告确认诊断 → 等待CT报告确认健康状况，支持\n\n**项目3: aff52d69c0a2092248a4**\n查询：患者父亲的慢性病史实际上是什么疾病？\n预期事实：\n1. \"患者父亲患有高血压。\"\n2. \"患者父亲并不患有糖尿病。\"\n\n记忆：\n- m0: 用户的父亲患有糖尿病，用户希望记录这段家族病史\n- m1: 用户更正了家族病史信息：父亲实际患有高血压，母亲患有糖尿病且于2015年确诊。\n\n分析：\n- 事实1：患者父亲患有高血压 → m1说\"父亲实际患有高血压\"，支持\n- 事实2：患者父亲并不患有糖尿病 → m1说\"母亲患有糖尿病\"而非父亲，且m0的\n\n父亲糖尿病信息被m1更正，支持\n\n**项目4: b1929372544affc4940e**\n查询：用户回程当天的睡眠情况如何？\n预期事实：\n1. \"该用户回程当天直接睡了十二个小时。\"\n2. \"该用户通过长睡恢复了体力。\"\n\n记忆：\n- m0: 用户从行业峰会回程后直接睡了十二个小时才缓过来。\n- m1: 用户于2026年8月参加行业峰会，为赶飞机连续三天凌晨两点出发，导致那几天几乎没怎么睡觉。\n- m2: 用户参加行业峰会期间实际连续四天凌晨两点出发赶飞机，而非之前记录的三天。\n\n分析：\n- 事实1：该用户回程当天直接睡了十二个小时 → m0明确说\"直接睡了十二个小时\"，支持\n- 事实2：该用户通过长睡恢复了体力 → m0说\"才缓过来\"，暗示恢复了体力，支持",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1171,
+      "completion_tokens": 1288,
+      "total_tokens": 2459,
+      "cost": 0.0018969,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0018969,
+        "upstream_inference_prompt_cost": 0.0003513,
+        "upstream_inference_completions_cost": 0.0015456
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 763,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 11.5
+}

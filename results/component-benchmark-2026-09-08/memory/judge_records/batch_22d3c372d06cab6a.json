@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"4b3bd5eb5ceb43184fc7\", \"query\": \"用户本人是否有过呼吸系统相关的病史，目前状态如何？\", \"expected_facts\": [\"用户小时候有过季节性过敏，但成年后已痊愈，目前无呼吸问题。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户小时候有过过敏，但成年后完全好了，最近没有任何呼吸方面的问题\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:10.183515+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户确认小时候确实有季节性过敏，但那是很久以前的事了，现在没有任何问题。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:21.593220+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户更正称，上个月（2026年8月）确诊哮喘的是妹妹而非弟弟，弟弟其实很健康。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:21.593220+00:00\"}]}, {\"id\": \"4c2b472be7501411a225\", \"query\": \"患者目前是否已确诊患有湿疹？\", \"expected_facts\": [\"患者目前尚未确诊湿疹。\", \"患者最近皮肤出现红斑，很痒。\", \"患者怀疑自己可能患有湿疹。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户最近皮肤出现红斑，很痒，尤其是手臂和腿部。怀疑是湿疹，因为换季时容易发作，想做皮肤检查。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:44:40.911946+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户于2026年9月6日进行了皮肤活检，目前尚未确诊湿疹，正在等待病理报告结果。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:44:59.408190+00:00\"}]}, {\"id\": \"4c530cee5ce17cea7a9e\", \"query\": \"两年前失眠复发时他用了什么方法，坚持了多久，现在是否还需要药物？\", \"expected_facts\": [\"患者两年前因换工作焦虑导致失眠复发。\", \"患者尝试了冥想和喝热牛奶，坚持了半年。\", \"患者目前基本不需要药物辅助。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户两年前因换工作焦虑导致失眠复发，尝试了冥想和喝热牛奶，坚持了半年后睡眠改善很多，现在基本不需要药物辅助\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:58:54.411204+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户三十八岁，五年前因长期熬夜导致失眠，医生开了褪黑素，服用三个月后觉得有效就停了，后来偶尔还会睡不好但没再吃药\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:58:31.826640+00:00\"}]}, {\"id\": \"4c88a99cdb92d085cbd2\", \"query\": \"患者去年秋季旅行的具体目的地和时长是多少？\", \"expected_facts\": [\"患者去年秋季旅行的目的地是意大利。\", \"患者在意大利停留了十天。\", \"旅行出发时间是去年十月。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户更正其首次出国旅行的信息：实际目的地为意大利（非巴黎和伦敦），出发时间为2025年10月（非9月），行程持续十天（非两周）\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:53:01.639956+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户于2025年9月前往欧洲旅行两周，主要在巴黎和伦敦停留，这是用户第一次出国旅游\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:52:39.868072+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861950-5OXzPpxMiHtaKEkxFvVA",
+    "object": "chat.completion",
+    "created": 1788861950,
+    "model": "minimax/minimax-m2.5",
+    "provider": "Minimax",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"items\": [\n    {\n      \"id\": \"4b3bd5eb5ceb43184fc7\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"},\n            {\"memory_id\": \"m1\"}\n          ],\n          \"reason\": \"两个记忆都明确表示用户小时候有季节性过敏，成年后已痊愈，目前没有问题。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"4c2b472be7501411a225\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m1\"}\n          ],\n          \"reason\": \"m1明确指出用户于2026年9月6日进行皮肤活检，尚未确诊湿疹，正在等待病理报告。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"}\n          ],\n          \"reason\": \"m0明确描述用户最近皮肤出现红斑，很痒，发生在手臂和腿部。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"}\n          ],\n          \"reason\": \"m0明确提到用户怀疑是湿疹，想做皮肤检查。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"4c530cee5ce17cea7a9e\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"}\n          ],\n          \"reason\": \"m0明确表示用户两年前因换工作焦虑导致失眠复发。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"}\n          ],\n          \"reason\": \"m0明确表示用户尝试了冥想和喝热牛奶，坚持了半年。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"}\n          ],\n          \"reason\": \"m0明确表示用户现在基本不需要药物辅助。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"4c88a99cdb92d085cbd2\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"}\n          ],\n          \"reason\": \"m0明确更正指出实际目的地为意大利。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"}\n          ],\n          \"reason\": \"m0明确表示行程持续十天。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"}\n          ],\n          \"reason\": \"m0明确表示出发时间为2025年10月。\"\n        }\n      ]\n    }\n  ]\n}\n```",
+          "refusal": null,
+          "reasoning": "Let me analyze each item according to the instructions:\n\n1. For each input item, I need to return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}\n2. I need to check if each expected_fact is supported by the memories\n3. The fact must be explicitly supported with correct person, event time, current/historical state and uncertainty\n\nLet me go through each item:\n\n**Item 1 (id: 4b3bd5eb5ceb43184fc7):**\nQuery: 用户本人是否有过呼吸系统相关的病史，目前状态如何？\nExpected_fact: \"用户小时候有过季节性过敏，但成年后已痊愈，目前无呼吸问题。\"\n\nMemories:\n- m0: \"用户小时候有过过敏，但成年后完全好了，最近没有任何呼吸方面的问题\" - This supports the fact that user had allergies as a child, recovered as adult, currently no respiratory problems\n- m1: \"用户确认小时候确实有季节性过敏，但那是很久以前的事了，现在没有任何问题。\" - This also supports it\n- m2: This is about the user's sister having asthma, not the user\n\nThe expected fact says \"用户小时候有过季节性过敏，但成年后已痊愈，目前无呼吸问题\" - This matches m0 and m1. The fact is about the user (not someone else), mentions childhood seasonal allergies, adult recovery, and current no respiratory issues.\n\n**Item 2 (id: 4c2b472be7501411a225):**\nQuery: 患者目前是否已确诊患有湿疹？\nExpected_facts:\n1. \"患者目前尚未确诊湿疹。\"\n2. \"患者最近皮肤出现红斑，很痒。\"\n3. \"患者怀疑自己可能患有湿疹。\"\n\nMemories:\n- m0: \"用户最近皮肤出现红斑，很痒，尤其是手臂和腿部。\n\nI'll continue analyzing the memories for the second item. The first memory confirms the skin symptoms of red, itchy patches on arms and legs, which directly supports the second expected fact about recent skin manifestations. However, it doesn't provide clear evidence about the diagnosis status or the patient's suspicion of eczema.\n\nThe second memory adds crucial information: a skin biopsy was performed on September 6, 2026, with results pending. This directly supports the first expected fact that the patient is not yet definitively diagnosed with eczema. The waiting period for pathological results indicates medical uncertainty about the condition.\n\nThe evidence collectively suggests the patient is experiencing skin symptoms, undergoing diagnostic investigation, but hasn't received a confirmed eczema diagnosis yet.\n\nFor the next item about insomnia treatment, I'll carefully parse the specific details of the patient's intervention timeline, method duration, and current medication status. The memories reveal a comprehensive approach to managing insomnia through lifestyle modifications and non-pharmacological strategies.\n\nThe memories confirm the patient's proactive steps: experiencing work-related stress, trying natural remedies like meditation and warm milk, maintaining these techniques for six months, and achieving significant sleep improvement without ongoing medication依赖.\n\nThe evidence comprehensively validates the expected facts about the patient's insomnia treatment journey, showing a successful non-drug intervention approach.\n\nRegarding the travel details, I carefully cross-referenced the memories to confirm the precise trip parameters. The corrected information provides clear evidence about the destination, timing, and duration of the patient's international travel.\n\nI'll systematically verify each fact, ensuring precise matching between the expected details and the recorded memories. The session-2 correction provides unambiguous confirmation of Italy as the destination, October 2025 as the travel time, and a ten-day trip duration.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item according to the instructions:\n\n1. For each input item, I need to return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}\n2. I need to check if each expected_fact is supported by the memories\n3. The fact must be explicitly supported with correct person, event time, current/historical state and uncertainty\n\nLet me go through each item:\n\n**Item 1 (id: 4b3bd5eb5ceb43184fc7):**\nQuery: 用户本人是否有过呼吸系统相关的病史，目前状态如何？\nExpected_fact: \"用户小时候有过季节性过敏，但成年后已痊愈，目前无呼吸问题。\"\n\nMemories:\n- m0: \"用户小时候有过过敏，但成年后完全好了，最近没有任何呼吸方面的问题\" - This supports the fact that user had allergies as a child, recovered as adult, currently no respiratory problems\n- m1: \"用户确认小时候确实有季节性过敏，但那是很久以前的事了，现在没有任何问题。\" - This also supports it\n- m2: This is about the user's sister having asthma, not the user\n\nThe expected fact says \"用户小时候有过季节性过敏，但成年后已痊愈，目前无呼吸问题\" - This matches m0 and m1. The fact is about the user (not someone else), mentions childhood seasonal allergies, adult recovery, and current no respiratory issues.\n\n**Item 2 (id: 4c2b472be7501411a225):**\nQuery: 患者目前是否已确诊患有湿疹？\nExpected_facts:\n1. \"患者目前尚未确诊湿疹。\"\n2. \"患者最近皮肤出现红斑，很痒。\"\n3. \"患者怀疑自己可能患有湿疹。\"\n\nMemories:\n- m0: \"用户最近皮肤出现红斑，很痒，尤其是手臂和腿部。\n\nI'll continue analyzing the memories for the second item. The first memory confirms the skin symptoms of red, itchy patches on arms and legs, which directly supports the second expected fact about recent skin manifestations. However, it doesn't provide clear evidence about the diagnosis status or the patient's suspicion of eczema.\n\nThe second memory adds crucial information: a skin biopsy was performed on September 6, 2026, with results pending. This directly supports the first expected fact that the patient is not yet definitively diagnosed with eczema. The waiting period for pathological results indicates medical uncertainty about the condition.\n\nThe evidence collectively suggests the patient is experiencing skin symptoms, undergoing diagnostic investigation, but hasn't received a confirmed eczema diagnosis yet.\n\nFor the next item about insomnia treatment, I'll carefully parse the specific details of the patient's intervention timeline, method duration, and current medication status. The memories reveal a comprehensive approach to managing insomnia through lifestyle modifications and non-pharmacological strategies.\n\nThe memories confirm the patient's proactive steps: experiencing work-related stress, trying natural remedies like meditation and warm milk, maintaining these techniques for six months, and achieving significant sleep improvement without ongoing medication依赖.\n\nThe evidence comprehensively validates the expected facts about the patient's insomnia treatment journey, showing a successful non-drug intervention approach.\n\nRegarding the travel details, I carefully cross-referenced the memories to confirm the precise trip parameters. The corrected information provides clear evidence about the destination, timing, and duration of the patient's international travel.\n\nI'll systematically verify each fact, ensuring precise matching between the expected details and the recorded memories. The session-2 correction provides unambiguous confirmation of Italy as the destination, October 2025 as the travel time, and a ten-day trip duration.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1202,
+      "completion_tokens": 1318,
+      "total_tokens": 2520,
+      "cost": 0.0019422,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0019422,
+        "upstream_inference_prompt_cost": 0.0003606,
+        "upstream_inference_completions_cost": 0.0015816
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 720,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 17.922
+}

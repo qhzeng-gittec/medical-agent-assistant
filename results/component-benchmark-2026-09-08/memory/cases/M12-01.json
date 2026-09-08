@@ -1,0 +1,469 @@
+{
+  "case": {
+    "id": "M12-01",
+    "category": "否定事实与助手建议区分",
+    "turns": [
+      {
+        "user": "我上周去复查，医生明确说我的高血压已经通过生活方式调整控制住了，不需要再吃降压药了，但我还是有点担心突然停药会不会反弹。",
+        "assistant": "收到，已记录您上周复查后确认无需继续服用降压药的情况。"
+      },
+      {
+        "user": "补充一下，其实我是从三个月前开始减盐运动的，当时血压就正常了，所以这次医生才让我停药的，之前确实吃过半年药。",
+        "assistant": "明白，已更新您三个月前开始减盐并因此停药的历史记录。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "用户目前是否还在服用降压药物？",
+        "expected_facts": [
+          "用户在上周复查后已停止服用降压药。",
+          "用户因生活方式调整（减盐）使血压恢复正常而停药。"
+        ],
+        "required_groups": [
+          [
+            "停止服用",
+            "不再吃",
+            "停药"
+          ],
+          [
+            "降压药",
+            "降压药物"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "用户是什么时候开始采取非药物措施来控制血压的？",
+        "expected_facts": [
+          "用户从三个月前开始进行减盐运动。",
+          "用户通过减盐运动在三个月内使血压恢复正常。"
+        ],
+        "required_groups": [
+          [
+            "三个月前",
+            "3个月前"
+          ],
+          [
+            "减盐",
+            "减少盐分摄入"
+          ]
+        ]
+      }
+    ],
+    "split": "dev",
+    "family_id": "M12-01",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860518-sALntBPdrPVpVp74vDDI",
+      "usage": {
+        "prompt_tokens": 61,
+        "total_tokens": 61,
+        "cost": 6.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.1e-07,
+          "upstream_inference_prompt_cost": 6.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860525-DKzOd9KPDIy3lqRzN1YB",
+      "usage": {
+        "prompt_tokens": 8361,
+        "completion_tokens": 141,
+        "total_tokens": 8502,
+        "cost": 0.00256203,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00256203,
+          "upstream_inference_prompt_cost": 0.00225747,
+          "upstream_inference_completions_cost": 0.00030456
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 70,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户上周复查时医生确认高血压已通过生活方式调整控制住，无需继续服用降压药，但用户担心突然停药可能会反弹\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860536-ZoZ56RNC2qtI3IpTq1lp",
+      "usage": {
+        "prompt_tokens": 30,
+        "total_tokens": 30,
+        "cost": 3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3e-07,
+          "upstream_inference_prompt_cost": 3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860538-GncH0MqvMJyreqljnsp4",
+      "usage": {
+        "prompt_tokens": 62,
+        "total_tokens": 62,
+        "cost": 6.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.2e-07,
+          "upstream_inference_prompt_cost": 6.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860545-5o3Lp1C9berDuem5lIaM",
+      "usage": {
+        "prompt_tokens": 8455,
+        "completion_tokens": 287,
+        "total_tokens": 8742,
+        "cost": 0.0032253,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0032253,
+          "upstream_inference_prompt_cost": 0.0025365,
+          "upstream_inference_completions_cost": 0.0006888
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 144,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户从三个月前（约2026年6月）开始减盐运动，当时血压就恢复正常了\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户在开始减盐运动之前曾服用降压药半年\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860555-cwwT0PulLz2PSKvODdmE",
+      "usage": {
+        "prompt_tokens": 39,
+        "total_tokens": 39,
+        "cost": 3.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.9e-07,
+          "upstream_inference_prompt_cost": 3.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860558-ApOJTT9CJgn0eT231t3L",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860560-hxAy7TW8UgAJegoAQR7A",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 14,
+        "cost": 5.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.6e-07,
+          "upstream_inference_prompt_cost": 5.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860577-VlWRBZXuUbW8aMHCHKu3",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860579-NGAqPS7Ild0SyeVTwq6M",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860581-WIk56eFMBOmcqtpQ6gh0",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "用户目前是否还在服用降压药物？",
+        "expected_facts": [
+          "用户在上周复查后已停止服用降压药。",
+          "用户因生活方式调整（减盐）使血压恢复正常而停药。"
+        ],
+        "required_groups": [
+          [
+            "停止服用",
+            "不再吃",
+            "停药"
+          ],
+          [
+            "降压药",
+            "降压药物"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "083973f4-f96b-46ab-bc36-021ac89d313c",
+          "content": "用户上周复查时医生确认高血压已通过生活方式调整控制住，无需继续服用降压药，但用户担心突然停药可能会反弹",
+          "score": 0.8406768863531646,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:56.605404+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:17.732990+00:00"
+        },
+        {
+          "memory_id": "43fa5e8b-f974-4cef-8276-817921671d37",
+          "content": "用户在开始减盐运动之前曾服用降压药半年",
+          "score": 0.7865725492400454,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:17.759006+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:36.592455+00:00"
+        },
+        {
+          "memory_id": "ac6141ac-30d9-4ef4-8453-66ecddbc9735",
+          "content": "用户从三个月前（约2026年6月）开始减盐运动，当时血压就恢复正常了",
+          "score": 0.725824943241177,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:17.759006+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:36.592446+00:00"
+        }
+      ],
+      "seconds": 2.953
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "用户是什么时候开始采取非药物措施来控制血压的？",
+        "expected_facts": [
+          "用户从三个月前开始进行减盐运动。",
+          "用户通过减盐运动在三个月内使血压恢复正常。"
+        ],
+        "required_groups": [
+          [
+            "三个月前",
+            "3个月前"
+          ],
+          [
+            "减盐",
+            "减少盐分摄入"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "43fa5e8b-f974-4cef-8276-817921671d37",
+          "content": "用户在开始减盐运动之前曾服用降压药半年",
+          "score": 0.788872658202057,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:17.759006+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:36.592455+00:00"
+        },
+        {
+          "memory_id": "ac6141ac-30d9-4ef4-8453-66ecddbc9735",
+          "content": "用户从三个月前（约2026年6月）开始减盐运动，当时血压就恢复正常了",
+          "score": 0.7640755967888788,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:17.759006+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:36.592446+00:00"
+        },
+        {
+          "memory_id": "083973f4-f96b-46ab-bc36-021ac89d313c",
+          "content": "用户上周复查时医生确认高血压已通过生活方式调整控制住，无需继续服用降压药，但用户担心突然停药可能会反弹",
+          "score": 0.7590619994785387,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:56.605404+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:17.732990+00:00"
+        }
+      ],
+      "seconds": 17.188
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "用户目前是否还在服用降压药物？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "083973f4-f96b-46ab-bc36-021ac89d313c",
+        "content": "用户上周复查时医生确认高血压已通过生活方式调整控制住，无需继续服用降压药，但用户担心突然停药可能会反弹",
+        "score": 0.73550045078583,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:41:56.605404+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M12-01",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:42:17.732990+00:00"
+      },
+      {
+        "memory_id": "43fa5e8b-f974-4cef-8276-817921671d37",
+        "content": "用户在开始减盐运动之前曾服用降压药半年",
+        "score": 0.7095304088830006,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:42:17.759006+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M12-01",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:42:36.592455+00:00"
+      },
+      {
+        "memory_id": "ac6141ac-30d9-4ef4-8453-66ecddbc9735",
+        "content": "用户从三个月前（约2026年6月）开始减盐运动，当时血压就恢复正常了",
+        "score": 0.6394850411456974,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:42:17.759006+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M12-01",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:42:36.592446+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 65.953
+}

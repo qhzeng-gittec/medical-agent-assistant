@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"5933aa7ae31e07f92964\", \"query\": \"用户膝盖问题的具体成因和时间是什么？\", \"expected_facts\": [\"用户膝盖问题是五年前打篮球造成的半月板磨损。\", \"用户目前的症状是旧伤受天气影响复发，非新发炎。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户膝盖疼痛，去医院拍片检查后医生诊断骨头没事，只是半月板轻微磨损，用户确定不是类风湿性关节炎（之前朋友曾说是关节炎）\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:01:13.406026+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户膝盖半月板磨损是五年前（约2021年）打篮球留下的旧伤，最近因天气变冷感到不适，并非新得的炎症\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:01:35.828798+00:00\"}]}, {\"id\": \"59e2ba843d44584534cc\", \"query\": \"您的公婆中，谁在三年前接受了白内障激光手术治疗？\", \"expected_facts\": [\"用户的公公在三年前做了白内障激光手术。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的公公于约2023年因白内障接受了激光手术，而非之前记录的婆婆。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:36:28.992475+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户的婆婆于约2023年因白内障接受了激光手术，术后视力恢复良好。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:51.490290+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户的婆婆眼睛状况良好，未做过眼部手术。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:36:28.992475+00:00\"}]}, {\"id\": \"5a0644aeebf56a5bb682\", \"query\": \"这位患病亲属的哮喘病史是从什么时候开始的？\", \"expected_facts\": [\"患者的妹妹从小就有哮喘病史。\", \"此前将哮喘归因于弟弟是错误的。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户有一个妹妹自幼患有哮喘，弟弟没有哮喘病史。用户之前误记了兄弟姐妹的顺序，现已更正。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:55:07.930284+00:00\"}]}, {\"id\": \"5ba07c419f1557424778\", \"query\": \"请确认患者最近一次海外出差的地点和时长。\", \"expected_facts\": [\"患者最近一次出差地点是大阪。\", \"患者出差时长为七天。\", \"出差发生在上个月中旬。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户更正了出差信息：目的地是大阪而非东京，于2026年8月中旬出发，停留了7天\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:52:22.663642+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"User went on a business trip to Tokyo, Japan around August 2026, stayed for five days, worked primarily in Shibuya district, and visited Senso-ji Temple in Asakusa as a side activity\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:52:04.758610+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861972-ShQ0iyXm2oz2vmAdfWi7",
+    "object": "chat.completion",
+    "created": 1788861972,
+    "model": "minimax/minimax-m2.5",
+    "provider": "SiliconFlow",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"5933aa7ae31e07f92964\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"m1明确指出膝盖半月板磨损是五年前打篮球造成的旧伤。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"m1明确说明最近因天气变冷感到不适，并非新得的炎症。\"}]},{\"id\":\"59e2ba843d44584534cc\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"m0明确指出用户的公公于约2023年因白内障接受了激光手术。\"}]},{\"id\":\"5a0644aeebf56a5bb682\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"m0明确指出妹妹自幼患有哮喘。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"m0说明用户之前误记了兄弟姐妹顺序，将哮喘归因于弟弟是错误的。\"}]},{\"id\":\"5ba07c419f1557424778\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"m0明确更正目的地是大阪而非东京。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"m0明确指出停留了7天。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"m0明确指出于2026年8月中旬出发。\"}]}]}",
+          "refusal": null,
+          "reasoning": "让我分析每个项目：\n\n**Item 1: 5933aa7ae31e07f92964**\n查询：用户膝盖问题的具体成因和时间是什么？\n预期事实：\n1. 用户膝盖问题是五年前打篮球造成的半月板磨损。\n2. 用户目前的症状是旧伤受天气影响复发，非新发炎。\n\n记忆：\n- m0: 用户膝盖疼痛，去医院拍片检查后医生诊断骨头没事，只是半月板轻微磨损，用户确定不是类风湿性关节炎（之前朋友曾说是关节炎）\n- m1: 用户膝盖半月板磨损是五年前（约2021年）打篮球留下的旧伤，最近因天气变冷感到不适，并非新得的炎症\n\n分析：\n- 第一个预期事实：用户膝盖问题是五年前打篮球造成的半月板磨损\n  - m1 明确说\"五年前（约2021年）打篮球留下的旧伤\"，\"半月板磨损\"\n  - 支持：true，证据：m1\n  \n- 第二个预期事实：用户目前的症状是旧伤受天气影响复发，非新发炎\n  - m1 说\"最近因天气变冷感到不适，并非新得的炎症\"\n  - 支持：true，证据：m1\n\n**Item 2: 59e2ba843d44584534cc**\n查询：您的公婆中，谁在三年前接受了白内障激光手术治疗？\n\n\n预期事实：用户的公公在三年前做了白内障激光手术。\n\n记忆：\n- m0: 用户的公公于约2023年因白内障接受了激光手术，而非之前记录的婆婆。\n- m1: 用户的婆婆于约2023年因白内障接受了激光手术，术后视力恢复良好。\n- m2: 用户的婆婆眼睛状况良好，未做过眼部手术。\n\n分析：\n- 预期事实：用户的公公在三年前做了白内障激光手术\n  - m0 明确说\"用户的公公于约2023年因白内障接受了激光手术\"\n  - 支持：true，证据：m0\n\n**Item 3: 5a0644aeebf56a5bb682**\n查询：这位患病亲属的哮喘病史是从什么时候开始的？\n预期事实：\n1. 患者的妹妹从小就有哮喘病史。\n2. 此前将哮喘归因于弟弟是错误的。\n\n记忆：\n- m0: 用户有一个妹妹自幼患有哮喘，弟弟没有哮喘病史。用户之前误记了兄弟姐妹的顺序，现已更正。\n\n分析：\n- 第一个预期事实：患者的妹妹从小就有哮喘病史\n  - m0 说\"妹妹自幼患有哮喘\"\n  - 支持：true，证据：m0\n  \n- 第二个预期事实：此前将哮喘归因于弟弟是错误的\n  - m0 说\"弟弟没有哮喘病史。用户之前误记了兄弟姐妹的顺序，现已更正\"\n  - 支持：true，证据：m0\n\n**Item 4: 5ba07c419f1557424778**\n查询：请确认患者最近一次海外出差的地点和时长。\n预期事实：\n1. 患者最近一次出差地点是大阪。\n2. 患者出差时长为七天。\n3. 出差发生在上个月中旬。\n\n记忆：\n- m0: 用户更正了出差信息：目的地是大阪而非东京，于2026年8月中旬出发，停留了7天\n- m1: User went on a business trip to Tokyo, Japan around August 2026, stayed for five days, worked primarily in Shibuya district, and visited Senso-ji Temple in Asakusa as a side activity\n\n分析：\n- 第一个预期事实：患者最近一次出差地点是大阪\n  - m0 明确说\"目的地是大阪而非东京\"\n  - 支持：true，证据：m0\n  \n- 第二个预期事实：患者出差时长为七天\n  - m0 说\"停留了7天\"\n  - 支持：true，证据：m0\n  \n- 第三个预期事实：出差发生在上个月中旬\n  - m0 说\"于2026年8月中旬出发\"\n  - 支持：true，证据：m0\n\n所有预期事实都得到支持。\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "让我分析每个项目：\n\n**Item 1: 5933aa7ae31e07f92964**\n查询：用户膝盖问题的具体成因和时间是什么？\n预期事实：\n1. 用户膝盖问题是五年前打篮球造成的半月板磨损。\n2. 用户目前的症状是旧伤受天气影响复发，非新发炎。\n\n记忆：\n- m0: 用户膝盖疼痛，去医院拍片检查后医生诊断骨头没事，只是半月板轻微磨损，用户确定不是类风湿性关节炎（之前朋友曾说是关节炎）\n- m1: 用户膝盖半月板磨损是五年前（约2021年）打篮球留下的旧伤，最近因天气变冷感到不适，并非新得的炎症\n\n分析：\n- 第一个预期事实：用户膝盖问题是五年前打篮球造成的半月板磨损\n  - m1 明确说\"五年前（约2021年）打篮球留下的旧伤\"，\"半月板磨损\"\n  - 支持：true，证据：m1\n  \n- 第二个预期事实：用户目前的症状是旧伤受天气影响复发，非新发炎\n  - m1 说\"最近因天气变冷感到不适，并非新得的炎症\"\n  - 支持：true，证据：m1\n\n**Item 2: 59e2ba843d44584534cc**\n查询：您的公婆中，谁在三年前接受了白内障激光手术治疗？\n\n\n预期事实：用户的公公在三年前做了白内障激光手术。\n\n记忆：\n- m0: 用户的公公于约2023年因白内障接受了激光手术，而非之前记录的婆婆。\n- m1: 用户的婆婆于约2023年因白内障接受了激光手术，术后视力恢复良好。\n- m2: 用户的婆婆眼睛状况良好，未做过眼部手术。\n\n分析：\n- 预期事实：用户的公公在三年前做了白内障激光手术\n  - m0 明确说\"用户的公公于约2023年因白内障接受了激光手术\"\n  - 支持：true，证据：m0\n\n**Item 3: 5a0644aeebf56a5bb682**\n查询：这位患病亲属的哮喘病史是从什么时候开始的？\n预期事实：\n1. 患者的妹妹从小就有哮喘病史。\n2. 此前将哮喘归因于弟弟是错误的。\n\n记忆：\n- m0: 用户有一个妹妹自幼患有哮喘，弟弟没有哮喘病史。用户之前误记了兄弟姐妹的顺序，现已更正。\n\n分析：\n- 第一个预期事实：患者的妹妹从小就有哮喘病史\n  - m0 说\"妹妹自幼患有哮喘\"\n  - 支持：true，证据：m0\n  \n- 第二个预期事实：此前将哮喘归因于弟弟是错误的\n  - m0 说\"弟弟没有哮喘病史。用户之前误记了兄弟姐妹的顺序，现已更正\"\n  - 支持：true，证据：m0\n\n**Item 4: 5ba07c419f1557424778**\n查询：请确认患者最近一次海外出差的地点和时长。\n预期事实：\n1. 患者最近一次出差地点是大阪。\n2. 患者出差时长为七天。\n3. 出差发生在上个月中旬。\n\n记忆：\n- m0: 用户更正了出差信息：目的地是大阪而非东京，于2026年8月中旬出发，停留了7天\n- m1: User went on a business trip to Tokyo, Japan around August 2026, stayed for five days, worked primarily in Shibuya district, and visited Senso-ji Temple in Asakusa as a side activity\n\n分析：\n- 第一个预期事实：患者最近一次出差地点是大阪\n  - m0 明确说\"目的地是大阪而非东京\"\n  - 支持：true，证据：m0\n  \n- 第二个预期事实：患者出差时长为七天\n  - m0 说\"停留了7天\"\n  - 支持：true，证据：m0\n  \n- 第三个预期事实：出差发生在上个月中旬\n  - m0 说\"于2026年8月中旬出发\"\n  - 支持：true，证据：m0\n\n所有预期事实都得到支持。\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1101,
+      "completion_tokens": 1154,
+      "total_tokens": 2255,
+      "cost": 0.0017151,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0017151,
+        "upstream_inference_prompt_cost": 0.0003303,
+        "upstream_inference_completions_cost": 0.0013848
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 840,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 26.484
+}

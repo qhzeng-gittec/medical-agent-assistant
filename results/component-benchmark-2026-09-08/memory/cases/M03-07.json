@@ -1,0 +1,419 @@
+{
+  "case": {
+    "id": "M03-07",
+    "category": "药物过敏及具体反应",
+    "turns": [
+      {
+        "user": "我记得提过对普鲁卡因麻醉药过敏。那是七年前拔牙的时候，打完麻药没过多久，我就觉得心慌意乱，手脚开始发抖，脸色也变得苍白。",
+        "assistant": "已记录您关于普鲁卡因麻醉药过敏的牙科就诊经历。"
+      },
+      {
+        "user": "再补充点细节，那是2017年夏天，除了心慌和颤抖，我还出现了过敏性休克的早期迹象，血压骤降，幸好医生及时发现并更换了其他麻醉方式。",
+        "assistant": "收到，已完善您关于普鲁卡因过敏的严重性及处理过程记录。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "患者在进行何种医疗操作时因使用特定麻醉药而出现循环系统异常反应？",
+        "expected_facts": [
+          "患者在拔牙时使用普鲁卡因麻醉药引发过敏。",
+          "反应包括心慌、手脚发抖、脸色苍白及血压骤降。"
+        ],
+        "required_groups": [
+          [
+            "普鲁卡因",
+            "普鲁卡因麻醉"
+          ],
+          [
+            "心慌",
+            "心悸",
+            "心跳加速"
+          ],
+          [
+            "血压骤降",
+            "低血压",
+            "休克迹象"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "这次药物过敏事件发生在哪一年的夏季，医生随后采取了什么应对措施？",
+        "expected_facts": [
+          "事件发生在2017年夏天。",
+          "医生更换了其他麻醉方式。"
+        ],
+        "required_groups": [
+          [
+            "2017年",
+            "2017年夏天"
+          ],
+          [
+            "更换",
+            "改用",
+            "换用"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M03-07",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860399-l0CxXZgdkxIzKb8qLGRL",
+      "usage": {
+        "prompt_tokens": 70,
+        "total_tokens": 70,
+        "cost": 7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7e-07,
+          "upstream_inference_prompt_cost": 7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860408-bDG0h1kf9P1VwKc3eDEj",
+      "usage": {
+        "prompt_tokens": 8366,
+        "completion_tokens": 76,
+        "total_tokens": 8442,
+        "cost": 0.00242298,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00242298,
+          "upstream_inference_prompt_cost": 0.00225882,
+          "upstream_inference_completions_cost": 0.00016416
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 75,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": null
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860419-kiS12JZrkxtOkjNh03Hy",
+      "usage": {
+        "prompt_tokens": 72,
+        "total_tokens": 72,
+        "cost": 7.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.2e-07,
+          "upstream_inference_prompt_cost": 7.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860423-oZB1Gy44HYseGEEOqoN0",
+      "usage": {
+        "prompt_tokens": 8432,
+        "completion_tokens": 323,
+        "total_tokens": 8755,
+        "cost": 0.00297432,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00297432,
+          "upstream_inference_prompt_cost": 0.00227664,
+          "upstream_inference_completions_cost": 0.00069768
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 162,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"User has an allergy to procaine (普鲁卡因) anesthesia, first experienced during a tooth extraction in summer 2017. Symptoms included palpitations, trembling hands and feet, pale skin, and early signs of anaphylactic shock with sudden blood pressure drop.\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"During the 2017 procaine allergy reaction, the doctor promptly identified the symptoms and switched to a different anesthesia method, preventing further complications.\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860433-fPdtY1INMairTeuti3AI",
+      "usage": {
+        "prompt_tokens": 89,
+        "total_tokens": 89,
+        "cost": 8.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 8.9e-07,
+          "upstream_inference_prompt_cost": 8.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860444-7xT9HPINVUhs8mz9eb90",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860446-OCy4EbP6FlX82AdhONor",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860447-czdyyV5ANoferN6HHhgT",
+      "usage": {
+        "prompt_tokens": 30,
+        "total_tokens": 30,
+        "cost": 3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3e-07,
+          "upstream_inference_prompt_cost": 3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860451-HOz7NUTqsrPXiVCJerLc",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860452-H7fEgUA8874ccBfg4A8N",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "患者在进行何种医疗操作时因使用特定麻醉药而出现循环系统异常反应？",
+        "expected_facts": [
+          "患者在拔牙时使用普鲁卡因麻醉药引发过敏。",
+          "反应包括心慌、手脚发抖、脸色苍白及血压骤降。"
+        ],
+        "required_groups": [
+          [
+            "普鲁卡因",
+            "普鲁卡因麻醉"
+          ],
+          [
+            "心慌",
+            "心悸",
+            "心跳加速"
+          ],
+          [
+            "血压骤降",
+            "低血压",
+            "休克迹象"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "c9c98b82-a9b5-4bc5-9fd2-d48fe8a84371",
+          "content": "During the 2017 procaine allergy reaction, the doctor promptly identified the symptoms and switched to a different anesthesia method, preventing further complications.",
+          "score": 0.5866261132986381,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:40:18.452946+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M03-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:40:34.056495+00:00"
+        },
+        {
+          "memory_id": "3ce879aa-e2b4-4919-870c-bc82c6d9cb36",
+          "content": "User has an allergy to procaine (普鲁卡因) anesthesia, first experienced during a tooth extraction in summer 2017. Symptoms included palpitations, trembling hands and feet, pale skin, and early signs of anaphylactic shock with sudden blood pressure drop.",
+          "score": 0.5514047403382641,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:40:18.452946+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M03-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:40:34.056495+00:00"
+        }
+      ],
+      "seconds": 11.063
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "这次药物过敏事件发生在哪一年的夏季，医生随后采取了什么应对措施？",
+        "expected_facts": [
+          "事件发生在2017年夏天。",
+          "医生更换了其他麻醉方式。"
+        ],
+        "required_groups": [
+          [
+            "2017年",
+            "2017年夏天"
+          ],
+          [
+            "更换",
+            "改用",
+            "换用"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "c9c98b82-a9b5-4bc5-9fd2-d48fe8a84371",
+          "content": "During the 2017 procaine allergy reaction, the doctor promptly identified the symptoms and switched to a different anesthesia method, preventing further complications.",
+          "score": 0.6143805750492666,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:40:18.452946+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M03-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:40:34.056495+00:00"
+        },
+        {
+          "memory_id": "3ce879aa-e2b4-4919-870c-bc82c6d9cb36",
+          "content": "User has an allergy to procaine (普鲁卡因) anesthesia, first experienced during a tooth extraction in summer 2017. Symptoms included palpitations, trembling hands and feet, pale skin, and early signs of anaphylactic shock with sudden blood pressure drop.",
+          "score": 0.5440381878978197,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:40:18.452946+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M03-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:40:34.056495+00:00"
+        }
+      ],
+      "seconds": 1.093
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者在进行何种医疗操作时因使用特定麻醉药而出现循环系统异常反应？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "c9c98b82-a9b5-4bc5-9fd2-d48fe8a84371",
+        "content": "During the 2017 procaine allergy reaction, the doctor promptly identified the symptoms and switched to a different anesthesia method, preventing further complications.",
+        "score": 0.5745948986056422,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:40:18.452946+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M03-07",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:40:34.056495+00:00"
+      },
+      {
+        "memory_id": "3ce879aa-e2b4-4919-870c-bc82c6d9cb36",
+        "content": "User has an allergy to procaine (普鲁卡因) anesthesia, first experienced during a tooth extraction in summer 2017. Symptoms included palpitations, trembling hands and feet, pale skin, and early signs of anaphylactic shock with sudden blood pressure drop.",
+        "score": 0.5399543776685138,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:40:18.452946+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M03-07",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:40:34.056495+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 58.922
+}

@@ -1,0 +1,475 @@
+{
+  "case": {
+    "id": "M01-05",
+    "category": "工作作息与睡眠时间变化",
+    "turns": [
+      {
+        "user": "三个月前我开始远程办公，结果在家反而更乱了，经常忙到深夜两三点，早上九点才勉强起床。",
+        "assistant": "明白，已记录您远程办公初期作息混乱的情况。"
+      },
+      {
+        "user": "其实不是三个月前，是两个月前开始的，而且我现在已经制定了严格时间表，昨晚十一点就睡了。",
+        "assistant": "收到，已修正开始时间并记录您昨晚的早睡行为。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "用户实际是什么时候开始远程办公的？当时的作息有什么特点？",
+        "expected_facts": [
+          "该用户于两个月前开始远程办公。",
+          "该用户当时常忙至深夜两三点，早上九点才起床。"
+        ],
+        "required_groups": [
+          [
+            "两个月前",
+            "两月前"
+          ],
+          [
+            "深夜两三点",
+            "凌晨两三点"
+          ],
+          [
+            "早上九点才起床",
+            "九点才醒"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "用户最近采取了什么措施来改善作息？效果如何？",
+        "expected_facts": [
+          "该用户已制定严格的时间表。",
+          "该用户昨晚十一点就已入睡。"
+        ],
+        "required_groups": [
+          [
+            "制定了严格时间表",
+            "有了严格计划"
+          ],
+          [
+            "昨晚十一点就睡了",
+            "昨夜十一点入睡"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M01-05",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859814-sOZC8ibGL4cRSkbQSkGx",
+      "usage": {
+        "prompt_tokens": 49,
+        "total_tokens": 49,
+        "cost": 4.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.9e-07,
+          "upstream_inference_prompt_cost": 4.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788859830-rB4POXmZkanynZlqWJ3L",
+      "usage": {
+        "prompt_tokens": 8348,
+        "completion_tokens": 580,
+        "total_tokens": 8928,
+        "cost": 0.00367848,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00367848,
+          "upstream_inference_prompt_cost": 0.00217048,
+          "upstream_inference_completions_cost": 0.001508
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 521,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户于2026年6月左右开始远程办公，但在家作息变得混乱，经常工作到深夜两三点，早上九点才勉强起床\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859844-O4XEYwTGV8SJztd4cZvZ",
+      "usage": {
+        "prompt_tokens": 34,
+        "total_tokens": 34,
+        "cost": 3.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.4e-07,
+          "upstream_inference_prompt_cost": 3.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859850-SoGn0kPNDEjAr8PqpZWM",
+      "usage": {
+        "prompt_tokens": 51,
+        "total_tokens": 51,
+        "cost": 5.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.1e-07,
+          "upstream_inference_prompt_cost": 5.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788859858-fuJXO1A6RASq7sMWHHKi",
+      "usage": {
+        "prompt_tokens": 8438,
+        "completion_tokens": 688,
+        "total_tokens": 9126,
+        "cost": 0.0034855,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0034855,
+          "upstream_inference_prompt_cost": 0.0021095,
+          "upstream_inference_completions_cost": 0.001376
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 544,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户于2026年7月左右开始远程办公（约两个月前），而非之前提到的三个月前\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户已制定严格时间表，昨晚（2026年9月7日）十一点就睡了，作息有所改善\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859877-LYbgrbo5gKGJvrutKHHP",
+      "usage": {
+        "prompt_tokens": 54,
+        "total_tokens": 54,
+        "cost": 5.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.4e-07,
+          "upstream_inference_prompt_cost": 5.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859885-GVQIFZAAP8NBYXdyGXLv",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859885-xpxR2CXjWDCOwSYf83kq",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 14,
+        "cost": 1.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.4e-07,
+          "upstream_inference_prompt_cost": 1.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859891-t6D8b7RCEQnX5T4VvmyD",
+      "usage": {
+        "prompt_tokens": 25,
+        "total_tokens": 25,
+        "cost": 2.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.5e-07,
+          "upstream_inference_prompt_cost": 2.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859892-GAQD6TUSrSONaqQyo3wN",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859895-qaJoQd6Zx980lcmhLFOk",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "用户实际是什么时候开始远程办公的？当时的作息有什么特点？",
+        "expected_facts": [
+          "该用户于两个月前开始远程办公。",
+          "该用户当时常忙至深夜两三点，早上九点才起床。"
+        ],
+        "required_groups": [
+          [
+            "两个月前",
+            "两月前"
+          ],
+          [
+            "深夜两三点",
+            "凌晨两三点"
+          ],
+          [
+            "早上九点才起床",
+            "九点才醒"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "975950fa-9833-4b3a-80ca-2f75aa99337e",
+          "content": "用户于2026年6月左右开始远程办公，但在家作息变得混乱，经常工作到深夜两三点，早上九点才勉强起床",
+          "score": 0.8899546192516201,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:30:12.993844+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M01-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:30:49.845659+00:00"
+        },
+        {
+          "memory_id": "7fe09978-71cf-4e4e-bf05-613a89658e46",
+          "content": "用户于2026年7月左右开始远程办公（约两个月前），而非之前提到的三个月前",
+          "score": 0.809340761893966,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:30:49.870322+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:31:21.901534+00:00"
+        },
+        {
+          "memory_id": "bec56fb6-77a9-4e0c-93e8-32c352163d31",
+          "content": "用户已制定严格时间表，昨晚（2026年9月7日）十一点就睡了，作息有所改善",
+          "score": 0.631370669853965,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:30:49.870322+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:31:21.901534+00:00"
+        }
+      ],
+      "seconds": 2.937
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "用户最近采取了什么措施来改善作息？效果如何？",
+        "expected_facts": [
+          "该用户已制定严格的时间表。",
+          "该用户昨晚十一点就已入睡。"
+        ],
+        "required_groups": [
+          [
+            "制定了严格时间表",
+            "有了严格计划"
+          ],
+          [
+            "昨晚十一点就睡了",
+            "昨夜十一点入睡"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "bec56fb6-77a9-4e0c-93e8-32c352163d31",
+          "content": "用户已制定严格时间表，昨晚（2026年9月7日）十一点就睡了，作息有所改善",
+          "score": 0.9023279454215523,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:30:49.870322+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:31:21.901534+00:00"
+        },
+        {
+          "memory_id": "975950fa-9833-4b3a-80ca-2f75aa99337e",
+          "content": "用户于2026年6月左右开始远程办公，但在家作息变得混乱，经常工作到深夜两三点，早上九点才勉强起床",
+          "score": 0.6903551210061109,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:30:12.993844+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M01-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:30:49.845659+00:00"
+        },
+        {
+          "memory_id": "7fe09978-71cf-4e4e-bf05-613a89658e46",
+          "content": "用户于2026年7月左右开始远程办公（约两个月前），而非之前提到的三个月前",
+          "score": 0.4983844056755156,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:30:49.870322+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:31:21.901534+00:00"
+        }
+      ],
+      "seconds": 5.407
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "用户实际是什么时候开始远程办公的？当时的作息有什么特点？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "975950fa-9833-4b3a-80ca-2f75aa99337e",
+        "content": "用户于2026年6月左右开始远程办公，但在家作息变得混乱，经常工作到深夜两三点，早上九点才勉强起床",
+        "score": 0.7865926160973025,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:30:12.993844+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M01-05",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:30:49.845659+00:00"
+      },
+      {
+        "memory_id": "7fe09978-71cf-4e4e-bf05-613a89658e46",
+        "content": "用户于2026年7月左右开始远程办公（约两个月前），而非之前提到的三个月前",
+        "score": 0.7157686111884789,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:30:49.870322+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M01-05",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:31:21.901534+00:00"
+      },
+      {
+        "memory_id": "bec56fb6-77a9-4e0c-93e8-32c352163d31",
+        "content": "用户已制定严格时间表，昨晚（2026年9月7日）十一点就睡了，作息有所改善",
+        "score": 0.6374812546258475,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:30:49.870322+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M01-05",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:31:21.901534+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 83.875
+}

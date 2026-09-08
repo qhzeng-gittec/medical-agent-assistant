@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Review synthetic memory retrieval labels against ONLY the supplied fictional dialogue.\nReturn JSON {\"reviews\":[{\"id\":scenario id,\"supported\":true/false,\"reason\":\"short reason\"}]} in input order.\nFor each scenario verify that EVERY query.expected_facts proposition is entailed by user messages, with\ncorrect speaker, negation, time and uncertainty; assistant suggestions are not patient facts.\nVerify that each query actually asks for those facts. Missing details or contradictions mean false.\nDo not assess medicine or add new facts. Independently assess the data, not the author."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"M12-06\", \"category\": \"否定事实与助手建议区分\", \"turns\": [{\"user\": \"同事总说我脸色不好是贫血，但我上周血常规检查各项指标都在正常范围内，医生说我根本不贫血，可能是最近熬夜太多气色差而已。\", \"assistant\": \"了解，已记录您上周检查确认无贫血的事实。\"}, {\"user\": \"是的，我确实连续两周每晚只睡四小时，这是赶报告导致的，一旦休息好气色就恢复了，以前体检从来没发现过贫血问题。\", \"assistant\": \"明白，已补充您近期因熬夜导致气色差而非贫血的记录。\"}], \"queries\": [{\"id\": \"q1\", \"query\": \"用户是否患有贫血？\", \"expected_facts\": [\"用户上周血常规检查显示不贫血。\", \"医生确认用户各项指标正常，无贫血症状。\"], \"required_groups\": [[\"不贫血\", \"无贫血\", \"指标正常\"], [\"贫血\"]]}, {\"id\": \"q2\", \"query\": \"用户脸色不好的真实原因及持续时间？\", \"expected_facts\": [\"用户脸色不好是因为连续两周每晚只睡四小时。\", \"用户熬夜是由于赶报告工作所致。\"], \"required_groups\": [[\"连续两周\", \"2周\"], [\"熬夜\", \"睡眠不足\", \"赶报告\"]]}], \"split\": \"dev\", \"family_id\": \"M12-06\", \"synthetic\": true}, {\"id\": \"M12-07\", \"category\": \"否定事实与助手建议区分\", \"turns\": [{\"user\": \"家里人一直担心我有抑郁症，但我上个月去心理科做了专业评估，结果显示我情绪稳定，没有抑郁症，只是最近搬家太累有点烦躁。\", \"assistant\": \"收到，已记录您上个月评估排除抑郁症的结果。\"}, {\"user\": \"补充说，那种烦躁感是从半个月前搬家开始的，现在东西都整理好了，心情已经平复很多，这跟病理性的抑郁完全不同。\", \"assistant\": \"明白，已更新您烦躁情绪源于半个月前搬家的背景信息。\"}], \"queries\": [{\"id\": \"q1\", \"query\": \"用户是否被诊断为抑郁症？\", \"expected_facts\": [\"用户上个月心理评估结果显示无抑郁症。\", \"医生确认用户情绪稳定，未患抑郁症。\"], \"required_groups\": [[\"无\", \"没有\", \"排除\"], [\"抑郁症\", \"抑郁\"]]}, {\"id\": \"q2\", \"query\": \"用户产生烦躁情绪的具体诱因和时间？\", \"expected_facts\": [\"用户的烦躁情绪始于半个月前的搬家活动。\", \"用户的情绪波动是由搬家劳累引起，非病理性。\"], \"required_groups\": [[\"半个月前\", \"半個月前\"], [\"搬家\", \"搬迁\"]]}], \"split\": \"test\", \"family_id\": \"M12-07\", \"synthetic\": true}, {\"id\": \"M12-08\", \"category\": \"否定事实与助手建议区分\", \"turns\": [{\"user\": \"朋友说我咳嗽是老慢支，但我去医院做了肺功能测试，医生说我的肺功能完全正常，没有慢性支气管炎，只是换季时的普通感冒咳嗽。\", \"assistant\": \"好的，已记录您经检查排除慢性支气管炎的诊断。\"}, {\"user\": \"对，这次咳嗽是十天前换季受凉引起的，现在已经快好了，以前我也经常换季咳嗽，但从来都不是慢性病。\", \"assistant\": \"明白，已补充您咳嗽源于十天前换季受凉的记录。\"}], \"queries\": [{\"id\": \"q1\", \"query\": \"用户是否患有慢性支气管炎？\", \"expected_facts\": [\"用户肺功能测试显示无慢性支气管炎。\", \"医生确认用户肺部功能正常，非老慢支。\"], \"required_groups\": [[\"无\", \"没有\", \"排除\"], [\"慢性支气管炎\", \"老慢支\"]]}, {\"id\": \"q2\", \"query\": \"用户本次咳嗽的起因和发生时间？\", \"expected_facts\": [\"用户咳嗽是十天前换季受凉引起的。\", \"用户此次咳嗽属于普通感冒症状，非慢性病。\"], \"required_groups\": [[\"十天前\", \"10天前\"], [\"换季\", \"受凉\", \"感冒\"]]}], \"split\": \"test\", \"family_id\": \"M12-08\", \"synthetic\": true}, {\"id\": \"M12-09\", \"category\": \"否定事实与助手建议区分\", \"turns\": [{\"user\": \"亲戚都说我手抖是帕金森，但我神经内科医生看了之后说这是特发性震颤，而且很轻微，绝对不是帕金森病，不用太紧张。\", \"assistant\": \"收到，已记录您被诊断为特发性震颤而非帕金森病的情况。\"}, {\"user\": \"补充一下，这个手抖现象从我二十多岁就有了，最近因为紧张稍微明显点，但医生确认它不会发展成帕金森，一直都很稳定。\", \"assistant\": \"明白，已更新您手抖始于二十多岁且病情稳定的记录。\"}], \"queries\": [{\"id\": \"q1\", \"query\": \"用户是否患有帕金森病？\", \"expected_facts\": [\"用户经神经内科医生诊断排除帕金森病。\", \"用户确诊为特发性震颤，非帕金森病。\"], \"required_groups\": [[\"不是\", \"排除\", \"非\"], [\"帕金森病\", \"帕金森\"]]}, {\"id\": \"q2\", \"query\": \"用户手抖症状的起始时间和性质？\", \"expected_facts\": [\"用户手抖症状始于二十多岁。\", \"用户手抖为特发性震颤，病情长期稳定。\"], \"required_groups\": [[\"二十多岁\", \"20多岁\"], [\"特发性震颤\", \"手抖\"]]}], \"split\": \"test\", \"family_id\": \"M12-09\", \"synthetic\": true}, {\"id\": \"M12-10\", \"category\": \"否定事实与助手建议区分\", \"turns\": [{\"user\": \"有人说我视力下降是青光眼，但我昨天做了眼压和视野检查，医生说我眼压正常，视野也没缺损，根本没有青光眼，只是近视加深了。\", \"assistant\": \"好的，已记录您昨日检查排除青光眼的结果。\"}, {\"user\": \"是的，我最近看东西模糊是因为长时间看电脑，度数涨了，但这跟青光眼没关系，以前每年体检眼压都是正常的。\", \"assistant\": \"明白，已补充您视力下降源于近视加深而非青光眼的记录。\"}], \"queries\": [{\"id\": \"q1\", \"query\": \"用户是否患有青光眼？\", \"expected_facts\": [\"用户昨日检查显示眼压正常且无视野缺损。\", \"医生确认用户未患青光眼。\"], \"required_groups\": [[\"无\", \"没有\", \"排除\"], [\"青光眼\"]]}, {\"id\": \"q2\", \"query\": \"用户视力下降的真实原因是什么？\", \"expected_facts\": [\"用户视力下降是因为长时间看电脑导致近视加深。\", \"用户视力问题与青光眼无关。\"], \"required_groups\": [[\"近视加深\", \"度数涨\"], [\"看电脑\", \"用眼过度\"]]}], \"split\": \"test\", \"family_id\": \"M12-10\", \"synthetic\": true}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 3500,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788859741-LSJbcMA2o82JTO9Hczkn",
+    "object": "chat.completion",
+    "created": 1788859741,
+    "model": "minimax/minimax-m2.5",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\"reviews\":[{\"id\":\"M12-06\",\"supported\":true,\"reason\":\"Both queries are fully supported: q1 facts about no anemia from blood test and doctor confirmation are in user turn 1; q2 facts about two weeks of 4-hour sleep and report deadline are in user turn 2.\"},{\"id\":\"M12-07\",\"supported\":true,\"reason\":\"Both queries supported: q1 facts about psychological evaluation showing no depression and emotional stability are in user turn 1; q2 facts about irritability starting half a month ago due to moving are in user turn 2.\"},{\"id\":\"M12-08\",\"supported\":true,\"reason\":\"Both queries supported: q1 facts about lung function test showing no chronic bronchitis are in user turn 1; q2 facts about cough starting 10 days ago from seasonal change and cold are in user turn 2.\"},{\"id\":\"M12-09\",\"supported\":true,\"reason\":\"Both queries supported: q1 facts about neurologist diagnosing essential tremor而非帕金森 are in user turn 1; q2 facts about tremor starting in twenties and being stable are in user turn 2.\"},{\"id\":\"M12-10\",\"supported\":true,\"reason\":\"Both queries supported: q1 facts about yesterday's eye pressure and visual field tests showing no glaucoma are in user turn 1; q2 facts about vision decline due to prolonged computer use and myopia progression are in user turn 2.\"}]}\n```",
+          "refusal": null,
+          "reasoning": "Let me analyze each scenario to verify if the synthetic memory retrieval labels are supported by the dialogue.\n\nFor each scenario, I need to check:\n1. Whether each query actually asks for those facts\n2. Whether EVERY query.expected_facts proposition is entailed by user messages (with correct speaker, negation, time, uncertainty)\n3. Assistant suggestions are NOT patient facts\n\nLet me go through each scenario:\n\n## M12-06\n\n**Turns:**\n1. User: \"同事总说我脸色不好是贫血，但我上周血常规检查各项指标都在正常范围内，医生说我根本不贫血，可能是最近熬夜太多气色差而已。\"\n2. Assistant: \"了解，已记录您上周检查确认无贫血的事实。\"\n3. User: \"是的，我确实连续两周每晚只睡四小时，这是赶报告导致的，一旦休息好气色就恢复了，以前体检从来没发现过贫血问题。\"\n4. Assistant: \"明白，已补充您近期因熬夜导致气色差而非贫血的记录。\"\n\n**Queries:**\n\n**q1:** \"用户是否患有贫血？\"\n- expected_facts: [\"用户上周血常规检查显示不贫血。\", \"医生确认用户各项指标正常，无贫血症状。\"]\n- Check: User said \"我上周血常规检查各项指标都在正常范围内\" and \"医生说我根本不贫血\" - this supports both facts. The query asks about whether user has anemia, and the facts are about not having anemia. ✓\n\n**q2:** \"用户脸色不好的真实原因及持续时间？\"\n- expected_facts: [\"用户脸色不好是因为连续两周每晚只睡四小时。\", \"用户熬夜是由于赶报告工作所致。\"]\n- Check: User said \"我确实连续两周每晚只睡四小时\" and \"这是赶报告导致的\" - both facts are supported. ✓\n\n**Assessment:** Both queries are supported. \n\n## M12-07\n\n**Turns:**\n1. User: \"家里人一直担心我有抑郁症，但我上个月去心理科做了专业评估，结果显示我情绪稳定，没有抑郁症，只是最近搬家太累有点烦躁。\"\n2. Assistant: \"收到，已记录您上个月评估排除抑郁症的结果。\"\n3. User: \"补充说，那种烦躁感是从半个月前搬家开始的，现在东西都整理好了，心情已经平复很多，这跟病理性的抑郁完全不同。\"\n4. Assistant: \"明白，已更新您烦躁情绪源于半个月前搬家的背景信息。\"\n\n**Queries:**\n\n**q1:** \"用户是否被诊断为抑郁症？\"\n- expected_facts: [\"用户上个月心理评估结果显示无抑郁症。\", \"医生确认用户情绪稳定，未患抑郁症。\"]\n- Check: User said \"我上个月去心理科做了专业评估，结果显示我情绪稳定，没有抑郁症\" - this supports both facts. ✓\n\n**q2:** \"用户产生烦躁情绪的具体诱因和时间？\"\n- expected_facts: [\"用户的烦躁情绪始于半个月前的搬家活动。\", \"用户的情绪波动是由搬家劳累引起，非病理性。\"]\n- Check: User said \"那种烦躁感是从半个月前搬家开始的\" and \"现在东西都整理好了，心情已经平复很多，这跟病理性的抑郁完全不同\" - both facts are supported. ✓\n\n**Assessment:** Both queries are supported. ✓\n\n## M12-08\n\n**Turns:**\n1. User: \"朋友说我咳嗽是老慢支，但我去医院做了肺功能测试，医生说我的肺功能完全正常，没有慢性支气管炎，只是换季时的普通感冒咳嗽。\"\n2. Assistant: \"好的，已记录您经检查排除慢性支气管炎的诊断。\"\n3. User: \"对，这次咳嗽是十天前换季受凉引起的，现在已经快好了，以前我也经常换季咳嗽，但从来都不是慢性病。\"\n4. Assistant: \"明白，已补充您咳嗽源于十天前换季受凉的记录。\"\n\n**Queries:**\n\n**q1:** \"用户是否患有慢性支气管炎？\"\n- expected_facts: [\"用户肺功能测试显示无慢性支气管炎。\", \"医生确认用户肺部功能正常，非老慢支。\"]\n- Check: User said \"我去做\n\n了肺功能测试，医生说我的肺功能完全正常，没有慢性支气管炎\" - this supports both facts. ✓\n\n**q2:** \"用户本次咳嗽的起因和发生时间？\"\n- expected_facts: [\"用户咳嗽是十天前换季受凉引起的。\", \"用户此次咳嗽属于普通感冒症状，非慢性病。\"]\n- Check: User said \"这次咳嗽是十天前换季受凉引起的\" and \"以前我也经常换季咳嗽，但从来都不是慢性病\" - both facts are supported. ✓\n\n**Assessment:** Both queries are supported. ✓\n\n## M12-09\n\n**Turns:**\n1. User: \"亲戚都说我手抖是帕金森，但我神经内科医生看了之后说这是特发性震颤，而且很轻微，绝对不是帕金森病，不用太紧张。\"\n2. Assistant: \"收到，已记录您被诊断为特发性震颤而非帕金森病的情况。\"\n3. User: \"补充一下，这个手抖现象从我二十多岁就有了，最近因为紧张稍微明显点，但医生确认它不会发展成帕金森，一直都很稳定。\"\n4. Assistant: \"明白，已更新您手抖始于二十多岁且病情稳定的记录。\"\n\n**Queries:**\n\n**q1:** \"用户是否患有帕金森病？\"\n- expected_facts: [\"用户经神经内科医生诊断排除帕金森病。\", \"用户确诊为特发性震颤，非帕金森病。\"]\n- Check: User said \"亲戚都说我手抖是帕金森，但我神经内科医生看了之后说这是特发性震颤，而且很轻微，绝对不是帕金森病\" - this supports both facts. ✓\n\n**q2:** \"用户手抖症状的起始时间和性质？\"\n- expected_facts: [\"用户手抖症状始于二十多岁。\", \"用户手抖为特发性震颤，病情长期稳定。\"]\n- Check: User said \"这个手抖现象从我二十多岁就有了\" and \"医生确认它不会发展成帕金森，一直都很稳定\" - both facts are supported. ✓\n\n**Assessment:** Both queries are supported. ✓\n\n## M12-10\n\n**Turns:**\n1. User: \"有人说我视力下降是青光眼，但我昨天做了眼压和视野检查，医生说我眼压正常，视野也没缺损，根本没有青光眼，只是近视加深了。\"\n2. Assistant: \"好的，已记录您昨日检查排除青光眼的结果。\"\n3. User: \"是的，我最近看东西模糊是因为长时间看电脑，度数涨了，但这跟青光眼没关系，以前每年体检眼压都是正常的。\"\n4. Assistant: \"明白，已补充您视力下降源于近视加深而非青光眼的记录。\"\n\n**Queries:**\n\n**q1:** \"用户是否患有青光眼？\"\n- expected_facts: [\"用户昨日检查显示眼压正常且无视野缺损。\", \"医生确认用户未患青光眼。\"]\n- Check: User said \"我昨天做了眼压和视野检查，医生说我眼压正常，视野也没缺损，根本没有青光眼\" - this supports both facts. ✓\n\n**q2:** \"用户视力下降的真实原因是什么？\"\n- expected_facts: [\"用户视力下降是因为长时间看电脑导致近视加深。\", \"用户视力问题与青光眼无关。\"]\n- Check: User said \"我最近看东西模糊是因为长时间看电脑，度数涨了，但这跟青光眼没关系\" - both facts are supported. ✓\n\n**Assessment:** Both queries are supported. ✓\n\nAll scenarios appear to be supported. Let me double-check for any issues:\n\n1. All user messages contain the facts that are expected\n2. The queries are asking for those specific facts\n3. No assistant suggestions are being counted as patient facts\n4. All negation, time, and speaker information is correct\n\nAll scenarios are supported.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each scenario to verify if the synthetic memory retrieval labels are supported by the dialogue.\n\nFor each scenario, I need to check:\n1. Whether each query actually asks for those facts\n2. Whether EVERY query.expected_facts proposition is entailed by user messages (with correct speaker, negation, time, uncertainty)\n3. Assistant suggestions are NOT patient facts\n\nLet me go through each scenario:\n\n## M12-06\n\n**Turns:**\n1. User: \"同事总说我脸色不好是贫血，但我上周血常规检查各项指标都在正常范围内，医生说我根本不贫血，可能是最近熬夜太多气色差而已。\"\n2. Assistant: \"了解，已记录您上周检查确认无贫血的事实。\"\n3. User: \"是的，我确实连续两周每晚只睡四小时，这是赶报告导致的，一旦休息好气色就恢复了，以前体检从来没发现过贫血问题。\"\n4. Assistant: \"明白，已补充您近期因熬夜导致气色差而非贫血的记录。\"\n\n**Queries:**\n\n**q1:** \"用户是否患有贫血？\"\n- expected_facts: [\"用户上周血常规检查显示不贫血。\", \"医生确认用户各项指标正常，无贫血症状。\"]\n- Check: User said \"我上周血常规检查各项指标都在正常范围内\" and \"医生说我根本不贫血\" - this supports both facts. The query asks about whether user has anemia, and the facts are about not having anemia. ✓\n\n**q2:** \"用户脸色不好的真实原因及持续时间？\"\n- expected_facts: [\"用户脸色不好是因为连续两周每晚只睡四小时。\", \"用户熬夜是由于赶报告工作所致。\"]\n- Check: User said \"我确实连续两周每晚只睡四小时\" and \"这是赶报告导致的\" - both facts are supported. ✓\n\n**Assessment:** Both queries are supported. \n\n## M12-07\n\n**Turns:**\n1. User: \"家里人一直担心我有抑郁症，但我上个月去心理科做了专业评估，结果显示我情绪稳定，没有抑郁症，只是最近搬家太累有点烦躁。\"\n2. Assistant: \"收到，已记录您上个月评估排除抑郁症的结果。\"\n3. User: \"补充说，那种烦躁感是从半个月前搬家开始的，现在东西都整理好了，心情已经平复很多，这跟病理性的抑郁完全不同。\"\n4. Assistant: \"明白，已更新您烦躁情绪源于半个月前搬家的背景信息。\"\n\n**Queries:**\n\n**q1:** \"用户是否被诊断为抑郁症？\"\n- expected_facts: [\"用户上个月心理评估结果显示无抑郁症。\", \"医生确认用户情绪稳定，未患抑郁症。\"]\n- Check: User said \"我上个月去心理科做了专业评估，结果显示我情绪稳定，没有抑郁症\" - this supports both facts. ✓\n\n**q2:** \"用户产生烦躁情绪的具体诱因和时间？\"\n- expected_facts: [\"用户的烦躁情绪始于半个月前的搬家活动。\", \"用户的情绪波动是由搬家劳累引起，非病理性。\"]\n- Check: User said \"那种烦躁感是从半个月前搬家开始的\" and \"现在东西都整理好了，心情已经平复很多，这跟病理性的抑郁完全不同\" - both facts are supported. ✓\n\n**Assessment:** Both queries are supported. ✓\n\n## M12-08\n\n**Turns:**\n1. User: \"朋友说我咳嗽是老慢支，但我去医院做了肺功能测试，医生说我的肺功能完全正常，没有慢性支气管炎，只是换季时的普通感冒咳嗽。\"\n2. Assistant: \"好的，已记录您经检查排除慢性支气管炎的诊断。\"\n3. User: \"对，这次咳嗽是十天前换季受凉引起的，现在已经快好了，以前我也经常换季咳嗽，但从来都不是慢性病。\"\n4. Assistant: \"明白，已补充您咳嗽源于十天前换季受凉的记录。\"\n\n**Queries:**\n\n**q1:** \"用户是否患有慢性支气管炎？\"\n- expected_facts: [\"用户肺功能测试显示无慢性支气管炎。\", \"医生确认用户肺部功能正常，非老慢支。\"]\n- Check: User said \"我去做\n\n了肺功能测试，医生说我的肺功能完全正常，没有慢性支气管炎\" - this supports both facts. ✓\n\n**q2:** \"用户本次咳嗽的起因和发生时间？\"\n- expected_facts: [\"用户咳嗽是十天前换季受凉引起的。\", \"用户此次咳嗽属于普通感冒症状，非慢性病。\"]\n- Check: User said \"这次咳嗽是十天前换季受凉引起的\" and \"以前我也经常换季咳嗽，但从来都不是慢性病\" - both facts are supported. ✓\n\n**Assessment:** Both queries are supported. ✓\n\n## M12-09\n\n**Turns:**\n1. User: \"亲戚都说我手抖是帕金森，但我神经内科医生看了之后说这是特发性震颤，而且很轻微，绝对不是帕金森病，不用太紧张。\"\n2. Assistant: \"收到，已记录您被诊断为特发性震颤而非帕金森病的情况。\"\n3. User: \"补充一下，这个手抖现象从我二十多岁就有了，最近因为紧张稍微明显点，但医生确认它不会发展成帕金森，一直都很稳定。\"\n4. Assistant: \"明白，已更新您手抖始于二十多岁且病情稳定的记录。\"\n\n**Queries:**\n\n**q1:** \"用户是否患有帕金森病？\"\n- expected_facts: [\"用户经神经内科医生诊断排除帕金森病。\", \"用户确诊为特发性震颤，非帕金森病。\"]\n- Check: User said \"亲戚都说我手抖是帕金森，但我神经内科医生看了之后说这是特发性震颤，而且很轻微，绝对不是帕金森病\" - this supports both facts. ✓\n\n**q2:** \"用户手抖症状的起始时间和性质？\"\n- expected_facts: [\"用户手抖症状始于二十多岁。\", \"用户手抖为特发性震颤，病情长期稳定。\"]\n- Check: User said \"这个手抖现象从我二十多岁就有了\" and \"医生确认它不会发展成帕金森，一直都很稳定\" - both facts are supported. ✓\n\n**Assessment:** Both queries are supported. ✓\n\n## M12-10\n\n**Turns:**\n1. User: \"有人说我视力下降是青光眼，但我昨天做了眼压和视野检查，医生说我眼压正常，视野也没缺损，根本没有青光眼，只是近视加深了。\"\n2. Assistant: \"好的，已记录您昨日检查排除青光眼的结果。\"\n3. User: \"是的，我最近看东西模糊是因为长时间看电脑，度数涨了，但这跟青光眼没关系，以前每年体检眼压都是正常的。\"\n4. Assistant: \"明白，已补充您视力下降源于近视加深而非青光眼的记录。\"\n\n**Queries:**\n\n**q1:** \"用户是否患有青光眼？\"\n- expected_facts: [\"用户昨日检查显示眼压正常且无视野缺损。\", \"医生确认用户未患青光眼。\"]\n- Check: User said \"我昨天做了眼压和视野检查，医生说我眼压正常，视野也没缺损，根本没有青光眼\" - this supports both facts. ✓\n\n**q2:** \"用户视力下降的真实原因是什么？\"\n- expected_facts: [\"用户视力下降是因为长时间看电脑导致近视加深。\", \"用户视力问题与青光眼无关。\"]\n- Check: User said \"我最近看东西模糊是因为长时间看电脑，度数涨了，但这跟青光眼没关系\" - both facts are supported. ✓\n\n**Assessment:** Both queries are supported. ✓\n\nAll scenarios appear to be supported. Let me double-check for any issues:\n\n1. All user messages contain the facts that are expected\n2. The queries are asking for those specific facts\n3. No assistant suggestions are being counted as patient facts\n4. All negation, time, and speaker information is correct\n\nAll scenarios are supported.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1628,
+      "completion_tokens": 1932,
+      "total_tokens": 3560,
+      "cost": 0.00279866,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00279866,
+        "upstream_inference_prompt_cost": 0.00048026,
+        "upstream_inference_completions_cost": 0.0023184
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 1623,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 31.266
+}

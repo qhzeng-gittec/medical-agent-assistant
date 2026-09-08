@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"bb7cabe85fc152ae2af3\", \"query\": \"患者曾因治疗牙齿疼痛服用何种抗生素导致面部严重肿胀及其他系统症状？\", \"expected_facts\": [\"患者因服用头孢菌素治疗牙疼导致过敏。\", \"症状包括面部肿胀、眼睛无法睁开、剧烈头痛及低血压。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户六年前因牙疼服用头孢菌素后出现过敏反应，症状包括脸部迅速肿胀、眼睛睁不开以及剧烈头痛\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:39:41.524118+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户补充说明2018年冬天的头孢菌素过敏反应中，除了面部肿胀和头痛外还出现了低血压，差点休克，及时停药并注射抗过敏针剂后脱险\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:40:09.053598+00:00\"}]}, {\"id\": \"be0694dd7b1de76bb109\", \"query\": \"当手腕感到刺痛时，患者应采取什么措施？\", \"expected_facts\": [\"如果感到刺痛，患者需要停止使用手部并冰敷。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户表示如果手腕感到刺痛，需要停止使用手部并进行冰敷，目前正尽量避免用力。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:33:56.823542+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户手腕受伤，医生建议不要用力握拳或提重物，目前只能轻轻抓握轻物。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:33:09.015438+00:00\"}]}, {\"id\": \"bef33672b028b4458b43\", \"query\": \"请确认患者最近一次度假的地点和具体天数。\", \"expected_facts\": [\"患者上个月初去了厦门。\", \"患者停留了七天。\", \"度假发生在上个月。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户于2026年8月前往海南度假，停留了五天，主要在三亚海边活动，天气非常暖和。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:52:58.137150+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户于2026年8月初前往厦门度假，停留了七天，而非之前提到的海南五天行程。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:53:18.358096+00:00\"}]}, {\"id\": \"c07b014ec585db26bbdb\", \"query\": \"患者预约了什么检查，时间定在什么时候？\", \"expected_facts\": [\"患者预约了后天上午的无痛肠镜检查。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"User预约了2026年9月10日上午的无痛肠镜检查，医生嘱咐检查前一天要吃流食\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:49:03.156650+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户计划在2026年9月10日肠镜检查当天早上饮用半杯清水，并询问该安排是否可行\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:49:19.347625+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"User咨询关于无痛肠镜检查前流食开始的具体时间点，以及检查当天早上是否需要完全禁水的要求\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:49:03.156650+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862192-VapnJRh6Zog1Skfnm6X9",
+    "object": "chat.completion",
+    "created": 1788862192,
+    "model": "minimax/minimax-m2.5",
+    "provider": "StreamLake",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"bb7cabe85fc152ae2af3\",\"facts\":[{\"supported\":true,\"evidence\":[\"m0\"],\"reason\":\"记忆明确记录因牙疼服用头孢菌素导致过敏反应。\"},{\"supported\":true,\"evidence\":[\"m0\",\"m1\"],\"reason\":\"m0记录面部肿胀、眼睛睁不开、头痛；m1补充记录低血压。\"}]},{\"id\":\"be0694dd7b1de76bb109\",\"facts\":[{\"supported\":true,\"evidence\":[\"m0\"],\"reason\":\"记忆明确指出刺痛时需停止使用手部并冰敷。\"}]},{\"id\":\"bef33672b028b4458b43\",\"facts\":[{\"supported\":true,\"evidence\":[\"m1\"],\"reason\":\"记忆明确记录上个月初前往厦门度假停留七天。\"},{\"supported\":true,\"evidence\":[\"m1\"],\"reason\":\"记忆明确记录停留了七天。\"},{\"supported\":true,\"evidence\":[\"m1\"],\"reason\":\"2026年8月是当前9月的前一个月，即上个月。\"}]},{\"id\":\"c07b014ec585db26bbdb\",\"facts\":[{\"supported\":true,\"evidence\":[\"m0\"],\"reason\":\"记忆记录预约2026年9月10日上午无痛肠镜检查，9月8日的后天正是9月10日。\"}]}]}",
+          "refusal": null,
+          "reasoning": "让我分析每个查询和记忆，判断预期事实是否被支持。\n\n**Item 1: bb7cabe85fc152ae2af3**\n查询：患者曾因治疗牙齿疼痛服用何种抗生素导致面部严重肿胀及其他系统症状？\n预期事实：\n1. 患者因服用头孢菌素治疗牙疼导致过敏。\n2. 症状包括面部肿胀、眼睛无法睁开、剧烈头痛及低血压。\n\n记忆：\n- m0: \"用户六年前因牙疼服用头孢菌素后出现过敏反应，症状包括脸部迅速肿胀、眼睛睁不开以及剧烈头痛\"\n- m1: \"用户补充说明2018年冬天的头孢菌素过敏反应中，除了面部肿胀和头痛外还出现了低血压，差点休克，及时停药并注射抗过敏针剂后脱险\"\n\n分析：\n- 预期事实1：头孢菌素治疗牙疼导致过敏 → m0明确支持\n- 预期事实2：面部肿胀、眼睛无法睁开、剧烈头痛及低血压 → m0支持面部肿胀、眼睛睁不开、剧烈头痛；m1支持低血压\n\n结论：两个预期事实都被支持。\n\n**Item 2: be0694dd7b1de76bb109**\n查询：当手腕感到刺痛时，患者应采取什么措施？\n预期事实：如果感到刺痛，患者需要停止使用手部并冰敷。\n\n记忆：\n- m0: \"用户表示如果手腕感到刺痛，需要停止使用手部并进行冰敷，目前正尽量避免用力。\"\n\n\n- m1: \"用户手腕受伤，医生建议不要用力握拳或提重物，目前只能轻轻抓握轻物。\"\n\n分析：m0明确支持预期事实。\n\n结论：预期事实被支持。\n\n**Item 3: bef33672b028b4458b43**\n查询：请确认患者最近一次度假的地点和具体天数。\n预期事实：\n1. 患者上个月初去了厦门。\n2. 患者停留了七天。\n3. 度假发生在上个月。\n\n记忆：\n- m0: \"用户于2026年8月前往海南度假，停留了五天，主要在三亚海边活动，天气非常暖和。\"\n- m1: \"用户于2026年8月初前往厦门度假，停留了七天，而非之前提到的海南五天行程。\"\n\n分析：\n- 预期事实1和2：厦门、七天 → m1明确支持\n- 预期事实3：上个月 → 2026年8月是9月的前一个月，支持\n\n结论：所有预期事实都被支持。\n\n**Item 4: c07b014ec585db26bbdb**\n查询：患者预约了什么检查，时间定在什么时候？\n预期事实：患者预约了后天上午的无痛肠镜检查。\n\n记忆：\n- m0: \"User预约了2026年9月10日上午的无痛肠镜检查，医生嘱咐检查前一天要吃流食\"\n- m1: \"用户计划在2026年9月9日肠镜检查当天早上饮用半杯清水，并询问该安排是否可行\"\n- m2: \"User咨询关于无痛肠镜检查前流食开始的具体时间点，以及检查当天早上是否需要完全禁水的要求\"\n\n分析：\n- 预期事实：后天上午的无痛肠镜检查 → 2026年9月10日是9月8日的后天，m0支持\n\n结论：预期事实被支持。\n\n现在生成JSON输出。\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "让我分析每个查询和记忆，判断预期事实是否被支持。\n\n**Item 1: bb7cabe85fc152ae2af3**\n查询：患者曾因治疗牙齿疼痛服用何种抗生素导致面部严重肿胀及其他系统症状？\n预期事实：\n1. 患者因服用头孢菌素治疗牙疼导致过敏。\n2. 症状包括面部肿胀、眼睛无法睁开、剧烈头痛及低血压。\n\n记忆：\n- m0: \"用户六年前因牙疼服用头孢菌素后出现过敏反应，症状包括脸部迅速肿胀、眼睛睁不开以及剧烈头痛\"\n- m1: \"用户补充说明2018年冬天的头孢菌素过敏反应中，除了面部肿胀和头痛外还出现了低血压，差点休克，及时停药并注射抗过敏针剂后脱险\"\n\n分析：\n- 预期事实1：头孢菌素治疗牙疼导致过敏 → m0明确支持\n- 预期事实2：面部肿胀、眼睛无法睁开、剧烈头痛及低血压 → m0支持面部肿胀、眼睛睁不开、剧烈头痛；m1支持低血压\n\n结论：两个预期事实都被支持。\n\n**Item 2: be0694dd7b1de76bb109**\n查询：当手腕感到刺痛时，患者应采取什么措施？\n预期事实：如果感到刺痛，患者需要停止使用手部并冰敷。\n\n记忆：\n- m0: \"用户表示如果手腕感到刺痛，需要停止使用手部并进行冰敷，目前正尽量避免用力。\"\n\n\n- m1: \"用户手腕受伤，医生建议不要用力握拳或提重物，目前只能轻轻抓握轻物。\"\n\n分析：m0明确支持预期事实。\n\n结论：预期事实被支持。\n\n**Item 3: bef33672b028b4458b43**\n查询：请确认患者最近一次度假的地点和具体天数。\n预期事实：\n1. 患者上个月初去了厦门。\n2. 患者停留了七天。\n3. 度假发生在上个月。\n\n记忆：\n- m0: \"用户于2026年8月前往海南度假，停留了五天，主要在三亚海边活动，天气非常暖和。\"\n- m1: \"用户于2026年8月初前往厦门度假，停留了七天，而非之前提到的海南五天行程。\"\n\n分析：\n- 预期事实1和2：厦门、七天 → m1明确支持\n- 预期事实3：上个月 → 2026年8月是9月的前一个月，支持\n\n结论：所有预期事实都被支持。\n\n**Item 4: c07b014ec585db26bbdb**\n查询：患者预约了什么检查，时间定在什么时候？\n预期事实：患者预约了后天上午的无痛肠镜检查。\n\n记忆：\n- m0: \"User预约了2026年9月10日上午的无痛肠镜检查，医生嘱咐检查前一天要吃流食\"\n- m1: \"用户计划在2026年9月9日肠镜检查当天早上饮用半杯清水，并询问该安排是否可行\"\n- m2: \"User咨询关于无痛肠镜检查前流食开始的具体时间点，以及检查当天早上是否需要完全禁水的要求\"\n\n分析：\n- 预期事实：后天上午的无痛肠镜检查 → 2026年9月10日是9月8日的后天，m0支持\n\n结论：预期事实被支持。\n\n现在生成JSON输出。\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1175,
+      "completion_tokens": 965,
+      "total_tokens": 2140,
+      "cost": 0.001297242,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.001297242,
+        "upstream_inference_prompt_cost": 0.000255042,
+        "upstream_inference_completions_cost": 0.0010422
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 694,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 11.015
+}

@@ -1,0 +1,430 @@
+{
+  "case": {
+    "id": "M01-01",
+    "category": "工作作息与睡眠时间变化",
+    "turns": [
+      {
+        "user": "我最近因为项目上线，连续三周每天只睡四个小时，早上六点就要到公司开会，晚上经常加班到凌晨两点才回家休息。",
+        "assistant": "收到，已记录您近期因项目导致的睡眠减少情况。"
+      },
+      {
+        "user": "补充一下，上周四开始我已经调整回正常作息了，现在能保证每晚七点睡，早上八点起，不再熬夜加班了。",
+        "assistant": "明白，已更新您从上周四开始的作息恢复记录。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "这位用户之前为了赶项目进度，具体保持了多久的短睡眠状态？",
+        "expected_facts": [
+          "该用户在项目上线期间连续三周每天仅睡四小时。",
+          "该用户在此期间早上六点上班，晚上常加班至凌晨两点。"
+        ],
+        "required_groups": [
+          [
+            "连续三周",
+            "整整三周"
+          ],
+          [
+            "每天只睡四个小时",
+            "每日仅睡四小时"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "用户是从什么时候开始恢复正常睡眠时间的？现在的作息是怎样的？",
+        "expected_facts": [
+          "该用户从上周四开始调整回正常作息。",
+          "该用户目前每晚七点入睡，早上八点起床。"
+        ],
+        "required_groups": [
+          [
+            "上周四",
+            "上星期四"
+          ],
+          [
+            "每晚七点睡",
+            "晚上七点睡觉"
+          ],
+          [
+            "早上八点起",
+            "早晨八点起床"
+          ]
+        ]
+      }
+    ],
+    "split": "dev",
+    "family_id": "M01-01",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859804-0TmvI3hH9i0QSgNLrbSV",
+      "usage": {
+        "prompt_tokens": 56,
+        "total_tokens": 56,
+        "cost": 5.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.6e-07,
+          "upstream_inference_prompt_cost": 5.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788859813-KWk7Cd9kCIbILCAcqLTb",
+      "usage": {
+        "prompt_tokens": 8355,
+        "completion_tokens": 523,
+        "total_tokens": 8878,
+        "cost": 0.0035321,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0035321,
+          "upstream_inference_prompt_cost": 0.0021723,
+          "upstream_inference_completions_cost": 0.0013598
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 498,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户因项目上线，从2026年8月下旬至9月初连续三周每天只睡4小时，早上6点到公司开会，晚上经常加班到凌晨2点才回家休息。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859827-radQzdMCNUlXFL5vN7By",
+      "usage": {
+        "prompt_tokens": 44,
+        "total_tokens": 44,
+        "cost": 4.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.4e-07,
+          "upstream_inference_prompt_cost": 4.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859841-0t3SVEoYd7YZtrLIxd7M",
+      "usage": {
+        "prompt_tokens": 56,
+        "total_tokens": 56,
+        "cost": 5.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.6e-07,
+          "upstream_inference_prompt_cost": 5.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788859846-9HrT2UpRWGf3jj8JflEf",
+      "usage": {
+        "prompt_tokens": 8461,
+        "completion_tokens": 197,
+        "total_tokens": 8658,
+        "cost": 0.0030111,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0030111,
+          "upstream_inference_prompt_cost": 0.0025383,
+          "upstream_inference_completions_cost": 0.0004728
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 98,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户从上周四（2026年9月3日）开始调整回正常作息，现在能保证每晚七点睡，早上八点起，不再熬夜加班了。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859864-fsKrrQwcw3QXwRWqChFp",
+      "usage": {
+        "prompt_tokens": 41,
+        "total_tokens": 41,
+        "cost": 4.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.1e-07,
+          "upstream_inference_prompt_cost": 4.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859900-Q7MDqKu9h1GVGuy2kSJd",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859901-nHVLSaYWGdaM5rTlooZ3",
+      "usage": {
+        "prompt_tokens": 16,
+        "total_tokens": 16,
+        "cost": 1.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.6e-07,
+          "upstream_inference_prompt_cost": 1.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859911-WwAnFQA6xHc74OD3AFVR",
+      "usage": {
+        "prompt_tokens": 28,
+        "total_tokens": 28,
+        "cost": 2.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.8e-07,
+          "upstream_inference_prompt_cost": 2.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859911-1cQHHaPXJM24ZxJ1N0xQ",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859912-5nVEPSXYl7AQ83CtRjQr",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "这位用户之前为了赶项目进度，具体保持了多久的短睡眠状态？",
+        "expected_facts": [
+          "该用户在项目上线期间连续三周每天仅睡四小时。",
+          "该用户在此期间早上六点上班，晚上常加班至凌晨两点。"
+        ],
+        "required_groups": [
+          [
+            "连续三周",
+            "整整三周"
+          ],
+          [
+            "每天只睡四个小时",
+            "每日仅睡四小时"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "dd398e85-cc2c-4113-aebc-6e02648491b5",
+          "content": "用户因项目上线，从2026年8月下旬至9月初连续三周每天只睡4小时，早上6点到公司开会，晚上经常加班到凌晨2点才回家休息。",
+          "score": 0.8083947015106225,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:30:02.697412+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M01-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:30:40.276659+00:00"
+        },
+        {
+          "memory_id": "3dff0a13-6078-41b2-aa14-d23b4f5259a0",
+          "content": "用户从上周四（2026年9月3日）开始调整回正常作息，现在能保证每晚七点睡，早上八点起，不再熬夜加班了。",
+          "score": 0.709154733619691,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:30:40.301861+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:31:38.061312+00:00"
+        }
+      ],
+      "seconds": 2.594
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "用户是从什么时候开始恢复正常睡眠时间的？现在的作息是怎样的？",
+        "expected_facts": [
+          "该用户从上周四开始调整回正常作息。",
+          "该用户目前每晚七点入睡，早上八点起床。"
+        ],
+        "required_groups": [
+          [
+            "上周四",
+            "上星期四"
+          ],
+          [
+            "每晚七点睡",
+            "晚上七点睡觉"
+          ],
+          [
+            "早上八点起",
+            "早晨八点起床"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "3dff0a13-6078-41b2-aa14-d23b4f5259a0",
+          "content": "用户从上周四（2026年9月3日）开始调整回正常作息，现在能保证每晚七点睡，早上八点起，不再熬夜加班了。",
+          "score": 0.8655631604488288,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:30:40.301861+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:31:38.061312+00:00"
+        },
+        {
+          "memory_id": "dd398e85-cc2c-4113-aebc-6e02648491b5",
+          "content": "用户因项目上线，从2026年8月下旬至9月初连续三周每天只睡4小时，早上6点到公司开会，晚上经常加班到凌晨2点才回家休息。",
+          "score": 0.6930862126740863,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:30:02.697412+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M01-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:30:40.276659+00:00"
+        }
+      ],
+      "seconds": 9.5
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "这位用户之前为了赶项目进度，具体保持了多久的短睡眠状态？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "dd398e85-cc2c-4113-aebc-6e02648491b5",
+        "content": "用户因项目上线，从2026年8月下旬至9月初连续三周每天只睡4小时，早上6点到公司开会，晚上经常加班到凌晨2点才回家休息。",
+        "score": 0.7507996645317991,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:30:02.697412+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M01-01",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:30:40.276659+00:00"
+      },
+      {
+        "memory_id": "3dff0a13-6078-41b2-aa14-d23b4f5259a0",
+        "content": "用户从上周四（2026年9月3日）开始调整回正常作息，现在能保证每晚七点睡，早上八点起，不再熬夜加班了。",
+        "score": 0.7288354022877306,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:30:40.301861+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M01-01",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:31:38.061312+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 111.86
+}

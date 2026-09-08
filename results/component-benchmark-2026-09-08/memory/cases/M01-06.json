@@ -1,0 +1,413 @@
+{
+  "case": {
+    "id": "M01-06",
+    "category": "工作作息与睡眠时间变化",
+    "turns": [
+      {
+        "user": "今年春节假期后，我为了补完积压的工作，连续十天每天只睡五个小时，精神非常疲惫。",
+        "assistant": "好的，已记录您春节后补工期间的短期睡眠不足。"
+      },
+      {
+        "user": "更正一下，其实是春节放假期间我就在加班，假期结束后才稍微缓过来，现在每天能睡六小时了。",
+        "assistant": "明白，已更新您春节期间的加班情况及当前睡眠时长。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "用户最初描述的高强度工作期是在什么时候？持续了多久？",
+        "expected_facts": [
+          "该用户最初称高强度工作期为春节假期后。",
+          "该用户当时连续十天每天只睡五个小时。"
+        ],
+        "required_groups": [
+          [
+            "春节假期后",
+            "过年后"
+          ],
+          [
+            "连续十天",
+            "整整十天"
+          ],
+          [
+            "每天只睡五个小时",
+            "每日仅睡五小时"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "用户后来对加班时间做了怎样的修正？现在的睡眠状况怎样？",
+        "expected_facts": [
+          "该用户实际是在春节放假期间就在加班。",
+          "该用户现在每天能睡六个小时。"
+        ],
+        "required_groups": [
+          [
+            "春节放假期间",
+            "过年期间"
+          ],
+          [
+            "每天能睡六小时",
+            "每日睡六小时"
+          ]
+        ]
+      }
+    ],
+    "split": "dev",
+    "family_id": "M01-06",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859991-sw1vV3WJq71xCH7D0c03",
+      "usage": {
+        "prompt_tokens": 51,
+        "total_tokens": 51,
+        "cost": 5.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.1e-07,
+          "upstream_inference_prompt_cost": 5.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788859992-mHtPkL9tSZPU3HN94VVs",
+      "usage": {
+        "prompt_tokens": 8350,
+        "completion_tokens": 70,
+        "total_tokens": 8420,
+        "cost": 0.0024057,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0024057,
+          "upstream_inference_prompt_cost": 0.0022545,
+          "upstream_inference_completions_cost": 0.0001512
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 69,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": null
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859998-Z3KplQ88ARL8cIqfjspE",
+      "usage": {
+        "prompt_tokens": 50,
+        "total_tokens": 50,
+        "cost": 5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5e-07,
+          "upstream_inference_prompt_cost": 5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788859999-G6JfPi8xnAQssFn5PzWZ",
+      "usage": {
+        "prompt_tokens": 8395,
+        "completion_tokens": 631,
+        "total_tokens": 9026,
+        "cost": 0.00336075,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00336075,
+          "upstream_inference_prompt_cost": 0.00209875,
+          "upstream_inference_completions_cost": 0.001262
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 630,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户在春节放假期间加班，假期结束后才稍微缓过来\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户现在每天能睡六小时\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860019-tZfBToZby1QlSu71BaM9",
+      "usage": {
+        "prompt_tokens": 22,
+        "total_tokens": 22,
+        "cost": 2.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.2e-07,
+          "upstream_inference_prompt_cost": 2.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860024-nC4pDyO1DE1Z0oiYPI4H",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860025-axX58GJezyVpDBKL3puR",
+      "usage": {
+        "prompt_tokens": 16,
+        "total_tokens": 16,
+        "cost": 1.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.6e-07,
+          "upstream_inference_prompt_cost": 1.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860037-700NHNuzOuwEqMlW2N0C",
+      "usage": {
+        "prompt_tokens": 25,
+        "total_tokens": 25,
+        "cost": 2.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.5e-07,
+          "upstream_inference_prompt_cost": 2.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860038-CTmWfV7eflWM03wLVbT5",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860041-8YlC2hb4AFXtxkpdHxX9",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "用户最初描述的高强度工作期是在什么时候？持续了多久？",
+        "expected_facts": [
+          "该用户最初称高强度工作期为春节假期后。",
+          "该用户当时连续十天每天只睡五个小时。"
+        ],
+        "required_groups": [
+          [
+            "春节假期后",
+            "过年后"
+          ],
+          [
+            "连续十天",
+            "整整十天"
+          ],
+          [
+            "每天只睡五个小时",
+            "每日仅睡五小时"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "be9eb45b-d261-4d28-9a76-52f34b2da80e",
+          "content": "用户在春节放假期间加班，假期结束后才稍微缓过来",
+          "score": 0.6556833678559094,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:33:17.117620+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:33:39.844007+00:00"
+        },
+        {
+          "memory_id": "3440b72b-13cc-4f50-acc7-8d79a176e4d7",
+          "content": "用户现在每天能睡六小时",
+          "score": 0.4875627318517853,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:33:17.117620+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:33:39.844007+00:00"
+        }
+      ],
+      "seconds": 4.407
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "用户后来对加班时间做了怎样的修正？现在的睡眠状况怎样？",
+        "expected_facts": [
+          "该用户实际是在春节放假期间就在加班。",
+          "该用户现在每天能睡六个小时。"
+        ],
+        "required_groups": [
+          [
+            "春节放假期间",
+            "过年期间"
+          ],
+          [
+            "每天能睡六小时",
+            "每日睡六小时"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "be9eb45b-d261-4d28-9a76-52f34b2da80e",
+          "content": "用户在春节放假期间加班，假期结束后才稍微缓过来",
+          "score": 0.7385663220032623,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:33:17.117620+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:33:39.844007+00:00"
+        },
+        {
+          "memory_id": "3440b72b-13cc-4f50-acc7-8d79a176e4d7",
+          "content": "用户现在每天能睡六小时",
+          "score": 0.7304612382299351,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:33:17.117620+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:33:39.844007+00:00"
+        }
+      ],
+      "seconds": 12.515
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "用户最初描述的高强度工作期是在什么时候？持续了多久？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "be9eb45b-d261-4d28-9a76-52f34b2da80e",
+        "content": "用户在春节放假期间加班，假期结束后才稍微缓过来",
+        "score": 0.625890193294268,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:33:17.117620+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M01-06",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:33:39.844007+00:00"
+      },
+      {
+        "memory_id": "3440b72b-13cc-4f50-acc7-8d79a176e4d7",
+        "content": "用户现在每天能睡六小时",
+        "score": 0.5047947150740487,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:33:17.117620+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M01-06",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:33:39.844007+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 54.781
+}

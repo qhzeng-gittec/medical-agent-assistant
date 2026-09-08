@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"c1d2c6ae0cfd34ab0115\", \"query\": \"请说明患者搬迁上海的时间线，包括实际居住和户口变更的时间。\", \"expected_facts\": [\"患者三年前实际搬入上海浦东居住。\", \"患者两年前完成了户口迁移手续。\", \"搬迁原因为新公司入职。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户两年前才正式将户口迁到上海，虽然三年前就搬过去了，但手续拖了很久\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:51:39.497914+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户三年前因工作调动从北京搬迁至上海，当时刚入职新公司，家安顿在浦东\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:51:06.782082+00:00\"}]}, {\"id\": \"c2436f8efa22c086317f\", \"query\": \"用户目前是否还在服用降压药物？\", \"expected_facts\": [\"用户在上周复查后已停止服用降压药。\", \"用户因生活方式调整（减盐）使血压恢复正常而停药。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户上周复查时医生确认高血压已通过生活方式调整控制住，无需继续服用降压药，但用户担心突然停药可能会反弹\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:56.605404+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户在开始减盐运动之前曾服用降压药半年\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:42:17.759006+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户从三个月前（约2026年6月）开始减盐运动，当时血压就恢复正常了\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:42:17.759006+00:00\"}]}, {\"id\": \"c2662b89500ab419a96e\", \"query\": \"患者上个月出差的具体目的地是哪里，停留了多久？\", \"expected_facts\": [\"患者上个月出差的目的地是大阪。\", \"患者在大阪停留了七天。\", \"出差出发时间是上个月中旬。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户更正了出差信息：目的地是大阪而非东京，于2026年8月中旬出发，停留了7天\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:52:22.663642+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"User went on a business trip to Tokyo, Japan around August 2026, stayed for five days, worked primarily in Shibuya district, and visited Senso-ji Temple in Asakusa as a side activity\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:52:04.758610+00:00\"}]}, {\"id\": \"c313cb6e59ca4202636a\", \"query\": \"用户出现头晕症状的具体时间段和原因是什么？\", \"expected_facts\": [\"用户的头晕症状始于上个月项目上线后。\", \"用户症状由工作压力大导致，持续时间约一个月。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户表示头晕疲劳症状只需休息几天即可缓解\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:01:48.136471+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户最近总是头晕，邻居建议吃安眠药，但用户已查阅资料并咨询医生\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:01:26.627632+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户头晕疲劳状态持续了大约一个月，始于上个月项目上线后，此前从未出现过类似情况\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:01:48.136471+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862192-tXgbmzcIcekb5nPPYsOd",
+    "object": "chat.completion",
+    "created": 1788862192,
+    "model": "minimax/minimax-m2.5",
+    "provider": "StreamLake",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"c1d2c6ae0cfd34ab0115\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory states user moved to Shanghai Pudong three years ago due to new job.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory confirms household registration was transferred to Shanghai two years ago.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory explicitly states the move was due to joining a new company.\"}]},{\"id\":\"c2436f8efa22c086317f\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory confirms doctor said no need to continue antihypertensive medication after last week's checkup.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m2\"}],\"reason\":\"Memories indicate blood pressure returned to normal through lifestyle adjustments (salt reduction) leading to medication discontinuation.\"}]},{\"id\":\"c2662b89500ab419a96e\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly corrects the destination to Osaka, not Tokyo.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states the stay in Osaka lasted 7 days.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory indicates the trip departed in mid-August 2026.\"}]},{\"id\":\"c313cb6e59ca4202636a\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m2\"}],\"reason\":\"Memory confirms dizziness symptoms started after last month's project launch.\"},{\"supported\":false,\"evidence\":[],\"reason\":\"No memory mentions work pressure as the cause of dizziness; only duration is supported.\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item:\n\n**Item c1d2c6ae0cfd34ab0115:**\nQuery: 患者搬迁上海的时间线，包括实际居住和户口变更的时间\nExpected facts:\n1. 患者三年前实际搬入上海浦东居住\n2. 患者两年前完成了户口迁移手续\n3. 搬迁原因为新公司入职\n\nMemories:\n- m0: \"用户两年前才正式将户口迁到上海，虽然三年前就搬过去了，但手续拖了很久\"\n- m1: \"用户三年前因工作调动从北京搬迁至上海，当时刚入职新公司，家安顿在浦东\"\n\nAnalysis:\n- Fact 1 (三年前搬入浦东): m1 says \"三年前因工作调动从北京搬迁至上海...家安顿在浦东\" - supports this fact with m1\n- Fact 2 (两年前完成户口迁移): m0 says \"两年前才正式将户口迁到上海\" - supports this fact with m0\n- Fact 3 (搬迁原因为新公司入职): m1 says \"当时刚入职新公司\" - supports this fact with m1\n\nAll three facts are supported.\n\n**Item c2436f8efa22c086317f:**\nQuery: 用户目前是否还在服用降压药物？\nExpected facts:\n1. 用户在上周复查后已停止服用降压药\n2. 用户因生活方式调整（减盐）使血压恢复正常而停药\n\nMemories:\n- m0: \"用户上周复查时医生确认高血压已通过生活方式调整控制住，无需继续服用降压药，但用户担心突然停药可能会反弹\"\n- m1: \"用户在开始减盐运动之前曾服用降压药半年\"\n\n\n- m2: \"用户从三个月前（约2026年6月）开始减盐运动，当时血压就恢复正常了\"\n\nAnalysis:\n- Fact 1 (上周复查后已停止服药): m0 says \"无需继续服用降压药\" - supports this fact with m0\n- Fact 2 (因减盐使血压正常而停药): m0 says \"高血压已通过生活方式调整控制住\" and m2 says \"减盐运动...血压就恢复正常了\" - supports this fact with m0 and m2\n\nBoth facts are supported.\n\n**Item c2662b89500ab419a96e:**\nQuery: 患者上个月出差的具体目的地是哪里，停留了多久？\nExpected facts:\n1. 患者上个月出差的目的地是大阪\n2. 患者在大阪停留了七天\n3. 出差出发时间是上个月中旬\n\nMemories:\n- m0: \"用户更正了出差信息：目的地是大阪而非东京，于2026年8月中旬出发，停留了7天\"\n- m1: \"User went on a business trip to Tokyo, Japan around August 2026, stayed for five days, worked primarily in Shibuya district, and visited Senso-ji Temple in Asakusa as a side activity\"\n\nAnalysis:\n- Fact 1 (目的地是大阪): m0 says \"目的地是大阪而非东京\" - supports this fact with m0\n- Fact 2 (停留七天): m0 says \"停留了7天\" - supports this fact with m0\n- Fact 3 (上个月中旬出发): m0 says \"于2026年8月中旬出发\" - supports this fact with m0\n\nAll three facts are supported.\n\n**Item c313cb6e59ca4202636a:**\nQuery: 用户出现头晕症状的具体时间段和原因是什么？\nExpected facts:\n1. 用户的头晕症状始于上个月项目上线后\n2. 用户症状由工作压力大导致，持续时间约一个月\n\nMemories:\n- m0: \"用户表示头晕疲劳症状只需休息几天即可缓解\"\n- m1: \"用户最近总是头晕，邻居建议吃安眠药，但用户已查阅资料并咨询医生\"\n- m2: \"用户头晕疲劳状态持续了大约一个月，始于上个月项目上线后，此前从未出现过类似情况\"\n\nAnalysis:\n- Fact 1 (头晕始于上个月项目上线后): m2 says \"始于上个月项目上线后\" - supports this fact with m2\n- Fact 2 (症状由工作压力大导致，持续约一个月): m2 says \"持续了大约一个月\" - but there's no mention of work stress causing it. The expected fact says \"由工作压力大导致\" but m2 doesn't mention the cause, just says when it started.\n\nActually, looking more carefully at m2: \"用户头晕疲劳状态持续了大约一个月，始于上个月项目上线后\" - this confirms the timing (about a month, starting after project launch) but doesn't mention work pressure as the cause. The expected fact says \"由工作压力大导致\" but no memory mentions work pressure as the cause.\n\nSo Fact 1 is supported (m2), but Fact 2 is NOT fully supported because there's no evidence about work pressure being the cause. The timing is supported but not the cause.\n\nWait, let me re-read. The expected fact says \"用户症状由工作压力大导致，持续时间约一个月。\" This combines two pieces of information:\n1. Cause = work pressure\n2. Duration = about a month\n\nm2 supports the duration (\"持续了大约一个月\") but doesn't mention work pressure as the cause. So this fact is only partially supported.\n\nActually, I think I need to be more strict. The expected fact combines both cause and duration. Since there's no mention of work pressure causing the dizziness, this fact is NOT fully supported.\n\nLet me reconsider. The instruction says \"Judge only whether retrieved memories explicitly support the requested personal fact\". The fact is \"用户症状由工作压力大导致，持续时间约一个月。\" - this is one fact combining two elements. Since the cause (work pressure) is not mentioned in any memory, this fact is NOT supported.\n\nActually, let me think about this differently. The query asks for \"具体时间段和原因\". The expected facts are:\n1. 用户的头晕症状始于上个月项目上线后\n2. 用户症状由工作压力大导致，持续时间约一个月\n\nThese are two separate expected facts. For #1, m2 supports it. For #2, m2 supports the duration but not the cause. So #2 is not fully supported.\n\nLet me finalize:\n\nItem c1d2c6ae0cfd34ab0115:\n- Fact 1: supported (m1)\n- Fact 2: supported (m0)\n- Fact 3: supported (m1)\n\nItem c2436f8efa22c086317f:\n- Fact 1: supported (m0)\n- Fact 2: supported (m0, m2)\n\nItem c2662b89500ab419a96e:\n- Fact 1: supported (m0)\n- Fact 2: supported (m0)\n- Fact 3: supported (m0)\n\nItem c313cb6e59ca4202636a:\n- Fact 1: supported (m2)\n- Fact 2: NOT supported - no memory mentions work pressure as cause\n\nNow let me format the JSON output.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item:\n\n**Item c1d2c6ae0cfd34ab0115:**\nQuery: 患者搬迁上海的时间线，包括实际居住和户口变更的时间\nExpected facts:\n1. 患者三年前实际搬入上海浦东居住\n2. 患者两年前完成了户口迁移手续\n3. 搬迁原因为新公司入职\n\nMemories:\n- m0: \"用户两年前才正式将户口迁到上海，虽然三年前就搬过去了，但手续拖了很久\"\n- m1: \"用户三年前因工作调动从北京搬迁至上海，当时刚入职新公司，家安顿在浦东\"\n\nAnalysis:\n- Fact 1 (三年前搬入浦东): m1 says \"三年前因工作调动从北京搬迁至上海...家安顿在浦东\" - supports this fact with m1\n- Fact 2 (两年前完成户口迁移): m0 says \"两年前才正式将户口迁到上海\" - supports this fact with m0\n- Fact 3 (搬迁原因为新公司入职): m1 says \"当时刚入职新公司\" - supports this fact with m1\n\nAll three facts are supported.\n\n**Item c2436f8efa22c086317f:**\nQuery: 用户目前是否还在服用降压药物？\nExpected facts:\n1. 用户在上周复查后已停止服用降压药\n2. 用户因生活方式调整（减盐）使血压恢复正常而停药\n\nMemories:\n- m0: \"用户上周复查时医生确认高血压已通过生活方式调整控制住，无需继续服用降压药，但用户担心突然停药可能会反弹\"\n- m1: \"用户在开始减盐运动之前曾服用降压药半年\"\n\n\n- m2: \"用户从三个月前（约2026年6月）开始减盐运动，当时血压就恢复正常了\"\n\nAnalysis:\n- Fact 1 (上周复查后已停止服药): m0 says \"无需继续服用降压药\" - supports this fact with m0\n- Fact 2 (因减盐使血压正常而停药): m0 says \"高血压已通过生活方式调整控制住\" and m2 says \"减盐运动...血压就恢复正常了\" - supports this fact with m0 and m2\n\nBoth facts are supported.\n\n**Item c2662b89500ab419a96e:**\nQuery: 患者上个月出差的具体目的地是哪里，停留了多久？\nExpected facts:\n1. 患者上个月出差的目的地是大阪\n2. 患者在大阪停留了七天\n3. 出差出发时间是上个月中旬\n\nMemories:\n- m0: \"用户更正了出差信息：目的地是大阪而非东京，于2026年8月中旬出发，停留了7天\"\n- m1: \"User went on a business trip to Tokyo, Japan around August 2026, stayed for five days, worked primarily in Shibuya district, and visited Senso-ji Temple in Asakusa as a side activity\"\n\nAnalysis:\n- Fact 1 (目的地是大阪): m0 says \"目的地是大阪而非东京\" - supports this fact with m0\n- Fact 2 (停留七天): m0 says \"停留了7天\" - supports this fact with m0\n- Fact 3 (上个月中旬出发): m0 says \"于2026年8月中旬出发\" - supports this fact with m0\n\nAll three facts are supported.\n\n**Item c313cb6e59ca4202636a:**\nQuery: 用户出现头晕症状的具体时间段和原因是什么？\nExpected facts:\n1. 用户的头晕症状始于上个月项目上线后\n2. 用户症状由工作压力大导致，持续时间约一个月\n\nMemories:\n- m0: \"用户表示头晕疲劳症状只需休息几天即可缓解\"\n- m1: \"用户最近总是头晕，邻居建议吃安眠药，但用户已查阅资料并咨询医生\"\n- m2: \"用户头晕疲劳状态持续了大约一个月，始于上个月项目上线后，此前从未出现过类似情况\"\n\nAnalysis:\n- Fact 1 (头晕始于上个月项目上线后): m2 says \"始于上个月项目上线后\" - supports this fact with m2\n- Fact 2 (症状由工作压力大导致，持续约一个月): m2 says \"持续了大约一个月\" - but there's no mention of work stress causing it. The expected fact says \"由工作压力大导致\" but m2 doesn't mention the cause, just says when it started.\n\nActually, looking more carefully at m2: \"用户头晕疲劳状态持续了大约一个月，始于上个月项目上线后\" - this confirms the timing (about a month, starting after project launch) but doesn't mention work pressure as the cause. The expected fact says \"由工作压力大导致\" but no memory mentions work pressure as the cause.\n\nSo Fact 1 is supported (m2), but Fact 2 is NOT fully supported because there's no evidence about work pressure being the cause. The timing is supported but not the cause.\n\nWait, let me re-read. The expected fact says \"用户症状由工作压力大导致，持续时间约一个月。\" This combines two pieces of information:\n1. Cause = work pressure\n2. Duration = about a month\n\nm2 supports the duration (\"持续了大约一个月\") but doesn't mention work pressure as the cause. So this fact is only partially supported.\n\nActually, I think I need to be more strict. The expected fact combines both cause and duration. Since there's no mention of work pressure causing the dizziness, this fact is NOT fully supported.\n\nLet me reconsider. The instruction says \"Judge only whether retrieved memories explicitly support the requested personal fact\". The fact is \"用户症状由工作压力大导致，持续时间约一个月。\" - this is one fact combining two elements. Since the cause (work pressure) is not mentioned in any memory, this fact is NOT supported.\n\nActually, let me think about this differently. The query asks for \"具体时间段和原因\". The expected facts are:\n1. 用户的头晕症状始于上个月项目上线后\n2. 用户症状由工作压力大导致，持续时间约一个月\n\nThese are two separate expected facts. For #1, m2 supports it. For #2, m2 supports the duration but not the cause. So #2 is not fully supported.\n\nLet me finalize:\n\nItem c1d2c6ae0cfd34ab0115:\n- Fact 1: supported (m1)\n- Fact 2: supported (m0)\n- Fact 3: supported (m1)\n\nItem c2436f8efa22c086317f:\n- Fact 1: supported (m0)\n- Fact 2: supported (m0, m2)\n\nItem c2662b89500ab419a96e:\n- Fact 1: supported (m0)\n- Fact 2: supported (m0)\n- Fact 3: supported (m0)\n\nItem c313cb6e59ca4202636a:\n- Fact 1: supported (m2)\n- Fact 2: NOT supported - no memory mentions work pressure as cause\n\nNow let me format the JSON output.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1249,
+      "completion_tokens": 1852,
+      "total_tokens": 3101,
+      "cost": 0.002275182,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.002275182,
+        "upstream_inference_prompt_cost": 0.000275022,
+        "upstream_inference_completions_cost": 0.00200016
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 1469,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 20.875
+}

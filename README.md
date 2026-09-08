@@ -2,9 +2,9 @@
 
 医疗多智能体助手与 Qwen3.5-2B 医疗模型训练实验。支持多轮问诊、专业 Agent 调度、患者档案和检索证据管理，并提供 CPT、LoRA SFT、GSPO 训练与可追溯评测。
 
-更新于 **2026-09-08**：Agent 评测按关键设计、实测结果与测量方法整理；提供 72 场景整体验收、架构对照及 CPT→SFT→GSPO 阶段诊断。
+更新于 **2026-09-08**：新增 **400 条 RAG 查询 / 1,016 篇语料**与 **120 个 Mem0 跨会话场景**的独立测评，公开数据、脚本、真实 API 结果与离线复算材料；同时提供 Agent 整体验收、架构对照及 CPT→SFT→GSPO 阶段评测。
 
-[Agent 使用说明](medix-agent-swarm/README.md) · [训练与推理](MediX-R1/README.md) · [Agent 设计与测评](results/2026-09-08/agent_improvements.md) · [评测数据](results/2026-09-08/README.md) · [历史评测](results/README.md) · [模型与数据](https://huggingface.co/collections/starttoshow/medix-medical-sft-and-gspo-6a9e6f31b80642f4ba8b6f28)
+[Agent 使用说明](medix-agent-swarm/README.md) · [训练与推理](MediX-R1/README.md) · [Agent 设计与测评](results/2026-09-08/agent_improvements.md) · [RAG / Mem0 独立测评](results/component-benchmark-2026-09-08/README.md) · [评测数据](results/2026-09-08/README.md) · [历史评测](results/README.md) · [模型与数据](https://huggingface.co/collections/starttoshow/medix-medical-sft-and-gspo-6a9e6f31b80642f4ba8b6f28)
 
 ## 功能
 
@@ -86,12 +86,17 @@ Supervisor 负责分派和汇总，专业 Worker 执行问诊、诊断与资料�
 | 关键设计 | 测得的结果 | 怎么测的 |
 | --- | --- | --- |
 | 独立 Worker 条件并行 | 子任务阶段平均 **49.80 → 20.15 秒，缩短 59.5%** | 固定同样的三个任务，真实 MiniMax M2.5，串行/并行各 3 次；不含总控规划与汇总 |
-| RAG 保留多个证据候选 | Top 1 → Top 3，完整证据覆盖 **33/40 → 39/40（+15 个百分点）** | 15 个文档块、40 个可回答检索问题；固定向量排序与阈值，检查预标注的全部必需证据组 |
+| RAG 保留多个证据候选 | Top 1 → Top 3，完整目标来源覆盖 **183/272 → 249/272（67.3% → 91.5%，+24.3 个百分点）** | 1,016 个 MedlinePlus 健康主题；冻结测试集 272 条可回答查询，固定真实 API 向量与阈值 0，要求全部目标来源组均命中 |
+| Mem0 跨会话事实检索 | Top 3 → Top 10，全部预期事实获支持 **176/192 → 184/192（91.7% → 95.8%，+4.2 个百分点）**；未知用户 / 其他应用空返回各 **96/96** | 96 个测试场景、每场景两次会话；真实抽取后关闭并重开本地存储，阈值 0.3，逐事实语义评分附实际记忆原文 |
 | 分层记忆与主动历史补查 | 四类历史信息覆盖：Qwen、Gemini **2/4 → 4/4**；MiniMax **2/4 → 2/4** | 同一合成场景、每模型每配置 1 次；初始召回缺两类信息，核对补查工具轨迹和最终回答；属于场景观察 |
 | 同一 Worker 内证据复用 | **2 次相同请求只执行 1 次底层查询**；重复文档用引用代替正文 | 确定性组件测试，检查底层调用次数及模型实际收到的消息；统计范围为一次 Worker 调用 |
 | 工具预算由执行层强制控制 | **161/161 次超预算调用提议被执行层拦截** | 审计 277 组已完成运行，将正式工具调用与当轮工具声明、执行结果配对；分母是调用提议数 |
 
 指标按并发对照、检索组件实验、单场景观察和执行轨迹审计分别统计。[关键设计与测评方法](results/2026-09-08/agent_improvements.md)
+
+**RAG 与 Mem0 已提供完整独立测评：** [400 条 RAG 查询与 120 个 Mem0 场景](results/component-benchmark-2026-09-08/README.md)。RAG 覆盖中英文检索、双来源组合、上下文配对与无答案查询；开发集选出的 0.5 阈值在测试集上让 **29/32** 条无答案查询返回空集，对应完整目标来源覆盖 **198/272**。Mem0 单列人物、时间、更正、否定及跨会话事实，并保留逐项评分的原文依据。
+
+[RAG 报告与实际向量](results/component-benchmark-2026-09-08/rag/README.md) · [Mem0 报告与原始记录](results/component-benchmark-2026-09-08/memory/README.md) · [数据集、来源授权与运行脚本](medix-agent-swarm/evals/component_benchmark_v2/README.md)
 
 **架构评测分为子任务阶段和完整流程。** 上表的 59.5% 为固定 Worker 批次的耗时改善；另以 8 个场景、两种架构各重复 2 次记录完整流程的耗时、请求数和费用，见 [32 组单/多 Agent 对照](results/2026-09-08/architecture.md)。
 

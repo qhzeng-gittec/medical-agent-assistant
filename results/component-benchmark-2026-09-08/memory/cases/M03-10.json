@@ -1,0 +1,438 @@
+{
+  "case": {
+    "id": "M03-10",
+    "category": "药物过敏及具体反应",
+    "turns": [
+      {
+        "user": "我记得说过对万古霉素过敏。那是十年前，2014年，因为严重细菌感染输了液，结果输液过程中背部和四肢出现了紫红色的条纹状皮疹，非常痒。",
+        "assistant": "明白，已记录您关于万古霉素输注时的过敏表现。"
+      },
+      {
+        "user": "补充一下，那次被称为“红人综合征”，除了皮疹，我还感到潮红发热和血压下降，医生立刻减慢了滴速并给予了抗组胺药，症状才慢慢缓解。",
+        "assistant": "好的，已根据您的描述完善了过敏反应的名称及处理细节。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "患者曾因治疗严重细菌感染输注何种抗生素导致特征性的皮肤反应和全身症状？",
+        "expected_facts": [
+          "患者因输注万古霉素治疗细菌感染引发过敏。",
+          "症状包括紫红色条纹状皮疹、潮红发热及血压下降（红人综合征）。"
+        ],
+        "required_groups": [
+          [
+            "万古霉素"
+          ],
+          [
+            "紫红色皮疹",
+            "条纹状皮疹",
+            "红人综合征"
+          ],
+          [
+            "潮红发热",
+            "血压下降",
+            "低血压"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "根据患者叙述，这次过敏反应发生在哪一年，医护人员采取了什么具体措施来缓解症状？",
+        "expected_facts": [
+          "事件发生在2014年。",
+          "医生减慢滴速并给予抗组胺药。"
+        ],
+        "required_groups": [
+          [
+            "2014年"
+          ],
+          [
+            "减慢滴速",
+            "降低速度"
+          ],
+          [
+            "抗组胺药",
+            "止敏药"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M03-10",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860458-GYAPrTXDggsBWKwf0SZV",
+      "usage": {
+        "prompt_tokens": 70,
+        "total_tokens": 70,
+        "cost": 7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7e-07,
+          "upstream_inference_prompt_cost": 7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860468-bphRQCcM3MjkEMwFAqOa",
+      "usage": {
+        "prompt_tokens": 8362,
+        "completion_tokens": 412,
+        "total_tokens": 8774,
+        "cost": 0.0029145,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0029145,
+          "upstream_inference_prompt_cost": 0.0020905,
+          "upstream_inference_completions_cost": 0.000824
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 362,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户对万古霉素过敏，2014年因严重细菌感染接受输液治疗时，在输液过程中背部和四肢出现紫红色条纹状皮疹，非常痒。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860483-xG4bCDasy2n3Kv4vsB6P",
+      "usage": {
+        "prompt_tokens": 41,
+        "total_tokens": 41,
+        "cost": 4.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.1e-07,
+          "upstream_inference_prompt_cost": 4.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860486-9EIgFOsNVvxULZL0jr4w",
+      "usage": {
+        "prompt_tokens": 69,
+        "total_tokens": 69,
+        "cost": 6.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.9e-07,
+          "upstream_inference_prompt_cost": 6.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860489-m15i7z4aNB5946dyqf2H",
+      "usage": {
+        "prompt_tokens": 8469,
+        "completion_tokens": 441,
+        "total_tokens": 8910,
+        "cost": 0.00334854,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00334854,
+          "upstream_inference_prompt_cost": 0.00220194,
+          "upstream_inference_completions_cost": 0.0011466
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 395,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户2014年万古霉素输液反应被诊断为“红人综合征”，除皮疹外还出现潮红发热和血压下降，医生减慢滴速并给予抗组胺药后症状逐渐缓解。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860506-i6oJcVeGjxScOwkyNIZ2",
+      "usage": {
+        "prompt_tokens": 50,
+        "total_tokens": 50,
+        "cost": 5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5e-07,
+          "upstream_inference_prompt_cost": 5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860510-TiIHOPZMbWh8hhtEqUcE",
+      "usage": {
+        "prompt_tokens": 21,
+        "total_tokens": 21,
+        "cost": 2.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.1e-07,
+          "upstream_inference_prompt_cost": 2.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860518-3z1Btz8BWZ3HBoRKBoJj",
+      "usage": {
+        "prompt_tokens": 22,
+        "total_tokens": 22,
+        "cost": 2.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.2e-07,
+          "upstream_inference_prompt_cost": 2.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860519-6etMwDgoQrNjGhZL3BmQ",
+      "usage": {
+        "prompt_tokens": 31,
+        "total_tokens": 31,
+        "cost": 3.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.1e-07,
+          "upstream_inference_prompt_cost": 3.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860521-wTu5SWjYmkg0ou0JSgha",
+      "usage": {
+        "prompt_tokens": 21,
+        "total_tokens": 21,
+        "cost": 2.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.1e-07,
+          "upstream_inference_prompt_cost": 2.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860522-yx8IT8fca5zRADrLMV7m",
+      "usage": {
+        "prompt_tokens": 21,
+        "total_tokens": 21,
+        "cost": 2.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.1e-07,
+          "upstream_inference_prompt_cost": 2.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "患者曾因治疗严重细菌感染输注何种抗生素导致特征性的皮肤反应和全身症状？",
+        "expected_facts": [
+          "患者因输注万古霉素治疗细菌感染引发过敏。",
+          "症状包括紫红色条纹状皮疹、潮红发热及血压下降（红人综合征）。"
+        ],
+        "required_groups": [
+          [
+            "万古霉素"
+          ],
+          [
+            "紫红色皮疹",
+            "条纹状皮疹",
+            "红人综合征"
+          ],
+          [
+            "潮红发热",
+            "血压下降",
+            "低血压"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "8e149e77-5c56-45bb-9bcb-e61725696daf",
+          "content": "用户对万古霉素过敏，2014年因严重细菌感染接受输液治疗时，在输液过程中背部和四肢出现紫红色条纹状皮疹，非常痒。",
+          "score": 0.6864292064644457,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:40:57.148530+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M03-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:25.905547+00:00"
+        },
+        {
+          "memory_id": "7f24bc86-1b1e-4243-9e65-e171947cf00f",
+          "content": "用户2014年万古霉素输液反应被诊断为“红人综合征”，除皮疹外还出现潮红发热和血压下降，医生减慢滴速并给予抗组胺药后症状逐渐缓解。",
+          "score": 0.6267846837692254,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:25.930604+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M03-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:49.244064+00:00"
+        }
+      ],
+      "seconds": 8.453
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "根据患者叙述，这次过敏反应发生在哪一年，医护人员采取了什么具体措施来缓解症状？",
+        "expected_facts": [
+          "事件发生在2014年。",
+          "医生减慢滴速并给予抗组胺药。"
+        ],
+        "required_groups": [
+          [
+            "2014年"
+          ],
+          [
+            "减慢滴速",
+            "降低速度"
+          ],
+          [
+            "抗组胺药",
+            "止敏药"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "8e149e77-5c56-45bb-9bcb-e61725696daf",
+          "content": "用户对万古霉素过敏，2014年因严重细菌感染接受输液治疗时，在输液过程中背部和四肢出现紫红色条纹状皮疹，非常痒。",
+          "score": 0.49048057953802887,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:40:57.148530+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M03-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:25.905547+00:00"
+        },
+        {
+          "memory_id": "7f24bc86-1b1e-4243-9e65-e171947cf00f",
+          "content": "用户2014年万古霉素输液反应被诊断为“红人综合征”，除皮疹外还出现潮红发热和血压下降，医生减慢滴速并给予抗组胺药后症状逐渐缓解。",
+          "score": 0.4162445697099665,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:25.930604+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M03-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:49.244064+00:00"
+        }
+      ],
+      "seconds": 0.516
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者曾因治疗严重细菌感染输注何种抗生素导致特征性的皮肤反应和全身症状？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "8e149e77-5c56-45bb-9bcb-e61725696daf",
+        "content": "用户对万古霉素过敏，2014年因严重细菌感染接受输液治疗时，在输液过程中背部和四肢出现紫红色条纹状皮疹，非常痒。",
+        "score": 0.6401308398340347,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:40:57.148530+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M03-10",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:41:25.905547+00:00"
+      },
+      {
+        "memory_id": "7f24bc86-1b1e-4243-9e65-e171947cf00f",
+        "content": "用户2014年万古霉素输液反应被诊断为“红人综合征”，除皮疹外还出现潮红发热和血压下降，医生减慢滴速并给予抗组胺药后症状逐渐缓解。",
+        "score": 0.5828452590928473,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:41:25.930604+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M03-10",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:41:49.244064+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 65.328
+}

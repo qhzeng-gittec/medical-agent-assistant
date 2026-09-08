@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"0fa0e5677c19f42594b8\", \"query\": \"患者目前是否已确诊患有肺癌？\", \"expected_facts\": [\"患者目前尚未确诊肺癌。\", \"患者最近经常咳嗽，痰中有血丝。\", \"患者吸烟多年，担心肺癌。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户澄清目前尚未确诊肺癌，仅根据症状猜测，需等待CT报告确认\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:35:33.234448+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户有多年吸烟史，因此担心自己可能患有肺癌\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:35:13.539515+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户于2026年9月7日完成了胸部CT检查，目前正在等待影像报告结果\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:35:33.234448+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户最近经常咳嗽，痰中有血丝，症状已持续两周（约从2026年8月25日开始）\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:35:13.539515+00:00\"}, {\"memory_id\": \"m4\", \"content\": \"用户计划进行CT检查以确认健康状况\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:35:13.539515+00:00\"}]}, {\"id\": \"0fc353a02362c1fb03fe\", \"query\": \"用户对花生是否存在过敏反应？\", \"expected_facts\": [\"用户去年过敏原测试显示对花生不过敏。\", \"用户多年来食用花生从未出现不良反应。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户对芒果严重过敏，这是去年过敏原测试确认的结果。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:01:35.450177+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户的过敏原测试是在2025年夏天做的，确认对芒果严重过敏但对花生不过敏。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:01:55.949426+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户对花生不过敏，去年（约2025年）的过敏原测试确认了这一点，尽管有人误以为用户对花生过敏。用户小时候吃过很多次花生都没事。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:01:35.450177+00:00\"}]}, {\"id\": \"102859d17db51fd33545\", \"query\": \"患者曾提及对何种解热镇痛药存在过敏史，且服药后出现了哪些具体的身体反应？\", \"expected_facts\": [\"患者对阿司匹林存在过敏史。\", \"服药后出现了嘴唇和舌头麻木肿胀、皮肤瘙痒及血管性水肿。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户对阿司匹林过敏，三年前服药后不到半小时出现过敏反应，症状包括嘴唇和舌头麻木肿胀、皮肤严重瘙痒\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:39:10.987769+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户补充说明阿司匹林过敏发作发生在2021年初，当时误以为是普通感冒而服药，引发严重血管性水肿，后去医院确诊为药物过敏\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:39:22.727720+00:00\"}]}, {\"id\": \"10504469cc6558c4c10a\", \"query\": \"根据之前的对话，患者是在哪一年经历了这次药物过敏事件，并且之后采取了什么预防措施？\", \"expected_facts\": [\"患者的过敏事件发生在2019年夏天。\", \"自那以后患者严格避免接触任何含青霉素的药物。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户补充说明青霉素过敏反应发生在2019年夏天，症状包括全身红疹、呼吸急促和喉咙肿胀，此后严格避免接触任何含青霉素的药物。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:34:36.635612+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户对青霉素类药物有严重过敏反应，五年前住院期间发生，症状包括全身大片红疹和呼吸困难，经医生紧急处理后好转。用户上周在诊所提及了这一过敏史。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:03.124123+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861868-arbs76dJWfYTwxd8b28S",
+    "object": "chat.completion",
+    "created": 1788861868,
+    "model": "minimax/minimax-m2.5",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"items\": [\n    {\n      \"id\": \"0fa0e5677c19f42594b8\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"Memory explicitly states user clarified they have not yet been diagnosed with lung cancer and are waiting for CT results.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m3\"}],\n          \"reason\": \"Memory states user recently often coughs with blood in sputum, symptoms lasting two weeks.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m1\"}],\n          \"reason\": \"Memory states user has many years of smoking history and worries about lung cancer.\"\n        }\n      ]\n    },\n    {\n      \"id\": \"0fc353a02362c1fb03fe\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m1\"}, {\"memory_id\": \"m2\"}],\n          \"reason\": \"Both memories confirm allergy test last year showed user is not allergic to peanuts.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m2\"}],\n          \"reason\": \"Memory states user ate peanuts many times as a child with no issues.\"\n        }\n      ]\n    },\n    {\n      \"id\": \"102859d17db51fd33545\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}, {\"memory_id\": \"m1\"}],\n          \"reason\": \"Both memories confirm user has allergy to aspirin.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}, {\"memory_id\": \"m1\"}],\n          \"reason\": \"Memories state symptoms included lip and tongue numbness/swelling, skin itching, and vascular edema.\"\n        }\n      ]\n    },\n    {\n      \"id\": \"10504469cc6558c4c10a\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"Memory explicitly states penicillin allergy occurred in summer 2019.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"Memory states user strictly avoids any penicillin-containing medications since then.\"\n        }\n      ]\n    }\n  ]\n}\n```",
+          "refusal": null,
+          "reasoning": "Let me analyze each item:\n\n**Item 0fa0e5677c19f42594b8:**\nQuery: 患者目前是否已确诊患有肺癌？\nExpected facts:\n1. \"患者目前尚未确诊肺癌。\" - Need to check if memories support this\n2. \"患者最近经常咳嗽，痰中有血丝。\" - Need to check if memories support this\n3. \"患者吸烟多年，担心肺癌。\" - Need to check if memories support this\n\nMemories:\n- m0: \"用户澄清目前尚未确诊肺癌，仅根据症状猜测，需等待CT报告确认\" - Supports fact 1 (not diagnosed yet)\n- m1: \"用户有多年吸烟史，因此担心自己可能患有肺癌\" - Supports fact 3 (smoking history, worry about lung cancer)\n- m2: \"用户于2026年9月7日完成了胸部CT检查，目前正在等待影像报告结果\" - Related but doesn't directly support any expected fact\n- m3: \"用户最近经常咳嗽，痰中有血丝，症状已持续两周（约从2026年8月25日开始）\" - Supports fact 2 (coughing, blood in sputum)\n- m4: \"用户计划进行CT检查以确认健康状况\" - Related but doesn't directly support expected facts\n\nFact 1: Supported by m0 - \"目前尚未确诊肺癌\"\nFact 2: Supported by m3 - \"经常咳嗽，痰中有血丝\"\nFact 3: Supported by m1 - \"多年吸烟史\" and \"担心自己可能患有肺癌\"\n\n**Item 0fc353a02362c1fb03fe:**\nQuery: 用户对花生是否存在过敏反应？\nExpected facts:\n1. \"用户去年过敏原测试显示对花生不过敏。\" - Need to check\n\n\n2. \"用户多年来食用花生从未出现不良反应。\" - Need to verify\n\nI'll examine the memories to confirm these facts. The test results and personal experience both indicate no花生 allergy. The evidence shows consistent confirmation from multiple sources - medical test results and personal consumption history.\n\nThe memories provide clear, supporting details for both expected facts. The allergy test and personal experience align perfectly in demonstrating no花生 allergy.\n\nThe patient's medical history reveals a specific aspirin allergy with precise timing and symptom details. Medical records document a severe reaction occurring in early 2021, characterized by rapid onset of allergic symptoms including lip and tongue swelling, intense skin itching, and significant vascular complications.\n\nThe timeline and symptoms are consistently documented across multiple memory entries, providing a comprehensive medical profile of the allergic event.\n\nThe patient's allergy history demonstrates a clear progression: an initial severe reaction in 2019, followed by strict avoidance of penicillin-based medications. Multiple sources confirm the specific details of the allergic incident and subsequent preventive measures.\n\nThe evidence consistently supports the expected facts, with precise documentation of the allergic event's timing and the patient's proactive health management strategy.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item:\n\n**Item 0fa0e5677c19f42594b8:**\nQuery: 患者目前是否已确诊患有肺癌？\nExpected facts:\n1. \"患者目前尚未确诊肺癌。\" - Need to check if memories support this\n2. \"患者最近经常咳嗽，痰中有血丝。\" - Need to check if memories support this\n3. \"患者吸烟多年，担心肺癌。\" - Need to check if memories support this\n\nMemories:\n- m0: \"用户澄清目前尚未确诊肺癌，仅根据症状猜测，需等待CT报告确认\" - Supports fact 1 (not diagnosed yet)\n- m1: \"用户有多年吸烟史，因此担心自己可能患有肺癌\" - Supports fact 3 (smoking history, worry about lung cancer)\n- m2: \"用户于2026年9月7日完成了胸部CT检查，目前正在等待影像报告结果\" - Related but doesn't directly support any expected fact\n- m3: \"用户最近经常咳嗽，痰中有血丝，症状已持续两周（约从2026年8月25日开始）\" - Supports fact 2 (coughing, blood in sputum)\n- m4: \"用户计划进行CT检查以确认健康状况\" - Related but doesn't directly support expected facts\n\nFact 1: Supported by m0 - \"目前尚未确诊肺癌\"\nFact 2: Supported by m3 - \"经常咳嗽，痰中有血丝\"\nFact 3: Supported by m1 - \"多年吸烟史\" and \"担心自己可能患有肺癌\"\n\n**Item 0fc353a02362c1fb03fe:**\nQuery: 用户对花生是否存在过敏反应？\nExpected facts:\n1. \"用户去年过敏原测试显示对花生不过敏。\" - Need to check\n\n\n2. \"用户多年来食用花生从未出现不良反应。\" - Need to verify\n\nI'll examine the memories to confirm these facts. The test results and personal experience both indicate no花生 allergy. The evidence shows consistent confirmation from multiple sources - medical test results and personal consumption history.\n\nThe memories provide clear, supporting details for both expected facts. The allergy test and personal experience align perfectly in demonstrating no花生 allergy.\n\nThe patient's medical history reveals a specific aspirin allergy with precise timing and symptom details. Medical records document a severe reaction occurring in early 2021, characterized by rapid onset of allergic symptoms including lip and tongue swelling, intense skin itching, and significant vascular complications.\n\nThe timeline and symptoms are consistently documented across multiple memory entries, providing a comprehensive medical profile of the allergic event.\n\nThe patient's allergy history demonstrates a clear progression: an initial severe reaction in 2019, followed by strict avoidance of penicillin-based medications. Multiple sources confirm the specific details of the allergic incident and subsequent preventive measures.\n\nThe evidence consistently supports the expected facts, with precise documentation of the allergic event's timing and the patient's proactive health management strategy.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1405,
+      "completion_tokens": 1124,
+      "total_tokens": 2529,
+      "cost": 0.001763275,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.001763275,
+        "upstream_inference_prompt_cost": 0.000414475,
+        "upstream_inference_completions_cost": 0.0013488
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 584,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 20.968
+}

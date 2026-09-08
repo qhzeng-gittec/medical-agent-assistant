@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"44647a38d240d2a301bd\", \"query\": \"患者童年时期接触花生后的实际身体反应如何？\", \"expected_facts\": [\"患者小时候误食花生两次后没有发生不良反应。\", \"患者并非对花生过敏。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户根据最近一次体检报告更正过敏史：实际对芒果过敏，而非花生；小时候误食过两次花生均无不良反应，因此对花生并无严重过敏。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:54:12.347902+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户对花生严重过敏\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:53:37.671993+00:00\"}]}, {\"id\": \"4850827ba456bf354165\", \"query\": \"用户本人是否有过骨折经历，之前的脚部受伤是如何处理的？\", \"expected_facts\": [\"用户曾扭伤脚踝，属软组织损伤，未骨折也未打石膏。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户更正：是外甥（而非侄子）四年前因骨折打了石膏，修养了一个月；用户自己仅扭伤过脚踝为软组织损伤，从未骨折或打石膏\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:42:50.593305+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户运动时扭伤过脚踝，贴膏药就好，从来没断过骨头，也不需要打石膏\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:42:24.337813+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户的侄子四年前因骨折打了石膏，修养了一个月\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:42:24.337813+00:00\"}]}, {\"id\": \"49a695b1a20fb4b33a0b\", \"query\": \"用户实际是从哪一天开始执行夜班工作的？当时的睡眠状况如何？\", \"expected_facts\": [\"该用户从本月一号正式转为夜班工作。\", \"该用户当时白天无法入睡，仅能小憩半小时。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户上个月换班后被迫改成夜班，从晚上十点工作到早上六点，导致白天完全睡不着，只能眯半小时\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:33:19.225192+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户于2026年9月1日正式转为夜班，而非上个月\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:33:40.716812+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户于2026年9月8日开始尝试早睡早起\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:33:40.716812+00:00\"}]}, {\"id\": \"49e02d9586335fc5d5f9\", \"query\": \"患者前天做了什么检查，结果状态如何？\", \"expected_facts\": [\"患者前天做了眼压测量。\", \"详细报告尚未出来。\", \"需要等待检查结果确认诊断。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户于2026年9月6日（前天）完成了眼压测量，医生告知需等待详细报告，目前尚未确诊青光眼，仍在等待检查结果。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:45:58.227780+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户计划进行眼压检查以排查青光眼风险。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:44:36.511453+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户的爷爷患有青光眼，用户担心自己会遗传该疾病。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:44:36.511453+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861947-isE7FiVvdPvYTAGDodK8",
+    "object": "chat.completion",
+    "created": 1788861947,
+    "model": "minimax/minimax-m2.5",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"items\": [\n    {\n      \"id\": \"44647a38d240d2a301bd\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"Memory explicitly states user accidentally ate peanuts twice as a child with no adverse reactions.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"Memory explicitly states user has no severe allergy to peanuts after the two incidents.\"\n        }\n      ]\n    },\n    {\n      \"id\": \"4850827ba456bf354165\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}, {\"memory_id\": \"m1\"}],\n          \"reason\": \"Both memories explicitly confirm user sprained ankle as soft tissue injury, never fractured or needed cast.\"\n        }\n      ]\n    },\n    {\n      \"id\": \"49a695b1a20fb4b33a0b\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m1\"}],\n          \"reason\": \"Memory explicitly states user officially switched to night shift on September 1, 2026.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"Memory explicitly states user could only nap for half an hour during the day due to night shift.\"\n        }\n      ]\n    },\n    {\n      \"id\": \"49e02d9586335fc5d5f9\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"Memory explicitly states user completed intraocular pressure measurement on September 6 (day before yesterday).\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"Memory explicitly states detailed report is not yet available and user is waiting for results.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"Memory explicitly states user is still waiting for examination results to confirm diagnosis.\"\n        }\n      ]\n    }\n  ]\n}\n```",
+          "refusal": null,
+          "reasoning": "Let me analyze each item according to the instructions:\n\n1. **Item 44647a38d240d2a301bd**: Query about patient's childhood reaction to peanuts\n   - Expected facts:\n     - \"患者小时候误食花生两次后没有发生不良反应。\" (Patient had no adverse reaction after accidentally eating peanuts twice as a child)\n     - \"患者并非对花生过敏。\" (Patient is not allergic to peanuts)\n   \n   Memories:\n   - m0: \"用户根据最近一次体检报告更正过敏史：实际对芒果过敏，而非花生；小时候误食过两次花生均无不良反应，因此对花生并无严重过敏。\" - This directly supports both facts: mentions two accidental peanut consumptions with no adverse reaction, and states not allergic to peanuts.\n   - m1: \"用户对花生严重过敏\" - This contradicts the expected facts (says allergic to peanuts)\n   \n   Evaluation:\n   - Fact 1: Supported by m0 (explicitly states \"小时候误食过两次花生均无不良反应\")\n   - Fact 2: Supported by m0 (explicitly states \"因此对花生并无严重过敏\" - not severely allergic to peanuts)\n\n2. **Item 4850827ba456bf354165**: Query about user's fracture history and foot injury treatment\n   - Expected fact: \"用户曾扭伤脚踝，属软组织损伤，未骨折也未打石膏。\" (User sprained ankle, soft tissue injury, no fracture and no cast)\n   \n   Memories:\n   - m0: \"用户更正：是外甥（而非侄子）四年前因骨折打了石膏，修养了一个月；用户自己仅扭伤过脚踝为软组织损伤，从未骨折或打石膏\" - This directly supports the expected fact: user sprained ankle (软组织损伤), never fractured or needed cast\n   - m1: \"用户运动时扭伤过脚踝，贴膏药就好，从来没断过骨头，也不需要打石膏\" - Also supports: sprained ankle, never broke bones, no cast needed\n   - m2: \"用户的侄子四年前因骨折打了石膏，修养了一个月\" - This is about the nephew, not the user, so doesn't support the user's fact\n   \n   Evaluation:\n   - Fact: Supported by m0 and m1 (both explicitly state user sprained ankle, soft tissue injury, no fracture/cast)\n\n3. **Item 49a695b1a20fb4b33a0b**: Query about when user started night shift work and sleep condition\n   - Expected facts:\n     - \"该用户从本月一号正式转为夜班工作。\" (User officially switched to night shift from the 1st of this month)\n     - \"该用户当时白天无法入睡，仅能小憩半小时。\" (At that time, user couldn't sleep during the day, could only nap for half an hour)\n   \n   Memories:\n   - m0: \"用户上个月换班后被迫改成夜班，从晚上十点工作到早上六点，导致白天完全睡不着，只能眯半小时\" - Mentions night shift and can only nap half an hour, but says \"上个月\" (last month), not \"本月一号\" (1st of this month)\n   - m1: \"用户于2026年9月1日正式转为夜班，而非上个月\" - Explicitly states September 1, 2026 as the start date\n   - m2: \"用户于2026年9月8日开始尝试早睡早起\" - Not relevant to the query\n   \n   Evaluation:\n   - Fact 1: Supported by m1 (explicitly states 9/1/2026)\n   - Fact 2: Supported by m0 (explicitly states \"白天完全睡不着，只能眯半小时\")\n\n4. **Item 49e02d9586335fc5d5f9**: Query about what examination patient did the day before yesterday and result status\n   - Expected facts:\n     - \"患者前天做了眼压测量。\" (Patient had intraocular pressure measurement the day before yesterday)\n     - \"详细报告尚未出来。\" (Detailed report not yet available)\n     - \"需要等待检查结果确认诊断。\" (Need to wait for examination results to confirm diagnosis)\n   \n   Memories:\n   - m0: \"用户于2026年9月6日（前天）完成了眼压测量，医生告知需等待详细报告，目前尚未确诊青光眼，仍在等待检查结果。\" - This directly supports all three facts: did eye pressure measurement on 9/6 (day before yesterday), waiting for detailed report, waiting for results to confirm diagnosis\n   - m1: \"用户计划进行眼压检查以排查青光眼风险。\" - This is about planning, not actual completion\n   - m2: \"用户的爷爷患有青光眼，用户担心自己会遗传该疾病。\" - About family history, not the examination\n   \n   Evaluation:\n   - Fact 1: Supported by m0 (explicitly states completed eye pressure measurement on 9/6)\n   - Fact 2: Supported by m0 (explicitly states \"需等待详细报告\")\n   - Fact 3: Supported by m0 (explicitly states \"仍在等待检查结果\" and \"尚未确诊青光眼\")\n\nNow I'll prepare the JSON output:",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item according to the instructions:\n\n1. **Item 44647a38d240d2a301bd**: Query about patient's childhood reaction to peanuts\n   - Expected facts:\n     - \"患者小时候误食花生两次后没有发生不良反应。\" (Patient had no adverse reaction after accidentally eating peanuts twice as a child)\n     - \"患者并非对花生过敏。\" (Patient is not allergic to peanuts)\n   \n   Memories:\n   - m0: \"用户根据最近一次体检报告更正过敏史：实际对芒果过敏，而非花生；小时候误食过两次花生均无不良反应，因此对花生并无严重过敏。\" - This directly supports both facts: mentions two accidental peanut consumptions with no adverse reaction, and states not allergic to peanuts.\n   - m1: \"用户对花生严重过敏\" - This contradicts the expected facts (says allergic to peanuts)\n   \n   Evaluation:\n   - Fact 1: Supported by m0 (explicitly states \"小时候误食过两次花生均无不良反应\")\n   - Fact 2: Supported by m0 (explicitly states \"因此对花生并无严重过敏\" - not severely allergic to peanuts)\n\n2. **Item 4850827ba456bf354165**: Query about user's fracture history and foot injury treatment\n   - Expected fact: \"用户曾扭伤脚踝，属软组织损伤，未骨折也未打石膏。\" (User sprained ankle, soft tissue injury, no fracture and no cast)\n   \n   Memories:\n   - m0: \"用户更正：是外甥（而非侄子）四年前因骨折打了石膏，修养了一个月；用户自己仅扭伤过脚踝为软组织损伤，从未骨折或打石膏\" - This directly supports the expected fact: user sprained ankle (软组织损伤), never fractured or needed cast\n   - m1: \"用户运动时扭伤过脚踝，贴膏药就好，从来没断过骨头，也不需要打石膏\" - Also supports: sprained ankle, never broke bones, no cast needed\n   - m2: \"用户的侄子四年前因骨折打了石膏，修养了一个月\" - This is about the nephew, not the user, so doesn't support the user's fact\n   \n   Evaluation:\n   - Fact: Supported by m0 and m1 (both explicitly state user sprained ankle, soft tissue injury, no fracture/cast)\n\n3. **Item 49a695b1a20fb4b33a0b**: Query about when user started night shift work and sleep condition\n   - Expected facts:\n     - \"该用户从本月一号正式转为夜班工作。\" (User officially switched to night shift from the 1st of this month)\n     - \"该用户当时白天无法入睡，仅能小憩半小时。\" (At that time, user couldn't sleep during the day, could only nap for half an hour)\n   \n   Memories:\n   - m0: \"用户上个月换班后被迫改成夜班，从晚上十点工作到早上六点，导致白天完全睡不着，只能眯半小时\" - Mentions night shift and can only nap half an hour, but says \"上个月\" (last month), not \"本月一号\" (1st of this month)\n   - m1: \"用户于2026年9月1日正式转为夜班，而非上个月\" - Explicitly states September 1, 2026 as the start date\n   - m2: \"用户于2026年9月8日开始尝试早睡早起\" - Not relevant to the query\n   \n   Evaluation:\n   - Fact 1: Supported by m1 (explicitly states 9/1/2026)\n   - Fact 2: Supported by m0 (explicitly states \"白天完全睡不着，只能眯半小时\")\n\n4. **Item 49e02d9586335fc5d5f9**: Query about what examination patient did the day before yesterday and result status\n   - Expected facts:\n     - \"患者前天做了眼压测量。\" (Patient had intraocular pressure measurement the day before yesterday)\n     - \"详细报告尚未出来。\" (Detailed report not yet available)\n     - \"需要等待检查结果确认诊断。\" (Need to wait for examination results to confirm diagnosis)\n   \n   Memories:\n   - m0: \"用户于2026年9月6日（前天）完成了眼压测量，医生告知需等待详细报告，目前尚未确诊青光眼，仍在等待检查结果。\" - This directly supports all three facts: did eye pressure measurement on 9/6 (day before yesterday), waiting for detailed report, waiting for results to confirm diagnosis\n   - m1: \"用户计划进行眼压检查以排查青光眼风险。\" - This is about planning, not actual completion\n   - m2: \"用户的爷爷患有青光眼，用户担心自己会遗传该疾病。\" - About family history, not the examination\n   \n   Evaluation:\n   - Fact 1: Supported by m0 (explicitly states completed eye pressure measurement on 9/6)\n   - Fact 2: Supported by m0 (explicitly states \"需等待详细报告\")\n   - Fact 3: Supported by m0 (explicitly states \"仍在等待检查结果\" and \"尚未确诊青光眼\")\n\nNow I'll prepare the JSON output:",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1284,
+      "completion_tokens": 1582,
+      "total_tokens": 2866,
+      "cost": 0.00221702,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00221702,
+        "upstream_inference_prompt_cost": 0.00031862,
+        "upstream_inference_completions_cost": 0.0018984
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 1084,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 26.562
+}

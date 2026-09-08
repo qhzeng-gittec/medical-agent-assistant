@@ -1,0 +1,436 @@
+{
+  "case": {
+    "id": "M08-10",
+    "category": "搬家旅行与生活环境变化",
+    "turns": [
+      {
+        "user": "上个月我去了趟海南度假，住了五天，主要是在三亚的海边活动，天气非常暖和。",
+        "assistant": "收到，已记录您上个月赴海南度假五天的行程。"
+      },
+      {
+        "user": "更正一下，那次度假其实是去了厦门，不是海南，而且是在上个月初出发的，住了七天。",
+        "assistant": "明白，已更正为上个月初赴厦门度假七天。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "M08-10-Q1",
+        "query": "患者上个月度假的具体目的地和停留时长是多少？",
+        "expected_facts": [
+          "患者上个月度假的目的地是厦门。",
+          "患者在厦门停留了七天。",
+          "度假出发时间是上个月初。"
+        ],
+        "required_groups": [
+          [
+            "厦门",
+            "厦门"
+          ],
+          [
+            "七天",
+            "七天时间"
+          ],
+          [
+            "上个月初",
+            "上个月"
+          ]
+        ]
+      },
+      {
+        "id": "M08-10-Q2",
+        "query": "请确认患者最近一次度假的地点和具体天数。",
+        "expected_facts": [
+          "患者上个月初去了厦门。",
+          "患者停留了七天。",
+          "度假发生在上个月。"
+        ],
+        "required_groups": [
+          [
+            "厦门"
+          ],
+          [
+            "七天"
+          ],
+          [
+            "上个月初"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M08-10",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861179-pxtyjhozZ94sTszRO5j0",
+      "usage": {
+        "prompt_tokens": 47,
+        "total_tokens": 47,
+        "cost": 4.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.7e-07,
+          "upstream_inference_prompt_cost": 4.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861184-KJmmN9gsi5TmlXORLrjE",
+      "usage": {
+        "prompt_tokens": 8344,
+        "completion_tokens": 418,
+        "total_tokens": 8762,
+        "cost": 0.002922,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.002922,
+          "upstream_inference_prompt_cost": 0.002086,
+          "upstream_inference_completions_cost": 0.000836
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 352,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户于2026年8月前往海南度假，停留了五天，主要在三亚海边活动，天气非常暖和。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861198-KKZy70Z2FzpS5r4dQMLQ",
+      "usage": {
+        "prompt_tokens": 30,
+        "total_tokens": 30,
+        "cost": 3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3e-07,
+          "upstream_inference_prompt_cost": 3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861199-yZtpEXS8eqlvCg9dbEdM",
+      "usage": {
+        "prompt_tokens": 48,
+        "total_tokens": 48,
+        "cost": 4.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.8e-07,
+          "upstream_inference_prompt_cost": 4.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861199-iFOdxjUdDjw1Ot9BPbZp",
+      "usage": {
+        "prompt_tokens": 8424,
+        "completion_tokens": 357,
+        "total_tokens": 8781,
+        "cost": 0.00311844,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00311844,
+          "upstream_inference_prompt_cost": 0.00219024,
+          "upstream_inference_completions_cost": 0.0009282
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 275,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户于2026年8月初前往厦门度假，停留了七天，而非之前提到的海南五天行程。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861204-vHn5Zv8UNqofsSp63F1h",
+      "usage": {
+        "prompt_tokens": 28,
+        "total_tokens": 28,
+        "cost": 2.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.8e-07,
+          "upstream_inference_prompt_cost": 2.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861207-MKP0BoKSstEeQT6zfi2Q",
+      "usage": {
+        "prompt_tokens": 13,
+        "total_tokens": 13,
+        "cost": 1.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.3e-07,
+          "upstream_inference_prompt_cost": 1.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861209-DUILZ1mo3ERBvcGICmcr",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 14,
+        "cost": 1.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.4e-07,
+          "upstream_inference_prompt_cost": 1.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861211-p044zcY9Yn4Xfmn3gu4t",
+      "usage": {
+        "prompt_tokens": 23,
+        "total_tokens": 23,
+        "cost": 2.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.3e-07,
+          "upstream_inference_prompt_cost": 2.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861214-72PCSBcUILB3hw567Xxq",
+      "usage": {
+        "prompt_tokens": 13,
+        "total_tokens": 13,
+        "cost": 1.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.3e-07,
+          "upstream_inference_prompt_cost": 1.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861215-WtWb0gNBDXTbbFVq43n7",
+      "usage": {
+        "prompt_tokens": 13,
+        "total_tokens": 13,
+        "cost": 1.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.3e-07,
+          "upstream_inference_prompt_cost": 1.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "M08-10-Q1",
+        "query": "患者上个月度假的具体目的地和停留时长是多少？",
+        "expected_facts": [
+          "患者上个月度假的目的地是厦门。",
+          "患者在厦门停留了七天。",
+          "度假出发时间是上个月初。"
+        ],
+        "required_groups": [
+          [
+            "厦门",
+            "厦门"
+          ],
+          [
+            "七天",
+            "七天时间"
+          ],
+          [
+            "上个月初",
+            "上个月"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "fdf0a090-56ee-480b-b95a-0c2cb0317257",
+          "content": "用户于2026年8月前往海南度假，停留了五天，主要在三亚海边活动，天气非常暖和。",
+          "score": 0.5886064340133721,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:52:58.137150+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M08-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:53:18.332960+00:00"
+        },
+        {
+          "memory_id": "8ef7d29e-21a4-47c6-8aea-79c6ce41937b",
+          "content": "用户于2026年8月初前往厦门度假，停留了七天，而非之前提到的海南五天行程。",
+          "score": 0.526968845678479,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:53:18.358096+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M08-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:53:24.592226+00:00"
+        }
+      ],
+      "seconds": 3.687
+    },
+    {
+      "query": {
+        "id": "M08-10-Q2",
+        "query": "请确认患者最近一次度假的地点和具体天数。",
+        "expected_facts": [
+          "患者上个月初去了厦门。",
+          "患者停留了七天。",
+          "度假发生在上个月。"
+        ],
+        "required_groups": [
+          [
+            "厦门"
+          ],
+          [
+            "七天"
+          ],
+          [
+            "上个月初"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "fdf0a090-56ee-480b-b95a-0c2cb0317257",
+          "content": "用户于2026年8月前往海南度假，停留了五天，主要在三亚海边活动，天气非常暖和。",
+          "score": 0.5460848158359155,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:52:58.137150+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M08-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:53:18.332960+00:00"
+        },
+        {
+          "memory_id": "8ef7d29e-21a4-47c6-8aea-79c6ce41937b",
+          "content": "用户于2026年8月初前往厦门度假，停留了七天，而非之前提到的海南五天行程。",
+          "score": 0.45606066858733274,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:53:18.358096+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M08-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:53:24.592226+00:00"
+        }
+      ],
+      "seconds": 2.625
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者上个月度假的具体目的地和停留时长是多少？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "fdf0a090-56ee-480b-b95a-0c2cb0317257",
+        "content": "用户于2026年8月前往海南度假，停留了五天，主要在三亚海边活动，天气非常暖和。",
+        "score": 0.5611057616397147,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:52:58.137150+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M08-10",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:53:18.332960+00:00"
+      },
+      {
+        "memory_id": "8ef7d29e-21a4-47c6-8aea-79c6ce41937b",
+        "content": "用户于2026年8月初前往厦门度假，停留了七天，而非之前提到的海南五天行程。",
+        "score": 0.4975475322086087,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:53:18.358096+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M08-10",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:53:24.592226+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 39.531
+}

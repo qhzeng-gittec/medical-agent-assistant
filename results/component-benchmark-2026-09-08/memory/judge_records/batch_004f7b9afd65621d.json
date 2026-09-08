@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"da423762bc66f8c29f5e\", \"query\": \"用户最初描述的高强度工作期是在什么时候？持续了多久？\", \"expected_facts\": [\"该用户最初称高强度工作期为春节假期后。\", \"该用户当时连续十天每天只睡五个小时。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户在春节放假期间加班，假期结束后才稍微缓过来\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:33:17.117620+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户现在每天能睡六小时\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:33:17.117620+00:00\"}]}, {\"id\": \"dad9f5ad48f7b98531bf\", \"query\": \"当感到异常疼痛时，患者应如何处理？\", \"expected_facts\": [\"如果感到异常疼痛，患者需立即联系医院。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户医生提醒，如果感到异常疼痛需立即联系医院。用户目前非常小心坐姿。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:38:26.665299+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户进行了髋关节置换手术，术后存在活动限制：不能交叉双腿或深蹲，目前只能坐在高椅子上。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:37:56.606235+00:00\"}]}, {\"id\": \"db263dc0443d5c533b54\", \"query\": \"患者前天做了什么检查，结果状态如何？\", \"expected_facts\": [\"患者前天做了眼压测量。\", \"详细报告尚未出来。\", \"需要等待检查结果确认诊断。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户于2026年9月6日（前天）完成了眼压测量，医生告知需等待详细报告，目前尚未确诊青光眼，仍在等待检查结果。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:45:58.227780+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户计划进行眼压检查以排查青光眼风险。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:44:36.511453+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户的爷爷患有青光眼，用户担心自己会遗传该疾病。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:44:36.511453+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户最近出现视力模糊和看东西重影的症状，尤其在晚上明显。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:44:36.511453+00:00\"}]}, {\"id\": \"dbaee46f72bbb8d31aad\", \"query\": \"患者目前的用药习惯是什么，针对检测当天的服药时间有何疑问？\", \"expected_facts\": [\"患者每天早上八点服用钙片。\", \"患者询问若检测在上午十点，当天早上是否可继续服药或改为晚上服用。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的骨密度检测具体安排在周一上午十点，用户询问检测当天早上是否还能服用钙片，或者是否应改为晚上服用\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:39:04.018607+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户每天早上八点服用钙片\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:39:04.018607+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户询问骨密度检测前是否需要停药，以及服用的钙片和维生素D是否会影响检测结果\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:37:44.928694+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862262-yOGwwde20DOfjS6SNROP",
+    "object": "chat.completion",
+    "created": 1788862262,
+    "model": "minimax/minimax-m2.5",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"da423762bc66f8c29f5e\",\"facts\":[{\"supported\":false,\"evidence\":[],\"reason\":\"记忆显示高强度工作发生在春节期间，而非春节假期后，时间点不匹配。\"},{\"supported\":false,\"evidence\":[],\"reason\":\"没有任何记忆提及连续十天每天只睡五个小时的具体情况。\"}]},{\"id\":\"dad9f5ad48f7b98531bf\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确指出医生提醒如果感到异常疼痛需立即联系医院。\"}]},{\"id\":\"db263dc0443d5c533b54\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确指出用户于2026年9月6日完成了眼压测量。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆显示医生告知需等待详细报告，报告尚未出来。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆表明用户仍在等待检查结果以确认是否确诊青光眼。\"}]},{\"id\":\"dbaee46f72bbb8d31aad\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"记忆明确指出用户每天早上八点服用钙片。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆显示用户询问检测当天早上是否可继续服药或改为晚上服用。\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item according to the instructions:\n\n1. **Item da423762bc66f8c29f5e**\n   - Query: 用户最初描述的高强度工作期是在什么时候？持续了多久？\n   - Expected facts:\n     1. \"该用户最初称高强度工作期为春节假期后。\" - The user initially said the high-intensity work period was after the Spring Festival holiday.\n     2. \"该用户当时连续十天每天只睡五个小时。\" - The user at that time slept only 5 hours a day for 10 consecutive days.\n   \n   Memories:\n   - m0: \"用户在春节放假期间加班，假期结束后才稍微缓过来\" - User worked overtime during Spring Festival holiday, only recovered after holiday ended\n   - m1: \"用户现在每天能睡六小时\" - User now can sleep 6 hours daily\n\n   Analysis:\n   - Fact 1: The memory m0 says \"假期结束后才稍微缓过来\" (only recovered after the holiday ended), which suggests the high-intensity work was DURING the holiday, not AFTER. The expected fact says \"春节假期后\" (after the holiday), but the memory indicates it was during the holiday. This is a contradiction - the memory does NOT support \"春节假期后\" as the start time.\n   - Fact 2: No memory mentions \"连续十天每天只睡五个小时\" (10 consecutive days, 5 hours sleep each day). There's no mention of duration or specific sleep hours in any memory.\n\n   Result: Both unsupported\n\n2. **Item dad9f5ad48f7b98531bf**\n   - Query: 当感到异常疼痛时，患者应如何处理？\n   - Expected fact: \"如果感到异常疼痛，患者需立即联系医院。\"\n   \n   Memories:\n   - m0: \"用户医生提醒，如果感到异常疼痛需立即联系医院。用户目前非常小心坐姿。\" - The doctor reminded the user that if they feel abnormal pain, they need to contact the hospital immediately.\n   - m1: \"用户进行了髋关节置换手术，术后存在活动限制：不能交叉双腿或深蹲，目前只能坐在高椅子上。\" - User had hip replacement surgery with activity restrictions\n\n   Analysis: The memory explicitly states the doctor's reminder about contacting the hospital for abnormal pain. This directly supports the expected fact.\n\n   Result: Supported with m0\n\n3. **Item db263dc0443d5c533b54**\n   - Query: 患者前天做了什么检查，结果状态如何？\n   - Expected facts:\n     1. \"患者前天做了眼压测量。\" - The patient had intraocular pressure measurement the day before yesterday\n     2. \"详细报告尚未出来。\" - The detailed report hasn't come out yet\n     3. \"需要等待检查结果确认诊断。\" - Need to wait for test results to confirm diagnosis\n   \n   Memories:\n   - m0: \"用户于2026年9月6日（前天）完成了眼压测量，医生告知需等待详细报告，目前尚未确诊青光眼，仍在等待检查结果。\" - User completed intraocular pressure measurement on Sept 6 (day before yesterday), doctor said to wait for detailed report, not yet diagnosed with glaucoma, still waiting for test results\n   - m1: \"用户计划进行眼压检查以排查青光眼风险。\" - User plans to have intraocular pressure check to rule out glaucoma risk\n   - m2: \"用户的爷爷患有青光眼，用户担心自己会遗传该疾病。\" - User's grandfather has glaucoma, user worries about genetic inheritance\n   - m3: \"用户最近出现视力模糊和看东西重影的症状，尤其在晚上明显。\" - User recently has blurred vision and double vision, especially at night\n\n   Analysis:\n   - Fact 1: m0 explicitly states \"完成了眼压测量\" on the day before yesterday (Sept 6, 2026). This supports the first expected fact.\n   - Fact 2: m0 states \"医生告知需等待详细报告\" (doctor said to wait for detailed report), supporting the second expected fact.\n   - Fact 3: m0 states \"仍在等待检查结果\" and \"目前尚未确诊青光眼\" (still waiting for test results, not yet diagnosed with glaucoma), supporting the third expected fact.\n\n   Result: All three facts supported by m0\n\n4. **Item dbaee46f72bbb8d31aad**\n   - Query: 患者目前的用药习惯是什么，针对检测当天的服药时间有何疑问？\n   - Expected facts:\n     1. \"患者每天早上八点服用钙片。\" - Patient takes calcium supplements at 8 am daily\n     2. \"患者询问若检测在上午十点，当天早上是否可继续服药或改为晚上服用。\" - Patient asks if can continue taking medication in the morning or switch to evening if the test is at 10 am\n   \n   Memories:\n   - m0: \"用户的骨密度检测具体安排在周一上午十点，用户询问检测当天早上是否还能服用钙片，或者是否应改为晚上服用\" - User's bone density test is scheduled for Monday at 10 am, user asks whether they can still take calcium in the morning of the test day or should switch to evening\n   - m1: \"用户每天早上八点服用钙片\" - User takes calcium at 8 am daily\n   - m2: \"用户询问骨密度检测前是否需要停药，以及服用的钙片和维生素D是否会影响检测结果\" - User asks whether to stop medication before bone density test and whether calcium and vitamin D will affect test results\n\n   Analysis:\n   - Fact 1: m1 explicitly states \"用户每天早上八点服用钙片\", directly supporting the first expected fact.\n   - Fact 2: m0 explicitly mentions the question about whether to take calcium in the morning or switch to evening for a test at 10 am, supporting the second expected fact.\n\n   Result: Both facts supported by m1 and m0 respectively\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item according to the instructions:\n\n1. **Item da423762bc66f8c29f5e**\n   - Query: 用户最初描述的高强度工作期是在什么时候？持续了多久？\n   - Expected facts:\n     1. \"该用户最初称高强度工作期为春节假期后。\" - The user initially said the high-intensity work period was after the Spring Festival holiday.\n     2. \"该用户当时连续十天每天只睡五个小时。\" - The user at that time slept only 5 hours a day for 10 consecutive days.\n   \n   Memories:\n   - m0: \"用户在春节放假期间加班，假期结束后才稍微缓过来\" - User worked overtime during Spring Festival holiday, only recovered after holiday ended\n   - m1: \"用户现在每天能睡六小时\" - User now can sleep 6 hours daily\n\n   Analysis:\n   - Fact 1: The memory m0 says \"假期结束后才稍微缓过来\" (only recovered after the holiday ended), which suggests the high-intensity work was DURING the holiday, not AFTER. The expected fact says \"春节假期后\" (after the holiday), but the memory indicates it was during the holiday. This is a contradiction - the memory does NOT support \"春节假期后\" as the start time.\n   - Fact 2: No memory mentions \"连续十天每天只睡五个小时\" (10 consecutive days, 5 hours sleep each day). There's no mention of duration or specific sleep hours in any memory.\n\n   Result: Both unsupported\n\n2. **Item dad9f5ad48f7b98531bf**\n   - Query: 当感到异常疼痛时，患者应如何处理？\n   - Expected fact: \"如果感到异常疼痛，患者需立即联系医院。\"\n   \n   Memories:\n   - m0: \"用户医生提醒，如果感到异常疼痛需立即联系医院。用户目前非常小心坐姿。\" - The doctor reminded the user that if they feel abnormal pain, they need to contact the hospital immediately.\n   - m1: \"用户进行了髋关节置换手术，术后存在活动限制：不能交叉双腿或深蹲，目前只能坐在高椅子上。\" - User had hip replacement surgery with activity restrictions\n\n   Analysis: The memory explicitly states the doctor's reminder about contacting the hospital for abnormal pain. This directly supports the expected fact.\n\n   Result: Supported with m0\n\n3. **Item db263dc0443d5c533b54**\n   - Query: 患者前天做了什么检查，结果状态如何？\n   - Expected facts:\n     1. \"患者前天做了眼压测量。\" - The patient had intraocular pressure measurement the day before yesterday\n     2. \"详细报告尚未出来。\" - The detailed report hasn't come out yet\n     3. \"需要等待检查结果确认诊断。\" - Need to wait for test results to confirm diagnosis\n   \n   Memories:\n   - m0: \"用户于2026年9月6日（前天）完成了眼压测量，医生告知需等待详细报告，目前尚未确诊青光眼，仍在等待检查结果。\" - User completed intraocular pressure measurement on Sept 6 (day before yesterday), doctor said to wait for detailed report, not yet diagnosed with glaucoma, still waiting for test results\n   - m1: \"用户计划进行眼压检查以排查青光眼风险。\" - User plans to have intraocular pressure check to rule out glaucoma risk\n   - m2: \"用户的爷爷患有青光眼，用户担心自己会遗传该疾病。\" - User's grandfather has glaucoma, user worries about genetic inheritance\n   - m3: \"用户最近出现视力模糊和看东西重影的症状，尤其在晚上明显。\" - User recently has blurred vision and double vision, especially at night\n\n   Analysis:\n   - Fact 1: m0 explicitly states \"完成了眼压测量\" on the day before yesterday (Sept 6, 2026). This supports the first expected fact.\n   - Fact 2: m0 states \"医生告知需等待详细报告\" (doctor said to wait for detailed report), supporting the second expected fact.\n   - Fact 3: m0 states \"仍在等待检查结果\" and \"目前尚未确诊青光眼\" (still waiting for test results, not yet diagnosed with glaucoma), supporting the third expected fact.\n\n   Result: All three facts supported by m0\n\n4. **Item dbaee46f72bbb8d31aad**\n   - Query: 患者目前的用药习惯是什么，针对检测当天的服药时间有何疑问？\n   - Expected facts:\n     1. \"患者每天早上八点服用钙片。\" - Patient takes calcium supplements at 8 am daily\n     2. \"患者询问若检测在上午十点，当天早上是否可继续服药或改为晚上服用。\" - Patient asks if can continue taking medication in the morning or switch to evening if the test is at 10 am\n   \n   Memories:\n   - m0: \"用户的骨密度检测具体安排在周一上午十点，用户询问检测当天早上是否还能服用钙片，或者是否应改为晚上服用\" - User's bone density test is scheduled for Monday at 10 am, user asks whether they can still take calcium in the morning of the test day or should switch to evening\n   - m1: \"用户每天早上八点服用钙片\" - User takes calcium at 8 am daily\n   - m2: \"用户询问骨密度检测前是否需要停药，以及服用的钙片和维生素D是否会影响检测结果\" - User asks whether to stop medication before bone density test and whether calcium and vitamin D will affect test results\n\n   Analysis:\n   - Fact 1: m1 explicitly states \"用户每天早上八点服用钙片\", directly supporting the first expected fact.\n   - Fact 2: m0 explicitly mentions the question about whether to take calcium in the morning or switch to evening for a test at 10 am, supporting the second expected fact.\n\n   Result: Both facts supported by m1 and m0 respectively\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1257,
+      "completion_tokens": 1555,
+      "total_tokens": 2812,
+      "cost": 0.00218166,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00218166,
+        "upstream_inference_prompt_cost": 0.00031566,
+        "upstream_inference_completions_cost": 0.001866
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 1659,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 29.5
+}

@@ -1,0 +1,134 @@
+{
+  "case": {
+    "id": "M01-07",
+    "category": "工作作息与睡眠时间变化",
+    "turns": [
+      {
+        "user": "半年前换了新主管，要求我们全员实行弹性工作制，我因此经常凌晨四点下班，早上十点才回家补觉。",
+        "assistant": "收到，已记录您半年前因弹性工作制导致的作息颠倒。"
+      },
+      {
+        "user": "不对，弹性工作制是八个月前实施的，而且上周主管宣布取消该制度，我今晚就能按正常时间下班了。",
+        "assistant": "明白，已修正制度实施时间并记录本周取消通知。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "用户提到的弹性工作制实际是何时开始的？当时导致了什么作息问题？",
+        "expected_facts": [
+          "该弹性工作制于八个月前实施。",
+          "该用户当时经常凌晨四点下班，早上十点回家补觉。"
+        ],
+        "required_groups": [
+          [
+            "八个月前",
+            "八月前"
+          ],
+          [
+            "凌晨四点下班",
+            "四点下班"
+          ],
+          [
+            "早上十点回家补觉",
+            "十点回家睡觉"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "该工作制度何时被叫停？用户对此有何反应？",
+        "expected_facts": [
+          "该制度于上周被主管宣布取消。",
+          "该用户今晚即可按正常时间下班。"
+        ],
+        "required_groups": [
+          [
+            "上周",
+            "上个星期"
+          ],
+          [
+            "取消该制度",
+            "废除该制度"
+          ],
+          [
+            "按正常时间下班",
+            "正常时间离开"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M01-07",
+    "synthetic": true
+  },
+  "status": "started",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859895-kQB4dmEZ7E5M9kaRBLEp",
+      "usage": {
+        "prompt_tokens": 56,
+        "total_tokens": 56,
+        "cost": 5.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.6e-07,
+          "upstream_inference_prompt_cost": 5.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788859899-iEKeDCVJnxm05xfTbZBy",
+      "usage": {
+        "prompt_tokens": 8351,
+        "completion_tokens": 2058,
+        "total_tokens": 10409,
+        "cost": 0.0074445,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0074445,
+          "upstream_inference_prompt_cost": 0.0025053,
+          "upstream_inference_completions_cost": 0.0049392
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1978,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户半年前更换了新主管，新主管要求全员实行弹性工作制。受此影响，用户经常凌晨四点下班，早上十点才回家补觉，导致作息颠倒。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859978-yA4NRHctCHynhXWhWOl6",
+      "usage": {
+        "prompt_tokens": 42,
+        "total_tokens": 42,
+        "cost": 4.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.2e-07,
+          "upstream_inference_prompt_cost": 4.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": []
+}

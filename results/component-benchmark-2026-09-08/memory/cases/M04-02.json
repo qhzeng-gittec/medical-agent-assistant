@@ -1,0 +1,528 @@
+{
+  "case": {
+    "id": "M04-02",
+    "category": "用户和家人的经历区分",
+    "turns": [
+      {
+        "user": "我弟弟上个月被诊断出患有哮喘，现在需要每天使用吸入器。我自己虽然小时候有过过敏，但成年后完全好了，最近也没有任何呼吸方面的问题。",
+        "assistant": "好的，已记录您弟弟上个月的诊断结果及您过去的过敏史。"
+      },
+      {
+        "user": "不对，刚才说错了，是妹妹上个月确诊的哮喘，弟弟其实很健康。至于我自己，小时候确实有季节性过敏，但那是很久以前的事了，现在没问题。",
+        "assistant": "收到，已更新为您妹妹的确诊信息，并保留您儿时的过敏记录。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "家里谁在上个月被确诊为哮喘并开始使用吸入器治疗？",
+        "expected_facts": [
+          "用户的妹妹在上个月被诊断出患有哮喘。"
+        ],
+        "required_groups": [
+          [
+            "妹妹",
+            "小妹"
+          ],
+          [
+            "上个月",
+            "上月"
+          ],
+          [
+            "哮喘",
+            "气喘"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "用户本人是否有过呼吸系统相关的病史，目前状态如何？",
+        "expected_facts": [
+          "用户小时候有过季节性过敏，但成年后已痊愈，目前无呼吸问题。"
+        ],
+        "required_groups": [
+          [
+            "小时候",
+            "儿时",
+            "幼年"
+          ],
+          [
+            "季节性过敏",
+            "过敏"
+          ],
+          [
+            "已痊愈",
+            "好了",
+            "没问题"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M04-02",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860471-60SnjvwAUat3H0E854dE",
+      "usage": {
+        "prompt_tokens": 63,
+        "total_tokens": 63,
+        "cost": 6.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.3e-07,
+          "upstream_inference_prompt_cost": 6.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860473-W5DMix41lRc5e4eYACws",
+      "usage": {
+        "prompt_tokens": 8362,
+        "completion_tokens": 195,
+        "total_tokens": 8557,
+        "cost": 0.0029766,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0029766,
+          "upstream_inference_prompt_cost": 0.0025086,
+          "upstream_inference_completions_cost": 0.000468
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 113,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\"memory\": [{\"id\": \"0\", \"text\": \"用户的弟弟在2026年8月被诊断出患有哮喘，现在需要每天使用吸入器\", \"attributed_to\": \"user\"}, {\"id\": \"1\", \"text\": \"用户小时候有过过敏，但成年后完全好了，最近没有任何呼吸方面的问题\", \"attributed_to\": \"user\"}]}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860480-fKJ3VyqFrjlrlp1gLSlQ",
+      "usage": {
+        "prompt_tokens": 40,
+        "total_tokens": 40,
+        "cost": 4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4e-07,
+          "upstream_inference_prompt_cost": 4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860482-6GvKeJioSvWsKT0xY8uu",
+      "usage": {
+        "prompt_tokens": 66,
+        "total_tokens": 66,
+        "cost": 6.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.6e-07,
+          "upstream_inference_prompt_cost": 6.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860483-useus6cj7EajWM4JTAth",
+      "usage": {
+        "prompt_tokens": 8482,
+        "completion_tokens": 2854,
+        "total_tokens": 11336,
+        "cost": 0.0093942,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0093942,
+          "upstream_inference_prompt_cost": 0.0025446,
+          "upstream_inference_completions_cost": 0.0068496
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 2738,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\"id\": \"0\", \"text\": \"用户更正称，上个月（2026年8月）确诊哮喘的是妹妹而非弟弟，弟弟其实很健康。\", \"attributed_to\": \"user\", \"linked_memory_ids\": [\"1\"]},\n    {\"id\": \"1\", \"text\": \"用户确认小时候确实有季节性过敏，但那是很久以前的事了，现在没有任何问题。\", \"attributed_to\": \"user\", \"linked_memory_ids\": [\"0\"]}\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860626-m1M2RH8xwFqZne3sSFZ0",
+      "usage": {
+        "prompt_tokens": 50,
+        "total_tokens": 50,
+        "cost": 5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5e-07,
+          "upstream_inference_prompt_cost": 5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860628-AaNvEtO4Tezm8fAF0zj7",
+      "usage": {
+        "prompt_tokens": 17,
+        "total_tokens": 17,
+        "cost": 1.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.7e-07,
+          "upstream_inference_prompt_cost": 1.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860628-vKgOppTdkSxP5oZoAjan",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860629-oDAht9KnHmBcfdn8fLHc",
+      "usage": {
+        "prompt_tokens": 27,
+        "total_tokens": 27,
+        "cost": 2.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.7e-07,
+          "upstream_inference_prompt_cost": 2.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860631-htBwcnXAXtJmANq4s1Wl",
+      "usage": {
+        "prompt_tokens": 17,
+        "total_tokens": 17,
+        "cost": 1.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.7e-07,
+          "upstream_inference_prompt_cost": 1.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860632-ho77LAIi7b1dsCKuTEtO",
+      "usage": {
+        "prompt_tokens": 17,
+        "total_tokens": 17,
+        "cost": 1.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.7e-07,
+          "upstream_inference_prompt_cost": 1.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "家里谁在上个月被确诊为哮喘并开始使用吸入器治疗？",
+        "expected_facts": [
+          "用户的妹妹在上个月被诊断出患有哮喘。"
+        ],
+        "required_groups": [
+          [
+            "妹妹",
+            "小妹"
+          ],
+          [
+            "上个月",
+            "上月"
+          ],
+          [
+            "哮喘",
+            "气喘"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "df8e5bac-ccff-425d-b7ec-f6773d846a07",
+          "content": "用户的弟弟在2026年8月被诊断出患有哮喘，现在需要每天使用吸入器",
+          "score": 0.7304083885817079,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:10.183515+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:21.554459+00:00"
+        },
+        {
+          "memory_id": "84784f0a-3c21-47b9-9d44-08330f914530",
+          "content": "用户更正称，上个月（2026年8月）确诊哮喘的是妹妹而非弟弟，弟弟其实很健康。",
+          "score": 0.6437941994720875,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:21.593220+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M04-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:43:46.786230+00:00"
+        },
+        {
+          "memory_id": "0e00d016-b5e8-4f2d-83df-7e155f1171c6",
+          "content": "用户小时候有过过敏，但成年后完全好了，最近没有任何呼吸方面的问题",
+          "score": 0.4950395359339091,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:10.183515+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:21.554459+00:00"
+        },
+        {
+          "memory_id": "e2fab9df-bc59-4a9e-9b31-3199385ad0c1",
+          "content": "用户确认小时候确实有季节性过敏，但那是很久以前的事了，现在没有任何问题。",
+          "score": 0.43662953759435225,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:21.593220+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M04-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:43:46.786230+00:00"
+        }
+      ],
+      "seconds": 1.156
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "用户本人是否有过呼吸系统相关的病史，目前状态如何？",
+        "expected_facts": [
+          "用户小时候有过季节性过敏，但成年后已痊愈，目前无呼吸问题。"
+        ],
+        "required_groups": [
+          [
+            "小时候",
+            "儿时",
+            "幼年"
+          ],
+          [
+            "季节性过敏",
+            "过敏"
+          ],
+          [
+            "已痊愈",
+            "好了",
+            "没问题"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "0e00d016-b5e8-4f2d-83df-7e155f1171c6",
+          "content": "用户小时候有过过敏，但成年后完全好了，最近没有任何呼吸方面的问题",
+          "score": 0.6830909657853121,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:10.183515+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:21.554459+00:00"
+        },
+        {
+          "memory_id": "e2fab9df-bc59-4a9e-9b31-3199385ad0c1",
+          "content": "用户确认小时候确实有季节性过敏，但那是很久以前的事了，现在没有任何问题。",
+          "score": 0.5538100757036999,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:21.593220+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M04-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:43:46.786230+00:00"
+        },
+        {
+          "memory_id": "84784f0a-3c21-47b9-9d44-08330f914530",
+          "content": "用户更正称，上个月（2026年8月）确诊哮喘的是妹妹而非弟弟，弟弟其实很健康。",
+          "score": 0.5349349177576543,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:21.593220+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M04-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:43:46.786230+00:00"
+        },
+        {
+          "memory_id": "df8e5bac-ccff-425d-b7ec-f6773d846a07",
+          "content": "用户的弟弟在2026年8月被诊断出患有哮喘，现在需要每天使用吸入器",
+          "score": 0.48009002714424076,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:10.183515+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:21.554459+00:00"
+        }
+      ],
+      "seconds": 1.078
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "家里谁在上个月被确诊为哮喘并开始使用吸入器治疗？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "df8e5bac-ccff-425d-b7ec-f6773d846a07",
+        "content": "用户的弟弟在2026年8月被诊断出患有哮喘，现在需要每天使用吸入器",
+        "score": 0.6594256819911738,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:41:10.183515+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M04-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:41:21.554459+00:00"
+      },
+      {
+        "memory_id": "84784f0a-3c21-47b9-9d44-08330f914530",
+        "content": "用户更正称，上个月（2026年8月）确诊哮喘的是妹妹而非弟弟，弟弟其实很健康。",
+        "score": 0.5922904037571667,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:41:21.593220+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M04-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:43:46.786230+00:00"
+      },
+      {
+        "memory_id": "0e00d016-b5e8-4f2d-83df-7e155f1171c6",
+        "content": "用户小时候有过过敏，但成年后完全好了，最近没有任何呼吸方面的问题",
+        "score": 0.4268701544523841,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:41:10.183515+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M04-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:41:21.554459+00:00"
+      },
+      {
+        "memory_id": "e2fab9df-bc59-4a9e-9b31-3199385ad0c1",
+        "content": "用户确认小时候确实有季节性过敏，但那是很久以前的事了，现在没有任何问题。",
+        "score": 0.37722687407254285,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:41:21.593220+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M04-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:43:46.786230+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 162.375
+}

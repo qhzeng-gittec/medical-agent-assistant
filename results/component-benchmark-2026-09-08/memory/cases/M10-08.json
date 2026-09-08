@@ -1,0 +1,430 @@
+{
+  "case": {
+    "id": "M10-08",
+    "category": "饮食偏好与个人生活习惯",
+    "turns": [
+      {
+        "user": "我有嚼口香糖的习惯，几乎整天都在嚼，主要是薄荷味的。这帮助我集中注意力，但有时候嚼太久下巴会酸痛。",
+        "assistant": "已记录您的口香糖咀嚼习惯及其带来的副作用。"
+      },
+      {
+        "user": "补充说，我从大学时期就开始有这个习惯了，大概有八年了。最近换了无糖口香糖，感觉下巴酸痛的情况稍微好了一点。",
+        "assistant": "已补充习惯持续时间及更换产品后的改善情况。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "患者维持嚼口香糖习惯的大致时长是多少？最初是为了什么目的？",
+        "expected_facts": [
+          "该患者嚼口香糖的习惯已持续约八年。",
+          "该患者嚼口香糖是为了帮助集中注意力。"
+        ],
+        "required_groups": [
+          [
+            "八年",
+            "8年",
+            "大学时期至今"
+          ],
+          [
+            "集中注意力",
+            "专注",
+            "提神"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "患者长期使用口香糖导致了什么身体反应？近期采取了什么措施缓解？",
+        "expected_facts": [
+          "该患者长期嚼口香糖会导致下巴酸痛。",
+          "该患者改用无糖口香糖后症状有所缓解。"
+        ],
+        "required_groups": [
+          [
+            "下巴酸痛",
+            "颚部疼痛",
+            "酸痛"
+          ],
+          [
+            "无糖口香糖",
+            "换用无糖",
+            "缓解"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M10-08",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861465-oJ9bXp3ZYvstx1pQLIov",
+      "usage": {
+        "prompt_tokens": 55,
+        "total_tokens": 55,
+        "cost": 5.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.5e-07,
+          "upstream_inference_prompt_cost": 5.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861469-NqGofegafewOTuVdfDPr",
+      "usage": {
+        "prompt_tokens": 8352,
+        "completion_tokens": 206,
+        "total_tokens": 8558,
+        "cost": 0.00270712,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00270712,
+          "upstream_inference_prompt_cost": 0.00217152,
+          "upstream_inference_completions_cost": 0.0005356
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 159,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户有嚼口香糖的习惯，几乎整天都在嚼，主要是薄荷味的。这帮助集中注意力，但有时候嚼太久下巴会酸痛。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861472-QdBfKUjTMPar2emjZ4dO",
+      "usage": {
+        "prompt_tokens": 34,
+        "total_tokens": 34,
+        "cost": 3.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.4e-07,
+          "upstream_inference_prompt_cost": 3.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861472-MjgbYQQniai57mvBKaNz",
+      "usage": {
+        "prompt_tokens": 56,
+        "total_tokens": 56,
+        "cost": 5.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.6e-07,
+          "upstream_inference_prompt_cost": 5.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861477-wCSHnDZbmZt0nxT5zBIV",
+      "usage": {
+        "prompt_tokens": 8444,
+        "completion_tokens": 509,
+        "total_tokens": 8953,
+        "cost": 0.00351884,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00351884,
+          "upstream_inference_prompt_cost": 0.00219544,
+          "upstream_inference_completions_cost": 0.0013234
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 503,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户从大学时期开始嚼口香糖，这个习惯持续了大约八年。最近改用无糖口香糖后，下巴酸痛的情况有所改善。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861484-zXY4XW4nP32EUABLKfMO",
+      "usage": {
+        "prompt_tokens": 35,
+        "total_tokens": 35,
+        "cost": 3.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.5e-07,
+          "upstream_inference_prompt_cost": 3.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861488-ofxBhtyw3wN7yjVUbh5T",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861489-p46QCip2I7FL8omDQk7s",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861490-iR5THeRG6I6taQbvVGvg",
+      "usage": {
+        "prompt_tokens": 29,
+        "total_tokens": 29,
+        "cost": 2.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.9e-07,
+          "upstream_inference_prompt_cost": 2.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861491-JyzoV9hIWtYZXl5OD5Dt",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861491-bS7g8bBXy18zIfTEp0FJ",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "患者维持嚼口香糖习惯的大致时长是多少？最初是为了什么目的？",
+        "expected_facts": [
+          "该患者嚼口香糖的习惯已持续约八年。",
+          "该患者嚼口香糖是为了帮助集中注意力。"
+        ],
+        "required_groups": [
+          [
+            "八年",
+            "8年",
+            "大学时期至今"
+          ],
+          [
+            "集中注意力",
+            "专注",
+            "提神"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "f7bdb7d2-2a8c-4238-a8dc-cb871e0d2382",
+          "content": "用户从大学时期开始嚼口香糖，这个习惯持续了大约八年。最近改用无糖口香糖后，下巴酸痛的情况有所改善。",
+          "score": 0.7545371844828619,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:57:51.803829+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M10-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:58:06.326087+00:00"
+        },
+        {
+          "memory_id": "6564dfec-c458-471d-a57f-a0174761e4c3",
+          "content": "用户有嚼口香糖的习惯，几乎整天都在嚼，主要是薄荷味的。这帮助集中注意力，但有时候嚼太久下巴会酸痛。",
+          "score": 0.7067283191758185,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:57:43.778406+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M10-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:57:51.779140+00:00"
+        }
+      ],
+      "seconds": 2.125
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "患者长期使用口香糖导致了什么身体反应？近期采取了什么措施缓解？",
+        "expected_facts": [
+          "该患者长期嚼口香糖会导致下巴酸痛。",
+          "该患者改用无糖口香糖后症状有所缓解。"
+        ],
+        "required_groups": [
+          [
+            "下巴酸痛",
+            "颚部疼痛",
+            "酸痛"
+          ],
+          [
+            "无糖口香糖",
+            "换用无糖",
+            "缓解"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "f7bdb7d2-2a8c-4238-a8dc-cb871e0d2382",
+          "content": "用户从大学时期开始嚼口香糖，这个习惯持续了大约八年。最近改用无糖口香糖后，下巴酸痛的情况有所改善。",
+          "score": 0.7532385380228779,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:57:51.803829+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M10-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:58:06.326087+00:00"
+        },
+        {
+          "memory_id": "6564dfec-c458-471d-a57f-a0174761e4c3",
+          "content": "用户有嚼口香糖的习惯，几乎整天都在嚼，主要是薄荷味的。这帮助集中注意力，但有时候嚼太久下巴会酸痛。",
+          "score": 0.7003312795974013,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:57:43.778406+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M10-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:57:51.779140+00:00"
+        }
+      ],
+      "seconds": 0.828
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者维持嚼口香糖习惯的大致时长是多少？最初是为了什么目的？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "f7bdb7d2-2a8c-4238-a8dc-cb871e0d2382",
+        "content": "用户从大学时期开始嚼口香糖，这个习惯持续了大约八年。最近改用无糖口香糖后，下巴酸痛的情况有所改善。",
+        "score": 0.6893702556868024,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:57:51.803829+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M10-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:58:06.326087+00:00"
+      },
+      {
+        "memory_id": "6564dfec-c458-471d-a57f-a0174761e4c3",
+        "content": "用户有嚼口香糖的习惯，几乎整天都在嚼，主要是薄荷味的。这帮助集中注意力，但有时候嚼太久下巴会酸痛。",
+        "score": 0.630656704511964,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:57:43.778406+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M10-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:57:51.779140+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 28.219
+}

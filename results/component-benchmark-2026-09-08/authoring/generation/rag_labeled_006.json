@@ -1,0 +1,72 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Create source-grounded retrieval evaluation questions. Return JSON {\"items\":[...]}.\nFor EACH supplied source return {\"id\":same id,\"en\":English patient question,\"zh\":Chinese patient question,\n\"evidence_id\":the exact id string of ONE supplied evidence_options entry supporting BOTH questions}.\nAsk one concrete question about a supported detail (cause, symptom, prevention, evaluation, management).\nThe two questions express the SAME information need, not two facts. Use ordinary patient language.\nInclude enough topic context to identify the condition but do not copy a source sentence into the question.\nSelect an evidence option and ask about a concrete detail stated in that option. Do not ask for a personalized dose or individual diagnosis. Do not invent content. No answers in questions.\nThese are synthetic topic-source retrieval labels, not a clinician-authored benchmark."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"MLP-1244\", \"title\": \"Dwarfism\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"People with dwarfism have short stature.\"}, {\"id\": \"S001\", \"text\": \"This means that their height is under 4' 10\\\" as an adult.\"}, {\"id\": \"S002\", \"text\": \"They are usually of normal intelligence.\"}, {\"id\": \"S003\", \"text\": \"Dwarfism most often does happen in families where both parents are of average height.\"}, {\"id\": \"S004\", \"text\": \"More than 300 different conditions can cause dwarfism.\"}, {\"id\": \"S005\", \"text\": \"Achondroplasia is the most common type of dwarfism.\"}, {\"id\": \"S006\", \"text\": \"Achondroplasia is a genetic condition that affects about 1 in 15,000 to 1 in 40,000 people.\"}, {\"id\": \"S007\", \"text\": \"It makes your arms and legs short in comparison to your head and trunk.\"}, {\"id\": \"S008\", \"text\": \"You may also have a larger head and weak muscle tone.\"}, {\"id\": \"S009\", \"text\": \"Other genetic conditions, kidney disease, and problems with metabolism or hormones can also cause dwarfism.\"}, {\"id\": \"S010\", \"text\": \"The conditions that cause dwarfism can also cause other health problems.\"}, {\"id\": \"S011\", \"text\": \"It is important to have regular checkups throughout your life.\"}, {\"id\": \"S012\", \"text\": \"With proper medical care, most people with dwarfism have active lives and live as long as other people.\"}]}, {\"id\": \"MLP-4154\", \"title\": \"Medical Device Safety\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"A medical device is any product used to diagnose, cure, or treat a condition, or to prevent disease.\"}, {\"id\": \"S001\", \"text\": \"They range from small and simple, like a blood glucose meter, to large and complicated, like a ventilator.\"}, {\"id\": \"S002\", \"text\": \"You might use one at home or at work, or you may need one in a hospital.\"}, {\"id\": \"S003\", \"text\": \"To use medical devices safely: Know how your device works.\"}, {\"id\": \"S004\", \"text\": \"Keep instructions close by Understand and properly respond to device alarms Have a back-up plan and supplies in the event of an emergency Keep emergency numbers available and update them as needed Educate your family and caregivers about your device Food and Drug Administration\"}]}, {\"id\": \"MLP-1274\", \"title\": \"Interstitial Cystitis\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Interstitial cystitis (IC) is a condition that causes discomfort or pain in the bladder and a need to urinate frequently and urgently.\"}, {\"id\": \"S001\", \"text\": \"It is far more common in women than in men.\"}, {\"id\": \"S002\", \"text\": \"The symptoms vary from person to person.\"}, {\"id\": \"S003\", \"text\": \"Some people may have pain without urgency or frequency.\"}, {\"id\": \"S004\", \"text\": \"Others have urgency and frequency without pain.\"}, {\"id\": \"S005\", \"text\": \"Women's symptoms often get worse during their periods.\"}, {\"id\": \"S006\", \"text\": \"They may also have pain with sexual intercourse.\"}, {\"id\": \"S007\", \"text\": \"There is no one test to tell if you have it.\"}, {\"id\": \"S008\", \"text\": \"Doctors often run tests to rule out other possible causes of symptoms.\"}, {\"id\": \"S009\", \"text\": \"There is no cure for IC, but treatments can help most people feel better.\"}, {\"id\": \"S010\", \"text\": \"They include: Distending, or inflating, the bladder Bathing the inside of the bladder with a drug solution Oral medicines Electrical nerve stimulation Physical therapy Lifestyle changes Bladder training In rare cases, surgery NIH: National Institute of Diabetes and Digestive and Kidney Diseases\"}]}, {\"id\": \"MLP-23\", \"title\": \"Arthritis\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"If you feel pain and stiffness in your body or have trouble moving around, you might have arthritis.\"}, {\"id\": \"S001\", \"text\": \"Any disorder that affects the joints is often called arthritis.\"}, {\"id\": \"S002\", \"text\": \"Joints are places where two bones meet, such as your elbow or knee.\"}, {\"id\": \"S003\", \"text\": \"Most types of arthritis can cause joint pain and inflammation (swelling).\"}, {\"id\": \"S004\", \"text\": \"Over time, a swollen joint can become severely damaged.\"}, {\"id\": \"S005\", \"text\": \"Some kinds of arthritis can also cause problems in your organs, such as your eyes or skin.\"}, {\"id\": \"S006\", \"text\": \"Treatment will depend on the type of arthritis you have.\"}, {\"id\": \"S007\", \"text\": \"Common types of arthritis include: Osteoarthritis is the most common type of arthritis.\"}, {\"id\": \"S008\", \"text\": \"Autoimmune arthritis happens when your body's immune system attacks healthy cells in your body by mistake.\"}, {\"id\": \"S009\", \"text\": \"Rheumatoid arthritis is the most common form of this type of arthritis.\"}, {\"id\": \"S010\", \"text\": \"Juvenile arthritis is a type of arthritis that happens in children.\"}, {\"id\": \"S011\", \"text\": \"Infectious arthritis is an infection that has spread from another part of your body to the joint.\"}, {\"id\": \"S012\", \"text\": \"Psoriatic arthritis affects people with psoriasis (itchy or sore scaly red and white skin patches).\"}, {\"id\": \"S013\", \"text\": \"Gout is a painful type of arthritis that happens when too much uric acid builds up in your body.\"}, {\"id\": \"S014\", \"text\": \"Ankylosing spondylitis is a type of arthritis of the spine that can cause stiffness and make it difficult to move and bend.\"}, {\"id\": \"S015\", \"text\": \"Pain, redness, warmth, and joint inflammation are common arthritis symptoms.\"}, {\"id\": \"S016\", \"text\": \"You may not be able to move your joint as well as it should.\"}, {\"id\": \"S017\", \"text\": \"Other symptoms could include fever , weight loss, breathing difficulties, or a rash.\"}, {\"id\": \"S018\", \"text\": \"Some symptoms of arthritis may be signs of other illnesses.\"}, {\"id\": \"S019\", \"text\": \"A few things that might increase your chance of getting arthritis include: Family history.\"}, {\"id\": \"S020\", \"text\": \"You may be more likely to get certain types of arthritis if a member of your family has the disorder.\"}, {\"id\": \"S021\", \"text\": \"The risk of getting many types of arthritis increases with age.\"}, {\"id\": \"S022\", \"text\": \"Certain types of arthritis are more common in women, while other types are more common in men.\"}, {\"id\": \"S023\", \"text\": \"Other factors that might increase your risk of getting arthritis include having a previous joint injury, obesity , or lupus .\"}, {\"id\": \"S024\", \"text\": \"To find out if you have arthritis, your health care provider may: Ask you about your medical history, including your symptoms.\"}, {\"id\": \"S025\", \"text\": \"Your provider may refer you to a rheumatologist (a doctor who specializes in arthritis care) for tests, diagnosis, and care.\"}, {\"id\": \"S026\", \"text\": \"Treatment depends on the type of arthritis you have.\"}, {\"id\": \"S027\", \"text\": \"Your provider will work with you to improve your symptoms and quality of life.\"}, {\"id\": \"S028\", \"text\": \"A few ways to help manage your symptoms include: Hot or cold packs Relaxation techniques Use of splints, braces, and/or assistive devices NIH: National Institute of Arthritis and Musculoskeletal and Skin Diseases\"}]}, {\"id\": \"MLP-334\", \"title\": \"Mumps\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Mumps is an illness caused by the mumps virus.\"}, {\"id\": \"S001\", \"text\": \"It starts with: Fever Headache Muscle aches Tiredness Loss of appetite After that, the salivary glands under the ears or jaw become swollen and tender.\"}, {\"id\": \"S002\", \"text\": \"The swelling can be on one or both sides of the face.\"}, {\"id\": \"S003\", \"text\": \"You can catch mumps by being with another person who has it.\"}, {\"id\": \"S004\", \"text\": \"There is no treatment for mumps, but the measles-mumps-rubella (MMR) vaccine can prevent it.\"}, {\"id\": \"S005\", \"text\": \"Before the routine vaccination program in the United States, mumps was a common illness in infants, children and young adults.\"}, {\"id\": \"S006\", \"text\": \"Centers for Disease Control and Prevention\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 2500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788858660-oTQFh5tkitm5CSCRtlXg",
+    "object": "chat.completion",
+    "created": 1788858660,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"MLP-1244\",\n      \"en\": \"If I have achondroplasia, the most common type of dwarfism, how does it typically affect the size of my arms and legs compared to my head and trunk?\",\n      \"zh\": \"如果我患有软骨发育不全，这是最常见的侏儒症类型，它通常如何影响我的手臂和腿部大小与头部和躯干的比较？\",\n      \"evidence_id\": \"S007\"\n    },\n    {\n      \"id\": \"MLP-4154\",\n      \"en\": \"To use a medical device safely at home, what is one important step regarding the instructions that comes with the device?\",\n      \"zh\": \"为了在家安全使用医疗设备，关于随设备附带的说明书，一个重要的步骤是什么？\",\n      \"evidence_id\": \"S004\"\n    },\n    {\n      \"id\": \"MLP-1274\",\n      \"en\": \"For women suffering from interstitial cystitis, during which time of the month do symptoms often get worse?\",\n      \"zh\": \"对于患有间质性膀胱炎的女性，在一个月中的哪个时期症状往往会加重？\",\n      \"evidence_id\": \"S005\"\n    },\n    {\n      \"id\": \"MLP-23\",\n      \"en\": \"Besides joint pain and swelling, what other general symptoms might someone experience if they have arthritis?\",\n      \"zh\": \"除了关节疼痛和肿胀外，如果一个人患有关节炎，他们可能会出现哪些其他一般症状？\",\n      \"evidence_id\": \"S017\"\n    },\n    {\n      \"id\": \"MLP-334\",\n      \"en\": \"Since there is no specific treatment for mumps, what can be done to prevent getting the illness?\",\n      \"zh\": \"既然腮腺炎没有特定的治疗方法，可以做些什么来预防这种疾病？\",\n      \"evidence_id\": \"S004\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2388,
+      "completion_tokens": 457,
+      "total_tokens": 2845,
+      "cost": 0.00117858,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00117858,
+        "upstream_inference_prompt_cost": 0.00046566,
+        "upstream_inference_completions_cost": 0.00071292
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 6.937
+}

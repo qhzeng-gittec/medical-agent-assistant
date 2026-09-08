@@ -1,0 +1,432 @@
+{
+  "case": {
+    "id": "M02-02",
+    "category": "运动限制与日常活动",
+    "turns": [
+      {
+        "user": "我的肩膀受伤后，医生告诉我不能举重物超过两公斤，也不能做扩胸运动。目前我只能进行轻柔的拉伸。",
+        "assistant": "收到，已记录您的肩部活动限制。"
+      },
+      {
+        "user": "另外，医生强调如果感到刺痛，应立即停止任何手臂动作并休息。我现在每天只做轻微拉伸。",
+        "assistant": "了解，已补充您的注意事项。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "Q1",
+        "query": "患者目前被禁止进行哪些手臂相关活动？",
+        "expected_facts": [
+          "患者被禁止举重物超过两公斤和做扩胸运动。"
+        ],
+        "required_groups": [
+          [
+            "举重物",
+            "扩胸运动"
+          ]
+        ]
+      },
+      {
+        "id": "Q2",
+        "query": "当出现什么症状时患者必须立即停止手臂动作？",
+        "expected_facts": [
+          "如果感到刺痛，患者必须立即停止任何手臂动作。"
+        ],
+        "required_groups": [
+          [
+            "刺痛",
+            "立即停止",
+            "手臂动作"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M02-02",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860138-cCBJEGaSctvvvUkWsRkz",
+      "usage": {
+        "prompt_tokens": 51,
+        "total_tokens": 51,
+        "cost": 5.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.1e-07,
+          "upstream_inference_prompt_cost": 5.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860141-6HsfWUajGL5fOVreZlnY",
+      "usage": {
+        "prompt_tokens": 8348,
+        "completion_tokens": 73,
+        "total_tokens": 8421,
+        "cost": 0.0026796,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0026796,
+          "upstream_inference_prompt_cost": 0.0025044,
+          "upstream_inference_completions_cost": 0.0001752
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 72,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": null
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860152-nUShczUYLhwGCkvPKlYh",
+      "usage": {
+        "prompt_tokens": 42,
+        "total_tokens": 42,
+        "cost": 4.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.2e-07,
+          "upstream_inference_prompt_cost": 4.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860153-VqXOYSv91uD9HnWi5lCN",
+      "usage": {
+        "prompt_tokens": 8383,
+        "completion_tokens": 568,
+        "total_tokens": 8951,
+        "cost": 0.00323175,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00323175,
+          "upstream_inference_prompt_cost": 0.00209575,
+          "upstream_inference_completions_cost": 0.001136
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 523,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户肩膀受伤，医生限制不能举重物超过两公斤，也不能做扩胸运动，目前只能进行轻柔的拉伸\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"医生强调如果用户感到刺痛，应立即停止任何手臂动作并休息\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"2\",\n      \"text\": \"用户目前每天只做轻微拉伸\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860172-GNRQhhch9oJsv4UGsiXI",
+      "usage": {
+        "prompt_tokens": 55,
+        "total_tokens": 55,
+        "cost": 5.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.5e-07,
+          "upstream_inference_prompt_cost": 5.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860183-d5EgusV0CAv1ZNrhIZYN",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860192-CZ03vcHyRRiiJ5KTo7Vi",
+      "usage": {
+        "prompt_tokens": 13,
+        "total_tokens": 13,
+        "cost": 1.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.3e-07,
+          "upstream_inference_prompt_cost": 1.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860197-VCgIRcqPQgWkVD3SxA3d",
+      "usage": {
+        "prompt_tokens": 21,
+        "total_tokens": 21,
+        "cost": 2.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.1e-07,
+          "upstream_inference_prompt_cost": 2.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860203-dIo2CvOnuDiZkvm0higY",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860205-reUIQpZejJIeAWyp5Q6R",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "Q1",
+        "query": "患者目前被禁止进行哪些手臂相关活动？",
+        "expected_facts": [
+          "患者被禁止举重物超过两公斤和做扩胸运动。"
+        ],
+        "required_groups": [
+          [
+            "举重物",
+            "扩胸运动"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "d178283a-d0ae-4419-a1f0-0273389cdf04",
+          "content": "用户肩膀受伤，医生限制不能举重物超过两公斤，也不能做扩胸运动，目前只能进行轻柔的拉伸",
+          "score": 0.7100784337138962,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:48.432004+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M02-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:36:21.691641+00:00"
+        },
+        {
+          "memory_id": "dcaaed93-9538-4449-817d-27618ecef3cb",
+          "content": "医生强调如果用户感到刺痛，应立即停止任何手臂动作并休息",
+          "score": 0.6907396026149885,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:48.432004+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M02-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:36:21.691641+00:00"
+        },
+        {
+          "memory_id": "e40b18e8-6b20-441d-8b62-49924031a70a",
+          "content": "用户目前每天只做轻微拉伸",
+          "score": 0.5639427061047919,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:48.432004+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M02-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:36:21.691641+00:00"
+        }
+      ],
+      "seconds": 9.828
+    },
+    {
+      "query": {
+        "id": "Q2",
+        "query": "当出现什么症状时患者必须立即停止手臂动作？",
+        "expected_facts": [
+          "如果感到刺痛，患者必须立即停止任何手臂动作。"
+        ],
+        "required_groups": [
+          [
+            "刺痛",
+            "立即停止",
+            "手臂动作"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "dcaaed93-9538-4449-817d-27618ecef3cb",
+          "content": "医生强调如果用户感到刺痛，应立即停止任何手臂动作并休息",
+          "score": 0.792833125300413,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:48.432004+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M02-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:36:21.691641+00:00"
+        },
+        {
+          "memory_id": "d178283a-d0ae-4419-a1f0-0273389cdf04",
+          "content": "用户肩膀受伤，医生限制不能举重物超过两公斤，也不能做扩胸运动，目前只能进行轻柔的拉伸",
+          "score": 0.5767726276478553,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:48.432004+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M02-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:36:21.691641+00:00"
+        },
+        {
+          "memory_id": "e40b18e8-6b20-441d-8b62-49924031a70a",
+          "content": "用户目前每天只做轻微拉伸",
+          "score": 0.506577488771015,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:48.432004+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M02-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:36:21.691641+00:00"
+        }
+      ],
+      "seconds": 5.172
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者目前被禁止进行哪些手臂相关活动？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "d178283a-d0ae-4419-a1f0-0273389cdf04",
+        "content": "用户肩膀受伤，医生限制不能举重物超过两公斤，也不能做扩胸运动，目前只能进行轻柔的拉伸",
+        "score": 0.605868117831516,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:35:48.432004+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M02-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:36:21.691641+00:00"
+      },
+      {
+        "memory_id": "dcaaed93-9538-4449-817d-27618ecef3cb",
+        "content": "医生强调如果用户感到刺痛，应立即停止任何手臂动作并休息",
+        "score": 0.55572179899772,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:35:48.432004+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M02-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:36:21.691641+00:00"
+      },
+      {
+        "memory_id": "e40b18e8-6b20-441d-8b62-49924031a70a",
+        "content": "用户目前每天只做轻微拉伸",
+        "score": 0.4850345316528142,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:35:48.432004+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M02-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:36:21.691641+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 75.031
+}

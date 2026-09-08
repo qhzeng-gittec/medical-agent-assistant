@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"8a830bd65c46282be3b0\", \"query\": \"患者实际停止服用降尿酸药的具体日期是哪天？\", \"expected_facts\": [\"患者在2023年4月22日停止服用非布司他\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户实际于2026年4月22日停用非布司他，当天医生再次确认可以停药，用户在那天彻底停止服用。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:47:57.450875+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户2020年因痛风开始每天服用一片非布司他。2026年4月医生告知尿酸正常，指示4月20日停药，但用户实际坚持服用至4月25日才停用。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:47:19.940157+00:00\"}]}, {\"id\": \"8c86177f9422d1b5b4b2\", \"query\": \"根据患者叙述，这次过敏反应发生在哪一年，医护人员采取了什么具体措施来缓解症状？\", \"expected_facts\": [\"事件发生在2014年。\", \"医生减慢滴速并给予抗组胺药。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户对万古霉素过敏，2014年因严重细菌感染接受输液治疗时，在输液过程中背部和四肢出现紫红色条纹状皮疹，非常痒。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:40:57.148530+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户2014年万古霉素输液反应被诊断为“红人综合征”，除皮疹外还出现潮红发热和血压下降，医生减慢滴速并给予抗组胺药后症状逐渐缓解。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:25.930604+00:00\"}]}, {\"id\": \"8d558a38aabb033f323b\", \"query\": \"患者最终在哪一天停止了佐匹克隆的服用？\", \"expected_facts\": [\"患者在2023年3月8日停止服用佐匹克隆\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"User因失眠于2021年开始服用佐匹克隆，每晚一片。2026年3月医生告知睡眠改善，建议3月5日停药，但User实际于3月10日才停用。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:36:29.691192+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"User更正佐匹克隆停药日期为2026年3月8日，当天重新查看病历发现医生写的是八号而非五号。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:36:49.774864+00:00\"}]}, {\"id\": \"8e2307034d799bf8ea78\", \"query\": \"患者昨天做了哪项检查，结果状态如何？\", \"expected_facts\": [\"患者昨天做了心电图检查。\", \"检查结果尚未出来。\", \"医生要求患者等待三天。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户于2026年9月7日做了心电图，结果尚未出来，医生建议等待三天。用户目前尚未确诊，只是怀疑可能有心脏问题，想了解后续流程。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:35:26.699009+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户的父亲有冠心病史\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:58.977359+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户因父亲有冠心病史而担心自己是否也患有冠心病，正在寻求医疗咨询\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:58.977359+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862037-Kn88oqIeEvmUf2XSwFsS",
+    "object": "chat.completion",
+    "created": 1788862037,
+    "model": "minimax/minimax-m2.5",
+    "provider": "StreamLake",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"8a830bd65c46282be3b0\",\"facts\":[{\"supported\":false,\"evidence\":[],\"reason\":\"Expected fact states 2023 but memories indicate 2026 - incorrect year in expected fact\"}]},{\"id\":\"8c86177f9422d1b5b4b2\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory confirms 2014 as the year of allergic reaction\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory explicitly states doctor slowed drip rate and gave antihistamines\"}]},{\"id\":\"8d558a38aabb033f323b\",\"facts\":[{\"supported\":false,\"evidence\":[],\"reason\":\"Expected fact states 2023 but memories indicate 2026 - incorrect year in expected fact\"}]},{\"id\":\"8e2307034d799bf8ea78\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory confirms ECG was done yesterday (Sept 7, 2026)\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states result not yet available\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states doctor advised waiting three days\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item:\n\n**Item 1 (8a830bd65c46282be3b0):**\n- Query: 患者实际停止服用降尿酸药的具体日期是哪天？\n- Expected fact: 患者在2023年4月22日停止服用非布司他\n- Memories:\n  - m0: \"用户实际于2026年4月22日停用非布司他...\"\n  - m1: \"2026年4月医生告知尿酸正常，指示4月20日停药，但用户实际坚持服用至4月25日才停用。\"\n\nThe expected fact says \"2023年4月22日\" but the memories mention 2026年4月22日. There's a discrepancy - the expected fact has the wrong year (2023 vs 2026). The memories clearly state the date was April 22, 2026, not April 22, 2023. Since the expected fact is incorrect (wrong year), this fact is NOT supported by the memories.\n\n**Item 2 (8c86177f9422d1b5b4b2):**\n- Query: 根据患者叙述，这次过敏反应发生在哪一年，医护人员采取了什么具体措施来缓解症状？\n- Expected facts: \n  1. 事件发生在2014年。\n  2. 医生减慢滴速并给予抗组胺药。\n- Memories:\n  - m0: \"用户对万古霉素过敏，2014年因严重细菌感染接受输液治疗时...\"\n  - m1: \"用户2014年万古霉素输液反应被诊断为\"红人综合征\"，除皮疹外还出现潮红发热和血压下降，医生减慢滴速并给予抗组胺药后症状逐渐缓解。\"\n\nBoth facts are supported by the memories. m0 confirms 2014, and m1 confirms both the year and the specific measures (slowed drip rate and given antihistamines).\n\n**Item 3 (8d558a38aabb033f323b):**\n\n\nI notice a clear discrepancy between the expected and actual medication discontinuation dates. The memory m1 provides a precise correction, indicating the actual stop date was March 8, 2026, not March 8, 2023. This means the expected fact contains an incorrect year, making it unsupported by the medical records.\n\n**Item 4 (8e2307034d799bf8ea78):**\nThe medical records confirm an ECG was performed on September 7, 2026, with results still pending. The healthcare provider recommended a three-day waiting period for further evaluation.\n\nI'll proceed with generating the JSON output to document these findings systematically.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item:\n\n**Item 1 (8a830bd65c46282be3b0):**\n- Query: 患者实际停止服用降尿酸药的具体日期是哪天？\n- Expected fact: 患者在2023年4月22日停止服用非布司他\n- Memories:\n  - m0: \"用户实际于2026年4月22日停用非布司他...\"\n  - m1: \"2026年4月医生告知尿酸正常，指示4月20日停药，但用户实际坚持服用至4月25日才停用。\"\n\nThe expected fact says \"2023年4月22日\" but the memories mention 2026年4月22日. There's a discrepancy - the expected fact has the wrong year (2023 vs 2026). The memories clearly state the date was April 22, 2026, not April 22, 2023. Since the expected fact is incorrect (wrong year), this fact is NOT supported by the memories.\n\n**Item 2 (8c86177f9422d1b5b4b2):**\n- Query: 根据患者叙述，这次过敏反应发生在哪一年，医护人员采取了什么具体措施来缓解症状？\n- Expected facts: \n  1. 事件发生在2014年。\n  2. 医生减慢滴速并给予抗组胺药。\n- Memories:\n  - m0: \"用户对万古霉素过敏，2014年因严重细菌感染接受输液治疗时...\"\n  - m1: \"用户2014年万古霉素输液反应被诊断为\"红人综合征\"，除皮疹外还出现潮红发热和血压下降，医生减慢滴速并给予抗组胺药后症状逐渐缓解。\"\n\nBoth facts are supported by the memories. m0 confirms 2014, and m1 confirms both the year and the specific measures (slowed drip rate and given antihistamines).\n\n**Item 3 (8d558a38aabb033f323b):**\n\n\nI notice a clear discrepancy between the expected and actual medication discontinuation dates. The memory m1 provides a precise correction, indicating the actual stop date was March 8, 2026, not March 8, 2023. This means the expected fact contains an incorrect year, making it unsupported by the medical records.\n\n**Item 4 (8e2307034d799bf8ea78):**\nThe medical records confirm an ECG was performed on September 7, 2026, with results still pending. The healthcare provider recommended a three-day waiting period for further evaluation.\n\nI'll proceed with generating the JSON output to document these findings systematically.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1238,
+      "completion_tokens": 826,
+      "total_tokens": 2064,
+      "cost": 0.001164132,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.001164132,
+        "upstream_inference_prompt_cost": 0.000272052,
+        "upstream_inference_completions_cost": 0.00089208
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 554,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 9.875
+}

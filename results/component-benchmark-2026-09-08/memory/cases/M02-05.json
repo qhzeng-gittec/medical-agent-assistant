@@ -1,0 +1,404 @@
+{
+  "case": {
+    "id": "M02-05",
+    "category": "运动限制与日常活动",
+    "turns": [
+      {
+        "user": "因为颈椎不适，我不能低头太久或快速转头。目前我只能缓慢转动头部并保持直立姿势。",
+        "assistant": "好的，已记录您的颈部活动限制。"
+      },
+      {
+        "user": "医生提醒，如果出现头晕，需立即停止活动并坐下休息。我现在非常注意头部动作。",
+        "assistant": "明白，已更新您的注意事项。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "Q1",
+        "query": "患者因颈椎问题被禁止哪些头部动作？",
+        "expected_facts": [
+          "患者被禁止低头太久和快速转头。"
+        ],
+        "required_groups": [
+          [
+            "低头太久",
+            "快速转头"
+          ]
+        ]
+      },
+      {
+        "id": "Q2",
+        "query": "当出现头晕时，患者应该怎么做？",
+        "expected_facts": [
+          "如果出现头晕，患者需立即停止活动并坐下休息。"
+        ],
+        "required_groups": [
+          [
+            "头晕",
+            "立即停止",
+            "坐下休息"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M02-05",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860213-0MG2mQK6VQ77PgduLK2s",
+      "usage": {
+        "prompt_tokens": 45,
+        "total_tokens": 45,
+        "cost": 4.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.5e-07,
+          "upstream_inference_prompt_cost": 4.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860219-CpkRYuOOsQJRSg46QaN0",
+      "usage": {
+        "prompt_tokens": 8339,
+        "completion_tokens": 224,
+        "total_tokens": 8563,
+        "cost": 0.00253275,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00253275,
+          "upstream_inference_prompt_cost": 0.00208475,
+          "upstream_inference_completions_cost": 0.000448
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 191,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户因颈椎不适，不能低头太久或快速转头，目前只能缓慢转动头部并保持直立姿势\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860228-CPCgOGCL7unRKC2Xfcn2",
+      "usage": {
+        "prompt_tokens": 24,
+        "total_tokens": 24,
+        "cost": 2.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.4e-07,
+          "upstream_inference_prompt_cost": 2.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860240-gYqHPpHz8WXxtiYCZBJu",
+      "usage": {
+        "prompt_tokens": 38,
+        "total_tokens": 38,
+        "cost": 3.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.8e-07,
+          "upstream_inference_prompt_cost": 3.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860249-r9Z1rQgpKeXmklLq69ig",
+      "usage": {
+        "prompt_tokens": 8406,
+        "completion_tokens": 567,
+        "total_tokens": 8973,
+        "cost": 0.0032355,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0032355,
+          "upstream_inference_prompt_cost": 0.0021015,
+          "upstream_inference_completions_cost": 0.001134
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 636,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"医生提醒用户如果出现头晕需立即停止活动并坐下休息，用户目前非常注意头部动作\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860268-6aXMiReHAVduhKygpNTj",
+      "usage": {
+        "prompt_tokens": 21,
+        "total_tokens": 21,
+        "cost": 2.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.1e-07,
+          "upstream_inference_prompt_cost": 2.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860281-XryxVQC2IOEkmEVF7H6m",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860287-KjI2dG4BJzJt86CIguDg",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860288-UaAIpSg65EmRzPnLj9SR",
+      "usage": {
+        "prompt_tokens": 21,
+        "total_tokens": 21,
+        "cost": 2.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.1e-07,
+          "upstream_inference_prompt_cost": 2.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860289-xr372OSEq69y0R7K7dUE",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860307-RpqdBPTa3sJbDy7Un46J",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "Q1",
+        "query": "患者因颈椎问题被禁止哪些头部动作？",
+        "expected_facts": [
+          "患者被禁止低头太久和快速转头。"
+        ],
+        "required_groups": [
+          [
+            "低头太久",
+            "快速转头"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "e670ee55-3042-43b0-b663-d8298cb95767",
+          "content": "用户因颈椎不适，不能低头太久或快速转头，目前只能缓慢转动头部并保持直立姿势",
+          "score": 0.8327069345670104,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:36:52.419448+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M02-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:37:19.839099+00:00"
+        },
+        {
+          "memory_id": "c166da7d-ea8d-4b63-a827-9de979e0d0b8",
+          "content": "医生提醒用户如果出现头晕需立即停止活动并坐下休息，用户目前非常注意头部动作",
+          "score": 0.6749653849144437,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:37:19.870879+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M02-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:37:58.594661+00:00"
+        }
+      ],
+      "seconds": 7.438
+    },
+    {
+      "query": {
+        "id": "Q2",
+        "query": "当出现头晕时，患者应该怎么做？",
+        "expected_facts": [
+          "如果出现头晕，患者需立即停止活动并坐下休息。"
+        ],
+        "required_groups": [
+          [
+            "头晕",
+            "立即停止",
+            "坐下休息"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "c166da7d-ea8d-4b63-a827-9de979e0d0b8",
+          "content": "医生提醒用户如果出现头晕需立即停止活动并坐下休息，用户目前非常注意头部动作",
+          "score": 0.7513591067024117,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:37:19.870879+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M02-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:37:58.594661+00:00"
+        },
+        {
+          "memory_id": "e670ee55-3042-43b0-b663-d8298cb95767",
+          "content": "用户因颈椎不适，不能低头太久或快速转头，目前只能缓慢转动头部并保持直立姿势",
+          "score": 0.5459438142134273,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:36:52.419448+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M02-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:37:19.839099+00:00"
+        }
+      ],
+      "seconds": 1.296
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者因颈椎问题被禁止哪些头部动作？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "e670ee55-3042-43b0-b663-d8298cb95767",
+        "content": "用户因颈椎不适，不能低头太久或快速转头，目前只能缓慢转动头部并保持直立姿势",
+        "score": 0.7312952293635864,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:36:52.419448+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M02-05",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:37:19.839099+00:00"
+      },
+      {
+        "memory_id": "c166da7d-ea8d-4b63-a827-9de979e0d0b8",
+        "content": "医生提醒用户如果出现头晕需立即停止活动并坐下休息，用户目前非常注意头部动作",
+        "score": 0.573730508670602,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:37:19.870879+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M02-05",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:37:58.594661+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 94.969
+}

@@ -1,0 +1,569 @@
+{
+  "case": {
+    "id": "M04-04",
+    "category": "用户和家人的经历区分",
+    "turns": [
+      {
+        "user": "我姐姐五年前因为甲状腺结节做了切除手术，恢复得很好。我自己去年体检时发现也有一个小结节，医生说观察即可，不需要手术，我也没吃药。",
+        "assistant": "好的，已记录您姐姐的手术史和您去年的体检发现。"
+      },
+      {
+        "user": "抱歉记错了，是哥哥五年前做的甲状腺手术，姐姐很健康。我自己去年的确发现了结节，医生建议定期复查，目前没有任何不适症状。",
+        "assistant": "收到，已更正为您哥哥的手术记录，并确认您目前的观察方案。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "家里哪位亲属在五年前接受了甲状腺相关的手术治疗？",
+        "expected_facts": [
+          "用户的哥哥在五年前做了甲状腺结节切除手术。"
+        ],
+        "required_groups": [
+          [
+            "哥哥",
+            "大哥"
+          ],
+          [
+            "五年前",
+            "5年前"
+          ],
+          [
+            "甲状腺手术",
+            "切除手术"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "用户去年体检发现的甲状腺问题，目前采取了什么处理措施？",
+        "expected_facts": [
+          "用户去年发现甲状腺结节，医生建议观察，无需手术或服药。"
+        ],
+        "required_groups": [
+          [
+            "去年",
+            "去年体检"
+          ],
+          [
+            "观察",
+            "定期复查"
+          ],
+          [
+            "无需手术",
+            "没吃药"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M04-04",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860499-eTGteq7V8YG5Kc6DIrIf",
+      "usage": {
+        "prompt_tokens": 64,
+        "total_tokens": 64,
+        "cost": 6.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.4e-07,
+          "upstream_inference_prompt_cost": 6.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860508-TdXGcKjah9Ax3JyjZuF6",
+      "usage": {
+        "prompt_tokens": 8357,
+        "completion_tokens": 387,
+        "total_tokens": 8744,
+        "cost": 0.00317902,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00317902,
+          "upstream_inference_prompt_cost": 0.00217282,
+          "upstream_inference_completions_cost": 0.0010062
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 225,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户的姐姐五年前（约2021年）因甲状腺结节做了切除手术，恢复得很好\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户去年（约2025年）体检时发现甲状腺有一个小结节，医生建议观察即可，不需要手术\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"2\",\n      \"text\": \"用户目前没有服用任何药物来治疗甲状腺结节\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860534-Axv7bI8Sl4kUHaQBOou7",
+      "usage": {
+        "prompt_tokens": 62,
+        "total_tokens": 62,
+        "cost": 6.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.2e-07,
+          "upstream_inference_prompt_cost": 6.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860536-UTNu8hyK0XUfYLp0wu9p",
+      "usage": {
+        "prompt_tokens": 61,
+        "total_tokens": 61,
+        "cost": 6.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.1e-07,
+          "upstream_inference_prompt_cost": 6.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860541-XQgunWAj80Sphl3w21wC",
+      "usage": {
+        "prompt_tokens": 8500,
+        "completion_tokens": 760,
+        "total_tokens": 9260,
+        "cost": 0.004186,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.004186,
+          "upstream_inference_prompt_cost": 0.00221,
+          "upstream_inference_completions_cost": 0.001976
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 725,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户的哥哥五年前（约2021年）因甲状腺结节做了切除手术，而非之前误记的姐姐\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户的姐姐很健康，没有甲状腺问题\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860557-BVxYIYeuNNsD7mKZIpjq",
+      "usage": {
+        "prompt_tokens": 36,
+        "total_tokens": 36,
+        "cost": 3.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.6e-07,
+          "upstream_inference_prompt_cost": 3.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860560-kwpk8jUEwLUhkOlDYmw7",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 14,
+        "cost": 1.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.4e-07,
+          "upstream_inference_prompt_cost": 1.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860561-fBwl1CLEyXbYpocHGkCi",
+      "usage": {
+        "prompt_tokens": 16,
+        "total_tokens": 16,
+        "cost": 1.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.6e-07,
+          "upstream_inference_prompt_cost": 1.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860562-Uv8SrQhVP5rtvXuFoTy9",
+      "usage": {
+        "prompt_tokens": 24,
+        "total_tokens": 24,
+        "cost": 2.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.4e-07,
+          "upstream_inference_prompt_cost": 2.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860565-WTKG56pdoreQJrxnwQhB",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 14,
+        "cost": 1.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.4e-07,
+          "upstream_inference_prompt_cost": 1.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860566-DJ7QRmBZXFhEFQ08Q5aX",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 14,
+        "cost": 1.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.4e-07,
+          "upstream_inference_prompt_cost": 1.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "家里哪位亲属在五年前接受了甲状腺相关的手术治疗？",
+        "expected_facts": [
+          "用户的哥哥在五年前做了甲状腺结节切除手术。"
+        ],
+        "required_groups": [
+          [
+            "哥哥",
+            "大哥"
+          ],
+          [
+            "五年前",
+            "5年前"
+          ],
+          [
+            "甲状腺手术",
+            "切除手术"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "132bbaa1-dea3-47f9-8700-9194a619f50d",
+          "content": "用户的哥哥五年前（约2021年）因甲状腺结节做了切除手术，而非之前误记的姐姐",
+          "score": 0.7122754579349592,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:15.776891+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M04-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:38.816745+00:00"
+        },
+        {
+          "memory_id": "e7751b97-9c3d-4674-88a1-731a967bebb7",
+          "content": "用户去年（约2025年）体检时发现甲状腺有一个小结节，医生建议观察即可，不需要手术",
+          "score": 0.7105309880318381,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:36.015272+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:15.725788+00:00"
+        },
+        {
+          "memory_id": "3fa812c3-19ed-4acd-be01-7727d50f5ea0",
+          "content": "用户的姐姐五年前（约2021年）因甲状腺结节做了切除手术，恢复得很好",
+          "score": 0.7098960107146786,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:36.015272+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:15.725788+00:00"
+        },
+        {
+          "memory_id": "3f457977-ef22-4670-af07-98fed9694396",
+          "content": "用户的姐姐很健康，没有甲状腺问题",
+          "score": 0.7001511691077116,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:15.776891+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M04-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:38.816745+00:00"
+        },
+        {
+          "memory_id": "eb38c837-00fa-4bba-af21-e8a2c8f1d757",
+          "content": "用户目前没有服用任何药物来治疗甲状腺结节",
+          "score": 0.6762343671615527,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:36.015272+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:15.725788+00:00"
+        }
+      ],
+      "seconds": 1.187
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "用户去年体检发现的甲状腺问题，目前采取了什么处理措施？",
+        "expected_facts": [
+          "用户去年发现甲状腺结节，医生建议观察，无需手术或服药。"
+        ],
+        "required_groups": [
+          [
+            "去年",
+            "去年体检"
+          ],
+          [
+            "观察",
+            "定期复查"
+          ],
+          [
+            "无需手术",
+            "没吃药"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "eb38c837-00fa-4bba-af21-e8a2c8f1d757",
+          "content": "用户目前没有服用任何药物来治疗甲状腺结节",
+          "score": 0.7748783573229546,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:36.015272+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:15.725788+00:00"
+        },
+        {
+          "memory_id": "e7751b97-9c3d-4674-88a1-731a967bebb7",
+          "content": "用户去年（约2025年）体检时发现甲状腺有一个小结节，医生建议观察即可，不需要手术",
+          "score": 0.7733126971596871,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:36.015272+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:15.725788+00:00"
+        },
+        {
+          "memory_id": "3f457977-ef22-4670-af07-98fed9694396",
+          "content": "用户的姐姐很健康，没有甲状腺问题",
+          "score": 0.7017764131690494,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:15.776891+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M04-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:38.816745+00:00"
+        },
+        {
+          "memory_id": "3fa812c3-19ed-4acd-be01-7727d50f5ea0",
+          "content": "用户的姐姐五年前（约2021年）因甲状腺结节做了切除手术，恢复得很好",
+          "score": 0.6181325381530283,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:36.015272+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:15.725788+00:00"
+        },
+        {
+          "memory_id": "132bbaa1-dea3-47f9-8700-9194a619f50d",
+          "content": "用户的哥哥五年前（约2021年）因甲状腺结节做了切除手术，而非之前误记的姐姐",
+          "score": 0.59913910146727,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:15.776891+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M04-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:38.816745+00:00"
+        }
+      ],
+      "seconds": 1.281
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "家里哪位亲属在五年前接受了甲状腺相关的手术治疗？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "132bbaa1-dea3-47f9-8700-9194a619f50d",
+        "content": "用户的哥哥五年前（约2021年）因甲状腺结节做了切除手术，而非之前误记的姐姐",
+        "score": 0.6861145920890133,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:42:15.776891+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M04-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:42:38.816745+00:00"
+      },
+      {
+        "memory_id": "e7751b97-9c3d-4674-88a1-731a967bebb7",
+        "content": "用户去年（约2025年）体检时发现甲状腺有一个小结节，医生建议观察即可，不需要手术",
+        "score": 0.6672868779570487,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:41:36.015272+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M04-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:42:15.725788+00:00"
+      },
+      {
+        "memory_id": "3fa812c3-19ed-4acd-be01-7727d50f5ea0",
+        "content": "用户的姐姐五年前（约2021年）因甲状腺结节做了切除手术，恢复得很好",
+        "score": 0.6672507796425539,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:41:36.015272+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M04-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:42:15.725788+00:00"
+      },
+      {
+        "memory_id": "eb38c837-00fa-4bba-af21-e8a2c8f1d757",
+        "content": "用户目前没有服用任何药物来治疗甲状腺结节",
+        "score": 0.6616337329593409,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:41:36.015272+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M04-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:42:15.725788+00:00"
+      },
+      {
+        "memory_id": "3f457977-ef22-4670-af07-98fed9694396",
+        "content": "用户的姐姐很健康，没有甲状腺问题",
+        "score": 0.6606032888909379,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:42:15.776891+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M04-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:42:38.816745+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 71.453
+}

@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"d022cbb5c23780ceb501\", \"query\": \"患者在进行何种医疗操作时因使用特定麻醉药而出现循环系统异常反应？\", \"expected_facts\": [\"患者在拔牙时使用普鲁卡因麻醉药引发过敏。\", \"反应包括心慌、手脚发抖、脸色苍白及血压骤降。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"During the 2017 procaine allergy reaction, the doctor promptly identified the symptoms and switched to a different anesthesia method, preventing further complications.\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:40:18.452946+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"User has an allergy to procaine (普鲁卡因) anesthesia, first experienced during a tooth extraction in summer 2017. Symptoms included palpitations, trembling hands and feet, pale skin, and early signs of anaphylactic shock with sudden blood pressure drop.\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:40:18.452946+00:00\"}]}, {\"id\": \"d249d25701e08e6cf2dd\", \"query\": \"患者对青霉素的过敏状态应如何认定？\", \"expected_facts\": [\"患者对青霉素存在过敏史。\", \"患者此前声称不过敏的说法已被2016年的病历记录推翻。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户表示自己对青霉素不过敏，且以前没有留意过相关问题。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:55:47.662141+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户翻看旧病历发现2016年输液时出现过皮疹，医生当时记录为青霉素过敏，因此确认自己有青霉素过敏史。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:56:52.835564+00:00\"}]}, {\"id\": \"d26a31aff7330e05aae6\", \"query\": \"用户本人的视力问题是什么，是否做过眼部手术？\", \"expected_facts\": [\"用户高度近视长期戴眼镜，从未做过眼部手术。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户眼睛度数很深，已戴眼镜多年，且从未做过眼部手术或患过白内障。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:51.490290+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户的婆婆眼睛状况良好，未做过眼部手术。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:36:28.992475+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户的公公于约2023年因白内障接受了激光手术，而非之前记录的婆婆。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:36:28.992475+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户的婆婆于约2023年因白内障接受了激光手术，术后视力恢复良好。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:51.490290+00:00\"}]}, {\"id\": \"d2d3b5ab5439f2208940\", \"query\": \"这位患者对哪种坚果有过敏反应？这种反应最早是在什么年龄段出现的？\", \"expected_facts\": [\"该患者对花生存在过敏反应。\", \"该患者在十岁时曾出现严重的过敏反应。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的花生过敏在十岁时反应最严重，后来虽然未完全痊愈，但轻微接触已无大碍。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:54.288716+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户从小对花生过敏，每次接触都会起红疹。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:40:43.423170+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户从2023年春天正式开始无麸质饮食。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:54.288716+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户最近两年开始尝试无麸质饮食，因为觉得身体更轻盈，但偶尔还是会偷吃面包。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:40:43.423170+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862230-lDZpk4Ss3URxijUStoEu",
+    "object": "chat.completion",
+    "created": 1788862230,
+    "model": "minimax/minimax-m2.5",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"items\": [\n    {\n      \"id\": \"d022cbb5c23780ceb501\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m1\"}],\n          \"reason\": \"Memory m1 explicitly states procaine allergy first experienced during tooth extraction (拔牙) in summer 2017.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m1\"}],\n          \"reason\": \"Memory m1 lists all symptoms: palpitations, trembling hands and feet, pale skin, and sudden blood pressure drop.\"\n        }\n      ]\n    },\n    {\n      \"id\": \"d249d25701e08e6cf2dd\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m1\"}],\n          \"reason\": \"Memory m1 confirms user has penicillin allergy history based on 2016 medical records.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m1\"}],\n          \"reason\": \"Memory m1 shows the 2016 medical record (皮疹, rash) overturned the earlier claim of no allergy in m0.\"\n        }\n      ]\n    },\n    {\n      \"id\": \"d26a31aff7330e05aae6\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"Memory m0 explicitly states user has deep myopia (眼睛度数很深), wears glasses for years (戴眼镜多年), and never had eye surgery (从未做过眼部手术).\"\n        }\n      ]\n    },\n    {\n      \"id\": \"d2d3b5ab5439f2208940\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}, {\"memory_id\": \"m1\"}],\n          \"reason\": \"Both m0 and m1 confirm user has peanut (花生) allergy.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"Memory m0 explicitly states the peanut allergy reaction was most severe at age ten (十岁时反应最严重).\"\n        }\n      ]\n    }\n  ]\n}\n```",
+          "refusal": null,
+          "reasoning": "Let me analyze each item according to the instructions:\n\n1. **Item d022cbb5c23780ceb501**: Query about medical procedure with anesthesia causing circulatory reaction\n   - Expected facts:\n     - \"患者在拔牙时使用普鲁卡因麻醉药引发过敏。\" (Patient had allergy to procaine during tooth extraction)\n     - \"反应包括心慌、手脚发抖、脸色苍白及血压骤降。\" (Reaction includes palpitations, trembling hands/feet, pale skin, sudden BP drop)\n   \n   Memories:\n   - m0: \"During the 2017 procaine allergy reaction, the doctor promptly identified the symptoms and switched to a different anesthesia method...\"\n   - m1: \"User has an allergy to procaine (普鲁卡因) anesthesia, first experienced during a tooth extraction in summer 2017. Symptoms included palpitations, trembling hands and feet, pale skin, and early signs of anaphylactic shock with sudden blood pressure drop.\"\n   \n   Both facts are supported by m1 which explicitly mentions tooth extraction (拔牙), procaine (普鲁卡因), and all the symptoms (palpitations, trembling hands and feet, pale skin, sudden blood pressure drop).\n\n2. **Item d249d25701e08e6cf2dd**: Query about penicillin allergy status\n   - Expected facts:\n     - \"患者对青霉素存在过敏史。\" (Patient has penicillin allergy history)\n     - \"患者此前声称不过敏的说法已被2016年的病历记录推翻。\" (Previous claim of no allergy was overturned by 2016 medical records)\n   \n   Memories:\n   - m0: \"用户表示自己对青霉素不过敏，且以前没有留意过相关问题。\" (User says they're not allergic to penicillin)\n   - m1: \"用户翻看旧病历发现2016年输液时出过皮疹，医生当时记录为青霉素过敏，因此确认自己有青霉素过敏史。\" (User found 2016 medical records showing penicillin allergy)\n   \n   Both facts are supported. m1 explicitly confirms the allergy history and the 2016 medical record that overturned the previous claim.\n\n3. **Item d26a31aff7330e05aae6**: Query about user's vision problems and eye surgery\n   - Expected fact: \"用户高度近视长期戴眼镜，从未做过眼部手术。\" (User has high myopia, wears glasses long-term, never had eye surgery)\n   \n   Memories:\n   - m0: \"用户眼睛度数很深，已戴眼镜多年，且从未做过眼部手术或患过白内障。\" (User has very high prescription, wears glasses for years, never had eye surgery or cataracts)\n   - m1: \"用户的婆婆眼睛状况良好，未做过眼部手术。\" (Mother-in-law has good eye condition, no eye surgery)\n   - m2: \"用户的公公于约2023年因白内障接受了激光手术，而非之前记录的婆婆。\" (Father-in-law had laser surgery in 2023)\n   - m3: \"用户的婆婆于约2023年因白内障接受了激光手术，术后视力恢复良好。\" (Mother-in-law had laser surgery in 2023)\n   \n   The expected fact is supported by m0, which confirms high myopia, long-term glasses wear, and no previous eye surgeries.\n\n4. **Item d2d3b5ab5439f2208940**: Query about nut allergy and age of reaction\n   - Expected facts:\n     - \"该患者对花生存在过敏反应。\" (Patient has peanut allergy)\n     - \"该患者在十岁时曾出现严重的过敏反应。\" (Patient had severe allergic reaction at age 10)\n   \n   Memories:\n   - m0: \"用户的花生过敏在十岁时反应最严重，后来虽然未完全痊愈，但轻微接触已无大碍。\" (User's peanut allergy was most severe at age 10)\n   - m1: \"用户从小对花生过敏，每次接触都会起红疹。\" (User has been allergic to peanuts since childhood)\n   - m2: \"用户从2023年春天正式开始无麸质饮食。\" (User started gluten-free diet in spring 2023)\n   - m3: \"用户最近两年开始尝试无麸质饮食...\" (User started gluten-free diet in recent 2 years)\n   \n   Both facts are supported by m0 and m1. m0 confirms the peanut allergy and severe reaction at age 10, while m1 confirms the ongoing peanut allergy since childhood.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item according to the instructions:\n\n1. **Item d022cbb5c23780ceb501**: Query about medical procedure with anesthesia causing circulatory reaction\n   - Expected facts:\n     - \"患者在拔牙时使用普鲁卡因麻醉药引发过敏。\" (Patient had allergy to procaine during tooth extraction)\n     - \"反应包括心慌、手脚发抖、脸色苍白及血压骤降。\" (Reaction includes palpitations, trembling hands/feet, pale skin, sudden BP drop)\n   \n   Memories:\n   - m0: \"During the 2017 procaine allergy reaction, the doctor promptly identified the symptoms and switched to a different anesthesia method...\"\n   - m1: \"User has an allergy to procaine (普鲁卡因) anesthesia, first experienced during a tooth extraction in summer 2017. Symptoms included palpitations, trembling hands and feet, pale skin, and early signs of anaphylactic shock with sudden blood pressure drop.\"\n   \n   Both facts are supported by m1 which explicitly mentions tooth extraction (拔牙), procaine (普鲁卡因), and all the symptoms (palpitations, trembling hands and feet, pale skin, sudden blood pressure drop).\n\n2. **Item d249d25701e08e6cf2dd**: Query about penicillin allergy status\n   - Expected facts:\n     - \"患者对青霉素存在过敏史。\" (Patient has penicillin allergy history)\n     - \"患者此前声称不过敏的说法已被2016年的病历记录推翻。\" (Previous claim of no allergy was overturned by 2016 medical records)\n   \n   Memories:\n   - m0: \"用户表示自己对青霉素不过敏，且以前没有留意过相关问题。\" (User says they're not allergic to penicillin)\n   - m1: \"用户翻看旧病历发现2016年输液时出过皮疹，医生当时记录为青霉素过敏，因此确认自己有青霉素过敏史。\" (User found 2016 medical records showing penicillin allergy)\n   \n   Both facts are supported. m1 explicitly confirms the allergy history and the 2016 medical record that overturned the previous claim.\n\n3. **Item d26a31aff7330e05aae6**: Query about user's vision problems and eye surgery\n   - Expected fact: \"用户高度近视长期戴眼镜，从未做过眼部手术。\" (User has high myopia, wears glasses long-term, never had eye surgery)\n   \n   Memories:\n   - m0: \"用户眼睛度数很深，已戴眼镜多年，且从未做过眼部手术或患过白内障。\" (User has very high prescription, wears glasses for years, never had eye surgery or cataracts)\n   - m1: \"用户的婆婆眼睛状况良好，未做过眼部手术。\" (Mother-in-law has good eye condition, no eye surgery)\n   - m2: \"用户的公公于约2023年因白内障接受了激光手术，而非之前记录的婆婆。\" (Father-in-law had laser surgery in 2023)\n   - m3: \"用户的婆婆于约2023年因白内障接受了激光手术，术后视力恢复良好。\" (Mother-in-law had laser surgery in 2023)\n   \n   The expected fact is supported by m0, which confirms high myopia, long-term glasses wear, and no previous eye surgeries.\n\n4. **Item d2d3b5ab5439f2208940**: Query about nut allergy and age of reaction\n   - Expected facts:\n     - \"该患者对花生存在过敏反应。\" (Patient has peanut allergy)\n     - \"该患者在十岁时曾出现严重的过敏反应。\" (Patient had severe allergic reaction at age 10)\n   \n   Memories:\n   - m0: \"用户的花生过敏在十岁时反应最严重，后来虽然未完全痊愈，但轻微接触已无大碍。\" (User's peanut allergy was most severe at age 10)\n   - m1: \"用户从小对花生过敏，每次接触都会起红疹。\" (User has been allergic to peanuts since childhood)\n   - m2: \"用户从2023年春天正式开始无麸质饮食。\" (User started gluten-free diet in spring 2023)\n   - m3: \"用户最近两年开始尝试无麸质饮食...\" (User started gluten-free diet in recent 2 years)\n   \n   Both facts are supported by m0 and m1. m0 confirms the peanut allergy and severe reaction at age 10, while m1 confirms the ongoing peanut allergy since childhood.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1378,
+      "completion_tokens": 1417,
+      "total_tokens": 2795,
+      "cost": 0.00210691,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00210691,
+        "upstream_inference_prompt_cost": 0.00040651,
+        "upstream_inference_completions_cost": 0.0017004
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 917,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 29.531
+}

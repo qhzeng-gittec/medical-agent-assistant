@@ -1,0 +1,432 @@
+{
+  "case": {
+    "id": "M06-06",
+    "category": "按医嘱停用药物的时间线",
+    "turns": [
+      {
+        "user": "我2021年因失眠开始用佐匹克隆，每晚一片。今年三月医生说我睡眠改善，让我三月五号停，但我拖到三月十日才停。",
+        "assistant": "好的，已记录您三月十日实际停用佐匹克隆的情况。"
+      },
+      {
+        "user": "更正一下，其实是三月八号停的，那天我重新看了病历，发现写的是八号，不是五号。",
+        "assistant": "了解，已将停药日期更新为三月八号。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "Q1",
+        "query": "患者最终在哪一天停止了佐匹克隆的服用？",
+        "expected_facts": [
+          "患者在2023年3月8日停止服用佐匹克隆"
+        ],
+        "required_groups": [
+          [
+            "3月8日",
+            "三月八号"
+          ],
+          [
+            "停止服用",
+            "停用"
+          ],
+          [
+            "佐匹克隆"
+          ]
+        ]
+      },
+      {
+        "id": "Q2",
+        "query": "患者对停药日期的记忆是否有过错误？",
+        "expected_facts": [
+          "患者最初误记为3月5日或10日，后更正为3月8日"
+        ],
+        "required_groups": [
+          [
+            "3月5日",
+            "三月五号"
+          ],
+          [
+            "3月10日",
+            "三月十号"
+          ],
+          [
+            "3月8日",
+            "三月八号"
+          ]
+        ]
+      }
+    ],
+    "split": "dev",
+    "family_id": "M06-06",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860191-5XC1jyRxduzs2NW73qOF",
+      "usage": {
+        "prompt_tokens": 72,
+        "total_tokens": 72,
+        "cost": 7.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.2e-07,
+          "upstream_inference_prompt_cost": 7.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860196-2ykzFtTnLYTxTS4QZSI1",
+      "usage": {
+        "prompt_tokens": 8362,
+        "completion_tokens": 546,
+        "total_tokens": 8908,
+        "cost": 0.00359372,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00359372,
+          "upstream_inference_prompt_cost": 0.00217412,
+          "upstream_inference_completions_cost": 0.0014196
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 452,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"User因失眠于2021年开始服用佐匹克隆，每晚一片。2026年3月医生告知睡眠改善，建议3月5日停药，但User实际于3月10日才停用。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860207-BdilUDiJJUenr0UfrrJw",
+      "usage": {
+        "prompt_tokens": 53,
+        "total_tokens": 53,
+        "cost": 5.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.3e-07,
+          "upstream_inference_prompt_cost": 5.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860210-Mdt0u8v1KSX4IPqz56wG",
+      "usage": {
+        "prompt_tokens": 50,
+        "total_tokens": 50,
+        "cost": 5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5e-07,
+          "upstream_inference_prompt_cost": 5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860224-YCdtV1AChhtQtAOH9hqN",
+      "usage": {
+        "prompt_tokens": 8469,
+        "completion_tokens": 187,
+        "total_tokens": 8656,
+        "cost": 0.00269055,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00269055,
+          "upstream_inference_prompt_cost": 0.00228663,
+          "upstream_inference_completions_cost": 0.00040392
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 94,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"User更正佐匹克隆停药日期为2026年3月8日，当天重新查看病历发现医生写的是八号而非五号。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860247-uU0nFBGpV6nD30azuQ6S",
+      "usage": {
+        "prompt_tokens": 37,
+        "total_tokens": 37,
+        "cost": 3.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.7e-07,
+          "upstream_inference_prompt_cost": 3.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860251-jxPZ2MCiTRfRR6NTCmmI",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 14,
+        "cost": 1.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.4e-07,
+          "upstream_inference_prompt_cost": 1.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860252-XIKB0s2LRrhau0D0taS0",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860255-TzBvzDNZLhXLlds7PaeD",
+      "usage": {
+        "prompt_tokens": 24,
+        "total_tokens": 24,
+        "cost": 2.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.4e-07,
+          "upstream_inference_prompt_cost": 2.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860258-YQfE8C70etekIWnma4dc",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 14,
+        "cost": 1.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.4e-07,
+          "upstream_inference_prompt_cost": 1.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860261-oUim5DVZOz92zpUs7N37",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 14,
+        "cost": 1.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.4e-07,
+          "upstream_inference_prompt_cost": 1.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "Q1",
+        "query": "患者最终在哪一天停止了佐匹克隆的服用？",
+        "expected_facts": [
+          "患者在2023年3月8日停止服用佐匹克隆"
+        ],
+        "required_groups": [
+          [
+            "3月8日",
+            "三月八号"
+          ],
+          [
+            "停止服用",
+            "停用"
+          ],
+          [
+            "佐匹克隆"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "c7e97162-46e9-4231-a9c6-847ea2704a32",
+          "content": "User因失眠于2021年开始服用佐匹克隆，每晚一片。2026年3月医生告知睡眠改善，建议3月5日停药，但User实际于3月10日才停用。",
+          "score": 0.8197716151339799,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:36:29.691192+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M06-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:36:49.748419+00:00"
+        },
+        {
+          "memory_id": "e6243737-bf20-46e2-8fdd-93c7337ddfdb",
+          "content": "User更正佐匹克隆停药日期为2026年3月8日，当天重新查看病历发现医生写的是八号而非五号。",
+          "score": 0.7203686537712052,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:36:49.774864+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M06-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:37:30.031918+00:00"
+        }
+      ],
+      "seconds": 1.688
+    },
+    {
+      "query": {
+        "id": "Q2",
+        "query": "患者对停药日期的记忆是否有过错误？",
+        "expected_facts": [
+          "患者最初误记为3月5日或10日，后更正为3月8日"
+        ],
+        "required_groups": [
+          [
+            "3月5日",
+            "三月五号"
+          ],
+          [
+            "3月10日",
+            "三月十号"
+          ],
+          [
+            "3月8日",
+            "三月八号"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "e6243737-bf20-46e2-8fdd-93c7337ddfdb",
+          "content": "User更正佐匹克隆停药日期为2026年3月8日，当天重新查看病历发现医生写的是八号而非五号。",
+          "score": 0.7646990132695408,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:36:49.774864+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M06-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:37:30.031918+00:00"
+        },
+        {
+          "memory_id": "c7e97162-46e9-4231-a9c6-847ea2704a32",
+          "content": "User因失眠于2021年开始服用佐匹克隆，每晚一片。2026年3月医生告知睡眠改善，建议3月5日停药，但User实际于3月10日才停用。",
+          "score": 0.6010693622793287,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:36:29.691192+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M06-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:36:49.748419+00:00"
+        }
+      ],
+      "seconds": 2.64
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者最终在哪一天停止了佐匹克隆的服用？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "c7e97162-46e9-4231-a9c6-847ea2704a32",
+        "content": "User因失眠于2021年开始服用佐匹克隆，每晚一片。2026年3月医生告知睡眠改善，建议3月5日停药，但User实际于3月10日才停用。",
+        "score": 0.715833747116678,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:36:29.691192+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M06-06",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:36:49.748419+00:00"
+      },
+      {
+        "memory_id": "e6243737-bf20-46e2-8fdd-93c7337ddfdb",
+        "content": "User更正佐匹克隆停药日期为2026年3月8日，当天重新查看病历发现医生写的是八号而非五号。",
+        "score": 0.6909095809579979,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:36:49.774864+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M06-06",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:37:30.031918+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 81.688
+}

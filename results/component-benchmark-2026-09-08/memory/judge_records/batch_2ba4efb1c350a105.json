@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"55ab3d7ad9fd3f21a2b1\", \"query\": \"患者对自己体内植入物的情况做了怎样的说明，并计划何时到达医院？\", \"expected_facts\": [\"患者确认其心脏起搏器型号兼容核磁共振检查。\", \"患者计划于周五下午三点到达医院。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"User's heart pacemaker model is MRI-compatible, as confirmed by the user after checking information\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:48:51.129805+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"User plans to arrive at the hospital at 3 PM on Friday afternoon (September 11, 2026) for the lumbar spine MRI and wants to know how much time to allow for registration and changing clothes beforehand\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:48:51.129805+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"User has a heart pacemaker and is concerned about whether it will affect the MRI examination or require special procedures\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:48:39.048746+00:00\"}]}, {\"id\": \"56aef638bbec8224e78d\", \"query\": \"在2021年1月之前，患者的吸烟状态是怎样的？\", \"expected_facts\": [\"在2021年1月之前，患者处于减少吸烟量的状态。\", \"患者此前并未实现完全戒烟。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户于2021年1月彻底戒烟，此前只是减少吸烟量但并未完全停止\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:54:43.807199+00:00\"}]}, {\"id\": \"57d16b6ce674563cbb67\", \"query\": \"患者昨天进行了什么检查，结果状态怎样？\", \"expected_facts\": [\"患者昨天做了胸部CT检查。\", \"影像报告尚未出来。\", \"需要等待报告确认诊断。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户于2026年9月7日完成了胸部CT检查，目前正在等待影像报告结果\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:35:33.234448+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户澄清目前尚未确诊肺癌，仅根据症状猜测，需等待CT报告确认\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:35:33.234448+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户计划进行CT检查以确认健康状况\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:35:13.539515+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户有多年吸烟史，因此担心自己可能患有肺癌\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:35:13.539515+00:00\"}, {\"memory_id\": \"m4\", \"content\": \"用户最近经常咳嗽，痰中有血丝，症状已持续两周（约从2026年8月25日开始）\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:35:13.539515+00:00\"}]}, {\"id\": \"580f4ebb3f4aa2c17a1e\", \"query\": \"患者十年前因什么事故受伤，做了什么治疗，康复后有什么遗留症状？\", \"expected_facts\": [\"患者十年前因车祸导致左腿骨折。\", \"患者接受了手术治疗并康复半年。\", \"患者阴雨天膝盖仍会疼痛。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户五十二岁，十年前因车祸导致左腿骨折并进行了手术，术后康复了半年，走路基本正常，但阴雨天膝盖仍会疼痛\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:59:16.941090+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户五年前爬山时扭伤右腿，当时未骨折只是拉伤，休息两周后恢复，但之后右腿偶尔会酸胀，不影响日常活动\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:59:25.362077+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861967-pisXof476F9qHAEykmom",
+    "object": "chat.completion",
+    "created": 1788861967,
+    "model": "minimax/minimax-m2.5",
+    "provider": "StreamLake",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"55ab3d7ad9fd3f21a2b1\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory confirms pacemaker model is MRI-compatible.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory states patient plans to arrive at 3 PM on Friday.\"}]},{\"id\":\"56aef638bbec8224e78d\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states user only reduced smoking before quitting in January 2021.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states user did not stop completely before quitting.\"}]},{\"id\":\"57d16b6ce674563cbb67\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory confirms patient completed chest CT on September 7, 2026.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states patient is currently waiting for imaging report results.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory indicates patient needs CT report to confirm diagnosis.\"}]},{\"id\":\"580f4ebb3f4aa2c17a1e\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory confirms left leg fracture from car accident ten years ago.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states patient had surgery and recovered for half a year.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory notes knee pain persists on rainy days.\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item:\n\n**Item 55ab3d7ad9fd3f21a2b1:**\n- Query: Patient's explanation about their implant and when they plan to arrive at hospital\n- Expected facts:\n  1. \"患者确认其心脏起搏器型号兼容核磁共振检查。\" - Patient confirmed their pacemaker model is MRI-compatible\n  2. \"患者计划于周五下午三点到达医院。\" - Patient plans to arrive at hospital at 3 PM on Friday\n\nLooking at memories:\n- m0: \"User's heart pacemaker model is MRI-compatible, as confirmed by the user after checking information\" - This directly supports fact 1\n- m1: \"User plans to arrive at the hospital at 3 PM on Friday afternoon (September 11, 2026)...\" - This directly supports fact 2\n\nBoth facts are supported.\n\n**Item 56aef638bbec8224e78d:**\n- Query: Patient's smoking status before January 2021\n- Expected facts:\n  1. \"在2021年1月之前，患者处于减少吸烟量的状态。\" - Before Jan 2021, patient was reducing smoking\n  2. \"患者此前并未实现完全戒烟。\" - Patient had not quit smoking completely before\n\nLooking at memories:\n- m0: \"用户于2021年1月彻底戒烟，此前只是减少吸烟量但并未完全停止\" - This says the user quit completely in January 2021, and before that only reduced smoking but didn't stop completely. This directly supports both facts.\n\nBoth facts are supported.\n\n**Item 57d16b6ce674563cbb67:**\n- Query: What examination did the patient do yesterday and what is the status of results?\n- Expected facts:\n  1. \"患者昨天做了胸部CT检查。\" - Patient did chest CT yesterday\n  2. \"影像报告尚未出来。\" - Imaging report is not out yet\n  3. \"需要等待报告确认诊断。\" - Need to wait for report to confirm diagnosis\n\nLooking at memories:\n- m0: \"用户于2026年9月7日完成了胸部CT检查，目前正在等待影像报告结果\" - This supports facts 1 and 2\n\n\n- m1: \"用户澄清目前尚未确诊肺癌，仅根据症状猜测，需等待CT报告确认\" - This supports fact 3\n\nAll three facts are supported.\n\n**Item 580f4ebb3f4aa2c17a1e:**\n- Query: What accident injured the patient ten years ago, what treatment was done, and what residual symptoms remain after recovery?\n- Expected facts:\n  1. \"患者十年前因车祸导致左腿骨折。\" - Patient had left leg fracture from car accident ten years ago\n  2. \"患者接受了手术治疗并康\n\nI'll continue analyzing the remaining details about the patient's medical history. The car accident ten years ago resulted in a left leg fracture that required surgical intervention. The patient underwent an operation and subsequently spent six months in recovery. Despite the healing process, lingering symptoms persist, particularly during rainy weather when the knee experiences pain.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item:\n\n**Item 55ab3d7ad9fd3f21a2b1:**\n- Query: Patient's explanation about their implant and when they plan to arrive at hospital\n- Expected facts:\n  1. \"患者确认其心脏起搏器型号兼容核磁共振检查。\" - Patient confirmed their pacemaker model is MRI-compatible\n  2. \"患者计划于周五下午三点到达医院。\" - Patient plans to arrive at hospital at 3 PM on Friday\n\nLooking at memories:\n- m0: \"User's heart pacemaker model is MRI-compatible, as confirmed by the user after checking information\" - This directly supports fact 1\n- m1: \"User plans to arrive at the hospital at 3 PM on Friday afternoon (September 11, 2026)...\" - This directly supports fact 2\n\nBoth facts are supported.\n\n**Item 56aef638bbec8224e78d:**\n- Query: Patient's smoking status before January 2021\n- Expected facts:\n  1. \"在2021年1月之前，患者处于减少吸烟量的状态。\" - Before Jan 2021, patient was reducing smoking\n  2. \"患者此前并未实现完全戒烟。\" - Patient had not quit smoking completely before\n\nLooking at memories:\n- m0: \"用户于2021年1月彻底戒烟，此前只是减少吸烟量但并未完全停止\" - This says the user quit completely in January 2021, and before that only reduced smoking but didn't stop completely. This directly supports both facts.\n\nBoth facts are supported.\n\n**Item 57d16b6ce674563cbb67:**\n- Query: What examination did the patient do yesterday and what is the status of results?\n- Expected facts:\n  1. \"患者昨天做了胸部CT检查。\" - Patient did chest CT yesterday\n  2. \"影像报告尚未出来。\" - Imaging report is not out yet\n  3. \"需要等待报告确认诊断。\" - Need to wait for report to confirm diagnosis\n\nLooking at memories:\n- m0: \"用户于2026年9月7日完成了胸部CT检查，目前正在等待影像报告结果\" - This supports facts 1 and 2\n\n\n- m1: \"用户澄清目前尚未确诊肺癌，仅根据症状猜测，需等待CT报告确认\" - This supports fact 3\n\nAll three facts are supported.\n\n**Item 580f4ebb3f4aa2c17a1e:**\n- Query: What accident injured the patient ten years ago, what treatment was done, and what residual symptoms remain after recovery?\n- Expected facts:\n  1. \"患者十年前因车祸导致左腿骨折。\" - Patient had left leg fracture from car accident ten years ago\n  2. \"患者接受了手术治疗并康\n\nI'll continue analyzing the remaining details about the patient's medical history. The car accident ten years ago resulted in a left leg fracture that required surgical intervention. The patient underwent an operation and subsequently spent six months in recovery. Despite the healing process, lingering symptoms persist, particularly during rainy weather when the knee experiences pain.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1321,
+      "completion_tokens": 1005,
+      "total_tokens": 2326,
+      "cost": 0.001379862,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.001379862,
+        "upstream_inference_prompt_cost": 0.000294462,
+        "upstream_inference_completions_cost": 0.0010854
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 643,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 13.188
+}

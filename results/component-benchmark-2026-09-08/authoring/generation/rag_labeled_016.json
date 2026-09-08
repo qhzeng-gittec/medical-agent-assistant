@@ -1,0 +1,72 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Create source-grounded retrieval evaluation questions. Return JSON {\"items\":[...]}.\nFor EACH supplied source return {\"id\":same id,\"en\":English patient question,\"zh\":Chinese patient question,\n\"evidence_id\":the exact id string of ONE supplied evidence_options entry supporting BOTH questions}.\nAsk one concrete question about a supported detail (cause, symptom, prevention, evaluation, management).\nThe two questions express the SAME information need, not two facts. Use ordinary patient language.\nInclude enough topic context to identify the condition but do not copy a source sentence into the question.\nSelect an evidence option and ask about a concrete detail stated in that option. Do not ask for a personalized dose or individual diagnosis. Do not invent content. No answers in questions.\nThese are synthetic topic-source retrieval labels, not a clinician-authored benchmark."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"MLP-4610\", \"title\": \"Lymphedema\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Lymphedema is the name of a type of swelling .\"}, {\"id\": \"S001\", \"text\": \"It happens when lymph builds up in your body's soft tissues.\"}, {\"id\": \"S002\", \"text\": \"Lymph is a fluid that contains white blood cells that defend against germs.\"}, {\"id\": \"S003\", \"text\": \"It can build up when the lymph system is damaged or blocked.\"}, {\"id\": \"S004\", \"text\": \"Causes of lymphedema include: Infection Cancer Scar tissue from radiation therapy or surgical removal of lymph nodes Inherited conditions in which lymph nodes or vessels are absent or abnormal Treatment can help control symptoms.\"}, {\"id\": \"S005\", \"text\": \"It includes exercise, compression devices, skin care, and massage.\"}]}, {\"id\": \"MLP-128\", \"title\": \"Adrenal Gland Disorders\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Your adrenal glands are two small organs that sit on top of each kidney.\"}, {\"id\": \"S001\", \"text\": \"The adrenal glands make different types of hormones you need to stay alive and healthy.\"}, {\"id\": \"S002\", \"text\": \"Hormones are chemicals that travel in your bloodstream and control how different parts of your body work.\"}, {\"id\": \"S003\", \"text\": \"The adrenal glands make the hormones cortisol, aldosterone, adrenaline, and noradrenaline.\"}, {\"id\": \"S004\", \"text\": \"They also make hormones that your body uses to make sex hormones (estrogen and testosterone).\"}, {\"id\": \"S005\", \"text\": \"All of these hormones do many important jobs, including: Turning food into energy and managing blood sugar levels Balancing salt and water Keeping blood pressure normal Responding to illness and stress (your \\\"fight or flight\\\" response) Timing when and how fast a child develops sexually Supporting pregnancy What are adrenal gland disorders?\"}, {\"id\": \"S006\", \"text\": \"When you have an adrenal gland disorder, your body makes too much or too little of one or more hormones.\"}, {\"id\": \"S007\", \"text\": \"The symptoms depend on the type of problem you have and how much it affects the hormone levels in your body.\"}, {\"id\": \"S008\", \"text\": \"There are many types of adrenal gland disorders, including: Addison's Disease - a condition in which the adrenal glands don't make enough cortisol Cushing's Syndrome - a condition caused by too much cortisol in the body, often from taking steroid medicines for a long time Aldosterone-producing adenoma - a benign tumor (not cancer) that makes too much aldosterone and may cause serious high blood pressure Hereditary paraganglioma-pheochromocytoma - an inherited condition causing different types of tumors that make adrenaline and other hormones.\"}, {\"id\": \"S009\", \"text\": \"Adrenal gland cancer - cancerous tumors, including adrenocortical carcinoma and neuroblastoma Congenital Adrenal Hyperplasia (CAH) - a group of inherited disorders in which the adrenal glands don't make enough cortisol.\"}, {\"id\": \"S010\", \"text\": \"The most common type is 21-hydroxylase deficiency (also called CAH1) .\"}, {\"id\": \"S011\", \"text\": \"In the United States, newborn babies get a blood test to see if they have CAH.\"}, {\"id\": \"S012\", \"text\": \"People born with CAH may not have symptoms until childhood or later in life.\"}, {\"id\": \"S013\", \"text\": \"The cause of adrenal gland disorders depends on the type of disorder you have.\"}, {\"id\": \"S014\", \"text\": \"Causes can include: Medicines such as steroids A problem in another gland, such as the pituitary gland .\"}, {\"id\": \"S015\", \"text\": \"The pituitary gland releases hormones that affect how the adrenal glands work.\"}, {\"id\": \"S016\", \"text\": \"These changes can cause the adrenal glands to make too much or too little of one or more hormones.\"}, {\"id\": \"S017\", \"text\": \"Infections In many cases the cause of the problem isn't clear.\"}, {\"id\": \"S018\", \"text\": \"How are adrenal gland disorders diagnosed?\"}, {\"id\": \"S019\", \"text\": \"Health care providers use different tests to check for adrenal disorders depending on your symptoms and health history.\"}, {\"id\": \"S020\", \"text\": \"For example, you may have tests of your blood, urine (pee), or saliva (spit).\"}, {\"id\": \"S021\", \"text\": \"Your provider may order x-rays , CT scans , or MRI scans to look for tumors.\"}, {\"id\": \"S022\", \"text\": \"What are the treatments for adrenal gland disorders?\"}, {\"id\": \"S023\", \"text\": \"Different types of adrenal gland disorders have different treatments.\"}, {\"id\": \"S024\", \"text\": \"Radiation therapy is sometimes a treatment for tumors.\"}, {\"id\": \"S025\", \"text\": \"There are treatments to cure certain adrenal gland disorders.\"}, {\"id\": \"S026\", \"text\": \"For other disorders, treatments can manage your symptoms.\"}, {\"id\": \"S027\", \"text\": \"NIH: National Institute of Child Health and Human Development\"}]}, {\"id\": \"MLP-5656\", \"title\": \"Male Infertility\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Infertility is a term doctors use if a man hasn't been able to get a woman pregnant after at least one year of trying.\"}, {\"id\": \"S001\", \"text\": \"Causes of male infertility include: Physical problems with the testicles Blockages in the ducts that carry sperm Hormone problems A history of high fevers or mumps Genetic disorders Lifestyle or environmental factors About a third of the time, infertility is because of a problem with the man.\"}, {\"id\": \"S002\", \"text\": \"One third of the time, it is a problem with the woman .\"}, {\"id\": \"S003\", \"text\": \"If you suspect you are infertile, see your doctor.\"}, {\"id\": \"S004\", \"text\": \"There are tests that may tell if you have fertility problems.\"}, {\"id\": \"S005\", \"text\": \"When it is possible to find the cause, treatments may include medicines, surgery, or assisted reproductive technology .\"}, {\"id\": \"S006\", \"text\": \"Happily, many couples treated for infertility are able to have babies.\"}, {\"id\": \"S007\", \"text\": \"NIH: National Institute of Child Health and Human Development\"}]}, {\"id\": \"MLP-518\", \"title\": \"Limb Loss\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"People can lose all or part of an arm or leg for many reasons.\"}, {\"id\": \"S001\", \"text\": \"Common ones include: Problems with the flow of blood through your body.\"}, {\"id\": \"S002\", \"text\": \"These may be the result of atherosclerosis or diabetes.\"}, {\"id\": \"S003\", \"text\": \"Severe cases may result in amputation (the surgical removal of a limb).\"}, {\"id\": \"S004\", \"text\": \"Injuries, including from traffic accidents and military combat.\"}, {\"id\": \"S005\", \"text\": \"Some amputees have phantom pain, which is the feeling of pain in the missing limb.\"}, {\"id\": \"S006\", \"text\": \"Other physical problems include surgical complications and skin problems if you wear an artificial limb .\"}, {\"id\": \"S007\", \"text\": \"Recovery from the loss of a limb can be hard.\"}, {\"id\": \"S008\", \"text\": \"Sadness, anger, and frustration are common.\"}, {\"id\": \"S009\", \"text\": \"If you are having a tough time, talk to your health care provider.\"}, {\"id\": \"S010\", \"text\": \"Treatment with medicine or counseling can help.\"}]}, {\"id\": \"MLP-1104\", \"title\": \"Diagnostic Imaging\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Diagnostic imaging refers to medical tests that create pictures of the inside of the body.\"}, {\"id\": \"S001\", \"text\": \"These pictures help your health care provider see your organs, bones, blood vessels, and tissues.\"}, {\"id\": \"S002\", \"text\": \"Imaging tests can help find the cause of symptoms, detect disease early, monitor an illness or injury, and guide treatment.\"}, {\"id\": \"S003\", \"text\": \"What are different types of diagnostic imaging?\"}, {\"id\": \"S004\", \"text\": \"Different machines are used to create pictures inside your body.\"}, {\"id\": \"S005\", \"text\": \"The type of imaging your provider uses depends on your symptoms and the part of your body being checked.\"}, {\"id\": \"S006\", \"text\": \"Common types of diagnostic imaging include: X-rays CT (computed tomography) scans Nuclear medicine scans MRI (magnetic resonance imaging) scans Ultrasound Why is diagnostic imaging done?\"}, {\"id\": \"S007\", \"text\": \"Diagnostic imaging tests help providers understand health problems and make decisions about care.\"}, {\"id\": \"S008\", \"text\": \"These tests may be used to: Find health problems early Learn what causes pain or other symptoms Plan treatment Monitor a condition or see how well treatment is working Some imaging tests can also help guide medical procedures, such as placing catheters, stents, or other medical devices inside the body.\"}, {\"id\": \"S009\", \"text\": \"Each diagnostic imaging test is different, but many follow similar steps.\"}, {\"id\": \"S010\", \"text\": \"During an imaging test: Some tests require you to change clothes or remove metal items, such as jewelry or glasses Some tests require you to fast (not eat or drink) or drink contrast material (a substance that helps some parts of your body show up more clearly on the images) Many imaging tests take only a short time Some tests require you to stay still inside an imaging machine, which may feel uncomfortable Some tests use a small amount of radiation Always tell your provider if you are pregnant or think you may be pregnant.\"}, {\"id\": \"S011\", \"text\": \"After most imaging tests, you can return to normal activities right away.\"}, {\"id\": \"S012\", \"text\": \"A specialist called a radiologist reviews the images and shares the results with your provider.\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 2500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788858695-Y3X2ACSMnvMvVe3OjvG1",
+    "object": "chat.completion",
+    "created": 1788858695,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "SiliconFlow",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"MLP-4610\",\n      \"en\": \"My arm has been swollen for a while, and I've heard this might be lymphedema. What exactly causes the fluid to build up in my tissues?\",\n      \"zh\": \"我的手臂肿了一段时间，听说这可能是淋巴水肿。到底是什么原因导致液体在我的组织里积聚的？\",\n      \"evidence_id\": \"S003\"\n    },\n    {\n      \"id\": \"MLP-128\",\n      \"en\": \"I was told I might have an adrenal gland disorder because my hormone levels are off. What exactly happens in the body when someone has this condition?\",\n      \"zh\": \"医生告诉我我可能有肾上腺疾病，因为我的激素水平不正常。当一个人患有这种病时，身体里具体会发生什么？\",\n      \"evidence_id\": \"S006\"\n    },\n    {\n      \"id\": \"MLP-5656\",\n      \"en\": \"My partner and I have been trying to have a baby for over a year without success. What are some common physical reasons a man might have trouble getting a woman pregnant?\",\n      \"zh\": \"我和伴侣尝试怀孕一年多都没有成功。男性导致女性难以怀孕的常见身体原因有哪些？\",\n      \"evidence_id\": \"S001\"\n    },\n    {\n      \"id\": \"MLP-518\",\n      \"en\": \"I recently lost my leg due to a severe injury. I've heard some people feel pain in the limb that is no longer there. What is this feeling called?\",\n      \"zh\": \"我最近因为严重受伤失去了腿。听说有些人会在已经不存在的肢体上感到疼痛，这种感觉叫什么？\",\n      \"evidence_id\": \"S005\"\n    },\n    {\n      \"id\": \"MLP-1104\",\n      \"en\": \"My doctor ordered a scan to check my internal organs. What is the general purpose of these imaging tests that create pictures of the inside of the body?\",\n      \"zh\": \"我的医生开了一项扫描检查我的内脏。这些能生成体内图像的成像检查的一般目的是什么？\",\n      \"evidence_id\": \"S002\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2641,
+      "completion_tokens": 505,
+      "total_tokens": 3146,
+      "cost": 0.00167025,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00167025,
+        "upstream_inference_prompt_cost": 0.00066025,
+        "upstream_inference_completions_cost": 0.00101
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 14.157
+}

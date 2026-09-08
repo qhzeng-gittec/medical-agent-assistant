@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"a62eb042dc8785eb5d80\", \"query\": \"患者最终在什么时间点结束了阿托伐他汀的使用？\", \"expected_facts\": [\"患者在2023年2月28日结束阿托伐他汀的使用\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户从2022年冬天开始服用阿托伐他汀降血脂，每周复查一次。2026年2月医生告知指标正常，建议二月底停药，但用户实际拖到三月初才停用。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:46:18.284154+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户更正阿托伐他汀停药日期为2026年2月28日，当天是医生建议的最后期限，并非拖延，之前记错了日子。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:46:28.255970+00:00\"}]}, {\"id\": \"a732a461bc7436f001c0\", \"query\": \"患者最初计划停药的时间与实际执行时间是否一致？\", \"expected_facts\": [\"患者原计划于4月15日停药，实际于4月20日完成停药\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户更正氨氯地平正式停药日期为2026年4月20日，中间有几天忘记服药但医生确认没问题\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:47:03.988559+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户于2026年8月被医生告知血压稳定，医嘱从2026年4月15日起停用氨氯地平，停药后感觉良好\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:46:27.197085+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户因高血压于2025年3月开始服用氨氯地平，每天一片\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:46:27.197085+00:00\"}]}, {\"id\": \"a863d6dd9d52bb5298a1\", \"query\": \"患者是否在医生建议的截止日期前完成了停药？\", \"expected_facts\": [\"患者在医生建议的6月10日后，于6月12日完成停药\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户实际在2026年6月12日停用氟西汀，当天医生打电话确认可以停药后就不再服用\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:48:28.807981+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"2026年6月医生告知用户情绪好转，建议6月10日停药，但用户实际坚持服用到6月15日才停用氟西汀\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:48:04.491424+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户2021年因抑郁症开始服用氟西汀，每天一片\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:48:04.491424+00:00\"}]}, {\"id\": \"a8a408f8a4320007c6b4\", \"query\": \"五年前他为了控制血压做了什么运动，为什么后来停了，目前用药情况如何？\", \"expected_facts\": [\"患者五年前开始每天慢跑半小时。\", \"患者坚持了两年后因膝盖受伤停跑。\", \"患者目前尚未开始服用降压药物。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户五年前因体检发现血压升高开始每天慢跑半小时，坚持了两年，期间血压保持稳定\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:58:56.364460+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户去年因膝盖受伤停止慢跑后血压出现波动，目前尚未开始服用降压药物\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:58:56.364460+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户最近体检发现血压又有点高\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:58:29.303140+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862065-mySqp2Ls4kXuewMeAwI6",
+    "object": "chat.completion",
+    "created": 1788862065,
+    "model": "minimax/minimax-m2.5",
+    "provider": "StreamLake",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"a62eb042dc8785eb5d80\",\"facts\":[{\"supported\":false,\"evidence\":[],\"reason\":\"Expected date 2023 differs from memory records showing 2026\"}]},{\"id\":\"a732a461bc7436f001c0\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"Memory m1 shows planned date April 15 and m0 shows actual date April 20\"}]},{\"id\":\"a863d6dd9d52bb5298a1\",\"facts\":[{\"supported\":false,\"evidence\":[],\"reason\":\"Memory m1 states actual stop date was June 15, not June 12\"}]},{\"id\":\"a8a408f8a4320007c6b4\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"m0 confirms started jogging five years ago for two years; m1 confirms stopped due to knee injury and not yet on medication\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item:\n\n**Item 1 (a62eb042dc8785eb5d80):**\n- Query: 患者最终在什么时间点结束了阿托伐他汀的使用？\n- Expected fact: 患者在2023年2月28日结束阿托伐他汀的使用\n- Memories:\n  - m0: 2026年2月医生建议二月底停药，实际拖到三月初才停用\n  - m1: 更正停药日期为2026年2月28日\n\nThe expected fact says \"2023年2月28日\" but the memories mention \"2026年2月28日\". This is a discrepancy - the expected fact appears to be incorrect based on the memories. The memories clearly state 2026, not 2023. However, I need to check if the memories support the expected fact. They don't - they support 2026, not 2023.\n\nActually, wait - I need to judge whether the retrieved memories support the expected fact. The expected fact says 2023, but memories say 2026. This is a mismatch. The expected fact is NOT supported by the memories.\n\n**Item 2 (a732a461bc7436f001c0):**\n- Query: 患者最初计划停药的时间与实际执行时间是否一致？\n- Expected fact: 患者原计划于4月15日停药，实际于4月20日完成停药\n- Memories:\n  - m0: 更正氨氯地平正式停药日期为2026年4月20日\n  - m1: 医嘱从2026年4月15日起停用氨氯地平\n  - m2: 用户因高血压于2025年3月开始服用氨氯地平\n\nThis matches! m1 says 4月15日 was the doctor's order (planned), and m0 says 4月20日 was the actual stop date. Supported: true.\n\n**Item 3 (a863d6dd9d52bb5298a1):**\n\n\n- Query: 患者是否在医生建议的截止日期前完成了停药？\n- Expected fact: 患者在医生建议的6月10日后，于6月12日完成停药\n- Memories:\n  - m0: 实际在2026年6月12日停用氟西汀\n  - m1: 医生建议6月10日停药，但用户实际坚持服用到6月15日才停用氟西汀\n  - m2: 用户2021年因抑郁症开始服用氟西汀\n\nI notice conflicting information about the exact停药 date. The memories present different scenarios: one source suggests 6月12日, another indicates 6月15日. This discrepancy makes it challenging to definitively confirm the expected fact.\n\nThe expected fact claims 6月12日, but the supporting memory (m1) explicitly states 6月15日. This contradiction means the fact cannot be considered supported.\n\nThe query asks about completing停药 after the doctor's recommended date, and the expected fact suggests 6月12日. However, the memory directly contradicts this, reporting 6月15日 instead.\n\nI'll mark this as unsupported due to the clear discrepancy between the expected fact and the memory's information.\n\nThe memories consistently show the patient stopping running due to a knee injury, with no current blood pressure medication. The timeline and details align perfectly, supporting the expected facts.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item:\n\n**Item 1 (a62eb042dc8785eb5d80):**\n- Query: 患者最终在什么时间点结束了阿托伐他汀的使用？\n- Expected fact: 患者在2023年2月28日结束阿托伐他汀的使用\n- Memories:\n  - m0: 2026年2月医生建议二月底停药，实际拖到三月初才停用\n  - m1: 更正停药日期为2026年2月28日\n\nThe expected fact says \"2023年2月28日\" but the memories mention \"2026年2月28日\". This is a discrepancy - the expected fact appears to be incorrect based on the memories. The memories clearly state 2026, not 2023. However, I need to check if the memories support the expected fact. They don't - they support 2026, not 2023.\n\nActually, wait - I need to judge whether the retrieved memories support the expected fact. The expected fact says 2023, but memories say 2026. This is a mismatch. The expected fact is NOT supported by the memories.\n\n**Item 2 (a732a461bc7436f001c0):**\n- Query: 患者最初计划停药的时间与实际执行时间是否一致？\n- Expected fact: 患者原计划于4月15日停药，实际于4月20日完成停药\n- Memories:\n  - m0: 更正氨氯地平正式停药日期为2026年4月20日\n  - m1: 医嘱从2026年4月15日起停用氨氯地平\n  - m2: 用户因高血压于2025年3月开始服用氨氯地平\n\nThis matches! m1 says 4月15日 was the doctor's order (planned), and m0 says 4月20日 was the actual stop date. Supported: true.\n\n**Item 3 (a863d6dd9d52bb5298a1):**\n\n\n- Query: 患者是否在医生建议的截止日期前完成了停药？\n- Expected fact: 患者在医生建议的6月10日后，于6月12日完成停药\n- Memories:\n  - m0: 实际在2026年6月12日停用氟西汀\n  - m1: 医生建议6月10日停药，但用户实际坚持服用到6月15日才停用氟西汀\n  - m2: 用户2021年因抑郁症开始服用氟西汀\n\nI notice conflicting information about the exact停药 date. The memories present different scenarios: one source suggests 6月12日, another indicates 6月15日. This discrepancy makes it challenging to definitively confirm the expected fact.\n\nThe expected fact claims 6月12日, but the supporting memory (m1) explicitly states 6月15日. This contradiction means the fact cannot be considered supported.\n\nThe query asks about completing停药 after the doctor's recommended date, and the expected fact suggests 6月12日. However, the memory directly contradicts this, reporting 6月15日 instead.\n\nI'll mark this as unsupported due to the clear discrepancy between the expected fact and the memory's information.\n\nThe memories consistently show the patient stopping running due to a knee injury, with no current blood pressure medication. The timeline and details align perfectly, supporting the expected facts.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1338,
+      "completion_tokens": 933,
+      "total_tokens": 2271,
+      "cost": 0.001306692,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.001306692,
+        "upstream_inference_prompt_cost": 0.000299052,
+        "upstream_inference_completions_cost": 0.00100764
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 712,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 12.688
+}

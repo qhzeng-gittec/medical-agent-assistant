@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"3bfeeefbe0f7d673f6b8\", \"query\": \"患者实际停止服用抗焦虑药的具体日期是哪天？\", \"expected_facts\": [\"患者在2023年1月24日停止服用舍曲林\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户实际于2026年1月24日停用舍曲林，当天医生打电话确认可以停药后用户便不再服用。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:48:04.413557+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户于2019年因焦虑症开始服用舍曲林，剂量为每天半片。2026年1月医生告知用户情绪稳定并建议于1月20日停药，但用户实际坚持服用至1月25日。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:46:46.105268+00:00\"}]}, {\"id\": \"3c438b896d57a22ec27d\", \"query\": \"患者制定的饮食控制方案是从何时开始，持续到何时结束？\", \"expected_facts\": [\"患者计划从前天晚上开始只吃流质食物。\", \"患者的流食计划持续到检查前一天的中午十二点。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户计划从2026年9月6日晚上开始只进食流质食物，直至2026年9月9日中午12点，作为无痛肠镜检查前的准备\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:49:19.347625+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"User预约了2026年9月10日上午的无痛肠镜检查，医生嘱咐检查前一天要吃流食\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:49:03.156650+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"User咨询关于无痛肠镜检查前流食开始的具体时间点，以及检查当天早上是否需要完全禁水的要求\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:49:03.156650+00:00\"}]}, {\"id\": \"3d4331dc0117a8d44352\", \"query\": \"患者实际上在哪一年进行过胃镜检查？\", \"expected_facts\": [\"患者在2017年进行过胃镜检查。\", \"患者此前声称从未做过胃镜是不准确的。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户从未做过胃镜检查，以前胃痛时也没有做过这项检查。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:40:20.818970+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户在2017年因胃痛做过一次胃镜检查，当时诊断为浅表性胃炎。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:40:54.182141+00:00\"}]}, {\"id\": \"3f9af5322d73db2751f6\", \"query\": \"五年前他戒烟时用了什么辅助工具，坚持了多久，现在是否完全戒断？\", \"expected_facts\": [\"患者五年前因咳嗽加重再次戒烟。\", \"患者使用尼古丁贴片坚持了两年。\", \"患者去年冬天复吸，目前未完全戒断。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"五年前（约2021年），用户因咳嗽加重再次开始戒烟，使用尼古丁贴片作为辅助，坚持了两年\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:00:44.442511+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"在两年戒烟期间用户的咳嗽基本消失，但去年冬天（2025-2026年冬季）复吸了几次，现在偶尔咳一下\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:00:44.442511+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"医生建议戒烟后，用户成功戒了三年，症状减轻，但后来复吸了\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:00:29.739352+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户58岁，十年前因吸烟导致慢性支气管炎，症状为咳嗽痰多\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:00:29.739352+00:00\"}, {\"memory_id\": \"m4\", \"content\": \"用户目前偶尔咳嗽\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:00:29.739352+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861937-5K7YfoCAjySipun9p7Z8",
+    "object": "chat.completion",
+    "created": 1788861937,
+    "model": "minimax/minimax-m2.5",
+    "provider": "Minimax",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"items\": [\n    {\n      \"id\": \"3bfeeefbe0f7d673f6b8\",\n      \"facts\": [\n        {\n          \"supported\": false,\n          \"evidence\": [],\n          \"reason\": \"期望事实声称2023年1月24日停药，但记忆显示停药实际发生在2026年1月24日或25日，与期望日期不符\"\n        }\n      ]\n    },\n    {\n      \"id\": \"3c438b896d57a22ec27d\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"}\n          ],\n          \"reason\": \"记忆明确显示从2026年9月6日晚上开始进食流质食物\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"}\n          ],\n          \"reason\": \"记忆明确显示流食持续到2026年9月9日中午12点\"\n        }\n      ]\n    },\n    {\n      \"id\": \"3d4331dc0117a8d44352\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m1\"}\n          ],\n          \"reason\": \"记忆明确记录患者在2017年因胃痛做过胃镜检查\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"},\n            {\"memory_id\": \"m1\"}\n          ],\n          \"reason\": \"m0的先前声称与m1的后续纠正并存，m1提供了准确的2017年胃镜检查记录\"\n        }\n      ]\n    },\n    {\n      \"id\": \"3f9af5322d73db2751f6\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"}\n          ],\n          \"reason\": \"记忆明确记载五年前（约2021年）因咳嗽加重再次戒烟\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"}\n          ],\n          \"reason\": \"记忆明确记载使用尼古丁贴片作为辅助，坚持了两年\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m1\"}\n          ],\n          \"reason\": \"记忆明确记载去年冬天复吸，目前偶尔咳嗽，未完全戒断\"\n        }\n      ]\n    }\n  ]\n}\n```",
+          "refusal": null,
+          "reasoning": "让我逐个分析每个问题：\n\n**问题1：3bfeeefbe0f7d673f6b8**\n查询：患者实际停止服用抗焦虑药的具体日期是哪天？\n期望事实：患者在2023年1月24日停止服用舍曲林\n\n查看记忆：\n- m0: \"用户实际于2026年1月24日停用舍曲林\"\n- m1: \"用户于2019年因焦虑症开始服用舍曲林，剂量为每天半片。2026年1月医生告知用户情绪稳定并建议于1月20日停药，但用户实际坚持服用至1月25日。\"\n\n期望事实说的是2023年1月24日，但记忆里说的是2026年1月24日（m0）或1月25日（m1）。期望事实与记忆不符。\n- 期望：2023年1月24日\n- 记忆：2026年1月24日或1月25日\n\n所以不支持。\n\n**问题2：3c438b896d57a22ec27d**\n查询：患者制定的饮食控制方案是从何时开始，持续到何时结束？\n期望事实1：患者计划从前天晚上开始只吃流质食物。\n期望事实2：患者的流食计划持续到检查前一天的中午十二点。\n\n记忆：\n- m0: \"用户计划从2026年9月6日晚上开始只进食流质食物，直至2026年9月9日中午12点\"\n- m1: \"User预约了2026年9月10日上午的无痛肠镜检查\"\n\n\n- 期望与记忆中的时间细节完全一致，可以相互印证。\n\n**问题3：3d4331dc0117a8d44352**\n查询：患者实际上在哪一年进行过胃镜检查？\n期望事实1：患者在2017年进行过胃镜检查。\n期望事实2：患者此前声称从未做过胃镜是不准确的。\n\n记忆：\n- m0: \"用户从未做过胃镜检查\"\n- m1: \"用户在2017年因胃痛做过一次胃镜检查\"\n\n两个期望事实都得到了明确的记忆支持。\n\n**问题4：3f9af5322d73db2751f6**\n查询：五年前他戒烟时用了什么辅助工具，坚持了多久，现在是否完全戒断？\n期望事实1：患者五年前因咳嗽加重再次戒烟。\n期望事实2：患者使用尼古丁贴片坚持了两年。\n期望事实3：患者去年冬天复吸，目前未完全戒断。\n\n记忆：\n- m0: \"五年前（约2021年），用户因咳嗽加重再次开始戒烟，使用尼古丁贴片作为辅助，坚持了两年\"\n- m1: \"在两年戒烟期间用户的咳嗽基本消失，但去年冬天（2025-2026年冬季）复吸了几次，现在偶尔咳一下\"\n\n戒烟时间和辅助工具与期望事实相符，但戒烟持续时间和目前戒烟状态存在细微差异。\n\n两年戒烟期与\"坚持了两年\"基本一致，不过后续复吸情况需要进一步核实。\n\n记忆显示确实在2025-2026年冬季复吸，目前偶尔咳嗽，这意味着并未完全戒断，符合期望事实3的描述。所有期望事实都得到了记忆支持。",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "让我逐个分析每个问题：\n\n**问题1：3bfeeefbe0f7d673f6b8**\n查询：患者实际停止服用抗焦虑药的具体日期是哪天？\n期望事实：患者在2023年1月24日停止服用舍曲林\n\n查看记忆：\n- m0: \"用户实际于2026年1月24日停用舍曲林\"\n- m1: \"用户于2019年因焦虑症开始服用舍曲林，剂量为每天半片。2026年1月医生告知用户情绪稳定并建议于1月20日停药，但用户实际坚持服用至1月25日。\"\n\n期望事实说的是2023年1月24日，但记忆里说的是2026年1月24日（m0）或1月25日（m1）。期望事实与记忆不符。\n- 期望：2023年1月24日\n- 记忆：2026年1月24日或1月25日\n\n所以不支持。\n\n**问题2：3c438b896d57a22ec27d**\n查询：患者制定的饮食控制方案是从何时开始，持续到何时结束？\n期望事实1：患者计划从前天晚上开始只吃流质食物。\n期望事实2：患者的流食计划持续到检查前一天的中午十二点。\n\n记忆：\n- m0: \"用户计划从2026年9月6日晚上开始只进食流质食物，直至2026年9月9日中午12点\"\n- m1: \"User预约了2026年9月10日上午的无痛肠镜检查\"\n\n\n- 期望与记忆中的时间细节完全一致，可以相互印证。\n\n**问题3：3d4331dc0117a8d44352**\n查询：患者实际上在哪一年进行过胃镜检查？\n期望事实1：患者在2017年进行过胃镜检查。\n期望事实2：患者此前声称从未做过胃镜是不准确的。\n\n记忆：\n- m0: \"用户从未做过胃镜检查\"\n- m1: \"用户在2017年因胃痛做过一次胃镜检查\"\n\n两个期望事实都得到了明确的记忆支持。\n\n**问题4：3f9af5322d73db2751f6**\n查询：五年前他戒烟时用了什么辅助工具，坚持了多久，现在是否完全戒断？\n期望事实1：患者五年前因咳嗽加重再次戒烟。\n期望事实2：患者使用尼古丁贴片坚持了两年。\n期望事实3：患者去年冬天复吸，目前未完全戒断。\n\n记忆：\n- m0: \"五年前（约2021年），用户因咳嗽加重再次开始戒烟，使用尼古丁贴片作为辅助，坚持了两年\"\n- m1: \"在两年戒烟期间用户的咳嗽基本消失，但去年冬天（2025-2026年冬季）复吸了几次，现在偶尔咳一下\"\n\n戒烟时间和辅助工具与期望事实相符，但戒烟持续时间和目前戒烟状态存在细微差异。\n\n两年戒烟期与\"坚持了两年\"基本一致，不过后续复吸情况需要进一步核实。\n\n记忆显示确实在2025-2026年冬季复吸，目前偶尔咳嗽，这意味着并未完全戒断，符合期望事实3的描述。所有期望事实都得到了记忆支持。",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1411,
+      "completion_tokens": 1201,
+      "total_tokens": 2612,
+      "cost": 0.0018645,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0018645,
+        "upstream_inference_prompt_cost": 0.0004233,
+        "upstream_inference_completions_cost": 0.0014412
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 666,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 13.922
+}

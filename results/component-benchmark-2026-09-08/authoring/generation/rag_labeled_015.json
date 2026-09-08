@@ -1,0 +1,72 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Create source-grounded retrieval evaluation questions. Return JSON {\"items\":[...]}.\nFor EACH supplied source return {\"id\":same id,\"en\":English patient question,\"zh\":Chinese patient question,\n\"evidence_id\":the exact id string of ONE supplied evidence_options entry supporting BOTH questions}.\nAsk one concrete question about a supported detail (cause, symptom, prevention, evaluation, management).\nThe two questions express the SAME information need, not two facts. Use ordinary patient language.\nInclude enough topic context to identify the condition but do not copy a source sentence into the question.\nSelect an evidence option and ask about a concrete detail stated in that option. Do not ask for a personalized dose or individual diagnosis. Do not invent content. No answers in questions.\nThese are synthetic topic-source retrieval labels, not a clinician-authored benchmark."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"MLP-301\", \"title\": \"Kidney Cancer\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"They are fist-sized organs on either side of your backbone above your waist.\"}, {\"id\": \"S001\", \"text\": \"The tubes inside filter and clean your blood, taking out waste products and making urine.\"}, {\"id\": \"S002\", \"text\": \"Kidney cancer forms in the lining of tiny tubes inside your kidneys.\"}, {\"id\": \"S003\", \"text\": \"Kidney cancer becomes more likely as you age.\"}, {\"id\": \"S004\", \"text\": \"Risk factors include smoking, having certain genetic conditions, and misusing pain medicines for a long time.\"}, {\"id\": \"S005\", \"text\": \"See your health care provider if you notice: Blood in your urine A lump in your abdomen Weight loss for no reason Pain in your side that does not go away Loss of appetite Tests to diagnose kidney cancer include blood, urine, and imaging tests.\"}, {\"id\": \"S006\", \"text\": \"Treatment depends on your age, your overall health and how advanced the cancer is.\"}, {\"id\": \"S007\", \"text\": \"It might include surgery, chemotherapy, or radiation, biologic, or targeted therapies.\"}, {\"id\": \"S008\", \"text\": \"Biologic therapy boosts your body's own ability to fight cancer.\"}, {\"id\": \"S009\", \"text\": \"Targeted therapy uses drugs or other substances that attack specific cancer cells with less harm to normal cells.\"}]}, {\"id\": \"MLP-1647\", \"title\": \"Osteonecrosis\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Osteonecrosis is a disease caused by reduced blood flow to bones in the joints.\"}, {\"id\": \"S001\", \"text\": \"In people with healthy bones, new bone is always replacing old bone.\"}, {\"id\": \"S002\", \"text\": \"In osteonecrosis, the lack of blood causes the bone to break down faster than the body can make enough new bone.\"}, {\"id\": \"S003\", \"text\": \"The bone starts to die and may break down.\"}, {\"id\": \"S004\", \"text\": \"You can have osteonecrosis in one or several bones.\"}, {\"id\": \"S005\", \"text\": \"Other common sites are your upper arm and your knees, shoulders and ankles.\"}, {\"id\": \"S006\", \"text\": \"The disease can affect men and women of any age, but it usually strikes in your thirties, forties or fifties.\"}, {\"id\": \"S007\", \"text\": \"At first, you might not have any symptoms.\"}, {\"id\": \"S008\", \"text\": \"As the disease gets worse, you will probably have joint pain that becomes more severe.\"}, {\"id\": \"S009\", \"text\": \"You may not be able to bend or move the affected joint very well.\"}, {\"id\": \"S010\", \"text\": \"Risk factors include : Long-term steroid treatment Alcohol misuse Joint injuries Having certain diseases, including arthritis and cancer Doctors use imaging tests and other tests to diagnose osteonecrosis.\"}, {\"id\": \"S011\", \"text\": \"Treatments include medicines, using crutches, limiting activities that put weight on the affected joints, electrical stimulation and surgery.\"}, {\"id\": \"S012\", \"text\": \"NIH: National Institute of Arthritis and Musculoskeletal and Skin Diseases\"}]}, {\"id\": \"MLP-387\", \"title\": \"Rubella\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Rubella is an infection caused by a virus.\"}, {\"id\": \"S001\", \"text\": \"It is usually mild with fever and a rash.\"}, {\"id\": \"S002\", \"text\": \"About half of the people who get rubella do not have symptoms.\"}, {\"id\": \"S003\", \"text\": \"If you do get them, symptoms may include: A rash that starts on the face and spreads to the body Mild fever Aching joints, especially in young women Swollen glands Rubella is most dangerous for a pregnant woman's baby.\"}, {\"id\": \"S004\", \"text\": \"It can cause miscarriage or birth defects.\"}, {\"id\": \"S005\", \"text\": \"Rubella spreads when an infected person coughs or sneezes.\"}, {\"id\": \"S006\", \"text\": \"People without symptoms can still spread it.\"}, {\"id\": \"S007\", \"text\": \"There is no treatment, but the measles-mumps-rubella (MMR) vaccine can prevent it.\"}, {\"id\": \"S008\", \"text\": \"Centers for Disease Control and Prevention\"}]}, {\"id\": \"MLP-210\", \"title\": \"Laboratory Tests\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Laboratory tests check a sample of your blood, urine, or body tissues.\"}, {\"id\": \"S001\", \"text\": \"A technician or your doctor analyzes the test samples to see if your results fall within the normal range.\"}, {\"id\": \"S002\", \"text\": \"The tests use a range because what is normal differs from person to person.\"}, {\"id\": \"S003\", \"text\": \"These include: Your sex, age and race What you eat and drink Medicines you take How well you followed pre-test instructions Your doctor may also compare your results to results from previous tests.\"}, {\"id\": \"S004\", \"text\": \"Laboratory tests are often part of a routine checkup to look for changes in your health.\"}, {\"id\": \"S005\", \"text\": \"They also help doctors diagnose medical conditions, plan or evaluate treatments, and monitor diseases.\"}]}, {\"id\": \"MLP-4567\", \"title\": \"Diabetes Complications\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"If you have diabetes , your blood glucose, or blood sugar , levels are too high.\"}, {\"id\": \"S001\", \"text\": \"A hormone called insulin helps the glucose get into your cells to give them energy.\"}, {\"id\": \"S002\", \"text\": \"With type 1 diabetes , your body does not make insulin.\"}, {\"id\": \"S003\", \"text\": \"With type 2 diabetes , your body does not make or use insulin well.\"}, {\"id\": \"S004\", \"text\": \"Without enough insulin, the glucose stays in your blood.\"}, {\"id\": \"S005\", \"text\": \"What health problems can diabetes cause?\"}, {\"id\": \"S006\", \"text\": \"Over time, having too much glucose in your blood can cause complications, including: Eye disease , due to changes in fluid levels, swelling in the tissues, and damage to the blood vessels in the eyes.\"}, {\"id\": \"S007\", \"text\": \"Foot problems , caused by damage to the nerves and reduced blood flow to your feet.\"}, {\"id\": \"S008\", \"text\": \"Gum disease and other dental problems, because a high amount of glucose in your saliva helps harmful bacteria grow in your mouth.\"}, {\"id\": \"S009\", \"text\": \"The bacteria combine with food to form a soft, sticky film called plaque.\"}, {\"id\": \"S010\", \"text\": \"Plaque also comes from eating foods that contain sugars or starches.\"}, {\"id\": \"S011\", \"text\": \"Some types of plaque cause gum disease and bad breath .\"}, {\"id\": \"S012\", \"text\": \"Other types cause tooth decay and cavities.\"}, {\"id\": \"S013\", \"text\": \"Heart disease and stroke , caused by damage to your blood vessels and the nerves that control your heart and blood vessels.\"}, {\"id\": \"S014\", \"text\": \"Kidney disease , due to damage to the blood vessels in your kidneys.\"}, {\"id\": \"S015\", \"text\": \"Many people with diabetes develop high blood pressure .\"}, {\"id\": \"S016\", \"text\": \"Nerve problems (diabetic neuropathy), caused by damage to the nerves and the small blood vessels that nourish your nerves with oxygen and nutrients.\"}, {\"id\": \"S017\", \"text\": \"Sexual and bladder problems, caused by damage to the nerves and reduced blood flow in the genitals and bladder.\"}, {\"id\": \"S018\", \"text\": \"Skin conditions , some of which are caused by changes in the small blood vessels and reduced circulation.\"}, {\"id\": \"S019\", \"text\": \"People with diabetes are also more likely to have infections, including skin infections .\"}, {\"id\": \"S020\", \"text\": \"What other problems can people with diabetes have?\"}, {\"id\": \"S021\", \"text\": \"If you have diabetes, you need to watch out for blood glucose levels that are too high (hyperglycemia) or too low for you (hypoglycemia).\"}, {\"id\": \"S022\", \"text\": \"These can happen quickly and can become dangerous.\"}, {\"id\": \"S023\", \"text\": \"Some of the causes include having another illness or infection and certain medicines.\"}, {\"id\": \"S024\", \"text\": \"They can also happen if you don't get the right amount of diabetes medicines .\"}, {\"id\": \"S025\", \"text\": \"To try to prevent these problems, make sure to take your diabetes medicines correctly, follow your diabetic diet , and check your blood glucose regularly.\"}, {\"id\": \"S026\", \"text\": \"NIH: National Institute of Diabetes and Digestive and Kidney Diseases\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 2500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788858689-EdTA6uyQmQmX34lEAlNU",
+    "object": "chat.completion",
+    "created": 1788858689,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"MLP-301\",\n      \"en\": \"I was told I have kidney cancer; what are some risk factors that might increase my chances of getting it?\",\n      \"zh\": \"医生告诉我患有肾癌，有哪些风险因素会增加我患这种病的几率？\",\n      \"evidence_id\": \"S004\"\n    },\n    {\n      \"id\": \"MLP-1647\",\n      \"en\": \"My doctor mentioned osteonecrosis and said it is related to blood flow; how does this lack of blood affect the bone?\",\n      \"zh\": \"医生提到我有骨坏死，说这与血流有关；缺乏血液供应会如何影响骨骼？\",\n      \"evidence_id\": \"S002\"\n    },\n    {\n      \"id\": \"MLP-387\",\n      \"en\": \"If someone has rubella but feels fine, can they still spread the virus to others?\",\n      \"zh\": \"如果一个人感染了风疹但没有任何不适症状，他们还会把病毒传染给别人吗？\",\n      \"evidence_id\": \"S006\"\n    },\n    {\n      \"id\": \"MLP-210\",\n      \"en\": \"Why do lab results show a range of normal values instead of just one specific number?\",\n      \"zh\": \"为什么化验结果会显示一个正常值的范围，而不是只有一个具体的数字？\",\n      \"evidence_id\": \"S002\"\n    },\n    {\n      \"id\": \"MLP-4567\",\n      \"en\": \"How does having diabetes lead to problems with my gums and teeth?\",\n      \"zh\": \"患有糖尿病是如何导致我的牙龈和牙齿出现问题的？\",\n      \"evidence_id\": \"S008\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2401,
+      "completion_tokens": 414,
+      "total_tokens": 2815,
+      "cost": 0.001114035,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.001114035,
+        "upstream_inference_prompt_cost": 0.000468195,
+        "upstream_inference_completions_cost": 0.00064584
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 7.078
+}

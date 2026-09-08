@@ -1,0 +1,1 @@
+Initial execution records retained before strengthening transport-error instrumentation. Interrupted records are not completed benchmark outcomes. The final run uses fresh local stores and OpenAI SDK bounded retries.

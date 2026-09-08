@@ -1,0 +1,493 @@
+{
+  "case": {
+    "id": "M05-08",
+    "category": "确诊与待检查的不确定性区分",
+    "turns": [
+      {
+        "user": "我最近经常头痛，尤其是下午，持续了半个月。我怀疑自己是不是偏头痛，因为家族里有人有，想做个脑部检查确认。",
+        "assistant": "已记录您的头痛症状及偏头痛的自我怀疑。"
+      },
+      {
+        "user": "更正一下，我昨天做了脑部MRI，医生说要等影像报告。我现在还没确诊偏头痛，只是根据症状猜测，需要等报告出来。",
+        "assistant": "收到，已更新您目前处于MRI检查等待期且未确诊偏头痛。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "M05-08-Q1",
+        "query": "患者目前是否已确诊患有偏头痛？",
+        "expected_facts": [
+          "患者目前尚未确诊偏头痛。",
+          "患者最近经常头痛，尤其是下午。",
+          "患者家族有人有偏头痛病史。"
+        ],
+        "required_groups": [
+          [
+            "尚未确诊",
+            "未确诊",
+            "没确诊"
+          ],
+          [
+            "偏头痛",
+            "头痛"
+          ],
+          [
+            "最近",
+            "近期"
+          ]
+        ]
+      },
+      {
+        "id": "M05-08-Q2",
+        "query": "患者昨天进行了什么检查，结果状态怎样？",
+        "expected_facts": [
+          "患者昨天做了脑部MRI检查。",
+          "影像报告尚未出来。",
+          "需要等待报告确认诊断。"
+        ],
+        "required_groups": [
+          [
+            "脑部MRI",
+            "MRI检查",
+            "脑部扫描"
+          ],
+          [
+            "报告未出",
+            "没出来",
+            "等待结果"
+          ],
+          [
+            "昨天",
+            "前天"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M05-08",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860694-ccScPQiXY777iVJSzHTe",
+      "usage": {
+        "prompt_tokens": 52,
+        "total_tokens": 52,
+        "cost": 5.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.2e-07,
+          "upstream_inference_prompt_cost": 5.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860698-aiqyzIHv01yqJF22oyuo",
+      "usage": {
+        "prompt_tokens": 8352,
+        "completion_tokens": 332,
+        "total_tokens": 8684,
+        "cost": 0.00303472,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00303472,
+          "upstream_inference_prompt_cost": 0.00217152,
+          "upstream_inference_completions_cost": 0.0008632
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 284,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户最近经常头痛，尤其是下午，持续了半个月。用户怀疑自己可能是偏头痛，因为家族里有人有偏头痛，想做脑部检查确认。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860703-PmJmWERFXr7CT3J2gmlO",
+      "usage": {
+        "prompt_tokens": 35,
+        "total_tokens": 35,
+        "cost": 3.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.5e-07,
+          "upstream_inference_prompt_cost": 3.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860705-Ufss90jcGMLT2OrK3FBL",
+      "usage": {
+        "prompt_tokens": 59,
+        "total_tokens": 59,
+        "cost": 5.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.9e-07,
+          "upstream_inference_prompt_cost": 5.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860707-iYmaNMUtJZlwpKtWx9pJ",
+      "usage": {
+        "prompt_tokens": 8454,
+        "completion_tokens": 299,
+        "total_tokens": 8753,
+        "cost": 0.00292842,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00292842,
+          "upstream_inference_prompt_cost": 0.00228258,
+          "upstream_inference_completions_cost": 0.00064584
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 150,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户于2026年9月7日做了脑部MRI检查，目前正在等待影像报告。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户目前尚未确诊偏头痛，只是根据症状猜测，需要等MRI报告出来才能确认。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860717-P4KvcWy6wjAUbMNV5BTM",
+      "usage": {
+        "prompt_tokens": 44,
+        "total_tokens": 44,
+        "cost": 4.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.4e-07,
+          "upstream_inference_prompt_cost": 4.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860720-sFqA1RSD22VTQsaoxNX2",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860726-RXXT7bRhrHtVThHgf4hE",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860727-W01ZGS3OSfI3NDhpnhTm",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860728-BjXazezWZ0CwF6MdH6tc",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860730-osusBIKE7zyLxH6qf5XG",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "M05-08-Q1",
+        "query": "患者目前是否已确诊患有偏头痛？",
+        "expected_facts": [
+          "患者目前尚未确诊偏头痛。",
+          "患者最近经常头痛，尤其是下午。",
+          "患者家族有人有偏头痛病史。"
+        ],
+        "required_groups": [
+          [
+            "尚未确诊",
+            "未确诊",
+            "没确诊"
+          ],
+          [
+            "偏头痛",
+            "头痛"
+          ],
+          [
+            "最近",
+            "近期"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "3cd3ccc8-9615-4d29-86b0-57c5dfc0dc40",
+          "content": "用户目前尚未确诊偏头痛，只是根据症状猜测，需要等MRI报告出来才能确认。",
+          "score": 0.8063743799640279,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:45:04.739014+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M05-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:45:17.955783+00:00"
+        },
+        {
+          "memory_id": "76899940-9365-44e9-b7ab-b40dff3cde7d",
+          "content": "用户最近经常头痛，尤其是下午，持续了半个月。用户怀疑自己可能是偏头痛，因为家族里有人有偏头痛，想做脑部检查确认。",
+          "score": 0.6635443795777006,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:44:52.970606+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M05-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:45:04.709043+00:00"
+        },
+        {
+          "memory_id": "d4283b00-c848-4b58-a956-a25e70765d0b",
+          "content": "用户于2026年9月7日做了脑部MRI检查，目前正在等待影像报告。",
+          "score": 0.5240613450797437,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:45:04.739014+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M05-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:45:17.955783+00:00"
+        }
+      ],
+      "seconds": 7.907
+    },
+    {
+      "query": {
+        "id": "M05-08-Q2",
+        "query": "患者昨天进行了什么检查，结果状态怎样？",
+        "expected_facts": [
+          "患者昨天做了脑部MRI检查。",
+          "影像报告尚未出来。",
+          "需要等待报告确认诊断。"
+        ],
+        "required_groups": [
+          [
+            "脑部MRI",
+            "MRI检查",
+            "脑部扫描"
+          ],
+          [
+            "报告未出",
+            "没出来",
+            "等待结果"
+          ],
+          [
+            "昨天",
+            "前天"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "d4283b00-c848-4b58-a956-a25e70765d0b",
+          "content": "用户于2026年9月7日做了脑部MRI检查，目前正在等待影像报告。",
+          "score": 0.5452487580276985,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:45:04.739014+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M05-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:45:17.955783+00:00"
+        },
+        {
+          "memory_id": "3cd3ccc8-9615-4d29-86b0-57c5dfc0dc40",
+          "content": "用户目前尚未确诊偏头痛，只是根据症状猜测，需要等MRI报告出来才能确认。",
+          "score": 0.4993467941711336,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:45:04.739014+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M05-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:45:17.955783+00:00"
+        },
+        {
+          "memory_id": "76899940-9365-44e9-b7ab-b40dff3cde7d",
+          "content": "用户最近经常头痛，尤其是下午，持续了半个月。用户怀疑自己可能是偏头痛，因为家族里有人有偏头痛，想做脑部检查确认。",
+          "score": 0.4026534714428151,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:44:52.970606+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M05-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:45:04.709043+00:00"
+        }
+      ],
+      "seconds": 1.015
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者目前是否已确诊患有偏头痛？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "3cd3ccc8-9615-4d29-86b0-57c5dfc0dc40",
+        "content": "用户目前尚未确诊偏头痛，只是根据症状猜测，需要等MRI报告出来才能确认。",
+        "score": 0.690422948161733,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:45:04.739014+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M05-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:45:17.955783+00:00"
+      },
+      {
+        "memory_id": "d4283b00-c848-4b58-a956-a25e70765d0b",
+        "content": "用户于2026年9月7日做了脑部MRI检查，目前正在等待影像报告。",
+        "score": 0.5711803079925625,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:45:04.739014+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M05-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:45:17.955783+00:00"
+      },
+      {
+        "memory_id": "76899940-9365-44e9-b7ab-b40dff3cde7d",
+        "content": "用户最近经常头痛，尤其是下午，持续了半个月。用户怀疑自己可能是偏头痛，因为家族里有人有偏头痛，想做脑部检查确认。",
+        "score": 0.5474662567748092,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:44:52.970606+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M05-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:45:04.709043+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 39.922
+}

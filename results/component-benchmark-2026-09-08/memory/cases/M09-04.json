@@ -1,0 +1,440 @@
+{
+  "case": {
+    "id": "M09-04",
+    "category": "用户更正先前陈述",
+    "turns": [
+      {
+        "user": "我父亲有糖尿病，我想先记下这段家族病史。",
+        "assistant": "已记录您本次提供的信息。"
+      },
+      {
+        "user": "刚才提到我父亲有糖尿病，但我刚和他确认过，他其实是高血压，糖尿病是我母亲的情况，而且她是在2015年确诊的。",
+        "assistant": "收到，已区分父母双方的病史，父亲为高血压，母亲为2015年确诊的糖尿病。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "Q1",
+        "query": "患者父亲的慢性病史实际上是什么疾病？",
+        "expected_facts": [
+          "患者父亲患有高血压。",
+          "患者父亲并不患有糖尿病。"
+        ],
+        "required_groups": [
+          [
+            "父亲",
+            "爸爸"
+          ],
+          [
+            "高血压",
+            "血压高"
+          ],
+          [
+            "不患",
+            "没有",
+            "非"
+          ]
+        ]
+      },
+      {
+        "id": "Q2",
+        "query": "患者母亲的糖尿病是在哪一年被确诊的？",
+        "expected_facts": [
+          "患者母亲于2015年被确诊患有糖尿病。",
+          "此前将糖尿病归因于父亲是错误的。"
+        ],
+        "required_groups": [
+          [
+            "母亲",
+            "妈妈"
+          ],
+          [
+            "2015年",
+            "二零一五年"
+          ],
+          [
+            "确诊",
+            "诊断"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M09-04",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861230-uuwKvj0zETj1WQsvHStU",
+      "usage": {
+        "prompt_tokens": 29,
+        "total_tokens": 29,
+        "cost": 2.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.9e-07,
+          "upstream_inference_prompt_cost": 2.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861236-5BHwdVT4INLkXJk3gTmd",
+      "usage": {
+        "prompt_tokens": 8329,
+        "completion_tokens": 273,
+        "total_tokens": 8602,
+        "cost": 0.00262825,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00262825,
+          "upstream_inference_prompt_cost": 0.00208225,
+          "upstream_inference_completions_cost": 0.000546
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 250,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户的父亲患有糖尿病，用户希望记录这段家族病史\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861247-gnatYzQjXmuLaBoo0zo7",
+      "usage": {
+        "prompt_tokens": 13,
+        "total_tokens": 13,
+        "cost": 5.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.2e-07,
+          "upstream_inference_prompt_cost": 5.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861271-1eqoGwJtXQfVwYNsCnSY",
+      "usage": {
+        "prompt_tokens": 69,
+        "total_tokens": 69,
+        "cost": 6.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.9e-07,
+          "upstream_inference_prompt_cost": 6.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861272-ja4p9NDXryLfY3hRFYVr",
+      "usage": {
+        "prompt_tokens": 8416,
+        "completion_tokens": 1508,
+        "total_tokens": 9924,
+        "cost": 0.0049248,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 8128,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0049248,
+          "upstream_inference_prompt_cost": 0.0013056,
+          "upstream_inference_completions_cost": 0.0036192
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1424,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户更正了家族病史信息：父亲实际患有高血压，母亲患有糖尿病且于2015年确诊。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861342-PFWNVCScA7UvGKyGWH60",
+      "usage": {
+        "prompt_tokens": 27,
+        "total_tokens": 27,
+        "cost": 2.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.7e-07,
+          "upstream_inference_prompt_cost": 2.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861346-HsDqljSwhyIDmxS08BWl",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861347-wyGRZMTRYZFbny73Ye5S",
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 12,
+        "cost": 1.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.2e-07,
+          "upstream_inference_prompt_cost": 1.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861352-t3W7Er1fIS6OWOQQxziD",
+      "usage": {
+        "prompt_tokens": 21,
+        "total_tokens": 21,
+        "cost": 2.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.1e-07,
+          "upstream_inference_prompt_cost": 2.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861354-0kHEVQsOlKdfKIAjGYt8",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861359-KLSutVsdqONLhDOMW9of",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "Q1",
+        "query": "患者父亲的慢性病史实际上是什么疾病？",
+        "expected_facts": [
+          "患者父亲患有高血压。",
+          "患者父亲并不患有糖尿病。"
+        ],
+        "required_groups": [
+          [
+            "父亲",
+            "爸爸"
+          ],
+          [
+            "高血压",
+            "血压高"
+          ],
+          [
+            "不患",
+            "没有",
+            "非"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "58759920-df66-4219-ac34-86b32f5bc4b6",
+          "content": "用户的父亲患有糖尿病，用户希望记录这段家族病史",
+          "score": 0.6916938096355939,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:53:40.711652+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M09-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:54:30.293050+00:00"
+        },
+        {
+          "memory_id": "2252fe4b-eab5-4f4d-a6c5-2fabe1181987",
+          "content": "用户更正了家族病史信息：父亲实际患有高血压，母亲患有糖尿病且于2015年确诊。",
+          "score": 0.6800345080376917,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:54:30.319447+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M09-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:55:44.571024+00:00"
+        }
+      ],
+      "seconds": 2.281
+    },
+    {
+      "query": {
+        "id": "Q2",
+        "query": "患者母亲的糖尿病是在哪一年被确诊的？",
+        "expected_facts": [
+          "患者母亲于2015年被确诊患有糖尿病。",
+          "此前将糖尿病归因于父亲是错误的。"
+        ],
+        "required_groups": [
+          [
+            "母亲",
+            "妈妈"
+          ],
+          [
+            "2015年",
+            "二零一五年"
+          ],
+          [
+            "确诊",
+            "诊断"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "58759920-df66-4219-ac34-86b32f5bc4b6",
+          "content": "用户的父亲患有糖尿病，用户希望记录这段家族病史",
+          "score": 0.6784810473292946,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:53:40.711652+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M09-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:54:30.293050+00:00"
+        },
+        {
+          "memory_id": "2252fe4b-eab5-4f4d-a6c5-2fabe1181987",
+          "content": "用户更正了家族病史信息：父亲实际患有高血压，母亲患有糖尿病且于2015年确诊。",
+          "score": 0.6338690240965403,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:54:30.319447+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M09-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:55:44.571024+00:00"
+        }
+      ],
+      "seconds": 4.157
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者父亲的慢性病史实际上是什么疾病？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "2252fe4b-eab5-4f4d-a6c5-2fabe1181987",
+        "content": "用户更正了家族病史信息：父亲实际患有高血压，母亲患有糖尿病且于2015年确诊。",
+        "score": 0.7005932773803509,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:54:30.319447+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M09-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:55:44.571024+00:00"
+      },
+      {
+        "memory_id": "58759920-df66-4219-ac34-86b32f5bc4b6",
+        "content": "用户的父亲患有糖尿病，用户希望记录这段家族病史",
+        "score": 0.6805291189727105,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:53:40.711652+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M09-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:54:30.293050+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 146.062
+}

@@ -1,0 +1,438 @@
+{
+  "case": {
+    "id": "M01-10",
+    "category": "工作作息与睡眠时间变化",
+    "turns": [
+      {
+        "user": "两周前开始轮岗，我被分到急诊科，连续七天每天工作十四小时，只能在休息室眯二十分钟。",
+        "assistant": "收到，已记录您两周前轮岗急诊科的超负荷工作状态。"
+      },
+      {
+        "user": "补充一下，其实是九天而不是七天，而且今天轮岗结束，我已经回家睡了个安稳觉。",
+        "assistant": "明白，已修正轮岗天数并记录您今日的休息情况。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "用户轮岗急诊科的实际时长是多少？期间睡眠如何？",
+        "expected_facts": [
+          "该用户实际轮岗了九天。",
+          "该用户期间每天工作十四小时，仅能休息二十分钟。"
+        ],
+        "required_groups": [
+          [
+            "九天",
+            "九个整天"
+          ],
+          [
+            "每天工作十四小时",
+            "日工作十四小时"
+          ],
+          [
+            "眯二十分钟",
+            "休息二十分钟"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "用户何时结束轮岗？之后的睡眠情况怎样？",
+        "expected_facts": [
+          "该用户于今天结束轮岗。",
+          "该用户回家后睡了个安稳觉。"
+        ],
+        "required_groups": [
+          [
+            "今天",
+            "今日"
+          ],
+          [
+            "结束轮岗",
+            "轮岗完毕"
+          ],
+          [
+            "睡了个安稳觉",
+            "好好睡了一觉"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M01-10",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860110-DPeUKzslBhVpncfJmFpL",
+      "usage": {
+        "prompt_tokens": 55,
+        "total_tokens": 55,
+        "cost": 5.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.5e-07,
+          "upstream_inference_prompt_cost": 5.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860112-z1WJexYEBreEcvIhXeH0",
+      "usage": {
+        "prompt_tokens": 8349,
+        "completion_tokens": 266,
+        "total_tokens": 8615,
+        "cost": 0.00261925,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00261925,
+          "upstream_inference_prompt_cost": 0.00208725,
+          "upstream_inference_completions_cost": 0.000532
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 189,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户两周前（约2026年8月25日）开始轮岗被分到急诊科，连续七天每天工作十四小时，只能在休息室眯二十分钟\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860121-L6U0zkTauHo56CYG3y2z",
+      "usage": {
+        "prompt_tokens": 41,
+        "total_tokens": 41,
+        "cost": 4.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.1e-07,
+          "upstream_inference_prompt_cost": 4.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860122-a1B1oVDwZoq2PjkVc4Ae",
+      "usage": {
+        "prompt_tokens": 49,
+        "total_tokens": 49,
+        "cost": 4.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.9e-07,
+          "upstream_inference_prompt_cost": 4.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860126-pSijzHOTWIF70wNxAgdY",
+      "usage": {
+        "prompt_tokens": 8442,
+        "completion_tokens": 211,
+        "total_tokens": 8653,
+        "cost": 0.003039,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.003039,
+          "upstream_inference_prompt_cost": 0.0025326,
+          "upstream_inference_completions_cost": 0.0005064
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 106,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户两周前开始轮岗急诊科，实际持续九天而非七天，每天工作十四小时，只能在休息室眯二十分钟，于2026年9月8日结束轮岗并回家睡了安稳觉\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860134-P9oAcfX8DxMOABYa26JM",
+      "usage": {
+        "prompt_tokens": 50,
+        "total_tokens": 50,
+        "cost": 5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5e-07,
+          "upstream_inference_prompt_cost": 5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860137-R4AU0gNuqwnj3eMLsEdY",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860141-9PldQhg3UsF39KasytKV",
+      "usage": {
+        "prompt_tokens": 13,
+        "total_tokens": 13,
+        "cost": 1.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.3e-07,
+          "upstream_inference_prompt_cost": 1.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860145-Bwm7qLbs1Po5jW5tZKSj",
+      "usage": {
+        "prompt_tokens": 25,
+        "total_tokens": 25,
+        "cost": 2.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.5e-07,
+          "upstream_inference_prompt_cost": 2.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860151-b2hBuKWsKbIbItxnWJJ4",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860154-06axhAi1xeumfTLZRH16",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "用户轮岗急诊科的实际时长是多少？期间睡眠如何？",
+        "expected_facts": [
+          "该用户实际轮岗了九天。",
+          "该用户期间每天工作十四小时，仅能休息二十分钟。"
+        ],
+        "required_groups": [
+          [
+            "九天",
+            "九个整天"
+          ],
+          [
+            "每天工作十四小时",
+            "日工作十四小时"
+          ],
+          [
+            "眯二十分钟",
+            "休息二十分钟"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "29e31286-b724-4423-aae3-5a90a9f1df7f",
+          "content": "用户两周前开始轮岗急诊科，实际持续九天而非七天，每天工作十四小时，只能在休息室眯二十分钟，于2026年9月8日结束轮岗并回家睡了安稳觉",
+          "score": 0.9021855393461,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:21.803929+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:36.483379+00:00"
+        },
+        {
+          "memory_id": "86c8c302-7501-43ae-ac0c-2faf9b187deb",
+          "content": "用户两周前（约2026年8月25日）开始轮岗被分到急诊科，连续七天每天工作十四小时，只能在休息室眯二十分钟",
+          "score": 0.8530608723966454,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:06.957346+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M01-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:21.772533+00:00"
+        }
+      ],
+      "seconds": 3.969
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "用户何时结束轮岗？之后的睡眠情况怎样？",
+        "expected_facts": [
+          "该用户于今天结束轮岗。",
+          "该用户回家后睡了个安稳觉。"
+        ],
+        "required_groups": [
+          [
+            "今天",
+            "今日"
+          ],
+          [
+            "结束轮岗",
+            "轮岗完毕"
+          ],
+          [
+            "睡了个安稳觉",
+            "好好睡了一觉"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "29e31286-b724-4423-aae3-5a90a9f1df7f",
+          "content": "用户两周前开始轮岗急诊科，实际持续九天而非七天，每天工作十四小时，只能在休息室眯二十分钟，于2026年9月8日结束轮岗并回家睡了安稳觉",
+          "score": 0.7937280948390266,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:21.803929+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:36.483379+00:00"
+        },
+        {
+          "memory_id": "86c8c302-7501-43ae-ac0c-2faf9b187deb",
+          "content": "用户两周前（约2026年8月25日）开始轮岗被分到急诊科，连续七天每天工作十四小时，只能在休息室眯二十分钟",
+          "score": 0.7141324481088505,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:06.957346+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M01-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:21.772533+00:00"
+        }
+      ],
+      "seconds": 4.063
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "用户轮岗急诊科的实际时长是多少？期间睡眠如何？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "29e31286-b724-4423-aae3-5a90a9f1df7f",
+        "content": "用户两周前开始轮岗急诊科，实际持续九天而非七天，每天工作十四小时，只能在休息室眯二十分钟，于2026年9月8日结束轮岗并回家睡了安稳觉",
+        "score": 0.8833807214364435,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:35:21.803929+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M01-10",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:35:36.483379+00:00"
+      },
+      {
+        "memory_id": "86c8c302-7501-43ae-ac0c-2faf9b187deb",
+        "content": "用户两周前（约2026年8月25日）开始轮岗被分到急诊科，连续七天每天工作十四小时，只能在休息室眯二十分钟",
+        "score": 0.8458856558156572,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:35:06.957346+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M01-10",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:35:21.772533+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 47.453
+}

@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"c51c6d5e0a67881f4d87\", \"query\": \"用户本人是否有过因肠胃问题住院的历史？平时如何处理？\", \"expected_facts\": [\"用户肠胃较弱常腹泻，但从未住院，均在家调理。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户自己肠胃一直比较弱，经常拉肚子，但从来没有因为这个问题住过医院\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:42:02.478541+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户的女儿去年夏天因食物中毒住院一天，后来康复了\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:42:02.478541+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户更正：是儿子去年夏天（2025年）因食物中毒住院，而非女儿。女儿没有住院。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:42:17.616487+00:00\"}]}, {\"id\": \"c5a5ebd64a58c87b1ebc\", \"query\": \"支持患者青霉素过敏判断的关键历史事件发生在哪一年？\", \"expected_facts\": [\"2016年患者输液时出现皮疹并被记录为青霉素过敏。\", \"该事件证实了患者的过敏体质。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户翻看旧病历发现2016年输液时出现过皮疹，医生当时记录为青霉素过敏，因此确认自己有青霉素过敏史。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:56:52.835564+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户表示自己对青霉素不过敏，且以前没有留意过相关问题。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:55:47.662141+00:00\"}]}, {\"id\": \"c5b02100d11a64ca3739\", \"query\": \"用户本人在去年冬天的健康状况如何，是否有请假记录？\", \"expected_facts\": [\"用户去年冬天未感冒，保持全勤，无请假记录。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户同事小王上个月因流感发烧请假一周，现已康复返岗\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:43:38.467852+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户更正：上个月因流感请假的是同事小李，不是小王。小王很健康。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:44:31.474446+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户去年冬天没有感冒过\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:43:38.467852+00:00\"}]}, {\"id\": \"c5c9b5770d209dab6f81\", \"query\": \"当疼痛扩散到腿部时，患者应如何处理？\", \"expected_facts\": [\"如果疼痛扩散到腿部，患者需要立即就医。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"医生告知用户如果背部疼痛扩散到腿部，需要立即就医\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:38:29.747757+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户目前尽量保持静止以应对背部拉伤\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:38:29.747757+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户因背部拉伤，无法做仰卧起坐或搬重物，目前只能平躺休息或缓慢翻身。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:37:18.478991+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862204-RlGxLEM6YcGNesqrudah",
+    "object": "chat.completion",
+    "created": 1788862204,
+    "model": "minimax/minimax-m2.5",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "\n\n```json\n{\n  \"items\": [\n    {\n      \"id\": \"c51c6d5e0a67881f4d87\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\n              \"memory_id\": \"m0\"\n            }\n          ],\n          \"reason\": \"用户明确表示肠胃较弱经常腹泻但从未住院，均在家调理。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"c5a5ebd64a58c87b1ebc\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\n              \"memory_id\": \"m0\"\n            }\n          ],\n          \"reason\": \"用户查看旧病历发现2016年输液出现皮疹被记录为青霉素过敏，确认过敏史。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\n              \"memory_id\": \"m0\"\n            }\n          ],\n          \"reason\": \"2016年皮疹事件作为过敏记录证实了患者的过敏体质。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"c5b02100d11a64ca3739\",\n      \"facts\": [\n        {\n          \"supported\": false,\n          \"evidence\": [\n            {\n              \"memory_id\": \"m2\"\n            }\n          ],\n          \"reason\": \"仅证实去年冬天未感冒，但无关于全勤或请假记录的证据。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"c5c9b5770d209dab6f81\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\n              \"memory_id\": \"m0\"\n            }\n          ],\n          \"reason\": \"医生明确告知如果背部疼痛扩散到腿部需要立即就医。\"\n        }\n      ]\n    }\n  ]\n}\n```",
+          "refusal": null,
+          "reasoning": "\nLet me analyze each item carefully according to the instructions:\n\n1. **c51c6d5e0a67881f4d87**\n   - Query: 用户本人是否有过因肠胃问题住院的历史？平时如何处理？\n   - Expected fact: 用户肠胃较弱常腹泻，但从未住院，均在家调理。\n   - Memory m0: \"用户自己肠胃一直比较弱，经常拉肚子，但从来没有因为这个问题住过医院\"\n     - This directly supports the expected fact - it confirms weak stomach with frequent diarrhea and never hospitalized\n   - Memory m1 and m2 are about the user's child, not relevant to user's own condition\n\n2. **c5a5ebd64a58c87b1ebc**\n   - Query: 支持患者青霉素过敏判断的关键历史事件发生在哪一年？\n   - Expected facts: \n     - 2016年患者输液时出现皮疹并被记录为青霉素过敏。\n     - 该事件证实了患者的过敏体质。\n   - Memory m0: \"用户翻看旧病历发现2016年输液时出现过皮疹，医生当时记录为青霉素过敏，因此确认自己有青霉素过敏史。\"\n     - This directly supports both expected facts - it mentions 2016, the event (皮疹/ rash during infusion), being recorded as penicillin allergy, and confirming allergy history\n   - Memory m1: \"用户表示自己对青霉素不过敏，且以前没有留意过相关问题。\" - This contradicts m0, but m0 is the correction (session-2 vs session-1), so m0 takes precedence\n\n3. **c5b02100d11a64ca3739**\n   - Query: 用户本人在去年冬天的健康状况如何，是否有请假记录？\n   - Expected fact: 用户去年冬天未感冒，保持全勤，无请假记录。\n   - Memory m2: \"用户去年冬天没有感冒过\"\n     - This supports part of the expected fact (no cold last winter), but doesn't address the attendance/leave part\n   - Memories m0 and m1 are about colleagues, not the user\n\n4. **c5c9b5770d209dab6f81**\n   - Query: 当疼痛扩散到腿部时，患者应如何处理？\n   - Expected fact: 如果疼痛扩散到腿部，患者需要立即就医。\n   - Memory m0: \"医生告知用户如果背部疼痛扩散到腿部，需要立即就医\"\n     - This directly supports the expected fact\n\nNow I'll prepare the JSON output with the required structure for each item, ensuring each \"facts\" entry corresponds to the original expected_facts order.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "\nLet me analyze each item carefully according to the instructions:\n\n1. **c51c6d5e0a67881f4d87**\n   - Query: 用户本人是否有过因肠胃问题住院的历史？平时如何处理？\n   - Expected fact: 用户肠胃较弱常腹泻，但从未住院，均在家调理。\n   - Memory m0: \"用户自己肠胃一直比较弱，经常拉肚子，但从来没有因为这个问题住过医院\"\n     - This directly supports the expected fact - it confirms weak stomach with frequent diarrhea and never hospitalized\n   - Memory m1 and m2 are about the user's child, not relevant to user's own condition\n\n2. **c5a5ebd64a58c87b1ebc**\n   - Query: 支持患者青霉素过敏判断的关键历史事件发生在哪一年？\n   - Expected facts: \n     - 2016年患者输液时出现皮疹并被记录为青霉素过敏。\n     - 该事件证实了患者的过敏体质。\n   - Memory m0: \"用户翻看旧病历发现2016年输液时出现过皮疹，医生当时记录为青霉素过敏，因此确认自己有青霉素过敏史。\"\n     - This directly supports both expected facts - it mentions 2016, the event (皮疹/ rash during infusion), being recorded as penicillin allergy, and confirming allergy history\n   - Memory m1: \"用户表示自己对青霉素不过敏，且以前没有留意过相关问题。\" - This contradicts m0, but m0 is the correction (session-2 vs session-1), so m0 takes precedence\n\n3. **c5b02100d11a64ca3739**\n   - Query: 用户本人在去年冬天的健康状况如何，是否有请假记录？\n   - Expected fact: 用户去年冬天未感冒，保持全勤，无请假记录。\n   - Memory m2: \"用户去年冬天没有感冒过\"\n     - This supports part of the expected fact (no cold last winter), but doesn't address the attendance/leave part\n   - Memories m0 and m1 are about colleagues, not the user\n\n4. **c5c9b5770d209dab6f81**\n   - Query: 当疼痛扩散到腿部时，患者应如何处理？\n   - Expected fact: 如果疼痛扩散到腿部，患者需要立即就医。\n   - Memory m0: \"医生告知用户如果背部疼痛扩散到腿部，需要立即就医\"\n     - This directly supports the expected fact\n\nNow I'll prepare the JSON output with the required structure for each item, ensuring each \"facts\" entry corresponds to the original expected_facts order.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1228,
+      "completion_tokens": 932,
+      "total_tokens": 2160,
+      "cost": 0.0014868,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0014868,
+        "upstream_inference_prompt_cost": 0.0003684,
+        "upstream_inference_completions_cost": 0.0011184
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 538,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 11.203
+}

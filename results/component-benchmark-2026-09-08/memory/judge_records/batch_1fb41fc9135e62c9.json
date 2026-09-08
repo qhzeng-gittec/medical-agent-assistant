@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"6693472a85da67e0ef18\", \"query\": \"患者前天做了什么检查，结果状态如何？\", \"expected_facts\": [\"患者前天做了肠镜检查。\", \"病理报告尚未出来。\", \"需要等待检查结果确认诊断。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户于2026年9月6日（前天）做了肠镜检查，目前等待病理报告结果\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:45:58.735422+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户目前尚未确诊肠易激综合征，只是怀疑，需要等待检查结果确认\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:45:58.735422+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户想做肠镜检查以确认健康状况\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:45:32.893044+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户最近一周经常腹泻和肚子疼，怀疑自己可能患有肠易激综合征，因为压力大时容易发作\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:45:32.893044+00:00\"}]}, {\"id\": \"67ca236a16cbdd4d4038\", \"query\": \"患者目前是否已确诊患有突发性耳聋？\", \"expected_facts\": [\"患者目前尚未确诊突发性耳聋。\", \"患者最近经常耳鸣，听力下降。\", \"患者怀疑自己可能患有突发性耳聋。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户于2026年9月7日进行了听力测试，医生表示需要等待详细报告。目前突发性耳聋尚未确诊，仅为用户根据症状的猜测，需待报告结果确认。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:47:07.920698+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户最近经常耳鸣且听力下降，尤其在晚上。因近期压力大，用户怀疑自己患有突发性耳聋，并计划进行听力测试以确认。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:46:07.569142+00:00\"}]}, {\"id\": \"6826580120508e4924b5\", \"query\": \"该患者的具体饮食类型是什么？除了鱼类外还摄入哪些动物性食品？\", \"expected_facts\": [\"该患者属于半素食者，仅摄入鱼肉和鸡蛋。\", \"该患者不食用除鱼肉以外的其他肉类。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户是半素食者，只吃鱼肉和鸡蛋，不吃其他肉类。八年前（约2018年）被贝壳划伤的经历导致用户现在看到贝类会感到恶心。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:56:32.254548+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"User is a vegetarian who has not eaten any meat for five years, but occasionally eats fish and seafood except shellfish due to being cut by a shell as a child\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:56:06.783070+00:00\"}]}, {\"id\": \"68aa4214bad6ca6cd5a7\", \"query\": \"患者目前是否已经确诊患有冠心病？\", \"expected_facts\": [\"患者目前尚未确诊冠心病。\", \"患者上周开始感到胸口偶尔闷痛。\", \"患者父亲有冠心病史。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的父亲有冠心病史\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:58.977359+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户因父亲有冠心病史而担心自己是否也患有冠心病，正在寻求医疗咨询\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:58.977359+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户自2026年9月1日左右开始感到胸口偶尔闷痛，尤其在爬楼梯时出现\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:58.977359+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户于2026年9月7日做了心电图，结果尚未出来，医生建议等待三天。用户目前尚未确诊，只是怀疑可能有心脏问题，想了解后续流程。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:35:26.699009+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861995-4wAcjKLDpxbHeF6Hm80K",
+    "object": "chat.completion",
+    "created": 1788861995,
+    "model": "minimax/minimax-m2.5",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"items\": [\n    {\n      \"id\": \"6693472a85da67e0ef18\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\"m0\"],\n          \"reason\": \"m0明确记录患者于2026年9月6日（前天）做了肠镜检查。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\"m0\"],\n          \"reason\": \"m0记录目前正在等待病理报告结果，表明报告尚未出来。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\"m1\"],\n          \"reason\": \"m1记录需要等待检查结果确认诊断。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"67ca236a16cbdd4d4038\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\"m0\"],\n          \"reason\": \"m0明确记录目前突发性耳聋尚未确诊。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\"m1\"],\n          \"reason\": \"m1记录用户最近经常耳鸣且听力下降。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\"m0\", \"m1\"],\n          \"reason\": \"m0和m1均记录用户怀疑自己可能患有突发性耳聋。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"6826580120508e4924b5\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\"m0\"],\n          \"reason\": \"m0明确记录用户是半素食者，只吃鱼肉和鸡蛋。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\"m0\"],\n          \"reason\": \"m0记录用户不吃其他肉类（不吃其他肉类）。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"68aa4214bad6ca6cd5a7\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\"m3\"],\n          \"reason\": \"m3记录用户目前尚未确诊冠心病。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\"m2\"],\n          \"reason\": \"m2记录用户自2026年9月1日左右开始感到胸口偶尔闷痛。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\"m0\"],\n          \"reason\": \"m0记录用户的父亲有冠心病史。\"\n        }\n      ]\n    }\n  ]\n}\n```",
+          "refusal": null,
+          "reasoning": "Let me analyze each item and determine whether the memories support the expected facts.\n\nItem 1: id \"6693472a85da67e0ef18\"\nQuery: 患者前天做了什么检查，结果状态如何？\nExpected facts:\n1. 患者前天做了肠镜检查。\n2. 病理报告尚未出来。\n3. 需要等待检查结果确认诊断。\n\nMemories:\n- m0: \"用户于2026年9月6日（前天）做了肠镜检查，目前等待病理报告结果\"\n- m1: \"用户目前尚未确诊肠易激综合征，只是怀疑，需要等待检查结果确认\"\n- m2: \"用户想做肠镜检查以确认健康状况\"\n- m3: \"用户最近一周经常腹泻和肚子疼，怀疑自己可能患有肠易激综合征，因为压力大时容易发作\"\n\nAnalysis:\n1. \"患者前天做了肠镜检查\" - m0 explicitly states the patient did a colonoscopy examination the day before (前天 = 2026年9月6日). This is supported.\n2. \"病理报告尚未出来\" - m0 says \"目前等待病理报告结果\" (currently waiting for pathology report results). This supports that the report is not yet available.\n3. \"需要等待检查结果确认诊断\" - m1 says \"需要等待检查结果确认\" (need to wait for examination results to confirm). This is supported.\n\nAll three facts are supported.\n\nItem 2: id \"67ca236a16cbdd4d4038\"\nQuery: 患者目前是否已确诊患有突发性耳聋？\nExpected facts:\n1. 患者目前尚未确诊突发性耳聋。\n2. 患者最近经常耳鸣，听力下降。\n3. 患者怀疑自己可能患有突发性耳聋。\n\nMemories:\n- m0: \"用户于2026年9月7日进行了听力测试，医生表示需要等待详细报告。目前突发性耳聋尚未确诊，仅为用户根据症状的猜测，需待报告结果确认。\"\n\n\n- m1: \"用户最近经常耳鸣且听力下降，尤其在晚上。因近期压力大，用户怀疑自己患有突发性耳聋，并计划进行听力测试以确认。\"\n\nThe memories confirm all three expected facts. The patient has not been definitively diagnosed with sudden hearing loss, experiences frequent tinnitus and hearing reduction, and suspects potential illness.\n\nItem 3: id \"6826580120508e4924b5\"\nQuery: 该患者的具体饮食类型是什么？除了鱼类外还摄入哪些动物性食品？\nExpected facts:\n1. 该患者属于半素食者，仅摄入鱼肉和鸡蛋。\n2. 该患者不食用其他肉类食品。\n\nThe memories validate the patient's dietary habits. They are a semi-vegetarian who consumes fish and eggs but avoids other meat products. An incident with shellfish eight years ago continues to cause visceral discomfort when encountering shellfish.\n\nThe English memory introduces slight ambiguity about vegetarian status, but the Chinese memory provides precise clarification about fish and egg consumption while excluding other meat.\n\nItem 4: id \"68aa4214bad6ca6cd5a7\"\nQuery: 患者目前是否已经确诊患有冠心病？\nExpected facts:\n1. 患者目前尚未确诊冠心病。\n2. 患者上周开始感到胸口偶尔闷痛。\n3. 患者父亲有冠心病史。\n\nThe memories confirm the patient's family medical history and current diagnostic status. The father has coronary heart disease, and the patient is undergoing examination to determine potential cardiac health risks.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item and determine whether the memories support the expected facts.\n\nItem 1: id \"6693472a85da67e0ef18\"\nQuery: 患者前天做了什么检查，结果状态如何？\nExpected facts:\n1. 患者前天做了肠镜检查。\n2. 病理报告尚未出来。\n3. 需要等待检查结果确认诊断。\n\nMemories:\n- m0: \"用户于2026年9月6日（前天）做了肠镜检查，目前等待病理报告结果\"\n- m1: \"用户目前尚未确诊肠易激综合征，只是怀疑，需要等待检查结果确认\"\n- m2: \"用户想做肠镜检查以确认健康状况\"\n- m3: \"用户最近一周经常腹泻和肚子疼，怀疑自己可能患有肠易激综合征，因为压力大时容易发作\"\n\nAnalysis:\n1. \"患者前天做了肠镜检查\" - m0 explicitly states the patient did a colonoscopy examination the day before (前天 = 2026年9月6日). This is supported.\n2. \"病理报告尚未出来\" - m0 says \"目前等待病理报告结果\" (currently waiting for pathology report results). This supports that the report is not yet available.\n3. \"需要等待检查结果确认诊断\" - m1 says \"需要等待检查结果确认\" (need to wait for examination results to confirm). This is supported.\n\nAll three facts are supported.\n\nItem 2: id \"67ca236a16cbdd4d4038\"\nQuery: 患者目前是否已确诊患有突发性耳聋？\nExpected facts:\n1. 患者目前尚未确诊突发性耳聋。\n2. 患者最近经常耳鸣，听力下降。\n3. 患者怀疑自己可能患有突发性耳聋。\n\nMemories:\n- m0: \"用户于2026年9月7日进行了听力测试，医生表示需要等待详细报告。目前突发性耳聋尚未确诊，仅为用户根据症状的猜测，需待报告结果确认。\"\n\n\n- m1: \"用户最近经常耳鸣且听力下降，尤其在晚上。因近期压力大，用户怀疑自己患有突发性耳聋，并计划进行听力测试以确认。\"\n\nThe memories confirm all three expected facts. The patient has not been definitively diagnosed with sudden hearing loss, experiences frequent tinnitus and hearing reduction, and suspects potential illness.\n\nItem 3: id \"6826580120508e4924b5\"\nQuery: 该患者的具体饮食类型是什么？除了鱼类外还摄入哪些动物性食品？\nExpected facts:\n1. 该患者属于半素食者，仅摄入鱼肉和鸡蛋。\n2. 该患者不食用其他肉类食品。\n\nThe memories validate the patient's dietary habits. They are a semi-vegetarian who consumes fish and eggs but avoids other meat products. An incident with shellfish eight years ago continues to cause visceral discomfort when encountering shellfish.\n\nThe English memory introduces slight ambiguity about vegetarian status, but the Chinese memory provides precise clarification about fish and egg consumption while excluding other meat.\n\nItem 4: id \"68aa4214bad6ca6cd5a7\"\nQuery: 患者目前是否已经确诊患有冠心病？\nExpected facts:\n1. 患者目前尚未确诊冠心病。\n2. 患者上周开始感到胸口偶尔闷痛。\n3. 患者父亲有冠心病史。\n\nThe memories confirm the patient's family medical history and current diagnostic status. The father has coronary heart disease, and the patient is undergoing examination to determine potential cardiac health risks.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1403,
+      "completion_tokens": 1237,
+      "total_tokens": 2640,
+      "cost": 0.001838125,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.001838125,
+        "upstream_inference_prompt_cost": 0.000353725,
+        "upstream_inference_completions_cost": 0.0014844
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 697,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 23.031
+}

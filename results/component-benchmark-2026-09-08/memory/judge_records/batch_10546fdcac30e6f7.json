@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"cafa0abd7fcae300bbf1\", \"query\": \"患者失去辣味耐受能力发生在什么时候？此前是否有过能吃辣的经历？\", \"expected_facts\": [\"该患者在五年前突然失去了对辣味的耐受能力。\", \"该患者五年前之前能够少量食用辣味食物。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户大约五年前突然从能耐受一点辣变成完全不能吃辣，现在连闻到辣味都会觉得嗓子不舒服\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:57:23.604417+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户完全不能吃辣，一点辣椒都受不了，一吃喉咙就会痛。点菜时总是特意要求免辣，哪怕是最微辣的汤底也不行。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:57:09.473340+00:00\"}]}, {\"id\": \"cc16992a162aec477458\", \"query\": \"患者术后被禁止哪些髋关节动作？\", \"expected_facts\": [\"患者被禁止交叉双腿和深蹲。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户进行了髋关节置换手术，术后存在活动限制：不能交叉双腿或深蹲，目前只能坐在高椅子上。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:37:56.606235+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户医生提醒，如果感到异常疼痛需立即联系医院。用户目前非常小心坐姿。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:38:26.665299+00:00\"}]}, {\"id\": \"cc459784bfde555c800a\", \"query\": \"请说明患者搬迁深圳的时间线，包括实际居住和安家的时间。\", \"expected_facts\": [\"患者两年前实际搬入深圳。\", \"患者一年前完成了新家安顿。\", \"搬迁原因为工作变动。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户两年前因工作变动从广州搬迁至深圳，现居住在南山区，离公司很近\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:52:56.151303+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户一年前才正式把家安顿好，虽然两年前就搬到了深圳，但装修拖了很久\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:53:07.277052+00:00\"}]}, {\"id\": \"cc5985c0412394c67aea\", \"query\": \"患者为配合检查制定了怎样的饮水计划？\", \"expected_facts\": [\"患者计划周五早上七点起床。\", \"患者计划喝完两瓶矿泉水后半小时去排队。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户询问如果到了现场医生说尿不够，是否需要再喝水\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:50:12.106110+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户计划周五早上七点起床，喝完两瓶矿泉水，大约半小时后去排队做腹部B超检查\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:50:12.106110+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户想知道做腹部B超前需要喝多少水、憋多久才能开始检查，担心憋太久会不舒服\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:49:51.723761+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862214-EEHgf0VcNH5Tr0G4g8R4",
+    "object": "chat.completion",
+    "created": 1788862214,
+    "model": "minimax/minimax-m2.5",
+    "provider": "StreamLake",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"cafa0abd7fcae300bbf1\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states the loss occurred about five years ago.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states patient could tolerate a little spice before losing tolerance.\"}]},{\"id\":\"cc16992a162aec477458\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states prohibited actions are crossing legs and squatting.\"}]},{\"id\":\"cc459784bfde555c800a\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states patient moved to Shenzhen two years ago.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory states patient settled new home one year ago.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states relocation was due to work change.\"}]},{\"id\":\"cc5985c0412394c67aea\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory states patient plans to wake up at 7am on Friday.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory states patient plans to drink two bottles of water and queue after half an hour.\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item and determine whether the memories support the expected facts.\n\n**Item 1: cafa0abd7fcae300bbf1**\nQuery: 患者失去辣味耐受能力发生在什么时候？此前是否有过能吃辣的经历？\nExpected facts:\n1. \"该患者在五年前突然失去了对辣味的耐受能力。\"\n2. \"该患者五年前之前能够少量食用辣味食物。\"\n\nMemories:\n- m0: \"用户大约五年前突然从能耐受一点辣变成完全不能吃辣，现在连闻到辣味都会觉得嗓子不舒服\"\n- m1: \"用户完全不能吃辣，一点辣椒都受不了，一吃喉咙就会痛。点菜时总是特意要求免辣，哪怕是最微辣的汤底也不行。\"\n\nAnalysis:\n- Fact 1: The memory m0 explicitly states \"大约五年前突然从能耐受一点辣变成完全不能吃辣\" - this directly supports that the patient lost spice tolerance about five years ago. Supported: true. Evidence: m0.\n- Fact 2: The memory m0 states \"从能耐受一点辣\" (was able to tolerate a little bit of spice) - this supports that before five years ago, the patient could eat small amounts of spicy food. Supported: true. Evidence: m0.\n\n**Item 2: cc16992a162aec477458**\nQuery: 患者术后被禁止哪些髋关节动作？\nExpected facts:\n1. \"患者被禁止交叉双腿和深蹲。\"\n\nMemory:\n- m0: \"用户进行了髋关节置换手术，术后存在活动限制：不能交叉双腿或深蹲，目前只能坐在高椅子上。\"\n- m1: \"用户医生提醒，如果感到异常疼痛需立即联系医院。用户目前非常小心坐姿。\"\n\nAnalysis:\n- Fact 1: Memory m0 explicitly states \"不能交叉双腿或深蹲\" - this directly supports that the patient is prohibited from crossing legs and squatting. Supported: true. Evidence: m0.\n \n**Item 3: cc459784bfde555c800a**\nQuery: 请说明患者搬迁深圳的时间线，包括实际居住和安家的时间。\nExpected facts:\n1. \"患者两年前实际搬入深圳。\"\n2. \"患者一年前完成了新家安顿。\"\n3. \"搬迁原因为工作变动。\"\n\nMemories:\n- m0: \"用户两年前因工作变动从广州搬迁至深圳，现居住在南山区，离公司很近\"\n- m1: \"用户一年前才正式把家安顿好，虽然两年前就搬到了深圳，但装修拖了很久\"\n\nAnalysis:\n- Fact 1: Memory m0 explicitly states \"两年前因工作变动从广州搬迁至深圳\" - this directly supports that the patient actually moved to Shenzhen two years ago. Supported: true. Evidence: m0.\n- Fact 2: Memory m1 explicitly states \"用户一年前才正式把家安顿好\" - this directly supports that the patient settled into their new home one year ago. Supported: true. Evidence: m1.\n- Fact 3: Memory m0 explicitly states \"因工作变动\" - this directly supports that the reason for moving was work change. Supported: true. Evidence: m0.\n\n**Item 4: cc5985c0412394c67aea**\nQuery: 患者为配合检查制定了怎样的饮水计划？\nExpected facts:\n1. \"患者计划周五早上七点起床。\"\n2. \"患者计划喝完两瓶矿泉水后半小时去排队。\"\n\nMemories:\n- m0: \"用户询问如果到了现场医生说尿不够，是否需要再喝水\"\n- m1: \"用户计划周五早上七点起床，喝完两瓶矿泉水，大约半小时后去排队做腹部B超检查\"\n- m2: \"用户想知道做腹部B超前需要喝多少水、憋多久才能开始检查，担心憋太久会不舒服\"\n\nAnalysis:\n- Fact 1: Memory m1 explicitly states \"用户计划周五早上七点起床\" - this directly supports that the patient plans to wake up at 7am on Friday. Supported: true. Evidence: m1.\n- Fact 2: Memory m1 explicitly states \"喝完两瓶矿泉水，大约半小时后去排队做腹部B超检查\" - this directly supports that the patient plans to drink two bottles of mineral water and then queue for half an hour. Supported: true. Evidence: m1.\n\nNow I'll format the JSON output:\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item and determine whether the memories support the expected facts.\n\n**Item 1: cafa0abd7fcae300bbf1**\nQuery: 患者失去辣味耐受能力发生在什么时候？此前是否有过能吃辣的经历？\nExpected facts:\n1. \"该患者在五年前突然失去了对辣味的耐受能力。\"\n2. \"该患者五年前之前能够少量食用辣味食物。\"\n\nMemories:\n- m0: \"用户大约五年前突然从能耐受一点辣变成完全不能吃辣，现在连闻到辣味都会觉得嗓子不舒服\"\n- m1: \"用户完全不能吃辣，一点辣椒都受不了，一吃喉咙就会痛。点菜时总是特意要求免辣，哪怕是最微辣的汤底也不行。\"\n\nAnalysis:\n- Fact 1: The memory m0 explicitly states \"大约五年前突然从能耐受一点辣变成完全不能吃辣\" - this directly supports that the patient lost spice tolerance about five years ago. Supported: true. Evidence: m0.\n- Fact 2: The memory m0 states \"从能耐受一点辣\" (was able to tolerate a little bit of spice) - this supports that before five years ago, the patient could eat small amounts of spicy food. Supported: true. Evidence: m0.\n\n**Item 2: cc16992a162aec477458**\nQuery: 患者术后被禁止哪些髋关节动作？\nExpected facts:\n1. \"患者被禁止交叉双腿和深蹲。\"\n\nMemory:\n- m0: \"用户进行了髋关节置换手术，术后存在活动限制：不能交叉双腿或深蹲，目前只能坐在高椅子上。\"\n- m1: \"用户医生提醒，如果感到异常疼痛需立即联系医院。用户目前非常小心坐姿。\"\n\nAnalysis:\n- Fact 1: Memory m0 explicitly states \"不能交叉双腿或深蹲\" - this directly supports that the patient is prohibited from crossing legs and squatting. Supported: true. Evidence: m0.\n \n**Item 3: cc459784bfde555c800a**\nQuery: 请说明患者搬迁深圳的时间线，包括实际居住和安家的时间。\nExpected facts:\n1. \"患者两年前实际搬入深圳。\"\n2. \"患者一年前完成了新家安顿。\"\n3. \"搬迁原因为工作变动。\"\n\nMemories:\n- m0: \"用户两年前因工作变动从广州搬迁至深圳，现居住在南山区，离公司很近\"\n- m1: \"用户一年前才正式把家安顿好，虽然两年前就搬到了深圳，但装修拖了很久\"\n\nAnalysis:\n- Fact 1: Memory m0 explicitly states \"两年前因工作变动从广州搬迁至深圳\" - this directly supports that the patient actually moved to Shenzhen two years ago. Supported: true. Evidence: m0.\n- Fact 2: Memory m1 explicitly states \"用户一年前才正式把家安顿好\" - this directly supports that the patient settled into their new home one year ago. Supported: true. Evidence: m1.\n- Fact 3: Memory m0 explicitly states \"因工作变动\" - this directly supports that the reason for moving was work change. Supported: true. Evidence: m0.\n\n**Item 4: cc5985c0412394c67aea**\nQuery: 患者为配合检查制定了怎样的饮水计划？\nExpected facts:\n1. \"患者计划周五早上七点起床。\"\n2. \"患者计划喝完两瓶矿泉水后半小时去排队。\"\n\nMemories:\n- m0: \"用户询问如果到了现场医生说尿不够，是否需要再喝水\"\n- m1: \"用户计划周五早上七点起床，喝完两瓶矿泉水，大约半小时后去排队做腹部B超检查\"\n- m2: \"用户想知道做腹部B超前需要喝多少水、憋多久才能开始检查，担心憋太久会不舒服\"\n\nAnalysis:\n- Fact 1: Memory m1 explicitly states \"用户计划周五早上七点起床\" - this directly supports that the patient plans to wake up at 7am on Friday. Supported: true. Evidence: m1.\n- Fact 2: Memory m1 explicitly states \"喝完两瓶矿泉水，大约半小时后去排队做腹部B超检查\" - this directly supports that the patient plans to drink two bottles of mineral water and then queue for half an hour. Supported: true. Evidence: m1.\n\nNow I'll format the JSON output:\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1155,
+      "completion_tokens": 1216,
+      "total_tokens": 2371,
+      "cost": 0.001562922,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.001562922,
+        "upstream_inference_prompt_cost": 0.000249642,
+        "upstream_inference_completions_cost": 0.00131328
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 919,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 15.234
+}

@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"6a44f5d8380d1d1cd453\", \"query\": \"根据患者回忆，这次过敏发生在哪一年的冬季，患者此后对哪类药物持拒绝态度？\", \"expected_facts\": [\"事件发生在2016年冬天。\", \"患者此后拒绝使用氨基糖苷类药物。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户补充说明2016年链霉素过敏反应不仅限于局部，还出现了全身性皮疹和关节疼痛，持续数天才消退。从那以后，用户拒绝使用氨基糖苷类药物。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:40:47.609368+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"User has a documented allergy to streptomycin injection. In winter 2016, eight years ago, the user received an injection for an ear infection and experienced swelling, redness, and heat around the ears, accompanied by tinnitus and hearing loss.\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:40:31.617681+00:00\"}]}, {\"id\": \"6aad2b195f4a946073e8\", \"query\": \"用户是否被诊断为失眠症？\", \"expected_facts\": [\"用户经医生评估并未患有失眠症。\", \"用户明确表示不需要服用安眠药等药物治疗。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户经医生评估无失眠症，头晕症状是由工作压力大导致的暂时性疲劳，不需要药物治疗\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:01:26.627632+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户最近总是头晕，邻居建议吃安眠药，但用户已查阅资料并咨询医生\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:01:26.627632+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户表示头晕疲劳症状只需休息几天即可缓解\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:01:48.136471+00:00\"}]}, {\"id\": \"6b43314b4894769ac7c6\", \"query\": \"您的晚辈中，谁在四年前因骨折而使用了石膏固定？\", \"expected_facts\": [\"用户的外甥在四年前因骨折打了石膏。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的侄子四年前因骨折打了石膏，修养了一个月\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:42:24.337813+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户更正：是外甥（而非侄子）四年前因骨折打了石膏，修养了一个月；用户自己仅扭伤过脚踝为软组织损伤，从未骨折或打石膏\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:42:50.593305+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户运动时扭伤过脚踝，贴膏药就好，从来没断过骨头，也不需要打石膏\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:42:24.337813+00:00\"}]}, {\"id\": \"6c0ea68a814ff00c2c20\", \"query\": \"该工作制度何时被叫停？用户对此有何反应？\", \"expected_facts\": [\"该制度于上周被主管宣布取消。\", \"该用户今晚即可按正常时间下班。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的主管于上周（约2026年9月1-7日）宣布取消弹性工作制\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:34:18.380968+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户半年前（约2026年3月）换了新主管，新主管要求全员实行弹性工作制，导致用户经常凌晨四点下班，早上十点才回家补觉\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:03.299699+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户纠正弹性工作制实施时间为八个月前（约2026年1月），而非之前记录的半年前\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:34:18.380968+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户从今晚起可以按正常时间下班，不再需要凌晨四点下班\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:34:18.380968+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861997-w7t0GuvOYLCBXO3PVIlW",
+    "object": "chat.completion",
+    "created": 1788861997,
+    "model": "minimax/minimax-m2.5",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"6a44f5d8380d1d1cd453\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"Both memories explicitly state the allergy occurred in winter 2016.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory m0 explicitly states user refuses aminoglycoside drugs since then.\"}]},{\"id\":\"6aad2b195f4a946073e8\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory m0 explicitly states user was evaluated by doctor as having no insomnia.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m2\"}],\"reason\":\"Memory m0 states no medication needed; m2 confirms rest is sufficient, indicating no need for sleep aids.\"}]},{\"id\":\"6b43314b4894769ac7c6\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory m1 explicitly corrects that it was the user's nephew (外甥) who had fracture four years ago.\"}]},{\"id\":\"6c0ea68a814ff00c2c20\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory m0 states the supervisor announced cancellation of flexible work system last week.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m3\"}],\"reason\":\"Memory m3 explicitly states user can leave at normal time starting tonight.\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item according to the evaluation criteria:\n\n**Item 1 (6a44f5d8380d1d1cd453):**\n- Query: 冬季哪一年？患者对哪类药物拒绝使用？\n- Expected facts:\n  1. 事件发生在2016年冬天。\n  2. 患者此后拒绝使用氨基糖苷类药物。\n\nMemories:\n- m0: \"用户补充说明2016年链霉素过敏反应不仅限于局部，还出现了全身性皮疹和关节疼痛，持续数天才消退。从那以后，用户拒绝使用氨基糖苷类药物。\"\n- m1: \"User has a documented allergy to streptomycin injection. In winter 2016, eight years ago, the user received an injection for an ear infection and experienced swelling, redness, and heat around the ears, accompanied by tinnitus and hearing loss.\"\n\nAnalysis:\n- Fact 1 (2016年冬天): m0 mentions \"2016年链霉素过敏反应\" and m1 explicitly states \"In winter 2016\" - both support this fact. ✓\n- Fact 2 (拒绝氨基糖苷类药物): m0 explicitly states \"从那以后，用户拒绝使用氨基糖苷类药物\" - this directly supports the fact. ✓\n\n**Item 2 (6aad2b195f4a946073e8):**\n- Query: 用户是否被诊断为失眠症？\n- Expected facts:\n  1. 用户经医生评估并未患有失眠症。\n  2. 用户明确表示不需要服用安眠药等药物治疗。\n\nMemories:\n- m0: \"用户经医生评估无失眠症，头晕症状是由工作压力大导致的暂时性疲劳，不需要药物治疗\"\n\n\n- m1: \"用户最近总是头晕，邻居建议吃安眠药，但用户已查阅资料并咨询医生\"\n- m2: \"用户表示头晕疲劳症状只需休息几天即可缓解\"\n\nAnalysis:\n- Fact 1 (未患失眠症): m0 explicitly states \"用户经医生评估无失眠症\" - supports the fact. ✓\n- Fact 2 (不需要安眠药): m0 says \"不需要药物治疗\" and m2 says \"只需休息几天即可缓解\" - supports that no medication is needed. ✓\n\n**Item 3 (6b43314b4894769ac7c6):**\n- Query: 您的晚辈中，谁在四年前因骨\n\nI'll continue analyzing the next item's memories, focusing on the specific details about the user's family member and their medical history.\n\nThe memories reveal a nuanced correction about the family relationship and injury details. Initially described as a nephew, the user later clarified it was actually a grandson who had experienced a fracture four years ago, requiring a month of recovery. The user also mentioned a separate ankle sprain that did not involve a fracture or cast.\n\nThe key details confirm the grandson's fracture and the user's own minor injury, with precise clarification of the family relationship and medical treatment.\n\nFor the next item, the memories document the user's work schedule changes, with the supervisor canceling the flexible work system last week and the user now able to return to a normal work schedule.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item according to the evaluation criteria:\n\n**Item 1 (6a44f5d8380d1d1cd453):**\n- Query: 冬季哪一年？患者对哪类药物拒绝使用？\n- Expected facts:\n  1. 事件发生在2016年冬天。\n  2. 患者此后拒绝使用氨基糖苷类药物。\n\nMemories:\n- m0: \"用户补充说明2016年链霉素过敏反应不仅限于局部，还出现了全身性皮疹和关节疼痛，持续数天才消退。从那以后，用户拒绝使用氨基糖苷类药物。\"\n- m1: \"User has a documented allergy to streptomycin injection. In winter 2016, eight years ago, the user received an injection for an ear infection and experienced swelling, redness, and heat around the ears, accompanied by tinnitus and hearing loss.\"\n\nAnalysis:\n- Fact 1 (2016年冬天): m0 mentions \"2016年链霉素过敏反应\" and m1 explicitly states \"In winter 2016\" - both support this fact. ✓\n- Fact 2 (拒绝氨基糖苷类药物): m0 explicitly states \"从那以后，用户拒绝使用氨基糖苷类药物\" - this directly supports the fact. ✓\n\n**Item 2 (6aad2b195f4a946073e8):**\n- Query: 用户是否被诊断为失眠症？\n- Expected facts:\n  1. 用户经医生评估并未患有失眠症。\n  2. 用户明确表示不需要服用安眠药等药物治疗。\n\nMemories:\n- m0: \"用户经医生评估无失眠症，头晕症状是由工作压力大导致的暂时性疲劳，不需要药物治疗\"\n\n\n- m1: \"用户最近总是头晕，邻居建议吃安眠药，但用户已查阅资料并咨询医生\"\n- m2: \"用户表示头晕疲劳症状只需休息几天即可缓解\"\n\nAnalysis:\n- Fact 1 (未患失眠症): m0 explicitly states \"用户经医生评估无失眠症\" - supports the fact. ✓\n- Fact 2 (不需要安眠药): m0 says \"不需要药物治疗\" and m2 says \"只需休息几天即可缓解\" - supports that no medication is needed. ✓\n\n**Item 3 (6b43314b4894769ac7c6):**\n- Query: 您的晚辈中，谁在四年前因骨\n\nI'll continue analyzing the next item's memories, focusing on the specific details about the user's family member and their medical history.\n\nThe memories reveal a nuanced correction about the family relationship and injury details. Initially described as a nephew, the user later clarified it was actually a grandson who had experienced a fracture four years ago, requiring a month of recovery. The user also mentioned a separate ankle sprain that did not involve a fracture or cast.\n\nThe key details confirm the grandson's fracture and the user's own minor injury, with precise clarification of the family relationship and medical treatment.\n\nFor the next item, the memories document the user's work schedule changes, with the supervisor canceling the flexible work system last week and the user now able to return to a normal work schedule.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1401,
+      "completion_tokens": 969,
+      "total_tokens": 2370,
+      "cost": 0.00152166,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00152166,
+        "upstream_inference_prompt_cost": 0.00035886,
+        "upstream_inference_completions_cost": 0.0011628
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 902,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 15.171
+}

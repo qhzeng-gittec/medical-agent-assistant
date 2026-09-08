@@ -1,0 +1,138 @@
+{
+  "case": {
+    "id": "M05-01",
+    "category": "确诊与待检查的不确定性区分",
+    "turns": [
+      {
+        "user": "医生您好，我上周开始感到胸口偶尔闷痛，尤其是爬楼梯的时候。我父亲有冠心病史，所以我特别担心自己是不是也得了冠心病，想请您帮我看看。",
+        "assistant": "收到，已记录您的症状描述及家族史担忧。"
+      },
+      {
+        "user": "补充一下，昨天我去做了心电图，结果还没出来，医生让我等三天。我现在还没确诊，只是怀疑可能有心脏问题，想先了解一下后续流程。",
+        "assistant": "明白，已更新您目前处于检查等待期且尚未确诊的状态。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "M05-01-Q1",
+        "query": "患者目前是否已经确诊患有冠心病？",
+        "expected_facts": [
+          "患者目前尚未确诊冠心病。",
+          "患者上周开始感到胸口偶尔闷痛。",
+          "患者父亲有冠心病史。"
+        ],
+        "required_groups": [
+          [
+            "尚未确诊",
+            "未确诊",
+            "没确诊"
+          ],
+          [
+            "冠心病",
+            "心脏问题"
+          ],
+          [
+            "上周",
+            "最近"
+          ]
+        ]
+      },
+      {
+        "id": "M05-01-Q2",
+        "query": "患者昨天做了哪项检查，结果状态如何？",
+        "expected_facts": [
+          "患者昨天做了心电图检查。",
+          "检查结果尚未出来。",
+          "医生要求患者等待三天。"
+        ],
+        "required_groups": [
+          [
+            "心电图",
+            "心脏检查"
+          ],
+          [
+            "结果未出",
+            "没出来",
+            "等待结果"
+          ],
+          [
+            "昨天",
+            "前天"
+          ]
+        ]
+      }
+    ],
+    "split": "dev",
+    "family_id": "M05-01",
+    "synthetic": true
+  },
+  "status": "started",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859923-sCpUVWJiTPawh39ilitv",
+      "usage": {
+        "prompt_tokens": 63,
+        "total_tokens": 63,
+        "cost": 6.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.3e-07,
+          "upstream_inference_prompt_cost": 6.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788859924-IGcF9W7JXESF6IkLrsqq",
+      "usage": {
+        "prompt_tokens": 8361,
+        "completion_tokens": 618,
+        "total_tokens": 8979,
+        "cost": 0.00359235,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00359235,
+          "upstream_inference_prompt_cost": 0.00225747,
+          "upstream_inference_completions_cost": 0.00133488
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 505,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户从2026年9月初开始感到胸口偶尔闷痛，爬楼梯时症状尤为明显\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户的父亲有冠心病史，用户因此担心自己可能也患有冠心病\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859946-JS9rLrA4a0aSEMUkrtj9",
+      "usage": {
+        "prompt_tokens": 42,
+        "total_tokens": 42,
+        "cost": 4.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.2e-07,
+          "upstream_inference_prompt_cost": 4.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": []
+}

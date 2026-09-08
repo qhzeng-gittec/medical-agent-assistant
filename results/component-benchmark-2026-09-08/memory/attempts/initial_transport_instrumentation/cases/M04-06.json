@@ -1,0 +1,197 @@
+{
+  "case": {
+    "id": "M04-06",
+    "category": "用户和家人的经历区分",
+    "turns": [
+      {
+        "user": "我婆婆三年前因为白内障做了激光手术，视力恢复不错。我自己眼睛度数很深，戴眼镜很多年了，但从未做过眼部手术，也没得过白内障。",
+        "assistant": "好的，已记录您婆婆的手术史及您的视力矫正情况。"
+      },
+      {
+        "user": "更正一下，是公公三年前做的白内障手术，婆婆眼睛很好。我自己确实高度近视，长期佩戴眼镜，但从未进行过眼部手术。",
+        "assistant": "明白，已更新为您公公的手术记录，并确认您的近视状况。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "您的公婆中，谁在三年前接受了白内障激光手术治疗？",
+        "expected_facts": [
+          "用户的公公在三年前做了白内障激光手术。"
+        ],
+        "required_groups": [
+          [
+            "公公",
+            "岳父"
+          ],
+          [
+            "三年前",
+            "3年前"
+          ],
+          [
+            "白内障手术",
+            "激光手术"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "用户本人的视力问题是什么，是否做过眼部手术？",
+        "expected_facts": [
+          "用户高度近视长期戴眼镜，从未做过眼部手术。"
+        ],
+        "required_groups": [
+          [
+            "高度近视",
+            "度数深"
+          ],
+          [
+            "戴眼镜",
+            "佩戴眼镜"
+          ],
+          [
+            "从未手术",
+            "没做过手术"
+          ]
+        ]
+      }
+    ],
+    "split": "dev",
+    "family_id": "M04-06",
+    "synthetic": true
+  },
+  "status": "started",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859918-OZ5UzFMh2KEUgESbejbq",
+      "usage": {
+        "prompt_tokens": 66,
+        "total_tokens": 66,
+        "cost": 6.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.6e-07,
+          "upstream_inference_prompt_cost": 6.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788859921-02iJFc17Hso3abwMWzDT",
+      "usage": {
+        "prompt_tokens": 8360,
+        "completion_tokens": 215,
+        "total_tokens": 8575,
+        "cost": 0.0027216,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0027216,
+          "upstream_inference_prompt_cost": 0.0022572,
+          "upstream_inference_completions_cost": 0.0004644
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 108,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户的婆婆三年前因白内障接受了激光手术，术后视力恢复良好\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户眼睛度数很深，戴眼镜多年，但从未做过眼部手术，也未得过白内障\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859940-09Dup3G2sIyHECMAY0DJ",
+      "usage": {
+        "prompt_tokens": 41,
+        "total_tokens": 41,
+        "cost": 4.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.1e-07,
+          "upstream_inference_prompt_cost": 4.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859948-Mh2ThBxEyWiIZ29PYZyR",
+      "usage": {
+        "prompt_tokens": 59,
+        "total_tokens": 59,
+        "cost": 5.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.9e-07,
+          "upstream_inference_prompt_cost": 5.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788859952-V09GFheGyjrFK4WEqKS5",
+      "usage": {
+        "prompt_tokens": 8467,
+        "completion_tokens": 693,
+        "total_tokens": 9160,
+        "cost": 0.0042033,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0042033,
+          "upstream_inference_prompt_cost": 0.0025401,
+          "upstream_inference_completions_cost": 0.0016632
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 609,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户的公公三年前因白内障接受了激光手术，术后视力恢复良好。婆婆眼睛很好，没有做过眼部手术。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859972-9NoYUjNRfWOZ1xCRkP5R",
+      "usage": {
+        "prompt_tokens": 28,
+        "total_tokens": 28,
+        "cost": 2.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.8e-07,
+          "upstream_inference_prompt_cost": 2.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": []
+}

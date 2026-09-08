@@ -1,0 +1,622 @@
+{
+  "case": {
+    "id": "M11-04",
+    "category": "多项历史事实的跨会话汇总",
+    "turns": [
+      {
+        "user": "我四十五岁，八年前被查出有轻度脂肪肝，医生建议我减重和戒酒，我戒酒了但体重没怎么降，后来脂肪肝指标一直维持在轻度水平。",
+        "assistant": "好的，已记录您八年前的脂肪肝诊断及生活方式调整情况。"
+      },
+      {
+        "user": "对了，三年前我因为应酬多又喝了几次酒，体检发现脂肪肝稍微加重了，之后我彻底戒酒并开始每周游泳三次，坚持了一年，指标又回到轻度了。",
+        "assistant": "收到，已补充您三年前饮酒复发及后续游泳干预的记录。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "M11-04-Q1",
+        "query": "患者八年前确诊了什么肝脏问题，医生建议什么措施，他执行得如何？",
+        "expected_facts": [
+          "患者八年前被查出轻度脂肪肝。",
+          "医生建议减重和戒酒。",
+          "患者戒酒了但体重未明显下降。"
+        ],
+        "required_groups": [
+          [
+            "轻度脂肪肝",
+            "脂肪肝"
+          ],
+          [
+            "减重",
+            "减肥"
+          ],
+          [
+            "戒酒",
+            "不喝酒"
+          ]
+        ]
+      },
+      {
+        "id": "M11-04-Q2",
+        "query": "三年前他因为什么导致脂肪肝加重，之后做了什么运动，结果如何？",
+        "expected_facts": [
+          "患者三年前因应酬饮酒导致脂肪肝加重。",
+          "患者开始每周游泳三次，坚持了一年。",
+          "患者指标恢复至轻度水平。"
+        ],
+        "required_groups": [
+          [
+            "应酬饮酒",
+            "喝酒"
+          ],
+          [
+            "游泳",
+            "游泳运动"
+          ],
+          [
+            "恢复轻度",
+            "回到轻度"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M11-04",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861538-frq3vhiBWOlHbhuQ5rDD",
+      "usage": {
+        "prompt_tokens": 72,
+        "total_tokens": 72,
+        "cost": 7.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.2e-07,
+          "upstream_inference_prompt_cost": 7.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861542-pzWHE2rWnUPsRUqAzfeK",
+      "usage": {
+        "prompt_tokens": 8364,
+        "completion_tokens": 299,
+        "total_tokens": 8663,
+        "cost": 0.0032268,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0032268,
+          "upstream_inference_prompt_cost": 0.0025092,
+          "upstream_inference_completions_cost": 0.0007176
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 178,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\"memory\": [{\"id\": \"0\", \"text\": \"用户四十五岁，八年前被查出有轻度脂肪肝\", \"attributed_to\": \"user\"}, {\"id\": \"1\", \"text\": \"医生建议用户减重和戒酒以改善脂肪肝情况\", \"attributed_to\": \"user\"}, {\"id\": \"2\", \"text\": \"用户已戒酒但体重没有明显下降\", \"attributed_to\": \"user\"}, {\"id\": \"3\", \"text\": \"用户的脂肪肝指标一直维持在轻度水平\", \"attributed_to\": \"user\"}]}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861569-Hkn8q56muxA7ztr5BLyy",
+      "usage": {
+        "prompt_tokens": 51,
+        "total_tokens": 51,
+        "cost": 5.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.1e-07,
+          "upstream_inference_prompt_cost": 5.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861573-jMXFoOUsO7lF8hQpLfLh",
+      "usage": {
+        "prompt_tokens": 69,
+        "total_tokens": 69,
+        "cost": 6.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.9e-07,
+          "upstream_inference_prompt_cost": 6.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861577-SyvjRuCHAFeouijfcj5o",
+      "usage": {
+        "prompt_tokens": 8507,
+        "completion_tokens": 1425,
+        "total_tokens": 9932,
+        "cost": 0.00497675,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00497675,
+          "upstream_inference_prompt_cost": 0.00212675,
+          "upstream_inference_completions_cost": 0.00285
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1530,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"三年前用户因应酬多又喝了几次酒，体检发现脂肪肝稍微加重\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\", \"1\", \"2\", \"3\"]\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户彻底戒酒后开始每周游泳三次，坚持了一年，脂肪肝指标回到轻度水平\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\", \"1\", \"2\", \"3\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861609-GQE9jsrQL5qDZbXV0WwB",
+      "usage": {
+        "prompt_tokens": 41,
+        "total_tokens": 41,
+        "cost": 4.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.1e-07,
+          "upstream_inference_prompt_cost": 4.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861614-pLqXlcaqbBNeu3STEJc8",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861615-prBpxChq6B9WV5CoW74P",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861623-xMQWO5l5m1TVwSbBiDdq",
+      "usage": {
+        "prompt_tokens": 30,
+        "total_tokens": 30,
+        "cost": 3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3e-07,
+          "upstream_inference_prompt_cost": 3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861624-2OU0ae1cfKevdUIucy3P",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861625-pu61e06HwUpMJOFNrduL",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "M11-04-Q1",
+        "query": "患者八年前确诊了什么肝脏问题，医生建议什么措施，他执行得如何？",
+        "expected_facts": [
+          "患者八年前被查出轻度脂肪肝。",
+          "医生建议减重和戒酒。",
+          "患者戒酒了但体重未明显下降。"
+        ],
+        "required_groups": [
+          [
+            "轻度脂肪肝",
+            "脂肪肝"
+          ],
+          [
+            "减重",
+            "减肥"
+          ],
+          [
+            "戒酒",
+            "不喝酒"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "c832825c-733f-4a0b-ac7c-2b2c941fd214",
+          "content": "用户四十五岁，八年前被查出有轻度脂肪肝",
+          "score": 0.7391047912926201,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:57.186690+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:59:32.942795+00:00"
+        },
+        {
+          "memory_id": "daeafb1d-2bc6-4f6c-9b99-c5d311c8de9b",
+          "content": "用户的脂肪肝指标一直维持在轻度水平",
+          "score": 0.6800163185276894,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:57.186690+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:59:32.942795+00:00"
+        },
+        {
+          "memory_id": "64536402-8a6c-45cd-84e4-500468b0d644",
+          "content": "三年前用户因应酬多又喝了几次酒，体检发现脂肪肝稍微加重",
+          "score": 0.6745881131190448,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:59:32.998878+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M11-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:11.985166+00:00"
+        },
+        {
+          "memory_id": "f2d92023-4128-4489-9d4b-d8b0300db9b5",
+          "content": "医生建议用户减重和戒酒以改善脂肪肝情况",
+          "score": 0.6563198773643748,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:57.186690+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:59:32.942795+00:00"
+        },
+        {
+          "memory_id": "7b5cdcbe-c388-443d-a25a-2f6e3787c721",
+          "content": "用户彻底戒酒后开始每周游泳三次，坚持了一年，脂肪肝指标回到轻度水平",
+          "score": 0.6543339182272716,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:59:32.998878+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M11-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:11.985166+00:00"
+        },
+        {
+          "memory_id": "5e6fc5df-cdbe-40be-a23d-1ec71cb8cd69",
+          "content": "用户已戒酒但体重没有明显下降",
+          "score": 0.5445093051909987,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:57.186690+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:59:32.942795+00:00"
+        }
+      ],
+      "seconds": 2.469
+    },
+    {
+      "query": {
+        "id": "M11-04-Q2",
+        "query": "三年前他因为什么导致脂肪肝加重，之后做了什么运动，结果如何？",
+        "expected_facts": [
+          "患者三年前因应酬饮酒导致脂肪肝加重。",
+          "患者开始每周游泳三次，坚持了一年。",
+          "患者指标恢复至轻度水平。"
+        ],
+        "required_groups": [
+          [
+            "应酬饮酒",
+            "喝酒"
+          ],
+          [
+            "游泳",
+            "游泳运动"
+          ],
+          [
+            "恢复轻度",
+            "回到轻度"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "64536402-8a6c-45cd-84e4-500468b0d644",
+          "content": "三年前用户因应酬多又喝了几次酒，体检发现脂肪肝稍微加重",
+          "score": 0.7758906133399117,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:59:32.998878+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M11-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:11.985166+00:00"
+        },
+        {
+          "memory_id": "7b5cdcbe-c388-443d-a25a-2f6e3787c721",
+          "content": "用户彻底戒酒后开始每周游泳三次，坚持了一年，脂肪肝指标回到轻度水平",
+          "score": 0.7575638545763043,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:59:32.998878+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M11-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:11.985166+00:00"
+        },
+        {
+          "memory_id": "f2d92023-4128-4489-9d4b-d8b0300db9b5",
+          "content": "医生建议用户减重和戒酒以改善脂肪肝情况",
+          "score": 0.719285590963443,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:57.186690+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:59:32.942795+00:00"
+        },
+        {
+          "memory_id": "daeafb1d-2bc6-4f6c-9b99-c5d311c8de9b",
+          "content": "用户的脂肪肝指标一直维持在轻度水平",
+          "score": 0.6897303715396241,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:57.186690+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:59:32.942795+00:00"
+        },
+        {
+          "memory_id": "c832825c-733f-4a0b-ac7c-2b2c941fd214",
+          "content": "用户四十五岁，八年前被查出有轻度脂肪肝",
+          "score": 0.6802056430828946,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:57.186690+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:59:32.942795+00:00"
+        },
+        {
+          "memory_id": "5e6fc5df-cdbe-40be-a23d-1ec71cb8cd69",
+          "content": "用户已戒酒但体重没有明显下降",
+          "score": 0.584168356666463,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:57.186690+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:59:32.942795+00:00"
+        }
+      ],
+      "seconds": 7.343
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者八年前确诊了什么肝脏问题，医生建议什么措施，他执行得如何？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "daeafb1d-2bc6-4f6c-9b99-c5d311c8de9b",
+        "content": "用户的脂肪肝指标一直维持在轻度水平",
+        "score": 0.6499976575350226,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:58:57.186690+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M11-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:59:32.942795+00:00"
+      },
+      {
+        "memory_id": "c832825c-733f-4a0b-ac7c-2b2c941fd214",
+        "content": "用户四十五岁，八年前被查出有轻度脂肪肝",
+        "score": 0.625556658211765,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:58:57.186690+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M11-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:59:32.942795+00:00"
+      },
+      {
+        "memory_id": "7b5cdcbe-c388-443d-a25a-2f6e3787c721",
+        "content": "用户彻底戒酒后开始每周游泳三次，坚持了一年，脂肪肝指标回到轻度水平",
+        "score": 0.6140261761964391,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:59:32.998878+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M11-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:00:11.985166+00:00"
+      },
+      {
+        "memory_id": "f2d92023-4128-4489-9d4b-d8b0300db9b5",
+        "content": "医生建议用户减重和戒酒以改善脂肪肝情况",
+        "score": 0.5957331528007973,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:58:57.186690+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M11-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:59:32.942795+00:00"
+      },
+      {
+        "memory_id": "64536402-8a6c-45cd-84e4-500468b0d644",
+        "content": "三年前用户因应酬多又喝了几次酒，体检发现脂肪肝稍微加重",
+        "score": 0.5879217514889732,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:59:32.998878+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M11-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:00:11.985166+00:00"
+      },
+      {
+        "memory_id": "5e6fc5df-cdbe-40be-a23d-1ec71cb8cd69",
+        "content": "用户已戒酒但体重没有明显下降",
+        "score": 0.5456577179195632,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:58:57.186690+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M11-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:59:32.942795+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 88.484
+}

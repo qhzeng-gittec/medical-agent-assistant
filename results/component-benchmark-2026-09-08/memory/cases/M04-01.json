@@ -1,0 +1,526 @@
+{
+  "case": {
+    "id": "M04-01",
+    "category": "用户和家人的经历区分",
+    "turns": [
+      {
+        "user": "我父亲去年冬天因为严重的关节炎住院了，当时他疼得下不了床，医生给他开了止痛药。我自己身体一直很好，从来没生过这种病，只是偶尔肩膀有点酸。",
+        "assistant": "收到，已记录您父亲去年的住院情况以及您目前的身体状况。"
+      },
+      {
+        "user": "补充一下，其实是我母亲在三年前做过膝盖置换手术，不是父亲。父亲只是去年冬天因为关节炎疼痛在家休养，并没有住院，之前记混了。",
+        "assistant": "明白，已更正为您母亲三年前的手术史及父亲去年的居家休养情况。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "请确认一下，家里哪位长辈在三年前接受过膝关节的手术治疗？",
+        "expected_facts": [
+          "用户的母亲在三年前做过膝盖置换手术。"
+        ],
+        "required_groups": [
+          [
+            "母亲",
+            "妈妈"
+          ],
+          [
+            "三年前",
+            "3年前"
+          ],
+          [
+            "膝盖置换手术",
+            "膝关节手术"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "关于父亲去年的健康状况，他是住院了还是在家休息？具体是什么问题？",
+        "expected_facts": [
+          "用户的父亲去年冬天因关节炎疼痛在家休养，未住院。"
+        ],
+        "required_groups": [
+          [
+            "父亲",
+            "爸爸"
+          ],
+          [
+            "去年冬天",
+            "去年冬季"
+          ],
+          [
+            "在家休养",
+            "没住院",
+            "居家"
+          ]
+        ]
+      }
+    ],
+    "split": "dev",
+    "family_id": "M04-01",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860074-xWQVvdFLt7warwp7Rb1N",
+      "usage": {
+        "prompt_tokens": 68,
+        "total_tokens": 68,
+        "cost": 6.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.8e-07,
+          "upstream_inference_prompt_cost": 6.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860076-wpI4LsY6ry37Ewitm7Wg",
+      "usage": {
+        "prompt_tokens": 8367,
+        "completion_tokens": 681,
+        "total_tokens": 9048,
+        "cost": 0.00373005,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00373005,
+          "upstream_inference_prompt_cost": 0.00225909,
+          "upstream_inference_completions_cost": 0.00147096
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 565,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户父亲去年冬天因严重关节炎住院，当时疼痛到无法下床，医生为其开具了止痛药\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户自己身体一直很好，从未生过严重疾病，只是偶尔肩膀有点酸\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860092-akdOawWkx0RwTQ2omymc",
+      "usage": {
+        "prompt_tokens": 43,
+        "total_tokens": 43,
+        "cost": 4.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.3e-07,
+          "upstream_inference_prompt_cost": 4.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860095-hN2Cjyf4otoSOWNROi9a",
+      "usage": {
+        "prompt_tokens": 68,
+        "total_tokens": 68,
+        "cost": 6.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.8e-07,
+          "upstream_inference_prompt_cost": 6.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860100-z6KJv0JKuQuBDoKgZ2Xd",
+      "usage": {
+        "prompt_tokens": 8486,
+        "completion_tokens": 530,
+        "total_tokens": 9016,
+        "cost": 0.0031815,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0031815,
+          "upstream_inference_prompt_cost": 0.0021215,
+          "upstream_inference_completions_cost": 0.00106
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 483,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户母亲在三年前做过膝盖置换手术\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户父亲去年冬天因关节炎疼痛在家休养，并没有住院\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860116-QtMPts8aCy2PsudeQqAj",
+      "usage": {
+        "prompt_tokens": 25,
+        "total_tokens": 25,
+        "cost": 2.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.5e-07,
+          "upstream_inference_prompt_cost": 2.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860124-uYpCW7OiSNbHUJ2miujD",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860127-0c2BeQO8mEmr2qLmDdlu",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860128-Gs19jERzg9htReXn2gst",
+      "usage": {
+        "prompt_tokens": 30,
+        "total_tokens": 30,
+        "cost": 3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3e-07,
+          "upstream_inference_prompt_cost": 3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860131-AZnH2zuezJEWA7w2qSX9",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860136-M89LM6CWdepm5iY1wlim",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "请确认一下，家里哪位长辈在三年前接受过膝关节的手术治疗？",
+        "expected_facts": [
+          "用户的母亲在三年前做过膝盖置换手术。"
+        ],
+        "required_groups": [
+          [
+            "母亲",
+            "妈妈"
+          ],
+          [
+            "三年前",
+            "3年前"
+          ],
+          [
+            "膝盖置换手术",
+            "膝关节手术"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "5256201b-4127-476b-8e97-e0b079792ab4",
+          "content": "用户母亲在三年前做过膝盖置换手术",
+          "score": 0.8314756433716598,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:54.190295+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M04-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:23.166417+00:00"
+        },
+        {
+          "memory_id": "900df39c-61f2-4ef4-94be-6d498f11fa60",
+          "content": "用户父亲去年冬天因关节炎疼痛在家休养，并没有住院",
+          "score": 0.7006142018138523,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:54.190295+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M04-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:23.166417+00:00"
+        },
+        {
+          "memory_id": "a569a468-ccf0-4753-b808-980ee0c07090",
+          "content": "用户父亲去年冬天因严重关节炎住院，当时疼痛到无法下床，医生为其开具了止痛药",
+          "score": 0.6349575519752184,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:33.447903+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:34:54.155656+00:00"
+        },
+        {
+          "memory_id": "7334fbae-e722-4417-ab76-5cab471e4cdc",
+          "content": "用户自己身体一直很好，从未生过严重疾病，只是偶尔肩膀有点酸",
+          "score": 0.5938835235712883,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:33.447903+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:34:54.155656+00:00"
+        }
+      ],
+      "seconds": 2.985
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "关于父亲去年的健康状况，他是住院了还是在家休息？具体是什么问题？",
+        "expected_facts": [
+          "用户的父亲去年冬天因关节炎疼痛在家休养，未住院。"
+        ],
+        "required_groups": [
+          [
+            "父亲",
+            "爸爸"
+          ],
+          [
+            "去年冬天",
+            "去年冬季"
+          ],
+          [
+            "在家休养",
+            "没住院",
+            "居家"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "900df39c-61f2-4ef4-94be-6d498f11fa60",
+          "content": "用户父亲去年冬天因关节炎疼痛在家休养，并没有住院",
+          "score": 0.7807300423613934,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:54.190295+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M04-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:23.166417+00:00"
+        },
+        {
+          "memory_id": "7334fbae-e722-4417-ab76-5cab471e4cdc",
+          "content": "用户自己身体一直很好，从未生过严重疾病，只是偶尔肩膀有点酸",
+          "score": 0.6255556464378953,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:33.447903+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:34:54.155656+00:00"
+        },
+        {
+          "memory_id": "a569a468-ccf0-4753-b808-980ee0c07090",
+          "content": "用户父亲去年冬天因严重关节炎住院，当时疼痛到无法下床，医生为其开具了止痛药",
+          "score": 0.6227086880037579,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:33.447903+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:34:54.155656+00:00"
+        },
+        {
+          "memory_id": "5256201b-4127-476b-8e97-e0b079792ab4",
+          "content": "用户母亲在三年前做过膝盖置换手术",
+          "score": 0.594799669384896,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:54.190295+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M04-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:23.166417+00:00"
+        }
+      ],
+      "seconds": 1.562
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "请确认一下，家里哪位长辈在三年前接受过膝关节的手术治疗？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "5256201b-4127-476b-8e97-e0b079792ab4",
+        "content": "用户母亲在三年前做过膝盖置换手术",
+        "score": 0.7648163136254404,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:34:54.190295+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M04-01",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:35:23.166417+00:00"
+      },
+      {
+        "memory_id": "900df39c-61f2-4ef4-94be-6d498f11fa60",
+        "content": "用户父亲去年冬天因关节炎疼痛在家休养，并没有住院",
+        "score": 0.6799947029220436,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:34:54.190295+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M04-01",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:35:23.166417+00:00"
+      },
+      {
+        "memory_id": "7334fbae-e722-4417-ab76-5cab471e4cdc",
+        "content": "用户自己身体一直很好，从未生过严重疾病，只是偶尔肩膀有点酸",
+        "score": 0.5817586900430662,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:34:33.447903+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M04-01",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:34:54.155656+00:00"
+      },
+      {
+        "memory_id": "a569a468-ccf0-4753-b808-980ee0c07090",
+        "content": "用户父亲去年冬天因严重关节炎住院，当时疼痛到无法下床，医生为其开具了止痛药",
+        "score": 0.5817016305207285,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:34:33.447903+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M04-01",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:34:54.155656+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 65.344
+}

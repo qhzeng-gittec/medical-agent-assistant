@@ -1,0 +1,528 @@
+{
+  "case": {
+    "id": "M01-07",
+    "category": "工作作息与睡眠时间变化",
+    "turns": [
+      {
+        "user": "半年前换了新主管，要求我们全员实行弹性工作制，我因此经常凌晨四点下班，早上十点才回家补觉。",
+        "assistant": "收到，已记录您半年前因弹性工作制导致的作息颠倒。"
+      },
+      {
+        "user": "不对，弹性工作制是八个月前实施的，而且上周主管宣布取消该制度，我今晚就能按正常时间下班了。",
+        "assistant": "明白，已修正制度实施时间并记录本周取消通知。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "用户提到的弹性工作制实际是何时开始的？当时导致了什么作息问题？",
+        "expected_facts": [
+          "该弹性工作制于八个月前实施。",
+          "该用户当时经常凌晨四点下班，早上十点回家补觉。"
+        ],
+        "required_groups": [
+          [
+            "八个月前",
+            "八月前"
+          ],
+          [
+            "凌晨四点下班",
+            "四点下班"
+          ],
+          [
+            "早上十点回家补觉",
+            "十点回家睡觉"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "该工作制度何时被叫停？用户对此有何反应？",
+        "expected_facts": [
+          "该制度于上周被主管宣布取消。",
+          "该用户今晚即可按正常时间下班。"
+        ],
+        "required_groups": [
+          [
+            "上周",
+            "上个星期"
+          ],
+          [
+            "取消该制度",
+            "废除该制度"
+          ],
+          [
+            "按正常时间下班",
+            "正常时间离开"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M01-07",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860045-nbaoi7n9njwENmC7Pr73",
+      "usage": {
+        "prompt_tokens": 56,
+        "total_tokens": 56,
+        "cost": 5.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.6e-07,
+          "upstream_inference_prompt_cost": 5.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860050-aeK6XzYOJ46cNrI03Z8i",
+      "usage": {
+        "prompt_tokens": 8351,
+        "completion_tokens": 355,
+        "total_tokens": 8706,
+        "cost": 0.00309426,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00309426,
+          "upstream_inference_prompt_cost": 0.00217126,
+          "upstream_inference_completions_cost": 0.000923
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 274,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户半年前（约2026年3月）换了新主管，新主管要求全员实行弹性工作制，导致用户经常凌晨四点下班，早上十点才回家补觉\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860058-LVX13q20BNX29e0PVIYc",
+      "usage": {
+        "prompt_tokens": 42,
+        "total_tokens": 42,
+        "cost": 4.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.2e-07,
+          "upstream_inference_prompt_cost": 4.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860059-rSxXZeR45rJbDVg8pZxM",
+      "usage": {
+        "prompt_tokens": 51,
+        "total_tokens": 51,
+        "cost": 5.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.1e-07,
+          "upstream_inference_prompt_cost": 5.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860071-4zlGtaYuzoK56tld1vNs",
+      "usage": {
+        "prompt_tokens": 8448,
+        "completion_tokens": 742,
+        "total_tokens": 9190,
+        "cost": 0.003596,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.003596,
+          "upstream_inference_prompt_cost": 0.002112,
+          "upstream_inference_completions_cost": 0.001484
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 617,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户纠正弹性工作制实施时间为八个月前（约2026年1月），而非之前记录的半年前\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户的主管于上周（约2026年9月1-7日）宣布取消弹性工作制\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    },\n    {\n      \"id\": \"2\",\n      \"text\": \"用户从今晚起可以按正常时间下班，不再需要凌晨四点下班\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860089-xTR5qv8dgV66I6ju4Ji7",
+      "usage": {
+        "prompt_tokens": 68,
+        "total_tokens": 68,
+        "cost": 6.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.8e-07,
+          "upstream_inference_prompt_cost": 6.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860095-0ghGYqSytkgeWtD2T76r",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860102-VC8hhKEJT1HHgdNi5w5g",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 14,
+        "cost": 1.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.4e-07,
+          "upstream_inference_prompt_cost": 1.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860104-EmkNaioEAtbU83442bnE",
+      "usage": {
+        "prompt_tokens": 30,
+        "total_tokens": 30,
+        "cost": 3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3e-07,
+          "upstream_inference_prompt_cost": 3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860104-zj3Pp5Bor7R1sqtuoOYj",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860106-Wtz5aFYhHx13DBsvsInV",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "用户提到的弹性工作制实际是何时开始的？当时导致了什么作息问题？",
+        "expected_facts": [
+          "该弹性工作制于八个月前实施。",
+          "该用户当时经常凌晨四点下班，早上十点回家补觉。"
+        ],
+        "required_groups": [
+          [
+            "八个月前",
+            "八月前"
+          ],
+          [
+            "凌晨四点下班",
+            "四点下班"
+          ],
+          [
+            "早上十点回家补觉",
+            "十点回家睡觉"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "fedc6a70-efb9-4566-a126-bea90c04a129",
+          "content": "用户半年前（约2026年3月）换了新主管，新主管要求全员实行弹性工作制，导致用户经常凌晨四点下班，早上十点才回家补觉",
+          "score": 0.8225836710117373,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:03.299699+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M01-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:34:18.356595+00:00"
+        },
+        {
+          "memory_id": "64e08b8a-c1e5-45ca-99b4-36b084e30029",
+          "content": "用户纠正弹性工作制实施时间为八个月前（约2026年1月），而非之前记录的半年前",
+          "score": 0.7312268202267888,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:18.380968+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:34:52.961837+00:00"
+        },
+        {
+          "memory_id": "b80e47a2-e882-46bf-9aee-62bdab4e9aa6",
+          "content": "用户的主管于上周（约2026年9月1-7日）宣布取消弹性工作制",
+          "score": 0.6705903594412073,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:18.380968+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:34:52.961837+00:00"
+        },
+        {
+          "memory_id": "8cc05625-16e5-480a-8293-ebb241065a6f",
+          "content": "用户从今晚起可以按正常时间下班，不再需要凌晨四点下班",
+          "score": 0.6638431422019795,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:18.380968+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:34:52.961837+00:00"
+        }
+      ],
+      "seconds": 8.641
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "该工作制度何时被叫停？用户对此有何反应？",
+        "expected_facts": [
+          "该制度于上周被主管宣布取消。",
+          "该用户今晚即可按正常时间下班。"
+        ],
+        "required_groups": [
+          [
+            "上周",
+            "上个星期"
+          ],
+          [
+            "取消该制度",
+            "废除该制度"
+          ],
+          [
+            "按正常时间下班",
+            "正常时间离开"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "b80e47a2-e882-46bf-9aee-62bdab4e9aa6",
+          "content": "用户的主管于上周（约2026年9月1-7日）宣布取消弹性工作制",
+          "score": 0.6355428219351522,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:18.380968+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:34:52.961837+00:00"
+        },
+        {
+          "memory_id": "fedc6a70-efb9-4566-a126-bea90c04a129",
+          "content": "用户半年前（约2026年3月）换了新主管，新主管要求全员实行弹性工作制，导致用户经常凌晨四点下班，早上十点才回家补觉",
+          "score": 0.5772425161828428,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:03.299699+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M01-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:34:18.356595+00:00"
+        },
+        {
+          "memory_id": "64e08b8a-c1e5-45ca-99b4-36b084e30029",
+          "content": "用户纠正弹性工作制实施时间为八个月前（约2026年1月），而非之前记录的半年前",
+          "score": 0.5660704197637194,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:18.380968+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:34:52.961837+00:00"
+        },
+        {
+          "memory_id": "8cc05625-16e5-480a-8293-ebb241065a6f",
+          "content": "用户从今晚起可以按正常时间下班，不再需要凌晨四点下班",
+          "score": 0.5634465098468379,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:18.380968+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:34:52.961837+00:00"
+        }
+      ],
+      "seconds": 1.437
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "用户提到的弹性工作制实际是何时开始的？当时导致了什么作息问题？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "fedc6a70-efb9-4566-a126-bea90c04a129",
+        "content": "用户半年前（约2026年3月）换了新主管，新主管要求全员实行弹性工作制，导致用户经常凌晨四点下班，早上十点才回家补觉",
+        "score": 0.8104178740840418,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:34:03.299699+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M01-07",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:34:18.356595+00:00"
+      },
+      {
+        "memory_id": "64e08b8a-c1e5-45ca-99b4-36b084e30029",
+        "content": "用户纠正弹性工作制实施时间为八个月前（约2026年1月），而非之前记录的半年前",
+        "score": 0.7254258207510504,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:34:18.380968+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M01-07",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:34:52.961837+00:00"
+      },
+      {
+        "memory_id": "8cc05625-16e5-480a-8293-ebb241065a6f",
+        "content": "用户从今晚起可以按正常时间下班，不再需要凌晨四点下班",
+        "score": 0.7180842440919929,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:34:18.380968+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M01-07",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:34:52.961837+00:00"
+      },
+      {
+        "memory_id": "b80e47a2-e882-46bf-9aee-62bdab4e9aa6",
+        "content": "用户的主管于上周（约2026年9月1-7日）宣布取消弹性工作制",
+        "score": 0.643413529372584,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:34:18.380968+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M01-07",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:34:52.961837+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 63.656
+}

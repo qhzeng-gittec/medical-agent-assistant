@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"f9c4097f87d5789fe74f\", \"query\": \"患者何时完成了从南方到北方的居住地迁移？\", \"expected_facts\": [\"患者于2018年搬到了北方干燥城市。\", \"患者此前关于长期居住在南方的说法有误。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户于2018年搬至北方干燥城市居住，纠正了此前关于居住在南方潮湿地区的说法。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:55:02.632907+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户居住在南方潮湿地区，有关节痛，认为可能与当地气候有关。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:54:54.469991+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户的关节痛实际始于2019年冬天，可能与受凉有关，而非之前认为的南方潮湿气候所致。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:55:02.632907+00:00\"}]}, {\"id\": \"fa8fd50dc0c24dc0408d\", \"query\": \"患者预约了什么眼科检查，主要症状和病史是什么？\", \"expected_facts\": [\"患者预约了下周六上午的眼底照相。\", \"患者患有青光眼且近期视力模糊。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户表示如果眼底照相需要散瞳，打算让家人开车来接\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:51:28.977830+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户预约了下周六上午的眼底照相检查\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:51:01.193172+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户计划于2026年9月13日（下周六）上午九点到院进行眼底照相检查\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:51:28.977830+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户咨询了眼底照相检查前是否需要散瞳，以及散瞳后是否会影响开车回家\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:51:01.193172+00:00\"}, {\"memory_id\": \"m4\", \"content\": \"用户患有青光眼，最近出现视力模糊症状\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:51:01.193172+00:00\"}, {\"memory_id\": \"m5\", \"content\": \"用户咨询了散瞳效果大概持续多久，以及下午能否恢复视力\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:51:28.977830+00:00\"}]}, {\"id\": \"fbc92051fce63f8872fc\", \"query\": \"用户提到的毕业设计压力期具体发生在哪个时间段？睡眠状况如何？\", \"expected_facts\": [\"该事件发生在大三暑假。\", \"该用户当时连续一个月每天只睡三个小时。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户大三暑假期间为了完成毕业设计连续一个月每天仅睡三小时靠咖啡硬撑，答辩前一天崩溃，答辩后休整了一周，现在作息已完全恢复正常\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:36:11.392362+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户2025年夏季为了完成毕业设计，连续一个月每天仅睡三小时并靠咖啡硬撑，最终在答辩前一天崩溃。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:34.829715+00:00\"}]}, {\"id\": \"fc3211ec8aa81825083e\", \"query\": \"患者曾因治疗眼部感染使用何种药物导致局部严重过敏，具体症状是什么？\", \"expected_facts\": [\"患者因使用氯霉素眼药水治疗结膜炎导致过敏。\", \"症状包括眼睑严重水肿（像核桃）、流泪及眼部剧痛。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户于2019年因结膜炎使用氯霉素眼药水时出现过敏反应，症状包括眼皮严重肿胀和大量流泪\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:11.460768+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户补充说明2019年氯霉素眼药水过敏反应发生得非常迅速，用药后几分钟内就开始出现症状，除了眼睑严重水肿外还感到眼部剧痛，不得不立即冲洗眼睛并停用该药\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:34:23.440088+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862304-NnEYFhpaI9qKk9VJRoL8",
+    "object": "chat.completion",
+    "created": 1788862304,
+    "model": "minimax/minimax-m2.5",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"f9c4097f87d5789fe74f\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"m0明确记载用户于2018年搬至北方干燥城市居住。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"m0记载纠正了此前关于居住在南方潮湿地区的说法。\"}]},{\"id\":\"fa8fd50dc0c24dc0408d\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"},{\"memory_id\":\"m2\"}],\"reason\":\"m1和m2均记载用户预约了下周六上午的眼底照相检查。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m4\"}],\"reason\":\"m4明确记载用户患有青光眼且最近出现视力模糊症状。\"}]},{\"id\":\"fbc92051fce63f8872fc\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"m0和m1均记载该事件发生在大三暑假期间。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"m0和m1均记载用户连续一个月每天仅睡三小时。\"}]},{\"id\":\"fc3211ec8aa81825083e\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"m0和m1均记载用户因结膜炎使用氯霉素眼药水导致过敏。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"m0记载眼睑严重肿胀和大量流泪，m1补充记载眼部剧痛。\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item according to the evaluation criteria:\n\n**Item 1 (f9c4097f87d5789fe74f):**\nQuery: 患者何时完成了从南方到北方的居住地迁移？\nExpected facts:\n1. \"患者于2018年搬到了北方干燥城市。\" \n2. \"患者此前关于长期居住在南方的说法有误。\"\n\nMemories:\n- m0: \"用户于2018年搬至北方干燥城市居住，纠正了此前关于居住在南方潮湿地区的说法。\" (session-2, 2026-09-08)\n- m1: \"用户居住在南方潮湿地区，有关节痛，认为可能与当地气候有关。\" (session-1, 2026-09-08)\n- m2: \"用户的关节痛实际始于2019年冬天，可能与受凉有关，而非之前认为的南方潮湿气候所致。\" (session-2, 2026-09-08)\n\nAnalysis:\n- Fact 1: \"患者于2018年搬到了北方干燥城市\" - Supported by m0 which explicitly states \"用户于2018年搬至北方干燥城市居住\". Memory ID: m0\n- Fact 2: \"患者此前关于长期居住在南方的说法有误\" - Supported by m0 which says \"纠正了此前关于居住在南方潮湿地区的说法\" (corrected the previous statement about living in southern humid area). Also m1 mentions living in southern humid area, but m0 corrects it. Memory ID: m0\n\nBoth facts are supported by m0.\n\n**Item 2 (fa8fd50dc0c24dc0408d):**\nQuery: 患者预约了什么眼科检查，主要症状和病史是什么？\nExpected facts:\n1. \"患者预约了下周六上午的眼底照相。\"\n\n\n2. \"患者患有青光眼且近期视力模糊。\"\n\nI'll verify the medical appointment details and patient condition. The memories confirm the patient's eye examination and medical history. Specifically, m1 and m2 indicate a scheduled fundus photography appointment for next Saturday morning, while m4 documents the patient's glaucoma diagnosis and recent visual blurring. These details precisely match the expected facts in the query.\n\nThe memories provide clear, consistent evidence supporting both key pieces of information about the patient's eye health status and upcoming medical appointment.\n\nFor the graduation design stress period, the memories confirm two critical details: the event occurred during the summer before graduation, and involved an intense month-long work marathon with extremely limited sleep. The evidence comes from two separate memory entries that corroborate the same challenging academic experience.\n\nRegarding the medication allergy, the memories provide precise information about a chloramphenicol eye drop reaction in 2019, with specific symptoms including severe eyelid swelling, excessive tearing, and intense eye pain. The details are consistently reported across two memory entries, offering comprehensive documentation of the allergic response.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item according to the evaluation criteria:\n\n**Item 1 (f9c4097f87d5789fe74f):**\nQuery: 患者何时完成了从南方到北方的居住地迁移？\nExpected facts:\n1. \"患者于2018年搬到了北方干燥城市。\" \n2. \"患者此前关于长期居住在南方的说法有误。\"\n\nMemories:\n- m0: \"用户于2018年搬至北方干燥城市居住，纠正了此前关于居住在南方潮湿地区的说法。\" (session-2, 2026-09-08)\n- m1: \"用户居住在南方潮湿地区，有关节痛，认为可能与当地气候有关。\" (session-1, 2026-09-08)\n- m2: \"用户的关节痛实际始于2019年冬天，可能与受凉有关，而非之前认为的南方潮湿气候所致。\" (session-2, 2026-09-08)\n\nAnalysis:\n- Fact 1: \"患者于2018年搬到了北方干燥城市\" - Supported by m0 which explicitly states \"用户于2018年搬至北方干燥城市居住\". Memory ID: m0\n- Fact 2: \"患者此前关于长期居住在南方的说法有误\" - Supported by m0 which says \"纠正了此前关于居住在南方潮湿地区的说法\" (corrected the previous statement about living in southern humid area). Also m1 mentions living in southern humid area, but m0 corrects it. Memory ID: m0\n\nBoth facts are supported by m0.\n\n**Item 2 (fa8fd50dc0c24dc0408d):**\nQuery: 患者预约了什么眼科检查，主要症状和病史是什么？\nExpected facts:\n1. \"患者预约了下周六上午的眼底照相。\"\n\n\n2. \"患者患有青光眼且近期视力模糊。\"\n\nI'll verify the medical appointment details and patient condition. The memories confirm the patient's eye examination and medical history. Specifically, m1 and m2 indicate a scheduled fundus photography appointment for next Saturday morning, while m4 documents the patient's glaucoma diagnosis and recent visual blurring. These details precisely match the expected facts in the query.\n\nThe memories provide clear, consistent evidence supporting both key pieces of information about the patient's eye health status and upcoming medical appointment.\n\nFor the graduation design stress period, the memories confirm two critical details: the event occurred during the summer before graduation, and involved an intense month-long work marathon with extremely limited sleep. The evidence comes from two separate memory entries that corroborate the same challenging academic experience.\n\nRegarding the medication allergy, the memories provide precise information about a chloramphenicol eye drop reaction in 2019, with specific symptoms including severe eyelid swelling, excessive tearing, and intense eye pain. The details are consistently reported across two memory entries, offering comprehensive documentation of the allergic response.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1448,
+      "completion_tokens": 949,
+      "total_tokens": 2397,
+      "cost": 0.00151176,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00151176,
+        "upstream_inference_prompt_cost": 0.00037296,
+        "upstream_inference_completions_cost": 0.0011388
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 806,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 16.25
+}

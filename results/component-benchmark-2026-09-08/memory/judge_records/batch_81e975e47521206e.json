@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"18e1a2075ddfd8ef7f1c\", \"query\": \"用户真正需要避免的食物及确认时间是什么？\", \"expected_facts\": [\"用户对芒果存在严重过敏反应。\", \"用户自去年夏天测试确认后仅避开芒果。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"自2025年夏天的过敏原测试后，用户只避开芒果，正常食用花生制品且没有任何不良反应。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:01:55.949426+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户对芒果严重过敏，这是去年过敏原测试确认的结果。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:01:35.450177+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户的过敏原测试是在2025年夏天做的，确认对芒果严重过敏但对花生不过敏。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:01:55.949426+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户对花生不过敏，去年（约2025年）的过敏原测试确认了这一点，尽管有人误以为用户对花生过敏。用户小时候吃过很多次花生都没事。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:01:35.450177+00:00\"}]}, {\"id\": \"1b70f59426c4632d4079\", \"query\": \"他在三年前头痛加重时采取了什么替代疗法，之后主要靠什么方式缓解？\", \"expected_facts\": [\"患者三年前因工作压力导致头痛发作频率增加。\", \"患者尝试过针灸治疗且效果尚可。\", \"患者后续主要依靠休息和针灸缓解，未再使用西药。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户三年前尝试针灸治疗偏头痛，效果不错，之后主要靠休息和针灸缓解，不再使用西药\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:34.037121+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户三年前因工作压力大导致偏头痛发作频率明显增加\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:34.037121+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户今年四十二岁，从十年前开始有偏头痛困扰，医生曾开具曲普坦类药物，但因担心副作用只断续服用过几次，最近两年基本没再吃过\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:20.447035+00:00\"}]}, {\"id\": \"1b8c29873c07717e6919\", \"query\": \"用户对花生是否存在过敏反应？\", \"expected_facts\": [\"用户去年过敏原测试显示对花生不过敏。\", \"用户多年来食用花生从未出现不良反应。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户对芒果严重过敏，这是去年过敏原测试确认的结果。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:01:35.450177+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户的过敏原测试是在2025年夏天做的，确认对芒果严重过敏但对花生不过敏。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:01:55.949426+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户对花生不过敏，去年（约2025年）的过敏原测试确认了这一点，尽管有人误以为用户对花生过敏。用户小时候吃过很多次花生都没事。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:01:35.450177+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"自2025年夏天的过敏原测试后，用户只避开芒果，正常食用花生制品且没有任何不良反应。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:01:55.949426+00:00\"}]}, {\"id\": \"1cd4a71f9acbc3c5f00f\", \"query\": \"患者何时从城市搬至乡下，搬迁原因是什么？\", \"expected_facts\": [\"患者三个月前完成了搬迁。\", \"搬迁原因是退休。\", \"患者从城市搬到了乡下老家。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户半年前（约2026年3月）因退休从城市搬到了乡下老家，现在住在村子里，环境很安静\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:52:16.536506+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户半年前（约2026年3月）退休，但正式搬迁至乡下老家是在三个月前（约2026年6月），搬家手续拖了很久\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:52:34.762134+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861882-Wle420O4pvQUHAZk4AiL",
+    "object": "chat.completion",
+    "created": 1788861882,
+    "model": "minimax/minimax-m2.5",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "\n\n```json\n{\n  \"items\": [\n    {\n      \"id\": \"18e1a2075ddfd8ef7f1c\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m1\"},\n            {\"memory_id\": \"m2\"}\n          ],\n          \"reason\": \"m1明确指出用户对芒果严重过敏，是去年过敏原测试确认的结果；m2进一步确认测试在2025年夏天进行且对芒果严重过敏。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"},\n            {\"memory_id\": \"m1\"}\n          ],\n          \"reason\": \"m0表明用户自2025年夏天测试后只避开芒果；m1确认这是去年夏天测试确认后的行为。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"1b70f59426c4632d4079\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m1\"}\n          ],\n          \"reason\": \"m1明确记载用户三年前因工作压力大导致偏头痛发作频率明显增加。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"}\n          ],\n          \"reason\": \"m0明确指出用户三年前尝试针灸治疗偏头痛，效果不错。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"}\n          ],\n          \"reason\": \"m0记载用户之后主要靠休息和针灸缓解，不再使用西药。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"1b8c29873c07717e6919\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m1\"},\n            {\"memory_id\": \"m2\"}\n          ],\n          \"reason\": \"m1和m2均明确指出2025年夏天的过敏原测试确认用户对花生不过敏。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m2\"},\n            {\"memory_id\": \"m3\"}\n          ],\n          \"reason\": \"m2指出用户小时候吃过很多次花生都没事；m3表明用户正常食用花生制品且没有任何不良反应。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"1cd4a71f9acbc3c5f00f\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m1\"}\n          ],\n          \"reason\": \"m1明确记载用户正式搬迁至乡下老家是在三个月前（约2026年6月）。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"},\n            {\"memory_id\": \"m1\"}\n          ],\n          \"reason\": \"m0和m1均指出搬迁原因是退休。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"},\n            {\"memory_id\": \"m1\"}\n          ],\n          \"reason\": \"m0和m1均记载用户从城市搬到了乡下老家。\"\n        }\n      ]\n    }\n  ]\n}\n```",
+          "refusal": null,
+          "reasoning": "\nLet me analyze each item according to the evaluation criteria:\n\n**Item 1 (18e1a2075ddfd8ef7f1c):**\n- Query: 用户真正需要避免的食物及确认时间是什么？ (What food does the user really need to avoid and when was it confirmed?)\n- Expected facts:\n  1. 用户对芒果存在严重过敏反应。 (User has severe allergic reaction to mango.)\n  2. 用户自去年夏天测试确认后仅避开芒果。 (User has only avoided mango since the test last summer.)\n\nLet me check each memory:\n- m0: \"自2025年夏天的过敏原测试后，用户只避开芒果，正常食用花生制品且没有任何不良反应。\" - This says they avoid mango since summer 2025, confirming the test time.\n- m1: \"用户对芒果严重过敏，这是去年过敏原测试确认的结果。\" - This confirms severe mango allergy, confirmed by last year's test.\n- m2: \"用户的过敏原测试是在2025年夏天做的，确认对芒果严重过敏但对花生不过敏。\" - Confirms severe mango allergy from summer 2025 test.\n- m3: This is about peanuts, not mango.\n\nFor fact 1 (mango allergy): m1 and m2 directly support this - both state severe mango allergy. Supported.\nFor fact 2 (avoiding only mango since last summer): m0 and m1 support this - m0 says they only avoid mango since summer 2025, m1 says it was confirmed by last year's test. \"去年夏天\" = last summer, and the test was in 2025 summer. The user is asking about \"去年夏天\" which would be summer 2025 relative to recording in Sept 2026. Supported.\n\n**Item 2 (1b70f59426c4632d4079):**\n- Query: 他在三年前头痛加重时采取了什么替代疗法，之后主要靠什么方式缓解？\n\n\n- Expected facts: Work-related stress triggered migraine frequency increase, acupuncture was attempted with positive results, and the patient now relies on rest and acupuncture for relief.\n\nExamining the memories reveals clear evidence:\n- m1 directly confirms work stress caused migraine frequency to increase three years ago\n- m0 validates acupuncture as an alternative treatment with good effectiveness\n- m0 also confirms the current management approach of rest and acupuncture, with no western medication used\n\nAll expected facts are supported by the memories.\n\n**Item 3 (1b8c29873c07717e6919):**\n- Query: 询问花\n\nI verify the memory details:\n- m1 confirms a 2025 allergy test showing no peanut allergy\n- m2 supports long-term peanut consumption without reactions\n- m0 and m1 provide additional context about the allergy test timing\n\nBoth expected facts are confirmed by the evidence.\n\n**Item 4 (1cd4a71f9acbc3c5f00f):**\n- Query: 患者何时从城市搬至乡下，搬迁原因\n\nThe memory shows the patient relocated:\n- Moved from city to rural hometown half a year ago (around March 2026)\n- Retirement was the primary reason for moving\n- Officially relocated three months ago (around June 2026)\n\nThe evidence validates all three expected facts.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "\nLet me analyze each item according to the evaluation criteria:\n\n**Item 1 (18e1a2075ddfd8ef7f1c):**\n- Query: 用户真正需要避免的食物及确认时间是什么？ (What food does the user really need to avoid and when was it confirmed?)\n- Expected facts:\n  1. 用户对芒果存在严重过敏反应。 (User has severe allergic reaction to mango.)\n  2. 用户自去年夏天测试确认后仅避开芒果。 (User has only avoided mango since the test last summer.)\n\nLet me check each memory:\n- m0: \"自2025年夏天的过敏原测试后，用户只避开芒果，正常食用花生制品且没有任何不良反应。\" - This says they avoid mango since summer 2025, confirming the test time.\n- m1: \"用户对芒果严重过敏，这是去年过敏原测试确认的结果。\" - This confirms severe mango allergy, confirmed by last year's test.\n- m2: \"用户的过敏原测试是在2025年夏天做的，确认对芒果严重过敏但对花生不过敏。\" - Confirms severe mango allergy from summer 2025 test.\n- m3: This is about peanuts, not mango.\n\nFor fact 1 (mango allergy): m1 and m2 directly support this - both state severe mango allergy. Supported.\nFor fact 2 (avoiding only mango since last summer): m0 and m1 support this - m0 says they only avoid mango since summer 2025, m1 says it was confirmed by last year's test. \"去年夏天\" = last summer, and the test was in 2025 summer. The user is asking about \"去年夏天\" which would be summer 2025 relative to recording in Sept 2026. Supported.\n\n**Item 2 (1b70f59426c4632d4079):**\n- Query: 他在三年前头痛加重时采取了什么替代疗法，之后主要靠什么方式缓解？\n\n\n- Expected facts: Work-related stress triggered migraine frequency increase, acupuncture was attempted with positive results, and the patient now relies on rest and acupuncture for relief.\n\nExamining the memories reveals clear evidence:\n- m1 directly confirms work stress caused migraine frequency to increase three years ago\n- m0 validates acupuncture as an alternative treatment with good effectiveness\n- m0 also confirms the current management approach of rest and acupuncture, with no western medication used\n\nAll expected facts are supported by the memories.\n\n**Item 3 (1b8c29873c07717e6919):**\n- Query: 询问花\n\nI verify the memory details:\n- m1 confirms a 2025 allergy test showing no peanut allergy\n- m2 supports long-term peanut consumption without reactions\n- m0 and m1 provide additional context about the allergy test timing\n\nBoth expected facts are confirmed by the evidence.\n\n**Item 4 (1cd4a71f9acbc3c5f00f):**\n- Query: 患者何时从城市搬至乡下，搬迁原因\n\nThe memory shows the patient relocated:\n- Moved from city to rural hometown half a year ago (around March 2026)\n- Retirement was the primary reason for moving\n- Officially relocated three months ago (around June 2026)\n\nThe evidence validates all three expected facts.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1482,
+      "completion_tokens": 1380,
+      "total_tokens": 2862,
+      "cost": 0.0021006,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0021006,
+        "upstream_inference_prompt_cost": 0.0004446,
+        "upstream_inference_completions_cost": 0.001656
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 677,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 14.657
+}

@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"79917f785d241e8bb6fc\", \"query\": \"患者预约了哪项检查，时间是何时？\", \"expected_facts\": [\"患者预约了本周五上午的腹部B超检查。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户预约了2026年9月11日（本周五）上午的腹部B超检查，医生要求检查前憋尿\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:49:51.723761+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户计划周五早上七点起床，喝完两瓶矿泉水，大约半小时后去排队做腹部B超检查\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:50:12.106110+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户询问如果到了现场医生说尿不够，是否需要再喝水\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:50:12.106110+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户想知道做腹部B超前需要喝多少水、憋多久才能开始检查，担心憋太久会不舒服\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:49:51.723761+00:00\"}]}, {\"id\": \"7b9f3405b3aee80f0170\", \"query\": \"患者目前是否已经确诊患有冠心病？\", \"expected_facts\": [\"患者目前尚未确诊冠心病。\", \"患者上周开始感到胸口偶尔闷痛。\", \"患者父亲有冠心病史。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的父亲有冠心病史\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:58.977359+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户因父亲有冠心病史而担心自己是否也患有冠心病，正在寻求医疗咨询\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:58.977359+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户自2026年9月1日左右开始感到胸口偶尔闷痛，尤其在爬楼梯时出现\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:58.977359+00:00\"}]}, {\"id\": \"7d0c02689481959bacad\", \"query\": \"三年前他搬家后症状有何变化，今年春天用药情况如何？\", \"expected_facts\": [\"患者三年前搬家后过敏症状减轻。\", \"患者去年春天未服药且无症状。\", \"患者今年春天服药三天后症状缓解。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户三年前（约2023年）因搬家到新环境后过敏症状减轻，2025年春天未服药也无症状，但2026年春天症状复发，仅服用了三天抗组胺药\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:55.607717+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户四十八岁，七年前被诊断出过敏性鼻炎，每年春天会出现打喷嚏、流鼻涕的症状，医生开了抗组胺药，用户每年春天服用一周左右，症状即可缓解\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:25.458081+00:00\"}]}, {\"id\": \"7ddc606797fe0aa703fe\", \"query\": \"患者是从哪一年开始执行无麸质饮食计划的？目前是否完全坚持？\", \"expected_facts\": [\"该患者于2023年春天开始执行无麸质饮食计划。\", \"该患者目前偶尔仍会食用含麸质食物如面包。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户从2023年春天正式开始无麸质饮食。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:54.288716+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户最近两年开始尝试无麸质饮食，因为觉得身体更轻盈，但偶尔还是会偷吃面包。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:40:43.423170+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户的花生过敏在十岁时反应最严重，后来虽然未完全痊愈，但轻微接触已无大碍。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:54.288716+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户从小对花生过敏，每次接触都会起红疹。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:40:43.423170+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862019-WYDFnwxhdCPLUi2B4HRU",
+    "object": "chat.completion",
+    "created": 1788862019,
+    "model": "minimax/minimax-m2.5",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "\n\n```json\n{\n  \"items\": [\n    {\n      \"id\": \"79917f785d241e8bb6fc\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"Memory explicitly states appointment for Friday morning abdominal B-scan with specific date.\"\n        }\n      ]\n    },\n    {\n      \"id\": \"7b9f3405b3aee80f0170\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m1\"}],\n          \"reason\": \"Memory shows patient is seeking consultation due to worry, implying not yet diagnosed.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m2\"}],\n          \"reason\": \"Memory explicitly states symptoms started around September 1, 2026.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"Memory explicitly states patient's father has coronary heart disease history.\"\n        }\n      ]\n    },\n    {\n      \"id\": \"7d0c02689481959bacad\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"Memory explicitly states allergy symptoms improved after moving three years ago.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"Memory explicitly states 2025 spring had no symptoms without medication.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"Memory explicitly states 2026 spring symptoms recurred and resolved after three days of medication.\"\n        }\n      ]\n    },\n    {\n      \"id\": \"7ddc606797fe0aa703fe\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"Memory explicitly states patient started gluten-free diet in spring 2023.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m1\"}],\n          \"reason\": \"Memory explicitly states patient occasionally eats bread, showing incomplete adherence.\"\n        }\n      ]\n    }\n  ]\n}\n```",
+          "refusal": null,
+          "reasoning": "\nThe user is asking me to evaluate whether retrieved memories support specific personal facts about a patient. I need to analyze each item and determine:\n\n1. For each expected_fact, does any memory explicitly support it?\n2. If supported, which memory_id(s) provide the evidence?\n3. Keep each reason to one short sentence\n\nLet me analyze each item:\n\n**Item 1 (79917f785d241e8bb6fc):**\nQuery: 患者预约了哪项检查，时间是何时？\nExpected fact: 患者预约了本周五上午的腹部B超检查。\n\nMemories:\n- m0: 用户预约了2026年9月11日（本周五）上午的腹部B超检查，医生要求检查前憋尿\n- m1: 用户计划周五早上七点起床，喝完两瓶矿泉水，大约半小时后去排队做腹部B超检查\n\nThis directly supports the expected fact - the memory explicitly states the appointment for Friday morning (本周五上午) abdominal B-scan (腹部B超). ✓\n\n**Item 2 (7b9f3405b3aee80f0170):**\nQuery: 患者目前是否已经确诊患有冠心病？\nExpected facts:\n1. 患者目前尚未确诊冠心病。\n2. 患者上周开始感到胸口偶尔闷痛。\n3. 患者父亲有冠心病史。\n\nMemories:\n- m0: 用户的父亲有冠心病史 - supports fact 3 ✓\n- m1: 用户因父亲有冠心病史而担心自己是否也患有冠心病，正在寻求医疗咨询 - this implies NOT diagnosed yet, supports fact 1 ✓\n- m2: 用户自2026年9月1日左右开始感到胸口偶尔闷痛，尤其在爬楼梯时出现 - supports fact 2 ✓\n \nThe memories confirm all three expected facts. Each fact can be traced directly to a specific memory, validating the patient's current medical status and symptoms.\n\nI'll verify the allergy symptom progression. The records show a clear transition: three years ago, symptoms improved after relocating. Last spring, the patient remained symptom-free without medication. This year, symptoms recurred but quickly resolved after just three days of antihistamine use.\n\nThe gluten-free diet information reveals some nuanced details about the patient's dietary approach since 2023. While attempting a gluten-free lifestyle, the patient occasionally consumes bread, suggesting imperfect adherence to the strict dietary plan.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "\nThe user is asking me to evaluate whether retrieved memories support specific personal facts about a patient. I need to analyze each item and determine:\n\n1. For each expected_fact, does any memory explicitly support it?\n2. If supported, which memory_id(s) provide the evidence?\n3. Keep each reason to one short sentence\n\nLet me analyze each item:\n\n**Item 1 (79917f785d241e8bb6fc):**\nQuery: 患者预约了哪项检查，时间是何时？\nExpected fact: 患者预约了本周五上午的腹部B超检查。\n\nMemories:\n- m0: 用户预约了2026年9月11日（本周五）上午的腹部B超检查，医生要求检查前憋尿\n- m1: 用户计划周五早上七点起床，喝完两瓶矿泉水，大约半小时后去排队做腹部B超检查\n\nThis directly supports the expected fact - the memory explicitly states the appointment for Friday morning (本周五上午) abdominal B-scan (腹部B超). ✓\n\n**Item 2 (7b9f3405b3aee80f0170):**\nQuery: 患者目前是否已经确诊患有冠心病？\nExpected facts:\n1. 患者目前尚未确诊冠心病。\n2. 患者上周开始感到胸口偶尔闷痛。\n3. 患者父亲有冠心病史。\n\nMemories:\n- m0: 用户的父亲有冠心病史 - supports fact 3 ✓\n- m1: 用户因父亲有冠心病史而担心自己是否也患有冠心病，正在寻求医疗咨询 - this implies NOT diagnosed yet, supports fact 1 ✓\n- m2: 用户自2026年9月1日左右开始感到胸口偶尔闷痛，尤其在爬楼梯时出现 - supports fact 2 ✓\n \nThe memories confirm all three expected facts. Each fact can be traced directly to a specific memory, validating the patient's current medical status and symptoms.\n\nI'll verify the allergy symptom progression. The records show a clear transition: three years ago, symptoms improved after relocating. Last spring, the patient remained symptom-free without medication. This year, symptoms recurred but quickly resolved after just three days of antihistamine use.\n\nThe gluten-free diet information reveals some nuanced details about the patient's dietary approach since 2023. While attempting a gluten-free lifestyle, the patient occasionally consumes bread, suggesting imperfect adherence to the strict dietary plan.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1442,
+      "completion_tokens": 984,
+      "total_tokens": 2426,
+      "cost": 0.0016134,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0016134,
+        "upstream_inference_prompt_cost": 0.0004326,
+        "upstream_inference_completions_cost": 0.0011808
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 482,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 11.391
+}

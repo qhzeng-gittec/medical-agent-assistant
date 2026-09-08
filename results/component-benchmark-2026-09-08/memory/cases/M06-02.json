@@ -1,0 +1,430 @@
+{
+  "case": {
+    "id": "M06-02",
+    "category": "按医嘱停用药物的时间线",
+    "turns": [
+      {
+        "user": "我从2022年冬天开始用阿托伐他汀降血脂，每周复查一次。今年二月医生说我指标正常，让我二月底停掉，但我拖到三月初才停。",
+        "assistant": "好的，已记录您三月初实际停用阿托伐他汀的情况。"
+      },
+      {
+        "user": "更正一下，其实是二月二十八号停的，那天刚好是医生建议的最后期限，我没拖延，只是记错了日子。",
+        "assistant": "了解，已将停药日期更新为二月二十八号。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "Q1",
+        "query": "患者最终在什么时间点结束了阿托伐他汀的使用？",
+        "expected_facts": [
+          "患者在2023年2月28日结束阿托伐他汀的使用"
+        ],
+        "required_groups": [
+          [
+            "2月28日",
+            "二月二十八号"
+          ],
+          [
+            "结束使用",
+            "停用"
+          ],
+          [
+            "阿托伐他汀"
+          ]
+        ]
+      },
+      {
+        "id": "Q2",
+        "query": "患者是否在医生建议的截止日期前完成了停药？",
+        "expected_facts": [
+          "患者在医生建议的2月底截止日期当天（2月28日）完成停药"
+        ],
+        "required_groups": [
+          [
+            "2月底",
+            "二月底"
+          ],
+          [
+            "2月28日",
+            "二月二十八号"
+          ],
+          [
+            "完成停药"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M06-02",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860779-f8xQxUw64FZHnhTCNc6f",
+      "usage": {
+        "prompt_tokens": 71,
+        "total_tokens": 71,
+        "cost": 7.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.1e-07,
+          "upstream_inference_prompt_cost": 7.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860782-kAokrbqnML70YV0Pkiu6",
+      "usage": {
+        "prompt_tokens": 8368,
+        "completion_tokens": 349,
+        "total_tokens": 8717,
+        "cost": 0.00308308,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00308308,
+          "upstream_inference_prompt_cost": 0.00217568,
+          "upstream_inference_completions_cost": 0.0009074
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 284,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户从2022年冬天开始服用阿托伐他汀降血脂，每周复查一次。2026年2月医生告知指标正常，建议二月底停药，但用户实际拖到三月初才停用。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860788-PYL5j7oRcz9j58u5TdpP",
+      "usage": {
+        "prompt_tokens": 52,
+        "total_tokens": 52,
+        "cost": 5.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.2e-07,
+          "upstream_inference_prompt_cost": 5.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860789-6uQ9ZynlXahycd0xzdn7",
+      "usage": {
+        "prompt_tokens": 52,
+        "total_tokens": 52,
+        "cost": 5.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.2e-07,
+          "upstream_inference_prompt_cost": 5.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860790-4mrzTTVg1adfYOwYXy7T",
+      "usage": {
+        "prompt_tokens": 8475,
+        "completion_tokens": 193,
+        "total_tokens": 8668,
+        "cost": 0.0030057,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0030057,
+          "upstream_inference_prompt_cost": 0.0025425,
+          "upstream_inference_completions_cost": 0.0004632
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 96,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户更正阿托伐他汀停药日期为2026年2月28日，当天是医生建议的最后期限，并非拖延，之前记错了日子。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860799-VuAIOT1bGBpRmHkfGSsJ",
+      "usage": {
+        "prompt_tokens": 40,
+        "total_tokens": 40,
+        "cost": 4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4e-07,
+          "upstream_inference_prompt_cost": 4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860801-JRHGVGRHpULcdrMbSlXY",
+      "usage": {
+        "prompt_tokens": 16,
+        "total_tokens": 16,
+        "cost": 1.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.6e-07,
+          "upstream_inference_prompt_cost": 1.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860802-Itg5ckfxmsv9KelqECOh",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 14,
+        "cost": 1.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.4e-07,
+          "upstream_inference_prompt_cost": 1.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860803-LSSLBNQTKjo9vqgik7ZO",
+      "usage": {
+        "prompt_tokens": 26,
+        "total_tokens": 26,
+        "cost": 2.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.6e-07,
+          "upstream_inference_prompt_cost": 2.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860804-Hve7av4NkSuCpDSzYgHJ",
+      "usage": {
+        "prompt_tokens": 16,
+        "total_tokens": 16,
+        "cost": 1.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.6e-07,
+          "upstream_inference_prompt_cost": 1.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860805-hO0yz3x8QstsNtl4MDGS",
+      "usage": {
+        "prompt_tokens": 16,
+        "total_tokens": 16,
+        "cost": 1.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.6e-07,
+          "upstream_inference_prompt_cost": 1.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "Q1",
+        "query": "患者最终在什么时间点结束了阿托伐他汀的使用？",
+        "expected_facts": [
+          "患者在2023年2月28日结束阿托伐他汀的使用"
+        ],
+        "required_groups": [
+          [
+            "2月28日",
+            "二月二十八号"
+          ],
+          [
+            "结束使用",
+            "停用"
+          ],
+          [
+            "阿托伐他汀"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "58d5897d-34d7-48c1-a522-a535a6826251",
+          "content": "用户从2022年冬天开始服用阿托伐他汀降血脂，每周复查一次。2026年2月医生告知指标正常，建议二月底停药，但用户实际拖到三月初才停用。",
+          "score": 0.8411117072737757,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:46:18.284154+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M06-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:46:28.230491+00:00"
+        },
+        {
+          "memory_id": "16ede1e1-df77-4a44-9ce3-df3eda51397b",
+          "content": "用户更正阿托伐他汀停药日期为2026年2月28日，当天是医生建议的最后期限，并非拖延，之前记错了日子。",
+          "score": 0.8128096202997763,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:46:28.255970+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M06-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:46:39.902929+00:00"
+        }
+      ],
+      "seconds": 2.015
+    },
+    {
+      "query": {
+        "id": "Q2",
+        "query": "患者是否在医生建议的截止日期前完成了停药？",
+        "expected_facts": [
+          "患者在医生建议的2月底截止日期当天（2月28日）完成停药"
+        ],
+        "required_groups": [
+          [
+            "2月底",
+            "二月底"
+          ],
+          [
+            "2月28日",
+            "二月二十八号"
+          ],
+          [
+            "完成停药"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "16ede1e1-df77-4a44-9ce3-df3eda51397b",
+          "content": "用户更正阿托伐他汀停药日期为2026年2月28日，当天是医生建议的最后期限，并非拖延，之前记错了日子。",
+          "score": 0.771848758960544,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:46:28.255970+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M06-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:46:39.902929+00:00"
+        },
+        {
+          "memory_id": "58d5897d-34d7-48c1-a522-a535a6826251",
+          "content": "用户从2022年冬天开始服用阿托伐他汀降血脂，每周复查一次。2026年2月医生告知指标正常，建议二月底停药，但用户实际拖到三月初才停用。",
+          "score": 0.6722184830182415,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:46:18.284154+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M06-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:46:28.230491+00:00"
+        }
+      ],
+      "seconds": 0.657
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者最终在什么时间点结束了阿托伐他汀的使用？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "16ede1e1-df77-4a44-9ce3-df3eda51397b",
+        "content": "用户更正阿托伐他汀停药日期为2026年2月28日，当天是医生建议的最后期限，并非拖延，之前记错了日子。",
+        "score": 0.7740395543277554,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:46:28.255970+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M06-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:46:39.902929+00:00"
+      },
+      {
+        "memory_id": "58d5897d-34d7-48c1-a522-a535a6826251",
+        "content": "用户从2022年冬天开始服用阿托伐他汀降血脂，每周复查一次。2026年2月医生告知指标正常，建议二月底停药，但用户实际拖到三月初才停用。",
+        "score": 0.7563449211895943,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:46:18.284154+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M06-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:46:28.230491+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 27.797
+}

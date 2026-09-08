@@ -1,0 +1,428 @@
+{
+  "case": {
+    "id": "M07-05",
+    "category": "预约复查与检查准备安排",
+    "turns": [
+      {
+        "user": "我想约本周四下午的乳腺超声复查。上次检查发现有个小结节，这次需要对比影像。我周四下午两点半到，请问需要携带之前的胶片还是电子版报告就行？",
+        "assistant": "好的，已记录您本周四下午的乳腺超声复查预约及关于携带影像资料的询问。"
+      },
+      {
+        "user": "更正一下，我手头只有上次的纸质报告单，没有胶片了。那我周四下午两点半到院后，能否先调取系统里的历史影像，还是必须回家找胶片？",
+        "assistant": "收到，已更新您仅有纸质报告无胶片的情况，以及对调取历史影像的询问。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "患者计划何时进行乳腺超声复查？",
+        "expected_facts": [
+          "患者计划在本周四下午进行乳腺超声复查。"
+        ],
+        "required_groups": [
+          [
+            "本周四下午",
+            "周四下午"
+          ],
+          [
+            "乳腺超声",
+            "乳房B超"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "患者目前持有哪类过往检查资料，并计划何时到达医院？",
+        "expected_facts": [
+          "患者目前只有上次的纸质报告单，没有胶片。",
+          "患者计划于周四下午两点半到达医院。"
+        ],
+        "required_groups": [
+          [
+            "纸质报告单",
+            "报告单"
+          ],
+          [
+            "没有胶片",
+            "无胶片"
+          ],
+          [
+            "周四下午两点半",
+            "两点半到院"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M07-05",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860950-8iesZNoYKboO4id96K8C",
+      "usage": {
+        "prompt_tokens": 76,
+        "total_tokens": 76,
+        "cost": 7.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.6e-07,
+          "upstream_inference_prompt_cost": 7.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860952-zJ3gpZOtl5fegjHx0QQ1",
+      "usage": {
+        "prompt_tokens": 8371,
+        "completion_tokens": 497,
+        "total_tokens": 8868,
+        "cost": 0.0037041,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0037041,
+          "upstream_inference_prompt_cost": 0.0025113,
+          "upstream_inference_completions_cost": 0.0011928
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 404,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户想预约2026年9月10日（周四）下午两点半的乳腺超声复查，上次检查发现有个小结节，这次需要对比影像。用户询问是否需要携带之前的胶片还是电子版报告就行。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860969-1P7ekhM7vEwySHkpUaDB",
+      "usage": {
+        "prompt_tokens": 53,
+        "total_tokens": 53,
+        "cost": 5.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.3e-07,
+          "upstream_inference_prompt_cost": 5.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860969-8xADaVF94LM35VBAz5nz",
+      "usage": {
+        "prompt_tokens": 75,
+        "total_tokens": 75,
+        "cost": 7.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.5e-07,
+          "upstream_inference_prompt_cost": 7.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860970-PQx2cygx7mtBsEwbyPyp",
+      "usage": {
+        "prompt_tokens": 8498,
+        "completion_tokens": 831,
+        "total_tokens": 9329,
+        "cost": 0.00408942,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00408942,
+          "upstream_inference_prompt_cost": 0.00229446,
+          "upstream_inference_completions_cost": 0.00179496
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 736,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户更正说明手头只有上次的纸质报告单，没有胶片了。用户询问周四下午两点半到院后能否先调取系统里的历史影像，还是必须回家找胶片。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860986-ysuQVBYLFjwfxAoLuOkF",
+      "usage": {
+        "prompt_tokens": 44,
+        "total_tokens": 44,
+        "cost": 4.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.4e-07,
+          "upstream_inference_prompt_cost": 4.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860988-9taT85cGPadBR6B91hqC",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860989-NiV8k6tAeVaH73DJePoT",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860989-Bt1LI3bqbPhiXn3XoMCf",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860991-NSmNOfk79oqq35qrdGhE",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860991-f02TpCTqVExY2RBnBtlC",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "患者计划何时进行乳腺超声复查？",
+        "expected_facts": [
+          "患者计划在本周四下午进行乳腺超声复查。"
+        ],
+        "required_groups": [
+          [
+            "本周四下午",
+            "周四下午"
+          ],
+          [
+            "乳腺超声",
+            "乳房B超"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "ec5eb835-72cc-48f3-838f-d34548008b66",
+          "content": "用户想预约2026年9月10日（周四）下午两点半的乳腺超声复查，上次检查发现有个小结节，这次需要对比影像。用户询问是否需要携带之前的胶片还是电子版报告就行。",
+          "score": 0.7714475600991906,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:09.651610+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:49:28.802353+00:00"
+        },
+        {
+          "memory_id": "393b24e7-e94c-4777-92cd-2713f0887eb9",
+          "content": "用户更正说明手头只有上次的纸质报告单，没有胶片了。用户询问周四下午两点半到院后能否先调取系统里的历史影像，还是必须回家找胶片。",
+          "score": 0.5833411132188182,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:28.833361+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:49:45.826773+00:00"
+        }
+      ],
+      "seconds": 2.265
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "患者目前持有哪类过往检查资料，并计划何时到达医院？",
+        "expected_facts": [
+          "患者目前只有上次的纸质报告单，没有胶片。",
+          "患者计划于周四下午两点半到达医院。"
+        ],
+        "required_groups": [
+          [
+            "纸质报告单",
+            "报告单"
+          ],
+          [
+            "没有胶片",
+            "无胶片"
+          ],
+          [
+            "周四下午两点半",
+            "两点半到院"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "393b24e7-e94c-4777-92cd-2713f0887eb9",
+          "content": "用户更正说明手头只有上次的纸质报告单，没有胶片了。用户询问周四下午两点半到院后能否先调取系统里的历史影像，还是必须回家找胶片。",
+          "score": 0.6619537798645281,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:28.833361+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:49:45.826773+00:00"
+        },
+        {
+          "memory_id": "ec5eb835-72cc-48f3-838f-d34548008b66",
+          "content": "用户想预约2026年9月10日（周四）下午两点半的乳腺超声复查，上次检查发现有个小结节，这次需要对比影像。用户询问是否需要携带之前的胶片还是电子版报告就行。",
+          "score": 0.6189518058756017,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:09.651610+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:49:28.802353+00:00"
+        }
+      ],
+      "seconds": 0.782
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者计划何时进行乳腺超声复查？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "ec5eb835-72cc-48f3-838f-d34548008b66",
+        "content": "用户想预约2026年9月10日（周四）下午两点半的乳腺超声复查，上次检查发现有个小结节，这次需要对比影像。用户询问是否需要携带之前的胶片还是电子版报告就行。",
+        "score": 0.8083272281879977,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:49:09.651610+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M07-05",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:49:28.802353+00:00"
+      },
+      {
+        "memory_id": "393b24e7-e94c-4777-92cd-2713f0887eb9",
+        "content": "用户更正说明手头只有上次的纸质报告单，没有胶片了。用户询问周四下午两点半到院后能否先调取系统里的历史影像，还是必须回家找胶片。",
+        "score": 0.6632746324725695,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:49:28.833361+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M07-05",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:49:45.826773+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 42.078
+}

@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Review synthetic memory retrieval labels against ONLY the supplied fictional dialogue.\nReturn JSON {\"reviews\":[{\"id\":scenario id,\"supported\":true/false,\"reason\":\"short reason\"}]} in input order.\nFor each scenario verify that EVERY query.expected_facts proposition is entailed by user messages, with\ncorrect speaker, negation, time and uncertainty; assistant suggestions are not patient facts.\nVerify that each query actually asks for those facts. Missing details or contradictions mean false.\nDo not assess medicine or add new facts. Independently assess the data, not the author."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"M01-01\", \"category\": \"工作作息与睡眠时间变化\", \"turns\": [{\"user\": \"我最近因为项目上线，连续三周每天只睡四个小时，早上六点就要到公司开会，晚上经常加班到凌晨两点才回家休息。\", \"assistant\": \"收到，已记录您近期因项目导致的睡眠减少情况。\"}, {\"user\": \"补充一下，上周四开始我已经调整回正常作息了，现在能保证每晚七点睡，早上八点起，不再熬夜加班了。\", \"assistant\": \"明白，已更新您从上周四开始的作息恢复记录。\"}], \"queries\": [{\"id\": \"q1\", \"query\": \"这位用户之前为了赶项目进度，具体保持了多久的短睡眠状态？\", \"expected_facts\": [\"该用户在项目上线期间连续三周每天仅睡四小时。\", \"该用户在此期间早上六点上班，晚上常加班至凌晨两点。\"], \"required_groups\": [[\"连续三周\", \"整整三周\"], [\"每天只睡四个小时\", \"每日仅睡四小时\"]]}, {\"id\": \"q2\", \"query\": \"用户是从什么时候开始恢复正常睡眠时间的？现在的作息是怎样的？\", \"expected_facts\": [\"该用户从上周四开始调整回正常作息。\", \"该用户目前每晚七点入睡，早上八点起床。\"], \"required_groups\": [[\"上周四\", \"上星期四\"], [\"每晚七点睡\", \"晚上七点睡觉\"], [\"早上八点起\", \"早晨八点起床\"]]}], \"split\": \"dev\", \"family_id\": \"M01-01\", \"synthetic\": true}, {\"id\": \"M01-02\", \"category\": \"工作作息与睡眠时间变化\", \"turns\": [{\"user\": \"上个月换班后，我被迫改成夜班，从晚上十点干到早上六点，导致白天完全睡不着，只能眯半小时。\", \"assistant\": \"好的，已记录您上个月转为夜班后的睡眠困扰。\"}, {\"user\": \"更正一下，其实我是这个月一号才正式转夜班的，而且昨天刚申请调回白班，今天已经开始尝试早睡早起了。\", \"assistant\": \"收到，已修正您的夜班起始时间并记录今日调回白班的计划。\"}], \"queries\": [{\"id\": \"q1\", \"query\": \"用户实际是从哪一天开始执行夜班工作的？当时的睡眠状况如何？\", \"expected_facts\": [\"该用户从本月一号正式转为夜班工作。\", \"该用户当时白天无法入睡，仅能小憩半小时。\"], \"required_groups\": [[\"这个月一号\", \"本月一日\"], [\"白天完全睡不着\", \"白天无法入睡\"], [\"只能眯半小时\", \"仅能小憩半小时\"]]}, {\"id\": \"q2\", \"query\": \"用户何时决定结束夜班生活？目前的行动是什么？\", \"expected_facts\": [\"该用户于昨天申请调回白班。\", \"该用户今天已开始尝试早睡早起。\"], \"required_groups\": [[\"昨天\", \"昨日\"], [\"调回白班\", \"转回白班\"], [\"尝试早睡早起\", \"开始早睡早起\"]]}], \"split\": \"test\", \"family_id\": \"M01-02\", \"synthetic\": true}, {\"id\": \"M01-03\", \"category\": \"工作作息与睡眠时间变化\", \"turns\": [{\"user\": \"去年年底为了赶年终报告，我连续半个月每天凌晨三点才睡，早上七点就得爬起来去打印资料。\", \"assistant\": \"了解，已记录您去年年底因赶报告而长期晚睡的情况。\"}, {\"user\": \"不对，那是前年十二月的事，去年年底我其实已经休假了，并没有那么累，只是偶尔晚睡而已。\", \"assistant\": \"明白，已将相关事件时间修正为前年十二月。\"}], \"queries\": [{\"id\": \"q1\", \"query\": \"用户提到曾因赶报告而严重缺觉，这件事具体发生在哪一年？持续了多久？\", \"expected_facts\": [\"该事件发生在前年十二月。\", \"该用户当时连续半个月每天凌晨三点才睡。\"], \"required_groups\": [[\"前年十二月\", \"两年前十二月\"], [\"连续半个月\", \"整整半个月\"], [\"凌晨三点才睡\", \"半夜三点入睡\"]]}, {\"id\": \"q2\", \"query\": \"关于去年年底的作息，用户后来是如何澄清的？\", \"expected_facts\": [\"该用户去年年底实际上处于休假状态。\", \"该用户去年年底并未严重缺觉，只是偶尔晚睡。\"], \"required_groups\": [[\"去年年底\", \"去年年末\"], [\"休假了\", \"在休假\"], [\"偶尔晚睡\", \"有时睡得晚\"]]}], \"split\": \"test\", \"family_id\": \"M01-03\", \"synthetic\": true}, {\"id\": \"M01-04\", \"category\": \"工作作息与睡眠时间变化\", \"turns\": [{\"user\": \"自从接手新部门，我每周二和周四都要开跨国会议，必须凌晨一点起床准备，导致这两天几乎整夜失眠。\", \"assistant\": \"收到，已记录您因跨国会议导致的特定日期失眠问题。\"}, {\"user\": \"补充说明，下个月起会议时间会调整到下午，所以我预计下周开始就能恢复正常夜间睡眠了。\", \"assistant\": \"好的，已备注您下个月会议时间变更及预期睡眠改善。\"}], \"queries\": [{\"id\": \"q1\", \"query\": \"用户目前哪些天需要凌晨起床？这造成了什么后果？\", \"expected_facts\": [\"该用户每周二和周四需凌晨一点起床准备会议。\", \"该用户在这两天几乎整夜失眠。\"], \"required_groups\": [[\"每周二和周四\", \"周二周四\"], [\"凌晨一点起床\", \"一点钟起床\"], [\"几乎整夜失眠\", \"整晚睡不着\"]]}, {\"id\": \"q2\", \"query\": \"用户的会议安排何时会有变动？这对睡眠有何影响？\", \"expected_facts\": [\"该用户的会议时间将于下个月调整为下午。\", \"该用户预计下周起可恢复正常夜间睡眠。\"], \"required_groups\": [[\"下个月\", \"次月\"], [\"调整为下午\", \"改到下午\"], [\"恢复正常夜间睡眠\", \"恢复晚上睡觉\"]]}], \"split\": \"test\", \"family_id\": \"M01-04\", \"synthetic\": true}, {\"id\": \"M01-05\", \"category\": \"工作作息与睡眠时间变化\", \"turns\": [{\"user\": \"三个月前我开始远程办公，结果在家反而更乱了，经常忙到深夜两三点，早上九点才勉强起床。\", \"assistant\": \"明白，已记录您远程办公初期作息混乱的情况。\"}, {\"user\": \"其实不是三个月前，是两个月前开始的，而且我现在已经制定了严格时间表，昨晚十一点就睡了。\", \"assistant\": \"收到，已修正开始时间并记录您昨晚的早睡行为。\"}], \"queries\": [{\"id\": \"q1\", \"query\": \"用户实际是什么时候开始远程办公的？当时的作息有什么特点？\", \"expected_facts\": [\"该用户于两个月前开始远程办公。\", \"该用户当时常忙至深夜两三点，早上九点才起床。\"], \"required_groups\": [[\"两个月前\", \"两月前\"], [\"深夜两三点\", \"凌晨两三点\"], [\"早上九点才起床\", \"九点才醒\"]]}, {\"id\": \"q2\", \"query\": \"用户最近采取了什么措施来改善作息？效果如何？\", \"expected_facts\": [\"该用户已制定严格的时间表。\", \"该用户昨晚十一点就已入睡。\"], \"required_groups\": [[\"制定了严格时间表\", \"有了严格计划\"], [\"昨晚十一点就睡了\", \"昨夜十一点入睡\"]]}], \"split\": \"test\", \"family_id\": \"M01-05\", \"synthetic\": true}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 3500,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788859263-dkRTB1pp1s1kOkq2BNnJ",
+    "object": "chat.completion",
+    "created": 1788859263,
+    "model": "minimax/minimax-m2.5",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"reviews\":[{\"id\":\"M01-01\",\"supported\":true,\"reason\":\"All expected facts are directly stated in user messages: 连续三周每天只睡四小时, 早上六点开会, 晚上加班到凌晨两点; 上周四开始恢复正常作息, 每晚七点睡早上八点起.\"},{\"id\":\"M01-02\",\"supported\":true,\"reason\":\"All expected facts are directly stated: 本月一号转夜班, 白天只能眯半小时; 昨天申请调回白班, 今天开始早睡早起.\"},{\"id\":\"M01-03\",\"supported\":true,\"reason\":\"All expected facts are directly stated: 事件发生在前年十二月, 连续半个月每天凌晨三点睡; 去年年底休假, 偶尔晚睡.\"},{\"id\":\"M01-04\",\"supported\":true,\"reason\":\"All expected facts are directly stated: 每周二和周四凌晨一点起床, 那两天几乎整夜失眠; 下个月会议调整到下午, 下周开始恢复正常睡眠.\"},{\"id\":\"M01-05\",\"supported\":true,\"reason\":\"All expected facts are directly stated: 两个前开始远程办公, 当时忙到深夜两三点早上九点起床; 制定了严格时间表, 昨晚十一点入睡.\"}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each scenario to verify if the synthetic memory retrieval labels are correct based on the dialogue.\n\n**M01-01:**\n- User says: \"连续三周每天只睡四个小时，早上六点就要到公司开会，晚上经常加班到凌晨两点才回家休息\"\n- Then: \"上周四开始我已经调整回正常作息了，现在能保证每晚七点睡，早上八点起\"\n\nQuery q1: \"这位用户之前为了赶项目进度，具体保持了多久的短睡眠状态？\"\n- Expected: \"该用户在项目上线期间连续三周每天仅睡四小时\" - This is directly supported by \"连续三周每天只睡四个小时\"\n- Expected: \"该用户在此期间早上六点上班，晚上常加班至凌晨两点\" - This is supported by \"早上六点就要到公司开会\" and \"晚上经常加班到凌晨两点才回家休息\"\n- **SUPPORTED: TRUE**\n\nQuery q2: \"用户是从什么时候开始恢复正常睡眠时间的？现在的作息是怎样的？\"\n- Expected: \"该用户从上周四开始调整回正常作息\" - Supported by \"上周四开始我已经调整回正常作息了\"\n- Expected: \"该用户目前每晚七点入睡，早上八点起床\" - Supported by \"每晚七点睡，早上八点起\"\n- **SUPPORTED: TRUE**\n\n**M01-02:**\n- User says: \"上个月换班后，我被迫改成夜班，从晚上十点干到早上六点，导致白天完全睡不着，只能眯半小时\"\n- Then: \"更正一下，其实我是这个月一号才正式转夜班的，而且昨天刚申请调回白班，今天已经开始尝试早睡早起了\"\n\nQuery q1: \"用户实际是从哪一天开始执行夜班工作的？当时的睡眠状况如何？\"\n- Expected: \"该用户从本月一号正式转为夜班工作\" - Supported by \"这个月一号才正式转夜班\"\n\n\n- Expected: \"该用户当时白天无法入睡，仅能小憩半小时\" - Supported by \"白天完全睡不着，只能眯半小时\"\n- **SUPPORTED: TRUE**\n\nQuery q2: \"用户何时决定结束夜班生活？目前的行动是什么？\"\n- Expected: \"该用户于昨天申请调回白班\" - Supported by \"昨天刚申请调回白班\"\n- Expected: \"该用户今天已开始尝试早睡早起\" - Supported by \"今天已经开始尝试早睡早起了\"\n- **SUPPORTED: TRUE**\n\nThe scenario confirms the user's night shift transition and subsequent efforts to return to a normal sleep schedule. The details align precisely with the query expectations, showing consistent information about the work schedule changes and sleep patterns.\n\n**M01-03:**\n- User says: \"去年年底为了赶年终报告，我连续半个月每天凌晨三点才睡，早上七点就得爬起来去打印资料\"\n- Then: \"不对，那是前年十二月的事，去年年底我其实已经休假了，并没有那么累，只是偶尔晚睡而已\"\n\nQuery q1: \"用户提到曾因赶报告而严重缺觉，这件事具体发生在哪一年？持续了多久？\"\n- Expected: \"该事件发生在前年十二月\" - Supported by \"那是前年十二月的事\"\n- Expected: \"该用户当时连续半个月每天凌晨三点才睡\" - Supported by \"连续半个月每天凌晨三点\n\n才睡\"\n- **SUPPORTED: TRUE**\n\nQuery q2: \"关于去年年底的作息，用户后来是如何澄清的？\"\n- Expected: \"该用户去年年底实际上处于休假状态\" - Supported by \"去年年底我其实已经休假了\"\n- Expected: \"该用户去年年底并未严重缺觉，只是偶尔晚睡\" - Supported by \"并没有那么累，只是偶尔晚睡而已\"\n- **SUPPORTED: TRUE**\n\n**M01-04:**\n- User says: \"自从接手新部门，我每周二和周四都要开跨国会议，必须凌晨一点起床准备，导致这两天几乎整夜失眠\"\n- Then: \"补充说明，下个月起会议时间会调整到下午，所以我预计下周开始就能恢复正常夜间睡眠了\"\n\nQuery q1: \"用户目前哪些天需要凌晨起床？这造成了什么后果？\"\n- Expected: \"该用户每周二和周四需凌晨一点起床准备会议\" - Supported by \"每周二和周四都要开跨国会议，必须凌晨一点起床准备\"\n- Expected: \"该用户在这两天几乎整夜失眠\" - Supported by \"导致这两天几乎整夜失眠\"\n- **SUPPORTED: TRUE**\n\nQuery q2: \"用户的会议安排何时会有变动？这对睡眠有何影响？\"\n- Expected: \"该用户的会议时间将于下个月调整为下午\" - Supported by \"下个月起会议时间会调整到下午\"\n- Expected: \"该用户预计下周起可恢复正常夜间睡眠\" - Supported by \"预计下周开始就能恢复正常夜间睡眠了\"\n- **SUPPORTED: TRUE**\n\n**M01-05:**\n- User says: \"三个月前我开始远程办公，结果在家反而更乱了，经常忙到深夜两三点，早上九点才勉强起床\"\n- Then: \"其实不是三个月前，是两个月前开始的，而且我现在已经制定了严格时间表，昨晚十一点就睡了\"\n\nQuery q1: \"用户实际是什么时候开始远程办公的？当时的作息有什么特点？\"\n- Expected: \"该用户于两个月前开始远程办公\" - Supported by \"是两个月前开始的\"\n- Expected: \"该用户当时常忙至深夜两三点，早上九点才起床\" - Supported by \"经常忙到深夜两三点，早上九点才勉强起床\"\n- **SUPPORTED: TRUE**\n\nQuery q2: \"用户最近采取了什么措施来改善作息？效果如何？\"\n- Expected: \"该用户已制定严格的时间表\" - Supported by \"已经制定了严格时间表\"\n- Expected: \"该用户昨晚十一点就已入睡\" - Supported by \"昨晚十一点就睡了\"\n- **SUPPORTED: TRUE**\n\nAll scenarios verified successfully. Each query's expected facts are directly supported by the user's statements in the dialogue.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each scenario to verify if the synthetic memory retrieval labels are correct based on the dialogue.\n\n**M01-01:**\n- User says: \"连续三周每天只睡四个小时，早上六点就要到公司开会，晚上经常加班到凌晨两点才回家休息\"\n- Then: \"上周四开始我已经调整回正常作息了，现在能保证每晚七点睡，早上八点起\"\n\nQuery q1: \"这位用户之前为了赶项目进度，具体保持了多久的短睡眠状态？\"\n- Expected: \"该用户在项目上线期间连续三周每天仅睡四小时\" - This is directly supported by \"连续三周每天只睡四个小时\"\n- Expected: \"该用户在此期间早上六点上班，晚上常加班至凌晨两点\" - This is supported by \"早上六点就要到公司开会\" and \"晚上经常加班到凌晨两点才回家休息\"\n- **SUPPORTED: TRUE**\n\nQuery q2: \"用户是从什么时候开始恢复正常睡眠时间的？现在的作息是怎样的？\"\n- Expected: \"该用户从上周四开始调整回正常作息\" - Supported by \"上周四开始我已经调整回正常作息了\"\n- Expected: \"该用户目前每晚七点入睡，早上八点起床\" - Supported by \"每晚七点睡，早上八点起\"\n- **SUPPORTED: TRUE**\n\n**M01-02:**\n- User says: \"上个月换班后，我被迫改成夜班，从晚上十点干到早上六点，导致白天完全睡不着，只能眯半小时\"\n- Then: \"更正一下，其实我是这个月一号才正式转夜班的，而且昨天刚申请调回白班，今天已经开始尝试早睡早起了\"\n\nQuery q1: \"用户实际是从哪一天开始执行夜班工作的？当时的睡眠状况如何？\"\n- Expected: \"该用户从本月一号正式转为夜班工作\" - Supported by \"这个月一号才正式转夜班\"\n\n\n- Expected: \"该用户当时白天无法入睡，仅能小憩半小时\" - Supported by \"白天完全睡不着，只能眯半小时\"\n- **SUPPORTED: TRUE**\n\nQuery q2: \"用户何时决定结束夜班生活？目前的行动是什么？\"\n- Expected: \"该用户于昨天申请调回白班\" - Supported by \"昨天刚申请调回白班\"\n- Expected: \"该用户今天已开始尝试早睡早起\" - Supported by \"今天已经开始尝试早睡早起了\"\n- **SUPPORTED: TRUE**\n\nThe scenario confirms the user's night shift transition and subsequent efforts to return to a normal sleep schedule. The details align precisely with the query expectations, showing consistent information about the work schedule changes and sleep patterns.\n\n**M01-03:**\n- User says: \"去年年底为了赶年终报告，我连续半个月每天凌晨三点才睡，早上七点就得爬起来去打印资料\"\n- Then: \"不对，那是前年十二月的事，去年年底我其实已经休假了，并没有那么累，只是偶尔晚睡而已\"\n\nQuery q1: \"用户提到曾因赶报告而严重缺觉，这件事具体发生在哪一年？持续了多久？\"\n- Expected: \"该事件发生在前年十二月\" - Supported by \"那是前年十二月的事\"\n- Expected: \"该用户当时连续半个月每天凌晨三点才睡\" - Supported by \"连续半个月每天凌晨三点\n\n才睡\"\n- **SUPPORTED: TRUE**\n\nQuery q2: \"关于去年年底的作息，用户后来是如何澄清的？\"\n- Expected: \"该用户去年年底实际上处于休假状态\" - Supported by \"去年年底我其实已经休假了\"\n- Expected: \"该用户去年年底并未严重缺觉，只是偶尔晚睡\" - Supported by \"并没有那么累，只是偶尔晚睡而已\"\n- **SUPPORTED: TRUE**\n\n**M01-04:**\n- User says: \"自从接手新部门，我每周二和周四都要开跨国会议，必须凌晨一点起床准备，导致这两天几乎整夜失眠\"\n- Then: \"补充说明，下个月起会议时间会调整到下午，所以我预计下周开始就能恢复正常夜间睡眠了\"\n\nQuery q1: \"用户目前哪些天需要凌晨起床？这造成了什么后果？\"\n- Expected: \"该用户每周二和周四需凌晨一点起床准备会议\" - Supported by \"每周二和周四都要开跨国会议，必须凌晨一点起床准备\"\n- Expected: \"该用户在这两天几乎整夜失眠\" - Supported by \"导致这两天几乎整夜失眠\"\n- **SUPPORTED: TRUE**\n\nQuery q2: \"用户的会议安排何时会有变动？这对睡眠有何影响？\"\n- Expected: \"该用户的会议时间将于下个月调整为下午\" - Supported by \"下个月起会议时间会调整到下午\"\n- Expected: \"该用户预计下周起可恢复正常夜间睡眠\" - Supported by \"预计下周开始就能恢复正常夜间睡眠了\"\n- **SUPPORTED: TRUE**\n\n**M01-05:**\n- User says: \"三个月前我开始远程办公，结果在家反而更乱了，经常忙到深夜两三点，早上九点才勉强起床\"\n- Then: \"其实不是三个月前，是两个月前开始的，而且我现在已经制定了严格时间表，昨晚十一点就睡了\"\n\nQuery q1: \"用户实际是什么时候开始远程办公的？当时的作息有什么特点？\"\n- Expected: \"该用户于两个月前开始远程办公\" - Supported by \"是两个月前开始的\"\n- Expected: \"该用户当时常忙至深夜两三点，早上九点才起床\" - Supported by \"经常忙到深夜两三点，早上九点才勉强起床\"\n- **SUPPORTED: TRUE**\n\nQuery q2: \"用户最近采取了什么措施来改善作息？效果如何？\"\n- Expected: \"该用户已制定严格的时间表\" - Supported by \"已经制定了严格时间表\"\n- Expected: \"该用户昨晚十一点就已入睡\" - Supported by \"昨晚十一点就睡了\"\n- **SUPPORTED: TRUE**\n\nAll scenarios verified successfully. Each query's expected facts are directly supported by the user's statements in the dialogue.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1751,
+      "completion_tokens": 1489,
+      "total_tokens": 3240,
+      "cost": 0.0023121,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0023121,
+        "upstream_inference_prompt_cost": 0.0005253,
+        "upstream_inference_completions_cost": 0.0017868
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 2020,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 24.328
+}

@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"6dd77b5f4667b0f88807\", \"query\": \"用户视力下降的真实原因是什么？\", \"expected_facts\": [\"用户视力下降是因为长时间看电脑导致近视加深。\", \"用户视力问题与青光眼无关。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户最近看东西模糊是因为长时间看电脑导致近视度数增加\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:03:12.577754+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户于2026年9月7日进行了眼压和视野检查，结果显示眼压正常、视野无缺损，医生排除了青光眼诊断，确认视力下降是由于近视加深所致\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:02:46.073521+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户以前每年体检眼压都是正常的\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:03:12.577754+00:00\"}]}, {\"id\": \"708d5676bd828c76126a\", \"query\": \"患者目前是否已确诊患有偏头痛？\", \"expected_facts\": [\"患者目前尚未确诊偏头痛。\", \"患者最近经常头痛，尤其是下午。\", \"患者家族有人有偏头痛病史。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户目前尚未确诊偏头痛，只是根据症状猜测，需要等MRI报告出来才能确认。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:45:04.739014+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户最近经常头痛，尤其是下午，持续了半个月。用户怀疑自己可能是偏头痛，因为家族里有人有偏头痛，想做脑部检查确认。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:44:52.970606+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户于2026年9月7日做了脑部MRI检查，目前正在等待影像报告。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:45:04.739014+00:00\"}]}, {\"id\": \"713b349f787b9423df67\", \"query\": \"患者维持嚼口香糖习惯的大致时长是多少？最初是为了什么目的？\", \"expected_facts\": [\"该患者嚼口香糖的习惯已持续约八年。\", \"该患者嚼口香糖是为了帮助集中注意力。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户从大学时期开始嚼口香糖，这个习惯持续了大约八年。最近改用无糖口香糖后，下巴酸痛的情况有所改善。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:57:51.803829+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户有嚼口香糖的习惯，几乎整天都在嚼，主要是薄荷味的。这帮助集中注意力，但有时候嚼太久下巴会酸痛。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:57:43.778406+00:00\"}]}, {\"id\": \"72086a9309c75f2b81b8\", \"query\": \"这位患者十年前确诊了什么头痛问题，当时医生开了什么药，他为什么没坚持吃？\", \"expected_facts\": [\"患者十年前开始有偏头痛困扰。\", \"医生当时开具了曲普坦类药物。\", \"患者因担心副作用仅断续服用过几次。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户今年四十二岁，从十年前开始有偏头痛困扰，医生曾开具曲普坦类药物，但因担心副作用只断续服用过几次，最近两年基本没再吃过\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:20.447035+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户三年前因工作压力大导致偏头痛发作频率明显增加\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:34.037121+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户三年前尝试针灸治疗偏头痛，效果不错，之后主要靠休息和针灸缓解，不再使用西药\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:34.037121+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862011-4i16xcFDo2uTj5lmKxxW",
+    "object": "chat.completion",
+    "created": 1788862011,
+    "model": "minimax/minimax-m2.5",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"6dd77b5f4667b0f88807\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"记忆明确指出长时间看电脑导致近视度数增加，且医生确认视力下降是近视加深所致。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"记忆明确显示医生排除了青光眼诊断，确认视力下降与青光眼无关。\"}]},{\"id\":\"708d5676bd828c76126a\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确表示用户目前尚未确诊偏头痛，需要等MRI报告确认。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"记忆明确指出用户最近经常头痛，尤其是下午，持续了半个月。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"记忆明确提到家族里有人有偏头痛病史。\"}]},{\"id\":\"713b349f787b9423df67\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确表示嚼口香糖习惯持续了大约八年。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"记忆明确表示嚼口香糖是为了帮助集中注意力。\"}]},{\"id\":\"72086a9309c75f2b81b8\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确指出从十年前开始有偏头痛困扰。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确指出医生曾开具曲普坦类药物。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确表示因担心副作用只断续服用过几次。\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item and determine whether the memories support the expected facts.\n\nItem 1: 6dd77b5f4667b0f88807\nQuery: 用户视力下降的真实原因是什么？\nExpected facts:\n1. 用户视力下降是因为长时间看电脑导致近视加深。\n2. 用户视力问题与青光眼无关。\n\nMemories:\n- m0: 用户最近看东西模糊是因为长时间看电脑导致近视度数增加\n- m1: 用户于2026年9月7日进行了眼压和视野检查，结果显示眼压正常、视野无缺损，医生排除了青光眼诊断，确认视力下降是由于近视加深所致\n- m2: 用户以前每年体检眼压都是正常的\n\nFact 1: 用户视力下降是因为长时间看电脑导致近视加深。\n- m0 explicitly states this - \"长时间看电脑导致近视度数增加\"\n- m1 also confirms \"视力下降是由于近视加深所致\"\n- Supported: true, evidence: m0, m1\n\nFact 2: 用户视力问题与青光眼无关。\n- m1 explicitly states \"医生排除了青光眼诊断\"\n- Supported: true, evidence: m1\n\nItem 2: 708d5676bd828c76126a\nQuery: 患者目前是否已确诊患有偏头痛？\nExpected facts:\n1. 患者目前尚未确诊偏头痛。\n2. 患者最近经常头痛，尤其是下午。\n3. 患者家族有人有偏头痛病史。\n\nMemories:\n- m0: 用户目前尚未确诊偏头痛，只是根据症状猜测，需要等MRI报告出来才能确认。\n- m1: 用户最近经常头痛，尤其是下午，持续了半个月。\n\n用户怀疑自己可能是偏头痛，因为家族里有人有偏头痛，想做脑部检查确认。\n- m2: 用户于2026年9月7日做了脑部MRI检查，目前正在等待影像报告。\n\nFact 1: 患者目前尚未确诊偏头痛。\n- m0 explicitly states \"用户目前尚未确诊偏头痛\"\n- Supported: true, evidence: m0\n\nFact 2: 患者最近经常头痛，尤其是下午。\n- m1 explicitly states \"用户最近经常头痛，尤其是下午\"\n- Supported: true, evidence: m1\n\nFact 3: 患者家族有人有偏头痛病史。\n- m1 explicitly states \"家族里有人有偏头痛\"\n- Supported: true, evidence: m1\n\nItem 3: 713b349f787b9423df67\nQuery: 患者维\n\n嚼口香糖习惯已持续约八年，最初目的是为了帮助集中注意力。通过回忆，用户从大学时期开始嚼口香糖，这个习惯已经保持了大约八年时间。这个习惯主要目的是帮助提升注意力。\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item and determine whether the memories support the expected facts.\n\nItem 1: 6dd77b5f4667b0f88807\nQuery: 用户视力下降的真实原因是什么？\nExpected facts:\n1. 用户视力下降是因为长时间看电脑导致近视加深。\n2. 用户视力问题与青光眼无关。\n\nMemories:\n- m0: 用户最近看东西模糊是因为长时间看电脑导致近视度数增加\n- m1: 用户于2026年9月7日进行了眼压和视野检查，结果显示眼压正常、视野无缺损，医生排除了青光眼诊断，确认视力下降是由于近视加深所致\n- m2: 用户以前每年体检眼压都是正常的\n\nFact 1: 用户视力下降是因为长时间看电脑导致近视加深。\n- m0 explicitly states this - \"长时间看电脑导致近视度数增加\"\n- m1 also confirms \"视力下降是由于近视加深所致\"\n- Supported: true, evidence: m0, m1\n\nFact 2: 用户视力问题与青光眼无关。\n- m1 explicitly states \"医生排除了青光眼诊断\"\n- Supported: true, evidence: m1\n\nItem 2: 708d5676bd828c76126a\nQuery: 患者目前是否已确诊患有偏头痛？\nExpected facts:\n1. 患者目前尚未确诊偏头痛。\n2. 患者最近经常头痛，尤其是下午。\n3. 患者家族有人有偏头痛病史。\n\nMemories:\n- m0: 用户目前尚未确诊偏头痛，只是根据症状猜测，需要等MRI报告出来才能确认。\n- m1: 用户最近经常头痛，尤其是下午，持续了半个月。\n\n用户怀疑自己可能是偏头痛，因为家族里有人有偏头痛，想做脑部检查确认。\n- m2: 用户于2026年9月7日做了脑部MRI检查，目前正在等待影像报告。\n\nFact 1: 患者目前尚未确诊偏头痛。\n- m0 explicitly states \"用户目前尚未确诊偏头痛\"\n- Supported: true, evidence: m0\n\nFact 2: 患者最近经常头痛，尤其是下午。\n- m1 explicitly states \"用户最近经常头痛，尤其是下午\"\n- Supported: true, evidence: m1\n\nFact 3: 患者家族有人有偏头痛病史。\n- m1 explicitly states \"家族里有人有偏头痛\"\n- Supported: true, evidence: m1\n\nItem 3: 713b349f787b9423df67\nQuery: 患者维\n\n嚼口香糖习惯已持续约八年，最初目的是为了帮助集中注意力。通过回忆，用户从大学时期开始嚼口香糖，这个习惯已经保持了大约八年时间。这个习惯主要目的是帮助提升注意力。\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1339,
+      "completion_tokens": 934,
+      "total_tokens": 2273,
+      "cost": 0.00146106,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00146106,
+        "upstream_inference_prompt_cost": 0.00034026,
+        "upstream_inference_completions_cost": 0.0011208
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 933,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 14.594
+}

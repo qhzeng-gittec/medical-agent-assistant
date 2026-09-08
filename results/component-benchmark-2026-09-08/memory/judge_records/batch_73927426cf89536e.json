@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"eb2da794678729a277c0\", \"query\": \"患者昨天进行了什么检查，结果状态怎样？\", \"expected_facts\": [\"患者昨天做了脑部MRI检查。\", \"影像报告尚未出来。\", \"需要等待报告确认诊断。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户于2026年9月7日做了脑部MRI检查，目前正在等待影像报告。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:45:04.739014+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户目前尚未确诊偏头痛，只是根据症状猜测，需要等MRI报告出来才能确认。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:45:04.739014+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户最近经常头痛，尤其是下午，持续了半个月。用户怀疑自己可能是偏头痛，因为家族里有人有偏头痛，想做脑部检查确认。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:44:52.970606+00:00\"}]}, {\"id\": \"ebdee2ddc0e304f866a9\", \"query\": \"用户是否被诊断为抑郁症？\", \"expected_facts\": [\"用户上个月心理评估结果显示无抑郁症。\", \"医生确认用户情绪稳定，未患抑郁症。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户家人一直担心用户有抑郁症\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:02:05.027932+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户的烦躁感从半个月前（约2026年8月24日）搬家时开始，现在东西已整理好，心情已平复很多，用户明确表示这与病理性抑郁完全不同\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:02:47.090272+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户于2026年8月前往心理科进行专业评估，结果显示情绪稳定，排除了抑郁症\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:02:05.027932+00:00\"}]}, {\"id\": \"ec08070cd940c28ae5c5\", \"query\": \"请说明患者搬家前后的居住地变化及实际完成时间。\", \"expected_facts\": [\"患者从老城区搬到了新区。\", \"实际搬家完成时间是去年年底。\", \"搬家目的是解决孩子上学问题。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户原计划两年前为孩子上学搬家，但因手续拖延，实际于2025年底才完成从老城区到新区学区房的搬迁。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:53:21.097561+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户为了孩子上学，于两年前（约2024年9月）从老城区搬到了新区的学区房，现在每天的通勤时间缩短了很多。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:52:05.751379+00:00\"}]}, {\"id\": \"ec9a3c2aac87c9b08cad\", \"query\": \"患者之前住在哪里，现在又住在哪里，这次变动发生在什么时候？\", \"expected_facts\": [\"患者之前居住在市中心。\", \"患者现在居住在城郊的新小区。\", \"这次变动发生在上周。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户上周（约2026年9月1日）正式完成了从市中心搬至新公司附近城郊的搬家，这次搬家是因为在新公司附近租到了这套房子\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:39:01.323419+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户上个月（约2026年8月）从喧闹的市中心搬到了城郊的安静小区，原因是那里离新工作地点更近且空气更好\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:37:51.382015+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862286-XGGNpyBmMibLQXsWg3DR",
+    "object": "chat.completion",
+    "created": 1788862286,
+    "model": "minimax/minimax-m2.5",
+    "provider": "Minimax",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"eb2da794678729a277c0\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states patient had brain MRI on September 7, 2026, which is yesterday relative to September 8 recording date.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states patient is currently waiting for imaging report, confirming report not yet available.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory states need to wait for MRI report to confirm diagnosis.\"}]},{\"id\":\"ebdee2ddc0e304f866a9\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m2\"}],\"reason\":\"Memory confirms professional evaluation in August 2026 showed stable emotion, ruling out depression.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m2\"}],\"reason\":\"Memory states evaluation results showed stable emotions, excluding depression, confirming no diagnosis.\"}]},{\"id\":\"ec08070cd940c28ae5c5\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"Both memories confirm relocation from old urban area to new district school district area.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states actual move completion at end of 2025, resolving the planned vs actual timing.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"Both memories indicate move purpose was for child's school attendance.\"}]},{\"id\":\"ec9a3c2aac87c9b08cad\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"Both memories confirm previous residence in city center before relocation.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"Both memories confirm current residence in suburban area away from city center.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states move completed around September 1, 2026, confirming timing was last week.\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item and determine if the expected facts are supported by the provided memories.\n\n**Item 1: eb2da794678729a277c0**\nQuery: \"患者昨天进行了什么检查，结果状态怎样？\"\nExpected facts:\n1. \"患者昨天做了脑部MRI检查。\" \n   - Memory m0: \"用户于2026年9月7日做了脑部MRI检查\" - This is consistent. However, the query says \"昨天\" (yesterday), and the memory says September 7. If we're on September 8 (recorded_at), then September 7 would be yesterday. So this is supported.\n   - Supported: true\n\n2. \"影像报告尚未出来。\"\n   - Memory m0: \"目前正在等待影像报告\" - This directly supports that the report hasn't come out yet.\n   - Supported: true\n\n3. \"需要等待报告确认诊断。\"\n   - Memory m1: \"需要等MRI报告出来才能确认\" - This supports waiting for the report to confirm diagnosis.\n   - Supported: true\n\n**Item 2: ebdee2ddc0e304f866a9**\nQuery: \"用户是否被诊断为抑郁症？\"\nExpected facts:\n1. \"用户上个月心理评估结果显示无抑郁症。\"\n   - Memory m2: \"用户于2026年8月前往心理科进行专业评估，结果显示情绪稳定，排除了抑郁症\" - This directly supports that the evaluation showed no depression. \"上个月\" (last month) would be approximately August, and the recording is September 8, so this is consistent.\n   - Supported: true\n\n2. \"医生确认用户情绪稳定，未患抑郁症。\"\n   - Memory m2: \"结果显示情绪稳定，排除了抑郁症\" - This supports that the doctor confirmed stable emotion and no depression.\n   - Supported: true\n\n**Item 3: ec08070cd940c28ae5c5**\nQuery: \"请说明患者搬家前后的居住地变化及实际完成时间。\"\nExpected facts:\n\n\nI'll verify the memory details about the relocation. The memories confirm the move from an old urban area to a new district's school district, with actual completion at the end of 2025. The primary motivation was addressing the child's educational needs. Each expected fact finds strong support in the provided memory records.\n\nThe move appears strategically planned, addressing the family's core requirement of ensuring better educational opportunities for their child. The timeline aligns precisely with the stated objectives.\n\nThe memories corroborate the specific details: relocating from the city center to a suburban residential area, with the move completed around September 1, 2026. This recent transition was prompted by the user's new job location.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item and determine if the expected facts are supported by the provided memories.\n\n**Item 1: eb2da794678729a277c0**\nQuery: \"患者昨天进行了什么检查，结果状态怎样？\"\nExpected facts:\n1. \"患者昨天做了脑部MRI检查。\" \n   - Memory m0: \"用户于2026年9月7日做了脑部MRI检查\" - This is consistent. However, the query says \"昨天\" (yesterday), and the memory says September 7. If we're on September 8 (recorded_at), then September 7 would be yesterday. So this is supported.\n   - Supported: true\n\n2. \"影像报告尚未出来。\"\n   - Memory m0: \"目前正在等待影像报告\" - This directly supports that the report hasn't come out yet.\n   - Supported: true\n\n3. \"需要等待报告确认诊断。\"\n   - Memory m1: \"需要等MRI报告出来才能确认\" - This supports waiting for the report to confirm diagnosis.\n   - Supported: true\n\n**Item 2: ebdee2ddc0e304f866a9**\nQuery: \"用户是否被诊断为抑郁症？\"\nExpected facts:\n1. \"用户上个月心理评估结果显示无抑郁症。\"\n   - Memory m2: \"用户于2026年8月前往心理科进行专业评估，结果显示情绪稳定，排除了抑郁症\" - This directly supports that the evaluation showed no depression. \"上个月\" (last month) would be approximately August, and the recording is September 8, so this is consistent.\n   - Supported: true\n\n2. \"医生确认用户情绪稳定，未患抑郁症。\"\n   - Memory m2: \"结果显示情绪稳定，排除了抑郁症\" - This supports that the doctor confirmed stable emotion and no depression.\n   - Supported: true\n\n**Item 3: ec08070cd940c28ae5c5**\nQuery: \"请说明患者搬家前后的居住地变化及实际完成时间。\"\nExpected facts:\n\n\nI'll verify the memory details about the relocation. The memories confirm the move from an old urban area to a new district's school district, with actual completion at the end of 2025. The primary motivation was addressing the child's educational needs. Each expected fact finds strong support in the provided memory records.\n\nThe move appears strategically planned, addressing the family's core requirement of ensuring better educational opportunities for their child. The timeline aligns precisely with the stated objectives.\n\nThe memories corroborate the specific details: relocating from the city center to a suburban residential area, with the move completed around September 1, 2026. This recent transition was prompted by the user's new job location.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1268,
+      "completion_tokens": 1011,
+      "total_tokens": 2279,
+      "cost": 0.0015936,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0015936,
+        "upstream_inference_prompt_cost": 0.0003804,
+        "upstream_inference_completions_cost": 0.0012132
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 551,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 11.922
+}

@@ -1,0 +1,559 @@
+{
+  "case": {
+    "id": "M12-07",
+    "category": "否定事实与助手建议区分",
+    "turns": [
+      {
+        "user": "家里人一直担心我有抑郁症，但我上个月去心理科做了专业评估，结果显示我情绪稳定，没有抑郁症，只是最近搬家太累有点烦躁。",
+        "assistant": "收到，已记录您上个月评估排除抑郁症的结果。"
+      },
+      {
+        "user": "补充说，那种烦躁感是从半个月前搬家开始的，现在东西都整理好了，心情已经平复很多，这跟病理性的抑郁完全不同。",
+        "assistant": "明白，已更新您烦躁情绪源于半个月前搬家的背景信息。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "用户是否被诊断为抑郁症？",
+        "expected_facts": [
+          "用户上个月心理评估结果显示无抑郁症。",
+          "医生确认用户情绪稳定，未患抑郁症。"
+        ],
+        "required_groups": [
+          [
+            "无",
+            "没有",
+            "排除"
+          ],
+          [
+            "抑郁症",
+            "抑郁"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "用户产生烦躁情绪的具体诱因和时间？",
+        "expected_facts": [
+          "用户的烦躁情绪始于半个月前的搬家活动。",
+          "用户的情绪波动是由搬家劳累引起，非病理性。"
+        ],
+        "required_groups": [
+          [
+            "半个月前",
+            "半個月前"
+          ],
+          [
+            "搬家",
+            "搬迁"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M12-07",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861726-v02alP19XCIeT5RM0Rg8",
+      "usage": {
+        "prompt_tokens": 56,
+        "total_tokens": 56,
+        "cost": 5.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.6e-07,
+          "upstream_inference_prompt_cost": 5.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861728-frvvFA7xX3pJRqZMsY15",
+      "usage": {
+        "prompt_tokens": 8352,
+        "completion_tokens": 936,
+        "total_tokens": 9288,
+        "cost": 0.004752,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.004752,
+          "upstream_inference_prompt_cost": 0.0025056,
+          "upstream_inference_completions_cost": 0.0022464
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 827,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\"memory\": [\n  {\"id\": \"0\", \"text\": \"用户家人一直担心用户有抑郁症\", \"attributed_to\": \"user\"},\n  {\"id\": \"1\", \"text\": \"用户于2026年8月前往心理科进行专业评估，结果显示情绪稳定，排除了抑郁症\", \"attributed_to\": \"user\"},\n  {\"id\": \"2\", \"text\": \"用户最近因搬家太累而感到有些烦躁\", \"attributed_to\": \"user\"}\n]}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861760-7donZ3eCwvKxHbZ0ARWe",
+      "usage": {
+        "prompt_tokens": 43,
+        "total_tokens": 43,
+        "cost": 4.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.3e-07,
+          "upstream_inference_prompt_cost": 4.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861768-yFssO2wSaI6Rl4KagYmp",
+      "usage": {
+        "prompt_tokens": 57,
+        "total_tokens": 57,
+        "cost": 5.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.7e-07,
+          "upstream_inference_prompt_cost": 5.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861772-qfASF6esFeXz0WtuwP15",
+      "usage": {
+        "prompt_tokens": 8479,
+        "completion_tokens": 812,
+        "total_tokens": 9291,
+        "cost": 0.00431574,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00431574,
+          "upstream_inference_prompt_cost": 0.00220454,
+          "upstream_inference_completions_cost": 0.0021112
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 821,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\"memory\": [{\"id\": \"0\", \"text\": \"用户的烦躁感从半个月前（约2026年8月24日）搬家时开始，现在东西已整理好，心情已平复很多，用户明确表示这与病理性抑郁完全不同\", \"attributed_to\": \"user\", \"linked_memory_ids\": [\"0\"]}, {\"id\": \"1\", \"text\": \"用户确认搬家相关的烦躁情绪已随物品整理完毕而显著缓解\", \"attributed_to\": \"user\", \"linked_memory_ids\": [\"0\"]}], \"linked_memory_ids\": [\"0\"]}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861784-3fXTFRELTFVAsBycpLev",
+      "usage": {
+        "prompt_tokens": 60,
+        "total_tokens": 60,
+        "cost": 6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6e-07,
+          "upstream_inference_prompt_cost": 6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861786-MH9UGXVXg1bHxPSyA6dC",
+      "usage": {
+        "prompt_tokens": 8,
+        "total_tokens": 8,
+        "cost": 8e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 8e-08,
+          "upstream_inference_prompt_cost": 8e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861787-XDkD8Yc0vV2ZMQFLPnEA",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861789-KC4WB9qihugkfmsZ9fBh",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861789-kVgHP3hH9GpJJHmWlg30",
+      "usage": {
+        "prompt_tokens": 8,
+        "total_tokens": 8,
+        "cost": 8e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 8e-08,
+          "upstream_inference_prompt_cost": 8e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861791-TOnkESFEkzY9aOp70EeE",
+      "usage": {
+        "prompt_tokens": 8,
+        "total_tokens": 8,
+        "cost": 8e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 8e-08,
+          "upstream_inference_prompt_cost": 8e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "用户是否被诊断为抑郁症？",
+        "expected_facts": [
+          "用户上个月心理评估结果显示无抑郁症。",
+          "医生确认用户情绪稳定，未患抑郁症。"
+        ],
+        "required_groups": [
+          [
+            "无",
+            "没有",
+            "排除"
+          ],
+          [
+            "抑郁症",
+            "抑郁"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "89f9a3bd-1466-4a1e-b554-5474f46e4d14",
+          "content": "用户家人一直担心用户有抑郁症",
+          "score": 0.8136539192021686,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:02:05.027932+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:02:47.039582+00:00"
+        },
+        {
+          "memory_id": "df8a6ed5-6ad3-4950-80cd-f70c2444fe4a",
+          "content": "用户的烦躁感从半个月前（约2026年8月24日）搬家时开始，现在东西已整理好，心情已平复很多，用户明确表示这与病理性抑郁完全不同",
+          "score": 0.7175362468981408,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:02:47.090272+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:03:05.516851+00:00"
+        },
+        {
+          "memory_id": "97b87e3d-89bc-49f0-975b-ae718745075b",
+          "content": "用户于2026年8月前往心理科进行专业评估，结果显示情绪稳定，排除了抑郁症",
+          "score": 0.6757097629502791,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:02:05.027932+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:02:47.039582+00:00"
+        },
+        {
+          "memory_id": "5a8b7637-1159-4782-a29b-9c77900a83f4",
+          "content": "用户最近因搬家太累而感到有些烦躁",
+          "score": 0.562585579598869,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:02:05.027932+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:02:47.039582+00:00"
+        },
+        {
+          "memory_id": "109988e7-31d7-4925-b1cb-a9b57a7fe096",
+          "content": "用户确认搬家相关的烦躁情绪已随物品整理完毕而显著缓解",
+          "score": 0.5312518479645301,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:02:47.090272+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:03:05.516851+00:00"
+        }
+      ],
+      "seconds": 1.312
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "用户产生烦躁情绪的具体诱因和时间？",
+        "expected_facts": [
+          "用户的烦躁情绪始于半个月前的搬家活动。",
+          "用户的情绪波动是由搬家劳累引起，非病理性。"
+        ],
+        "required_groups": [
+          [
+            "半个月前",
+            "半個月前"
+          ],
+          [
+            "搬家",
+            "搬迁"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "5a8b7637-1159-4782-a29b-9c77900a83f4",
+          "content": "用户最近因搬家太累而感到有些烦躁",
+          "score": 0.7782188661301315,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:02:05.027932+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:02:47.039582+00:00"
+        },
+        {
+          "memory_id": "df8a6ed5-6ad3-4950-80cd-f70c2444fe4a",
+          "content": "用户的烦躁感从半个月前（约2026年8月24日）搬家时开始，现在东西已整理好，心情已平复很多，用户明确表示这与病理性抑郁完全不同",
+          "score": 0.7364198959974346,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:02:47.090272+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:03:05.516851+00:00"
+        },
+        {
+          "memory_id": "89f9a3bd-1466-4a1e-b554-5474f46e4d14",
+          "content": "用户家人一直担心用户有抑郁症",
+          "score": 0.6495415864788263,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:02:05.027932+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:02:47.039582+00:00"
+        },
+        {
+          "memory_id": "109988e7-31d7-4925-b1cb-a9b57a7fe096",
+          "content": "用户确认搬家相关的烦躁情绪已随物品整理完毕而显著缓解",
+          "score": 0.6370785403073101,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:02:47.090272+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:03:05.516851+00:00"
+        },
+        {
+          "memory_id": "97b87e3d-89bc-49f0-975b-ae718745075b",
+          "content": "用户于2026年8月前往心理科进行专业评估，结果显示情绪稳定，排除了抑郁症",
+          "score": 0.5189900604854274,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:02:05.027932+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:02:47.039582+00:00"
+        }
+      ],
+      "seconds": 1.532
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "用户是否被诊断为抑郁症？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "89f9a3bd-1466-4a1e-b554-5474f46e4d14",
+        "content": "用户家人一直担心用户有抑郁症",
+        "score": 0.7633452276967652,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:02:05.027932+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M12-07",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:02:47.039582+00:00"
+      },
+      {
+        "memory_id": "97b87e3d-89bc-49f0-975b-ae718745075b",
+        "content": "用户于2026年8月前往心理科进行专业评估，结果显示情绪稳定，排除了抑郁症",
+        "score": 0.7431711789111263,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:02:05.027932+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M12-07",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:02:47.039582+00:00"
+      },
+      {
+        "memory_id": "df8a6ed5-6ad3-4950-80cd-f70c2444fe4a",
+        "content": "用户的烦躁感从半个月前（约2026年8月24日）搬家时开始，现在东西已整理好，心情已平复很多，用户明确表示这与病理性抑郁完全不同",
+        "score": 0.732432856867798,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:02:47.090272+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M12-07",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:03:05.516851+00:00"
+      },
+      {
+        "memory_id": "109988e7-31d7-4925-b1cb-a9b57a7fe096",
+        "content": "用户确认搬家相关的烦躁情绪已随物品整理完毕而显著缓解",
+        "score": 0.5275834693563668,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:02:47.090272+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M12-07",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:03:05.516851+00:00"
+      },
+      {
+        "memory_id": "5a8b7637-1159-4782-a29b-9c77900a83f4",
+        "content": "用户最近因搬家太累而感到有些烦躁",
+        "score": 0.5046122753307369,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:02:05.027932+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M12-07",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:02:47.039582+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 66.328
+}

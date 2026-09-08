@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Return one JSON object {\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}.\nEvaluate the entire expected_fact as one claim. All its clauses must be supported to set supported=true.\nReturn one verdict, not a list of facts. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "{\"query\": \"患者是否按照医生最初建议的时间停药？\", \"expected_fact\": \"患者未按最初建议的5月20日停药，而是延后至5月30日\", \"memories\": [{\"memory_id\": \"m0\", \"content\": \"医生建议用户在2026年5月20日停用二甲双胍，但用户坚持服用至2026年6月1日才停药\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:46:24.871302+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户实际于2026年5月30日停用二甲双胍，当天医生再次确认可以停药后彻底停止服用\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:46:47.602025+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户在2026年5月的体检中血糖达标\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:46:24.871302+00:00\"}]}"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862525-LMxTDfo2zvPY9SPOzVDE",
+    "object": "chat.completion",
+    "created": 1788862525,
+    "model": "minimax/minimax-m2.5",
+    "provider": "StreamLake",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"supported\": false, \"evidence\": [{\"memory_id\": \"m0\"}, {\"memory_id\": \"m1\"}], \"reason\": \"m0与m1关于实际停药时间相互矛盾(m0说6月1日,m1说5月30日),无法确认5月30日停药的说法是否准确\"}",
+          "refusal": null,
+          "reasoning": "Let me analyze this query and the provided memories.\n\nQuery: \"患者是否按照医生最初建议的时间停药？\" (Did the patient stop the medication at the time initially recommended by the doctor?)\n\nExpected fact: \"患者未按最初建议的5月20日停药，而是延后至5月30日\" (The patient did not stop the medication on May 20th as initially recommended, but delayed until May 30th)\n\nLet me check the memories:\n\nm0: \"医生建议用户在2026年5月20日停用二甲双胍，但用户坚持服用至2026年6月1日才停药\"\n- This says the doctor recommended stopping on May 20, but the user insisted on taking it until June 1.\n\nm1: \"用户实际于2026年5月30日停用二甲双胍，当天医生再次确认可以停药后彻底停止服用\"\n- This says the user actually stopped on May 30, and the doctor confirmed it was okay to stop that day.\n\nm2: \"用户在2026年5月的体检中血糖达标\"\n- This is about blood sugar levels, not relevant to the timing question.\n\nNow let me evaluate:\n\nThe expected fact claims:\n1. The doctor initially recommended May 20 - supported by m0\n2. The patient did NOT stop on May 20 - supported by m0 (says user took until June 1)\n3. The patient stopped on May 30 - supported by m1\n\nHowever, there's a contradiction:\n- m0 says the user took the medication until June 1\n- m1 says the user stopped on May 30\n\nThese two memories contradict each other about when the patient actually stopped. The expected fact says May 30, which is supported by m1 but contradicted by m0.\n\nAlso, m0 says the user \"坚持服用至2026年6月1日才停药\" (insisted on taking until June 1 before stopping), which contradicts m1's claim of May 30.\n\n\nI notice a critical discrepancy between the two memories. The expected fact suggests May 30, but m0 explicitly states the user continued until June 1. This creates an irreconcilable conflict in the timeline of medication discontinuation. The memories present fundamentally different accounts of when the patient actually stopped taking the medication, making it impossible to definitively confirm the expected fact's accuracy.\n\nThe key issue is whether the evidence truly supports the claim of stopping on May 30. While m1 provides some corroboration, the contradictory m0 raises serious doubts about the reliability of this timeline. The inconsistency between the two memories undermines confidence in the precise stopping date.\n\nThe expected fact appears to be partially supported, with conflicting details about the exact discontinuation date. Some elements align with the memories, but the discrepancies prevent a definitive confirmation.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze this query and the provided memories.\n\nQuery: \"患者是否按照医生最初建议的时间停药？\" (Did the patient stop the medication at the time initially recommended by the doctor?)\n\nExpected fact: \"患者未按最初建议的5月20日停药，而是延后至5月30日\" (The patient did not stop the medication on May 20th as initially recommended, but delayed until May 30th)\n\nLet me check the memories:\n\nm0: \"医生建议用户在2026年5月20日停用二甲双胍，但用户坚持服用至2026年6月1日才停药\"\n- This says the doctor recommended stopping on May 20, but the user insisted on taking it until June 1.\n\nm1: \"用户实际于2026年5月30日停用二甲双胍，当天医生再次确认可以停药后彻底停止服用\"\n- This says the user actually stopped on May 30, and the doctor confirmed it was okay to stop that day.\n\nm2: \"用户在2026年5月的体检中血糖达标\"\n- This is about blood sugar levels, not relevant to the timing question.\n\nNow let me evaluate:\n\nThe expected fact claims:\n1. The doctor initially recommended May 20 - supported by m0\n2. The patient did NOT stop on May 20 - supported by m0 (says user took until June 1)\n3. The patient stopped on May 30 - supported by m1\n\nHowever, there's a contradiction:\n- m0 says the user took the medication until June 1\n- m1 says the user stopped on May 30\n\nThese two memories contradict each other about when the patient actually stopped. The expected fact says May 30, which is supported by m1 but contradicted by m0.\n\nAlso, m0 says the user \"坚持服用至2026年6月1日才停药\" (insisted on taking until June 1 before stopping), which contradicts m1's claim of May 30.\n\n\nI notice a critical discrepancy between the two memories. The expected fact suggests May 30, but m0 explicitly states the user continued until June 1. This creates an irreconcilable conflict in the timeline of medication discontinuation. The memories present fundamentally different accounts of when the patient actually stopped taking the medication, making it impossible to definitively confirm the expected fact's accuracy.\n\nThe key issue is whether the evidence truly supports the claim of stopping on May 30. While m1 provides some corroboration, the contradictory m0 raises serious doubts about the reliability of this timeline. The inconsistency between the two memories undermines confidence in the precise stopping date.\n\nThe expected fact appears to be partially supported, with conflicting details about the exact discontinuation date. Some elements align with the memories, but the discrepancies prevent a definitive confirmation.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 511,
+      "completion_tokens": 649,
+      "total_tokens": 1160,
+      "cost": 0.00083889,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00083889,
+        "upstream_inference_prompt_cost": 0.00013797,
+        "upstream_inference_completions_cost": 0.00070092
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 579,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 7.5
+}

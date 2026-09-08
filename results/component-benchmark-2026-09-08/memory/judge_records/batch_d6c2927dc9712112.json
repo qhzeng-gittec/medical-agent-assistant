@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"9c39f830c214a0e8ef35\", \"query\": \"用户是从什么时候开始恢复正常睡眠时间的？现在的作息是怎样的？\", \"expected_facts\": [\"该用户从上周四开始调整回正常作息。\", \"该用户目前每晚七点入睡，早上八点起床。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户从上周四（约2026年9月3日）开始调整回正常作息，现在能保证每晚七点睡、早上八点起，不再熬夜加班\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:33:29.986483+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户因项目上线，连续三周每天只睡四个小时，早上六点要到公司开会，晚上经常加班到凌晨两点才回家休息\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:33:09.016483+00:00\"}]}, {\"id\": \"9d1c5a3b7e4de68ae560\", \"query\": \"那次胃镜检查得出的具体医学结论是什么？\", \"expected_facts\": [\"2017年的胃镜检查结果显示为浅表性胃炎。\", \"患者曾因胃痛症状进行检查。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户从未做过胃镜检查，以前胃痛时也没有做过这项检查。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:40:20.818970+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户在2017年因胃痛做过一次胃镜检查，当时诊断为浅表性胃炎。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:40:54.182141+00:00\"}]}, {\"id\": \"9dc83710d82743b00633\", \"query\": \"用户提到的弹性工作制实际是何时开始的？当时导致了什么作息问题？\", \"expected_facts\": [\"该弹性工作制于八个月前实施。\", \"该用户当时经常凌晨四点下班，早上十点回家补觉。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户半年前（约2026年3月）换了新主管，新主管要求全员实行弹性工作制，导致用户经常凌晨四点下班，早上十点才回家补觉\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:03.299699+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户纠正弹性工作制实施时间为八个月前（约2026年1月），而非之前记录的半年前\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:34:18.380968+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户的主管于上周（约2026年9月1-7日）宣布取消弹性工作制\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:34:18.380968+00:00\"}]}, {\"id\": \"9e20289e14efde9474ff\", \"query\": \"患者目前持有哪类过往检查资料，并计划何时到达医院？\", \"expected_facts\": [\"患者目前只有上次的纸质报告单，没有胶片。\", \"患者计划于周四下午两点半到达医院。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户更正说明手头只有上次的纸质报告单，没有胶片了。用户询问周四下午两点半到院后能否先调取系统里的历史影像，还是必须回家找胶片。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:49:28.833361+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户想预约2026年9月10日（周四）下午两点半的乳腺超声复查，上次检查发现有个小结节，这次需要对比影像。用户询问是否需要携带之前的胶片还是电子版报告就行。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:49:09.651610+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862058-b818OSiq79FsowRMUtOt",
+    "object": "chat.completion",
+    "created": 1788862058,
+    "model": "minimax/minimax-m2.5",
+    "provider": "Minimax",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\"items\": [{\"id\": \"9c39f830c214a0e8ef35\", \"facts\": [{\"supported\": true, \"evidence\": [{\"memory_id\": \"m0\"}], \"reason\": \"Memory m0 explicitly states the user started adjusting back to normal sleep schedule last Thursday.\"}, {\"supported\": true, \"evidence\": [{\"memory_id\": \"m0\"}], \"reason\": \"Memory m0 explicitly states the current sleep time is 7 PM to 8 AM.\"}]}, {\"id\": \"9d1c5a3b7e4de68ae560\", \"facts\": [{\"supported\": true, \"evidence\": [{\"memory_id\": \"m1\"}], \"reason\": \"Memory m1 explicitly records the 2017 gastroscopy result as superficial gastritis.\"}, {\"supported\": true, \"evidence\": [{\"memory_id\": \"m1\"}], \"reason\": \"Memory m1 explicitly records the examination was due to stomach pain symptoms.\"}]}, {\"id\": \"9dc83710d82743b00633\", \"facts\": [{\"supported\": true, \"evidence\": [{\"memory_id\": \"m1\"}], \"reason\": \"Memory m1 in session-2 provides a later correction specifying the flexible work system started eight months ago.\"}, {\"supported\": true, \"evidence\": [{\"memory_id\": \"m0\"}], \"reason\": \"Memory m0 explicitly describes the resulting schedule problem of getting off work at 4 AM and sleeping until 10 AM.\"}]}, {\"id\": \"9e20289e14efde9474ff\", \"facts\": [{\"supported\": true, \"evidence\": [{\"memory_id\": \"m0\"}], \"reason\": \"Memory m0 explicitly states the user only has paper report, no films.\"}, {\"supported\": true, \"evidence\": [{\"memory_id\": \"m1\"}], \"reason\": \"Memory m1 explicitly plans arrival for Thursday September 10 at 2:30 PM.\"}]}]}\n```",
+          "refusal": null,
+          "reasoning": "Let me analyze each item carefully.\n\n**Item 1: id \"9c39f830c214a0e8ef35\"**\n\nQuery: \"用户是从什么时候开始恢复正常睡眠时间的？现在的作息是怎样的？\"\n\nExpected facts:\n1. \"该用户从上周四开始调整回正常作息。\" - m0 says \"用户从上周四（约2026年9月3日）开始调整回正常作息\" - this supports the fact.\n2. \"该用户目前每晚七点入睡，早上八点起床。\" - m0 says \"现在能保证每晚七点睡、早上八点起\" - this supports the fact.\n\nBoth facts are supported by m0.\n\n**Item 2: id \"9d1c5a3b7e4de68ae560\"**\n\nQuery: \"那次胃镜检查得出的具体医学结论是什么？\"\n\nExpected facts:\n1. \"2017年的胃镜检查结果显示为浅表性胃炎。\" - m1 says \"用户在2017年因胃痛做过一次胃镜检查，当时诊断为浅表性胃炎。\" - this supports the fact.\n2. \"患者曾因胃痛症状进行检查。\" - m1 also says \"因胃痛做过胃镜检查\" - this supports the fact.\n\nBoth facts are supported by m1.\n\n**Item 3: id \"9dc83710d82743b00633\"**\n\nQuery: \"用户提到的弹性工作制实际是何时开始的？当时导致了什么作息问题？\"\n\nExpected facts:\n1. \"该弹性工作制于八个月前实施。\n\n\" - m1 corrects m0: \"用户纠正弹性工作制实施时间为八个月前（约2026年1月），而非之前记录的半年前\" - this supports the fact. Note that m0 said \"半年前（约2026年3月）\" but m1 in session-2 provides the correction to \"八个月前（约2026年1月）\". The later correction (session-2) resolves the earlier assertion.\n2. \"该用户当时经常凌晨四点下班，早上十点回家补觉。\" - m0 documents the specific schedule problem: user frequently worked until 4 AM and then slept until 10 AM to compensate.\n\nBoth facts are supported.\n\n**Item 4: id \"9e20289e14efde9474ff\"**\n\nQuery: \"患者目前持有哪类过往检查资料，并计划何时到达医院？\"\n\nExpected facts:\n1. \"患者目前只有上次的纸质报告单，没有胶片。\" - m0 confirms: \"用户更正说明手头只有上次的纸质报告单，没有胶片了\"\n2. \"患者计划于周四下午两点半到达医院。\" - m1 indicates: \"用户想预约2026年9月10日（周四）下午两点半的乳腺超声复查\"\n\nBoth facts are supported.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item carefully.\n\n**Item 1: id \"9c39f830c214a0e8ef35\"**\n\nQuery: \"用户是从什么时候开始恢复正常睡眠时间的？现在的作息是怎样的？\"\n\nExpected facts:\n1. \"该用户从上周四开始调整回正常作息。\" - m0 says \"用户从上周四（约2026年9月3日）开始调整回正常作息\" - this supports the fact.\n2. \"该用户目前每晚七点入睡，早上八点起床。\" - m0 says \"现在能保证每晚七点睡、早上八点起\" - this supports the fact.\n\nBoth facts are supported by m0.\n\n**Item 2: id \"9d1c5a3b7e4de68ae560\"**\n\nQuery: \"那次胃镜检查得出的具体医学结论是什么？\"\n\nExpected facts:\n1. \"2017年的胃镜检查结果显示为浅表性胃炎。\" - m1 says \"用户在2017年因胃痛做过一次胃镜检查，当时诊断为浅表性胃炎。\" - this supports the fact.\n2. \"患者曾因胃痛症状进行检查。\" - m1 also says \"因胃痛做过胃镜检查\" - this supports the fact.\n\nBoth facts are supported by m1.\n\n**Item 3: id \"9dc83710d82743b00633\"**\n\nQuery: \"用户提到的弹性工作制实际是何时开始的？当时导致了什么作息问题？\"\n\nExpected facts:\n1. \"该弹性工作制于八个月前实施。\n\n\" - m1 corrects m0: \"用户纠正弹性工作制实施时间为八个月前（约2026年1月），而非之前记录的半年前\" - this supports the fact. Note that m0 said \"半年前（约2026年3月）\" but m1 in session-2 provides the correction to \"八个月前（约2026年1月）\". The later correction (session-2) resolves the earlier assertion.\n2. \"该用户当时经常凌晨四点下班，早上十点回家补觉。\" - m0 documents the specific schedule problem: user frequently worked until 4 AM and then slept until 10 AM to compensate.\n\nBoth facts are supported.\n\n**Item 4: id \"9e20289e14efde9474ff\"**\n\nQuery: \"患者目前持有哪类过往检查资料，并计划何时到达医院？\"\n\nExpected facts:\n1. \"患者目前只有上次的纸质报告单，没有胶片。\" - m0 confirms: \"用户更正说明手头只有上次的纸质报告单，没有胶片了\"\n2. \"患者计划于周四下午两点半到达医院。\" - m1 indicates: \"用户想预约2026年9月10日（周四）下午两点半的乳腺超声复查\"\n\nBoth facts are supported.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1239,
+      "completion_tokens": 1000,
+      "total_tokens": 2239,
+      "cost": 0.0031434,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0031434,
+        "upstream_inference_prompt_cost": 0.0007434,
+        "upstream_inference_completions_cost": 0.0024
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 589,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 12.547
+}

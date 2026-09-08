@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"7fcba6645f570fa614e5\", \"query\": \"患者是否在医生建议的截止日期前完成了停药？\", \"expected_facts\": [\"患者在医生建议的1月20日后，于1月24日完成停药\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户实际于2026年1月24日停用舍曲林，当天医生打电话确认可以停药后用户便不再服用。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:48:04.413557+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户于2019年因焦虑症开始服用舍曲林，剂量为每天半片。2026年1月医生告知用户情绪稳定并建议于1月20日停药，但用户实际坚持服用至1月25日。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:46:46.105268+00:00\"}]}, {\"id\": \"800aabcaeec43ad38111\", \"query\": \"三年前焦虑加重时他采取了什么非药物措施，频率如何，效果怎样？\", \"expected_facts\": [\"患者三年前因家庭变故焦虑加重。\", \"患者每周进行心理咨询一次，坚持半年。\", \"患者情绪稳定，能自行调节。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"三年前（约2023年）因家庭变故导致焦虑加重，用户没有选择服药，而是寻求心理咨询师帮助，每周进行一次咨询，持续了半年，情绪逐渐稳定。现在偶尔仍会紧张，但已能自我调节。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:00:40.927352+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"User is 43 years old and experienced anxiety symptoms eight years ago due to work stress, for which a doctor prescribed anti-anxiety medication that was taken for six months before being discontinued when symptoms improved. Occasional nervousness has persisted since then but no further medication has been used.\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:00:26.688080+00:00\"}]}, {\"id\": \"808c350b406191161620\", \"query\": \"用户本人的心脏健康状况如何，是否有相关病史？\", \"expected_facts\": [\"用户心脏健康，历年体检正常，无心脏病史。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的心脏一直很好，每年体检都正常，没有任何心脏方面的疾病史\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:43:11.749216+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户的邻居老张于2025年因心脏病突发去世，这让用户感到震惊\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:43:11.749216+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户的邻居老李于2025年因心脏病去世，而非之前提到的老张，老张目前仍在世\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:43:32.919898+00:00\"}]}, {\"id\": \"80cc0c96e86ff4f78d0e\", \"query\": \"患者计划在哪个具体时间进行胃镜检查，以及对于检查前的禁食时长有何具体要求？\", \"expected_facts\": [\"患者计划在下周三上午进行胃镜检查。\", \"患者被告知检查前需要空腹八小时。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户计划周二晚饭后不再进食，周三早上七点前喝一小杯温水送服降压药，并询问此安排是否符合胃镜检查的空腹要求\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:37:55.952994+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户希望预约2026年9月15日（下周三）上午的胃镜检查，并确认空腹八小时的具体流程\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:37:14.786590+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户平时在服用降压药，询问检查当天早上是否能照常服用\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:37:14.786590+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862021-gDoZ8kpb0tQfHoyZTHK2",
+    "object": "chat.completion",
+    "created": 1788862021,
+    "model": "minimax/minimax-m2.5",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"7fcba6645f570fa614e5\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Later session confirms patient stopped medication on Jan 24 after doctor's confirmation, supporting the expected fact.\"}]},{\"id\":\"800aabcaeec43ad38111\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states three years ago anxiety worsened due to family matters, matching the expected fact.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states weekly counseling for half a year, directly supporting the frequency and duration expected.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory indicates emotional stability achieved and ability to self-regulate, confirming the expected outcome.\"}]},{\"id\":\"808c350b406191161620\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states user's heart is healthy with normal annual checkups and no heart disease history.\"}]},{\"id\":\"80cc0c96e86ff4f78d0e\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory confirms appointment for Sept 15 (next Wednesday) morning, matching the expected date.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory explicitly mentions eight hours fasting requirement for the gastroscopy procedure.\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item:\n\n**Item 1: 7fcba6645f570fa614e5**\nQuery: 患者是否在医生建议的截止日期前完成了停药？\nExpected fact: \"患者在医生建议的1月20日后，于1月24日完成停药\"\n\nMemories:\n- m0: \"用户实际于2026年1月24日停用舍曲林，当天医生打电话确认可以停药后用户便不再服用。\" (session-2)\n- m1: \"2026年1月医生告知用户情绪稳定并建议于1月20日停药，但用户实际坚持服用至1月25日。\" (session-1)\n\nAnalysis:\n- The expected fact says the patient stopped on January 24th AFTER the doctor's suggested date of January 20th\n- m0 says stopped on January 24, 2026\n- m1 says the doctor suggested January 20, but the user actually continued taking until January 25\n- There's a contradiction: m0 says stopped on Jan 24, m1 says continued until Jan 25\n- The expected fact says \"1月24日完成停药\" - this matches m0\n- But m1 contradicts this saying continued until Jan 25\n- The expected fact is that the patient stopped AFTER January 20 (meaning after the deadline), on January 24\n\nThe expected fact is: \"患者在医生建议的1月20日后，于1月24日完成停药\" - This means the patient stopped on January 24, AFTER the doctor's suggested date of January 20.\n\nm0 supports this: user stopped on January 24 after doctor confirmed it's okay to stop.\nm1 contradicts this by saying the user continued until January 25.\n\nHowever, the question is whether the expected fact is supported. The expected fact says the patient stopped on January 24 (after January 20). m0 supports this. Even though m1 contradicts, m0 provides evidence for the expected fact. The later session (session-2 with m0) corrects the earlier record.\n\nSo: supported = true, evidence = [m0]\n\n**Item 2: 800aabcaeec43ad38111**\n\n\nI'll analyze the patient's anxiety treatment approach from three key perspectives. The memories reveal a consistent narrative about seeking help during a stressful period. The patient experienced increased anxiety around 2023 due to family circumstances, opting for non-pharmacological intervention through regular心理咨询 sessions. The treatment involved weekly consultations lasting approximately six months, which ultimately helped stabilize the patient's emotional state.\n\nThe therapeutic process demonstrated significant progress, with the patient developing self-regulation skills. While occasional nervousness persists, the overall emotional management has improved substantially. The evidence from m0 comprehensively supports the expected facts about the anxiety treatment journey.\n\nThe cardiac health assessment reveals a clean bill of health. Medical records confirm no pre-existing heart conditions, with annual checkups consistently showing normal cardiac function. The patient's heart health appears robust, with no historical indicators of cardiovascular issues.\n\nInterestingly, the supplementary context about a neighbor's cardiac event provides additional perspective but doesn't directly impact the patient's own cardiac status. The medical history remains clear and uncomplicated.\n\nFor the gastrointestinal examination details, the planned procedure involves a specific timeline. The patient is scheduled for an upper endoscopy on September 15, 2026, with a strict fasting protocol requiring eight hours of complete abstention from food before the procedure.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item:\n\n**Item 1: 7fcba6645f570fa614e5**\nQuery: 患者是否在医生建议的截止日期前完成了停药？\nExpected fact: \"患者在医生建议的1月20日后，于1月24日完成停药\"\n\nMemories:\n- m0: \"用户实际于2026年1月24日停用舍曲林，当天医生打电话确认可以停药后用户便不再服用。\" (session-2)\n- m1: \"2026年1月医生告知用户情绪稳定并建议于1月20日停药，但用户实际坚持服用至1月25日。\" (session-1)\n\nAnalysis:\n- The expected fact says the patient stopped on January 24th AFTER the doctor's suggested date of January 20th\n- m0 says stopped on January 24, 2026\n- m1 says the doctor suggested January 20, but the user actually continued taking until January 25\n- There's a contradiction: m0 says stopped on Jan 24, m1 says continued until Jan 25\n- The expected fact says \"1月24日完成停药\" - this matches m0\n- But m1 contradicts this saying continued until Jan 25\n- The expected fact is that the patient stopped AFTER January 20 (meaning after the deadline), on January 24\n\nThe expected fact is: \"患者在医生建议的1月20日后，于1月24日完成停药\" - This means the patient stopped on January 24, AFTER the doctor's suggested date of January 20.\n\nm0 supports this: user stopped on January 24 after doctor confirmed it's okay to stop.\nm1 contradicts this by saying the user continued until January 25.\n\nHowever, the question is whether the expected fact is supported. The expected fact says the patient stopped on January 24 (after January 20). m0 supports this. Even though m1 contradicts, m0 provides evidence for the expected fact. The later session (session-2 with m0) corrects the earlier record.\n\nSo: supported = true, evidence = [m0]\n\n**Item 2: 800aabcaeec43ad38111**\n\n\nI'll analyze the patient's anxiety treatment approach from three key perspectives. The memories reveal a consistent narrative about seeking help during a stressful period. The patient experienced increased anxiety around 2023 due to family circumstances, opting for non-pharmacological intervention through regular心理咨询 sessions. The treatment involved weekly consultations lasting approximately six months, which ultimately helped stabilize the patient's emotional state.\n\nThe therapeutic process demonstrated significant progress, with the patient developing self-regulation skills. While occasional nervousness persists, the overall emotional management has improved substantially. The evidence from m0 comprehensively supports the expected facts about the anxiety treatment journey.\n\nThe cardiac health assessment reveals a clean bill of health. Medical records confirm no pre-existing heart conditions, with annual checkups consistently showing normal cardiac function. The patient's heart health appears robust, with no historical indicators of cardiovascular issues.\n\nInterestingly, the supplementary context about a neighbor's cardiac event provides additional perspective but doesn't directly impact the patient's own cardiac status. The medical history remains clear and uncomplicated.\n\nFor the gastrointestinal examination details, the planned procedure involves a specific timeline. The patient is scheduled for an upper endoscopy on September 15, 2026, with a strict fasting protocol requiring eight hours of complete abstention from food before the procedure.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1311,
+      "completion_tokens": 1006,
+      "total_tokens": 2317,
+      "cost": 0.00153906,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00153906,
+        "upstream_inference_prompt_cost": 0.00033186,
+        "upstream_inference_completions_cost": 0.0012072
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 781,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 16.609
+}

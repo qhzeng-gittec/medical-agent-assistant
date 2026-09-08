@@ -1,0 +1,426 @@
+{
+  "case": {
+    "id": "M10-02",
+    "category": "饮食偏好与个人生活习惯",
+    "turns": [
+      {
+        "user": "我是个素食主义者，已经坚持了五年不吃任何肉类。不过我对海鲜没有抵触，偶尔会吃鱼，但不吃贝类，因为小时候被贝壳划伤过。",
+        "assistant": "已确认您的素食习惯及海鲜摄入的具体限制情况。"
+      },
+      {
+        "user": "更正一下，我其实是半素食者，只吃鱼肉和鸡蛋，其他肉类都不碰。那个贝壳划伤是八年前的事，导致我现在看到贝类就恶心。",
+        "assistant": "已更新您的饮食分类为半素食并记录了贝类回避的心理原因。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "该患者的具体饮食类型是什么？除了鱼类外还摄入哪些动物性食品？",
+        "expected_facts": [
+          "该患者属于半素食者，仅摄入鱼肉和鸡蛋。",
+          "该患者不食用除鱼肉以外的其他肉类。"
+        ],
+        "required_groups": [
+          [
+            "半素食",
+            "半素食者"
+          ],
+          [
+            "鱼肉",
+            "鱼",
+            "鸡蛋"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "患者为何回避贝类？这一心理阴影源于多久之前的事件？",
+        "expected_facts": [
+          "该患者因八年前被贝壳划伤而回避贝类。",
+          "该患者看到贝类会产生恶心感。"
+        ],
+        "required_groups": [
+          [
+            "八年前",
+            "8年前"
+          ],
+          [
+            "被贝壳划伤",
+            "贝壳划伤",
+            "划伤事件"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M10-02",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861370-6X0oyvZ6dRheFgJMvKez",
+      "usage": {
+        "prompt_tokens": 58,
+        "total_tokens": 58,
+        "cost": 5.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.8e-07,
+          "upstream_inference_prompt_cost": 5.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861386-BAInqxpT9sJeNLZvJ4Gg",
+      "usage": {
+        "prompt_tokens": 8359,
+        "completion_tokens": 157,
+        "total_tokens": 8516,
+        "cost": 0.0028845,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0028845,
+          "upstream_inference_prompt_cost": 0.0025077,
+          "upstream_inference_completions_cost": 0.0003768
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 78,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"User is a vegetarian who has not eaten any meat for five years, but occasionally eats fish and seafood except shellfish due to being cut by a shell as a child\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861392-CTyF8ScYpj82iRQjjRPC",
+      "usage": {
+        "prompt_tokens": 34,
+        "total_tokens": 34,
+        "cost": 3.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.4e-07,
+          "upstream_inference_prompt_cost": 3.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861393-KhdKqwcx4o28adhkQZ01",
+      "usage": {
+        "prompt_tokens": 63,
+        "total_tokens": 63,
+        "cost": 6.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.3e-07,
+          "upstream_inference_prompt_cost": 6.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861394-mCUOJfgihGBIqAiqfQJ2",
+      "usage": {
+        "prompt_tokens": 8462,
+        "completion_tokens": 655,
+        "total_tokens": 9117,
+        "cost": 0.0034255,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0034255,
+          "upstream_inference_prompt_cost": 0.0021155,
+          "upstream_inference_completions_cost": 0.00131
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 573,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户是半素食者，只吃鱼肉和鸡蛋，不吃其他肉类。八年前（约2018年）被贝壳划伤的经历导致用户现在看到贝类会感到恶心。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861424-ruefqf7ra8hhdHqHeSfH",
+      "usage": {
+        "prompt_tokens": 43,
+        "total_tokens": 43,
+        "cost": 1.72e-06,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.72e-06,
+          "upstream_inference_prompt_cost": 1.72e-06,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861432-oTyIqiFBvdaOlVMKvzmr",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861432-m4K36Q5XMga4s7cEeGuv",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861436-BQxnrcfoGdeYCC7CnoOu",
+      "usage": {
+        "prompt_tokens": 28,
+        "total_tokens": 28,
+        "cost": 2.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.8e-07,
+          "upstream_inference_prompt_cost": 2.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861437-9vtXJ28YLlW8ajDzDyoD",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861439-W292tztALM6ymQXpVL5p",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "该患者的具体饮食类型是什么？除了鱼类外还摄入哪些动物性食品？",
+        "expected_facts": [
+          "该患者属于半素食者，仅摄入鱼肉和鸡蛋。",
+          "该患者不食用除鱼肉以外的其他肉类。"
+        ],
+        "required_groups": [
+          [
+            "半素食",
+            "半素食者"
+          ],
+          [
+            "鱼肉",
+            "鱼",
+            "鸡蛋"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "9a2478d7-f1c6-4a91-92c6-13645bf0b2db",
+          "content": "用户是半素食者，只吃鱼肉和鸡蛋，不吃其他肉类。八年前（约2018年）被贝壳划伤的经历导致用户现在看到贝类会感到恶心。",
+          "score": 0.5563579655920436,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:56:32.254548+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M10-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:57:10.947036+00:00"
+        },
+        {
+          "memory_id": "3a8f7bc7-2ef9-435b-b032-58afba2984a4",
+          "content": "User is a vegetarian who has not eaten any meat for five years, but occasionally eats fish and seafood except shellfish due to being cut by a shell as a child",
+          "score": 0.4778224059947647,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:56:06.783070+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M10-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:56:32.224845+00:00"
+        }
+      ],
+      "seconds": 0.875
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "患者为何回避贝类？这一心理阴影源于多久之前的事件？",
+        "expected_facts": [
+          "该患者因八年前被贝壳划伤而回避贝类。",
+          "该患者看到贝类会产生恶心感。"
+        ],
+        "required_groups": [
+          [
+            "八年前",
+            "8年前"
+          ],
+          [
+            "被贝壳划伤",
+            "贝壳划伤",
+            "划伤事件"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "9a2478d7-f1c6-4a91-92c6-13645bf0b2db",
+          "content": "用户是半素食者，只吃鱼肉和鸡蛋，不吃其他肉类。八年前（约2018年）被贝壳划伤的经历导致用户现在看到贝类会感到恶心。",
+          "score": 0.6503344629428085,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:56:32.254548+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M10-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:57:10.947036+00:00"
+        },
+        {
+          "memory_id": "3a8f7bc7-2ef9-435b-b032-58afba2984a4",
+          "content": "User is a vegetarian who has not eaten any meat for five years, but occasionally eats fish and seafood except shellfish due to being cut by a shell as a child",
+          "score": 0.5209055835404146,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:56:06.783070+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M10-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:56:32.224845+00:00"
+        }
+      ],
+      "seconds": 4.047
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "该患者的具体饮食类型是什么？除了鱼类外还摄入哪些动物性食品？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "9a2478d7-f1c6-4a91-92c6-13645bf0b2db",
+        "content": "用户是半素食者，只吃鱼肉和鸡蛋，不吃其他肉类。八年前（约2018年）被贝壳划伤的经历导致用户现在看到贝类会感到恶心。",
+        "score": 0.5051062887911015,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:56:32.254548+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M10-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:57:10.947036+00:00"
+      },
+      {
+        "memory_id": "3a8f7bc7-2ef9-435b-b032-58afba2984a4",
+        "content": "User is a vegetarian who has not eaten any meat for five years, but occasionally eats fish and seafood except shellfish due to being cut by a shell as a child",
+        "score": 0.41649232683277043,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:56:06.783070+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M10-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:56:32.224845+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 72.047
+}

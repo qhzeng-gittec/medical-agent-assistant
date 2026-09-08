@@ -1,0 +1,526 @@
+{
+  "case": {
+    "id": "M07-08",
+    "category": "预约复查与检查准备安排",
+    "turns": [
+      {
+        "user": "我要预约本周五上午的腹部B超。医生说要憋尿，我想知道大概需要喝多少水，憋多久才能开始检查？我怕憋太久会不舒服。",
+        "assistant": "好的，已记录您本周五上午的腹部B超预约及关于憋尿水量和时长的咨询。"
+      },
+      {
+        "user": "补充一下，我计划周五早上七点起床，喝完两瓶矿泉水，大概半小时后去排队。如果到了现场医生说尿不够，我还需要再喝吗？",
+        "assistant": "明白，已更新您周五早晨七点起床、饮用两瓶水的计划，以及对现场补水的询问。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "患者预约了哪项检查，时间是何时？",
+        "expected_facts": [
+          "患者预约了本周五上午的腹部B超检查。"
+        ],
+        "required_groups": [
+          [
+            "本周五上午",
+            "周五上午"
+          ],
+          [
+            "腹部B超",
+            "肚子B超"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "患者为配合检查制定了怎样的饮水计划？",
+        "expected_facts": [
+          "患者计划周五早上七点起床。",
+          "患者计划喝完两瓶矿泉水后半小时去排队。"
+        ],
+        "required_groups": [
+          [
+            "周五早上七点",
+            "七点起床"
+          ],
+          [
+            "两瓶矿泉水",
+            "喝两瓶水"
+          ],
+          [
+            "半小时后",
+            "三十分钟后"
+          ],
+          [
+            "去排队",
+            "去医院"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M07-08",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860994-FUVvoVchXJf83MeUjuLC",
+      "usage": {
+        "prompt_tokens": 72,
+        "total_tokens": 72,
+        "cost": 7.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.2e-07,
+          "upstream_inference_prompt_cost": 7.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860995-lkTUyiNEWWFrkKQ5b6Ds",
+      "usage": {
+        "prompt_tokens": 8370,
+        "completion_tokens": 709,
+        "total_tokens": 9079,
+        "cost": 0.00379134,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00379134,
+          "upstream_inference_prompt_cost": 0.0022599,
+          "upstream_inference_completions_cost": 0.00153144
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 581,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户预约了2026年9月11日（本周五）上午的腹部B超检查，医生要求检查前憋尿\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户想知道做腹部B超前需要喝多少水、憋多久才能开始检查，担心憋太久会不舒服\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861011-LNyBJCO9WlDDZWMg4Di5",
+      "usage": {
+        "prompt_tokens": 55,
+        "total_tokens": 55,
+        "cost": 5.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.5e-07,
+          "upstream_inference_prompt_cost": 5.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861013-jSg7dmvMQS6oMfDQKYHa",
+      "usage": {
+        "prompt_tokens": 72,
+        "total_tokens": 72,
+        "cost": 7.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.2e-07,
+          "upstream_inference_prompt_cost": 7.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861015-ba6Z3yfZzsCfQL3S9W1G",
+      "usage": {
+        "prompt_tokens": 8509,
+        "completion_tokens": 583,
+        "total_tokens": 9092,
+        "cost": 0.00372814,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00372814,
+          "upstream_inference_prompt_cost": 0.00221234,
+          "upstream_inference_completions_cost": 0.0015158
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 514,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户计划周五早上七点起床，喝完两瓶矿泉水，大约半小时后去排队做腹部B超检查\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\", \"1\"]\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户询问如果到了现场医生说尿不够，是否需要再喝水\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\", \"1\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861024-2BTPvUcPiXY84dv9zjOj",
+      "usage": {
+        "prompt_tokens": 40,
+        "total_tokens": 40,
+        "cost": 1.6e-06,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.6e-06,
+          "upstream_inference_prompt_cost": 1.6e-06,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861033-wxUPrtZCFdixvaKpCnSd",
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 12,
+        "cost": 1.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.2e-07,
+          "upstream_inference_prompt_cost": 1.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861035-V4j3zBWmuUJ57qVS8ejG",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861036-7plW2hHtRRoErVP6DqYA",
+      "usage": {
+        "prompt_tokens": 22,
+        "total_tokens": 22,
+        "cost": 2.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.2e-07,
+          "upstream_inference_prompt_cost": 2.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861036-1Hw7N5cAs2aKFAuukOtF",
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 12,
+        "cost": 1.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.2e-07,
+          "upstream_inference_prompt_cost": 1.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861038-yRTJQyU28mstAss1Q4eM",
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 12,
+        "cost": 1.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.2e-07,
+          "upstream_inference_prompt_cost": 1.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "患者预约了哪项检查，时间是何时？",
+        "expected_facts": [
+          "患者预约了本周五上午的腹部B超检查。"
+        ],
+        "required_groups": [
+          [
+            "本周五上午",
+            "周五上午"
+          ],
+          [
+            "腹部B超",
+            "肚子B超"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "5a208fdd-64df-4242-b3e6-98b090395b33",
+          "content": "用户预约了2026年9月11日（本周五）上午的腹部B超检查，医生要求检查前憋尿",
+          "score": 0.7341290050897029,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:51.723761+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:50:12.061445+00:00"
+        },
+        {
+          "memory_id": "86ce9bf0-7617-4a71-a6ca-993ced57ea87",
+          "content": "用户计划周五早上七点起床，喝完两瓶矿泉水，大约半小时后去排队做腹部B超检查",
+          "score": 0.6833670670582941,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:50:12.106110+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:50:31.803669+00:00"
+        },
+        {
+          "memory_id": "a33f8116-3720-4f8b-9407-0914b290d937",
+          "content": "用户询问如果到了现场医生说尿不够，是否需要再喝水",
+          "score": 0.5845042282053013,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:50:12.106110+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:50:31.803669+00:00"
+        },
+        {
+          "memory_id": "4c3bbbcb-9a7c-443d-b631-d5e72d6500b4",
+          "content": "用户想知道做腹部B超前需要喝多少水、憋多久才能开始检查，担心憋太久会不舒服",
+          "score": 0.5281203822372176,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:51.723761+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:50:12.062443+00:00"
+        }
+      ],
+      "seconds": 2.485
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "患者为配合检查制定了怎样的饮水计划？",
+        "expected_facts": [
+          "患者计划周五早上七点起床。",
+          "患者计划喝完两瓶矿泉水后半小时去排队。"
+        ],
+        "required_groups": [
+          [
+            "周五早上七点",
+            "七点起床"
+          ],
+          [
+            "两瓶矿泉水",
+            "喝两瓶水"
+          ],
+          [
+            "半小时后",
+            "三十分钟后"
+          ],
+          [
+            "去排队",
+            "去医院"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "a33f8116-3720-4f8b-9407-0914b290d937",
+          "content": "用户询问如果到了现场医生说尿不够，是否需要再喝水",
+          "score": 0.7194939284856132,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:50:12.106110+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:50:31.803669+00:00"
+        },
+        {
+          "memory_id": "86ce9bf0-7617-4a71-a6ca-993ced57ea87",
+          "content": "用户计划周五早上七点起床，喝完两瓶矿泉水，大约半小时后去排队做腹部B超检查",
+          "score": 0.6751216612546586,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:50:12.106110+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:50:31.803669+00:00"
+        },
+        {
+          "memory_id": "4c3bbbcb-9a7c-443d-b631-d5e72d6500b4",
+          "content": "用户想知道做腹部B超前需要喝多少水、憋多久才能开始检查，担心憋太久会不舒服",
+          "score": 0.621904848146333,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:51.723761+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:50:12.062443+00:00"
+        },
+        {
+          "memory_id": "5a208fdd-64df-4242-b3e6-98b090395b33",
+          "content": "用户预约了2026年9月11日（本周五）上午的腹部B超检查，医生要求检查前憋尿",
+          "score": 0.6138991968210925,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:51.723761+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:50:12.061445+00:00"
+        }
+      ],
+      "seconds": 0.844
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者预约了哪项检查，时间是何时？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "5a208fdd-64df-4242-b3e6-98b090395b33",
+        "content": "用户预约了2026年9月11日（本周五）上午的腹部B超检查，医生要求检查前憋尿",
+        "score": 0.6535800577525941,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:49:51.723761+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M07-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:50:12.061445+00:00"
+      },
+      {
+        "memory_id": "86ce9bf0-7617-4a71-a6ca-993ced57ea87",
+        "content": "用户计划周五早上七点起床，喝完两瓶矿泉水，大约半小时后去排队做腹部B超检查",
+        "score": 0.6065895486830111,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:50:12.106110+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M07-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:50:31.803669+00:00"
+      },
+      {
+        "memory_id": "a33f8116-3720-4f8b-9407-0914b290d937",
+        "content": "用户询问如果到了现场医生说尿不够，是否需要再喝水",
+        "score": 0.5430227357321069,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:50:12.106110+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M07-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:50:31.803669+00:00"
+      },
+      {
+        "memory_id": "4c3bbbcb-9a7c-443d-b631-d5e72d6500b4",
+        "content": "用户想知道做腹部B超前需要喝多少水、憋多久才能开始检查，担心憋太久会不舒服",
+        "score": 0.470725600650801,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:49:51.723761+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M07-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:50:12.062443+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 46.829
+}

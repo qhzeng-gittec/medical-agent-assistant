@@ -1,0 +1,72 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Create source-grounded retrieval evaluation questions. Return JSON {\"items\":[...]}.\nFor EACH supplied source return {\"id\":same id,\"en\":English patient question,\"zh\":Chinese patient question,\n\"evidence_id\":the exact id string of ONE supplied evidence_options entry supporting BOTH questions}.\nAsk one concrete question about a supported detail (cause, symptom, prevention, evaluation, management).\nThe two questions express the SAME information need, not two facts. Use ordinary patient language.\nInclude enough topic context to identify the condition but do not copy a source sentence into the question.\nSelect an evidence option and ask about a concrete detail stated in that option. Do not ask for a personalized dose or individual diagnosis. Do not invent content. No answers in questions.\nThese are synthetic topic-source retrieval labels, not a clinician-authored benchmark."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"MLP-2724\", \"title\": \"Radiation Therapy\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Radiation therapy is a cancer treatment.\"}, {\"id\": \"S001\", \"text\": \"It uses high doses of radiation to kill cancer cells and stop them from spreading.\"}, {\"id\": \"S002\", \"text\": \"It may also be used for easing cancer symptoms.\"}, {\"id\": \"S003\", \"text\": \"Radiation therapy may damage healthy cells.\"}, {\"id\": \"S004\", \"text\": \"They can usually repair themselves more easily than cancer cells.\"}, {\"id\": \"S005\", \"text\": \"You may need days or weeks of treatment before the radiation starts killing cancer cells.\"}, {\"id\": \"S006\", \"text\": \"But cancer cells should keep dying for weeks or months after your treatment ends.\"}, {\"id\": \"S007\", \"text\": \"When is radiation therapy used for cancer treatment?\"}, {\"id\": \"S008\", \"text\": \"Radiation therapy treats many types of cancer.\"}, {\"id\": \"S009\", \"text\": \"It may be used at different times or for different reasons during your treatment.\"}, {\"id\": \"S010\", \"text\": \"Sometimes radiation is used with other treatments, like surgery, chemotherapy , or immunotherapy .\"}, {\"id\": \"S011\", \"text\": \"You may get radiation therapy once a day or in smaller doses twice a day for a few weeks.\"}, {\"id\": \"S012\", \"text\": \"The radiation may be external, from special machines, or internal from radioactive substances placed inside your body.\"}, {\"id\": \"S013\", \"text\": \"The type of radiation therapy you get depends on many factors, including: The type of cancer The size of the cancer Where the cancer is in your body How close the cancer is to normal tissues that are sensitive to radiation How far the radiation needs to travel into your body Your general health and medical history Whether you will have other types of cancer treatment Other factors, such as your age and other medical conditions What are the side effects of radiation therapy?\"}, {\"id\": \"S014\", \"text\": \"Your treatment must be carefully planned to reduce side effects.\"}, {\"id\": \"S015\", \"text\": \"Radiation therapy can damage normal cells as well as cancer cells.\"}, {\"id\": \"S016\", \"text\": \"Healthy cells usually repair themselves but damaging them can cause side effects.\"}, {\"id\": \"S017\", \"text\": \"Side effects can vary from person to person.\"}, {\"id\": \"S018\", \"text\": \"Common side effects include skin changes and fatigue .\"}, {\"id\": \"S019\", \"text\": \"Other side effects depend on the part of your body being treated.\"}, {\"id\": \"S020\", \"text\": \"Most side effects go away a few months after you are done with treatment.\"}]}, {\"id\": \"MLP-190\", \"title\": \"Cirrhosis\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Scar tissue forms because of injury or long-term disease.\"}, {\"id\": \"S001\", \"text\": \"Scar tissue cannot do what healthy liver tissue does - make protein, help fight infections, clean the blood, help digest food and store energy.\"}, {\"id\": \"S002\", \"text\": \"Cirrhosis can lead to : Easy bruising or bleeding, or nosebleeds Swelling of the abdomen or legs Extra sensitivity to medicines High blood pressure in the vein entering the liver Enlarged veins called varices in the esophagus and stomach.\"}, {\"id\": \"S003\", \"text\": \"Kidney failure Jaundice Severe itching Gallstones A small number of people with cirrhosis get liver cancer .\"}, {\"id\": \"S004\", \"text\": \"Your doctor will diagnose cirrhosis with blood tests, imaging tests, or a biopsy.\"}, {\"id\": \"S005\", \"text\": \"In the United States, the most common causes are chronic alcoholism and hepatitis .\"}, {\"id\": \"S006\", \"text\": \"Nothing will make the scar tissue disappear, but treating the cause can keep it from getting worse.\"}, {\"id\": \"S007\", \"text\": \"If too much scar tissue forms, you may need to consider a liver transplant .\"}, {\"id\": \"S008\", \"text\": \"NIH: National Institute of Diabetes and Digestive and Kidney Diseases\"}]}, {\"id\": \"MLP-614\", \"title\": \"Irritable Bowel Syndrome\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Irritable bowel syndrome (IBS) is a problem that affects the large intestine.\"}, {\"id\": \"S001\", \"text\": \"It can cause abdominal cramping, bloating, and a change in bowel habits.\"}, {\"id\": \"S002\", \"text\": \"Some people with the disorder have constipation.\"}, {\"id\": \"S003\", \"text\": \"Others go back and forth between the two.\"}, {\"id\": \"S004\", \"text\": \"Although IBS can cause a great deal of discomfort, it does not harm the intestines.\"}, {\"id\": \"S005\", \"text\": \"It affects about twice as many women as men and is most often found in people younger than 45 years.\"}, {\"id\": \"S006\", \"text\": \"Your doctor may run tests to be sure you don't have other diseases.\"}, {\"id\": \"S007\", \"text\": \"These tests may include stool sampling tests, blood tests, and x-rays.\"}, {\"id\": \"S008\", \"text\": \"Your doctor may also do a test called a sigmoidoscopy or colonoscopy .\"}, {\"id\": \"S009\", \"text\": \"Most people diagnosed with IBS can control their symptoms with diet, stress management, probiotics, and medicine.\"}, {\"id\": \"S010\", \"text\": \"NIH: National Institute of Diabetes and Digestive and Kidney Diseases\"}]}, {\"id\": \"MLP-5328\", \"title\": \"Pituitary Tumors\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Your pituitary gland is a pea-sized gland at the base of your brain.\"}, {\"id\": \"S001\", \"text\": \"The pituitary is the \\\"master control gland\\\" - it makes hormones that affect growth and the functions of other glands in the body.\"}, {\"id\": \"S002\", \"text\": \"Pituitary tumors are common, but often they don't cause health problems.\"}, {\"id\": \"S003\", \"text\": \"Most people with pituitary tumors never even know they have them.\"}, {\"id\": \"S004\", \"text\": \"The most common type of pituitary tumor produces hormones and disrupts the balance of hormones in your body.\"}, {\"id\": \"S005\", \"text\": \"This can cause endocrine diseases such as Cushing's syndrome and hyperthyroidism .\"}, {\"id\": \"S006\", \"text\": \"Symptoms of pituitary tumors include: Headaches Vision problems Nausea and vomiting Problems caused by the production of too many hormones Pituitary tumors are usually curable.\"}, {\"id\": \"S007\", \"text\": \"Treatment is often surgery to remove the tumor.\"}, {\"id\": \"S008\", \"text\": \"Other options include medicines, radiation therapy, and chemotherapy.\"}]}, {\"id\": \"MLP-1524\", \"title\": \"Klinefelter Syndrome\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Klinefelter syndrome (KS) is a genetic condition that happens when a male is born with an extra copy of the X chromosome.\"}, {\"id\": \"S001\", \"text\": \"KS can affect different stages of physical, language, and social development.\"}, {\"id\": \"S002\", \"text\": \"It's caused by a random error that happens when a sperm or egg is formed.\"}, {\"id\": \"S003\", \"text\": \"This error causes a male to be born with an extra X chromosome.\"}, {\"id\": \"S004\", \"text\": \"Chromosomes are tiny \\\"packages\\\" in your cells that contain your genes.\"}, {\"id\": \"S005\", \"text\": \"Genes carry information, called DNA, that controls what you look like and how your body works.\"}, {\"id\": \"S006\", \"text\": \"Normally, you're born with a set of 46 chromosomes in each cell, two of which are the sex chromosomes.\"}, {\"id\": \"S007\", \"text\": \"Females usually have two X chromosomes (XX), and males usually have one X and one Y (XY).\"}, {\"id\": \"S008\", \"text\": \"In KS, the male usually has two X chromosomes and one Y (XXY).\"}, {\"id\": \"S009\", \"text\": \"In rare cases, a male could have XY in some cells and XXY in other cells.\"}, {\"id\": \"S010\", \"text\": \"This is called mosaic Klinefelter syndrome.\"}, {\"id\": \"S011\", \"text\": \"Males with mosaic Klinefelter syndrome may have fewer symptoms, depending on the number of XY cells they have in their bodies and where those cells are located.\"}, {\"id\": \"S012\", \"text\": \"What are the symptoms of Klinefelter syndrome (KS)?\"}, {\"id\": \"S013\", \"text\": \"Some males with KS may have no symptoms or very mild symptoms.\"}, {\"id\": \"S014\", \"text\": \"So they might not know that they have KS, or they might not get diagnosed with it right away.\"}, {\"id\": \"S015\", \"text\": \"In other cases, the symptoms can be more severe.\"}, {\"id\": \"S016\", \"text\": \"Boys with KS may be taller than other boys their age, with more fat around the belly.\"}, {\"id\": \"S017\", \"text\": \"After puberty, they may have: Smaller testes and penis Breast growth (called gynecomastia) Less facial and body hair Reduced muscle tone Narrower shoulders and wider hips Weaker bones Decreased sexual interest Lower energy Many of these symptoms happen because of low testosterone in the body.\"}, {\"id\": \"S018\", \"text\": \"Testosterone is the main male sex hormone .\"}, {\"id\": \"S019\", \"text\": \"Boys with KS may also have learning or language problems.\"}, {\"id\": \"S020\", \"text\": \"These problems may affect them socially, so they may be shy and quiet and can have trouble fitting in.\"}, {\"id\": \"S021\", \"text\": \"Most males with KS are infertile because they make little or no sperm.\"}, {\"id\": \"S022\", \"text\": \"How is Klinefelter syndrome (KS) diagnosed?\"}, {\"id\": \"S023\", \"text\": \"A genetic test called a karyotype test can diagnose KS.\"}, {\"id\": \"S024\", \"text\": \"This test can show if there are abnormal chromosomes, including if there is an extra X chromosome.\"}, {\"id\": \"S025\", \"text\": \"What are the treatments for Klinefelter syndrome (KS)?\"}, {\"id\": \"S026\", \"text\": \"There is no cure for KS, but treatments are available.\"}, {\"id\": \"S027\", \"text\": \"The sooner the treatment is started, the better.\"}, {\"id\": \"S028\", \"text\": \"If treatment is started by early puberty, it will likely help in reducing the symptoms.\"}, {\"id\": \"S029\", \"text\": \"Treatments for KS may include: Testosterone replacement therapy Surgery to remove or reduce breasts Physical, speech, behavioral, and occupational therapy In some cases, fertility treatments may help men with KS father children.\"}, {\"id\": \"S030\", \"text\": \"NIH: National Institute of Child Health and Human Development\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 2500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788858667-pAm6AUOPZdT7TVwPCTaz",
+    "object": "chat.completion",
+    "created": 1788858667,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "SiliconFlow",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"MLP-2724\",\n      \"en\": \"I am starting radiation therapy for cancer; how long might it take before the treatment actually begins killing the cancer cells?\",\n      \"zh\": \"我即将开始癌症的放射治疗，通常需要多久治疗才会开始杀死癌细胞？\",\n      \"evidence_id\": \"S005\"\n    },\n    {\n      \"id\": \"MLP-190\",\n      \"en\": \"My doctor diagnosed me with cirrhosis; what are the most common causes of this condition in the United States?\",\n      \"zh\": \"医生诊断我患有肝硬化，在美国导致这种情况的最常见原因是什么？\",\n      \"evidence_id\": \"S005\"\n    },\n    {\n      \"id\": \"MLP-614\",\n      \"en\": \"I have been diagnosed with irritable bowel syndrome; what are some common ways to manage the symptoms?\",\n      \"zh\": \"我被诊断出患有肠易激综合征，有哪些常见的方法可以控制症状？\",\n      \"evidence_id\": \"S009\"\n    },\n    {\n      \"id\": \"MLP-5328\",\n      \"en\": \"I have a pituitary tumor; what is the most common type of treatment used to remove it?\",\n      \"zh\": \"我患有垂体瘤，切除肿瘤最常用的治疗方法是什么？\",\n      \"evidence_id\": \"S007\"\n    },\n    {\n      \"id\": \"MLP-1524\",\n      \"en\": \"My son has Klinefelter syndrome; what specific genetic test is used to confirm this diagnosis?\",\n      \"zh\": \"我的儿子患有克氏综合征，确诊这种病需要做什么具体的基因检测？\",\n      \"evidence_id\": \"S023\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2930,
+      "completion_tokens": 421,
+      "total_tokens": 3351,
+      "cost": 0.0015745,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0015745,
+        "upstream_inference_prompt_cost": 0.0007325,
+        "upstream_inference_completions_cost": 0.000842
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 13.032
+}

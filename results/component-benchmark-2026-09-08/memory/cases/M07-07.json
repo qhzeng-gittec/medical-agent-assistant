@@ -1,0 +1,581 @@
+{
+  "case": {
+    "id": "M07-07",
+    "category": "预约复查与检查准备安排",
+    "turns": [
+      {
+        "user": "我想约下周三下午的颈动脉彩超。我有高血压病史，最近头晕。检查前需要停用阿司匹林吗？我担心出血风险，但又怕血栓，有点纠结。",
+        "assistant": "收到，已记录您下周三下午的颈动脉彩超预约及关于阿司匹林是否停用的担忧。"
+      },
+      {
+        "user": "更正一下，我昨天刚问过主治医生，他说不用停阿司匹林。但我还是想确认，下周三下午两点到院，是否需要空腹？",
+        "assistant": "明白，已更新您无需停用阿司匹林的信息，以及对下周三下午两点到院是否空腹的确认请求。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "患者预约了什么检查，主要症状和病史背景是什么？",
+        "expected_facts": [
+          "患者预约了下周三下午的颈动脉彩超。",
+          "患者有高血压病史且近期出现头晕症状。"
+        ],
+        "required_groups": [
+          [
+            "下周三下午",
+            "周三下午"
+          ],
+          [
+            "颈动脉彩超",
+            "颈部血管超声"
+          ],
+          [
+            "高血压病史",
+            "有高血压"
+          ],
+          [
+            "头晕",
+            "头昏"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "患者关于抗凝药物的决定是什么，并计划何时到院？",
+        "expected_facts": [
+          "患者根据医生建议决定不停用阿司匹林。",
+          "患者计划于下周三下午两点到达医院。"
+        ],
+        "required_groups": [
+          [
+            "不停用阿司匹林",
+            "继续吃阿司匹林"
+          ],
+          [
+            "下周三下午两点",
+            "周三下午两点"
+          ],
+          [
+            "到院",
+            "去医院"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M07-07",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860959-pWsO4bLxp2wMie2bY1mT",
+      "usage": {
+        "prompt_tokens": 81,
+        "total_tokens": 81,
+        "cost": 8.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 8.1e-07,
+          "upstream_inference_prompt_cost": 8.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860961-z1HTHYiMOJrQ8B695s47",
+      "usage": {
+        "prompt_tokens": 8373,
+        "completion_tokens": 201,
+        "total_tokens": 8574,
+        "cost": 0.00269487,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00269487,
+          "upstream_inference_prompt_cost": 0.00226071,
+          "upstream_inference_completions_cost": 0.00043416
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 117,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\"memory\": [{\"id\": \"0\", \"text\": \"用户预约了下周三下午的颈动脉彩超检查，有高血压病史，最近出现头晕症状\", \"attributed_to\": \"user\"}, {\"id\": \"1\", \"text\": \"用户担心颈动脉彩超检查前是否需要停用阿司匹林，纠结于出血风险和血栓风险之间的平衡\", \"attributed_to\": \"user\"}]}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860969-SKjrr1EiZWc9QXIiNzDt",
+      "usage": {
+        "prompt_tokens": 51,
+        "total_tokens": 51,
+        "cost": 5.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.1e-07,
+          "upstream_inference_prompt_cost": 5.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860970-tnkSf14gXaYt0LPUrs7X",
+      "usage": {
+        "prompt_tokens": 74,
+        "total_tokens": 74,
+        "cost": 7.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.4e-07,
+          "upstream_inference_prompt_cost": 7.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860971-kFVQa532vhvww4dtmM0g",
+      "usage": {
+        "prompt_tokens": 8499,
+        "completion_tokens": 2330,
+        "total_tokens": 10829,
+        "cost": 0.0070185,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 7488,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0070185,
+          "upstream_inference_prompt_cost": 0.0014265,
+          "upstream_inference_completions_cost": 0.005592
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 2173,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\"memory\": [\n  {\"id\": \"0\", \"text\": \"用户于2026年9月7日咨询主治医生，获知颈动脉彩超检查前无需停用阿司匹林\", \"attributed_to\": \"user\", \"linked_memory_ids\": [\"0\", \"1\"]},\n  {\"id\": \"1\", \"text\": \"用户计划于2026年9月16日下午两点到医院进行颈动脉彩超检查\", \"attributed_to\": \"user\", \"linked_memory_ids\": [\"1\"]},\n  {\"id\": \"2\", \"text\": \"用户询问下午两点进行颈动脉彩超检查是否需要空腹\", \"attributed_to\": \"user\", \"linked_memory_ids\": [\"1\"]}\n]}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861054-fqT1rq1FrFpFQlNyUh3q",
+      "usage": {
+        "prompt_tokens": 69,
+        "total_tokens": 69,
+        "cost": 6.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.9e-07,
+          "upstream_inference_prompt_cost": 6.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861056-uP7053fHWTft31urTWul",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861057-WDNPidqwzvOfAxANDsYH",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861058-J3qJqCoWdjcrptgCYhYE",
+      "usage": {
+        "prompt_tokens": 25,
+        "total_tokens": 25,
+        "cost": 2.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.5e-07,
+          "upstream_inference_prompt_cost": 2.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861059-PE3LyS9rvyefBCBRUVeX",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861060-lBnsRBrSvHTe6oT7aBpn",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "患者预约了什么检查，主要症状和病史背景是什么？",
+        "expected_facts": [
+          "患者预约了下周三下午的颈动脉彩超。",
+          "患者有高血压病史且近期出现头晕症状。"
+        ],
+        "required_groups": [
+          [
+            "下周三下午",
+            "周三下午"
+          ],
+          [
+            "颈动脉彩超",
+            "颈部血管超声"
+          ],
+          [
+            "高血压病史",
+            "有高血压"
+          ],
+          [
+            "头晕",
+            "头昏"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "13f34d1c-9e25-460c-8159-bde18ec31ac3",
+          "content": "用户预约了下周三下午的颈动脉彩超检查，有高血压病史，最近出现头晕症状",
+          "score": 0.7019471380452714,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:18.366478+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:49:29.220906+00:00"
+        },
+        {
+          "memory_id": "e5acc6a0-4ad2-4668-b78e-e8d35c356841",
+          "content": "用户计划于2026年9月16日下午两点到医院进行颈动脉彩超检查",
+          "score": 0.6637202251716596,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:29.260828+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:50:55.449436+00:00"
+        },
+        {
+          "memory_id": "32312e45-1fd5-40b0-b7ca-2478c325ef04",
+          "content": "用户询问下午两点进行颈动脉彩超检查是否需要空腹",
+          "score": 0.6345965156453179,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:29.260828+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:50:55.449436+00:00"
+        },
+        {
+          "memory_id": "d582056b-a791-4674-a2a0-dddd75ec9a3e",
+          "content": "用户于2026年9月7日咨询主治医生，获知颈动脉彩超检查前无需停用阿司匹林",
+          "score": 0.583784788880258,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:29.260828+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:50:55.448434+00:00"
+        },
+        {
+          "memory_id": "e6d53cce-99f0-4907-a5f2-47cc792dfcf5",
+          "content": "用户担心颈动脉彩超检查前是否需要停用阿司匹林，纠结于出血风险和血栓风险之间的平衡",
+          "score": 0.5650836656668741,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:18.366478+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:49:29.220906+00:00"
+        }
+      ],
+      "seconds": 1.265
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "患者关于抗凝药物的决定是什么，并计划何时到院？",
+        "expected_facts": [
+          "患者根据医生建议决定不停用阿司匹林。",
+          "患者计划于下周三下午两点到达医院。"
+        ],
+        "required_groups": [
+          [
+            "不停用阿司匹林",
+            "继续吃阿司匹林"
+          ],
+          [
+            "下周三下午两点",
+            "周三下午两点"
+          ],
+          [
+            "到院",
+            "去医院"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "d582056b-a791-4674-a2a0-dddd75ec9a3e",
+          "content": "用户于2026年9月7日咨询主治医生，获知颈动脉彩超检查前无需停用阿司匹林",
+          "score": 0.6804584180843686,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:29.260828+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:50:55.448434+00:00"
+        },
+        {
+          "memory_id": "e6d53cce-99f0-4907-a5f2-47cc792dfcf5",
+          "content": "用户担心颈动脉彩超检查前是否需要停用阿司匹林，纠结于出血风险和血栓风险之间的平衡",
+          "score": 0.6318195833082845,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:18.366478+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:49:29.220906+00:00"
+        },
+        {
+          "memory_id": "e5acc6a0-4ad2-4668-b78e-e8d35c356841",
+          "content": "用户计划于2026年9月16日下午两点到医院进行颈动脉彩超检查",
+          "score": 0.5824280404879645,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:29.260828+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:50:55.449436+00:00"
+        },
+        {
+          "memory_id": "13f34d1c-9e25-460c-8159-bde18ec31ac3",
+          "content": "用户预约了下周三下午的颈动脉彩超检查，有高血压病史，最近出现头晕症状",
+          "score": 0.5792717272612287,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:18.366478+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:49:29.220906+00:00"
+        },
+        {
+          "memory_id": "32312e45-1fd5-40b0-b7ca-2478c325ef04",
+          "content": "用户询问下午两点进行颈动脉彩超检查是否需要空腹",
+          "score": 0.5330014710853012,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:29.260828+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:50:55.449436+00:00"
+        }
+      ],
+      "seconds": 0.641
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者预约了什么检查，主要症状和病史背景是什么？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "e5acc6a0-4ad2-4668-b78e-e8d35c356841",
+        "content": "用户计划于2026年9月16日下午两点到医院进行颈动脉彩超检查",
+        "score": 0.6240566486739854,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:49:29.260828+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M07-07",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:50:55.449436+00:00"
+      },
+      {
+        "memory_id": "13f34d1c-9e25-460c-8159-bde18ec31ac3",
+        "content": "用户预约了下周三下午的颈动脉彩超检查，有高血压病史，最近出现头晕症状",
+        "score": 0.56719029674732,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:49:18.366478+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M07-07",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:49:29.220906+00:00"
+      },
+      {
+        "memory_id": "d582056b-a791-4674-a2a0-dddd75ec9a3e",
+        "content": "用户于2026年9月7日咨询主治医生，获知颈动脉彩超检查前无需停用阿司匹林",
+        "score": 0.5528594839012546,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:49:29.260828+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M07-07",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:50:55.448434+00:00"
+      },
+      {
+        "memory_id": "32312e45-1fd5-40b0-b7ca-2478c325ef04",
+        "content": "用户询问下午两点进行颈动脉彩超检查是否需要空腹",
+        "score": 0.5341025591071298,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:49:29.260828+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M07-07",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:50:55.449436+00:00"
+      },
+      {
+        "memory_id": "e6d53cce-99f0-4907-a5f2-47cc792dfcf5",
+        "content": "用户担心颈动脉彩超检查前是否需要停用阿司匹林，纠结于出血风险和血栓风险之间的平衡",
+        "score": 0.48398950531191387,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:49:18.366478+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M07-07",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:49:29.220906+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 102.813
+}

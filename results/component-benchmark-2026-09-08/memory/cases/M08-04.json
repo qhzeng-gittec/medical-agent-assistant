@@ -1,0 +1,436 @@
+{
+  "case": {
+    "id": "M08-04",
+    "category": "搬家旅行与生活环境变化",
+    "turns": [
+      {
+        "user": "上个月我去了趟日本东京出差，住了五天，主要是在涩谷区办公，顺便逛了浅草寺。",
+        "assistant": "收到，已记录您上个月赴东京出差五天的行程。"
+      },
+      {
+        "user": "更正一下，那次出差其实是去了大阪，不是东京，而且是在上个月中旬出发的，住了七天。",
+        "assistant": "明白，已更正为上个月中旬赴大阪出差七天。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "M08-04-Q1",
+        "query": "患者上个月出差的具体目的地是哪里，停留了多久？",
+        "expected_facts": [
+          "患者上个月出差的目的地是大阪。",
+          "患者在大阪停留了七天。",
+          "出差出发时间是上个月中旬。"
+        ],
+        "required_groups": [
+          [
+            "大阪",
+            "大阪"
+          ],
+          [
+            "七天",
+            "七天时间"
+          ],
+          [
+            "上个月中旬",
+            "上个月"
+          ]
+        ]
+      },
+      {
+        "id": "M08-04-Q2",
+        "query": "请确认患者最近一次海外出差的地点和时长。",
+        "expected_facts": [
+          "患者最近一次出差地点是大阪。",
+          "患者出差时长为七天。",
+          "出差发生在上个月中旬。"
+        ],
+        "required_groups": [
+          [
+            "大阪"
+          ],
+          [
+            "七天"
+          ],
+          [
+            "上个月中旬"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M08-04",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861128-yTUbIcihxvu0w9BX0MsV",
+      "usage": {
+        "prompt_tokens": 50,
+        "total_tokens": 50,
+        "cost": 5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5e-07,
+          "upstream_inference_prompt_cost": 5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861135-QNtMzrqq5iS2SFLhZYmr",
+      "usage": {
+        "prompt_tokens": 8350,
+        "completion_tokens": 184,
+        "total_tokens": 8534,
+        "cost": 0.0029466,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0029466,
+          "upstream_inference_prompt_cost": 0.002505,
+          "upstream_inference_completions_cost": 0.0004416
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 94,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"User went on a business trip to Tokyo, Japan around August 2026, stayed for five days, worked primarily in Shibuya district, and visited Senso-ji Temple in Asakusa as a side activity\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861140-VCGpktMczXtOE6FRETOM",
+      "usage": {
+        "prompt_tokens": 46,
+        "total_tokens": 46,
+        "cost": 4.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.6e-07,
+          "upstream_inference_prompt_cost": 4.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861143-kyG04wTSEFfaNR9q8LEM",
+      "usage": {
+        "prompt_tokens": 50,
+        "total_tokens": 50,
+        "cost": 5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5e-07,
+          "upstream_inference_prompt_cost": 5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861145-jaB1xOxvPm9RSpgoCH9Q",
+      "usage": {
+        "prompt_tokens": 8447,
+        "completion_tokens": 454,
+        "total_tokens": 8901,
+        "cost": 0.00301975,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00301975,
+          "upstream_inference_prompt_cost": 0.00211175,
+          "upstream_inference_completions_cost": 0.000908
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 377,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户更正了出差信息：目的地是大阪而非东京，于2026年8月中旬出发，停留了7天\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861160-P58iXOlTGzVmJcOIQTae",
+      "usage": {
+        "prompt_tokens": 28,
+        "total_tokens": 28,
+        "cost": 2.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.8e-07,
+          "upstream_inference_prompt_cost": 2.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861168-ZZSMdEK5g5uF7UwBgiAP",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 14,
+        "cost": 1.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.4e-07,
+          "upstream_inference_prompt_cost": 1.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861169-3qlDDrkPGkiPE5Y8cO24",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 14,
+        "cost": 1.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.4e-07,
+          "upstream_inference_prompt_cost": 1.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861171-JjwmgRnO4EsYw1QJOAtL",
+      "usage": {
+        "prompt_tokens": 24,
+        "total_tokens": 24,
+        "cost": 2.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.4e-07,
+          "upstream_inference_prompt_cost": 2.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861172-szTnQk78SV4JrI8QZOPO",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 14,
+        "cost": 1.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.4e-07,
+          "upstream_inference_prompt_cost": 1.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861178-TkuC7WW3WXS7RKp6kxsD",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 14,
+        "cost": 1.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.4e-07,
+          "upstream_inference_prompt_cost": 1.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "M08-04-Q1",
+        "query": "患者上个月出差的具体目的地是哪里，停留了多久？",
+        "expected_facts": [
+          "患者上个月出差的目的地是大阪。",
+          "患者在大阪停留了七天。",
+          "出差出发时间是上个月中旬。"
+        ],
+        "required_groups": [
+          [
+            "大阪",
+            "大阪"
+          ],
+          [
+            "七天",
+            "七天时间"
+          ],
+          [
+            "上个月中旬",
+            "上个月"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "8ec72874-ac59-43cd-8fce-8d972a2bcad7",
+          "content": "用户更正了出差信息：目的地是大阪而非东京，于2026年8月中旬出发，停留了7天",
+          "score": 0.5869139464476387,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:52:22.663642+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M08-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:52:46.846044+00:00"
+        },
+        {
+          "memory_id": "21710270-0ece-4fce-bff2-450af84d5abb",
+          "content": "User went on a business trip to Tokyo, Japan around August 2026, stayed for five days, worked primarily in Shibuya district, and visited Senso-ji Temple in Asakusa as a side activity",
+          "score": 0.4081969199939426,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:52:04.758610+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M08-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:52:22.638047+00:00"
+        }
+      ],
+      "seconds": 1.969
+    },
+    {
+      "query": {
+        "id": "M08-04-Q2",
+        "query": "请确认患者最近一次海外出差的地点和时长。",
+        "expected_facts": [
+          "患者最近一次出差地点是大阪。",
+          "患者出差时长为七天。",
+          "出差发生在上个月中旬。"
+        ],
+        "required_groups": [
+          [
+            "大阪"
+          ],
+          [
+            "七天"
+          ],
+          [
+            "上个月中旬"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "8ec72874-ac59-43cd-8fce-8d972a2bcad7",
+          "content": "用户更正了出差信息：目的地是大阪而非东京，于2026年8月中旬出发，停留了7天",
+          "score": 0.5643756558377728,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:52:22.663642+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M08-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:52:46.846044+00:00"
+        },
+        {
+          "memory_id": "21710270-0ece-4fce-bff2-450af84d5abb",
+          "content": "User went on a business trip to Tokyo, Japan around August 2026, stayed for five days, worked primarily in Shibuya district, and visited Senso-ji Temple in Asakusa as a side activity",
+          "score": 0.4135210351901616,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:52:04.758610+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M08-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:52:22.638047+00:00"
+        }
+      ],
+      "seconds": 2.078
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者上个月出差的具体目的地是哪里，停留了多久？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "8ec72874-ac59-43cd-8fce-8d972a2bcad7",
+        "content": "用户更正了出差信息：目的地是大阪而非东京，于2026年8月中旬出发，停留了7天",
+        "score": 0.6489960613262086,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:52:22.663642+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M08-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:52:46.846044+00:00"
+      },
+      {
+        "memory_id": "21710270-0ece-4fce-bff2-450af84d5abb",
+        "content": "User went on a business trip to Tokyo, Japan around August 2026, stayed for five days, worked primarily in Shibuya district, and visited Senso-ji Temple in Asakusa as a side activity",
+        "score": 0.4004661386495656,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:52:04.758610+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M08-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:52:22.638047+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 53.375
+}

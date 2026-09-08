@@ -1,0 +1,404 @@
+{
+  "case": {
+    "id": "M02-08",
+    "category": "运动限制与日常活动",
+    "turns": [
+      {
+        "user": "我的肘关节发炎后，医生建议不要弯曲超过90度或重复同一动作。目前我只能保持手臂伸直。",
+        "assistant": "好的，已记录您的肘关节活动限制。"
+      },
+      {
+        "user": "补充一下，如果出现红肿，需要冷敷并减少活动。我现在尽量保持手臂不动。",
+        "assistant": "了解，已补充您的护理建议。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "Q1",
+        "query": "患者被建议避免哪些肘关节动作？",
+        "expected_facts": [
+          "患者被建议避免弯曲超过90度和重复同一动作。"
+        ],
+        "required_groups": [
+          [
+            "弯曲超过90度",
+            "重复同一动作"
+          ]
+        ]
+      },
+      {
+        "id": "Q2",
+        "query": "当肘关节出现红肿时，患者应采取什么措施？",
+        "expected_facts": [
+          "如果出现红肿，患者需要冷敷并减少活动。"
+        ],
+        "required_groups": [
+          [
+            "红肿",
+            "冷敷",
+            "减少活动"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M02-08",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860277-fA1onoStENyWHo5xCsHQ",
+      "usage": {
+        "prompt_tokens": 49,
+        "total_tokens": 49,
+        "cost": 4.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.9e-07,
+          "upstream_inference_prompt_cost": 4.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860287-MD9fphsfosikWdtxi4k3",
+      "usage": {
+        "prompt_tokens": 8344,
+        "completion_tokens": 987,
+        "total_tokens": 9331,
+        "cost": 0.0036528,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 8128,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0036528,
+          "upstream_inference_prompt_cost": 0.001284,
+          "upstream_inference_completions_cost": 0.0023688
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 919,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户的肘关节发炎，医生建议不要弯曲超过90度或重复同一动作，目前用户只能保持手臂伸直。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860334-RY6D7RoTZ0uOLE9akoO9",
+      "usage": {
+        "prompt_tokens": 28,
+        "total_tokens": 28,
+        "cost": 2.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.8e-07,
+          "upstream_inference_prompt_cost": 2.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860336-zcUI16BSr4iBXBswfvuD",
+      "usage": {
+        "prompt_tokens": 38,
+        "total_tokens": 38,
+        "cost": 3.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.8e-07,
+          "upstream_inference_prompt_cost": 3.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860341-TtP1mIO0f5fgst5LF1xk",
+      "usage": {
+        "prompt_tokens": 8417,
+        "completion_tokens": 139,
+        "total_tokens": 8556,
+        "cost": 0.0028587,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0028587,
+          "upstream_inference_prompt_cost": 0.0025251,
+          "upstream_inference_completions_cost": 0.0003336
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 70,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户补充肘关节护理建议：如果出现红肿，需要冷敷并减少活动。目前用户尽量保持手臂不动。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860349-4aXssfIOTPzDZpxm7pDO",
+      "usage": {
+        "prompt_tokens": 27,
+        "total_tokens": 27,
+        "cost": 2.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.7e-07,
+          "upstream_inference_prompt_cost": 2.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860359-VLvdPK8KefZBpFIDWU91",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860361-s6joz11Zh2ONC5d4tpX9",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860365-ISTdKAHi4UYqZUuq0Tqb",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860385-TPzgDserXQVAIyyUfdth",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860397-tfddVcxWcEXQoLyvdyHv",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "Q1",
+        "query": "患者被建议避免哪些肘关节动作？",
+        "expected_facts": [
+          "患者被建议避免弯曲超过90度和重复同一动作。"
+        ],
+        "required_groups": [
+          [
+            "弯曲超过90度",
+            "重复同一动作"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "83037736-494e-45d4-8ee6-0aea969d4bcb",
+          "content": "用户的肘关节发炎，医生建议不要弯曲超过90度或重复同一动作，目前用户只能保持手臂伸直。",
+          "score": 0.8423100843249879,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:37:55.772099+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M02-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:38:55.529675+00:00"
+        },
+        {
+          "memory_id": "93390560-9a3c-4fad-a0e2-7efea2137d32",
+          "content": "用户补充肘关节护理建议：如果出现红肿，需要冷敷并减少活动。目前用户尽量保持手臂不动。",
+          "score": 0.7278317620172858,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:38:55.560376+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M02-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:39:16.746076+00:00"
+        }
+      ],
+      "seconds": 3.578
+    },
+    {
+      "query": {
+        "id": "Q2",
+        "query": "当肘关节出现红肿时，患者应采取什么措施？",
+        "expected_facts": [
+          "如果出现红肿，患者需要冷敷并减少活动。"
+        ],
+        "required_groups": [
+          [
+            "红肿",
+            "冷敷",
+            "减少活动"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "93390560-9a3c-4fad-a0e2-7efea2137d32",
+          "content": "用户补充肘关节护理建议：如果出现红肿，需要冷敷并减少活动。目前用户尽量保持手臂不动。",
+          "score": 0.7798879348564794,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:38:55.560376+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M02-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:39:16.746076+00:00"
+        },
+        {
+          "memory_id": "83037736-494e-45d4-8ee6-0aea969d4bcb",
+          "content": "用户的肘关节发炎，医生建议不要弯曲超过90度或重复同一动作，目前用户只能保持手臂伸直。",
+          "score": 0.6529986548481601,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:37:55.772099+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M02-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:38:55.529675+00:00"
+        }
+      ],
+      "seconds": 4.516
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者被建议避免哪些肘关节动作？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "83037736-494e-45d4-8ee6-0aea969d4bcb",
+        "content": "用户的肘关节发炎，医生建议不要弯曲超过90度或重复同一动作，目前用户只能保持手臂伸直。",
+        "score": 0.7458729191335797,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:37:55.772099+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M02-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:38:55.529675+00:00"
+      },
+      {
+        "memory_id": "93390560-9a3c-4fad-a0e2-7efea2137d32",
+        "content": "用户补充肘关节护理建议：如果出现红肿，需要冷敷并减少活动。目前用户尽量保持手臂不动。",
+        "score": 0.6371468373713949,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:38:55.560376+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M02-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:39:16.746076+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 122.438
+}

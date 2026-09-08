@@ -1,0 +1,438 @@
+{
+  "case": {
+    "id": "M01-09",
+    "category": "工作作息与睡眠时间变化",
+    "turns": [
+      {
+        "user": "去年夏天为了完成毕业设计，我连续一个月每天只睡三个小时，靠咖啡硬撑，直到答辩前一天才崩溃。",
+        "assistant": "了解，已记录您去年夏季因毕业设计导致的严重睡眠剥夺。"
+      },
+      {
+        "user": "更正一下，那是大三暑假的事，不是去年，而且我答辩后休整了一周，现在作息已经完全正常了。",
+        "assistant": "明白，已将时间修正为大三暑假并记录后续恢复情况。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "用户提到的毕业设计压力期具体发生在哪个时间段？睡眠状况如何？",
+        "expected_facts": [
+          "该事件发生在大三暑假。",
+          "该用户当时连续一个月每天只睡三个小时。"
+        ],
+        "required_groups": [
+          [
+            "大三暑假",
+            "大学三年级暑假"
+          ],
+          [
+            "连续一个月",
+            "整整一月"
+          ],
+          [
+            "每天只睡三个小时",
+            "每日仅睡三小时"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "用户答辩后经历了怎样的恢复过程？目前状态如何？",
+        "expected_facts": [
+          "该用户答辩后休整了一周。",
+          "该用户目前作息已完全正常。"
+        ],
+        "required_groups": [
+          [
+            "答辩后",
+            "答辩之后"
+          ],
+          [
+            "休整了一周",
+            "休息了一周"
+          ],
+          [
+            "作息完全正常",
+            "生活规律正常"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M01-09",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859912-peWjoqeYBl2Krz96kjEw",
+      "usage": {
+        "prompt_tokens": 53,
+        "total_tokens": 53,
+        "cost": 2.12e-06,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.12e-06,
+          "upstream_inference_prompt_cost": 2.12e-06,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788859913-aqPD4Sgfd82EjjitnaB0",
+      "usage": {
+        "prompt_tokens": 8352,
+        "completion_tokens": 387,
+        "total_tokens": 8739,
+        "cost": 0.0034344,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0034344,
+          "upstream_inference_prompt_cost": 0.0025056,
+          "upstream_inference_completions_cost": 0.0009288
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 312,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"2025年夏天为了完成毕业设计，用户连续一个月每天只睡三个小时，靠咖啡硬撑，直到答辩前一天才崩溃\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859935-7pjsVoK161l4mSQSG298",
+      "usage": {
+        "prompt_tokens": 31,
+        "total_tokens": 31,
+        "cost": 3.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.1e-07,
+          "upstream_inference_prompt_cost": 3.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859937-bBEC00ma3HfpComT0CLt",
+      "usage": {
+        "prompt_tokens": 53,
+        "total_tokens": 53,
+        "cost": 5.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.3e-07,
+          "upstream_inference_prompt_cost": 5.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788859946-0pKJttWozsPJQXZmq28q",
+      "usage": {
+        "prompt_tokens": 8441,
+        "completion_tokens": 201,
+        "total_tokens": 8642,
+        "cost": 0.00271323,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00271323,
+          "upstream_inference_prompt_cost": 0.00227907,
+          "upstream_inference_completions_cost": 0.00043416
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 101,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户大三暑假为了完成毕业设计，连续一个月每天只睡三个小时，靠咖啡硬撑，直到答辩前一天才崩溃。答辩后休整了一周，现在作息已经完全正常了。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859955-BHZVciBBWqh9nPoH1Seh",
+      "usage": {
+        "prompt_tokens": 43,
+        "total_tokens": 43,
+        "cost": 4.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.3e-07,
+          "upstream_inference_prompt_cost": 4.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859956-98cZfrdzpXhjYsXaFcKI",
+      "usage": {
+        "prompt_tokens": 17,
+        "total_tokens": 17,
+        "cost": 1.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.7e-07,
+          "upstream_inference_prompt_cost": 1.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859957-WYc4ILbl2cNdDBicLORB",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 14,
+        "cost": 1.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.4e-07,
+          "upstream_inference_prompt_cost": 1.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859958-w6hU4qCtT1eRgekzywmh",
+      "usage": {
+        "prompt_tokens": 27,
+        "total_tokens": 27,
+        "cost": 2.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.7e-07,
+          "upstream_inference_prompt_cost": 2.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859959-9VY8eo4MM3sKF4IKUuPk",
+      "usage": {
+        "prompt_tokens": 17,
+        "total_tokens": 17,
+        "cost": 1.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.7e-07,
+          "upstream_inference_prompt_cost": 1.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859960-4byeQLkX4npo43UAzMlK",
+      "usage": {
+        "prompt_tokens": 17,
+        "total_tokens": 17,
+        "cost": 1.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.7e-07,
+          "upstream_inference_prompt_cost": 1.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "用户提到的毕业设计压力期具体发生在哪个时间段？睡眠状况如何？",
+        "expected_facts": [
+          "该事件发生在大三暑假。",
+          "该用户当时连续一个月每天只睡三个小时。"
+        ],
+        "required_groups": [
+          [
+            "大三暑假",
+            "大学三年级暑假"
+          ],
+          [
+            "连续一个月",
+            "整整一月"
+          ],
+          [
+            "每天只睡三个小时",
+            "每日仅睡三小时"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "800446c0-3c6b-47e9-9a6d-1aba95afea31",
+          "content": "用户大三暑假为了完成毕业设计，连续一个月每天只睡三个小时，靠咖啡硬撑，直到答辩前一天才崩溃。答辩后休整了一周，现在作息已经完全正常了。",
+          "score": 0.7073754565372454,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:32:16.279706+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:32:34.701916+00:00"
+        },
+        {
+          "memory_id": "e059ea15-1392-4aa3-9d0b-26f41cf7837f",
+          "content": "2025年夏天为了完成毕业设计，用户连续一个月每天只睡三个小时，靠咖啡硬撑，直到答辩前一天才崩溃",
+          "score": 0.6564523052751867,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:31:51.162832+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M01-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:32:16.254904+00:00"
+        }
+      ],
+      "seconds": 2.141
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "用户答辩后经历了怎样的恢复过程？目前状态如何？",
+        "expected_facts": [
+          "该用户答辩后休整了一周。",
+          "该用户目前作息已完全正常。"
+        ],
+        "required_groups": [
+          [
+            "答辩后",
+            "答辩之后"
+          ],
+          [
+            "休整了一周",
+            "休息了一周"
+          ],
+          [
+            "作息完全正常",
+            "生活规律正常"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "800446c0-3c6b-47e9-9a6d-1aba95afea31",
+          "content": "用户大三暑假为了完成毕业设计，连续一个月每天只睡三个小时，靠咖啡硬撑，直到答辩前一天才崩溃。答辩后休整了一周，现在作息已经完全正常了。",
+          "score": 0.5431976014210043,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:32:16.279706+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:32:34.701916+00:00"
+        },
+        {
+          "memory_id": "e059ea15-1392-4aa3-9d0b-26f41cf7837f",
+          "content": "2025年夏天为了完成毕业设计，用户连续一个月每天只睡三个小时，靠咖啡硬撑，直到答辩前一天才崩溃",
+          "score": 0.47673981592049297,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:31:51.162832+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M01-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:32:16.254904+00:00"
+        }
+      ],
+      "seconds": 0.797
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "用户提到的毕业设计压力期具体发生在哪个时间段？睡眠状况如何？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "800446c0-3c6b-47e9-9a6d-1aba95afea31",
+        "content": "用户大三暑假为了完成毕业设计，连续一个月每天只睡三个小时，靠咖啡硬撑，直到答辩前一天才崩溃。答辩后休整了一周，现在作息已经完全正常了。",
+        "score": 0.6797090578782436,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:32:16.279706+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M01-09",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:32:34.701916+00:00"
+      },
+      {
+        "memory_id": "e059ea15-1392-4aa3-9d0b-26f41cf7837f",
+        "content": "2025年夏天为了完成毕业设计，用户连续一个月每天只睡三个小时，靠咖啡硬撑，直到答辩前一天才崩溃",
+        "score": 0.6047207868759008,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:31:51.162832+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M01-09",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:32:16.254904+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 49.562
+}

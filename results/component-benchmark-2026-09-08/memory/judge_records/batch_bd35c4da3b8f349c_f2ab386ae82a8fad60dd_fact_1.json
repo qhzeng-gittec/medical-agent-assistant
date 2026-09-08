@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Return one JSON object {\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}.\nEvaluate the entire expected_fact as one claim. All its clauses must be supported to set supported=true.\nReturn one verdict, not a list of facts. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "{\"query\": \"患者在进行哪项检查前使用了何种表面麻醉剂导致口腔及呼吸道严重反应？\", \"expected_fact\": \"症状包括口腔黏膜起泡溃烂、吞咽困难、面部浮肿及呼吸困难。\", \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户2021年春天利多卡因凝胶过敏反应除口腔溃烂外，还出现面部浮肿和呼吸困难，必须吸氧才能缓解。从那以后做无痛检查都要求避开含利多卡因的药物。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:40:58.100622+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户对利多卡因凝胶过敏。2021年春天做胃镜前使用该药后，口腔黏膜迅速起泡溃烂，出现吞咽困难。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:40:40.221555+00:00\"}]}"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862515-7bMh8za9sRJedEulRGeJ",
+    "object": "chat.completion",
+    "created": 1788862515,
+    "model": "minimax/minimax-m2.5",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"},{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确记录2021年春做胃镜前使用利多卡因凝胶后出现口腔黏膜起泡溃烂、吞咽困难、面部浮肿及呼吸困难。\"}",
+          "refusal": null,
+          "reasoning": "Let me analyze this query about a patient's adverse reaction to a topical anesthetic before a procedure.\n\nThe query asks: \"患者在进行哪项检查前使用了何种表面麻醉剂导致口腔及呼吸道严重反应？\"\nTranslation: \"Before which examination did the patient use what kind of topical anesthetic that caused severe oral and respiratory reactions?\"\n\nThe expected_fact states: \"症状包括口腔黏膜起泡溃烂、吞咽困难、面部浮肿及呼吸困难。\"\nTranslation: \"Symptoms include blistering and ulceration of oral mucosa, difficulty swallowing, facial swelling, and difficulty breathing.\"\n\nNow let me check the memories:\n\nm0: User had lidocaine gel allergy reaction in spring 2021. Besides oral ulceration, there was facial swelling and difficulty breathing, requiring oxygen. Since then, for painless examinations, they request avoiding lidocaine-containing medications.\n\nm1: User is allergic to lidocaine gel. In spring 2021 before gastroscopy, after using this medication, oral mucosa quickly blistered and ulcerated, with difficulty swallowing.\n\nLet me verify:\n1. Which examination? - Gastroscopy (胃镜) - mentioned in m1\n2. What topical anesthetic? - Lidocaine gel (利多卡因凝胶) - mentioned in both m0 and m1\n3. Symptoms: \n   - Oral mucosal blistering/ulceration (口腔黏膜起泡溃烂) - m1 mentions \"口腔黏膜迅速起泡溃烂\"\n   - Difficulty swallowing (吞咽困难) - m1 mentions \"出现吞咽困难\"\n   - Facial swelling (面部浮肿) - m0 mentions \"面部浮肿\"\n   - Difficulty breathing (呼吸困难) - m0 mentions \"呼吸困难\"\n\nAll the symptoms mentioned in expected_fact are covered in the memories:\n- m1: 口腔黏膜迅速起泡溃烂, 吞咽困难\n\n\n- m0: 面部浮肿, 呼吸困难\n\nI confirm the details match the expected fact. The patient had a severe allergic reaction to lidocaine gel before a gastroscopy, experiencing multiple oral and respiratory symptoms.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze this query about a patient's adverse reaction to a topical anesthetic before a procedure.\n\nThe query asks: \"患者在进行哪项检查前使用了何种表面麻醉剂导致口腔及呼吸道严重反应？\"\nTranslation: \"Before which examination did the patient use what kind of topical anesthetic that caused severe oral and respiratory reactions?\"\n\nThe expected_fact states: \"症状包括口腔黏膜起泡溃烂、吞咽困难、面部浮肿及呼吸困难。\"\nTranslation: \"Symptoms include blistering and ulceration of oral mucosa, difficulty swallowing, facial swelling, and difficulty breathing.\"\n\nNow let me check the memories:\n\nm0: User had lidocaine gel allergy reaction in spring 2021. Besides oral ulceration, there was facial swelling and difficulty breathing, requiring oxygen. Since then, for painless examinations, they request avoiding lidocaine-containing medications.\n\nm1: User is allergic to lidocaine gel. In spring 2021 before gastroscopy, after using this medication, oral mucosa quickly blistered and ulcerated, with difficulty swallowing.\n\nLet me verify:\n1. Which examination? - Gastroscopy (胃镜) - mentioned in m1\n2. What topical anesthetic? - Lidocaine gel (利多卡因凝胶) - mentioned in both m0 and m1\n3. Symptoms: \n   - Oral mucosal blistering/ulceration (口腔黏膜起泡溃烂) - m1 mentions \"口腔黏膜迅速起泡溃烂\"\n   - Difficulty swallowing (吞咽困难) - m1 mentions \"出现吞咽困难\"\n   - Facial swelling (面部浮肿) - m0 mentions \"面部浮肿\"\n   - Difficulty breathing (呼吸困难) - m0 mentions \"呼吸困难\"\n\nAll the symptoms mentioned in expected_fact are covered in the memories:\n- m1: 口腔黏膜迅速起泡溃烂, 吞咽困难\n\n\n- m0: 面部浮肿, 呼吸困难\n\nI confirm the details match the expected fact. The patient had a severe allergic reaction to lidocaine gel before a gastroscopy, experiencing multiple oral and respiratory symptoms.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 482,
+      "completion_tokens": 484,
+      "total_tokens": 966,
+      "cost": 0.0007254,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0007254,
+        "upstream_inference_prompt_cost": 0.0001446,
+        "upstream_inference_completions_cost": 0.0005808
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 585,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 11.968
+}

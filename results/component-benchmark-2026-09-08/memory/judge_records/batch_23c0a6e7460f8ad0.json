@@ -1,0 +1,90 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"e397b0960bdf7b5cdf39\", \"query\": \"患者因腰部问题被禁止哪些动作？\", \"expected_facts\": [\"患者被禁止弯腰提东西和长时间坐着。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户因腰部问题被要求避免弯腰提东西和长时间坐着，目前只能短时间站立或缓慢行走。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:35:41.040978+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户目前尽量控制活动时间以应对腰部问题\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:36:57.453507+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"医生告知用户如果出现麻木感需要立刻躺下休息\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:36:57.453507+00:00\"}]}, {\"id\": \"e4e4f01461c377c706be\", \"query\": \"患者彻底停止吸烟的确切起始时间是什么时候？\", \"expected_facts\": [\"患者于2021年1月彻底戒烟。\", \"在此之前患者仅减少了吸烟量，并未完全停止。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户于2021年1月彻底戒烟，此前只是减少吸烟量但并未完全停止\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:54:43.807199+00:00\"}]}, {\"id\": \"e5366926fbf2d3b446fe\", \"query\": \"患者预约了哪项检查，目的是什么？\", \"expected_facts\": [\"患者预约了下周一上午的骨密度检测。\", \"患者因腿疼且医生怀疑骨质疏松而进行检查。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户预约了2026年9月14日（下周一）上午进行骨密度检测\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:37:44.928694+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户询问骨密度检测前是否需要停药，以及服用的钙片和维生素D是否会影响检测结果\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:37:44.928694+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户的骨密度检测具体安排在周一上午十点，用户询问检测当天早上是否还能服用钙片，或者是否应改为晚上服用\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:39:04.018607+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户每天早上八点服用钙片\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:39:04.018607+00:00\"}, {\"memory_id\": \"m4\", \"content\": \"用户目前正在服用钙片和维生素D\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:37:44.928694+00:00\"}, {\"memory_id\": \"m5\", \"content\": \"用户最近出现腿疼症状，医生怀疑其患有骨质疏松\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:37:44.928694+00:00\"}]}, {\"id\": \"e5867d17675ed57759d4\", \"query\": \"患者因颈椎问题被禁止哪些头部动作？\", \"expected_facts\": [\"患者被禁止低头太久和快速转头。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户因颈椎不适，不能低头太久或快速转头，目前只能缓慢转动头部并保持直立姿势\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:36:52.419448+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"医生提醒用户如果出现头晕需立即停止活动并坐下休息，用户目前非常注意头部动作\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:37:19.870879+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "error_type": "ConnectError"
+    },
+    {
+      "attempt": 2,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862271-N82g7tEdzJNqv1tRAqkK",
+    "object": "chat.completion",
+    "created": 1788862271,
+    "model": "minimax/minimax-m2.5",
+    "provider": "SiliconFlow",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"e397b0960bdf7b5cdf39\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states patient was told to avoid bending to pick up things and sitting for long periods due to back problems.\"}]},{\"id\":\"e4e4f01461c377c706be\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states patient quit smoking completely in January 2021 and only reduced smoking before that.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states before January 2021, patient only reduced smoking amount but did not completely stop.\"}]},{\"id\":\"e5366926fbf2d3b446fe\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states patient scheduled bone density test for next Monday morning (2026年9月14日).\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m5\"}],\"reason\":\"Memory explicitly states patient has leg pain symptoms and doctor suspects osteoporosis.\"}]},{\"id\":\"e5867d17675ed57759d4\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states patient cannot look down for too long or turn head quickly due to neck discomfort.\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item according to the instructions:\n\n1. **Item e397b0960bdf7b5cdf39**: Query about what movements the patient is prohibited from doing due to back problems.\n   - Expected fact: \"患者被禁止弯腰提东西和长时间坐着。\" (Patient is prohibited from bending down to pick up things and sitting for long periods.)\n   - Memory m0: \"用户因腰部问题被要求避免弯腰提东西和长时间坐着，目前只能短时间站立或缓慢行走。\" - This explicitly states the patient is told to avoid bending to pick up things and sitting for long periods. This directly supports the expected fact.\n   - Supported: true, evidence: [m0]\n\n2. **Item e4e4f01461c377c706be**: Query about when the patient completely stopped smoking.\n   - Expected facts: \n     1. \"患者于2021年1月彻底戒烟。\" (Patient quit smoking completely in January 2021.)\n     2. \"在此之前患者仅减少了吸烟量，并未完全停止。\" (Before that, the patient only reduced smoking amount, didn't completely stop.)\n   - Memory m0: \"用户于2021年1月彻底戒烟，此前只是减少吸烟量但并未完全停止\" - This explicitly states both facts.\n   - Both facts are supported: true, evidence: [m0]\n\n3. **Item e5366926fbf2d3b446fe**: Query about what examination the patient scheduled and the purpose.\n   - Expected facts:\n     1. \"患者预约了下周一上午的骨密度检测。\" (Patient scheduled a bone density test for next Monday morning.)\n     2. \"患者因腿疼且医生怀疑骨质疏松而进行检查。\" (Patient is having the test due to leg pain and doctor's suspicion of osteoporosis.)\n   - Memory m0: \"用户预约了2026年9月14日（下周一）上午进行骨密度检测\" - Supports fact 1\n   - Memory m5: \"用户最近出现腿疼症状，医生怀疑其患有骨质疏松\" - Supports fact 2\n   - Both facts are supported: true, evidence: [m0, m5]\n\n4. **Item e5867d17675ed57759d4**: Query about what head movements the patient is prohibited from doing due to neck problems.\n   - Expected fact: \"患者被禁止低头太久和快速转头。\" (Patient is prohibited from looking down for too long and turning head quickly.)\n   - Memory m0: \"用户因颈椎不适，不能低头太久或快速转头，目前只能缓慢转动头部并保持直立姿势\" - This explicitly states the patient cannot look down for too long or turn head quickly.\n   - Supported: true, evidence: [m0]\n\nI'll proceed with generating the JSON output for each item, maintaining the original order and structure.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item according to the instructions:\n\n1. **Item e397b0960bdf7b5cdf39**: Query about what movements the patient is prohibited from doing due to back problems.\n   - Expected fact: \"患者被禁止弯腰提东西和长时间坐着。\" (Patient is prohibited from bending down to pick up things and sitting for long periods.)\n   - Memory m0: \"用户因腰部问题被要求避免弯腰提东西和长时间坐着，目前只能短时间站立或缓慢行走。\" - This explicitly states the patient is told to avoid bending to pick up things and sitting for long periods. This directly supports the expected fact.\n   - Supported: true, evidence: [m0]\n\n2. **Item e4e4f01461c377c706be**: Query about when the patient completely stopped smoking.\n   - Expected facts: \n     1. \"患者于2021年1月彻底戒烟。\" (Patient quit smoking completely in January 2021.)\n     2. \"在此之前患者仅减少了吸烟量，并未完全停止。\" (Before that, the patient only reduced smoking amount, didn't completely stop.)\n   - Memory m0: \"用户于2021年1月彻底戒烟，此前只是减少吸烟量但并未完全停止\" - This explicitly states both facts.\n   - Both facts are supported: true, evidence: [m0]\n\n3. **Item e5366926fbf2d3b446fe**: Query about what examination the patient scheduled and the purpose.\n   - Expected facts:\n     1. \"患者预约了下周一上午的骨密度检测。\" (Patient scheduled a bone density test for next Monday morning.)\n     2. \"患者因腿疼且医生怀疑骨质疏松而进行检查。\" (Patient is having the test due to leg pain and doctor's suspicion of osteoporosis.)\n   - Memory m0: \"用户预约了2026年9月14日（下周一）上午进行骨密度检测\" - Supports fact 1\n   - Memory m5: \"用户最近出现腿疼症状，医生怀疑其患有骨质疏松\" - Supports fact 2\n   - Both facts are supported: true, evidence: [m0, m5]\n\n4. **Item e5867d17675ed57759d4**: Query about what head movements the patient is prohibited from doing due to neck problems.\n   - Expected fact: \"患者被禁止低头太久和快速转头。\" (Patient is prohibited from looking down for too long and turning head quickly.)\n   - Memory m0: \"用户因颈椎不适，不能低头太久或快速转头，目前只能缓慢转动头部并保持直立姿势\" - This explicitly states the patient cannot look down for too long or turn head quickly.\n   - Supported: true, evidence: [m0]\n\nI'll proceed with generating the JSON output for each item, maintaining the original order and structure.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1273,
+      "completion_tokens": 875,
+      "total_tokens": 2148,
+      "cost": 0.0014319,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0014319,
+        "upstream_inference_prompt_cost": 0.0003819,
+        "upstream_inference_completions_cost": 0.00105
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 588,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 25.578
+}

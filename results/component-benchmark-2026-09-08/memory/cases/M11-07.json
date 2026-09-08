@@ -1,0 +1,532 @@
+{
+  "case": {
+    "id": "M11-07",
+    "category": "多项历史事实的跨会话汇总",
+    "turns": [
+      {
+        "user": "我三十五岁，六年前因为长期伏案工作导致颈椎病，脖子僵硬，医生让我做理疗，我做了两个月，症状好转，后来注意姿势就没再犯。",
+        "assistant": "明白，已记录您六年前的颈椎病诊断及理疗康复历史。"
+      },
+      {
+        "user": "补充一点，两年前我因为加班多，脖子又疼了，这次我没做理疗，而是自己买了按摩仪，每天用十分钟，坚持了三个月，症状就消失了。",
+        "assistant": "收到，已更新您两年前复发及自行使用按摩仪的记录。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "M11-07-Q1",
+        "query": "患者六年前因什么工作习惯导致什么疾病，接受了什么治疗，效果如何？",
+        "expected_facts": [
+          "患者六年前因长期伏案工作导致颈椎病。",
+          "患者接受了两个月理疗。",
+          "患者症状好转后未再复发。"
+        ],
+        "required_groups": [
+          [
+            "伏案工作",
+            "久坐"
+          ],
+          [
+            "颈椎病",
+            "脖子病"
+          ],
+          [
+            "理疗",
+            "物理治疗"
+          ]
+        ]
+      },
+      {
+        "id": "M11-07-Q2",
+        "query": "两年前复发时他用了什么工具，每天用多久，坚持了多久？",
+        "expected_facts": [
+          "患者两年前因加班导致脖子疼痛复发。",
+          "患者使用按摩仪每天十分钟。",
+          "患者坚持三个月后症状消失。"
+        ],
+        "required_groups": [
+          [
+            "按摩仪",
+            "按摩器"
+          ],
+          [
+            "十分钟",
+            "10分钟"
+          ],
+          [
+            "三个月",
+            "三个月"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M11-07",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861600-RgQZF9nLLRqVi2VB9mqK",
+      "usage": {
+        "prompt_tokens": 66,
+        "total_tokens": 66,
+        "cost": 6.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.6e-07,
+          "upstream_inference_prompt_cost": 6.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861609-BhvRVsMWs5IQJNAY5s0q",
+      "usage": {
+        "prompt_tokens": 8360,
+        "completion_tokens": 377,
+        "total_tokens": 8737,
+        "cost": 0.002844,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.002844,
+          "upstream_inference_prompt_cost": 0.00209,
+          "upstream_inference_completions_cost": 0.000754
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 234,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户三十五岁，六年前（约2020年9月）因长期伏案工作导致颈椎病，出现脖子僵硬症状\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户因颈椎病接受了医生建议的理疗治疗，持续两个月后症状好转\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"2\",\n      \"text\": \"用户治疗后注意保持正确姿势，颈椎病症状未再复发\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861626-Ydrv8YFLe0Ui1v8etWvQ",
+      "usage": {
+        "prompt_tokens": 65,
+        "total_tokens": 65,
+        "cost": 6.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.5e-07,
+          "upstream_inference_prompt_cost": 6.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861628-UUWiZGHGj5Gu3daGOIEU",
+      "usage": {
+        "prompt_tokens": 63,
+        "total_tokens": 63,
+        "cost": 6.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.3e-07,
+          "upstream_inference_prompt_cost": 6.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861631-ogX08yitESLH3MBlRj6O",
+      "usage": {
+        "prompt_tokens": 8508,
+        "completion_tokens": 754,
+        "total_tokens": 9262,
+        "cost": 0.003635,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.003635,
+          "upstream_inference_prompt_cost": 0.002127,
+          "upstream_inference_completions_cost": 0.001508
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 705,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户两年前（约2024年9月）因加班多导致颈椎病复发，脖子再次疼痛。这次没有做理疗，而是自行购买按摩仪，每天使用十分钟，坚持三个月后症状消失。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\", \"1\", \"2\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861657-Mkg60XsV6ae2sJbZUnfP",
+      "usage": {
+        "prompt_tokens": 47,
+        "total_tokens": 47,
+        "cost": 4.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.7e-07,
+          "upstream_inference_prompt_cost": 4.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861659-jl85K6IIklIWTwNviIUA",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861661-vGP1qItFhgdY2gB1BNcZ",
+      "usage": {
+        "prompt_tokens": 17,
+        "total_tokens": 17,
+        "cost": 1.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.7e-07,
+          "upstream_inference_prompt_cost": 1.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861666-MPGhldY3kngIGWg1IRZH",
+      "usage": {
+        "prompt_tokens": 29,
+        "total_tokens": 29,
+        "cost": 2.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.9e-07,
+          "upstream_inference_prompt_cost": 2.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861669-Gn5i91yStALkoMjRJliN",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861672-rwtXLJui7Kmtgz448sKr",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "M11-07-Q1",
+        "query": "患者六年前因什么工作习惯导致什么疾病，接受了什么治疗，效果如何？",
+        "expected_facts": [
+          "患者六年前因长期伏案工作导致颈椎病。",
+          "患者接受了两个月理疗。",
+          "患者症状好转后未再复发。"
+        ],
+        "required_groups": [
+          [
+            "伏案工作",
+            "久坐"
+          ],
+          [
+            "颈椎病",
+            "脖子病"
+          ],
+          [
+            "理疗",
+            "物理治疗"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "cba5323d-6945-4a87-ade4-000aec8dcd1c",
+          "content": "用户三十五岁，六年前（约2020年9月）因长期伏案工作导致颈椎病，出现脖子僵硬症状",
+          "score": 0.600756851166317,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:59:58.257699+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:27.961590+00:00"
+        },
+        {
+          "memory_id": "663ef18d-b2bc-482b-b948-d4e3efb811a6",
+          "content": "用户治疗后注意保持正确姿势，颈椎病症状未再复发",
+          "score": 0.5504252641462709,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:59:58.257699+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:27.961590+00:00"
+        },
+        {
+          "memory_id": "2bed3a33-d8c3-4f6e-99bc-48a4f6e5f9af",
+          "content": "用户因颈椎病接受了医生建议的理疗治疗，持续两个月后症状好转",
+          "score": 0.5473356423742224,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:59:58.257699+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:27.961590+00:00"
+        },
+        {
+          "memory_id": "3bbc9780-89cd-4bb4-a719-f6846b9a9a5c",
+          "content": "用户两年前（约2024年9月）因加班多导致颈椎病复发，脖子再次疼痛。这次没有做理疗，而是自行购买按摩仪，每天使用十分钟，坚持三个月后症状消失。",
+          "score": 0.44540578453210067,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:00:28.027387+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M11-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:58.270756+00:00"
+        }
+      ],
+      "seconds": 1.672
+    },
+    {
+      "query": {
+        "id": "M11-07-Q2",
+        "query": "两年前复发时他用了什么工具，每天用多久，坚持了多久？",
+        "expected_facts": [
+          "患者两年前因加班导致脖子疼痛复发。",
+          "患者使用按摩仪每天十分钟。",
+          "患者坚持三个月后症状消失。"
+        ],
+        "required_groups": [
+          [
+            "按摩仪",
+            "按摩器"
+          ],
+          [
+            "十分钟",
+            "10分钟"
+          ],
+          [
+            "三个月",
+            "三个月"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "663ef18d-b2bc-482b-b948-d4e3efb811a6",
+          "content": "用户治疗后注意保持正确姿势，颈椎病症状未再复发",
+          "score": 0.6202952211432218,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:59:58.257699+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:27.961590+00:00"
+        },
+        {
+          "memory_id": "2bed3a33-d8c3-4f6e-99bc-48a4f6e5f9af",
+          "content": "用户因颈椎病接受了医生建议的理疗治疗，持续两个月后症状好转",
+          "score": 0.5941389413005378,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:59:58.257699+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:27.961590+00:00"
+        },
+        {
+          "memory_id": "3bbc9780-89cd-4bb4-a719-f6846b9a9a5c",
+          "content": "用户两年前（约2024年9月）因加班多导致颈椎病复发，脖子再次疼痛。这次没有做理疗，而是自行购买按摩仪，每天使用十分钟，坚持三个月后症状消失。",
+          "score": 0.5926424029416887,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:00:28.027387+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M11-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:58.270756+00:00"
+        },
+        {
+          "memory_id": "cba5323d-6945-4a87-ade4-000aec8dcd1c",
+          "content": "用户三十五岁，六年前（约2020年9月）因长期伏案工作导致颈椎病，出现脖子僵硬症状",
+          "score": 0.44909661116300803,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:59:58.257699+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:27.961590+00:00"
+        }
+      ],
+      "seconds": 5.688
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者六年前因什么工作习惯导致什么疾病，接受了什么治疗，效果如何？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "cba5323d-6945-4a87-ade4-000aec8dcd1c",
+        "content": "用户三十五岁，六年前（约2020年9月）因长期伏案工作导致颈椎病，出现脖子僵硬症状",
+        "score": 0.5666389714055329,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:59:58.257699+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M11-07",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:00:27.961590+00:00"
+      },
+      {
+        "memory_id": "2bed3a33-d8c3-4f6e-99bc-48a4f6e5f9af",
+        "content": "用户因颈椎病接受了医生建议的理疗治疗，持续两个月后症状好转",
+        "score": 0.5501827484269823,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:59:58.257699+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M11-07",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:00:27.961590+00:00"
+      },
+      {
+        "memory_id": "663ef18d-b2bc-482b-b948-d4e3efb811a6",
+        "content": "用户治疗后注意保持正确姿势，颈椎病症状未再复发",
+        "score": 0.5418945432768069,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:59:58.257699+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M11-07",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:00:27.961590+00:00"
+      },
+      {
+        "memory_id": "3bbc9780-89cd-4bb4-a719-f6846b9a9a5c",
+        "content": "用户两年前（约2024年9月）因加班多导致颈椎病复发，脖子再次疼痛。这次没有做理疗，而是自行购买按摩仪，每天使用十分钟，坚持三个月后症状消失。",
+        "score": 0.4431591237452109,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:00:28.027387+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M11-07",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:00:58.270756+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 75.14
+}

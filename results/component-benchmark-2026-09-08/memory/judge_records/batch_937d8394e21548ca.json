@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"289badae484274a7146f\", \"query\": \"患者曾因治疗耳部感染注射何种药物导致局部及全身性过敏反应？\", \"expected_facts\": [\"患者因注射链霉素治疗耳部感染引发过敏。\", \"症状包括耳周红肿发热、耳鸣、听力下降、全身皮疹及关节疼痛。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户补充说明2016年链霉素过敏反应不仅限于局部，还出现了全身性皮疹和关节疼痛，持续数天才消退。从那以后，用户拒绝使用氨基糖苷类药物。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:40:47.609368+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"User has a documented allergy to streptomycin injection. In winter 2016, eight years ago, the user received an injection for an ear infection and experienced swelling, redness, and heat around the ears, accompanied by tinnitus and hearing loss.\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:40:31.617681+00:00\"}]}, {\"id\": \"295c152e803f451a2c1b\", \"query\": \"该工作制度何时被叫停？用户对此有何反应？\", \"expected_facts\": [\"该制度于上周被主管宣布取消。\", \"该用户今晚即可按正常时间下班。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的主管于上周（约2026年9月1-7日）宣布取消弹性工作制\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:34:18.380968+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户半年前（约2026年3月）换了新主管，新主管要求全员实行弹性工作制，导致用户经常凌晨四点下班，早上十点才回家补觉\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:03.299699+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户纠正弹性工作制实施时间为八个月前（约2026年1月），而非之前记录的半年前\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:34:18.380968+00:00\"}]}, {\"id\": \"2962468c60fe9d5c7e4a\", \"query\": \"患者对哪类乳制品存在明确的不耐受反应？其根本原因是什么？\", \"expected_facts\": [\"该患者饮用牛奶后会出现腹泻症状。\", \"该患者的乳糖不耐受具有遗传背景。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户对乳制品非常敏感，喝牛奶后会拉肚子，因此家里从来不买牛奶\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:08.629837+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户的乳糖不耐受是遗传性的，从记事起就一直存在\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:20.302668+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户最近发现某些品牌的酸奶会引起轻微腹胀，目前正在尝试筛选适合的酸奶品牌\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:20.302668+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户可以接受酸奶和奶酪等发酵乳制品，因为它们经过发酵处理\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:08.629837+00:00\"}]}, {\"id\": \"29715e27216cf5ce918e\", \"query\": \"五年前他血糖升高后做了什么运动，每天多久，结果如何？\", \"expected_facts\": [\"患者五年前体检发现血糖偏高。\", \"患者每天快走四十分钟，坚持了两年。\", \"患者血糖恢复正常。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户五年前体检发现血糖偏高，开始每天快走四十分钟，坚持两年后血糖恢复正常\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:00:39.961250+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户坚持饮食控制和运动十年，血糖一直稳定\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:00:25.654046+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户六十岁，十五年前被查出有轻度糖尿病，医生建议控制饮食和运动\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:00:25.654046+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户现在偶尔测血糖，基本没问题\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:00:39.961250+00:00\"}, {\"memory_id\": \"m4\", \"content\": \"用户退休后生活规律，不再监测血糖\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:00:25.654046+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861904-y5CwCsCDvppuX4DxCpVK",
+    "object": "chat.completion",
+    "created": 1788861904,
+    "model": "minimax/minimax-m2.5",
+    "provider": "StreamLake",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"289badae484274a7146f\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"Both memories confirm streptomycin injection for ear infection caused allergic reaction in 2016.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"m0 mentions全身性皮疹和关节疼痛; m1 mentions swelling, redness, heat around ears, tinnitus and hearing loss.\"}]},{\"id\":\"295c152e803f451a2c1b\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states主管于上周宣布取消弹性工作制.\"},{\"supported\":false,\"evidence\":[],\"reason\":\"No memory mentions user's reaction about leaving work at normal time tonight.\"}]},{\"id\":\"2962468c60fe9d5c7e4a\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states喝牛奶后会拉肚子, confirming milk causes diarrhea.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory explicitly states乳糖不耐受是遗传性的.\"}]},{\"id\":\"29715e27216cf5ce918e\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states五年前体检发现血糖偏高.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states每天快走四十分钟，坚持两年.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states坚持两年后血糖恢复正常.\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item and determine whether the memories support the expected facts.\n\n**Item 289badae484274a7146f:**\nQuery: 患者曾因治疗耳部感染注射何种药物导致局部及全身性过敏反应？\nExpected facts:\n1. 患者因注射链霉素治疗耳部感染引发过敏。\n2. 症状包括耳周红肿发热、耳鸣、听力下降、全身皮疹及关节疼痛。\n\nMemories:\n- m0: 用户补充说明2016年链霉素过敏反应不仅限于局部，还出现了全身性皮疹和关节疼痛，持续数天才消退。从那以后，用户拒绝使用氨基糖苷类药物。\n- m1: User has a documented allergy to streptomycin injection. In winter 2016, eight years ago, the user received an injection for an ear infection and experienced swelling, redness, and heat around the ears, accompanied by tinnitus and hearing loss.\n\nFact 1: Supported by m0 and m1 - both mention streptomycin injection for ear infection causing allergic reaction.\nFact 2: Supported by m0 (全身性皮疹和关节疼痛) and m1 (swelling, redness, heat around ears, tinnitus and hearing loss).\n\n**Item 295c152e803f451a2c1b:**\nQuery: 该工作制度何时被叫停？用户对此有何反应？\nExpected facts:\n1. 该制度于上周被主管宣布取消。\n2. 该用户今晚即可按正常时间下班。\n\nMemories:\n- m0: 用户的主管于上周（约2026年9月1-7日）宣布取消弹性工作制\n- m1: 用户半年前（约2026年3月）换了新主管，新主管要求全员实行弹性工作制，导致用户经常凌晨四点下班，早上十点才回家补觉\n\n\n- m2: 用户纠正弹性工作制实施时间为八个月前（约2026年1月），而非之前记录的半年前\n\nI notice a discrepancy in the timeline. The memories provide conflicting information about when the flexible work system was implemented, with one source suggesting six months ago and another correcting it to eight months ago. This inconsistency needs further investigation to establish the accurate timeline.\n\nThe key points are the cancellation of the flexible work system and the user's potential reaction of being able to leave work at normal time tonight. However, the memories do not explicitly confirm the user's emotional response to this change.\n\n**Item 2962468c60fe9d5c7e4a:**\nQuery: 患者对哪类乳制品存在明确的不耐受反应？其根本原因是什么？\nExpected facts:\n1. 该患者饮用牛奶后会出现腹泻症状。\n2. 该患者的乳糖不耐受具有遗传背景。\n\nMemories reveal the user has a genetic lactose intolerance, with milk causing diarrhea. While the memories confirm the genetic basis and milk-related digestive issues, they lack explicit details about the user's specific reaction to the work system's cancellation.\n\nThe evidence supports both expected facts through consistent documentation of lactose intolerance and milk-related symptoms.\n\n**Item 29715e27216cf5ce918e:**\nQuery: 五年前他血糖升高后做了什么运动，每天多久，结果如何？\nExpected facts:\n1. 患者五年前体检发现血糖偏高。\n2. 患者每天快走四十分钟，坚持了两年。\n3. 患者血糖恢复正常。\n\nThe memories provide clear evidence supporting these facts, showing the user's proactive approach to managing elevated blood sugar through consistent walking exercise.\n\nI'll continue the thought by copying over the next thinking to complete the partial sentence:\n\n- m3: 用户现在偶尔测血糖，基本没问题\n\nThe evidence confirms the expected facts, showing the user's successful management of their blood sugar condition through lifestyle modifications.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item and determine whether the memories support the expected facts.\n\n**Item 289badae484274a7146f:**\nQuery: 患者曾因治疗耳部感染注射何种药物导致局部及全身性过敏反应？\nExpected facts:\n1. 患者因注射链霉素治疗耳部感染引发过敏。\n2. 症状包括耳周红肿发热、耳鸣、听力下降、全身皮疹及关节疼痛。\n\nMemories:\n- m0: 用户补充说明2016年链霉素过敏反应不仅限于局部，还出现了全身性皮疹和关节疼痛，持续数天才消退。从那以后，用户拒绝使用氨基糖苷类药物。\n- m1: User has a documented allergy to streptomycin injection. In winter 2016, eight years ago, the user received an injection for an ear infection and experienced swelling, redness, and heat around the ears, accompanied by tinnitus and hearing loss.\n\nFact 1: Supported by m0 and m1 - both mention streptomycin injection for ear infection causing allergic reaction.\nFact 2: Supported by m0 (全身性皮疹和关节疼痛) and m1 (swelling, redness, heat around ears, tinnitus and hearing loss).\n\n**Item 295c152e803f451a2c1b:**\nQuery: 该工作制度何时被叫停？用户对此有何反应？\nExpected facts:\n1. 该制度于上周被主管宣布取消。\n2. 该用户今晚即可按正常时间下班。\n\nMemories:\n- m0: 用户的主管于上周（约2026年9月1-7日）宣布取消弹性工作制\n- m1: 用户半年前（约2026年3月）换了新主管，新主管要求全员实行弹性工作制，导致用户经常凌晨四点下班，早上十点才回家补觉\n\n\n- m2: 用户纠正弹性工作制实施时间为八个月前（约2026年1月），而非之前记录的半年前\n\nI notice a discrepancy in the timeline. The memories provide conflicting information about when the flexible work system was implemented, with one source suggesting six months ago and another correcting it to eight months ago. This inconsistency needs further investigation to establish the accurate timeline.\n\nThe key points are the cancellation of the flexible work system and the user's potential reaction of being able to leave work at normal time tonight. However, the memories do not explicitly confirm the user's emotional response to this change.\n\n**Item 2962468c60fe9d5c7e4a:**\nQuery: 患者对哪类乳制品存在明确的不耐受反应？其根本原因是什么？\nExpected facts:\n1. 该患者饮用牛奶后会出现腹泻症状。\n2. 该患者的乳糖不耐受具有遗传背景。\n\nMemories reveal the user has a genetic lactose intolerance, with milk causing diarrhea. While the memories confirm the genetic basis and milk-related digestive issues, they lack explicit details about the user's specific reaction to the work system's cancellation.\n\nThe evidence supports both expected facts through consistent documentation of lactose intolerance and milk-related symptoms.\n\n**Item 29715e27216cf5ce918e:**\nQuery: 五年前他血糖升高后做了什么运动，每天多久，结果如何？\nExpected facts:\n1. 患者五年前体检发现血糖偏高。\n2. 患者每天快走四十分钟，坚持了两年。\n3. 患者血糖恢复正常。\n\nThe memories provide clear evidence supporting these facts, showing the user's proactive approach to managing elevated blood sugar through consistent walking exercise.\n\nI'll continue the thought by copying over the next thinking to complete the partial sentence:\n\n- m3: 用户现在偶尔测血糖，基本没问题\n\nThe evidence confirms the expected facts, showing the user's successful management of their blood sugar condition through lifestyle modifications.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1517,
+      "completion_tokens": 1099,
+      "total_tokens": 2616,
+      "cost": 0.001534302,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.001534302,
+        "upstream_inference_prompt_cost": 0.000347382,
+        "upstream_inference_completions_cost": 0.00118692
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 746,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 13.703
+}

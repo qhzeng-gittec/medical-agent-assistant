@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"6c3b87b9e3caa34f2e34\", \"query\": \"当出现头晕时，患者应该怎么做？\", \"expected_facts\": [\"如果出现头晕，患者需立即停止活动并坐下休息。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"医生提醒用户如果出现头晕需立即停止活动并坐下休息，用户目前非常注意头部动作\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:37:19.870879+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户因颈椎不适，不能低头太久或快速转头，目前只能缓慢转动头部并保持直立姿势\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:36:52.419448+00:00\"}]}, {\"id\": \"6cf35bc07bd4e50fdd50\", \"query\": \"患者最终在哪一天停止了孟鲁司特钠的服用？\", \"expected_facts\": [\"患者在2023年5月18日停止服用孟鲁司特钠\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户2022年因哮喘开始服用孟鲁司特钠，每晚一片。2026年5月医生告知症状缓解，建议5月15日停药，但用户实际拖到5月20日才停用。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:47:57.861742+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户更正孟鲁司特钠停药日期为2026年5月18日，而非之前说的5月20日。用户重新查看医嘱后发现医生写的是18日而非15日。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:48:15.856980+00:00\"}]}, {\"id\": \"6d5dee66f914dec95483\", \"query\": \"用户目前哪些天需要凌晨起床？这造成了什么后果？\", \"expected_facts\": [\"该用户每周二和周四需凌晨一点起床准备会议。\", \"该用户在这两天几乎整夜失眠。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户预计从下周（2026年9月15日左右）开始能恢复正常夜间睡眠\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:34:48.023209+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户下个月（2026年10月）起跨国会议时间将调整到下午\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:34:48.023209+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户接手了新部门，每周二和周四需参加跨国会议，必须凌晨一点起床准备，导致这两天几乎整夜失眠。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:33:19.224193+00:00\"}]}, {\"id\": \"6d69835cf0a85be4a2b1\", \"query\": \"两年前复发时他用了什么工具，每天用多久，坚持了多久？\", \"expected_facts\": [\"患者两年前因加班导致脖子疼痛复发。\", \"患者使用按摩仪每天十分钟。\", \"患者坚持三个月后症状消失。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户治疗后注意保持正确姿势，颈椎病症状未再复发\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:59:58.257699+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户因颈椎病接受了医生建议的理疗治疗，持续两个月后症状好转\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:59:58.257699+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户两年前（约2024年9月）因加班多导致颈椎病复发，脖子再次疼痛。这次没有做理疗，而是自行购买按摩仪，每天使用十分钟，坚持三个月后症状消失。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:00:28.027387+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861999-hUU2uWfglDktr7VH7zDm",
+    "object": "chat.completion",
+    "created": 1788861999,
+    "model": "minimax/minimax-m2.5",
+    "provider": "Minimax",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"6c3b87b9e3caa34f2e34\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory明确指出医生提醒头晕时需立即停止活动并坐下休息。\"}]},{\"id\":\"6cf35bc07bd4e50fdd50\",\"facts\":[{\"supported\":false,\"evidence\":[],\"reason\":\"记忆显示停药日期为2026年5月18日，而非2023年。\"}]},{\"id\":\"6d5dee66f914dec95483\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m2\"}],\"reason\":\"记忆明确指出用户每周二和周四需凌晨一点起床准备会议，导致这两天几乎整夜失眠。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m2\"}],\"reason\":\"记忆明确指出周二和周四这两天几乎整夜失眠。\"}]},{\"id\":\"6d69835cf0a85be4a2b1\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m2\"}],\"reason\":\"记忆明确指出用户两年前因加班多导致颈椎病复发。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m2\"}],\"reason\":\"记忆明确指出用户每天使用按摩仪十分钟。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m2\"}],\"reason\":\"记忆明确指出用户坚持三个月后症状消失。\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item:\n\n**Item 1 (6c3b87b9e3caa34f2e34):**\n- Query: 当出现头晕时，患者应该怎么做？\n- Expected fact: \"如果出现头晕，患者需立即停止活动并坐下休息。\"\n- Memory m0: \"医生提醒用户如果出现头晕需立即停止活动并坐下休息，用户目前非常注意头部动作\"\n  - This directly supports the expected fact about stopping activity and sitting down to rest when dizzy.\n  - Supported: true, evidence: m0\n\n**Item 2 (6cf35bc07bd4e50fdd50):**\n- Query: 患者最终在哪一天停止了孟鲁司特钠的服用？\n- Expected fact: \"患者在2023年5月18日停止服用孟鲁司特钠\"\n- Memory m0: \"用户2022年因哮喘开始服用孟鲁司特钠，每晚一片。2026年5月医生告知症状缓解，建议5月15日停药，但用户实际拖到5月20日才停用。\"\n  - Says actual stop was May 20, 2026\n- Memory m1: \"用户更正孟鲁司特钠停药日期为2026年5月18日，而非之前说的5月20日。用户重新查看医嘱后发现医生写的是18日而非15日。\"\n  - This is a correction from the user, saying the actual date was May 18, 2026 (not May 20 as stated earlier)\n- The expected fact says \"2023年5月18日\" but the memories mention \"2026年5月18日\". There's a year discrepancy. The memories don't support 2023 - they support 2026.\n- Wait, let me re-read: The expected fact says \"2023年5月18日\" but the memories clearly state \"2026年5月\"\n- This is NOT supported because the year is wrong (2023 vs 2026). \n- The expected fact and the actual content don't match. The memory points to a different year, making the claim inaccurate. I'll need to flag this as unsupported due to the year discrepancy.\n\n**Item 3 (6d5dee66f914dec95483):**\n- Query: 用户目前哪些天需要凌晨起床？这造成了什么后果？\n- Expected facts:\n  1. \"该用户每周二和周四需凌晨一点起床准备会议。\"\n  2. \"该用户在这两天几乎整夜失眠。\"\n- Memory m2: \"用户接手了新部门，每周二和周四需参加跨国会议，必须凌晨一点起床准备，导致这两天几乎整夜失眠。\"\n  - This directly supports both expected facts: Tuesday and Thursday, 1am, and near all-night insomnia.\n  - Supported for both facts: true, evidence: m2\n\n**Item 4 (6d69835cf0a85be4a2b1):**\n- Query: 两年前复发时他用了什么工具，每天用多久，坚持了多久？\n- Expected facts:\n  1. \"患者两年前因加班导致脖子疼痛复发。\" (This fact needs verification)\n  2. \"患者使用按摩仪每天十分钟。\" (This part is confirmed)\n  3. \"患者坚持三个月后症状消失。\" (This also seems supported)\n- Memory m2 reveals key details about the user's experience two years ago\n- The memory confirms the recurrence of neck pain due to overtime\n- It specifies using a massage device for 10 minutes daily\n- Indicates a three-month duration before symptoms resolved\n- Fully supports all three expected facts with precise information\n\nI'll prepare the JSON response carefully.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item:\n\n**Item 1 (6c3b87b9e3caa34f2e34):**\n- Query: 当出现头晕时，患者应该怎么做？\n- Expected fact: \"如果出现头晕，患者需立即停止活动并坐下休息。\"\n- Memory m0: \"医生提醒用户如果出现头晕需立即停止活动并坐下休息，用户目前非常注意头部动作\"\n  - This directly supports the expected fact about stopping activity and sitting down to rest when dizzy.\n  - Supported: true, evidence: m0\n\n**Item 2 (6cf35bc07bd4e50fdd50):**\n- Query: 患者最终在哪一天停止了孟鲁司特钠的服用？\n- Expected fact: \"患者在2023年5月18日停止服用孟鲁司特钠\"\n- Memory m0: \"用户2022年因哮喘开始服用孟鲁司特钠，每晚一片。2026年5月医生告知症状缓解，建议5月15日停药，但用户实际拖到5月20日才停用。\"\n  - Says actual stop was May 20, 2026\n- Memory m1: \"用户更正孟鲁司特钠停药日期为2026年5月18日，而非之前说的5月20日。用户重新查看医嘱后发现医生写的是18日而非15日。\"\n  - This is a correction from the user, saying the actual date was May 18, 2026 (not May 20 as stated earlier)\n- The expected fact says \"2023年5月18日\" but the memories mention \"2026年5月18日\". There's a year discrepancy. The memories don't support 2023 - they support 2026.\n- Wait, let me re-read: The expected fact says \"2023年5月18日\" but the memories clearly state \"2026年5月\"\n- This is NOT supported because the year is wrong (2023 vs 2026). \n- The expected fact and the actual content don't match. The memory points to a different year, making the claim inaccurate. I'll need to flag this as unsupported due to the year discrepancy.\n\n**Item 3 (6d5dee66f914dec95483):**\n- Query: 用户目前哪些天需要凌晨起床？这造成了什么后果？\n- Expected facts:\n  1. \"该用户每周二和周四需凌晨一点起床准备会议。\"\n  2. \"该用户在这两天几乎整夜失眠。\"\n- Memory m2: \"用户接手了新部门，每周二和周四需参加跨国会议，必须凌晨一点起床准备，导致这两天几乎整夜失眠。\"\n  - This directly supports both expected facts: Tuesday and Thursday, 1am, and near all-night insomnia.\n  - Supported for both facts: true, evidence: m2\n\n**Item 4 (6d69835cf0a85be4a2b1):**\n- Query: 两年前复发时他用了什么工具，每天用多久，坚持了多久？\n- Expected facts:\n  1. \"患者两年前因加班导致脖子疼痛复发。\" (This fact needs verification)\n  2. \"患者使用按摩仪每天十分钟。\" (This part is confirmed)\n  3. \"患者坚持三个月后症状消失。\" (This also seems supported)\n- Memory m2 reveals key details about the user's experience two years ago\n- The memory confirms the recurrence of neck pain due to overtime\n- It specifies using a massage device for 10 minutes daily\n- Indicates a three-month duration before symptoms resolved\n- Fully supports all three expected facts with precise information\n\nI'll prepare the JSON response carefully.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1262,
+      "completion_tokens": 1045,
+      "total_tokens": 2307,
+      "cost": 0.0016326,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0016326,
+        "upstream_inference_prompt_cost": 0.0003786,
+        "upstream_inference_completions_cost": 0.001254
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 754,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 11.719
+}

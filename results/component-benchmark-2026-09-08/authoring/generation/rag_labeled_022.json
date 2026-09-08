@@ -1,0 +1,72 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Create source-grounded retrieval evaluation questions. Return JSON {\"items\":[...]}.\nFor EACH supplied source return {\"id\":same id,\"en\":English patient question,\"zh\":Chinese patient question,\n\"evidence_id\":the exact id string of ONE supplied evidence_options entry supporting BOTH questions}.\nAsk one concrete question about a supported detail (cause, symptom, prevention, evaluation, management).\nThe two questions express the SAME information need, not two facts. Use ordinary patient language.\nInclude enough topic context to identify the condition but do not copy a source sentence into the question.\nSelect an evidence option and ask about a concrete detail stated in that option. Do not ask for a personalized dose or individual diagnosis. Do not invent content. No answers in questions.\nThese are synthetic topic-source retrieval labels, not a clinician-authored benchmark."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"MLP-1652\", \"title\": \"Hemorrhagic Fevers\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Viral hemorrhagic fevers (VHFs) are a group of illnesses caused by four families of viruses.\"}, {\"id\": \"S001\", \"text\": \"These include the Ebola and Marburg, Lassa fever, and yellow fever viruses.\"}, {\"id\": \"S002\", \"text\": \"VHFs have common features: they affect many organs, they damage the blood vessels, and they affect the body's ability to regulate itself.\"}, {\"id\": \"S003\", \"text\": \"Some VHFs cause mild disease, but some, like Ebola or Marburg, cause severe disease and death.\"}, {\"id\": \"S004\", \"text\": \"Specific diseases are usually limited to areas where the animals that carry them live.\"}, {\"id\": \"S005\", \"text\": \"For example, Lassa fever is limited to rural areas of West Africa where rats and mice carry the virus.\"}, {\"id\": \"S006\", \"text\": \"The risk for travelers is low, but you should avoid visiting areas where there are disease outbreaks.\"}, {\"id\": \"S007\", \"text\": \"Because there are no effective treatments for some of these viral infections, there is concern about their use in bioterrorism .\"}, {\"id\": \"S008\", \"text\": \"Centers for Disease Control and Prevention\"}]}, {\"id\": \"MLP-1224\", \"title\": \"Kidney Stones\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"A kidney stone is a solid piece of material that forms in the kidney from substances in the urine.\"}, {\"id\": \"S001\", \"text\": \"It may be as small as a grain of sand or as large as a pearl.\"}, {\"id\": \"S002\", \"text\": \"Most kidney stones pass out of the body without help from a doctor.\"}, {\"id\": \"S003\", \"text\": \"It may get stuck in the urinary tract, block the flow of urine and cause great pain.\"}, {\"id\": \"S004\", \"text\": \"The following may be signs of kidney stones that need a doctor's help: Extreme pain in your back or side that will not go away Blood in your urine Fever and chills Vomiting Urine that smells bad or looks cloudy A burning feeling when you urinate Your doctor will diagnose a kidney stone with urine, blood, and imaging tests .\"}, {\"id\": \"S005\", \"text\": \"If you have a stone that won't pass on its own, you may need treatment.\"}, {\"id\": \"S006\", \"text\": \"It can be done with shock waves; with a scope inserted through the tube that carries urine out of the body, called the urethra; or with surgery.\"}, {\"id\": \"S007\", \"text\": \"NIH: National Institute of Diabetes and Digestive and Kidney Diseases\"}]}, {\"id\": \"MLP-3019\", \"title\": \"Gonorrhea\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Gonorrhea is a sexually transmitted infection (STI).\"}, {\"id\": \"S001\", \"text\": \"The bacteria that cause gonorrhea can infect the genital tract, mouth, or anus.\"}, {\"id\": \"S002\", \"text\": \"You can get gonorrhea during vaginal, oral, or anal sex with an infected partner.\"}, {\"id\": \"S003\", \"text\": \"A pregnant woman can pass it to her baby during childbirth.\"}, {\"id\": \"S004\", \"text\": \"Gonorrhea does not always cause symptoms.\"}, {\"id\": \"S005\", \"text\": \"In men, gonorrhea can cause pain when urinating and discharge from the penis.\"}, {\"id\": \"S006\", \"text\": \"If untreated, it can cause problems with the prostate and testicles.\"}, {\"id\": \"S007\", \"text\": \"In women, the early symptoms of gonorrhea often are mild.\"}, {\"id\": \"S008\", \"text\": \"Later, it can cause bleeding between periods, pain when urinating, and increased discharge from the vagina.\"}, {\"id\": \"S009\", \"text\": \"If untreated, it can lead to pelvic inflammatory disease , which causes problems with pregnancy and infertility.\"}, {\"id\": \"S010\", \"text\": \"Your health care provider will diagnose gonorrhea with lab tests.\"}, {\"id\": \"S011\", \"text\": \"Treating gonorrhea is becoming more difficult because drug-resistant strains are increasing.\"}, {\"id\": \"S012\", \"text\": \"Correct usage of latex condoms greatly reduces, but does not eliminate, the risk of catching or spreading gonorrhea.\"}, {\"id\": \"S013\", \"text\": \"If your or your partner is allergic to latex , you can use polyurethane condoms.\"}, {\"id\": \"S014\", \"text\": \"The most reliable way to avoid infection is to not have anal, vaginal, or oral sex.\"}, {\"id\": \"S015\", \"text\": \"Centers for Disease Control and Prevention\"}]}, {\"id\": \"MLP-1565\", \"title\": \"Anthrax\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Anthrax is a disease caused by Bacillus anthracis, a germ that lives in soil.\"}, {\"id\": \"S001\", \"text\": \"Many people know about it from the 2001 bioterror attacks.\"}, {\"id\": \"S002\", \"text\": \"In the attacks, someone purposely spread anthrax through the U.S.\"}, {\"id\": \"S003\", \"text\": \"This killed five people and made 22 sick.\"}, {\"id\": \"S004\", \"text\": \"It affects animals such as cattle, sheep, and goats more often than people.\"}, {\"id\": \"S005\", \"text\": \"People can get anthrax from contact with infected animals, wool, meat, or hides.\"}, {\"id\": \"S006\", \"text\": \"It can cause three forms of disease in people.\"}, {\"id\": \"S007\", \"text\": \"They are: Cutaneous, which affects the skin.\"}, {\"id\": \"S008\", \"text\": \"People with cuts or open sores can get it if they touch the bacteria.\"}, {\"id\": \"S009\", \"text\": \"You can get this if you breathe in spores of the bacteria.\"}, {\"id\": \"S010\", \"text\": \"Gastrointestinal, which affects the digestive system.\"}, {\"id\": \"S011\", \"text\": \"Antibiotics often cure anthrax if it is diagnosed early.\"}, {\"id\": \"S012\", \"text\": \"But many people don't know they have anthrax until it is too late to treat.\"}, {\"id\": \"S013\", \"text\": \"A vaccine to prevent anthrax is available for people in the military and others at high risk.\"}]}, {\"id\": \"MLP-5597\", \"title\": \"Interstitial Lung Diseases\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Interstitial lung disease is the name for a large group of diseases that inflame or scar the lungs.\"}, {\"id\": \"S001\", \"text\": \"The inflammation and scarring make it hard to get enough oxygen.\"}, {\"id\": \"S002\", \"text\": \"The scarring is called pulmonary fibrosis .\"}, {\"id\": \"S003\", \"text\": \"Breathing in dust or other particles in the air is responsible for some types of interstitial lung diseases.\"}, {\"id\": \"S004\", \"text\": \"Specific types include: Black lung disease among coal miners, from inhaling coal dust Farmer's lung, from inhaling farm dust Asbestosis, from inhaling asbestos fibers Siderosis, from inhaling iron from mines or welding fumes Silicosis, from inhaling silica dust Other causes include autoimmune diseases or occupational exposures to molds, gases, or fumes.\"}, {\"id\": \"S005\", \"text\": \"Some types of interstitial lung disease have no known cause.\"}, {\"id\": \"S006\", \"text\": \"Treatment depends on the type of exposure and the stage of the disease.\"}, {\"id\": \"S007\", \"text\": \"It may involve medicines, oxygen therapy, or a lung transplant in severe cases.\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 2500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788858735-X19yZaDawB1zFsRN5utd",
+    "object": "chat.completion",
+    "created": 1788858735,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"MLP-1652\",\n      \"en\": \"I'm planning a trip to rural West Africa; which specific animals carry the Lassa fever virus in that region?\",\n      \"zh\": \"我计划去西非农村地区旅行，那里的拉沙热病毒是由哪些特定动物携带的？\",\n      \"evidence_id\": \"S005\"\n    },\n    {\n      \"id\": \"MLP-1224\",\n      \"en\": \"If my kidney stone gets stuck and causes severe pain, what are some treatment options besides surgery?\",\n      \"zh\": \"如果我的肾结石卡住并引起剧烈疼痛，除了手术之外还有哪些治疗方法？\",\n      \"evidence_id\": \"S006\"\n    },\n    {\n      \"id\": \"MLP-3019\",\n      \"en\": \"My partner and I are allergic to latex; is there an alternative type of condom we can use to reduce the risk of gonorrhea?\",\n      \"zh\": \"我和伴侣都对乳胶过敏；有没有其他类型的避孕套可以降低感染淋病的风险？\",\n      \"evidence_id\": \"S013\"\n    },\n    {\n      \"id\": \"MLP-1565\",\n      \"en\": \"How can people get anthrax through their skin if they have open wounds?\",\n      \"zh\": \"如果皮肤上有开放性伤口，人们是如何通过接触感染炭疽的？\",\n      \"evidence_id\": \"S008\"\n    },\n    {\n      \"id\": \"MLP-5597\",\n      \"en\": \"What specific lung condition do coal miners develop from breathing in coal dust?\",\n      \"zh\": \"煤矿工人吸入煤尘后会患上哪种特定的肺部疾病？\",\n      \"evidence_id\": \"S004\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2119,
+      "completion_tokens": 422,
+      "total_tokens": 2541,
+      "cost": 0.001071525,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.001071525,
+        "upstream_inference_prompt_cost": 0.000413205,
+        "upstream_inference_completions_cost": 0.00065832
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 8.062
+}

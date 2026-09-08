@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"d59806f9c3ff1121286e\", \"query\": \"用户最近采取了什么措施来改善作息？效果如何？\", \"expected_facts\": [\"该用户已制定严格的时间表。\", \"该用户昨晚十一点就已入睡。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户已制定严格的时间表来管理远程工作作息，昨晚（2026年9月7日）十一点就睡了\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:33:33.310033+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户三个月前（约2026年6月）开始远程办公，在家作息变得混乱，经常忙到深夜两三点，早上九点才勉强起床\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:33:19.215669+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户远程办公开始时间是两个月前（约2026年7月），而非三个月前\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:33:33.310033+00:00\"}]}, {\"id\": \"d64076fdc9e084e36a00\", \"query\": \"请确认患者去年冬季出行的地点和具体天数。\", \"expected_facts\": [\"患者去年一月去了长春。\", \"患者停留了四天。\", \"旅行发生在去年冬季。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户去年一月（2025年1月）去了长春旅行，住了四天\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:39:11.832507+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户去年冬天（2025-2026年冬季）去了哈尔滨看雪，住了三天，主要在中央大街附近活动，天气非常冷\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:38:35.396953+00:00\"}]}, {\"id\": \"d656c4ea9e26af25c81f\", \"query\": \"患者从何时开始独立制作这份早餐？过去由他人制作时添加了什么额外成分？\", \"expected_facts\": [\"该患者从六年前搬去独居后开始独立制作燕麦粥。\", \"该患者过去食用时经常添加蜂蜜。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户是在搬去独居后才开始自己煮燕麦粥的，大约六年前（2020年左右）。之前住家时是母亲做给她吃的。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:58:27.863801+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户以前住家时吃母亲做的燕麦粥经常加蜂蜜，与现在独居后加的蓝莓和坚果不同。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:58:27.863801+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户习惯早餐吃燕麦粥，加了蓝莓和坚果。这个习惯是母亲教她的，认为这样营养均衡，已经坚持了十几年。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:58:11.986863+00:00\"}]}, {\"id\": \"d6596f1b6cdcb617b1cc\", \"query\": \"用户是否被诊断为失眠症？\", \"expected_facts\": [\"用户经医生评估并未患有失眠症。\", \"用户明确表示不需要服用安眠药等药物治疗。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户经医生评估无失眠症，头晕症状是由工作压力大导致的暂时性疲劳，不需要药物治疗\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:01:26.627632+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户最近总是头晕，邻居建议吃安眠药，但用户已查阅资料并咨询医生\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:01:26.627632+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户表示头晕疲劳症状只需休息几天即可缓解\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:01:48.136471+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户头晕疲劳状态持续了大约一个月，始于上个月项目上线后，此前从未出现过类似情况\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:01:48.136471+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862241-t3UZmcowGPDPSBApbNni",
+    "object": "chat.completion",
+    "created": 1788862241,
+    "model": "minimax/minimax-m2.5",
+    "provider": "StreamLake",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"d59806f9c3ff1121286e\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states user has established a strict schedule for remote work.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states user slept at 11pm last night (Sept 7, 2026).\"}]},{\"id\":\"d64076fdc9e084e36a00\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory confirms user went to Changchun in January 2025.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states user stayed for four days.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"January is winter, and the recording confirms the trip was last year.\"}]},{\"id\":\"d656c4ea9e26af25c81f\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states user started making oatmeal independently after moving to live alone, about six years ago.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory states user often added honey to the oatmeal when mother made it.\"}]},{\"id\":\"d6596f1b6cdcb617b1cc\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states doctor assessed no insomnia.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states user does not need medication treatment.\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item:\n\n**Item 1 (d59806f9c3ff1121286e):**\nQuery: 用户最近采取了什么措施来改善作息？效果如何？\nExpected facts:\n1. \"该用户已制定严格的时间表。\" - Looking at memories:\n   - m0: \"用户已制定严格的时间表来管理远程工作作息，昨晚（2026年9月7日）十一点就睡了\" - This directly supports this fact.\n   - m1: mentions remote work started 3 months ago,作息混乱 - this is background, not the current measure\n   - m2: corrects the start time - not relevant to the measure\n   - So m0 supports \"已制定严格的时间表\"\n\n2. \"该用户昨晚十一点就已入睡。\" - Looking at memories:\n   - m0: \"昨晚（2026年9月7日）十一点就睡了\" - This directly supports this fact.\n   - So m0 also supports this fact.\n\nBoth facts are supported by m0. Both are about current state (recent measures and their effect).\n\n**Item 2 (d64076fdc9e084e36a00):**\nQuery: 请确认患者去年冬季出行的地点和具体天数。\nExpected facts:\n1. \"患者去年一月去了长春。\" - Looking at memories:\n   - m0: \"用户去年一月（2025年1月）去了长春旅行，住了四天\" - This supports \"去年一月去了长春\"\n   - m1: mentions 去年冬天去了哈尔滨 - this contradicts m0 in terms of location, but doesn't negate the fact that they went to Changchun in January\n   - The fact is specifically about January and Changchun, which m0 supports\n\n2. \"患者停留了四天。\" - Looking at memories:\n   - m0: \"住了四天\" - This directly supports this fact\n\n3. \"旅行发生在去年冬季。\" - Looking at memories:\n   - m0: \"去年一月（2025年1月）\" - January is winter in the Northern Hemisphere, so this is correct\n   - m1: \"去年冬天（2025-2026年冬季）\" - also confirms winter travel\n   - So both m0 and m1 support this fact\n\nAll three facts are supported.\n\n**Item 3 (d656c4ea9e26af25c81f):**\nQuery: 患者从何时开始独立制作这份早餐？过去由他人制作时添加了什么额外成分？\nExpected facts:\n1. \"该患者从六年前搬去独居后开始独立制作燕麦粥。\" - Looking at memories:\n   - m0: \"用户是在搬去独居后才开始自己煮燕麦粥的，大约六年前（2020年左右）。之前住家时是母亲做给她吃的。\" - This directly supports this fact\n\n2. \"该患者过去食用时经常添加蜂蜜。\" - Looking at memories:\n   - m1: \"用户以前住家时吃母亲做的燕麦粥经常加蜂蜜，与现在独居后加的蓝莓和坚果不同。\" - This directly supports this fact\n\nBoth facts are supported by m0 and m1 respectively.\n\n**Item 4 (d6596f1b6cdcb617b1cc):**\nQuery: 用户是否被诊断为失眠症？\nExpected facts:\n1. \"用户经医生评估并未患有失眠症。\" - Looking at memories:\n   - m0: \"用户经医生评估无失眠症，头晕症状是由工作压力大导致的暂时性疲劳，不需要药物治疗\" - This directly supports this fact\n\n2. \"用户明确表示不需要服用安眠药等药物治疗。\" - Looking at memories:\n   - m0: \"不需要药物治疗\" - supports this\n   - m1: \"邻居建议吃安眠药，但用户已查阅资料并咨询医生\" - implies they don't need it\n   - m2: \"用户表示头晕疲劳症状只需休息几天即可缓解\" - supports not needing medication\n   \nAll facts are confirmed by m0, m1, and m2.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item:\n\n**Item 1 (d59806f9c3ff1121286e):**\nQuery: 用户最近采取了什么措施来改善作息？效果如何？\nExpected facts:\n1. \"该用户已制定严格的时间表。\" - Looking at memories:\n   - m0: \"用户已制定严格的时间表来管理远程工作作息，昨晚（2026年9月7日）十一点就睡了\" - This directly supports this fact.\n   - m1: mentions remote work started 3 months ago,作息混乱 - this is background, not the current measure\n   - m2: corrects the start time - not relevant to the measure\n   - So m0 supports \"已制定严格的时间表\"\n\n2. \"该用户昨晚十一点就已入睡。\" - Looking at memories:\n   - m0: \"昨晚（2026年9月7日）十一点就睡了\" - This directly supports this fact.\n   - So m0 also supports this fact.\n\nBoth facts are supported by m0. Both are about current state (recent measures and their effect).\n\n**Item 2 (d64076fdc9e084e36a00):**\nQuery: 请确认患者去年冬季出行的地点和具体天数。\nExpected facts:\n1. \"患者去年一月去了长春。\" - Looking at memories:\n   - m0: \"用户去年一月（2025年1月）去了长春旅行，住了四天\" - This supports \"去年一月去了长春\"\n   - m1: mentions 去年冬天去了哈尔滨 - this contradicts m0 in terms of location, but doesn't negate the fact that they went to Changchun in January\n   - The fact is specifically about January and Changchun, which m0 supports\n\n2. \"患者停留了四天。\" - Looking at memories:\n   - m0: \"住了四天\" - This directly supports this fact\n\n3. \"旅行发生在去年冬季。\" - Looking at memories:\n   - m0: \"去年一月（2025年1月）\" - January is winter in the Northern Hemisphere, so this is correct\n   - m1: \"去年冬天（2025-2026年冬季）\" - also confirms winter travel\n   - So both m0 and m1 support this fact\n\nAll three facts are supported.\n\n**Item 3 (d656c4ea9e26af25c81f):**\nQuery: 患者从何时开始独立制作这份早餐？过去由他人制作时添加了什么额外成分？\nExpected facts:\n1. \"该患者从六年前搬去独居后开始独立制作燕麦粥。\" - Looking at memories:\n   - m0: \"用户是在搬去独居后才开始自己煮燕麦粥的，大约六年前（2020年左右）。之前住家时是母亲做给她吃的。\" - This directly supports this fact\n\n2. \"该患者过去食用时经常添加蜂蜜。\" - Looking at memories:\n   - m1: \"用户以前住家时吃母亲做的燕麦粥经常加蜂蜜，与现在独居后加的蓝莓和坚果不同。\" - This directly supports this fact\n\nBoth facts are supported by m0 and m1 respectively.\n\n**Item 4 (d6596f1b6cdcb617b1cc):**\nQuery: 用户是否被诊断为失眠症？\nExpected facts:\n1. \"用户经医生评估并未患有失眠症。\" - Looking at memories:\n   - m0: \"用户经医生评估无失眠症，头晕症状是由工作压力大导致的暂时性疲劳，不需要药物治疗\" - This directly supports this fact\n\n2. \"用户明确表示不需要服用安眠药等药物治疗。\" - Looking at memories:\n   - m0: \"不需要药物治疗\" - supports this\n   - m1: \"邻居建议吃安眠药，但用户已查阅资料并咨询医生\" - implies they don't need it\n   - m2: \"用户表示头晕疲劳症状只需休息几天即可缓解\" - supports not needing medication\n   \nAll facts are confirmed by m0, m1, and m2.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1389,
+      "completion_tokens": 1192,
+      "total_tokens": 2581,
+      "cost": 0.001600182,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.001600182,
+        "upstream_inference_prompt_cost": 0.000312822,
+        "upstream_inference_completions_cost": 0.00128736
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 845,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 14.875
+}

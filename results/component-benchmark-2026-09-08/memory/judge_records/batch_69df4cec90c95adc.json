@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"624ad264f15da660a583\", \"query\": \"患者为配合检查制定了怎样的饮水计划？\", \"expected_facts\": [\"患者计划周五早上七点起床。\", \"患者计划喝完两瓶矿泉水后半小时去排队。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户询问如果到了现场医生说尿不够，是否需要再喝水\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:50:12.106110+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户计划周五早上七点起床，喝完两瓶矿泉水，大约半小时后去排队做腹部B超检查\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:50:12.106110+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户想知道做腹部B超前需要喝多少水、憋多久才能开始检查，担心憋太久会不舒服\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:49:51.723761+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户预约了2026年9月11日（本周五）上午的腹部B超检查，医生要求检查前憋尿\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:49:51.723761+00:00\"}]}, {\"id\": \"626d3abaa48a38d641b4\", \"query\": \"用户本人在去年冬天的健康状况如何，是否有请假记录？\", \"expected_facts\": [\"用户去年冬天未感冒，保持全勤，无请假记录。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户同事小王上个月因流感发烧请假一周，现已康复返岗\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:43:38.467852+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户更正：上个月因流感请假的是同事小李，不是小王。小王很健康。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:44:31.474446+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户去年冬天没有感冒过\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:43:38.467852+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户一直全勤\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:43:38.467852+00:00\"}, {\"memory_id\": \"m4\", \"content\": \"用户自身免疫力很强，很少生病\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:43:38.467852+00:00\"}]}, {\"id\": \"6271e05c4100d67a798b\", \"query\": \"用户是否患有类风湿性关节炎？\", \"expected_facts\": [\"用户经医院检查排除了类风湿性关节炎。\", \"医生确认用户膝盖问题并非类风湿性关节炎。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户膝盖疼痛，去医院拍片检查后医生诊断骨头没事，只是半月板轻微磨损，用户确定不是类风湿性关节炎（之前朋友曾说是关节炎）\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:01:13.406026+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户膝盖半月板磨损是五年前（约2021年）打篮球留下的旧伤，最近因天气变冷感到不适，并非新得的炎症\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:01:35.828798+00:00\"}]}, {\"id\": \"63520f5de1a2e5b81909\", \"query\": \"患者之前描述过因服用含哪种成分的复方感冒药而引发皮肤和呼吸系统的过敏反应？\", \"expected_facts\": [\"患者因服用含磺胺成分的复方感冒药引发过敏。\", \"反应表现为全身风团（荨麻疹）以及胸闷气短。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"User has an allergy to sulfonamide drugs that causes hives (荨麻疹). Around autumn 2020, approximately four years ago, the user took a compound cold medicine containing sulfonamide components from a pharmacy and developed widespread hives after taking it.\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:39:38.532030+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"User's sulfonamide drug reaction in autumn 2020 was particularly severe, with symptoms including hives, chest tightness, shortness of breath, and nearly fainting. Family sent them to emergency medical care, and since then they no longer dare to take compound cold medicine randomly.\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:39:55.479210+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861986-Dz89bwNMnjn7u0A1BfpY",
+    "object": "chat.completion",
+    "created": 1788861986,
+    "model": "minimax/minimax-m2.5",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "\n\n{\"items\":[{\"id\":\"624ad264f15da660a583\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"m1明确说明患者计划周五早上七点起床，与预期事实一致。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"m1明确说明患者计划喝完两瓶矿泉水后半小时去排队，与预期事实一致。\"}]},{\"id\":\"626d3abaa48a38d641b4\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m2\"},{\"memory_id\":\"m3\"}],\"reason\":\"m2证明用户去年冬天没有感冒，m3证明用户一直全勤，两者共同支持预期事实。\"}]},{\"id\":\"6271e05c4100d67a798b\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"m0明确表示用户经医院检查后确定不是类风湿性关节炎。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"m0明确说明医生诊断膝盖是半月板磨损而非类风湿性关节炎。\"}]},{\"id\":\"63520f5de1a2e5b81909\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"m0明确说明患者因服用含磺胺成分的复方感冒药引发过敏。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"m1明确说明患者反应表现为荨麻疹、胸闷气短。\"}]}]}",
+          "refusal": null,
+          "reasoning": "\nLet me analyze each item:\n\n**Item 1: id=\"624ad264f15da660a583\"**\nQuery: 患者为配合检查制定了怎样的饮水计划？\nExpected facts:\n1. 患者计划周五早上七点起床。\n2. 患者计划喝完两瓶矿泉水后半小时去排队。\n\nMemories:\n- m0: 用户询问如果到了现场医生说尿不够，是否需要再喝水 (not directly about plan)\n- m1: 用户计划周五早上七点起床，喝完两瓶矿泉水，大约半小时后去排队做腹部B超检查 (directly supports both facts)\n- m2: 用户想知道做腹部B超前需要喝多少水、憋多久才能开始检查 (not the plan)\n- m3: 用户预约了2026年9月11日（本周五）上午的腹部B超检查 (confirms Friday)\n\nFact 1: \"患者计划周五早上七点起床\" - m1 directly supports this, m3 confirms Friday\nFact 2: \"患者计划喝完两瓶矿泉水后半小时去排队\" - m1 directly supports this\n\n**Item 2: id=\"626d3abaa48a38d641b4\"**\nQuery: 用户本人在去年冬天的健康状况如何，是否有请假记录？\nExpected facts: [\"用户去年冬天未感冒，保持全勤，无请假记录。\"]\n\nMemories:\n- m0: 同事小王请假 (not about user)\n- m1: 同事小李请假 (not about user)\n- m2: 用户去年冬天没有感冒过 (supports \"未感冒\")\n- m3: 用户一直全勤 (supports \"全勤\")\n- m4: 用户自身免疫力很强 (supplementary)\n\nThe expected fact combines: 去年冬天未感冒 + 保持全勤 + 无请假记录. m2 and m3 together support all parts. m3 \"一直全勤\" implies no leave records, though it's a general statement that includes last winter.\n\n**Item 3: id=\"6271e05c4100d67a798b\"**\nQuery: 用户是否患有类风湿性关节炎？\n\n\nExpected facts:\n1. 用户经医院检查排除了类风湿性关节炎。\n2. 医生确认用户膝盖问题并非类风湿性关节炎。\n\nI see two key points from the medical evaluation. The doctor's diagnosis confirms the膝盖 condition is not rheumatoid arthritis, specifically noting minor meniscus wear. The hospital examination definitively ruled out rheumatoid arthritis, addressing the user's initial concern. Both expected facts are directly supported by the medical context.\n\n**Item 4: id=\"63520f5de1a2e5b81909\"**\nQuery: 患者之前描述过因服用含哪\n\nI'll continue the next part of the thought when more content is available.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "\nLet me analyze each item:\n\n**Item 1: id=\"624ad264f15da660a583\"**\nQuery: 患者为配合检查制定了怎样的饮水计划？\nExpected facts:\n1. 患者计划周五早上七点起床。\n2. 患者计划喝完两瓶矿泉水后半小时去排队。\n\nMemories:\n- m0: 用户询问如果到了现场医生说尿不够，是否需要再喝水 (not directly about plan)\n- m1: 用户计划周五早上七点起床，喝完两瓶矿泉水，大约半小时后去排队做腹部B超检查 (directly supports both facts)\n- m2: 用户想知道做腹部B超前需要喝多少水、憋多久才能开始检查 (not the plan)\n- m3: 用户预约了2026年9月11日（本周五）上午的腹部B超检查 (confirms Friday)\n\nFact 1: \"患者计划周五早上七点起床\" - m1 directly supports this, m3 confirms Friday\nFact 2: \"患者计划喝完两瓶矿泉水后半小时去排队\" - m1 directly supports this\n\n**Item 2: id=\"626d3abaa48a38d641b4\"**\nQuery: 用户本人在去年冬天的健康状况如何，是否有请假记录？\nExpected facts: [\"用户去年冬天未感冒，保持全勤，无请假记录。\"]\n\nMemories:\n- m0: 同事小王请假 (not about user)\n- m1: 同事小李请假 (not about user)\n- m2: 用户去年冬天没有感冒过 (supports \"未感冒\")\n- m3: 用户一直全勤 (supports \"全勤\")\n- m4: 用户自身免疫力很强 (supplementary)\n\nThe expected fact combines: 去年冬天未感冒 + 保持全勤 + 无请假记录. m2 and m3 together support all parts. m3 \"一直全勤\" implies no leave records, though it's a general statement that includes last winter.\n\n**Item 3: id=\"6271e05c4100d67a798b\"**\nQuery: 用户是否患有类风湿性关节炎？\n\n\nExpected facts:\n1. 用户经医院检查排除了类风湿性关节炎。\n2. 医生确认用户膝盖问题并非类风湿性关节炎。\n\nI see two key points from the medical evaluation. The doctor's diagnosis confirms the膝盖 condition is not rheumatoid arthritis, specifically noting minor meniscus wear. The hospital examination definitively ruled out rheumatoid arthritis, addressing the user's initial concern. Both expected facts are directly supported by the medical context.\n\n**Item 4: id=\"63520f5de1a2e5b81909\"**\nQuery: 患者之前描述过因服用含哪\n\nI'll continue the next part of the thought when more content is available.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1459,
+      "completion_tokens": 890,
+      "total_tokens": 2349,
+      "cost": 0.0015057,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0015057,
+        "upstream_inference_prompt_cost": 0.0004377,
+        "upstream_inference_completions_cost": 0.001068
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 568,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 10.375
+}

@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"26564f2d8cb70113ce69\", \"query\": \"当出现什么症状时患者必须立即停止手臂动作？\", \"expected_facts\": [\"如果感到刺痛，患者必须立即停止任何手臂动作。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"医生强调如果用户感到刺痛，应立即停止任何手臂动作并休息\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:35:48.432004+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户肩膀受伤，医生限制不能举重物超过两公斤，也不能做扩胸运动，目前只能进行轻柔的拉伸\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:35:48.432004+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户目前每天只做轻微拉伸\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:35:48.432004+00:00\"}]}, {\"id\": \"26f0f3bf32887a20e2c6\", \"query\": \"请确认一下，家里哪位长辈在三年前接受过膝关节的手术治疗？\", \"expected_facts\": [\"用户的母亲在三年前做过膝盖置换手术。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户母亲在三年前做过膝盖置换手术\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:34:54.190295+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户父亲去年冬天因关节炎疼痛在家休养，并没有住院\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:34:54.190295+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户父亲去年冬天因严重关节炎住院，当时疼痛到无法下床，医生为其开具了止痛药\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:33.447903+00:00\"}]}, {\"id\": \"27c2f2571bcc5a0c658b\", \"query\": \"患者被建议避免哪些肘关节动作？\", \"expected_facts\": [\"患者被建议避免弯曲超过90度和重复同一动作。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的肘关节发炎，医生建议不要弯曲超过90度或重复同一动作，目前用户只能保持手臂伸直。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:37:55.772099+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户补充肘关节护理建议：如果出现红肿，需要冷敷并减少活动。目前用户尽量保持手臂不动。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:38:55.560376+00:00\"}]}, {\"id\": \"27f7bc0eaac3d79d97eb\", \"query\": \"患者十年前因什么习惯导致什么呼吸道疾病，医生建议什么，他执行得如何？\", \"expected_facts\": [\"患者十年前因吸烟导致慢性支气管炎。\", \"医生建议戒烟。\", \"患者戒烟三年后复吸。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"医生建议戒烟后，用户成功戒了三年，症状减轻，但后来复吸了\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:00:29.739352+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户58岁，十年前因吸烟导致慢性支气管炎，症状为咳嗽痰多\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:00:29.739352+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"在两年戒烟期间用户的咳嗽基本消失，但去年冬天（2025-2026年冬季）复吸了几次，现在偶尔咳一下\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:00:44.442511+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861901-WRTcOLZuxekR1YnTOrk5",
+    "object": "chat.completion",
+    "created": 1788861901,
+    "model": "minimax/minimax-m2.5",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"26564f2d8cb70113ce69\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states that if user feels tingling, they should immediately stop any arm movements.\"}]},{\"id\":\"26f0f3bf32887a20e2c6\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory confirms user's mother had knee replacement surgery three years ago.\"}]},{\"id\":\"27c2f2571bcc5a0c658b\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory directly states doctor advised not bending beyond 90 degrees or repeating same motion.\"}]},{\"id\":\"27f7bc0eaac3d79d97eb\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory states patient developed chronic bronchitis ten years ago due to smoking.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states doctor recommended quitting smoking.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m2\"}],\"reason\":\"Memories confirm patient quit for three years but then relapsed.\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item:\n\n**Item 26564f2d8cb70113ce69:**\n- Query: 当出现什么症状时患者必须立即停止手臂动作？\n- Expected fact: \"如果感到刺痛，患者必须立即停止任何手臂动作。\"\n- Memory m0: \"医生强调如果用户感到刺痛，应立即停止任何手臂动作并休息\"\n- This directly supports the expected fact - it mentions feeling tingling (刺痛) and should immediately stop any arm movements.\n- Supported: true, evidence: m0\n\n**Item 26f0f3bf32887a20e2c6:**\n- Query: 请确认一下，家里哪位长辈在三年前接受过膝关节的手术治疗？\n- Expected fact: \"用户的母亲在三年前做过膝盖置换手术。\"\n- Memory m0: \"用户母亲在三年前做过膝盖置换手术\"\n- This directly supports the expected fact - the user's mother had knee replacement surgery three years ago.\n- Supported: true, evidence: m0\n\n**Item 27c2f2571bcc5a0c658b:**\n- Query: 患者被建议避免哪些肘关节动作？\n- Expected fact: \"患者被建议避免弯曲超过90度和重复同一动作。\"\n- Memory m0: \"用户的肘关节发炎，医生建议不要弯曲超过90度或重复同一动作，目前用户只能保持手臂伸直。\"\n- This directly supports the expected fact - the doctor advised not to bend more than 90 degrees or repeat the same movement.\n- Supported: true, evidence: m0\n\n**Item 27f7bc0eaac3d79d97eb:**\n- Query: 患者十年前因什么习惯导致什么呼吸道疾病，医生建议什么，他执行得如何？\n\n\n- Expected facts: \n  1. \"患者十年前因吸烟导致慢性支气管炎。\"\n  2. \"医生建议戒烟。\"\n  3. \"患者戒烟三年后复吸。\"\n\nI verify the medical history details through the patient's memories. The records confirm a decade-long smoking-related respiratory issue, with a specific timeline of quitting and subsequent relapse. The memories provide clear evidence of the chronic bronchitis diagnosis, doctor's recommendation to quit smoking, and the patient's smoking cessation attempt.\n\nThe first fact is supported by m1, the second by m0, and the third by both m0 and m2, indicating a consistent narrative across different memory entries.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item:\n\n**Item 26564f2d8cb70113ce69:**\n- Query: 当出现什么症状时患者必须立即停止手臂动作？\n- Expected fact: \"如果感到刺痛，患者必须立即停止任何手臂动作。\"\n- Memory m0: \"医生强调如果用户感到刺痛，应立即停止任何手臂动作并休息\"\n- This directly supports the expected fact - it mentions feeling tingling (刺痛) and should immediately stop any arm movements.\n- Supported: true, evidence: m0\n\n**Item 26f0f3bf32887a20e2c6:**\n- Query: 请确认一下，家里哪位长辈在三年前接受过膝关节的手术治疗？\n- Expected fact: \"用户的母亲在三年前做过膝盖置换手术。\"\n- Memory m0: \"用户母亲在三年前做过膝盖置换手术\"\n- This directly supports the expected fact - the user's mother had knee replacement surgery three years ago.\n- Supported: true, evidence: m0\n\n**Item 27c2f2571bcc5a0c658b:**\n- Query: 患者被建议避免哪些肘关节动作？\n- Expected fact: \"患者被建议避免弯曲超过90度和重复同一动作。\"\n- Memory m0: \"用户的肘关节发炎，医生建议不要弯曲超过90度或重复同一动作，目前用户只能保持手臂伸直。\"\n- This directly supports the expected fact - the doctor advised not to bend more than 90 degrees or repeat the same movement.\n- Supported: true, evidence: m0\n\n**Item 27f7bc0eaac3d79d97eb:**\n- Query: 患者十年前因什么习惯导致什么呼吸道疾病，医生建议什么，他执行得如何？\n\n\n- Expected facts: \n  1. \"患者十年前因吸烟导致慢性支气管炎。\"\n  2. \"医生建议戒烟。\"\n  3. \"患者戒烟三年后复吸。\"\n\nI verify the medical history details through the patient's memories. The records confirm a decade-long smoking-related respiratory issue, with a specific timeline of quitting and subsequent relapse. The memories provide clear evidence of the chronic bronchitis diagnosis, doctor's recommendation to quit smoking, and the patient's smoking cessation attempt.\n\nThe first fact is supported by m1, the second by m0, and the third by both m0 and m2, indicating a consistent narrative across different memory entries.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1234,
+      "completion_tokens": 748,
+      "total_tokens": 1982,
+      "cost": 0.00120636,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00120636,
+        "upstream_inference_prompt_cost": 0.00030876,
+        "upstream_inference_completions_cost": 0.0008976
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 724,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 15.656
+}

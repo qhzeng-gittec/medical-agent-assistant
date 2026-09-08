@@ -1,0 +1,90 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"0ccf8b17361e9a3cf29f\", \"query\": \"用户答辩后经历了怎样的恢复过程？目前状态如何？\", \"expected_facts\": [\"该用户答辩后休整了一周。\", \"该用户目前作息已完全正常。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户大三暑假期间为了完成毕业设计连续一个月每天仅睡三小时靠咖啡硬撑，答辩前一天崩溃，答辩后休整了一周，现在作息已完全恢复正常\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:36:11.392362+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户2025年夏季为了完成毕业设计，连续一个月每天仅睡三小时并靠咖啡硬撑，最终在答辩前一天崩溃。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:34.829715+00:00\"}]}, {\"id\": \"0ce060c5dc87db9926b7\", \"query\": \"用户实际是什么时候开始远程办公的？当时的作息有什么特点？\", \"expected_facts\": [\"该用户于两个月前开始远程办公。\", \"该用户当时常忙至深夜两三点，早上九点才起床。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户三个月前（约2026年6月）开始远程办公，在家作息变得混乱，经常忙到深夜两三点，早上九点才勉强起床\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:33:19.215669+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户远程办公开始时间是两个月前（约2026年7月），而非三个月前\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:33:33.310033+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户已制定严格的时间表来管理远程工作作息，昨晚（2026年9月7日）十一点就睡了\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:33:33.310033+00:00\"}]}, {\"id\": \"0d2ab0d001298be44dc4\", \"query\": \"关于去年年底的作息，用户后来是如何澄清的？\", \"expected_facts\": [\"该用户去年年底实际上处于休假状态。\", \"该用户去年年底并未严重缺觉，只是偶尔晚睡。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户去年年底（2025年12月）为赶年终报告，连续半个月每天凌晨三点睡、早上七点起，需要早起打印资料。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:33:19.215669+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户2025年年底处于休假状态，没有像前年那样劳累，只是偶尔晚睡。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:33:41.059615+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户更正：赶年终报告连续半个月凌晨三点睡、早上七点起打印资料的情况发生在2024年12月（前年十二月），而非2025年12月。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:33:41.059615+00:00\"}]}, {\"id\": \"0d7dfcd7653b53c3896f\", \"query\": \"患者具体的用药时间和检查时间分别是多少，他对中间时段进食有何疑问？\", \"expected_facts\": [\"患者周二早上六点注射了胰岛素。\", \"患者询问若检查在下午两点，中午是否可以正常吃饭。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户询问如果心脏负荷试验安排在下午两点，中午是否可以正常吃饭，还是必须一直空腹到检查结束。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:51:57.967504+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户担心心脏负荷试验过程中若需运动会导致低血糖，并咨询检查前是否可以吃早饭。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:50:38.566304+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户患有糖尿病，平时打胰岛素。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:50:38.566304+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户在周二（9月15日）早上六点注射了胰岛素。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:51:57.967504+00:00\"}, {\"memory_id\": \"m4\", \"content\": \"用户预约了2026年9月15日（下周二）下午的心脏负荷试验。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:50:38.566304+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "error_type": "ConnectError"
+    },
+    {
+      "attempt": 2,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861922-wDNQN0laciztsmPiMvxB",
+    "object": "chat.completion",
+    "created": 1788861922,
+    "model": "minimax/minimax-m2.5",
+    "provider": "StreamLake",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"0ccf8b17361e9a3cf29f\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states 答辩后休整了一周.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states 现在作息已完全恢复正常.\"}]},{\"id\":\"0ce060c5dc87db9926b7\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory m1 explicitly corrects to两个月前(约2026年7月).\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly describes 经常忙到深夜两三点，早上九点才勉强起床.\"}]},{\"id\":\"0d2ab0d001298be44dc4\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory explicitly states 2025年年底处于休假状态.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory states 没有像前年那样劳累，只是偶尔晚睡.\"}]},{\"id\":\"0d7dfcd7653b53c3896f\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m3\"}],\"reason\":\"Memory explicitly states 用户在周二（9月15日）早上六点注射了胰岛素.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly asks about eating at noon when test is at 下午两点.\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item systematically:\n\n**Item 1 (0ccf8b17361e9a3cf29f):**\nQuery: 用户答辩后经历了怎样的恢复过程？目前状态如何？\nExpected facts:\n1. \"该用户答辩后休整了一周。\" - Need to verify if there's memory supporting this\n2. \"该用户目前作息已完全正常。\" - Need to verify current state\n\nMemories:\n- m0: \"用户大三暑假期间为了完成毕业设计连续一个月每天仅睡三小时靠咖啡硬撑，答辩前一天崩溃，答辩后休整了一周，现在作息已完全恢复正常\"\n- m1: \"用户2025年夏季为了完成毕业设计，连续一个月每天仅睡三小时并靠咖啡硬撑，最终在答辩前一天崩溃。\"\n\nAnalysis:\n- Fact 1: \"该用户答辩后休整了一周\" - Supported by m0 which explicitly states \"答辩后休整了一周\"\n- Fact 2: \"该用户目前作息已完全正常\" - Supported by m0 which states \"现在作息已完全恢复正常\"\n\nBoth facts are supported. Both memories are from session-2 (m0) and session-1 (m1), but m0 contains the relevant information.\n\n**Item 2 (0ce060c5dc87db9926b7):**\nQuery: 用户实际是什么时候开始远程办公的？当时的作息有什么特点？\nExpected facts:\n1. \"该用户于两个月前开始远程办公。\"\n2. \"该用户当时常忙至深夜两三点，早上九点才起床。\"\n\nMemories:\n- m0: \"用户三个月前（约2026年6月）开始远程办公，在家作息变得混乱，经常忙到深夜两三点，早上九点才勉强起床\"\n\n\n- m1: \"用户远程办公开始时间是两个月前（约2026年7月），而非三个月前\"\n- m2: \"用户已制定严格的时间表来管理远程工作作息，昨晚（2026年9月7日）十一点就睡了\"\n\nI see a discrepancy between the initial memory and the subsequent correction. The remote work start time was initially recorded as three months ago, but later corrected to two months ago. The key evidence comes from m1, which provides the precise correction. The sleep pattern details are confirmed in m0, showing late-night work hours and late morning起床 time.\n\nThe second fact about work schedule is supported by m0, which describes the chaotic sleep pattern. The correction in m1 resolves the timeline discrepancy, making the two-month start date the accurate information.\n\nFor the third item, the query focuses on the user's sleep pattern clarification at year's end. The memories present conflicting information about the user's sleep status during the 2025 year-end period.\n\nThe key evidence comes from m1, which clarifies that the user was actually on vacation during 2025, not experiencing severe sleep deprivation. This directly supports the first expected fact about the user's vacation status.\n\nThe second fact is also substantiated by m1, which mentions occasional late nights, aligning with the expected statement about infrequent late sleeping.\n\nThe correction note in m2 shifts the intense work period to 2024, further supporting the narrative of a less stressful 2025 end.\n\nFor the next item, I'll examine the insulin injection timing and test scheduling details. The memories provide precise information about the insulin injection at 6 am on Tuesday and the cardiac stress test scheduled for 2 pm the following week.\n\nThe user's question about eating before the afternoon test is clearly documented in m0, addressing the second expected fact about mealtime restrictions during medical testing.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item systematically:\n\n**Item 1 (0ccf8b17361e9a3cf29f):**\nQuery: 用户答辩后经历了怎样的恢复过程？目前状态如何？\nExpected facts:\n1. \"该用户答辩后休整了一周。\" - Need to verify if there's memory supporting this\n2. \"该用户目前作息已完全正常。\" - Need to verify current state\n\nMemories:\n- m0: \"用户大三暑假期间为了完成毕业设计连续一个月每天仅睡三小时靠咖啡硬撑，答辩前一天崩溃，答辩后休整了一周，现在作息已完全恢复正常\"\n- m1: \"用户2025年夏季为了完成毕业设计，连续一个月每天仅睡三小时并靠咖啡硬撑，最终在答辩前一天崩溃。\"\n\nAnalysis:\n- Fact 1: \"该用户答辩后休整了一周\" - Supported by m0 which explicitly states \"答辩后休整了一周\"\n- Fact 2: \"该用户目前作息已完全正常\" - Supported by m0 which states \"现在作息已完全恢复正常\"\n\nBoth facts are supported. Both memories are from session-2 (m0) and session-1 (m1), but m0 contains the relevant information.\n\n**Item 2 (0ce060c5dc87db9926b7):**\nQuery: 用户实际是什么时候开始远程办公的？当时的作息有什么特点？\nExpected facts:\n1. \"该用户于两个月前开始远程办公。\"\n2. \"该用户当时常忙至深夜两三点，早上九点才起床。\"\n\nMemories:\n- m0: \"用户三个月前（约2026年6月）开始远程办公，在家作息变得混乱，经常忙到深夜两三点，早上九点才勉强起床\"\n\n\n- m1: \"用户远程办公开始时间是两个月前（约2026年7月），而非三个月前\"\n- m2: \"用户已制定严格的时间表来管理远程工作作息，昨晚（2026年9月7日）十一点就睡了\"\n\nI see a discrepancy between the initial memory and the subsequent correction. The remote work start time was initially recorded as three months ago, but later corrected to two months ago. The key evidence comes from m1, which provides the precise correction. The sleep pattern details are confirmed in m0, showing late-night work hours and late morning起床 time.\n\nThe second fact about work schedule is supported by m0, which describes the chaotic sleep pattern. The correction in m1 resolves the timeline discrepancy, making the two-month start date the accurate information.\n\nFor the third item, the query focuses on the user's sleep pattern clarification at year's end. The memories present conflicting information about the user's sleep status during the 2025 year-end period.\n\nThe key evidence comes from m1, which clarifies that the user was actually on vacation during 2025, not experiencing severe sleep deprivation. This directly supports the first expected fact about the user's vacation status.\n\nThe second fact is also substantiated by m1, which mentions occasional late nights, aligning with the expected statement about infrequent late sleeping.\n\nThe correction note in m2 shifts the intense work period to 2024, further supporting the narrative of a less stressful 2025 end.\n\nFor the next item, I'll examine the insulin injection timing and test scheduling details. The memories provide precise information about the insulin injection at 6 am on Tuesday and the cardiac stress test scheduled for 2 pm the following week.\n\nThe user's question about eating before the afternoon test is clearly documented in m0, addressing the second expected fact about mealtime restrictions during medical testing.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1467,
+      "completion_tokens": 1055,
+      "total_tokens": 2522,
+      "cost": 0.001473282,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.001473282,
+        "upstream_inference_prompt_cost": 0.000333882,
+        "upstream_inference_completions_cost": 0.0011394
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 733,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 74.265
+}

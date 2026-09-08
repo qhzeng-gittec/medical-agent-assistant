@@ -1,0 +1,72 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Create source-grounded retrieval evaluation questions. Return JSON {\"items\":[...]}.\nFor EACH supplied source return {\"id\":same id,\"en\":English patient question,\"zh\":Chinese patient question,\n\"evidence_id\":the exact id string of ONE supplied evidence_options entry supporting BOTH questions}.\nAsk one concrete question about a supported detail (cause, symptom, prevention, evaluation, management).\nThe two questions express the SAME information need, not two facts. Use ordinary patient language.\nInclude enough topic context to identify the condition but do not copy a source sentence into the question.\nSelect an evidence option and ask about a concrete detail stated in that option. Do not ask for a personalized dose or individual diagnosis. Do not invent content. No answers in questions.\nThese are synthetic topic-source retrieval labels, not a clinician-authored benchmark."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"MLP-519\", \"title\": \"Rare Diseases\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"A rare disease is one that affects fewer than 200,000 people in the United States.\"}, {\"id\": \"S001\", \"text\": \"More than 25 million Americans have one.\"}, {\"id\": \"S002\", \"text\": \"Rare diseases: May involve chronic illness, disability, and often premature death Often have no treatment or not very effective treatment Are frequently not diagnosed correctly Are often very complex Are often caused by changes in genes It can be hard to find a specialist who knows how to treat your rare disease.\"}, {\"id\": \"S003\", \"text\": \"Disease advocacy groups, rare disease organizations, and genetics clinics may help you to find one.\"}]}, {\"id\": \"MLP-6345\", \"title\": \"Chikungunya\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Chikungunya is a virus that spread by the same kinds of mosquitoes that spread dengue and Zika virus .\"}, {\"id\": \"S001\", \"text\": \"Rarely, the virus can spread from the pregnant parent to their newborn around the time of birth.\"}, {\"id\": \"S002\", \"text\": \"It may also spread through contact with infected blood.\"}, {\"id\": \"S003\", \"text\": \"There have been outbreaks of chikungunya virus in Africa, Asia, Europe, the Indian and Pacific Oceans, the Caribbean, and Central and South America.\"}, {\"id\": \"S004\", \"text\": \"Most people who have chikungunya will have symptoms, which can be severe.\"}, {\"id\": \"S005\", \"text\": \"They usually start 3-7 days after being bitten by an infected mosquito.\"}, {\"id\": \"S006\", \"text\": \"The most common symptoms are fever and joint pain.\"}, {\"id\": \"S007\", \"text\": \"Other symptoms may include headache , muscle pain, joint swelling, and rash .\"}, {\"id\": \"S008\", \"text\": \"In some cases, however, the joint pain may last for months.\"}, {\"id\": \"S009\", \"text\": \"People at risk for more severe disease include newborns, older adults, and people with diseases such as high blood pressure , diabetes , or heart disease .\"}, {\"id\": \"S010\", \"text\": \"A blood test can show whether you have chikungunya virus.\"}, {\"id\": \"S011\", \"text\": \"Drinking lots of fluids, resting, and taking non-aspirin pain relievers might help you feel better.\"}, {\"id\": \"S012\", \"text\": \"In the U.S., there is a vaccine for adults who are at a higher risk of getting chikungunya.\"}, {\"id\": \"S013\", \"text\": \"You can also help prevent getting or spreading chikungunya by avoiding mosquito bites : Use a U.S.\"}, {\"id\": \"S014\", \"text\": \"Environmental Protection Agency (EPA)-registered insect repellent when you go outdoors.\"}, {\"id\": \"S015\", \"text\": \"Make sure to follow the instructions for using the repellant.\"}, {\"id\": \"S016\", \"text\": \"Wear clothes that cover your arms, legs, and feet.\"}, {\"id\": \"S017\", \"text\": \"Stay in places that either have air conditioning (with the windows closed) or that use window and door screens.\"}, {\"id\": \"S018\", \"text\": \"Centers for Disease Control and Prevention\"}]}, {\"id\": \"MLP-4157\", \"title\": \"Inhalants\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Inhalants are substances that people inhale (breathe in) to get high.\"}, {\"id\": \"S001\", \"text\": \"There are other substances that people might inhale, such as alcohol.\"}, {\"id\": \"S002\", \"text\": \"But those are not called inhalants, because they can also be used another way.\"}, {\"id\": \"S003\", \"text\": \"Inhalants are the substances that you can misuse only by inhaling them.\"}, {\"id\": \"S004\", \"text\": \"Using inhalants to try to get high, even once, can be very harmful to your brain and body.\"}, {\"id\": \"S005\", \"text\": \"Inhalants are often products that are easily bought and can be found in the home or workplace.\"}, {\"id\": \"S006\", \"text\": \"They contain dangerous substances that have psychoactive (mind-altering) properties when they are inhaled.\"}, {\"id\": \"S007\", \"text\": \"The four main types of inhalants are: Solvents , which are liquids that become gas at room temperature.\"}, {\"id\": \"S008\", \"text\": \"They include paint thinner, nail polish remover, gasoline, and glue.\"}, {\"id\": \"S009\", \"text\": \"Aerosol sprays , such as spray paint, deodorant spray, and vegetable oil sprays.\"}, {\"id\": \"S010\", \"text\": \"Gases , including gas from lighters, whipped cream dispensers, and laughing gas.\"}, {\"id\": \"S011\", \"text\": \"Nitrites, which are similar to a prescription medicine for chest pain.\"}, {\"id\": \"S012\", \"text\": \"They are sometimes called \\\"poppers.\\\" They are sold in small bottles and may be labeled as \\\"air freshener,\\\" \\\"leather cleaner,\\\" or \\\"liquid aroma.\\\" They are usually not used to alter someone's mood, but to improve their sexual function.\"}, {\"id\": \"S013\", \"text\": \"Some of the common slang terms for various inhalants include: Gluey Huff Laughing gas Rush Snappers Whippets/Whippits How do people use inhalants?\"}, {\"id\": \"S014\", \"text\": \"People who use inhalants breathe in the fumes through their nose or mouth, usually by \\\"sniffing,\\\" \\\"snorting,\\\" \\\"bagging,\\\" or \\\"huffing.\\\" It's called different names depending on the substance and equipment used.\"}, {\"id\": \"S015\", \"text\": \"The high that inhalants produce usually lasts just a few minutes, so people often try to make it last by inhaling them again and again over several hours.\"}, {\"id\": \"S016\", \"text\": \"Inhalants are mostly used by young kids and teens.\"}, {\"id\": \"S017\", \"text\": \"They often try inhalants before they try other substances because inhalants are easier to get.\"}, {\"id\": \"S018\", \"text\": \"What are the signs that someone is using inhalants?\"}, {\"id\": \"S019\", \"text\": \"Signs that someone is using inhalants include: Chemical odors on breath or clothing Paint or other stains on face, hands, or clothes Hidden empty spray paint or solvent containers and chemical-soaked rags or clothing Red or runny eyes or nose Drunk or disoriented appearance Slurred speech Nausea or loss of appetite Inattentiveness, lack of coordination, irritability, and depression What are the health effects of using inhalants?\"}, {\"id\": \"S020\", \"text\": \"Most inhalants affect your central nervous system and slow down brain activity.\"}, {\"id\": \"S021\", \"text\": \"Inhalants can cause both short-term and long-term health effects: Short-term health effects include: Slurred or distorted speech Lack of body control Euphoria (feeling \\\"high\\\") Dizziness Hallucinations (seeing or hearing things that aren't real) Long-term health effects may include: Liver and kidney damage Loss of coordination Spasms in your arms and legs Delayed behavioral development Brain damage Using inhalants, even once, could lead to an overdose.\"}, {\"id\": \"S022\", \"text\": \"This can cause you to have seizures or your heart to stop.\"}, {\"id\": \"S023\", \"text\": \"Addiction to inhalants is rare, but it can happen if you use them repeatedly.\"}, {\"id\": \"S024\", \"text\": \"Stopping them can cause withdrawal symptoms, such as nausea , sweating , trouble sleeping , and mood changes.\"}, {\"id\": \"S025\", \"text\": \"Behavioral therapy may help people who are addicted to inhalants.\"}, {\"id\": \"S026\", \"text\": \"Kids and teens who use inhalants to get high are more likely to try other drugs and to have a substance use disorder (SUD) later in life.\"}, {\"id\": \"S027\", \"text\": \"So it's important to try to prevent inhalant abuse.\"}, {\"id\": \"S028\", \"text\": \"One thing that parents can do is talk to their children about inhalants.\"}, {\"id\": \"S029\", \"text\": \"They can explain the dangers and give their children tips on how to deal with peer pressure if someone asks them to try inhalants.\"}]}, {\"id\": \"MLP-1218\", \"title\": \"Huntington's Disease\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Huntington's disease (HD) is an inherited disease that causes certain nerve cells in the brain to waste away.\"}, {\"id\": \"S001\", \"text\": \"People are born with the defective gene, but symptoms usually don't appear until middle age.\"}, {\"id\": \"S002\", \"text\": \"Early symptoms of HD may include uncontrolled movements, clumsiness, and balance problems.\"}, {\"id\": \"S003\", \"text\": \"Later, HD can take away the ability to walk, talk, and swallow.\"}, {\"id\": \"S004\", \"text\": \"Some people stop recognizing family members.\"}, {\"id\": \"S005\", \"text\": \"Others are aware of their environment and are able to express emotions.\"}, {\"id\": \"S006\", \"text\": \"If one of your parents has Huntington's disease, you have a 50% chance of getting it.\"}, {\"id\": \"S007\", \"text\": \"A blood test can tell you if have the HD gene and will develop the disease.\"}, {\"id\": \"S008\", \"text\": \"Genetic counseling can help you weigh the risks and benefits of taking the test.\"}, {\"id\": \"S009\", \"text\": \"Medicines can help manage some of the symptoms, but cannot slow down or stop the disease.\"}, {\"id\": \"S010\", \"text\": \"NIH: National Institute of Neurological Disorders and Stroke\"}]}, {\"id\": \"MLP-5526\", \"title\": \"Medical Ethics\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"The field of ethics studies principles of right and wrong.\"}, {\"id\": \"S001\", \"text\": \"There is hardly an area in medicine that doesn't have an ethical aspect.\"}, {\"id\": \"S002\", \"text\": \"For example, there are ethical issues relating to : End of life care : Should a patient receive nutrition ?\"}, {\"id\": \"S003\", \"text\": \"What about advance directives and resuscitation orders?\"}, {\"id\": \"S004\", \"text\": \"Is it ethical to terminate a pregnancy with a birth defect?\"}, {\"id\": \"S005\", \"text\": \"Genetic and prenatal testing: What happens if you are a carrier of a defect?\"}, {\"id\": \"S006\", \"text\": \"What if testing shows that your unborn baby has a defect?\"}, {\"id\": \"S007\", \"text\": \"Birth control : Should it be available to minors?\"}, {\"id\": \"S008\", \"text\": \"Is it ethical to harvest embryonic stem cells to treat diseases?\"}, {\"id\": \"S009\", \"text\": \"Organ donation : Must a relative donate an organ to a sick relative?\"}, {\"id\": \"S010\", \"text\": \"Your personal health information: who has access to your records ?\"}, {\"id\": \"S011\", \"text\": \"Patient rights : Do you have the right to refuse treatment?\"}, {\"id\": \"S012\", \"text\": \"When you talk with your doctor , is it ethical for her to withhold information from you or your family?\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 2500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788858737-rhkplQreFpA3KoOR6igM",
+    "object": "chat.completion",
+    "created": 1788858737,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"MLP-519\",\n      \"en\": \"How many people in the United States must a condition affect to be officially classified as a rare disease?\",\n      \"zh\": \"在美国，一种疾病必须影响多少人才能被正式归类为罕见病？\",\n      \"evidence_id\": \"S000\"\n    },\n    {\n      \"id\": \"MLP-6345\",\n      \"en\": \"What are the two most common symptoms that people experience when they have chikungunya?\",\n      \"zh\": \"感染基孔肯雅热时，人们最常见的两种症状是什么？\",\n      \"evidence_id\": \"S006\"\n    },\n    {\n      \"id\": \"MLP-4157\",\n      \"en\": \"Besides solvents, aerosol sprays, and gases, what is the fourth main type of inhalant substance?\",\n      \"zh\": \"除了溶剂、气溶胶喷雾和气体外，第四种主要的吸入剂物质类型是什么？\",\n      \"evidence_id\": \"S011\"\n    },\n    {\n      \"id\": \"MLP-1218\",\n      \"en\": \"If one parent has Huntington's disease, what is the chance that their child will inherit the defective gene?\",\n      \"zh\": \"如果父母一方患有亨廷顿舞蹈症，他们的孩子遗传缺陷基因的几率是多少？\",\n      \"evidence_id\": \"S006\"\n    },\n    {\n      \"id\": \"MLP-5526\",\n      \"en\": \"In the context of medical ethics, what is an example of an ethical issue related to end-of-life care regarding nutrition?\",\n      \"zh\": \"在医学伦理的背景下，关于临终护理中营养供给的一个伦理问题例子是什么？\",\n      \"evidence_id\": \"S002\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2986,
+      "completion_tokens": 432,
+      "total_tokens": 3418,
+      "cost": 0.00173934,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00173934,
+        "upstream_inference_prompt_cost": 0.00080622,
+        "upstream_inference_completions_cost": 0.00093312
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 12.859
+}

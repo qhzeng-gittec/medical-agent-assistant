@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"24278fbc386791963897\", \"query\": \"患者为何回避贝类？这一心理阴影源于多久之前的事件？\", \"expected_facts\": [\"该患者因八年前被贝壳划伤而回避贝类。\", \"该患者看到贝类会产生恶心感。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户是半素食者，只吃鱼肉和鸡蛋，不吃其他肉类。八年前（约2018年）被贝壳划伤的经历导致用户现在看到贝类会感到恶心。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:56:32.254548+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"User is a vegetarian who has not eaten any meat for five years, but occasionally eats fish and seafood except shellfish due to being cut by a shell as a child\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:56:06.783070+00:00\"}]}, {\"id\": \"2460ea35f385ae16a714\", \"query\": \"患者目前食用巧克力的具体频率和份量控制是怎样的？\", \"expected_facts\": [\"该患者目前仅在周末食用巧克力。\", \"该患者每次食用量严格控制在一小块以内。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户现在只在周末吃巧克力，严格控制在一小块以内，平时完全不吃甜食\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:58:00.718455+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户特别喜欢吃甜食，尤其是巧克力，之前每天都要吃一块黑巧，但自从2025年体检发现血糖偏高后，已将频率降低到每周两次\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:57:41.548301+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户两年前体检发现血糖偏高问题（而非去年），此后开始控制甜食摄入\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:58:00.718455+00:00\"}]}, {\"id\": \"24638e24b2f6e6d6d672\", \"query\": \"患者预约了什么眼科检查，主要症状和病史是什么？\", \"expected_facts\": [\"患者预约了下周六上午的眼底照相。\", \"患者患有青光眼且近期视力模糊。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户表示如果眼底照相需要散瞳，打算让家人开车来接\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:51:28.977830+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户预约了下周六上午的眼底照相检查\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:51:01.193172+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户计划于2026年9月13日（下周六）上午九点到院进行眼底照相检查\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:51:28.977830+00:00\"}]}, {\"id\": \"262b07944b82ce55c207\", \"query\": \"家里谁在上个月被确诊为哮喘并开始使用吸入器治疗？\", \"expected_facts\": [\"用户的妹妹在上个月被诊断出患有哮喘。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的弟弟在2026年8月被诊断出患有哮喘，现在需要每天使用吸入器\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:10.183515+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户更正称，上个月（2026年8月）确诊哮喘的是妹妹而非弟弟，弟弟其实很健康。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:21.593220+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户小时候有过过敏，但成年后完全好了，最近没有任何呼吸方面的问题\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:10.183515+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户确认小时候确实有季节性过敏，但那是很久以前的事了，现在没有任何问题。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:21.593220+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861896-F7PzfG3Kp9Qh07aRqsBf",
+    "object": "chat.completion",
+    "created": 1788861896,
+    "model": "minimax/minimax-m2.5",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "\n\n{\"items\":[{\"id\":\"24278fbc386791963897\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states the patient was cut by a shell about eight years ago (around 2018) and now feels恶心 when seeing shellfish.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states the patient feels恶心 when seeing shellfish.\"}]},{\"id\":\"2460ea35f385ae16a714\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states the patient now only eats chocolate on weekends.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states portion is strictly controlled to a small piece.\"}]},{\"id\":\"24638e24b2f6e6d6d672\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"},{\"memory_id\":\"m2\"}],\"reason\":\"Multiple memories confirm the patient scheduled fundus photography for next Saturday morning.\"},{\"supported\":false,\"evidence\":[],\"reason\":\"No memory mentions glaucoma or recent blurred vision; only mentions the exam appointment.\"}]},{\"id\":\"262b07944b82ce55c207\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Session-2 explicitly corrects that the sister (not brother) was diagnosed with asthma last month (August 2026).\"}]}]}",
+          "refusal": null,
+          "reasoning": "\nLet me analyze each query and determine if the expected facts are supported by the provided memories.\n\n**Item 1 (24278fbc386791963897):**\nQuery: \"患者为何回避贝类？这一心理阴影源于多久之前的事件？\"\nExpected facts:\n1. \"该患者因八年前被贝壳划伤而回避贝类。\"\n2. \"该患者看到贝类会产生恶心感。\"\n\nMemories:\n- m0: \"用户是半素食者，只吃鱼肉和鸡蛋，不吃其他肉类。八年前（约2018年）被贝壳划伤的经历导致用户现在看到贝类会感到恶心。\"\n- m1: \"User is a vegetarian who has not eaten any meat for five years, but occasionally eats fish and seafood except shellfish due to being cut by a shell as a child\"\n\nAnalysis:\n- Fact 1: m0 explicitly states \"八年前（约2018年）被贝壳划伤\" and that this causes avoidance of shellfish. This supports the expected fact. Supported: true. Evidence: m0.\n- Fact 2: m0 explicitly states \"看到贝类会感到恶心\". Supported: true. Evidence: m0.\n\n**Item 2 (2460ea35f385ae16a714):**\nQuery: \"患者目前食用巧克力的具体频率和份量控制是怎样的？\"\nExpected facts:\n1. \"该患者目前仅在周末食用巧克力。\"\n2. \"该患者每次食用量严格控制在一小块以内。\"\n\nMemories:\n- m0: \"用户现在只在周末吃巧克力，严格控制在一小块以内，平时完全不吃甜食\"\n- m1: \"用户特别喜欢吃甜食，尤其是巧克力，之前每天都要吃一块黑巧，但自从2025年体检发现血糖偏高后，已将频率降低到每周两次\"\n\n\n- m2: \"用户两年前体检发现血糖偏高问题（而非去年），此后开始控制甜食摄入\"\n\nI notice conflicting details about chocolate consumption. m0 suggests weekend-only eating, while m1 indicates twice weekly. The key challenge is determining the current precise frequency and portion control. The query demands specific \"目前\" (current) information, which requires careful verification across the memories.\n\nThe timeline reveals nuanced health information: the blood sugar issue was discovered two years ago, which aligns with m2's details. This suggests the current state reflects recent dietary modifications implemented after the health screening.\n\nFor the two key facts, I'll validate the information systematically:\n1. Weekend chocolate consumption is supported by m0, making the statement true.\n2. Strict portion control to a small piece is also confirmed by m0, rendering this statement accurate.\n\n**Item 3 (24638e24b2f6e6d6d672):**\nQuery: \"患者预约了什么眼科检查，主要症状和病史是什么？\"\n\nI confirm the patient has scheduled a fundus photography exam for next Saturday morning. Multiple memory sources (m0, m1, m2) corroborate this detail. The evidence strongly supports this fact.\n\nRegarding symptoms and medical history, the available information is incomplete. While the memories mention a potential need for pupil dilation during the examination, no explicit details about current visual symptoms or medical history are provided. The lack of supporting evidence means this fact remains unverified.\n\n**Item 4 (262b07944b82ce55c207):**\nQuery focuses on identifying who was diagnosed with asthma and started inhaler treatment last month.\n\nThe key details are:\n- User's sister was diagnosed with asthma last month\n- Requires daily inhaler use\n\nMemory sources (m0 and m1) confirm this information, with m1 specifically correcting the initial mistaken assumption about the brother.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "\nLet me analyze each query and determine if the expected facts are supported by the provided memories.\n\n**Item 1 (24278fbc386791963897):**\nQuery: \"患者为何回避贝类？这一心理阴影源于多久之前的事件？\"\nExpected facts:\n1. \"该患者因八年前被贝壳划伤而回避贝类。\"\n2. \"该患者看到贝类会产生恶心感。\"\n\nMemories:\n- m0: \"用户是半素食者，只吃鱼肉和鸡蛋，不吃其他肉类。八年前（约2018年）被贝壳划伤的经历导致用户现在看到贝类会感到恶心。\"\n- m1: \"User is a vegetarian who has not eaten any meat for five years, but occasionally eats fish and seafood except shellfish due to being cut by a shell as a child\"\n\nAnalysis:\n- Fact 1: m0 explicitly states \"八年前（约2018年）被贝壳划伤\" and that this causes avoidance of shellfish. This supports the expected fact. Supported: true. Evidence: m0.\n- Fact 2: m0 explicitly states \"看到贝类会感到恶心\". Supported: true. Evidence: m0.\n\n**Item 2 (2460ea35f385ae16a714):**\nQuery: \"患者目前食用巧克力的具体频率和份量控制是怎样的？\"\nExpected facts:\n1. \"该患者目前仅在周末食用巧克力。\"\n2. \"该患者每次食用量严格控制在一小块以内。\"\n\nMemories:\n- m0: \"用户现在只在周末吃巧克力，严格控制在一小块以内，平时完全不吃甜食\"\n- m1: \"用户特别喜欢吃甜食，尤其是巧克力，之前每天都要吃一块黑巧，但自从2025年体检发现血糖偏高后，已将频率降低到每周两次\"\n\n\n- m2: \"用户两年前体检发现血糖偏高问题（而非去年），此后开始控制甜食摄入\"\n\nI notice conflicting details about chocolate consumption. m0 suggests weekend-only eating, while m1 indicates twice weekly. The key challenge is determining the current precise frequency and portion control. The query demands specific \"目前\" (current) information, which requires careful verification across the memories.\n\nThe timeline reveals nuanced health information: the blood sugar issue was discovered two years ago, which aligns with m2's details. This suggests the current state reflects recent dietary modifications implemented after the health screening.\n\nFor the two key facts, I'll validate the information systematically:\n1. Weekend chocolate consumption is supported by m0, making the statement true.\n2. Strict portion control to a small piece is also confirmed by m0, rendering this statement accurate.\n\n**Item 3 (24638e24b2f6e6d6d672):**\nQuery: \"患者预约了什么眼科检查，主要症状和病史是什么？\"\n\nI confirm the patient has scheduled a fundus photography exam for next Saturday morning. Multiple memory sources (m0, m1, m2) corroborate this detail. The evidence strongly supports this fact.\n\nRegarding symptoms and medical history, the available information is incomplete. While the memories mention a potential need for pupil dilation during the examination, no explicit details about current visual symptoms or medical history are provided. The lack of supporting evidence means this fact remains unverified.\n\n**Item 4 (262b07944b82ce55c207):**\nQuery focuses on identifying who was diagnosed with asthma and started inhaler treatment last month.\n\nThe key details are:\n- User's sister was diagnosed with asthma last month\n- Requires daily inhaler use\n\nMemory sources (m0 and m1) confirm this information, with m1 specifically correcting the initial mistaken assumption about the brother.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1350,
+      "completion_tokens": 1051,
+      "total_tokens": 2401,
+      "cost": 0.0016662,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0016662,
+        "upstream_inference_prompt_cost": 0.000405,
+        "upstream_inference_completions_cost": 0.0012612
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 750,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 12.813
+}

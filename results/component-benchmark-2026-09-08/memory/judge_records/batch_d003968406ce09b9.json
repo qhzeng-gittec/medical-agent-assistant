@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"b2757ec405e45fd0739f\", \"query\": \"您的孩子中，谁在去年夏天因食物中毒而住院治疗？\", \"expected_facts\": [\"用户的儿子在去年夏天因食物中毒住院一天。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的女儿去年夏天因食物中毒住院一天，后来康复了\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:42:02.478541+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户更正：是儿子去年夏天（2025年）因食物中毒住院，而非女儿。女儿没有住院。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:42:17.616487+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户自己肠胃一直比较弱，经常拉肚子，但从来没有因为这个问题住过医院\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:42:02.478541+00:00\"}]}, {\"id\": \"b3271e60bc8c3e3fc809\", \"query\": \"患者目前的日常咖啡因饮品摄入组合是什么？\", \"expected_facts\": [\"患者目前每天饮用一杯咖啡和一杯茶。\", \"患者此前声称每天喝两杯咖啡是不准确的。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户从2022年开始调整饮品习惯，从每天两杯咖啡改为每天一杯咖啡加一杯茶\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:56:20.134147+00:00\"}]}, {\"id\": \"b3c773a788eb60175f9a\", \"query\": \"当肘关节出现红肿时，患者应采取什么措施？\", \"expected_facts\": [\"如果出现红肿，患者需要冷敷并减少活动。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户补充肘关节护理建议：如果出现红肿，需要冷敷并减少活动。目前用户尽量保持手臂不动。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:38:55.560376+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户的肘关节发炎，医生建议不要弯曲超过90度或重复同一动作，目前用户只能保持手臂伸直。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:37:55.772099+00:00\"}]}, {\"id\": \"b46e5c5bc2336f3ddd4d\", \"query\": \"患者设定的晚餐结束时间是什么时候？这一习惯持续了多久？\", \"expected_facts\": [\"该患者习惯在晚上十点前结束晚餐。\", \"该患者严格执行此规则已有七年时间。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户习惯在晚上十点前吃完晚餐，之后不再进食固体食物，这是为了保持体重和避免睡前胃胀，已坚持十年\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:59:56.327065+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户从七年前开始严格执行晚上十点前吃完晚餐的规则，之前只是偶尔这样做\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:00:11.916609+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"如果不得不晚吃，用户会选择喝温牛奶而不是吃固体食物\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:00:11.916609+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862085-jFnF4swVpl4jOuMXJmOt",
+    "object": "chat.completion",
+    "created": 1788862085,
+    "model": "minimax/minimax-m2.5",
+    "provider": "StreamLake",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"b2757ec405e45fd0739f\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Later correction explicitly states son was hospitalized, not daughter.\"}]},{\"id\":\"b3271e60bc8c3e3fc809\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory shows current habit is one coffee plus one tea, replacing previous two coffees.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory shows the change from two coffees indicates the earlier claim was inaccurate.\"}]},{\"id\":\"b3c773a788eb60175f9a\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states cold compress and reduced activity for redness and swelling.\"}]},{\"id\":\"b46e5c5bc2336f3ddd4d\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"Both memories confirm dinner before 10 PM.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Later session corrects duration to seven years, matching expected fact.\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item:\n\n**Item 1 (b2757ec405e45fd0739f)**\nQuery: 您的孩子中，谁在去年夏天因食物中毒而住院治疗？\nExpected fact: 用户的儿子在去年夏天因食物中毒住院一天。\n\nMemories:\n- m0: 用户的女儿去年夏天因食物中毒住院一天，后来康复了 (session-1)\n- m1: 用户更正：是儿子去年夏天（2025年）因食物中毒住院，而非女儿。女儿没有住院。 (session-2)\n- m2: 用户自己肠胃一直比较弱，经常拉肚子，但从来没有因为这个问题住过医院\n\nAnalysis: The correction in m1 explicitly states it was the son, not the daughter. This is a later correction that resolves the earlier assertion. The expected fact is supported by m1.\n\n**Item 2 (b3271e60bc8c3e3fc809)**\nQuery: 患者目前的日常咖啡因饮品摄入组合是什么？\nExpected facts: \n1. 患者目前每天饮用一杯咖啡和一杯茶。\n2. 患者此前声称每天喝两杯咖啡是不准确的。\n\nMemories:\n- m0: 用户从2022年开始调整饮品习惯，从每天两杯咖啡改为每天一杯咖啡加一杯茶\n\nAnalysis: m0 directly supports both facts - it shows the current habit (one coffee + one tea) and indicates the previous claim of two coffees was changed (implying it was inaccurate).\n\n**Item 3 (b3c773a788eb60175f9a)**\nQuery: 当肘关节出现红肿时，患者应采取什么措施？\nExpected fact: 如果出现红肿，患者需要冷敷并减少活动。\n\nMemories:\n- m0: 用户补充肘关节护理建议：如果出现红肿，需要冷敷并减少活动。\n\n目前用户尽量保持手臂不动。 (session-2)\n- m1: 用户的肘关节发炎，医生建议不要弯曲超过90度或重复同一动作，目前用户只能保持手臂伸直。 (session-1)\n\nAnalysis: m0 directly supports the expected fact - it explicitly states \"如果出现红肿，需要冷敷并减少活动\". This matches exactly.\n\n**Item 4 (b46e5c5bc2336f3ddd4d)**\nQuery: 患者设定的晚餐结束时间是什么时候？这一习惯持续了多久？\nExpected facts:\n1. 该患者习惯在晚上十点前结束晚餐。\n2. 该患者严格执行此规则已有七年时间。\n\nMemories:\n- m0: 用户习惯在晚上十点前吃完晚餐，之后不再进食固体食物，这是为了保持体重和避免睡前胃胀，已坚持十年 (session-1)\n- m1: 用户从七年前开始严格执行晚上十点前吃完晚餐的规则，之前只是偶尔这样做 (session-2)\n- m2: 如果不得不晚吃，用户会选择喝温牛奶而不是吃固体食物 (session-2)\n\nAnalysis: There's a conflict here. m0 says \"已坚持十年\" (has persisted for ten years), while m1 says \"从七年前开始严格执行\" (strictly enforced from seven years ago). The later session (session-2, m1) provides the correction - it was seven years, not ten. The expected fact says \"七年时间\" which matches m1.\n\nNow I'll format the JSON output:\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item:\n\n**Item 1 (b2757ec405e45fd0739f)**\nQuery: 您的孩子中，谁在去年夏天因食物中毒而住院治疗？\nExpected fact: 用户的儿子在去年夏天因食物中毒住院一天。\n\nMemories:\n- m0: 用户的女儿去年夏天因食物中毒住院一天，后来康复了 (session-1)\n- m1: 用户更正：是儿子去年夏天（2025年）因食物中毒住院，而非女儿。女儿没有住院。 (session-2)\n- m2: 用户自己肠胃一直比较弱，经常拉肚子，但从来没有因为这个问题住过医院\n\nAnalysis: The correction in m1 explicitly states it was the son, not the daughter. This is a later correction that resolves the earlier assertion. The expected fact is supported by m1.\n\n**Item 2 (b3271e60bc8c3e3fc809)**\nQuery: 患者目前的日常咖啡因饮品摄入组合是什么？\nExpected facts: \n1. 患者目前每天饮用一杯咖啡和一杯茶。\n2. 患者此前声称每天喝两杯咖啡是不准确的。\n\nMemories:\n- m0: 用户从2022年开始调整饮品习惯，从每天两杯咖啡改为每天一杯咖啡加一杯茶\n\nAnalysis: m0 directly supports both facts - it shows the current habit (one coffee + one tea) and indicates the previous claim of two coffees was changed (implying it was inaccurate).\n\n**Item 3 (b3c773a788eb60175f9a)**\nQuery: 当肘关节出现红肿时，患者应采取什么措施？\nExpected fact: 如果出现红肿，患者需要冷敷并减少活动。\n\nMemories:\n- m0: 用户补充肘关节护理建议：如果出现红肿，需要冷敷并减少活动。\n\n目前用户尽量保持手臂不动。 (session-2)\n- m1: 用户的肘关节发炎，医生建议不要弯曲超过90度或重复同一动作，目前用户只能保持手臂伸直。 (session-1)\n\nAnalysis: m0 directly supports the expected fact - it explicitly states \"如果出现红肿，需要冷敷并减少活动\". This matches exactly.\n\n**Item 4 (b46e5c5bc2336f3ddd4d)**\nQuery: 患者设定的晚餐结束时间是什么时候？这一习惯持续了多久？\nExpected facts:\n1. 该患者习惯在晚上十点前结束晚餐。\n2. 该患者严格执行此规则已有七年时间。\n\nMemories:\n- m0: 用户习惯在晚上十点前吃完晚餐，之后不再进食固体食物，这是为了保持体重和避免睡前胃胀，已坚持十年 (session-1)\n- m1: 用户从七年前开始严格执行晚上十点前吃完晚餐的规则，之前只是偶尔这样做 (session-2)\n- m2: 如果不得不晚吃，用户会选择喝温牛奶而不是吃固体食物 (session-2)\n\nAnalysis: There's a conflict here. m0 says \"已坚持十年\" (has persisted for ten years), while m1 says \"从七年前开始严格执行\" (strictly enforced from seven years ago). The later session (session-2, m1) provides the correction - it was seven years, not ten. The expected fact says \"七年时间\" which matches m1.\n\nNow I'll format the JSON output:\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1124,
+      "completion_tokens": 941,
+      "total_tokens": 2065,
+      "cost": 0.001257552,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.001257552,
+        "upstream_inference_prompt_cost": 0.000241272,
+        "upstream_inference_completions_cost": 0.00101628
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 682,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 11.75
+}

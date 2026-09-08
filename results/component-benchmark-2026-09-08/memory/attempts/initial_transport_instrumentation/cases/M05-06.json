@@ -1,0 +1,139 @@
+{
+  "case": {
+    "id": "M05-06",
+    "category": "确诊与待检查的不确定性区分",
+    "turns": [
+      {
+        "user": "我最近经常咳嗽，痰里有血丝，持续了两周。我担心自己是不是肺癌，因为吸烟多年，想做个CT检查确认。",
+        "assistant": "已记录您的咳嗽症状及肺癌的自我怀疑。"
+      },
+      {
+        "user": "更正一下，我昨天做了胸部CT，医生说要等影像报告。我现在还没确诊肺癌，只是根据症状猜测，需要等报告出来。",
+        "assistant": "收到，已更新您目前处于CT检查等待期且未确诊肺癌。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "M05-06-Q1",
+        "query": "患者目前是否已确诊患有肺癌？",
+        "expected_facts": [
+          "患者目前尚未确诊肺癌。",
+          "患者最近经常咳嗽，痰中有血丝。",
+          "患者吸烟多年，担心肺癌。"
+        ],
+        "required_groups": [
+          [
+            "尚未确诊",
+            "未确诊",
+            "没确诊"
+          ],
+          [
+            "肺癌",
+            "肺部肿瘤"
+          ],
+          [
+            "最近",
+            "近期"
+          ]
+        ]
+      },
+      {
+        "id": "M05-06-Q2",
+        "query": "患者昨天进行了什么检查，结果状态怎样？",
+        "expected_facts": [
+          "患者昨天做了胸部CT检查。",
+          "影像报告尚未出来。",
+          "需要等待报告确认诊断。"
+        ],
+        "required_groups": [
+          [
+            "胸部CT",
+            "CT检查",
+            "肺部扫描"
+          ],
+          [
+            "报告未出",
+            "没出来",
+            "等待结果"
+          ],
+          [
+            "昨天",
+            "前天"
+          ]
+        ]
+      }
+    ],
+    "split": "dev",
+    "family_id": "M05-06",
+    "synthetic": true
+  },
+  "status": "started",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859958-L9KaOlySG5ylotCAEV1P",
+      "usage": {
+        "prompt_tokens": 50,
+        "total_tokens": 50,
+        "cost": 2e-06,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-06,
+          "upstream_inference_prompt_cost": 2e-06,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788859962-M1USnyHpFqb0pf7ulq96",
+      "usage": {
+        "prompt_tokens": 8351,
+        "completion_tokens": 233,
+        "total_tokens": 8584,
+        "cost": 0.0030645,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0030645,
+          "upstream_inference_prompt_cost": 0.0025053,
+          "upstream_inference_completions_cost": 0.0005592
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 139,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\"memory\": [{\"id\": \"0\", \"text\": \"用户最近经常咳嗽，痰里有血丝，症状持续了两周\", \"attributed_to\": \"user\"}, {\"id\": \"1\", \"text\": \"用户吸烟多年，担心自己可能患有肺癌\", \"attributed_to\": \"user\"}, {\"id\": \"2\", \"text\": \"用户想做CT检查来确认是否患有肺癌\", \"attributed_to\": \"user\"}]}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859972-Ws8S2LtVEwdPhIQlEMhn",
+      "usage": {
+        "prompt_tokens": 37,
+        "total_tokens": 37,
+        "cost": 3.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.7e-07,
+          "upstream_inference_prompt_cost": 3.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": []
+}

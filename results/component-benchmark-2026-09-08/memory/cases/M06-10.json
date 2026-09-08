@@ -1,0 +1,522 @@
+{
+  "case": {
+    "id": "M06-10",
+    "category": "按医嘱停用药物的时间线",
+    "turns": [
+      {
+        "user": "我2020年因偏头痛开始用托吡酯，每天半片。今年七月医生说我发作减少，让我七月二十号停，但我拖到七月二十五号才停。",
+        "assistant": "好的，已记录您七月二十五号实际停用托吡酯的情况。"
+      },
+      {
+        "user": "更正一下，其实是七月二十二号停的，那天我重新看了病历，发现写的是二十二号，不是二十号。",
+        "assistant": "了解，已将停药日期更新为七月二十二号。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "Q1",
+        "query": "患者最终在哪一天停止了托吡酯的服用？",
+        "expected_facts": [
+          "患者在2023年7月22日停止服用托吡酯"
+        ],
+        "required_groups": [
+          [
+            "7月22日",
+            "七月二十二号"
+          ],
+          [
+            "停止服用",
+            "停用"
+          ],
+          [
+            "托吡酯"
+          ]
+        ]
+      },
+      {
+        "id": "Q2",
+        "query": "患者对停药日期的记忆是否有过错误？",
+        "expected_facts": [
+          "患者最初误记为7月20日或25日，后更正为7月22日"
+        ],
+        "required_groups": [
+          [
+            "7月20日",
+            "七月二十号"
+          ],
+          [
+            "7月25日",
+            "七月二十五号"
+          ],
+          [
+            "7月22日",
+            "七月二十二号"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M06-10",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860909-dNrYJlsCyWnjC1YObkUV",
+      "usage": {
+        "prompt_tokens": 67,
+        "total_tokens": 67,
+        "cost": 6.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.7e-07,
+          "upstream_inference_prompt_cost": 6.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860913-rpCnrAbW1wj4EH4e4kUZ",
+      "usage": {
+        "prompt_tokens": 8370,
+        "completion_tokens": 401,
+        "total_tokens": 8771,
+        "cost": 0.00312606,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00312606,
+          "upstream_inference_prompt_cost": 0.0022599,
+          "upstream_inference_completions_cost": 0.00086616
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 201,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"User started taking topiramate (托吡酯) in 2020 for migraines, taking half a tablet daily\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"In July 2026, the doctor told User their migraine attacks had decreased and instructed them to stop topiramate on July 20th\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"2\",\n      \"text\": \"User actually stopped taking topiramate on July 25th, 2026, five days after the doctor's recommended stop date of July 20th\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860923-qpeB9CJqvdxaVNz3V14W",
+      "usage": {
+        "prompt_tokens": 95,
+        "total_tokens": 95,
+        "cost": 9.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 9.5e-07,
+          "upstream_inference_prompt_cost": 9.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860926-HalDC9VkeLWweAD0GeCv",
+      "usage": {
+        "prompt_tokens": 51,
+        "total_tokens": 51,
+        "cost": 5.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.1e-07,
+          "upstream_inference_prompt_cost": 5.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860929-ktUN57yf872riDZmtnI7",
+      "usage": {
+        "prompt_tokens": 8542,
+        "completion_tokens": 231,
+        "total_tokens": 8773,
+        "cost": 0.003117,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.003117,
+          "upstream_inference_prompt_cost": 0.0025626,
+          "upstream_inference_completions_cost": 0.0005544
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 116,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"User corrected their topiramate (托吡酯) stop date to July 22nd, 2026 after reviewing their medical records and finding it was written as the 22nd, not the 20th\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\",\n        \"1\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860938-E3vELMiYTATKKyCVA3yq",
+      "usage": {
+        "prompt_tokens": 49,
+        "total_tokens": 49,
+        "cost": 4.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.9e-07,
+          "upstream_inference_prompt_cost": 4.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860941-SBUUtgfcFlW8hMf0GvdF",
+      "usage": {
+        "prompt_tokens": 13,
+        "total_tokens": 13,
+        "cost": 1.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.3e-07,
+          "upstream_inference_prompt_cost": 1.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860942-nd1Tg1XzL8ZIz5UjWkYd",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860943-FElgy6GB19vrozH8uQHC",
+      "usage": {
+        "prompt_tokens": 23,
+        "total_tokens": 23,
+        "cost": 9.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 9.2e-07,
+          "upstream_inference_prompt_cost": 9.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860944-ln9VrYJPxb1IWqlLoZvn",
+      "usage": {
+        "prompt_tokens": 13,
+        "total_tokens": 13,
+        "cost": 1.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.3e-07,
+          "upstream_inference_prompt_cost": 1.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860946-HWTfhT2Kwg3UkGMWXNdt",
+      "usage": {
+        "prompt_tokens": 13,
+        "total_tokens": 13,
+        "cost": 1.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.3e-07,
+          "upstream_inference_prompt_cost": 1.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "Q1",
+        "query": "患者最终在哪一天停止了托吡酯的服用？",
+        "expected_facts": [
+          "患者在2023年7月22日停止服用托吡酯"
+        ],
+        "required_groups": [
+          [
+            "7月22日",
+            "七月二十二号"
+          ],
+          [
+            "停止服用",
+            "停用"
+          ],
+          [
+            "托吡酯"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "53fc7702-fbba-41f7-a115-3ba9b4c7ce1f",
+          "content": "User actually stopped taking topiramate on July 25th, 2026, five days after the doctor's recommended stop date of July 20th",
+          "score": 0.8488980550997988,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:48:26.376767+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M06-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:48:45.132287+00:00"
+        },
+        {
+          "memory_id": "bd03169c-12a8-4e86-afae-98089cf8bfe1",
+          "content": "User corrected their topiramate (托吡酯) stop date to July 22nd, 2026 after reviewing their medical records and finding it was written as the 22nd, not the 20th",
+          "score": 0.792719817102824,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:48:45.182599+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M06-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:48:58.395369+00:00"
+        },
+        {
+          "memory_id": "8c5c0c93-347a-4bcf-94ec-76bbdbb54176",
+          "content": "In July 2026, the doctor told User their migraine attacks had decreased and instructed them to stop topiramate on July 20th",
+          "score": 0.7603074011619269,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:48:26.376767+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M06-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:48:45.132287+00:00"
+        },
+        {
+          "memory_id": "daf13fd8-0683-4712-bb05-66b82da4f8e7",
+          "content": "User started taking topiramate (托吡酯) in 2020 for migraines, taking half a tablet daily",
+          "score": 0.6906616504484906,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:48:26.376767+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M06-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:48:45.132287+00:00"
+        }
+      ],
+      "seconds": 2.844
+    },
+    {
+      "query": {
+        "id": "Q2",
+        "query": "患者对停药日期的记忆是否有过错误？",
+        "expected_facts": [
+          "患者最初误记为7月20日或25日，后更正为7月22日"
+        ],
+        "required_groups": [
+          [
+            "7月20日",
+            "七月二十号"
+          ],
+          [
+            "7月25日",
+            "七月二十五号"
+          ],
+          [
+            "7月22日",
+            "七月二十二号"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "bd03169c-12a8-4e86-afae-98089cf8bfe1",
+          "content": "User corrected their topiramate (托吡酯) stop date to July 22nd, 2026 after reviewing their medical records and finding it was written as the 22nd, not the 20th",
+          "score": 0.6795810519627838,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:48:45.182599+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M06-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:48:58.395369+00:00"
+        },
+        {
+          "memory_id": "53fc7702-fbba-41f7-a115-3ba9b4c7ce1f",
+          "content": "User actually stopped taking topiramate on July 25th, 2026, five days after the doctor's recommended stop date of July 20th",
+          "score": 0.6759695944995318,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:48:26.376767+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M06-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:48:45.132287+00:00"
+        },
+        {
+          "memory_id": "8c5c0c93-347a-4bcf-94ec-76bbdbb54176",
+          "content": "In July 2026, the doctor told User their migraine attacks had decreased and instructed them to stop topiramate on July 20th",
+          "score": 0.570044487985351,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:48:26.376767+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M06-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:48:45.132287+00:00"
+        },
+        {
+          "memory_id": "daf13fd8-0683-4712-bb05-66b82da4f8e7",
+          "content": "User started taking topiramate (托吡酯) in 2020 for migraines, taking half a tablet daily",
+          "score": 0.4886640282223709,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:48:26.376767+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M06-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:48:45.132287+00:00"
+        }
+      ],
+      "seconds": 1.109
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者最终在哪一天停止了托吡酯的服用？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "53fc7702-fbba-41f7-a115-3ba9b4c7ce1f",
+        "content": "User actually stopped taking topiramate on July 25th, 2026, five days after the doctor's recommended stop date of July 20th",
+        "score": 0.699844350566225,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:48:26.376767+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M06-10",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:48:45.132287+00:00"
+      },
+      {
+        "memory_id": "bd03169c-12a8-4e86-afae-98089cf8bfe1",
+        "content": "User corrected their topiramate (托吡酯) stop date to July 22nd, 2026 after reviewing their medical records and finding it was written as the 22nd, not the 20th",
+        "score": 0.6992904791200818,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:48:45.182599+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M06-10",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:48:58.395369+00:00"
+      },
+      {
+        "memory_id": "8c5c0c93-347a-4bcf-94ec-76bbdbb54176",
+        "content": "In July 2026, the doctor told User their migraine attacks had decreased and instructed them to stop topiramate on July 20th",
+        "score": 0.634362014331846,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:48:26.376767+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M06-10",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:48:45.132287+00:00"
+      },
+      {
+        "memory_id": "daf13fd8-0683-4712-bb05-66b82da4f8e7",
+        "content": "User started taking topiramate (托吡酯) in 2020 for migraines, taking half a tablet daily",
+        "score": 0.5679792597572527,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:48:26.376767+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M06-10",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:48:45.132287+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 43.265
+}

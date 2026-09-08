@@ -1,0 +1,520 @@
+{
+  "case": {
+    "id": "M07-04",
+    "category": "预约复查与检查准备安排",
+    "turns": [
+      {
+        "user": "我要预约后天上午的无痛肠镜检查。医生嘱咐检查前一天要吃流食，我想知道具体从几点开始只能喝粥或汤，还有检查当天早上必须完全禁水吗？",
+        "assistant": "收到，已记录您后天上午的无痛肠镜预约及关于流食时间和禁水要求的咨询。"
+      },
+      {
+        "user": "补充说明，我计划前天晚上就开始只吃流质食物，直到检查前一天的中午十二点为止。检查当天早上我打算喝半杯清水，这样行不行？",
+        "assistant": "明白，已更新您从前天晚上开始的流食计划及检查当天早晨饮水的具体安排。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "患者预约了什么检查，时间定在什么时候？",
+        "expected_facts": [
+          "患者预约了后天上午的无痛肠镜检查。"
+        ],
+        "required_groups": [
+          [
+            "后天上午",
+            "明天之后上午"
+          ],
+          [
+            "无痛肠镜",
+            "肠镜检查"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "患者制定的饮食控制方案是从何时开始，持续到何时结束？",
+        "expected_facts": [
+          "患者计划从前天晚上开始只吃流质食物。",
+          "患者的流食计划持续到检查前一天的中午十二点。"
+        ],
+        "required_groups": [
+          [
+            "前天晚上",
+            "大前天晚上"
+          ],
+          [
+            "流质食物",
+            "流食",
+            "喝粥或汤"
+          ],
+          [
+            "检查前一天中午十二点",
+            "前一天中午十二点"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M07-04",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860944-qjpXrq3OP3LzH5kIbDki",
+      "usage": {
+        "prompt_tokens": 79,
+        "total_tokens": 79,
+        "cost": 7.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.9e-07,
+          "upstream_inference_prompt_cost": 7.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860945-ZZF7E2TEfGsQlM0ZPkqe",
+      "usage": {
+        "prompt_tokens": 8373,
+        "completion_tokens": 623,
+        "total_tokens": 8996,
+        "cost": 0.00360639,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00360639,
+          "upstream_inference_prompt_cost": 0.00226071,
+          "upstream_inference_completions_cost": 0.00134568
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 499,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"User预约了2026年9月10日上午的无痛肠镜检查，医生嘱咐检查前一天要吃流食\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"User咨询关于无痛肠镜检查前流食开始的具体时间点，以及检查当天早上是否需要完全禁水的要求\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860959-vXoH5C89qxAgfTF1roIl",
+      "usage": {
+        "prompt_tokens": 57,
+        "total_tokens": 57,
+        "cost": 5.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.7e-07,
+          "upstream_inference_prompt_cost": 5.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860960-IfJ9Gesx6ns7hNYRu3pd",
+      "usage": {
+        "prompt_tokens": 69,
+        "total_tokens": 69,
+        "cost": 6.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.9e-07,
+          "upstream_inference_prompt_cost": 6.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860960-jhmAZqTz3BaU3CUjA10W",
+      "usage": {
+        "prompt_tokens": 8506,
+        "completion_tokens": 2270,
+        "total_tokens": 10776,
+        "cost": 0.0079998,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0079998,
+          "upstream_inference_prompt_cost": 0.0025518,
+          "upstream_inference_completions_cost": 0.005448
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 2097,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户计划从2026年9月6日晚上开始只进食流质食物，直至2026年9月9日中午12点，作为无痛肠镜检查前的准备\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"1\"\n      ]\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户计划在2026年9月10日肠镜检查当天早上饮用半杯清水，并询问该安排是否可行\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"1\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861058-sXmDnMyMYjFxyKT96vYA",
+      "usage": {
+        "prompt_tokens": 74,
+        "total_tokens": 74,
+        "cost": 7.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.4e-07,
+          "upstream_inference_prompt_cost": 7.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861060-SJU5QMU2U1ou1IeNHtCV",
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 12,
+        "cost": 1.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.2e-07,
+          "upstream_inference_prompt_cost": 1.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861062-mP7GozD3DlOEN1tITvXR",
+      "usage": {
+        "prompt_tokens": 16,
+        "total_tokens": 16,
+        "cost": 1.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.6e-07,
+          "upstream_inference_prompt_cost": 1.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861063-eDAjtyZrsqzbaPK87NF8",
+      "usage": {
+        "prompt_tokens": 22,
+        "total_tokens": 22,
+        "cost": 2.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.2e-07,
+          "upstream_inference_prompt_cost": 2.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861064-IonmTIN0Mp1KCOiyjlAm",
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 12,
+        "cost": 1.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.2e-07,
+          "upstream_inference_prompt_cost": 1.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861065-KXaaIwhiqeKxsHZ2MZt8",
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 12,
+        "cost": 1.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.2e-07,
+          "upstream_inference_prompt_cost": 1.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "患者预约了什么检查，时间定在什么时候？",
+        "expected_facts": [
+          "患者预约了后天上午的无痛肠镜检查。"
+        ],
+        "required_groups": [
+          [
+            "后天上午",
+            "明天之后上午"
+          ],
+          [
+            "无痛肠镜",
+            "肠镜检查"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "3f67e70f-a034-4cee-9087-a25998f2475a",
+          "content": "User预约了2026年9月10日上午的无痛肠镜检查，医生嘱咐检查前一天要吃流食",
+          "score": 0.725756379696474,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:03.156650+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:49:19.313075+00:00"
+        },
+        {
+          "memory_id": "dafb7762-08fa-4ecd-abc5-a0beb62b8c95",
+          "content": "用户计划在2026年9月10日肠镜检查当天早上饮用半杯清水，并询问该安排是否可行",
+          "score": 0.6213745994305989,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:19.347625+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:50:58.808947+00:00"
+        },
+        {
+          "memory_id": "e730a489-5dcb-4628-a137-2c0b604ba587",
+          "content": "User咨询关于无痛肠镜检查前流食开始的具体时间点，以及检查当天早上是否需要完全禁水的要求",
+          "score": 0.58890146592334,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:03.156650+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:49:19.313589+00:00"
+        },
+        {
+          "memory_id": "9c7b9ca8-97ec-45d9-8da9-55f629729d31",
+          "content": "用户计划从2026年9月6日晚上开始只进食流质食物，直至2026年9月9日中午12点，作为无痛肠镜检查前的准备",
+          "score": 0.56156618919899,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:19.347625+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:50:58.808947+00:00"
+        }
+      ],
+      "seconds": 2.187
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "患者制定的饮食控制方案是从何时开始，持续到何时结束？",
+        "expected_facts": [
+          "患者计划从前天晚上开始只吃流质食物。",
+          "患者的流食计划持续到检查前一天的中午十二点。"
+        ],
+        "required_groups": [
+          [
+            "前天晚上",
+            "大前天晚上"
+          ],
+          [
+            "流质食物",
+            "流食",
+            "喝粥或汤"
+          ],
+          [
+            "检查前一天中午十二点",
+            "前一天中午十二点"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "9c7b9ca8-97ec-45d9-8da9-55f629729d31",
+          "content": "用户计划从2026年9月6日晚上开始只进食流质食物，直至2026年9月9日中午12点，作为无痛肠镜检查前的准备",
+          "score": 0.6066326028571927,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:19.347625+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:50:58.808947+00:00"
+        },
+        {
+          "memory_id": "3f67e70f-a034-4cee-9087-a25998f2475a",
+          "content": "User预约了2026年9月10日上午的无痛肠镜检查，医生嘱咐检查前一天要吃流食",
+          "score": 0.5759319451955994,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:03.156650+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:49:19.313075+00:00"
+        },
+        {
+          "memory_id": "e730a489-5dcb-4628-a137-2c0b604ba587",
+          "content": "User咨询关于无痛肠镜检查前流食开始的具体时间点，以及检查当天早上是否需要完全禁水的要求",
+          "score": 0.5359542218897908,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:03.156650+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:49:19.313589+00:00"
+        },
+        {
+          "memory_id": "dafb7762-08fa-4ecd-abc5-a0beb62b8c95",
+          "content": "用户计划在2026年9月10日肠镜检查当天早上饮用半杯清水，并询问该安排是否可行",
+          "score": 0.5282721829815005,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:49:19.347625+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:50:58.808947+00:00"
+        }
+      ],
+      "seconds": 1.063
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者预约了什么检查，时间定在什么时候？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "3f67e70f-a034-4cee-9087-a25998f2475a",
+        "content": "User预约了2026年9月10日上午的无痛肠镜检查，医生嘱咐检查前一天要吃流食",
+        "score": 0.6274034215201676,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:49:03.156650+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M07-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:49:19.313075+00:00"
+      },
+      {
+        "memory_id": "dafb7762-08fa-4ecd-abc5-a0beb62b8c95",
+        "content": "用户计划在2026年9月10日肠镜检查当天早上饮用半杯清水，并询问该安排是否可行",
+        "score": 0.5502842116005013,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:49:19.347625+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M07-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:50:58.808947+00:00"
+      },
+      {
+        "memory_id": "e730a489-5dcb-4628-a137-2c0b604ba587",
+        "content": "User咨询关于无痛肠镜检查前流食开始的具体时间点，以及检查当天早上是否需要完全禁水的要求",
+        "score": 0.520718951484324,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:49:03.156650+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M07-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:49:19.313589+00:00"
+      },
+      {
+        "memory_id": "9c7b9ca8-97ec-45d9-8da9-55f629729d31",
+        "content": "用户计划从2026年9月6日晚上开始只进食流质食物，直至2026年9月9日中午12点，作为无痛肠镜检查前的准备",
+        "score": 0.4901179142037718,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:49:19.347625+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M07-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:50:58.808947+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 122.781
+}

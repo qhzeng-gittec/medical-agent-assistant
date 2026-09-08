@@ -1,0 +1,577 @@
+{
+  "case": {
+    "id": "M11-08",
+    "category": "多项历史事实的跨会话汇总",
+    "turns": [
+      {
+        "user": "我六十岁，十五年前被查出有轻度糖尿病，医生建议控制饮食和运动，我坚持了十年，血糖一直稳定，后来因为退休生活规律，没再监测。",
+        "assistant": "好的，已记录您十五年前的糖尿病诊断及长期管理历史。"
+      },
+      {
+        "user": "对了，五年前我因为体检发现血糖偏高，又开始每天快走四十分钟，坚持了两年，血糖恢复正常，现在偶尔测一下，基本没问题。",
+        "assistant": "收到，已补充您五年前血糖波动及运动干预的记录。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "M11-08-Q1",
+        "query": "患者十五年前确诊了什么代谢疾病，医生建议什么措施，坚持了多久？",
+        "expected_facts": [
+          "患者十五年前被查出轻度糖尿病。",
+          "医生建议控制饮食和运动。",
+          "患者坚持了十年后血糖稳定。"
+        ],
+        "required_groups": [
+          [
+            "轻度糖尿病",
+            "糖尿病"
+          ],
+          [
+            "控制饮食",
+            "饮食管理"
+          ],
+          [
+            "坚持十年",
+            "十年"
+          ]
+        ]
+      },
+      {
+        "id": "M11-08-Q2",
+        "query": "五年前他血糖升高后做了什么运动，每天多久，结果如何？",
+        "expected_facts": [
+          "患者五年前体检发现血糖偏高。",
+          "患者每天快走四十分钟，坚持了两年。",
+          "患者血糖恢复正常。"
+        ],
+        "required_groups": [
+          [
+            "快走",
+            "步行"
+          ],
+          [
+            "四十分钟",
+            "40分钟"
+          ],
+          [
+            "恢复正常",
+            "血糖正常"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M11-08",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861627-2bLDjMG2cUUR3A65BkNH",
+      "usage": {
+        "prompt_tokens": 65,
+        "total_tokens": 65,
+        "cost": 6.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.5e-07,
+          "upstream_inference_prompt_cost": 6.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861629-K23teWIHzdxfpSm8mBuY",
+      "usage": {
+        "prompt_tokens": 8360,
+        "completion_tokens": 295,
+        "total_tokens": 8655,
+        "cost": 0.0029406,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0029406,
+          "upstream_inference_prompt_cost": 0.0021736,
+          "upstream_inference_completions_cost": 0.000767
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 178,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户六十岁，十五年前被查出有轻度糖尿病，医生建议控制饮食和运动\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户坚持饮食控制和运动十年，血糖一直稳定\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"2\",\n      \"text\": \"用户退休后生活规律，不再监测血糖\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861634-X2JC2prkOJBBT2DU9fRP",
+      "usage": {
+        "prompt_tokens": 43,
+        "total_tokens": 43,
+        "cost": 4.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.3e-07,
+          "upstream_inference_prompt_cost": 4.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861640-1HlKnlc9MkcBEyIRYzWr",
+      "usage": {
+        "prompt_tokens": 59,
+        "total_tokens": 59,
+        "cost": 5.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.9e-07,
+          "upstream_inference_prompt_cost": 5.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861644-SYfcJGZuraEnD6w3WGl5",
+      "usage": {
+        "prompt_tokens": 8483,
+        "completion_tokens": 1549,
+        "total_tokens": 10032,
+        "cost": 0.00521875,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00521875,
+          "upstream_inference_prompt_cost": 0.00212075,
+          "upstream_inference_completions_cost": 0.003098
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1676,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户五年前体检发现血糖偏高，开始每天快走四十分钟，坚持两年后血糖恢复正常\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\", \"1\", \"2\"]\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户现在偶尔测血糖，基本没问题\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\", \"1\", \"2\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861680-pXdf1mxVqwmka4mYJU4Z",
+      "usage": {
+        "prompt_tokens": 31,
+        "total_tokens": 31,
+        "cost": 3.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.1e-07,
+          "upstream_inference_prompt_cost": 3.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861683-3DAUHO9zzjIyhh5RwaW8",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861684-WcjFwuaqkXFWmJYUHLOb",
+      "usage": {
+        "prompt_tokens": 17,
+        "total_tokens": 17,
+        "cost": 1.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.7e-07,
+          "upstream_inference_prompt_cost": 1.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861688-I4CQiFkb1tIgqcm8zHVh",
+      "usage": {
+        "prompt_tokens": 29,
+        "total_tokens": 29,
+        "cost": 2.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.9e-07,
+          "upstream_inference_prompt_cost": 2.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861689-daBSFylBuUXm7aJ7Pesu",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861691-eXZ37WcJq6I2z68YKKDn",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "M11-08-Q1",
+        "query": "患者十五年前确诊了什么代谢疾病，医生建议什么措施，坚持了多久？",
+        "expected_facts": [
+          "患者十五年前被查出轻度糖尿病。",
+          "医生建议控制饮食和运动。",
+          "患者坚持了十年后血糖稳定。"
+        ],
+        "required_groups": [
+          [
+            "轻度糖尿病",
+            "糖尿病"
+          ],
+          [
+            "控制饮食",
+            "饮食管理"
+          ],
+          [
+            "坚持十年",
+            "十年"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "5dcf67ca-ea4c-4451-a08a-cf1e0fc81e9a",
+          "content": "用户六十岁，十五年前被查出有轻度糖尿病，医生建议控制饮食和运动",
+          "score": 0.7356487579238566,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:00:25.654046+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:39.888842+00:00"
+        },
+        {
+          "memory_id": "2a09d82c-40f5-4802-ad8e-8a81bcb3cd52",
+          "content": "用户坚持饮食控制和运动十年，血糖一直稳定",
+          "score": 0.7146033876358218,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:00:25.654046+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:39.888842+00:00"
+        },
+        {
+          "memory_id": "a930958f-9467-4586-988f-fe7f489b132d",
+          "content": "用户现在偶尔测血糖，基本没问题",
+          "score": 0.6355373458962756,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:00:39.961250+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M11-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:01:21.398686+00:00"
+        },
+        {
+          "memory_id": "01f87e07-c2f6-42c2-89c3-ba1b1e7df383",
+          "content": "用户五年前体检发现血糖偏高，开始每天快走四十分钟，坚持两年后血糖恢复正常",
+          "score": 0.6200444161189184,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:00:39.961250+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M11-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:01:21.398686+00:00"
+        },
+        {
+          "memory_id": "b584ced2-f1a3-4753-bf22-43864e8791d1",
+          "content": "用户退休后生活规律，不再监测血糖",
+          "score": 0.6018147810776626,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:00:25.654046+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:39.888842+00:00"
+        }
+      ],
+      "seconds": 1.734
+    },
+    {
+      "query": {
+        "id": "M11-08-Q2",
+        "query": "五年前他血糖升高后做了什么运动，每天多久，结果如何？",
+        "expected_facts": [
+          "患者五年前体检发现血糖偏高。",
+          "患者每天快走四十分钟，坚持了两年。",
+          "患者血糖恢复正常。"
+        ],
+        "required_groups": [
+          [
+            "快走",
+            "步行"
+          ],
+          [
+            "四十分钟",
+            "40分钟"
+          ],
+          [
+            "恢复正常",
+            "血糖正常"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "01f87e07-c2f6-42c2-89c3-ba1b1e7df383",
+          "content": "用户五年前体检发现血糖偏高，开始每天快走四十分钟，坚持两年后血糖恢复正常",
+          "score": 0.856716831065567,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:00:39.961250+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M11-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:01:21.398686+00:00"
+        },
+        {
+          "memory_id": "2a09d82c-40f5-4802-ad8e-8a81bcb3cd52",
+          "content": "用户坚持饮食控制和运动十年，血糖一直稳定",
+          "score": 0.7784434868618797,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:00:25.654046+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:39.888842+00:00"
+        },
+        {
+          "memory_id": "5dcf67ca-ea4c-4451-a08a-cf1e0fc81e9a",
+          "content": "用户六十岁，十五年前被查出有轻度糖尿病，医生建议控制饮食和运动",
+          "score": 0.7029877554200278,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:00:25.654046+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:39.888842+00:00"
+        },
+        {
+          "memory_id": "a930958f-9467-4586-988f-fe7f489b132d",
+          "content": "用户现在偶尔测血糖，基本没问题",
+          "score": 0.6841810201828694,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:00:39.961250+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M11-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:01:21.398686+00:00"
+        },
+        {
+          "memory_id": "b584ced2-f1a3-4753-bf22-43864e8791d1",
+          "content": "用户退休后生活规律，不再监测血糖",
+          "score": 0.6359136377403128,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:00:25.654046+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:39.888842+00:00"
+        }
+      ],
+      "seconds": 4.172
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者十五年前确诊了什么代谢疾病，医生建议什么措施，坚持了多久？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "2a09d82c-40f5-4802-ad8e-8a81bcb3cd52",
+        "content": "用户坚持饮食控制和运动十年，血糖一直稳定",
+        "score": 0.6436104334932988,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:00:25.654046+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M11-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:00:39.888842+00:00"
+      },
+      {
+        "memory_id": "5dcf67ca-ea4c-4451-a08a-cf1e0fc81e9a",
+        "content": "用户六十岁，十五年前被查出有轻度糖尿病，医生建议控制饮食和运动",
+        "score": 0.6185236817934826,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:00:25.654046+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M11-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:00:39.888842+00:00"
+      },
+      {
+        "memory_id": "b584ced2-f1a3-4753-bf22-43864e8791d1",
+        "content": "用户退休后生活规律，不再监测血糖",
+        "score": 0.6178828567618901,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:00:25.654046+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M11-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:00:39.888842+00:00"
+      },
+      {
+        "memory_id": "a930958f-9467-4586-988f-fe7f489b132d",
+        "content": "用户现在偶尔测血糖，基本没问题",
+        "score": 0.6168768084470333,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:00:39.961250+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M11-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:01:21.398686+00:00"
+      },
+      {
+        "memory_id": "01f87e07-c2f6-42c2-89c3-ba1b1e7df383",
+        "content": "用户五年前体检发现血糖偏高，开始每天快走四十分钟，坚持两年后血糖恢复正常",
+        "score": 0.5449378184743898,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:00:39.961250+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M11-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:01:21.398686+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 69.781
+}

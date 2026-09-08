@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"8e703790be181e3885e4\", \"query\": \"患者实际停止服用降糖药的具体日期是哪天？\", \"expected_facts\": [\"患者在2023年5月30日停止服用二甲双胍\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"医生建议用户在2026年5月20日停用二甲双胍，但用户坚持服用至2026年6月1日才停药\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:46:24.871302+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户实际于2026年5月30日停用二甲双胍，当天医生再次确认可以停药后彻底停止服用\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:46:47.602025+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户在2026年5月的体检中血糖达标\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:46:24.871302+00:00\"}]}, {\"id\": \"907eb6f0e7876961aee2\", \"query\": \"若患者被迫在晚餐时间后进食，通常会选择什么替代品？\", \"expected_facts\": [\"该患者在晚餐后若需进食会选择喝温牛奶。\", \"该患者晚餐后避免食用固体食物。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"如果不得不晚吃，用户会选择喝温牛奶而不是吃固体食物\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:00:11.916609+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户习惯在晚上十点前吃完晚餐，之后不再进食固体食物，这是为了保持体重和避免睡前胃胀，已坚持十年\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:59:56.327065+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户从七年前开始严格执行晚上十点前吃完晚餐的规则，之前只是偶尔这样做\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:00:11.916609+00:00\"}]}, {\"id\": \"93421f431111c47c3c04\", \"query\": \"患者是否按照医生最初建议的时间停药？\", \"expected_facts\": [\"患者未按最初建议的5月20日停药，而是延后至5月30日\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"医生建议用户在2026年5月20日停用二甲双胍，但用户坚持服用至2026年6月1日才停药\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:46:24.871302+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户实际于2026年5月30日停用二甲双胍，当天医生再次确认可以停药后彻底停止服用\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:46:47.602025+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户在2026年5月的体检中血糖达标\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:46:24.871302+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户于2021年确诊糖尿病，之后一直服用二甲双胍，每天两次\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:46:24.871302+00:00\"}]}, {\"id\": \"93c066021d21b13ae0a3\", \"query\": \"患者实际停止服用降糖药的具体日期是哪天？\", \"expected_facts\": [\"患者在2023年5月30日停止服用二甲双胍\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"医生建议用户在2026年5月20日停用二甲双胍，但用户坚持服用至2026年6月1日才停药\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:46:24.871302+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户实际于2026年5月30日停用二甲双胍，当天医生再次确认可以停药后彻底停止服用\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:46:47.602025+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户在2026年5月的体检中血糖达标\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:46:24.871302+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户于2021年确诊糖尿病，之后一直服用二甲双胍，每天两次\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:46:24.871302+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862040-DyF3KHmmtla155V842TS",
+    "object": "chat.completion",
+    "created": 1788862040,
+    "model": "minimax/minimax-m2.5",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"8e703790be181e3885e4\",\"facts\":[{\"supported\":false,\"evidence\":[],\"reason\":\"记忆中的日期是2026年5月30日，而预期事实要求2023年5月30日，年份不匹配\"}]},{\"id\":\"907eb6f0e7876961aee2\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确表示如果不得不晚吃会选择喝温牛奶\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"记忆明确表示选择温牛奶而不是吃固体食物，且晚餐后不再进食固体食物\"}]},{\"id\":\"93421f431111c47c3c04\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"记忆显示医生建议5月20日停药，但实际5月30日才停药，符合预期事实\"}]},{\"id\":\"93c066021d21b13ae0a3\",\"facts\":[{\"supported\":false,\"evidence\":[],\"reason\":\"记忆中的日期是2026年5月30日，而预期事实要求2023年5月30日，年份不匹配\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item:\n\n**Item 1: id=\"8e703790be181e3885e4\"**\n- Query: 患者实际停止服用降糖药的具体日期是哪天？\n- Expected fact: 患者在2023年5月30日停止服用二甲双胍\n- Memories:\n  - m0: 医生建议用户在2026年5月20日停用二甲双胍，但用户坚持服用至2026年6月1日才停药\n  - m1: 用户实际于2026年5月30日停用二甲双胍，当天医生再次确认可以停药后彻底停止服用\n  - m2: 用户在2026年5月的体检中血糖达标\n\nThe expected fact says \"2023年5月30日\" but the memories mention \"2026年5月30日\". This is a mismatch - the year is different. The expected fact is not supported because the memories don't mention 2023, they mention 2026. So this fact is NOT supported.\n\n**Item 2: id=\"907eb6f0e7876961aee2\"**\n- Query: 若患者被迫在晚餐时间后进食，通常会选择什么替代品？\n- Expected facts: \n  1. 该患者在晚餐后若需进食会选择喝温牛奶。\n  2. 该患者晚餐后避免食用固体食物。\n- Memories:\n  - m0: 如果不得不晚吃，用户会选择喝温牛奶而不是吃固体食物\n  - m1: 用户习惯在晚上十点前吃完晚餐，之后不再进食固体食物\n  - m2: 用户从七年前开始严格执行晚上十点前吃完晚餐的规则\n\nFact 1: \"喝温牛奶\" - m0 directly supports this: \"会选择喝温牛奶\"\nFact 2: \"晚餐后避免食用固体食物\" - m0 says \"而不是吃固体食物\" and m1 says \"之后不再进食固体食物\" - both support this\n \n**Item 3: id=\"93421f431111c47c3c04\"**\n- Query: 患者是否按照医生最初建议的时间停药？\n- Expected fact: 患者未按最初建议的5月20日停药，而是延后至5月30日\n- Memories:\n  - m0: 医生建议用户在2026年5月20日停用二甲双胍，但用户坚持服用至2026年6月1日才停药\n  - m1: 用户实际于2026年5月30日停用二甲双胍\n\nI notice a discrepancy between the memory and the expected fact. The memory suggests the user took the medication until June 1st, while the expected fact states they stopped on May 30th. This inconsistency requires careful verification of the actual medication discontinuation date.\n\nThe key points are the recommended stop date (May 20th) and the actual stop date (May 30th), which confirms the expected fact about delaying the medication discontinuation.\n\n**Item 4: id=\"93c066021d21b13ae0a3\"**\n- Query: 患者实际停止服用降糖药的具体日期是哪天？\n- Expected fact: 患者在2023年5月30日停止服用二甲双胍\n- Memories:\n  - m0: 医生建议用户在2026年5月20日停用二甲双胍，但用户坚持服用至2026年6月1日才停药\n  - m1: 用户实际于2026年5月30日停用二甲双胍\n\nThe memories consistently indicate the medication was stopped on May 30th, 2026, not 2023 as the expected fact suggests. This confirms the fact is not supported by the provided memories.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item:\n\n**Item 1: id=\"8e703790be181e3885e4\"**\n- Query: 患者实际停止服用降糖药的具体日期是哪天？\n- Expected fact: 患者在2023年5月30日停止服用二甲双胍\n- Memories:\n  - m0: 医生建议用户在2026年5月20日停用二甲双胍，但用户坚持服用至2026年6月1日才停药\n  - m1: 用户实际于2026年5月30日停用二甲双胍，当天医生再次确认可以停药后彻底停止服用\n  - m2: 用户在2026年5月的体检中血糖达标\n\nThe expected fact says \"2023年5月30日\" but the memories mention \"2026年5月30日\". This is a mismatch - the year is different. The expected fact is not supported because the memories don't mention 2023, they mention 2026. So this fact is NOT supported.\n\n**Item 2: id=\"907eb6f0e7876961aee2\"**\n- Query: 若患者被迫在晚餐时间后进食，通常会选择什么替代品？\n- Expected facts: \n  1. 该患者在晚餐后若需进食会选择喝温牛奶。\n  2. 该患者晚餐后避免食用固体食物。\n- Memories:\n  - m0: 如果不得不晚吃，用户会选择喝温牛奶而不是吃固体食物\n  - m1: 用户习惯在晚上十点前吃完晚餐，之后不再进食固体食物\n  - m2: 用户从七年前开始严格执行晚上十点前吃完晚餐的规则\n\nFact 1: \"喝温牛奶\" - m0 directly supports this: \"会选择喝温牛奶\"\nFact 2: \"晚餐后避免食用固体食物\" - m0 says \"而不是吃固体食物\" and m1 says \"之后不再进食固体食物\" - both support this\n \n**Item 3: id=\"93421f431111c47c3c04\"**\n- Query: 患者是否按照医生最初建议的时间停药？\n- Expected fact: 患者未按最初建议的5月20日停药，而是延后至5月30日\n- Memories:\n  - m0: 医生建议用户在2026年5月20日停用二甲双胍，但用户坚持服用至2026年6月1日才停药\n  - m1: 用户实际于2026年5月30日停用二甲双胍\n\nI notice a discrepancy between the memory and the expected fact. The memory suggests the user took the medication until June 1st, while the expected fact states they stopped on May 30th. This inconsistency requires careful verification of the actual medication discontinuation date.\n\nThe key points are the recommended stop date (May 20th) and the actual stop date (May 30th), which confirms the expected fact about delaying the medication discontinuation.\n\n**Item 4: id=\"93c066021d21b13ae0a3\"**\n- Query: 患者实际停止服用降糖药的具体日期是哪天？\n- Expected fact: 患者在2023年5月30日停止服用二甲双胍\n- Memories:\n  - m0: 医生建议用户在2026年5月20日停用二甲双胍，但用户坚持服用至2026年6月1日才停药\n  - m1: 用户实际于2026年5月30日停用二甲双胍\n\nThe memories consistently indicate the medication was stopped on May 30th, 2026, not 2023 as the expected fact suggests. This confirms the fact is not supported by the provided memories.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1493,
+      "completion_tokens": 1053,
+      "total_tokens": 2546,
+      "cost": 0.001643875,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.001643875,
+        "upstream_inference_prompt_cost": 0.000380275,
+        "upstream_inference_completions_cost": 0.0012636
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 785,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 17.031
+}

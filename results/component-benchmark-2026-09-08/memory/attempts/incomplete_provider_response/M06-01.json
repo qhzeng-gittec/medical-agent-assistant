@@ -1,0 +1,119 @@
+{
+  "case": {
+    "id": "M06-01",
+    "category": "按医嘱停用药物的时间线",
+    "turns": [
+      {
+        "user": "我去年三月因为高血压开始吃氨氯地平，每天一片。上个月医生说我血压稳定了，让我从四月十五号起停药，现在感觉挺好的。",
+        "assistant": "收到，已记录您四月十五号按医嘱停用氨氯地平的病史信息。"
+      },
+      {
+        "user": "补充一下，其实我是四月二十号才完全停的，中间有几天忘了吃，但医生确认过没问题，所以正式停药日期是二十号。",
+        "assistant": "明白，已将您的正式停药日期更正为四月二十号。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "Q1",
+        "query": "这位患者具体是在哪一天停止服用降压药的？",
+        "expected_facts": [
+          "患者在2023年4月20日按医嘱完全停止服用氨氯地平"
+        ],
+        "required_groups": [
+          [
+            "4月20日",
+            "四月二十号"
+          ],
+          [
+            "停止服用",
+            "停药"
+          ],
+          [
+            "氨氯地平"
+          ]
+        ]
+      },
+      {
+        "id": "Q2",
+        "query": "患者最初计划停药的时间与实际执行时间是否一致？",
+        "expected_facts": [
+          "患者原计划于4月15日停药，实际于4月20日完成停药"
+        ],
+        "required_groups": [
+          [
+            "4月15日",
+            "四月十五号"
+          ],
+          [
+            "4月20日",
+            "四月二十号"
+          ],
+          [
+            "计划",
+            "实际"
+          ]
+        ]
+      }
+    ],
+    "split": "dev",
+    "family_id": "M06-01",
+    "synthetic": true
+  },
+  "status": "error",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860140-3WUdqAFl10lfy1Z4YZEM",
+      "usage": {
+        "prompt_tokens": 71,
+        "total_tokens": 71,
+        "cost": 7.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.1e-07,
+          "upstream_inference_prompt_cost": 7.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860142-PjdhCI2KKAgGGknxGgcd",
+      "usage": {
+        "prompt_tokens": 8361,
+        "completion_tokens": 8192,
+        "total_tokens": 16553,
+        "cost": 0.0209499,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 8128,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0209499,
+          "upstream_inference_prompt_cost": 0.0012891,
+          "upstream_inference_completions_cost": 0.0196608
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 8192,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "length",
+      "response_content": null
+    }
+  ],
+  "queries": [],
+  "error_type": "RuntimeError",
+  "provider_issues": [
+    "incomplete_model_response"
+  ],
+  "seconds": 329.844
+}

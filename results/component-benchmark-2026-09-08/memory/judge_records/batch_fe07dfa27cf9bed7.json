@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"d75fa378da24efb2b8bf\", \"query\": \"患者最终在哪一天停止了托吡酯的服用？\", \"expected_facts\": [\"患者在2023年7月22日停止服用托吡酯\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"User actually stopped taking topiramate on July 25th, 2026, five days after the doctor's recommended stop date of July 20th\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:48:26.376767+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"User corrected their topiramate (托吡酯) stop date to July 22nd, 2026 after reviewing their medical records and finding it was written as the 22nd, not the 20th\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:48:45.182599+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"In July 2026, the doctor told User their migraine attacks had decreased and instructed them to stop topiramate on July 20th\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:48:26.376767+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"User started taking topiramate (托吡酯) in 2020 for migraines, taking half a tablet daily\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:48:26.376767+00:00\"}]}, {\"id\": \"d7f06bb8ad1ddff4c870\", \"query\": \"用户本人的视力问题是什么，是否做过眼部手术？\", \"expected_facts\": [\"用户高度近视长期戴眼镜，从未做过眼部手术。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户眼睛度数很深，已戴眼镜多年，且从未做过眼部手术或患过白内障。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:51.490290+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户的婆婆眼睛状况良好，未做过眼部手术。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:36:28.992475+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户的公公于约2023年因白内障接受了激光手术，而非之前记录的婆婆。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:36:28.992475+00:00\"}]}, {\"id\": \"d957ff3f1b97efed58b1\", \"query\": \"患者目前是否已确诊患有肠易激综合征？\", \"expected_facts\": [\"患者目前尚未确诊肠易激综合征。\", \"患者最近经常腹泻，肚子疼。\", \"患者怀疑自己可能患有肠易激综合征。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户目前尚未确诊肠易激综合征，只是怀疑，需要等待检查结果确认\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:45:58.735422+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户最近一周经常腹泻和肚子疼，怀疑自己可能患有肠易激综合征，因为压力大时容易发作\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:45:32.893044+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户于2026年9月6日（前天）做了肠镜检查，目前等待病理报告结果\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:45:58.735422+00:00\"}]}, {\"id\": \"d95d0d9cf72d0f2c13cb\", \"query\": \"患者目前是否已确诊患有青光眼？\", \"expected_facts\": [\"患者目前尚未确诊青光眼。\", \"患者最近视力模糊，看东西重影。\", \"患者爷爷有青光眼病史。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的爷爷患有青光眼，用户担心自己会遗传该疾病。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:44:36.511453+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户计划进行眼压检查以排查青光眼风险。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:44:36.511453+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户于2026年9月6日（前天）完成了眼压测量，医生告知需等待详细报告，目前尚未确诊青光眼，仍在等待检查结果。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:45:58.227780+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户最近出现视力模糊和看东西重影的症状，尤其在晚上明显。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:44:36.511453+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862252-9Bcl5mmGMDJ4FyAT7hpl",
+    "object": "chat.completion",
+    "created": 1788862252,
+    "model": "minimax/minimax-m2.5",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "\n\n{\"items\":[{\"id\":\"d75fa378da24efb2b8bf\",\"facts\":[{\"supported\":false,\"evidence\":[],\"reason\":\"Expected fact mentions 2023 but all memories (m0, m1) explicitly state July 2026 - year mismatch.\"}]},{\"id\":\"d7f06bb8ad1ddff4c870\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory m0 explicitly states user has deep myopia, wears glasses for years, and has never had eye surgery.\"}]},{\"id\":\"d957ff3f1b97efed58b1\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory m0 explicitly states user is not yet diagnosed with IBS and is waiting for test results.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory m1 directly states user recently had frequent diarrhea and stomach pain.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory m1 explicitly states user suspects they may have IBS due to stress-triggered episodes.\"}]},{\"id\":\"d95d0d9cf72d0f2c13cb\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m2\"}],\"reason\":\"Memory m2 explicitly states user has not been diagnosed with glaucoma and is waiting for detailed report.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m3\"}],\"reason\":\"Memory m3 directly describes user experiencing blurred vision and double vision, especially at night.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory m0 explicitly states user's grandfather has glaucoma, establishing family history.\"}]}]}",
+          "refusal": null,
+          "reasoning": "\nLet me analyze each item carefully according to the instructions.\n\nFor each item, I need to:\n1. Determine if the expected facts are supported by the provided memories\n2. Each fact needs at least one supporting memory ID\n3. The memory must explicitly support the fact with correct person, event time, current/historical state\n4. If there's a correction (later correction resolves earlier assertion), use that\n\nLet me go through each item:\n\n**Item 1: d75fa378da24efb2b8bf**\nQuery: 患者最终在哪一天停止了托吡酯的服用？\nExpected fact: \"患者在2023年7月22日停止服用托吡酯\"\n\nMemories:\n- m0: \"User actually stopped taking topiramate on July 25th, 2026\" (session-1)\n- m1: \"User corrected their topiramate (托吡酯) stop date to July 22nd, 2026 after reviewing their medical records and finding it was written as the 22nd, not the 20th\" (session-2)\n- m2: \"doctor told User...to stop topiramate on July 20th\" (session-1)\n- m3: \"User started taking topiramate (托吡酯) in 2020\"\n\nIssue: The expected fact says \"2023年7月22日\" but the memories all mention 2026. This is a year mismatch. The memories support July 22nd, 2026, NOT 2023.\n\nSince the expected fact specifies 2023 but the memories only support 2026, this is NOT supported.\n\nWait - let me re-read. The instruction says \"Judge only whether retrieved memories explicitly support the requested personal fact\". The expected fact says \"2023年7月22日\" - this is incorrect. The memories say \"2026年7月22日\". \n\nSo the fact as stated (2023) is NOT supported by the memories (which say 2026).\n\n\nThe memory m1 directly confirms July 22nd, 2026, but the expected fact incorrectly states 2023. Since the year is wrong, this fact cannot be considered supported.\n\n**Item 2: d7f06bb8ad1ddff4c870**\nQuery: 用户本人的视力问题是什么，是否做过眼部手术？\nExpected fact: \"用户高度近视长期戴眼镜，从未做过眼部手术。\"\n\nI'll analyze the supporting memories. Memory m0 confirms the user's deep myopia, long-term glasses use, and no history of eye surgeries or cataracts. This directly matches the expected fact about the user's eye condition and surgical history.\n\nMemory m1 describes the user's mother-in-law's eye health, which is irrelevant to the user's personal medical history. Memory m2 mentions the father-in-law's cataract surgery in 2023, but this relates to a different person.\n\nThe evidence supports the user's eye condition: high myopia, long-term glasses wear, and no previous eye surgeries. I confirm the expected fact is supported by memory m0.\n\nFor the next fact about diarrhea and stomach pain, memory m1 provides direct evidence of recent digestive symptoms, confirming the fact is supported.\n\nThe third fact about suspecting IBS is also confirmed by memory m1, which directly states the user's suspicion of having irritable bowel syndrome.\n\nFor the glaucoma query, the facts reveal a complex medical history. Memory m0 shows the user's grandfather had glaucoma, indicating a potential genetic risk. Memory m1 suggests the user is proactively planning an eye pressure examination to check for glaucoma. Memory m2 confirms the user recently had eye pressure measured and is awaiting detailed reports, with no current diagnosis.\n\nThe evidence supports the facts about not being diagnosed with glaucoma, experiencing vision-related symptoms, and having a family history of the condition.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "\nLet me analyze each item carefully according to the instructions.\n\nFor each item, I need to:\n1. Determine if the expected facts are supported by the provided memories\n2. Each fact needs at least one supporting memory ID\n3. The memory must explicitly support the fact with correct person, event time, current/historical state\n4. If there's a correction (later correction resolves earlier assertion), use that\n\nLet me go through each item:\n\n**Item 1: d75fa378da24efb2b8bf**\nQuery: 患者最终在哪一天停止了托吡酯的服用？\nExpected fact: \"患者在2023年7月22日停止服用托吡酯\"\n\nMemories:\n- m0: \"User actually stopped taking topiramate on July 25th, 2026\" (session-1)\n- m1: \"User corrected their topiramate (托吡酯) stop date to July 22nd, 2026 after reviewing their medical records and finding it was written as the 22nd, not the 20th\" (session-2)\n- m2: \"doctor told User...to stop topiramate on July 20th\" (session-1)\n- m3: \"User started taking topiramate (托吡酯) in 2020\"\n\nIssue: The expected fact says \"2023年7月22日\" but the memories all mention 2026. This is a year mismatch. The memories support July 22nd, 2026, NOT 2023.\n\nSince the expected fact specifies 2023 but the memories only support 2026, this is NOT supported.\n\nWait - let me re-read. The instruction says \"Judge only whether retrieved memories explicitly support the requested personal fact\". The expected fact says \"2023年7月22日\" - this is incorrect. The memories say \"2026年7月22日\". \n\nSo the fact as stated (2023) is NOT supported by the memories (which say 2026).\n\n\nThe memory m1 directly confirms July 22nd, 2026, but the expected fact incorrectly states 2023. Since the year is wrong, this fact cannot be considered supported.\n\n**Item 2: d7f06bb8ad1ddff4c870**\nQuery: 用户本人的视力问题是什么，是否做过眼部手术？\nExpected fact: \"用户高度近视长期戴眼镜，从未做过眼部手术。\"\n\nI'll analyze the supporting memories. Memory m0 confirms the user's deep myopia, long-term glasses use, and no history of eye surgeries or cataracts. This directly matches the expected fact about the user's eye condition and surgical history.\n\nMemory m1 describes the user's mother-in-law's eye health, which is irrelevant to the user's personal medical history. Memory m2 mentions the father-in-law's cataract surgery in 2023, but this relates to a different person.\n\nThe evidence supports the user's eye condition: high myopia, long-term glasses wear, and no previous eye surgeries. I confirm the expected fact is supported by memory m0.\n\nFor the next fact about diarrhea and stomach pain, memory m1 provides direct evidence of recent digestive symptoms, confirming the fact is supported.\n\nThe third fact about suspecting IBS is also confirmed by memory m1, which directly states the user's suspicion of having irritable bowel syndrome.\n\nFor the glaucoma query, the facts reveal a complex medical history. Memory m0 shows the user's grandfather had glaucoma, indicating a potential genetic risk. Memory m1 suggests the user is proactively planning an eye pressure examination to check for glaucoma. Memory m2 confirms the user recently had eye pressure measured and is awaiting detailed reports, with no current diagnosis.\n\nThe evidence supports the facts about not being diagnosed with glaucoma, experiencing vision-related symptoms, and having a family history of the condition.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1511,
+      "completion_tokens": 1143,
+      "total_tokens": 2654,
+      "cost": 0.0018249,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0018249,
+        "upstream_inference_prompt_cost": 0.0004533,
+        "upstream_inference_completions_cost": 0.0013716
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 784,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 13.656
+}

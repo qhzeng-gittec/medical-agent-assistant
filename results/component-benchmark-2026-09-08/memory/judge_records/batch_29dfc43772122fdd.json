@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"405ae910604b7527e285\", \"query\": \"三年前他因为什么导致脂肪肝加重，之后做了什么运动，结果如何？\", \"expected_facts\": [\"患者三年前因应酬饮酒导致脂肪肝加重。\", \"患者开始每周游泳三次，坚持了一年。\", \"患者指标恢复至轻度水平。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"三年前用户因应酬多又喝了几次酒，体检发现脂肪肝稍微加重\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:59:32.998878+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户彻底戒酒后开始每周游泳三次，坚持了一年，脂肪肝指标回到轻度水平\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:59:32.998878+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"医生建议用户减重和戒酒以改善脂肪肝情况\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:58:57.186690+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户的脂肪肝指标一直维持在轻度水平\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:58:57.186690+00:00\"}, {\"memory_id\": \"m4\", \"content\": \"用户四十五岁，八年前被查出有轻度脂肪肝\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:58:57.186690+00:00\"}, {\"memory_id\": \"m5\", \"content\": \"用户已戒酒但体重没有明显下降\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:58:57.186690+00:00\"}]}, {\"id\": \"426d906fd39dc7769b7e\", \"query\": \"用户产生烦躁情绪的具体诱因和时间？\", \"expected_facts\": [\"用户的烦躁情绪始于半个月前的搬家活动。\", \"用户的情绪波动是由搬家劳累引起，非病理性。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户最近因搬家太累而感到有些烦躁\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:02:05.027932+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户的烦躁感从半个月前（约2026年8月24日）搬家时开始，现在东西已整理好，心情已平复很多，用户明确表示这与病理性抑郁完全不同\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:02:47.090272+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户家人一直担心用户有抑郁症\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:02:05.027932+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户确认搬家相关的烦躁情绪已随物品整理完毕而显著缓解\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:02:47.090272+00:00\"}, {\"memory_id\": \"m4\", \"content\": \"用户于2026年8月前往心理科进行专业评估，结果显示情绪稳定，排除了抑郁症\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:02:05.027932+00:00\"}]}, {\"id\": \"42dee2ec3d13da179951\", \"query\": \"患者八年前因什么导致焦虑，医生开了什么药，吃了多久？\", \"expected_facts\": [\"患者八年前因工作压力大出现焦虑情绪。\", \"医生开具了抗焦虑药物。\", \"患者服用了半年后停药。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"三年前（约2023年）因家庭变故导致焦虑加重，用户没有选择服药，而是寻求心理咨询师帮助，每周进行一次咨询，持续了半年，情绪逐渐稳定。现在偶尔仍会紧张，但已能自我调节。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:00:40.927352+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"User is 43 years old and experienced anxiety symptoms eight years ago due to work stress, for which a doctor prescribed anti-anxiety medication that was taken for six months before being discontinued when symptoms improved. Occasional nervousness has persisted since then but no further medication has been used.\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:00:26.688080+00:00\"}]}, {\"id\": \"42e59ee6285bd2e8c1d7\", \"query\": \"用户真正需要避免的食物及确认时间是什么？\", \"expected_facts\": [\"用户对芒果存在严重过敏反应。\", \"用户自去年夏天测试确认后仅避开芒果。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"自2025年夏天的过敏原测试后，用户只避开芒果，正常食用花生制品且没有任何不良反应。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:01:55.949426+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户对芒果严重过敏，这是去年过敏原测试确认的结果。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:01:35.450177+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户的过敏原测试是在2025年夏天做的，确认对芒果严重过敏但对花生不过敏。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:01:55.949426+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861942-aj6qbxYGBPRY0LDYGBsx",
+    "object": "chat.completion",
+    "created": 1788861942,
+    "model": "minimax/minimax-m2.5",
+    "provider": "StreamLake",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"405ae910604b7527e285\",\"facts\":[{\"supported\":true,\"evidence\":[\"m0\"],\"reason\":\"m0明确提到三年前因应酬多喝酒导致脂肪肝加重\"},{\"supported\":true,\"evidence\":[\"m1\"],\"reason\":\"m1明确提到每周游泳三次，坚持了一年\"},{\"supported\":true,\"evidence\":[\"m1\",\"m3\"],\"reason\":\"m1提到指标回到轻度水平，m3确认维持在轻度水平\"}]},{\"id\":\"426d906fd39dc7769b7e\",\"facts\":[{\"supported\":true,\"evidence\":[\"m1\"],\"reason\":\"m1明确提到烦躁感从半个月前搬家时开始\"},{\"supported\":true,\"evidence\":[\"m1\"],\"reason\":\"m1明确表示这与病理性抑郁完全不同，说明非病理性\"}]},{\"id\":\"42dee2ec3d13da179951\",\"facts\":[{\"supported\":true,\"evidence\":[\"m1\"],\"reason\":\"m1明确提到八年前因工作压力导致焦虑\"},{\"supported\":true,\"evidence\":[\"m1\"],\"reason\":\"m1提到医生开具了抗焦虑药物\"},{\"supported\":true,\"evidence\":[\"m1\"],\"reason\":\"m1明确提到服用了半年后停药\"}]},{\"id\":\"42e59ee6285bd2e8c1d7\",\"facts\":[{\"supported\":true,\"evidence\":[\"m1\",\"m2\"],\"reason\":\"m1和m2都明确提到对芒果严重过敏\"},{\"supported\":true,\"evidence\":[\"m0\",\"m1\",\"m2\"],\"reason\":\"m0、m1、m2都提到去年夏天测试后仅避开芒果\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item in the input:\n\n**Item 1 (id: 405ae910604b7527e285)**\n\nQuery: 三年前他因为什么导致脂肪肝加重，之后做了什么运动，结果如何？\n\nExpected facts:\n1. 患者三年前因应酬饮酒导致脂肪肝加重。\n2. 患者开始每周游泳三次，坚持了一年。\n3. 患者指标恢复至轻度水平。\n\nMemories:\n- m0: 三年前用户因应酬多又喝了几次酒，体检发现脂肪肝稍微加重\n- m1: 用户彻底戒酒后开始每周游泳三次，坚持了一年，脂肪肝指标回到轻度水平\n- m2: 医生建议用户减重和戒酒以改善脂肪肝情况\n- m3: 用户的脂肪肝指标一直维持在轻度水平\n- m4: 用户四十五岁，八年前被查出有轻度脂肪肝\n- m5: 用户已戒酒但体重没有明显下降\n\nAnalysis:\n1. \"患者三年前因应酬饮酒导致脂肪肝加重\" - Supported by m0 (应酬多又喝了几次酒，脂肪肝稍微加重)\n2. \"患者开始每周游泳三次，坚持了一年\" - Supported by m1 (每周游泳三次，坚持了一年)\n3. \"患者指标恢复至轻度水平\" - Supported by m1 (脂肪肝指标回到轻度水平) and m3 (维持在轻度水平)\n\nAll three facts are supported.\n\n**Item 2 (id: 426d906fd39dc7769b7e)**\n\nQuery: 用户产生烦躁情绪的具体诱因和时间？\n\nExpected facts:\n1. 用户的烦躁情绪始于半个月前的搬家活动。\n2. 用户的情绪波动是由搬家劳累引起，非病理性。\n\nMemories:\n- m0: 用户最近因搬家太累而感到有些烦躁\n\n\n- m1: 用户的烦躁感从半个月前（约2026年8月24日）搬家时开始，现在东西已整理好，心情已平复很多，用户明确表示这与病理性抑郁完全不同\n- m2: 用户家人一直担心用户有抑郁症\n- m3: 用户确认搬家相关的烦躁情绪已随物品整理完毕而显著缓解\n- m4: 用户于2026年8月前往心理科进行专业评估，结果显示情绪稳定，排除了抑郁症\n\nAnalysis:\n1. \"用户的烦躁情绪始于半个月前的搬家活动\" - Supported by m1 (从半个月前搬家时开始)\n2. \"用户的情绪波动是由搬家劳累引起，非病理性\" - Confirmed by m1's detailed explanation about the non-pathological nature of the emotional fluctuation\n\nBoth facts are supported.\n\n**Item 3 (id: 42dee2ec3d13da179951)**\n\nQuery: 患者八年前因什么导致焦虑，医生开了什么药，吃了多久？\n\nExpected facts:\n1. 患者八年前因工作压力大出现焦虑情绪。\n2. 医生开具了抗焦虑药物。\n3. 患者服用了半年后停药。\n\nMemories:\n- m0: 三年前（约2023年）因家庭变故导致焦虑加重，用户没有选择服药，而是寻求心理咨询师帮助，每周进行一次咨询，持续了半年，情绪逐渐稳定。现在偶尔仍会紧张，但已能自我调节。\n- m1: User is 43 years old and experienced anxiety symptoms eight years ago due to work stress, for which a doctor prescribed anti-anxiety medication that was taken for six months before being discontinued when symptoms improved. Occasional nervousness has persisted since then but no further medication has been used.\n\nAnalysis:\n1. \"患者八年前因工作压力大出现焦虑情绪\" - Supported by m1 (due to work stress, eight years ago)\n2. \"医生开具了抗焦虑药物\" - Supported by m1 (doctor prescribed anti-anxiety medication)\n3. \"患者服用了半年后停药\" - Supported by m1 (taken for six months before being discontinued)\n\nAll three facts are supported.\n\n**Item 4 (id: 42e59ee6285bd2e8c1d7)**\n\nQuery: 用户真正需要避免的食物及确认时间是什么？\n\nExpected facts:\n1. 用户对芒果存在严重过敏反应。\n2. 用户自去年夏天测试确认后仅避开芒果。\n\nMemories:\n- m0: 自2025年夏天的过敏原测试后，用户只避开芒果，正常食用花生制品且没有任何不良反应。\n- m1: 用户对芒果严重过敏，这是去年过敏原测试确认的结果。\n- m2: 用户的过敏原测试是在2025年夏天做的，确认对芒果严重过敏但对花生不过敏。\n\nAnalysis:\n1. \"用户对芒果存在严重过敏反应\" - Supported by m1 (对芒果严重过敏), m2 (对芒果严重过敏)\n2. \"用户自去年夏天测试确认后仅避开芒果\" - Supported by m0 (自2025年夏天...只避开芒果), m1 (去年过敏原测试), m2 (2025年夏天)\n\nAll facts are supported.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item in the input:\n\n**Item 1 (id: 405ae910604b7527e285)**\n\nQuery: 三年前他因为什么导致脂肪肝加重，之后做了什么运动，结果如何？\n\nExpected facts:\n1. 患者三年前因应酬饮酒导致脂肪肝加重。\n2. 患者开始每周游泳三次，坚持了一年。\n3. 患者指标恢复至轻度水平。\n\nMemories:\n- m0: 三年前用户因应酬多又喝了几次酒，体检发现脂肪肝稍微加重\n- m1: 用户彻底戒酒后开始每周游泳三次，坚持了一年，脂肪肝指标回到轻度水平\n- m2: 医生建议用户减重和戒酒以改善脂肪肝情况\n- m3: 用户的脂肪肝指标一直维持在轻度水平\n- m4: 用户四十五岁，八年前被查出有轻度脂肪肝\n- m5: 用户已戒酒但体重没有明显下降\n\nAnalysis:\n1. \"患者三年前因应酬饮酒导致脂肪肝加重\" - Supported by m0 (应酬多又喝了几次酒，脂肪肝稍微加重)\n2. \"患者开始每周游泳三次，坚持了一年\" - Supported by m1 (每周游泳三次，坚持了一年)\n3. \"患者指标恢复至轻度水平\" - Supported by m1 (脂肪肝指标回到轻度水平) and m3 (维持在轻度水平)\n\nAll three facts are supported.\n\n**Item 2 (id: 426d906fd39dc7769b7e)**\n\nQuery: 用户产生烦躁情绪的具体诱因和时间？\n\nExpected facts:\n1. 用户的烦躁情绪始于半个月前的搬家活动。\n2. 用户的情绪波动是由搬家劳累引起，非病理性。\n\nMemories:\n- m0: 用户最近因搬家太累而感到有些烦躁\n\n\n- m1: 用户的烦躁感从半个月前（约2026年8月24日）搬家时开始，现在东西已整理好，心情已平复很多，用户明确表示这与病理性抑郁完全不同\n- m2: 用户家人一直担心用户有抑郁症\n- m3: 用户确认搬家相关的烦躁情绪已随物品整理完毕而显著缓解\n- m4: 用户于2026年8月前往心理科进行专业评估，结果显示情绪稳定，排除了抑郁症\n\nAnalysis:\n1. \"用户的烦躁情绪始于半个月前的搬家活动\" - Supported by m1 (从半个月前搬家时开始)\n2. \"用户的情绪波动是由搬家劳累引起，非病理性\" - Confirmed by m1's detailed explanation about the non-pathological nature of the emotional fluctuation\n\nBoth facts are supported.\n\n**Item 3 (id: 42dee2ec3d13da179951)**\n\nQuery: 患者八年前因什么导致焦虑，医生开了什么药，吃了多久？\n\nExpected facts:\n1. 患者八年前因工作压力大出现焦虑情绪。\n2. 医生开具了抗焦虑药物。\n3. 患者服用了半年后停药。\n\nMemories:\n- m0: 三年前（约2023年）因家庭变故导致焦虑加重，用户没有选择服药，而是寻求心理咨询师帮助，每周进行一次咨询，持续了半年，情绪逐渐稳定。现在偶尔仍会紧张，但已能自我调节。\n- m1: User is 43 years old and experienced anxiety symptoms eight years ago due to work stress, for which a doctor prescribed anti-anxiety medication that was taken for six months before being discontinued when symptoms improved. Occasional nervousness has persisted since then but no further medication has been used.\n\nAnalysis:\n1. \"患者八年前因工作压力大出现焦虑情绪\" - Supported by m1 (due to work stress, eight years ago)\n2. \"医生开具了抗焦虑药物\" - Supported by m1 (doctor prescribed anti-anxiety medication)\n3. \"患者服用了半年后停药\" - Supported by m1 (taken for six months before being discontinued)\n\nAll three facts are supported.\n\n**Item 4 (id: 42e59ee6285bd2e8c1d7)**\n\nQuery: 用户真正需要避免的食物及确认时间是什么？\n\nExpected facts:\n1. 用户对芒果存在严重过敏反应。\n2. 用户自去年夏天测试确认后仅避开芒果。\n\nMemories:\n- m0: 自2025年夏天的过敏原测试后，用户只避开芒果，正常食用花生制品且没有任何不良反应。\n- m1: 用户对芒果严重过敏，这是去年过敏原测试确认的结果。\n- m2: 用户的过敏原测试是在2025年夏天做的，确认对芒果严重过敏但对花生不过敏。\n\nAnalysis:\n1. \"用户对芒果存在严重过敏反应\" - Supported by m1 (对芒果严重过敏), m2 (对芒果严重过敏)\n2. \"用户自去年夏天测试确认后仅避开芒果\" - Supported by m0 (自2025年夏天...只避开芒果), m1 (去年过敏原测试), m2 (2025年夏天)\n\nAll facts are supported.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1632,
+      "completion_tokens": 1345,
+      "total_tokens": 2977,
+      "cost": 0.001831032,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.001831032,
+        "upstream_inference_prompt_cost": 0.000378432,
+        "upstream_inference_completions_cost": 0.0014526
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 1012,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 15.172
+}

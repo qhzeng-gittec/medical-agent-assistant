@@ -1,0 +1,438 @@
+{
+  "case": {
+    "id": "M08-05",
+    "category": "搬家旅行与生活环境变化",
+    "turns": [
+      {
+        "user": "我两年前因为孩子上学，从老城区搬到了新区的学区房，现在每天通勤时间缩短了很多。",
+        "assistant": "好的，已记录您两年前为子女教育搬迁至新区的情况。"
+      },
+      {
+        "user": "补充一下，其实搬家是在去年年底完成的，虽然计划是两年前，但手续拖到了去年才办妥。",
+        "assistant": "明白，已更新为去年年底完成搬迁至新区。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "M08-05-Q1",
+        "query": "患者搬迁至新区的具体时间是什么时候，原因是什么？",
+        "expected_facts": [
+          "患者去年年底完成了搬迁。",
+          "搬迁原因是为了孩子上学。",
+          "患者从老城区搬到了新区。"
+        ],
+        "required_groups": [
+          [
+            "去年年底",
+            "去年"
+          ],
+          [
+            "孩子上学",
+            "子女教育"
+          ],
+          [
+            "老城区",
+            "新区"
+          ]
+        ]
+      },
+      {
+        "id": "M08-05-Q2",
+        "query": "请说明患者搬家前后的居住地变化及实际完成时间。",
+        "expected_facts": [
+          "患者从老城区搬到了新区。",
+          "实际搬家完成时间是去年年底。",
+          "搬家目的是解决孩子上学问题。"
+        ],
+        "required_groups": [
+          [
+            "老城区",
+            "新区"
+          ],
+          [
+            "去年年底"
+          ],
+          [
+            "孩子上学"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M08-05",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861128-euNCku2C82DJbWvTCaGD",
+      "usage": {
+        "prompt_tokens": 49,
+        "total_tokens": 49,
+        "cost": 4.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.9e-07,
+          "upstream_inference_prompt_cost": 4.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861131-S1ez7Bl0RxqHT3Ie66YJ",
+      "usage": {
+        "prompt_tokens": 8345,
+        "completion_tokens": 1461,
+        "total_tokens": 9806,
+        "cost": 0.0060099,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0060099,
+          "upstream_inference_prompt_cost": 0.0025035,
+          "upstream_inference_completions_cost": 0.0035064
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1385,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户为了孩子上学，于两年前（约2024年9月）从老城区搬到了新区的学区房，现在每天的通勤时间缩短了很多。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861201-iHAFDrybNlugwXf1WsJC",
+      "usage": {
+        "prompt_tokens": 38,
+        "total_tokens": 38,
+        "cost": 3.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.8e-07,
+          "upstream_inference_prompt_cost": 3.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861202-ksz4xmN9GIjahgdhyqQP",
+      "usage": {
+        "prompt_tokens": 47,
+        "total_tokens": 47,
+        "cost": 4.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.7e-07,
+          "upstream_inference_prompt_cost": 4.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861204-JT30EAtVkAt6YEndzwfq",
+      "usage": {
+        "prompt_tokens": 8433,
+        "completion_tokens": 1564,
+        "total_tokens": 9997,
+        "cost": 0.0062835,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0062835,
+          "upstream_inference_prompt_cost": 0.0025299,
+          "upstream_inference_completions_cost": 0.0037536
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1475,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户原计划两年前为孩子上学搬家，但因手续拖延，实际于2025年底才完成从老城区到新区学区房的搬迁。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861283-wnmgRE2tjFpVJE023mxx",
+      "usage": {
+        "prompt_tokens": 35,
+        "total_tokens": 35,
+        "cost": 3.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.5e-07,
+          "upstream_inference_prompt_cost": 3.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861285-E0X2wzHbxrzgYIHsTjLk",
+      "usage": {
+        "prompt_tokens": 13,
+        "total_tokens": 13,
+        "cost": 1.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.3e-07,
+          "upstream_inference_prompt_cost": 1.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861287-4mBIiPNcMvmWrPiqm4vG",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861288-zeCbZVTyR136a2D2J5uC",
+      "usage": {
+        "prompt_tokens": 23,
+        "total_tokens": 23,
+        "cost": 9.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 9.2e-07,
+          "upstream_inference_prompt_cost": 9.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861289-dNoWaufgYghfwyOUp3cy",
+      "usage": {
+        "prompt_tokens": 13,
+        "total_tokens": 13,
+        "cost": 1.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.3e-07,
+          "upstream_inference_prompt_cost": 1.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861292-zObSgMZcyvEgBd1M5lti",
+      "usage": {
+        "prompt_tokens": 13,
+        "total_tokens": 13,
+        "cost": 1.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.3e-07,
+          "upstream_inference_prompt_cost": 1.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "M08-05-Q1",
+        "query": "患者搬迁至新区的具体时间是什么时候，原因是什么？",
+        "expected_facts": [
+          "患者去年年底完成了搬迁。",
+          "搬迁原因是为了孩子上学。",
+          "患者从老城区搬到了新区。"
+        ],
+        "required_groups": [
+          [
+            "去年年底",
+            "去年"
+          ],
+          [
+            "孩子上学",
+            "子女教育"
+          ],
+          [
+            "老城区",
+            "新区"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "5931fc42-6910-47cd-bf4a-61ab2f6dcfc1",
+          "content": "用户原计划两年前为孩子上学搬家，但因手续拖延，实际于2025年底才完成从老城区到新区学区房的搬迁。",
+          "score": 0.6821414355018478,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:53:21.097561+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M08-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:54:43.766536+00:00"
+        },
+        {
+          "memory_id": "e1c84db0-8aea-421c-ac53-cbd16dddc871",
+          "content": "用户为了孩子上学，于两年前（约2024年9月）从老城区搬到了新区的学区房，现在每天的通勤时间缩短了很多。",
+          "score": 0.6411962005364258,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:52:05.751379+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M08-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:53:21.072036+00:00"
+        }
+      ],
+      "seconds": 2.86
+    },
+    {
+      "query": {
+        "id": "M08-05-Q2",
+        "query": "请说明患者搬家前后的居住地变化及实际完成时间。",
+        "expected_facts": [
+          "患者从老城区搬到了新区。",
+          "实际搬家完成时间是去年年底。",
+          "搬家目的是解决孩子上学问题。"
+        ],
+        "required_groups": [
+          [
+            "老城区",
+            "新区"
+          ],
+          [
+            "去年年底"
+          ],
+          [
+            "孩子上学"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "5931fc42-6910-47cd-bf4a-61ab2f6dcfc1",
+          "content": "用户原计划两年前为孩子上学搬家，但因手续拖延，实际于2025年底才完成从老城区到新区学区房的搬迁。",
+          "score": 0.6520879726028695,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:53:21.097561+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M08-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:54:43.766536+00:00"
+        },
+        {
+          "memory_id": "e1c84db0-8aea-421c-ac53-cbd16dddc871",
+          "content": "用户为了孩子上学，于两年前（约2024年9月）从老城区搬到了新区的学区房，现在每天的通勤时间缩短了很多。",
+          "score": 0.5911112340893397,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:52:05.751379+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M08-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:53:21.072036+00:00"
+        }
+      ],
+      "seconds": 0.781
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者搬迁至新区的具体时间是什么时候，原因是什么？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "5931fc42-6910-47cd-bf4a-61ab2f6dcfc1",
+        "content": "用户原计划两年前为孩子上学搬家，但因手续拖延，实际于2025年底才完成从老城区到新区学区房的搬迁。",
+        "score": 0.5971903023009631,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:53:21.097561+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M08-05",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:54:43.766536+00:00"
+      },
+      {
+        "memory_id": "e1c84db0-8aea-421c-ac53-cbd16dddc871",
+        "content": "用户为了孩子上学，于两年前（约2024年9月）从老城区搬到了新区的学区房，现在每天的通勤时间缩短了很多。",
+        "score": 0.553268025805447,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:52:05.751379+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M08-05",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:53:21.072036+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 168.703
+}

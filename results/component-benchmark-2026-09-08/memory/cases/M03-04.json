@@ -1,0 +1,444 @@
+{
+  "case": {
+    "id": "M03-04",
+    "category": "药物过敏及具体反应",
+    "turns": [
+      {
+        "user": "我有过一次对头孢菌素过敏的经历，那是六年前的事了。当时因为牙疼吃了头孢，结果脸上迅速肿了起来，眼睛都睁不开，还伴随剧烈的头痛。",
+        "assistant": "了解，已记录您关于头孢菌素过敏的历史数据。"
+      },
+      {
+        "user": "补充说明，那次是在2018年冬天，除了面部肿胀和头痛，我还出现了低血压，差点休克，幸好及时停药并注射了抗过敏针剂才脱险。",
+        "assistant": "好的，已根据您的补充完善了过敏反应的严重程度记录。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "患者曾因治疗牙齿疼痛服用何种抗生素导致面部严重肿胀及其他系统症状？",
+        "expected_facts": [
+          "患者因服用头孢菌素治疗牙疼导致过敏。",
+          "症状包括面部肿胀、眼睛无法睁开、剧烈头痛及低血压。"
+        ],
+        "required_groups": [
+          [
+            "头孢菌素",
+            "头孢"
+          ],
+          [
+            "面部肿胀",
+            "脸肿",
+            "脸部肿胀"
+          ],
+          [
+            "低血压",
+            "休克",
+            "血压下降"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "根据患者回忆，这次严重的药物反应发生在哪一年的哪个季节，最终是如何处理的？",
+        "expected_facts": [
+          "反应发生在2018年冬天。",
+          "通过及时停药并注射抗过敏针剂得以缓解。"
+        ],
+        "required_groups": [
+          [
+            "2018年",
+            "2018年冬天"
+          ],
+          [
+            "停药",
+            "停止用药"
+          ],
+          [
+            "注射",
+            "打针",
+            "抗过敏针剂"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M03-04",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860382-Lb4svBaOLhhTjmrNHIqZ",
+      "usage": {
+        "prompt_tokens": 64,
+        "total_tokens": 64,
+        "cost": 6.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.4e-07,
+          "upstream_inference_prompt_cost": 6.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860392-qoOylH8BVivzIC7wvKpW",
+      "usage": {
+        "prompt_tokens": 8360,
+        "completion_tokens": 413,
+        "total_tokens": 8773,
+        "cost": 0.0032474,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0032474,
+          "upstream_inference_prompt_cost": 0.0021736,
+          "upstream_inference_completions_cost": 0.0010738
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 348,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户六年前因牙疼服用头孢菌素后出现过敏反应，症状包括脸部迅速肿胀、眼睛睁不开以及剧烈头痛\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860404-V8gIujwQT3uuIR5M9JAN",
+      "usage": {
+        "prompt_tokens": 30,
+        "total_tokens": 30,
+        "cost": 3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3e-07,
+          "upstream_inference_prompt_cost": 3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860409-FF5a5Is2T1Ni60ZHamr4",
+      "usage": {
+        "prompt_tokens": 69,
+        "total_tokens": 69,
+        "cost": 6.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.9e-07,
+          "upstream_inference_prompt_cost": 6.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860411-GdcnkRckT4cbh3T6bpiV",
+      "usage": {
+        "prompt_tokens": 8459,
+        "completion_tokens": 203,
+        "total_tokens": 8662,
+        "cost": 0.00272241,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00272241,
+          "upstream_inference_prompt_cost": 0.00228393,
+          "upstream_inference_completions_cost": 0.00043848
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 102,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户补充说明2018年冬天的头孢菌素过敏反应中，除了面部肿胀和头痛外还出现了低血压，差点休克，及时停药并注射抗过敏针剂后脱险\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860423-3fWoEgWbO0gnhS3jaGBU",
+      "usage": {
+        "prompt_tokens": 47,
+        "total_tokens": 47,
+        "cost": 4.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.7e-07,
+          "upstream_inference_prompt_cost": 4.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860425-apINHIoFIxP4Ox6zRTnZ",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860428-Xfuqr6EMRjy40MmkQFt1",
+      "usage": {
+        "prompt_tokens": 21,
+        "total_tokens": 21,
+        "cost": 2.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.1e-07,
+          "upstream_inference_prompt_cost": 2.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860432-DQxnaRI11WH9Sj636zaX",
+      "usage": {
+        "prompt_tokens": 29,
+        "total_tokens": 29,
+        "cost": 2.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.9e-07,
+          "upstream_inference_prompt_cost": 2.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860434-zKk5CeTm39nXgK5RN6x9",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860439-GOsolFzV8AUxpqXaNO6Q",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "患者曾因治疗牙齿疼痛服用何种抗生素导致面部严重肿胀及其他系统症状？",
+        "expected_facts": [
+          "患者因服用头孢菌素治疗牙疼导致过敏。",
+          "症状包括面部肿胀、眼睛无法睁开、剧烈头痛及低血压。"
+        ],
+        "required_groups": [
+          [
+            "头孢菌素",
+            "头孢"
+          ],
+          [
+            "面部肿胀",
+            "脸肿",
+            "脸部肿胀"
+          ],
+          [
+            "低血压",
+            "休克",
+            "血压下降"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "77202a13-02da-4f4d-9278-df63e1319710",
+          "content": "用户六年前因牙疼服用头孢菌素后出现过敏反应，症状包括脸部迅速肿胀、眼睛睁不开以及剧烈头痛",
+          "score": 0.7498494307474258,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:39:41.524118+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M03-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:40:09.028014+00:00"
+        },
+        {
+          "memory_id": "b905150b-17f4-472c-a0f5-4e88bbc13e89",
+          "content": "用户补充说明2018年冬天的头孢菌素过敏反应中，除了面部肿胀和头痛外还出现了低血压，差点休克，及时停药并注射抗过敏针剂后脱险",
+          "score": 0.6175345703847757,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:40:09.053598+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M03-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:40:24.537987+00:00"
+        }
+      ],
+      "seconds": 2.625
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "根据患者回忆，这次严重的药物反应发生在哪一年的哪个季节，最终是如何处理的？",
+        "expected_facts": [
+          "反应发生在2018年冬天。",
+          "通过及时停药并注射抗过敏针剂得以缓解。"
+        ],
+        "required_groups": [
+          [
+            "2018年",
+            "2018年冬天"
+          ],
+          [
+            "停药",
+            "停止用药"
+          ],
+          [
+            "注射",
+            "打针",
+            "抗过敏针剂"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "77202a13-02da-4f4d-9278-df63e1319710",
+          "content": "用户六年前因牙疼服用头孢菌素后出现过敏反应，症状包括脸部迅速肿胀、眼睛睁不开以及剧烈头痛",
+          "score": 0.5094702944710934,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:39:41.524118+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M03-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:40:09.028014+00:00"
+        },
+        {
+          "memory_id": "b905150b-17f4-472c-a0f5-4e88bbc13e89",
+          "content": "用户补充说明2018年冬天的头孢菌素过敏反应中，除了面部肿胀和头痛外还出现了低血压，差点休克，及时停药并注射抗过敏针剂后脱险",
+          "score": 0.49211288350400867,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:40:09.053598+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M03-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:40:24.537987+00:00"
+        }
+      ],
+      "seconds": 4.781
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者曾因治疗牙齿疼痛服用何种抗生素导致面部严重肿胀及其他系统症状？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "77202a13-02da-4f4d-9278-df63e1319710",
+        "content": "用户六年前因牙疼服用头孢菌素后出现过敏反应，症状包括脸部迅速肿胀、眼睛睁不开以及剧烈头痛",
+        "score": 0.7240493525706274,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:39:41.524118+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M03-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:40:09.028014+00:00"
+      },
+      {
+        "memory_id": "b905150b-17f4-472c-a0f5-4e88bbc13e89",
+        "content": "用户补充说明2018年冬天的头孢菌素过敏反应中，除了面部肿胀和头痛外还出现了低血压，差点休克，及时停药并注射抗过敏针剂后脱险",
+        "score": 0.6403066965003428,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:40:09.053598+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M03-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:40:24.537987+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 58.703
+}

@@ -1,0 +1,432 @@
+{
+  "case": {
+    "id": "M06-08",
+    "category": "按医嘱停用药物的时间线",
+    "turns": [
+      {
+        "user": "我2022年因哮喘开始用孟鲁司特钠，每晚一片。今年五月医生说我症状缓解，让我五月十五号停，但我拖到五月二十号才停。",
+        "assistant": "好的，已记录您五月二十号实际停用孟鲁司特钠的情况。"
+      },
+      {
+        "user": "更正一下，其实是五月十八号停的，那天我重新看了医嘱，发现写的是十八号，不是十五号。",
+        "assistant": "了解，已将停药日期更新为五月十八号。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "Q1",
+        "query": "患者最终在哪一天停止了孟鲁司特钠的服用？",
+        "expected_facts": [
+          "患者在2023年5月18日停止服用孟鲁司特钠"
+        ],
+        "required_groups": [
+          [
+            "5月18日",
+            "五月十八号"
+          ],
+          [
+            "停止服用",
+            "停用"
+          ],
+          [
+            "孟鲁司特钠"
+          ]
+        ]
+      },
+      {
+        "id": "Q2",
+        "query": "患者对停药日期的记忆是否有过错误？",
+        "expected_facts": [
+          "患者最初误记为5月15日或20日，后更正为5月18日"
+        ],
+        "required_groups": [
+          [
+            "5月15日",
+            "五月十五号"
+          ],
+          [
+            "5月20日",
+            "五月二十号"
+          ],
+          [
+            "5月18日",
+            "五月十八号"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M06-08",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860881-u7zx01hCfUQjclFvpJJ1",
+      "usage": {
+        "prompt_tokens": 70,
+        "total_tokens": 70,
+        "cost": 7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7e-07,
+          "upstream_inference_prompt_cost": 7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860884-DRVshZHOhKo9EqNE1YuS",
+      "usage": {
+        "prompt_tokens": 8368,
+        "completion_tokens": 666,
+        "total_tokens": 9034,
+        "cost": 0.00390728,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00390728,
+          "upstream_inference_prompt_cost": 0.00217568,
+          "upstream_inference_completions_cost": 0.0017316
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 577,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户2022年因哮喘开始服用孟鲁司特钠，每晚一片。2026年5月医生告知症状缓解，建议5月15日停药，但用户实际拖到5月20日才停用。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860895-vvYtbH6eB9gLXz0yTghT",
+      "usage": {
+        "prompt_tokens": 56,
+        "total_tokens": 56,
+        "cost": 5.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.6e-07,
+          "upstream_inference_prompt_cost": 5.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860896-ZbjLsmMSA6gMvbqmRmg6",
+      "usage": {
+        "prompt_tokens": 48,
+        "total_tokens": 48,
+        "cost": 4.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.8e-07,
+          "upstream_inference_prompt_cost": 4.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860898-mtnrDQRd8plUBowWyQvC",
+      "usage": {
+        "prompt_tokens": 8477,
+        "completion_tokens": 543,
+        "total_tokens": 9020,
+        "cost": 0.00361582,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00361582,
+          "upstream_inference_prompt_cost": 0.00220402,
+          "upstream_inference_completions_cost": 0.0014118
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 485,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户更正孟鲁司特钠停药日期为2026年5月18日，而非之前说的5月20日。用户重新查看医嘱后发现医生写的是18日而非15日。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860912-AGfVtmnLJ4gwCXH5doE0",
+      "usage": {
+        "prompt_tokens": 52,
+        "total_tokens": 52,
+        "cost": 5.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.2e-07,
+          "upstream_inference_prompt_cost": 5.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860914-ELJShFoduahEeqcUcCLa",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860916-HXE1fobHYvU6HOJKA8Ng",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860918-qSqlHSmaA1uKQ9ChkYpD",
+      "usage": {
+        "prompt_tokens": 25,
+        "total_tokens": 25,
+        "cost": 2.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.5e-07,
+          "upstream_inference_prompt_cost": 2.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860919-6fndK1rIfsCO8ttKYQw0",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860921-8Ye8CuSuckLk6KjAQHeB",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "Q1",
+        "query": "患者最终在哪一天停止了孟鲁司特钠的服用？",
+        "expected_facts": [
+          "患者在2023年5月18日停止服用孟鲁司特钠"
+        ],
+        "required_groups": [
+          [
+            "5月18日",
+            "五月十八号"
+          ],
+          [
+            "停止服用",
+            "停用"
+          ],
+          [
+            "孟鲁司特钠"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "a43146d1-3905-4350-afd0-0e05e2d99887",
+          "content": "用户2022年因哮喘开始服用孟鲁司特钠，每晚一片。2026年5月医生告知症状缓解，建议5月15日停药，但用户实际拖到5月20日才停用。",
+          "score": 0.7963904318754149,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:47:57.861742+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M06-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:48:15.830279+00:00"
+        },
+        {
+          "memory_id": "9e7295c4-c741-494e-a347-f21c0f1a3455",
+          "content": "用户更正孟鲁司特钠停药日期为2026年5月18日，而非之前说的5月20日。用户重新查看医嘱后发现医生写的是18日而非15日。",
+          "score": 0.7666271197008636,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:48:15.856980+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M06-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:48:32.296017+00:00"
+        }
+      ],
+      "seconds": 3.454
+    },
+    {
+      "query": {
+        "id": "Q2",
+        "query": "患者对停药日期的记忆是否有过错误？",
+        "expected_facts": [
+          "患者最初误记为5月15日或20日，后更正为5月18日"
+        ],
+        "required_groups": [
+          [
+            "5月15日",
+            "五月十五号"
+          ],
+          [
+            "5月20日",
+            "五月二十号"
+          ],
+          [
+            "5月18日",
+            "五月十八号"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "9e7295c4-c741-494e-a347-f21c0f1a3455",
+          "content": "用户更正孟鲁司特钠停药日期为2026年5月18日，而非之前说的5月20日。用户重新查看医嘱后发现医生写的是18日而非15日。",
+          "score": 0.7111666775439318,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:48:15.856980+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M06-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:48:32.296017+00:00"
+        },
+        {
+          "memory_id": "a43146d1-3905-4350-afd0-0e05e2d99887",
+          "content": "用户2022年因哮喘开始服用孟鲁司特钠，每晚一片。2026年5月医生告知症状缓解，建议5月15日停药，但用户实际拖到5月20日才停用。",
+          "score": 0.5578309930673646,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:47:57.861742+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M06-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:48:15.830279+00:00"
+        }
+      ],
+      "seconds": 1.281
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者最终在哪一天停止了孟鲁司特钠的服用？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "9e7295c4-c741-494e-a347-f21c0f1a3455",
+        "content": "用户更正孟鲁司特钠停药日期为2026年5月18日，而非之前说的5月20日。用户重新查看医嘱后发现医生写的是18日而非15日。",
+        "score": 0.7329136231152233,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:48:15.856980+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M06-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:48:32.296017+00:00"
+      },
+      {
+        "memory_id": "a43146d1-3905-4350-afd0-0e05e2d99887",
+        "content": "用户2022年因哮喘开始服用孟鲁司特钠，每晚一片。2026年5月医生告知症状缓解，建议5月15日停药，但用户实际拖到5月20日才停用。",
+        "score": 0.7063571689962957,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:47:57.861742+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M06-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:48:15.830279+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 43.922
+}

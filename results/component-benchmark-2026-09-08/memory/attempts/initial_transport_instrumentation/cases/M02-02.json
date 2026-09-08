@@ -1,0 +1,117 @@
+{
+  "case": {
+    "id": "M02-02",
+    "category": "运动限制与日常活动",
+    "turns": [
+      {
+        "user": "我的肩膀受伤后，医生告诉我不能举重物超过两公斤，也不能做扩胸运动。目前我只能进行轻柔的拉伸。",
+        "assistant": "收到，已记录您的肩部活动限制。"
+      },
+      {
+        "user": "另外，医生强调如果感到刺痛，应立即停止任何手臂动作并休息。我现在每天只做轻微拉伸。",
+        "assistant": "了解，已补充您的注意事项。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "Q1",
+        "query": "患者目前被禁止进行哪些手臂相关活动？",
+        "expected_facts": [
+          "患者被禁止举重物超过两公斤和做扩胸运动。"
+        ],
+        "required_groups": [
+          [
+            "举重物",
+            "扩胸运动"
+          ]
+        ]
+      },
+      {
+        "id": "Q2",
+        "query": "当出现什么症状时患者必须立即停止手臂动作？",
+        "expected_facts": [
+          "如果感到刺痛，患者必须立即停止任何手臂动作。"
+        ],
+        "required_groups": [
+          [
+            "刺痛",
+            "立即停止",
+            "手臂动作"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M02-02",
+    "synthetic": true
+  },
+  "status": "started",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859962-5HHZ3u55mMIDbmdwmk1q",
+      "usage": {
+        "prompt_tokens": 51,
+        "total_tokens": 51,
+        "cost": 5.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.1e-07,
+          "upstream_inference_prompt_cost": 5.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788859965-TlJd7PL7QnOH1MIObCEp",
+      "usage": {
+        "prompt_tokens": 8346,
+        "completion_tokens": 236,
+        "total_tokens": 8582,
+        "cost": 0.0025585,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0025585,
+          "upstream_inference_prompt_cost": 0.0020865,
+          "upstream_inference_completions_cost": 0.000472
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 209,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户肩膀受伤，医生告知不能举重物超过两公斤，也不能做扩胸运动，目前只能进行轻柔的拉伸\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859974-BMS8NCgSJITag4uhPEcw",
+      "usage": {
+        "prompt_tokens": 29,
+        "total_tokens": 29,
+        "cost": 2.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.9e-07,
+          "upstream_inference_prompt_cost": 2.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": []
+}

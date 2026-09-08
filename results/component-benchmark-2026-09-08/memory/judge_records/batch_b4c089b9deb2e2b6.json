@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"2ccb7f7f47f9e4755ca0\", \"query\": \"请确认一下，家里哪位长辈在三年前接受过膝关节的手术治疗？\", \"expected_facts\": [\"用户的母亲在三年前做过膝盖置换手术。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户母亲在三年前做过膝盖置换手术\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:34:54.190295+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户父亲去年冬天因关节炎疼痛在家休养，并没有住院\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:34:54.190295+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户父亲去年冬天因严重关节炎住院，当时疼痛到无法下床，医生为其开具了止痛药\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:33.447903+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户自己身体一直很好，从未生过严重疾病，只是偶尔肩膀有点酸\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:33.447903+00:00\"}]}, {\"id\": \"2d133256ac21795ba789\", \"query\": \"用户出现头晕症状的具体时间段和原因是什么？\", \"expected_facts\": [\"用户的头晕症状始于上个月项目上线后。\", \"用户症状由工作压力大导致，持续时间约一个月。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户表示头晕疲劳症状只需休息几天即可缓解\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:01:48.136471+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户最近总是头晕，邻居建议吃安眠药，但用户已查阅资料并咨询医生\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:01:26.627632+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户头晕疲劳状态持续了大约一个月，始于上个月项目上线后，此前从未出现过类似情况\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:01:48.136471+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户经医生评估无失眠症，头晕症状是由工作压力大导致的暂时性疲劳，不需要药物治疗\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:01:26.627632+00:00\"}]}, {\"id\": \"2dd7545dbd6d4b4edc9a\", \"query\": \"家里哪位亲属在五年前接受了甲状腺相关的手术治疗？\", \"expected_facts\": [\"用户的哥哥在五年前做了甲状腺结节切除手术。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的哥哥五年前（约2021年）因甲状腺结节做了切除手术，而非之前误记的姐姐\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:42:15.776891+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户去年（约2025年）体检时发现甲状腺有一个小结节，医生建议观察即可，不需要手术\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:36.015272+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户的姐姐五年前（约2021年）因甲状腺结节做了切除手术，恢复得很好\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:36.015272+00:00\"}]}, {\"id\": \"2e963fd2ee39347fecbd\", \"query\": \"您提到的邻居中，谁在去年因心脏病突发去世？\", \"expected_facts\": [\"用户的邻居老李在去年因心脏病突发去世。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的邻居老张于2025年因心脏病突发去世，这让用户感到震惊\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:43:11.749216+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户的邻居老李于2025年因心脏病去世，而非之前提到的老张，老张目前仍在世\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:43:32.919898+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户的心脏一直很好，每年体检都正常，没有任何心脏方面的疾病史\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:43:11.749216+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861916-M9UfGYWELV2rtvC9kRQD",
+    "object": "chat.completion",
+    "created": 1788861916,
+    "model": "minimax/minimax-m2.5",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"2ccb7f7f47f9e4755ca0\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确指出用户的母亲在三年前做过膝盖置换手术，与预期事实完全一致。\"}]},{\"id\":\"2d133256ac21795ba789\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m2\"}],\"reason\":\"记忆明确指出用户的头晕症状始于上个月项目上线后，持续约一个月。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m3\"}],\"reason\":\"记忆明确指出头晕症状是由工作压力大导致的暂时性疲劳。\"}]},{\"id\":\"2dd7545dbd6d4b4edc9a\",\"facts\":[{\"supported\":false,\"evidence\":[],\"reason\":\"最新记录(m0)已纠正为姐姐在五年前做了甲状腺结节切除手术，而非哥哥，与预期事实不符。\"}]},{\"id\":\"2e963fd2ee39347fecbd\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"最新记录(m1)明确指出邻居老李在2025年（去年）因心脏病去世，纠正了之前老张的错误信息。\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item according to the instructions:\n\n**Item 1 (2ccb7f7f47f9e4755ca0):**\n- Query: 家里哪位长辈在三年前接受过膝关节的手术治疗？\n- Expected fact: 用户的母亲在三年前做过膝盖置换手术。\n- Memories:\n  - m0: 用户母亲在三年前做过膝盖置换手术 (supports the expected fact - correct person, correct time, correct event)\n  - m1: 用户父亲去年冬天因关节炎疼痛在家休养，并没有住院 (irrelevant)\n  - m2: 用户父亲去年冬天因严重关节炎住院 (irrelevant)\n  - m3: 用户自己身体一直很好 (irrelevant)\n\nThe expected fact is supported by m0. This is a direct match: mother, three years ago, knee replacement surgery.\n\n**Item 2 (2d133256ac21795ba789):**\n- Query: 用户出现头晕症状的具体时间段和原因是什么？\n- Expected facts:\n  1. 用户的头晕症状始于上个月项目上线后。\n  2. 用户症状由工作压力大导致，持续时间约一个月。\n- Memories:\n  - m0: 用户表示头晕疲劳症状只需休息几天即可缓解 (doesn't mention time or cause)\n  - m1: 用户最近总是头晕，邻居建议吃安眠药，但用户已查阅资料并咨询医生 (mentions recent dizziness but not time or cause)\n  - m2: 用户头晕疲劳状态持续了大约一个月，始于上个月项目上线后，此前从未出现过类似情况 (supports both expected facts - time: started after project launch last month, duration: about one month)\n  - m3: 用户经医生评估无失眠症，头晕症状是由工作压力大导致的暂时性疲劳，不需要药物治疗 (supports cause: work stress)\n\nSo m2 supports the first expected fact (time), and m3 supports the second expected fact (cause). Both facts are supported.\n\n**Item 3 (2dd7545dbd6d4b4edc9a):**\n\n\n- Query: 家里哪位亲属在五年前接受了甲状腺相关的手术治疗？\n- Expected fact: 用户的哥哥在五年前做了甲状腺结节切除手术。\n- Memories reveal a discrepancy between the expected fact and the actual recorded information. The initial memory suggests the user's brother had the surgery, but subsequent memories contradict this, indicating a potential error in the original fact.\n\nThe memories show conflicting information about who actually underwent the thyroid surgery. While the expected fact states the brother had the operation, the session-2 memory explicitly corrects this, stating it was the sister, not the brother, who had the thyroid结节 removal surgery five years ago.\n\nThe key point is that the most recent memory (m0) provides the corrected information, which differs from the initially expected fact. This means the fact is not supported by the most current and accurate memory.\n\nThe neighbor's death details are confirmed through two key memories: one initially mentioning Lao Zhang, and another correcting it to Lao Li. The corrected memory (m1) provides the precise information about the neighbor's death from heart disease last year.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item according to the instructions:\n\n**Item 1 (2ccb7f7f47f9e4755ca0):**\n- Query: 家里哪位长辈在三年前接受过膝关节的手术治疗？\n- Expected fact: 用户的母亲在三年前做过膝盖置换手术。\n- Memories:\n  - m0: 用户母亲在三年前做过膝盖置换手术 (supports the expected fact - correct person, correct time, correct event)\n  - m1: 用户父亲去年冬天因关节炎疼痛在家休养，并没有住院 (irrelevant)\n  - m2: 用户父亲去年冬天因严重关节炎住院 (irrelevant)\n  - m3: 用户自己身体一直很好 (irrelevant)\n\nThe expected fact is supported by m0. This is a direct match: mother, three years ago, knee replacement surgery.\n\n**Item 2 (2d133256ac21795ba789):**\n- Query: 用户出现头晕症状的具体时间段和原因是什么？\n- Expected facts:\n  1. 用户的头晕症状始于上个月项目上线后。\n  2. 用户症状由工作压力大导致，持续时间约一个月。\n- Memories:\n  - m0: 用户表示头晕疲劳症状只需休息几天即可缓解 (doesn't mention time or cause)\n  - m1: 用户最近总是头晕，邻居建议吃安眠药，但用户已查阅资料并咨询医生 (mentions recent dizziness but not time or cause)\n  - m2: 用户头晕疲劳状态持续了大约一个月，始于上个月项目上线后，此前从未出现过类似情况 (supports both expected facts - time: started after project launch last month, duration: about one month)\n  - m3: 用户经医生评估无失眠症，头晕症状是由工作压力大导致的暂时性疲劳，不需要药物治疗 (supports cause: work stress)\n\nSo m2 supports the first expected fact (time), and m3 supports the second expected fact (cause). Both facts are supported.\n\n**Item 3 (2dd7545dbd6d4b4edc9a):**\n\n\n- Query: 家里哪位亲属在五年前接受了甲状腺相关的手术治疗？\n- Expected fact: 用户的哥哥在五年前做了甲状腺结节切除手术。\n- Memories reveal a discrepancy between the expected fact and the actual recorded information. The initial memory suggests the user's brother had the surgery, but subsequent memories contradict this, indicating a potential error in the original fact.\n\nThe memories show conflicting information about who actually underwent the thyroid surgery. While the expected fact states the brother had the operation, the session-2 memory explicitly corrects this, stating it was the sister, not the brother, who had the thyroid结节 removal surgery five years ago.\n\nThe key point is that the most recent memory (m0) provides the corrected information, which differs from the initially expected fact. This means the fact is not supported by the most current and accurate memory.\n\nThe neighbor's death details are confirmed through two key memories: one initially mentioning Lao Zhang, and another correcting it to Lao Li. The corrected memory (m1) provides the precise information about the neighbor's death from heart disease last year.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1406,
+      "completion_tokens": 893,
+      "total_tokens": 2299,
+      "cost": 0.00143196,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00143196,
+        "upstream_inference_prompt_cost": 0.00036036,
+        "upstream_inference_completions_cost": 0.0010716
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 900,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 28.765
+}

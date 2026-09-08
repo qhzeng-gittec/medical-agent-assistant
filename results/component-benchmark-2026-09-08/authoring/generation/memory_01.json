@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "编写虚构患者记忆检索测试，不是医学建议。返回 JSON {\"scenarios\":[...]}，共10个独立场景。\n每场景字段: id(按给定前缀01至10), category(给定类别), turns(恰好2个对象，字段user和assistant),\nqueries(恰好2个对象，字段id,query,expected_facts,required_groups)。\n每条user为50到110个汉字，两个不同会话，第二次补充或更正；assistant只简短确认，不给新医疗事实。\n两个query问已披露的具体个人历史，使用自然改写而非照抄。\nexpected_facts是完整中文事实句数组(1至3条)，明确是谁、当前或既往状态及用户提供的时间。\nrequired_groups是关键词组的数组，每组为可接受同义短语数组，所有组均出现才算词汇覆盖。\n关键词只能来自事实，不能包含医疗建议，避免把泛化词作为完整事实判定。\n10个故事需在生活背景、事件、实体、关系、时间线、问法上有实质差异，不要仅替换姓名年龄数字。\n均为成年人，不含真实身份、联系方式、身份证或地址。不要凭空把未确诊变成确诊。\n对停药与更正，历史记录可以存在，query与expected_facts须明确时间归属。\n合成身份按id隔离；后续另加未知用户隔离查询。"
+      },
+      {
+        "role": "user",
+        "content": "{\"prefix\": \"M02-\", \"category\": \"运动限制与日常活动\"}"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 12000,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788858916-yeN6Y4WpsOUX2YvLXEqz",
+    "object": "chat.completion",
+    "created": 1788858916,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"scenarios\": [\n    {\n      \"id\": \"M02-01\",\n      \"category\": \"运动限制与日常活动\",\n      \"turns\": [\n        {\n          \"user\": \"我上周开始膝盖疼痛，医生建议我暂时避免跑步和跳跃，但可以进行游泳或骑自行车。我现在每天只能散步半小时。\",\n          \"assistant\": \"好的，已记录您的运动限制情况。\"\n        },\n        {\n          \"user\": \"补充一下，医生还提到如果疼痛加剧，需要完全停止所有下肢运动，直到复查。目前我还在坚持散步。\",\n          \"assistant\": \"明白，已更新您的运动限制信息。\"\n        }\n      ],\n      \"queries\": [\n        {\n          \"id\": \"Q1\",\n          \"query\": \"患者最近被建议避免哪些具体运动？\",\n          \"expected_facts\": [\"患者被建议暂时避免跑步和跳跃。\"],\n          \"required_groups\": [[\"跑步\", \"跳跃\"]]\n        },\n        {\n          \"id\": \"Q2\",\n          \"query\": \"在什么情况下患者需要完全停止下肢运动？\",\n          \"expected_facts\": [\"如果膝盖疼痛加剧，患者需要完全停止所有下肢运动。\"],\n          \"required_groups\": [[\"疼痛加剧\", \"完全停止\", \"下肢运动\"]]\n        }\n      ]\n    },\n    {\n      \"id\": \"M02-02\",\n      \"category\": \"运动限制与日常活动\",\n      \"turns\": [\n        {\n          \"user\": \"我的肩膀受伤后，医生告诉我不能举重物超过两公斤，也不能做扩胸运动。目前我只能进行轻柔的拉伸。\",\n          \"assistant\": \"收到，已记录您的肩部活动限制。\"\n        },\n        {\n          \"user\": \"另外，医生强调如果感到刺痛，应立即停止任何手臂动作并休息。我现在每天只做轻微拉伸。\",\n          \"assistant\": \"了解，已补充您的注意事项。\"\n        }\n      ],\n      \"queries\": [\n        {\n          \"id\": \"Q1\",\n          \"query\": \"患者目前被禁止进行哪些手臂相关活动？\",\n          \"expected_facts\": [\"患者被禁止举重物超过两公斤和做扩胸运动。\"],\n          \"required_groups\": [[\"举重物\", \"扩胸运动\"]]\n        },\n        {\n          \"id\": \"Q2\",\n          \"query\": \"当出现什么症状时患者必须立即停止手臂动作？\",\n          \"expected_facts\": [\"如果感到刺痛，患者必须立即停止任何手臂动作。\"],\n          \"required_groups\": [[\"刺痛\", \"立即停止\", \"手臂动作\"]]\n        }\n      ]\n    },\n    {\n      \"id\": \"M02-03\",\n      \"category\": \"运动限制与日常活动\",\n      \"turns\": [\n        {\n          \"user\": \"由于腰部问题，我被要求避免弯腰提东西和长时间坐着。现在我只能短时间站立或缓慢行走。\",\n          \"assistant\": \"好的，已记录您的腰部活动限制。\"\n        },\n        {\n          \"user\": \"医生还说，如果出现麻木感，需要立刻躺下休息。目前我尽量控制活动时间。\",\n          \"assistant\": \"明白，已更新您的注意事项。\"\n        }\n      ],\n      \"queries\": [\n        {\n          \"id\": \"Q1\",\n          \"query\": \"患者因腰部问题被禁止哪些动作？\",\n          \"expected_facts\": [\"患者被禁止弯腰提东西和长时间坐着。\"],\n          \"required_groups\": [[\"弯腰提东西\", \"长时间坐着\"]]\n        },\n        {\n          \"id\": \"Q2\",\n          \"query\": \"当出现什么感觉时患者需要立即躺下休息？\",\n          \"expected_facts\": [\"如果出现麻木感，患者需要立刻躺下休息。\"],\n          \"required_groups\": [[\"麻木感\", \"立刻躺下\", \"休息\"]]\n        }\n      ]\n    },\n    {\n      \"id\": \"M02-04\",\n      \"category\": \"运动限制与日常活动\",\n      \"turns\": [\n        {\n          \"user\": \"我的脚踝扭伤后，医生建议不要穿高跟鞋或进行剧烈跑跳。目前我只能穿平底鞋慢慢走。\",\n          \"assistant\": \"好的，已记录您的脚踝活动限制。\"\n        },\n        {\n          \"user\": \"补充一点，如果肿胀加重，需要抬高脚部并减少走动。我现在尽量保持脚部抬高。\",\n          \"assistant\": \"了解，已补充您的护理建议。\"\n        }\n      ],\n      \"queries\": [\n        {\n          \"id\": \"Q1\",\n          \"query\": \"患者被建议避免哪些 footwear 和活动？\",\n          \"expected_facts\": [\"患者被建议避免穿高跟鞋和进行剧烈跑跳。\"],\n          \"required_groups\": [[\"穿高跟鞋\", \"剧烈跑跳\"]]\n        },\n        {\n          \"id\": \"Q2\",\n          \"query\": \"当脚踝肿胀加重时，患者应采取什么措施？\",\n          \"expected_facts\": [\"如果肿胀加重，患者需要抬高脚部并减少走动。\"],\n          \"required_groups\": [[\"肿胀加重\", \"抬高脚部\", \"减少走动\"]]\n        }\n      ]\n    },\n    {\n      \"id\": \"M02-05\",\n      \"category\": \"运动限制与日常活动\",\n      \"turns\": [\n        {\n          \"user\": \"因为颈椎不适，我不能低头太久或快速转头。目前我只能缓慢转动头部并保持直立姿势。\",\n          \"assistant\": \"好的，已记录您的颈部活动限制。\"\n        },\n        {\n          \"user\": \"医生提醒，如果出现头晕，需立即停止活动并坐下休息。我现在非常注意头部动作。\",\n          \"assistant\": \"明白，已更新您的注意事项。\"\n        }\n      ],\n      \"queries\": [\n        {\n          \"id\": \"Q1\",\n          \"query\": \"患者因颈椎问题被禁止哪些头部动作？\",\n          \"expected_facts\": [\"患者被禁止低头太久和快速转头。\"],\n          \"required_groups\": [[\"低头太久\", \"快速转头\"]]\n        },\n        {\n          \"id\": \"Q2\",\n          \"query\": \"当出现头晕时，患者应该怎么做？\",\n          \"expected_facts\": [\"如果出现头晕，患者需立即停止活动并坐下休息。\"],\n          \"required_groups\": [[\"头晕\", \"立即停止\", \"坐下休息\"]]\n        }\n      ]\n    },\n    {\n      \"id\": \"M02-06\",\n      \"category\": \"运动限制与日常活动\",\n      \"turns\": [\n        {\n          \"user\": \"我的手腕受伤后，医生建议不要用力握拳或提重物。目前我只能轻轻抓握轻物。\",\n          \"assistant\": \"好的，已记录您的手腕活动限制。\"\n        },\n        {\n          \"user\": \"另外，如果感到刺痛，需要停止使用手部并冰敷。我现在尽量避免用力。\",\n          \"assistant\": \"了解，已补充您的护理建议。\"\n        }\n      ],\n      \"queries\": [\n        {\n          \"id\": \"Q1\",\n          \"query\": \"患者被建议避免哪些手部动作？\",\n          \"expected_facts\": [\"患者被建议避免用力握拳和提重物。\"],\n          \"required_groups\": [[\"用力握拳\", \"提重物\"]]\n        },\n        {\n          \"id\": \"Q2\",\n          \"query\": \"当手腕感到刺痛时，患者应采取什么措施？\",\n          \"expected_facts\": [\"如果感到刺痛，患者需要停止使用手部并冰敷。\"],\n          \"required_groups\": [[\"刺痛\", \"停止使用手部\", \"冰敷\"]]\n        }\n      ]\n    },\n    {\n      \"id\": \"M02-07\",\n      \"category\": \"运动限制与日常活动\",\n      \"turns\": [\n        {\n          \"user\": \"由于背部拉伤，我不能做仰卧起坐或搬重物。目前我只能平躺休息或缓慢翻身。\",\n          \"assistant\": \"好的，已记录您的背部活动限制。\"\n        },\n        {\n          \"user\": \"医生还说，如果疼痛扩散到腿部，需要立即就医。我现在尽量保持静止。\",\n          \"assistant\": \"明白，已更新您的注意事项。\"\n        }\n      ],\n      \"queries\": [\n        {\n          \"id\": \"Q1\",\n          \"query\": \"患者因背部拉伤被禁止哪些动作？\",\n          \"expected_facts\": [\"患者被禁止做仰卧起坐和搬重物。\"],\n          \"required_groups\": [[\"仰卧起坐\", \"搬重物\"]]\n        },\n        {\n          \"id\": \"Q2\",\n          \"query\": \"当疼痛扩散到腿部时，患者应如何处理？\",\n          \"expected_facts\": [\"如果疼痛扩散到腿部，患者需要立即就医。\"],\n          \"required_groups\": [[\"疼痛扩散\", \"腿部\", \"立即就医\"]]\n        }\n      ]\n    },\n    {\n      \"id\": \"M02-08\",\n      \"category\": \"运动限制与日常活动\",\n      \"turns\": [\n        {\n          \"user\": \"我的肘关节发炎后，医生建议不要弯曲超过90度或重复同一动作。目前我只能保持手臂伸直。\",\n          \"assistant\": \"好的，已记录您的肘关节活动限制。\"\n        },\n        {\n          \"user\": \"补充一下，如果出现红肿，需要冷敷并减少活动。我现在尽量保持手臂不动。\",\n          \"assistant\": \"了解，已补充您的护理建议。\"\n        }\n      ],\n      \"queries\": [\n        {\n          \"id\": \"Q1\",\n          \"query\": \"患者被建议避免哪些肘关节动作？\",\n          \"expected_facts\": [\"患者被建议避免弯曲超过90度和重复同一动作。\"],\n          \"required_groups\": [[\"弯曲超过90度\", \"重复同一动作\"]]\n        },\n        {\n          \"id\": \"Q2\",\n          \"query\": \"当肘关节出现红肿时，患者应采取什么措施？\",\n          \"expected_facts\": [\"如果出现红肿，患者需要冷敷并减少活动。\"],\n          \"required_groups\": [[\"红肿\", \"冷敷\", \"减少活动\"]]\n        }\n      ]\n    },\n    {\n      \"id\": \"M02-09\",\n      \"category\": \"运动限制与日常活动\",\n      \"turns\": [\n        {\n          \"user\": \"由于髋关节置换术后，我不能交叉双腿或深蹲。目前我只能坐在高椅子上。\",\n          \"assistant\": \"好的，已记录您的髋关节活动限制。\"\n        },\n        {\n          \"user\": \"医生提醒，如果感到异常疼痛，需立即联系医院。我现在非常小心坐姿。\",\n          \"assistant\": \"明白，已更新您的注意事项。\"\n        }\n      ],\n      \"queries\": [\n        {\n          \"id\": \"Q1\",\n          \"query\": \"患者术后被禁止哪些髋关节动作？\",\n          \"expected_facts\": [\"患者被禁止交叉双腿和深蹲。\"],\n          \"required_groups\": [[\"交叉双腿\", \"深蹲\"]]\n        },\n        {\n          \"id\": \"Q2\",\n          \"query\": \"当感到异常疼痛时，患者应如何处理？\",\n          \"expected_facts\": [\"如果感到异常疼痛，患者需立即联系医院。\"],\n          \"required_groups\": [[\"异常疼痛\", \"立即联系\", \"医院\"]]\n        }\n      ]\n    },\n    {\n      \"id\": \"M02-10\",\n      \"category\": \"运动限制与日常活动\",\n      \"turns\": [\n        {\n          \"user\": \"我的手指关节炎导致不能紧握物体或长时间打字。目前我只能用单手操作轻物。\",\n          \"assistant\": \"好的，已记录您的手指活动限制。\"\n        },\n        {\n          \"user\": \"另外，如果关节僵硬，需要热敷并做轻柔伸展。我现在尽量控制使用时间。\",\n          \"assistant\": \"了解，已补充您的护理建议。\"\n        }\n      ],\n      \"queries\": [\n        {\n          \"id\": \"Q1\",\n          \"query\": \"患者因关节炎被禁止哪些手指动作？\",\n          \"expected_facts\": [\"患者被禁止紧握物体和长时间打字。\"],\n          \"required_groups\": [[\"紧握物体\", \"长时间打字\"]]\n        },\n        {\n          \"id\": \"Q2\",\n          \"query\": \"当关节僵硬时，患者应采取什么措施？\",\n          \"expected_facts\": [\"如果关节僵硬，患者需要热敷并做轻柔伸展。\"],\n          \"required_groups\": [[\"关节僵硬\", \"热敷\", \"轻柔伸展\"]]\n        }\n      ]\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 328,
+      "completion_tokens": 2879,
+      "total_tokens": 3207,
+      "cost": 0.007008,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.007008,
+        "upstream_inference_prompt_cost": 9.84e-05,
+        "upstream_inference_completions_cost": 0.0069096
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 56.75
+}

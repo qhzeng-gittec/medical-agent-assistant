@@ -1,0 +1,518 @@
+{
+  "case": {
+    "id": "M10-06",
+    "category": "饮食偏好与个人生活习惯",
+    "turns": [
+      {
+        "user": "我对乳制品非常敏感，喝牛奶后会拉肚子，所以家里从来不买牛奶。但我可以接受酸奶和奶酪，因为它们经过发酵处理。",
+        "assistant": "已记录您对液态奶的不耐受及对发酵乳制品的接受情况。"
+      },
+      {
+        "user": "补充一下，这种乳糖不耐受是遗传的，从我记事起就这样了。不过最近我发现有些品牌的酸奶也会让我轻微腹胀，正在尝试筛选。",
+        "assistant": "已补充乳糖不耐受的成因及近期对部分酸奶的反应。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "患者对哪类乳制品存在明确的不耐受反应？其根本原因是什么？",
+        "expected_facts": [
+          "该患者饮用牛奶后会出现腹泻症状。",
+          "该患者的乳糖不耐受具有遗传背景。"
+        ],
+        "required_groups": [
+          [
+            "牛奶",
+            "液态奶"
+          ],
+          [
+            "遗传",
+            "天生",
+            "遗传性"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "患者目前能否食用所有类型的发酵乳制品？是否存在例外情况？",
+        "expected_facts": [
+          "该患者通常可食用酸奶和奶酪等发酵乳制品。",
+          "该患者近期发现部分品牌酸奶会导致轻微腹胀。"
+        ],
+        "required_groups": [
+          [
+            "酸奶",
+            "奶酪",
+            "发酵乳制品"
+          ],
+          [
+            "轻微腹胀",
+            "腹胀",
+            "不适"
+          ]
+        ]
+      }
+    ],
+    "split": "dev",
+    "family_id": "M10-06",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860469-72H40cl8GQ88UCFNXoZu",
+      "usage": {
+        "prompt_tokens": 62,
+        "total_tokens": 62,
+        "cost": 6.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.2e-07,
+          "upstream_inference_prompt_cost": 6.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860472-THZUSSQqyvoobeIEbgYq",
+      "usage": {
+        "prompt_tokens": 8352,
+        "completion_tokens": 297,
+        "total_tokens": 8649,
+        "cost": 0.00294372,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00294372,
+          "upstream_inference_prompt_cost": 0.00217152,
+          "upstream_inference_completions_cost": 0.0007722
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 229,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户对乳制品非常敏感，喝牛奶后会拉肚子，因此家里从来不买牛奶\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户可以接受酸奶和奶酪等发酵乳制品，因为它们经过发酵处理\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860479-Kz29rX2XTSWRC7V2RbPn",
+      "usage": {
+        "prompt_tokens": 38,
+        "total_tokens": 38,
+        "cost": 3.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.8e-07,
+          "upstream_inference_prompt_cost": 3.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860481-cU0JkzfnXUeDs2QNYRrK",
+      "usage": {
+        "prompt_tokens": 64,
+        "total_tokens": 64,
+        "cost": 6.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.4e-07,
+          "upstream_inference_prompt_cost": 6.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860483-lzEl7PYHgHFVYkBCeOdO",
+      "usage": {
+        "prompt_tokens": 8456,
+        "completion_tokens": 480,
+        "total_tokens": 8936,
+        "cost": 0.003074,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.003074,
+          "upstream_inference_prompt_cost": 0.002114,
+          "upstream_inference_completions_cost": 0.00096
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 425,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户的乳糖不耐受是遗传性的，从记事起就一直存在\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\", \"1\"]\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户最近发现某些品牌的酸奶会引起轻微腹胀，目前正在尝试筛选适合的酸奶品牌\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\", \"1\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860497-vL1qZXBGMLpbgIAFH0E9",
+      "usage": {
+        "prompt_tokens": 37,
+        "total_tokens": 37,
+        "cost": 3.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.7e-07,
+          "upstream_inference_prompt_cost": 3.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860509-KVpr0k1jAwZd5bIVuByc",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860511-q0KPk7SCRXanVtMf1TMQ",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860513-KgujEG2ug3XyvInMIfM0",
+      "usage": {
+        "prompt_tokens": 30,
+        "total_tokens": 30,
+        "cost": 3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3e-07,
+          "upstream_inference_prompt_cost": 3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860513-pNtiUjd6hrZR7maMH5H5",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860515-JzsNLeTK1OX0MXYa5eY3",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "患者对哪类乳制品存在明确的不耐受反应？其根本原因是什么？",
+        "expected_facts": [
+          "该患者饮用牛奶后会出现腹泻症状。",
+          "该患者的乳糖不耐受具有遗传背景。"
+        ],
+        "required_groups": [
+          [
+            "牛奶",
+            "液态奶"
+          ],
+          [
+            "遗传",
+            "天生",
+            "遗传性"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "5b4fb33d-70d3-432f-a56e-7191765590e6",
+          "content": "用户对乳制品非常敏感，喝牛奶后会拉肚子，因此家里从来不买牛奶",
+          "score": 0.6677374281365878,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:08.629837+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M10-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:20.268203+00:00"
+        },
+        {
+          "memory_id": "a9fa2bac-cd29-4700-8396-880cfad1fac1",
+          "content": "用户的乳糖不耐受是遗传性的，从记事起就一直存在",
+          "score": 0.6628083471098614,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:20.302668+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M10-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:45.383050+00:00"
+        },
+        {
+          "memory_id": "7df6b381-ac5b-4090-b3f3-cddfbc24b4f6",
+          "content": "用户最近发现某些品牌的酸奶会引起轻微腹胀，目前正在尝试筛选适合的酸奶品牌",
+          "score": 0.5640772725648584,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:20.302668+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M10-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:45.383050+00:00"
+        },
+        {
+          "memory_id": "3b0df373-7f4a-4de9-be07-053ccb6b06fa",
+          "content": "用户可以接受酸奶和奶酪等发酵乳制品，因为它们经过发酵处理",
+          "score": 0.5301317034129707,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:08.629837+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M10-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:20.268203+00:00"
+        }
+      ],
+      "seconds": 4.766
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "患者目前能否食用所有类型的发酵乳制品？是否存在例外情况？",
+        "expected_facts": [
+          "该患者通常可食用酸奶和奶酪等发酵乳制品。",
+          "该患者近期发现部分品牌酸奶会导致轻微腹胀。"
+        ],
+        "required_groups": [
+          [
+            "酸奶",
+            "奶酪",
+            "发酵乳制品"
+          ],
+          [
+            "轻微腹胀",
+            "腹胀",
+            "不适"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "3b0df373-7f4a-4de9-be07-053ccb6b06fa",
+          "content": "用户可以接受酸奶和奶酪等发酵乳制品，因为它们经过发酵处理",
+          "score": 0.7472913482242287,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:08.629837+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M10-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:20.268203+00:00"
+        },
+        {
+          "memory_id": "5b4fb33d-70d3-432f-a56e-7191765590e6",
+          "content": "用户对乳制品非常敏感，喝牛奶后会拉肚子，因此家里从来不买牛奶",
+          "score": 0.6138275918320595,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:08.629837+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M10-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:20.268203+00:00"
+        },
+        {
+          "memory_id": "7df6b381-ac5b-4090-b3f3-cddfbc24b4f6",
+          "content": "用户最近发现某些品牌的酸奶会引起轻微腹胀，目前正在尝试筛选适合的酸奶品牌",
+          "score": 0.6090351202743487,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:20.302668+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M10-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:45.383050+00:00"
+        },
+        {
+          "memory_id": "a9fa2bac-cd29-4700-8396-880cfad1fac1",
+          "content": "用户的乳糖不耐受是遗传性的，从记事起就一直存在",
+          "score": 0.5722050154176064,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:20.302668+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M10-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:45.383050+00:00"
+        }
+      ],
+      "seconds": 2.015
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者对哪类乳制品存在明确的不耐受反应？其根本原因是什么？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "a9fa2bac-cd29-4700-8396-880cfad1fac1",
+        "content": "用户的乳糖不耐受是遗传性的，从记事起就一直存在",
+        "score": 0.7337021047366707,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:41:20.302668+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M10-06",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:41:45.383050+00:00"
+      },
+      {
+        "memory_id": "5b4fb33d-70d3-432f-a56e-7191765590e6",
+        "content": "用户对乳制品非常敏感，喝牛奶后会拉肚子，因此家里从来不买牛奶",
+        "score": 0.6947692485741515,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:41:08.629837+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M10-06",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:41:20.268203+00:00"
+      },
+      {
+        "memory_id": "7df6b381-ac5b-4090-b3f3-cddfbc24b4f6",
+        "content": "用户最近发现某些品牌的酸奶会引起轻微腹胀，目前正在尝试筛选适合的酸奶品牌",
+        "score": 0.5967142779945906,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:41:20.302668+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M10-06",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:41:45.383050+00:00"
+      },
+      {
+        "memory_id": "3b0df373-7f4a-4de9-be07-053ccb6b06fa",
+        "content": "用户可以接受酸奶和奶酪等发酵乳制品，因为它们经过发酵处理",
+        "score": 0.5478631712940008,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:41:08.629837+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M10-06",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:41:20.268203+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 47.953
+}

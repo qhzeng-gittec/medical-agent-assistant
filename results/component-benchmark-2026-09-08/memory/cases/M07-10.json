@@ -1,0 +1,624 @@
+{
+  "case": {
+    "id": "M07-10",
+    "category": "预约复查与检查准备安排",
+    "turns": [
+      {
+        "user": "我需要预约下周六上午的眼底照相。我有青光眼，最近视力模糊。检查前需要散瞳吗？散瞳后会不会影响我开车回家？",
+        "assistant": "好的，已记录您下周六上午的眼底照相预约及关于散瞳和驾车安全的咨询。"
+      },
+      {
+        "user": "补充一下，我周六上午九点到院。如果确实需要散瞳，我打算让家人开车来接我。请问散瞳效果大概持续多久，我下午能恢复视力吗？",
+        "assistant": "明白，已更新您周六上午九点到院的计划，以及关于散瞳持续时间和视力恢复的询问。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "患者预约了什么眼科检查，主要症状和病史是什么？",
+        "expected_facts": [
+          "患者预约了下周六上午的眼底照相。",
+          "患者患有青光眼且近期视力模糊。"
+        ],
+        "required_groups": [
+          [
+            "下周六上午",
+            "周六上午"
+          ],
+          [
+            "眼底照相",
+            "拍眼底"
+          ],
+          [
+            "青光眼"
+          ],
+          [
+            "视力模糊",
+            "看不清"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "患者计划何时到院，并针对散瞳后的交通安排做了什么准备？",
+        "expected_facts": [
+          "患者计划于周六上午九点到达医院。",
+          "患者计划若需散瞳则让家人开车接送。"
+        ],
+        "required_groups": [
+          [
+            "周六上午九点",
+            "九点到院"
+          ],
+          [
+            "散瞳",
+            "滴眼药水"
+          ],
+          [
+            "家人开车",
+            "家属接送"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M07-10",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861062-kF4i1dAr4ZTD5XPaEAvV",
+      "usage": {
+        "prompt_tokens": 70,
+        "total_tokens": 70,
+        "cost": 7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7e-07,
+          "upstream_inference_prompt_cost": 7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861065-JgW2kg4NT4m2lT4V1Tkp",
+      "usage": {
+        "prompt_tokens": 8365,
+        "completion_tokens": 584,
+        "total_tokens": 8949,
+        "cost": 0.00351999,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00351999,
+          "upstream_inference_prompt_cost": 0.00225855,
+          "upstream_inference_completions_cost": 0.00126144
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 439,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户患有青光眼，最近出现视力模糊症状\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户预约了下周六上午的眼底照相检查\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"2\",\n      \"text\": \"用户咨询了眼底照相检查前是否需要散瞳，以及散瞳后是否会影响开车回家\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861088-f3cz2ggjkrlh94lwa8uo",
+      "usage": {
+        "prompt_tokens": 47,
+        "total_tokens": 47,
+        "cost": 4.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.7e-07,
+          "upstream_inference_prompt_cost": 4.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861089-Nig4qP0h2nUj71gHOGS1",
+      "usage": {
+        "prompt_tokens": 76,
+        "total_tokens": 76,
+        "cost": 7.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.6e-07,
+          "upstream_inference_prompt_cost": 7.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861090-CVladDddZeNvZtGAesoC",
+      "usage": {
+        "prompt_tokens": 8506,
+        "completion_tokens": 674,
+        "total_tokens": 9180,
+        "cost": 0.00375246,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00375246,
+          "upstream_inference_prompt_cost": 0.00229662,
+          "upstream_inference_completions_cost": 0.00145584
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 465,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户计划于2026年9月13日（下周六）上午九点到院进行眼底照相检查\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"1\"\n      ]\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户表示如果眼底照相需要散瞳，打算让家人开车来接\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    },\n    {\n      \"id\": \"2\",\n      \"text\": \"用户咨询了散瞳效果大概持续多久，以及下午能否恢复视力\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861105-YIwd0D95H0Xdn8Dmwbe6",
+      "usage": {
+        "prompt_tokens": 63,
+        "total_tokens": 63,
+        "cost": 6.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.3e-07,
+          "upstream_inference_prompt_cost": 6.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861109-aODQSK2FCIQhcH6njXVZ",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861117-Xv30VXAzqrQUu7I6OTat",
+      "usage": {
+        "prompt_tokens": 17,
+        "total_tokens": 17,
+        "cost": 1.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.7e-07,
+          "upstream_inference_prompt_cost": 1.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861118-nIE4DoZjBAnuJb0FgxiV",
+      "usage": {
+        "prompt_tokens": 25,
+        "total_tokens": 25,
+        "cost": 2.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.5e-07,
+          "upstream_inference_prompt_cost": 2.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861119-hPVHqU7RdpeCWTGQI1Vl",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861119-c63wwVBomSlpq64ncQ3h",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "患者预约了什么眼科检查，主要症状和病史是什么？",
+        "expected_facts": [
+          "患者预约了下周六上午的眼底照相。",
+          "患者患有青光眼且近期视力模糊。"
+        ],
+        "required_groups": [
+          [
+            "下周六上午",
+            "周六上午"
+          ],
+          [
+            "眼底照相",
+            "拍眼底"
+          ],
+          [
+            "青光眼"
+          ],
+          [
+            "视力模糊",
+            "看不清"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "43475e18-ccf7-4364-bd43-103ba49d09ab",
+          "content": "用户表示如果眼底照相需要散瞳，打算让家人开车来接",
+          "score": 0.7717393711943323,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:28.977830+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:46.342677+00:00"
+        },
+        {
+          "memory_id": "8b3c8b80-2a57-4925-9b79-5ab284e85506",
+          "content": "用户预约了下周六上午的眼底照相检查",
+          "score": 0.7271686221054974,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:01.193172+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:28.928078+00:00"
+        },
+        {
+          "memory_id": "1a5abee8-6d09-4e16-903e-ab070a7500d1",
+          "content": "用户计划于2026年9月13日（下周六）上午九点到院进行眼底照相检查",
+          "score": 0.7108260904993958,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:28.977830+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:46.342677+00:00"
+        },
+        {
+          "memory_id": "7b1aa46d-fa8b-4c06-89cb-ec76cfc5ea1f",
+          "content": "用户咨询了眼底照相检查前是否需要散瞳，以及散瞳后是否会影响开车回家",
+          "score": 0.7104313142400642,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:01.193172+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:28.928078+00:00"
+        },
+        {
+          "memory_id": "ee1d16d9-cada-4c6c-aaa1-c3c6e76a2d4b",
+          "content": "用户患有青光眼，最近出现视力模糊症状",
+          "score": 0.6748556689834395,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:01.193172+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:28.928078+00:00"
+        },
+        {
+          "memory_id": "b5266c70-ed8d-490c-82e1-7f5101a4fb9a",
+          "content": "用户咨询了散瞳效果大概持续多久，以及下午能否恢复视力",
+          "score": 0.588673740578519,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:28.977830+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:46.342677+00:00"
+        }
+      ],
+      "seconds": 9.813
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "患者计划何时到院，并针对散瞳后的交通安排做了什么准备？",
+        "expected_facts": [
+          "患者计划于周六上午九点到达医院。",
+          "患者计划若需散瞳则让家人开车接送。"
+        ],
+        "required_groups": [
+          [
+            "周六上午九点",
+            "九点到院"
+          ],
+          [
+            "散瞳",
+            "滴眼药水"
+          ],
+          [
+            "家人开车",
+            "家属接送"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "43475e18-ccf7-4364-bd43-103ba49d09ab",
+          "content": "用户表示如果眼底照相需要散瞳，打算让家人开车来接",
+          "score": 0.833656551431881,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:28.977830+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:46.342677+00:00"
+        },
+        {
+          "memory_id": "1a5abee8-6d09-4e16-903e-ab070a7500d1",
+          "content": "用户计划于2026年9月13日（下周六）上午九点到院进行眼底照相检查",
+          "score": 0.7674303817037964,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:28.977830+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:46.342677+00:00"
+        },
+        {
+          "memory_id": "8b3c8b80-2a57-4925-9b79-5ab284e85506",
+          "content": "用户预约了下周六上午的眼底照相检查",
+          "score": 0.7190567275629831,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:01.193172+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:28.928078+00:00"
+        },
+        {
+          "memory_id": "7b1aa46d-fa8b-4c06-89cb-ec76cfc5ea1f",
+          "content": "用户咨询了眼底照相检查前是否需要散瞳，以及散瞳后是否会影响开车回家",
+          "score": 0.713521129178802,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:01.193172+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:28.928078+00:00"
+        },
+        {
+          "memory_id": "b5266c70-ed8d-490c-82e1-7f5101a4fb9a",
+          "content": "用户咨询了散瞳效果大概持续多久，以及下午能否恢复视力",
+          "score": 0.6898183717678427,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:28.977830+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:46.342677+00:00"
+        },
+        {
+          "memory_id": "ee1d16d9-cada-4c6c-aaa1-c3c6e76a2d4b",
+          "content": "用户患有青光眼，最近出现视力模糊症状",
+          "score": 0.512225299430307,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:01.193172+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:28.928078+00:00"
+        }
+      ],
+      "seconds": 1.437
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者预约了什么眼科检查，主要症状和病史是什么？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "8b3c8b80-2a57-4925-9b79-5ab284e85506",
+        "content": "用户预约了下周六上午的眼底照相检查",
+        "score": 0.7567830748423212,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:51:01.193172+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M07-10",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:51:28.928078+00:00"
+      },
+      {
+        "memory_id": "43475e18-ccf7-4364-bd43-103ba49d09ab",
+        "content": "用户表示如果眼底照相需要散瞳，打算让家人开车来接",
+        "score": 0.7496710687182124,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:51:28.977830+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M07-10",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:51:46.342677+00:00"
+      },
+      {
+        "memory_id": "1a5abee8-6d09-4e16-903e-ab070a7500d1",
+        "content": "用户计划于2026年9月13日（下周六）上午九点到院进行眼底照相检查",
+        "score": 0.7354518633224316,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:51:28.977830+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M07-10",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:51:46.342677+00:00"
+      },
+      {
+        "memory_id": "7b1aa46d-fa8b-4c06-89cb-ec76cfc5ea1f",
+        "content": "用户咨询了眼底照相检查前是否需要散瞳，以及散瞳后是否会影响开车回家",
+        "score": 0.6366386384375211,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:51:01.193172+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M07-10",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:51:28.928078+00:00"
+      },
+      {
+        "memory_id": "ee1d16d9-cada-4c6c-aaa1-c3c6e76a2d4b",
+        "content": "用户患有青光眼，最近出现视力模糊症状",
+        "score": 0.5569447066671396,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:51:01.193172+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M07-10",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:51:28.928078+00:00"
+      },
+      {
+        "memory_id": "b5266c70-ed8d-490c-82e1-7f5101a4fb9a",
+        "content": "用户咨询了散瞳效果大概持续多久，以及下午能否恢复视力",
+        "score": 0.5544177495832963,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:51:28.977830+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M07-10",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:51:46.342677+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 63.563
+}

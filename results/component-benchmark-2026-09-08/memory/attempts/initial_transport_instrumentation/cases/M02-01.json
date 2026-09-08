@@ -1,0 +1,449 @@
+{
+  "case": {
+    "id": "M02-01",
+    "category": "运动限制与日常活动",
+    "turns": [
+      {
+        "user": "我上周开始膝盖疼痛，医生建议我暂时避免跑步和跳跃，但可以进行游泳或骑自行车。我现在每天只能散步半小时。",
+        "assistant": "好的，已记录您的运动限制情况。"
+      },
+      {
+        "user": "补充一下，医生还提到如果疼痛加剧，需要完全停止所有下肢运动，直到复查。目前我还在坚持散步。",
+        "assistant": "明白，已更新您的运动限制信息。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "Q1",
+        "query": "患者最近被建议避免哪些具体运动？",
+        "expected_facts": [
+          "患者被建议暂时避免跑步和跳跃。"
+        ],
+        "required_groups": [
+          [
+            "跑步",
+            "跳跃"
+          ]
+        ]
+      },
+      {
+        "id": "Q2",
+        "query": "在什么情况下患者需要完全停止下肢运动？",
+        "expected_facts": [
+          "如果膝盖疼痛加剧，患者需要完全停止所有下肢运动。"
+        ],
+        "required_groups": [
+          [
+            "疼痛加剧",
+            "完全停止",
+            "下肢运动"
+          ]
+        ]
+      }
+    ],
+    "split": "dev",
+    "family_id": "M02-01",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859804-Nbido5vjXG9KYAQJ49kJ",
+      "usage": {
+        "prompt_tokens": 48,
+        "total_tokens": 48,
+        "cost": 4.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.8e-07,
+          "upstream_inference_prompt_cost": 4.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788859825-f1EFGmQDbxAT0clZFDTd",
+      "usage": {
+        "prompt_tokens": 8347,
+        "completion_tokens": 566,
+        "total_tokens": 8913,
+        "cost": 0.00347625,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00347625,
+          "upstream_inference_prompt_cost": 0.00225369,
+          "upstream_inference_completions_cost": 0.00122256
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 448,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户于2026年9月初开始膝盖疼痛，医生建议暂时避免跑步和跳跃运动，但可以进行游泳或骑自行车。\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"因膝盖疼痛，用户目前每天只能散步半小时作为运动。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859845-BLhu0l3Q9ZTP4KiriNp6",
+      "usage": {
+        "prompt_tokens": 45,
+        "total_tokens": 45,
+        "cost": 4.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.5e-07,
+          "upstream_inference_prompt_cost": 4.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859853-pvW1mjgJCEVhH0kN3zkm",
+      "usage": {
+        "prompt_tokens": 46,
+        "total_tokens": 46,
+        "cost": 4.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.6e-07,
+          "upstream_inference_prompt_cost": 4.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788859855-4LXOnENTQYZWzRJnPuXI",
+      "usage": {
+        "prompt_tokens": 8451,
+        "completion_tokens": 608,
+        "total_tokens": 9059,
+        "cost": 0.00332875,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00332875,
+          "upstream_inference_prompt_cost": 0.00211275,
+          "upstream_inference_completions_cost": 0.001216
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 691,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"医生告知用户，如果膝盖疼痛加剧，需要完全停止所有下肢运动直到复查。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\", \"1\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859874-Kpw8wnh1RQaeLC3cu2rf",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859877-OfkAVeKdNyrl22WdRXAr",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859906-qZGJvt0Q3sXZYjKcEUg1",
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 12,
+        "cost": 1.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.2e-07,
+          "upstream_inference_prompt_cost": 1.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859908-PGPTj1dH2oegnqC54b5H",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859910-0gw02DbbIXaFXe95CQ4a",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859920-ClbFO1F72Red5TpX6SlE",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "Q1",
+        "query": "患者最近被建议避免哪些具体运动？",
+        "expected_facts": [
+          "患者被建议暂时避免跑步和跳跃。"
+        ],
+        "required_groups": [
+          [
+            "跑步",
+            "跳跃"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "3e3cc32c-3a57-4ea6-908a-282c39b06770",
+          "content": "用户于2026年9月初开始膝盖疼痛，医生建议暂时避免跑步和跳跃运动，但可以进行游泳或骑自行车。",
+          "score": 0.647931915400773,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:30:02.696378+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M02-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:30:52.590295+00:00"
+        },
+        {
+          "memory_id": "08696239-b684-4d54-bab7-c21a536dcc09",
+          "content": "医生告知用户，如果膝盖疼痛加剧，需要完全停止所有下肢运动直到复查。",
+          "score": 0.6169918636587097,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:30:52.625612+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M02-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:31:14.823084+00:00"
+        },
+        {
+          "memory_id": "b3787515-0c64-4c6e-ab28-100d128e3801",
+          "content": "因膝盖疼痛，用户目前每天只能散步半小时作为运动。",
+          "score": 0.6097898026304449,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:30:02.696378+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M02-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:30:52.590295+00:00"
+        }
+      ],
+      "seconds": 31.187
+    },
+    {
+      "query": {
+        "id": "Q2",
+        "query": "在什么情况下患者需要完全停止下肢运动？",
+        "expected_facts": [
+          "如果膝盖疼痛加剧，患者需要完全停止所有下肢运动。"
+        ],
+        "required_groups": [
+          [
+            "疼痛加剧",
+            "完全停止",
+            "下肢运动"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "08696239-b684-4d54-bab7-c21a536dcc09",
+          "content": "医生告知用户，如果膝盖疼痛加剧，需要完全停止所有下肢运动直到复查。",
+          "score": 0.6840636757917424,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:30:52.625612+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M02-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:31:14.823084+00:00"
+        },
+        {
+          "memory_id": "b3787515-0c64-4c6e-ab28-100d128e3801",
+          "content": "因膝盖疼痛，用户目前每天只能散步半小时作为运动。",
+          "score": 0.5817866513398751,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:30:02.696378+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M02-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:30:52.590295+00:00"
+        },
+        {
+          "memory_id": "3e3cc32c-3a57-4ea6-908a-282c39b06770",
+          "content": "用户于2026年9月初开始膝盖疼痛，医生建议暂时避免跑步和跳跃运动，但可以进行游泳或骑自行车。",
+          "score": 0.5011395575696046,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:30:02.696378+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M02-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:30:52.590295+00:00"
+        }
+      ],
+      "seconds": 1.766
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者最近被建议避免哪些具体运动？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "3e3cc32c-3a57-4ea6-908a-282c39b06770",
+        "content": "用户于2026年9月初开始膝盖疼痛，医生建议暂时避免跑步和跳跃运动，但可以进行游泳或骑自行车。",
+        "score": 0.5685122282641561,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:30:02.696378+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M02-01",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:30:52.590295+00:00"
+      },
+      {
+        "memory_id": "08696239-b684-4d54-bab7-c21a536dcc09",
+        "content": "医生告知用户，如果膝盖疼痛加剧，需要完全停止所有下肢运动直到复查。",
+        "score": 0.5419311057276904,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:30:52.625612+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M02-01",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:31:14.823084+00:00"
+      },
+      {
+        "memory_id": "b3787515-0c64-4c6e-ab28-100d128e3801",
+        "content": "因膝盖疼痛，用户目前每天只能散步半小时作为运动。",
+        "score": 0.5324068648864273,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:30:02.696378+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M02-01",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:30:52.590295+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 120.172
+}

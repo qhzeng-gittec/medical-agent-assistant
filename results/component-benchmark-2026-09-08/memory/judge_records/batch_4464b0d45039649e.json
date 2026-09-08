@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"1dfa12c224f983838785\", \"query\": \"患者预约了什么检查，时间定在什么时候？\", \"expected_facts\": [\"患者预约了后天上午的无痛肠镜检查。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"User预约了2026年9月10日上午的无痛肠镜检查，医生嘱咐检查前一天要吃流食\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:49:03.156650+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户计划在2026年9月10日肠镜检查当天早上饮用半杯清水，并询问该安排是否可行\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:49:19.347625+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"User咨询关于无痛肠镜检查前流食开始的具体时间点，以及检查当天早上是否需要完全禁水的要求\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:49:03.156650+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户计划从2026年9月6日晚上开始只进食流质食物，直至2026年9月9日中午12点，作为无痛肠镜检查前的准备\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:49:19.347625+00:00\"}]}, {\"id\": \"1f2047f58908ed8d1ef4\", \"query\": \"用户提到的弹性工作制实际是何时开始的？当时导致了什么作息问题？\", \"expected_facts\": [\"该弹性工作制于八个月前实施。\", \"该用户当时经常凌晨四点下班，早上十点回家补觉。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户半年前（约2026年3月）换了新主管，新主管要求全员实行弹性工作制，导致用户经常凌晨四点下班，早上十点才回家补觉\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:03.299699+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户纠正弹性工作制实施时间为八个月前（约2026年1月），而非之前记录的半年前\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:34:18.380968+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户的主管于上周（约2026年9月1-7日）宣布取消弹性工作制\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:34:18.380968+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户从今晚起可以按正常时间下班，不再需要凌晨四点下班\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:34:18.380968+00:00\"}]}, {\"id\": \"205fbbe0ecc7e75b79d6\", \"query\": \"患者预约了什么检查，涉及哪些基础疾病和用药情况？\", \"expected_facts\": [\"患者预约了下周二下午的心脏负荷试验。\", \"患者患有糖尿病且平时使用胰岛素治疗。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户预约了2026年9月15日（下周二）下午的心脏负荷试验。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:50:38.566304+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户担心心脏负荷试验过程中若需运动会导致低血糖，并咨询检查前是否可以吃早饭。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:50:38.566304+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户患有糖尿病，平时打胰岛素。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:50:38.566304+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户询问如果心脏负荷试验安排在下午两点，中午是否可以正常吃饭，还是必须一直空腹到检查结束。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:51:57.967504+00:00\"}, {\"memory_id\": \"m4\", \"content\": \"用户在周二（9月15日）早上六点注射了胰岛素。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:51:57.967504+00:00\"}]}, {\"id\": \"214566b5f6a53e0298fb\", \"query\": \"家里谁在上个月被确诊为哮喘并开始使用吸入器治疗？\", \"expected_facts\": [\"用户的妹妹在上个月被诊断出患有哮喘。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的弟弟在2026年8月被诊断出患有哮喘，现在需要每天使用吸入器\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:10.183515+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户更正称，上个月（2026年8月）确诊哮喘的是妹妹而非弟弟，弟弟其实很健康。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:21.593220+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户小时候有过过敏，但成年后完全好了，最近没有任何呼吸方面的问题\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:10.183515+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861889-b1PtJOj5fTqHvKsRnHtP",
+    "object": "chat.completion",
+    "created": 1788861889,
+    "model": "minimax/minimax-m2.5",
+    "provider": "Minimax",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"1dfa12c224f983838785\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory m0 explicitly states the appointment is on 2026年9月10日上午, which is two days after the recording date (2026-09-08).\"}]},{\"id\":\"1f2047f58908ed8d1ef4\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory m1 explicitly corrects that the flexible work system started 八个月前 (around January 2026), not the earlier recorded half year.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory m0 states the user often left work at 凌晨四点 and returned home to sleep at 早上十点.\"}]},{\"id\":\"205fbbe0ecc7e75b79d6\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory m0 explicitly states the appointment is for 2026年9月15日（下周二）下午的心脏负荷试验.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m2\"}],\"reason\":\"Memory m2 explicitly states the user has diabetes and uses insulin.\"}]},{\"id\":\"214566b5f6a53e0298fb\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory m1 explicitly corrects that the person diagnosed with asthma last month was the user's sister, not brother.\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item and determine whether the retrieved memories support the expected facts.\n\n**Item 1: 1dfa12c224f983838785**\n\nQuery: 患者预约了什么检查，时间定在什么时候？\nExpected fact: 患者预约了后天上午的无痛肠镜检查。\n\nLooking at the memories:\n- m0: \"User预约了2026年9月10日上午的无痛肠镜检查\"\n- m1: references \"2026年9月10日肠镜检查\"\n- m2: \"无痛肠镜检查前流食开始\"\n- m3: \"2026年9月9日中午12点\" as preparation\n\nThe recording date is 2026-09-08T09:49:03.156650+00:00. The expected fact says \"后天上午\" (day after tomorrow morning). From 2026-09-08, the day after tomorrow would be 2026-09-10. The memory m0 explicitly states the appointment is for \"2026年9月10日上午的无痛肠镜检查\" - which matches perfectly.\n\nThe expected fact is \"患者预约了后天上午的无痛肠镜检查\" - this is supported by m0 which states the appointment is on September 10, 2026 morning. The recording date of September 8, 2026 makes it indeed \"后天\" (day after tomorrow).\n\n**Supported: true, evidence: [m0]**\n\n---\n\n**Item 2: 1f2047f58908ed8d1ef4**\n\nQuery: 用户提到的弹性工作制实际是何时开始的？当时导致了什么作息问题？\n\nExpected facts:\n1. \"该弹性工作制于八个月前实施。\"\n2. \"该用户当时经常凌晨四点下班，早上十点回家补觉。\"\n\nLooking at the memories:\n\n\n- m0 reveals the work system started \"半年前（约2026年3月）\"\n- m1 provides a crucial correction, specifying the implementation was actually \"八个月前（约2026年1月）\"\n- The system was implemented around January 2026, correcting the initial timeline\n- The work schedule caused significant sleep pattern disruptions, with users frequently leaving work at 4 am and returning home to rest at 10 am",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item and determine whether the retrieved memories support the expected facts.\n\n**Item 1: 1dfa12c224f983838785**\n\nQuery: 患者预约了什么检查，时间定在什么时候？\nExpected fact: 患者预约了后天上午的无痛肠镜检查。\n\nLooking at the memories:\n- m0: \"User预约了2026年9月10日上午的无痛肠镜检查\"\n- m1: references \"2026年9月10日肠镜检查\"\n- m2: \"无痛肠镜检查前流食开始\"\n- m3: \"2026年9月9日中午12点\" as preparation\n\nThe recording date is 2026-09-08T09:49:03.156650+00:00. The expected fact says \"后天上午\" (day after tomorrow morning). From 2026-09-08, the day after tomorrow would be 2026-09-10. The memory m0 explicitly states the appointment is for \"2026年9月10日上午的无痛肠镜检查\" - which matches perfectly.\n\nThe expected fact is \"患者预约了后天上午的无痛肠镜检查\" - this is supported by m0 which states the appointment is on September 10, 2026 morning. The recording date of September 8, 2026 makes it indeed \"后天\" (day after tomorrow).\n\n**Supported: true, evidence: [m0]**\n\n---\n\n**Item 2: 1f2047f58908ed8d1ef4**\n\nQuery: 用户提到的弹性工作制实际是何时开始的？当时导致了什么作息问题？\n\nExpected facts:\n1. \"该弹性工作制于八个月前实施。\"\n2. \"该用户当时经常凌晨四点下班，早上十点回家补觉。\"\n\nLooking at the memories:\n\n\n- m0 reveals the work system started \"半年前（约2026年3月）\"\n- m1 provides a crucial correction, specifying the implementation was actually \"八个月前（约2026年1月）\"\n- The system was implemented around January 2026, correcting the initial timeline\n- The work schedule caused significant sleep pattern disruptions, with users frequently leaving work at 4 am and returning home to rest at 10 am",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1618,
+      "completion_tokens": 787,
+      "total_tokens": 2405,
+      "cost": 0.0014298,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0014298,
+        "upstream_inference_prompt_cost": 0.0004854,
+        "upstream_inference_completions_cost": 0.0009444
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 467,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 13.625
+}

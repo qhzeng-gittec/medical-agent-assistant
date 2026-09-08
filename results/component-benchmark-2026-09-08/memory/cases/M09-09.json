@@ -1,0 +1,438 @@
+{
+  "case": {
+    "id": "M09-09",
+    "category": "用户更正先前陈述",
+    "turns": [
+      {
+        "user": "我对青霉素不过敏，以前没有留意过相关问题。",
+        "assistant": "已记录您本次提供的信息。"
+      },
+      {
+        "user": "我之前说对青霉素不过敏，但翻看旧病历发现2016年输液时出现过皮疹，医生当时记录为青霉素过敏，所以我应该是有过敏史的。",
+        "assistant": "了解，已根据2016年病历记录，将您的青霉素过敏史更新为阳性。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "Q1",
+        "query": "患者对青霉素的过敏状态应如何认定？",
+        "expected_facts": [
+          "患者对青霉素存在过敏史。",
+          "患者此前声称不过敏的说法已被2016年的病历记录推翻。"
+        ],
+        "required_groups": [
+          [
+            "青霉素",
+            "盘尼西林"
+          ],
+          [
+            "过敏",
+            "过敏反应"
+          ],
+          [
+            "存在",
+            "有"
+          ]
+        ]
+      },
+      {
+        "id": "Q2",
+        "query": "支持患者青霉素过敏判断的关键历史事件发生在哪一年？",
+        "expected_facts": [
+          "2016年患者输液时出现皮疹并被记录为青霉素过敏。",
+          "该事件证实了患者的过敏体质。"
+        ],
+        "required_groups": [
+          [
+            "2016年",
+            "二零一六年"
+          ],
+          [
+            "皮疹",
+            "皮肤反应"
+          ],
+          [
+            "输液",
+            "打针"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M09-09",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861353-0vAO1fXN78efetjtMJMs",
+      "usage": {
+        "prompt_tokens": 29,
+        "total_tokens": 29,
+        "cost": 2.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.9e-07,
+          "upstream_inference_prompt_cost": 2.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861356-LjqKNb0sfbQrIidh7Ux5",
+      "usage": {
+        "prompt_tokens": 8329,
+        "completion_tokens": 1090,
+        "total_tokens": 9419,
+        "cost": 0.0051147,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0051147,
+          "upstream_inference_prompt_cost": 0.0024987,
+          "upstream_inference_completions_cost": 0.002616
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1051,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\"memory\": [{\"id\": \"0\", \"text\": \"用户表示自己对青霉素不过敏，且以前没有留意过相关问题。\", \"attributed_to\": \"user\"}]}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861412-j3Rks4CiLInvuHCDXTVN",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861413-MqYwKmctRtM1mfjuhsCY",
+      "usage": {
+        "prompt_tokens": 75,
+        "total_tokens": 75,
+        "cost": 7.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.5e-07,
+          "upstream_inference_prompt_cost": 7.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861430-k5px5VOJLZmtLfr9rovz",
+      "usage": {
+        "prompt_tokens": 8425,
+        "completion_tokens": 185,
+        "total_tokens": 8610,
+        "cost": 0.0029715,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0029715,
+          "upstream_inference_prompt_cost": 0.0025275,
+          "upstream_inference_completions_cost": 0.000444
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 92,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户翻看旧病历发现2016年输液时出现过皮疹，医生当时记录为青霉素过敏，因此确认自己有青霉素过敏史。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861449-4lkA1E2caAEyhnH0E2iN",
+      "usage": {
+        "prompt_tokens": 38,
+        "total_tokens": 38,
+        "cost": 3.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.8e-07,
+          "upstream_inference_prompt_cost": 3.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861453-tx0i0NLbPkuTCfBqle6W",
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 12,
+        "cost": 1.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.2e-07,
+          "upstream_inference_prompt_cost": 1.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861454-ScRl9FTRMnLvwVm3IVxr",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 14,
+        "cost": 1.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.4e-07,
+          "upstream_inference_prompt_cost": 1.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861457-T3mLXteQa26rPVIdVm0d",
+      "usage": {
+        "prompt_tokens": 22,
+        "total_tokens": 22,
+        "cost": 2.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.2e-07,
+          "upstream_inference_prompt_cost": 2.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861458-ZGflIijlnzCNMO8C8hPo",
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 12,
+        "cost": 1.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.2e-07,
+          "upstream_inference_prompt_cost": 1.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861461-ZPVzwHvYbdpJ6CYUj2ka",
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 12,
+        "cost": 1.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.2e-07,
+          "upstream_inference_prompt_cost": 1.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "Q1",
+        "query": "患者对青霉素的过敏状态应如何认定？",
+        "expected_facts": [
+          "患者对青霉素存在过敏史。",
+          "患者此前声称不过敏的说法已被2016年的病历记录推翻。"
+        ],
+        "required_groups": [
+          [
+            "青霉素",
+            "盘尼西林"
+          ],
+          [
+            "过敏",
+            "过敏反应"
+          ],
+          [
+            "存在",
+            "有"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "94d5a099-27ab-46ee-9300-ce4681b3d906",
+          "content": "用户表示自己对青霉素不过敏，且以前没有留意过相关问题。",
+          "score": 0.8688554299918072,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:55:47.662141+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M09-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:56:52.810130+00:00"
+        },
+        {
+          "memory_id": "c6e6f1b2-4b1f-49a3-94a2-414f85341806",
+          "content": "用户翻看旧病历发现2016年输液时出现过皮疹，医生当时记录为青霉素过敏，因此确认自己有青霉素过敏史。",
+          "score": 0.8536947167473184,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:56:52.835564+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M09-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:57:31.624036+00:00"
+        }
+      ],
+      "seconds": 1.656
+    },
+    {
+      "query": {
+        "id": "Q2",
+        "query": "支持患者青霉素过敏判断的关键历史事件发生在哪一年？",
+        "expected_facts": [
+          "2016年患者输液时出现皮疹并被记录为青霉素过敏。",
+          "该事件证实了患者的过敏体质。"
+        ],
+        "required_groups": [
+          [
+            "2016年",
+            "二零一六年"
+          ],
+          [
+            "皮疹",
+            "皮肤反应"
+          ],
+          [
+            "输液",
+            "打针"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "c6e6f1b2-4b1f-49a3-94a2-414f85341806",
+          "content": "用户翻看旧病历发现2016年输液时出现过皮疹，医生当时记录为青霉素过敏，因此确认自己有青霉素过敏史。",
+          "score": 0.6897860012814326,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:56:52.835564+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M09-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:57:31.624036+00:00"
+        },
+        {
+          "memory_id": "94d5a099-27ab-46ee-9300-ce4681b3d906",
+          "content": "用户表示自己对青霉素不过敏，且以前没有留意过相关问题。",
+          "score": 0.6262167922098669,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:55:47.662141+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M09-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:56:52.810130+00:00"
+        }
+      ],
+      "seconds": 3.156
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者对青霉素的过敏状态应如何认定？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "c6e6f1b2-4b1f-49a3-94a2-414f85341806",
+        "content": "用户翻看旧病历发现2016年输液时出现过皮疹，医生当时记录为青霉素过敏，因此确认自己有青霉素过敏史。",
+        "score": 0.8437215005545964,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:56:52.835564+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M09-09",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:57:31.624036+00:00"
+      },
+      {
+        "memory_id": "94d5a099-27ab-46ee-9300-ce4681b3d906",
+        "content": "用户表示自己对青霉素不过敏，且以前没有留意过相关问题。",
+        "score": 0.7907422674289578,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:55:47.662141+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M09-09",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:56:52.810130+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 113.891
+}

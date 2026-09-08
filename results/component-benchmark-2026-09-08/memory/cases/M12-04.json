@@ -1,0 +1,516 @@
+{
+  "case": {
+    "id": "M12-04",
+    "category": "否定事实与助手建议区分",
+    "turns": [
+      {
+        "user": "我最近总是头晕，邻居都劝我吃安眠药，但我查过资料也问过医生，我并没有失眠症，只是工作压力大导致的暂时性疲劳，不需要药物治疗。",
+        "assistant": "收到，已记录您经评估无失眠症且无需药物治疗的情况。"
+      },
+      {
+        "user": "其实这种状态持续了大概一个月，自从上个月项目上线后就开始的，只要休息几天就好了，以前从来没有出现过这种情况。",
+        "assistant": "明白，已补充您头晕疲劳始于上个月项目上线后的时间线。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "用户是否被诊断为失眠症？",
+        "expected_facts": [
+          "用户经医生评估并未患有失眠症。",
+          "用户明确表示不需要服用安眠药等药物治疗。"
+        ],
+        "required_groups": [
+          [
+            "无",
+            "没有",
+            "未患"
+          ],
+          [
+            "失眠症",
+            "睡眠障碍"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "用户出现头晕症状的具体时间段和原因是什么？",
+        "expected_facts": [
+          "用户的头晕症状始于上个月项目上线后。",
+          "用户症状由工作压力大导致，持续时间约一个月。"
+        ],
+        "required_groups": [
+          [
+            "上个月",
+            "上月"
+          ],
+          [
+            "工作压力",
+            "项目上线",
+            "疲劳"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M12-04",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861688-vrcEi0A8rfPBdCdfA8Nk",
+      "usage": {
+        "prompt_tokens": 67,
+        "total_tokens": 67,
+        "cost": 6.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.7e-07,
+          "upstream_inference_prompt_cost": 6.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861691-RAiphxVScJws4S3W77sJ",
+      "usage": {
+        "prompt_tokens": 8362,
+        "completion_tokens": 559,
+        "total_tokens": 8921,
+        "cost": 0.0032085,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0032085,
+          "upstream_inference_prompt_cost": 0.0020905,
+          "upstream_inference_completions_cost": 0.001118
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 582,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户最近总是头晕，邻居建议吃安眠药，但用户已查阅资料并咨询医生\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户经医生评估无失眠症，头晕症状是由工作压力大导致的暂时性疲劳，不需要药物治疗\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861707-G6FpPmoM38XZN4jfQUQy",
+      "usage": {
+        "prompt_tokens": 45,
+        "total_tokens": 45,
+        "cost": 4.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.5e-07,
+          "upstream_inference_prompt_cost": 4.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861709-gXQIZy85IOBiTsMBMooi",
+      "usage": {
+        "prompt_tokens": 54,
+        "total_tokens": 54,
+        "cost": 5.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.4e-07,
+          "upstream_inference_prompt_cost": 5.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861709-a4SttWqJKq4XXJj5RZCf",
+      "usage": {
+        "prompt_tokens": 8476,
+        "completion_tokens": 801,
+        "total_tokens": 9277,
+        "cost": 0.0044652,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0044652,
+          "upstream_inference_prompt_cost": 0.0025428,
+          "upstream_inference_completions_cost": 0.0019224
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 668,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户头晕疲劳状态持续了大约一个月，始于上个月项目上线后，此前从未出现过类似情况\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\", \"1\"]\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户表示头晕疲劳症状只需休息几天即可缓解\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\", \"1\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861730-TqVjx5MbsRUFdShi19gW",
+      "usage": {
+        "prompt_tokens": 34,
+        "total_tokens": 34,
+        "cost": 3.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.4e-07,
+          "upstream_inference_prompt_cost": 3.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861732-rfWK1lcVkOxkqc8YhdVb",
+      "usage": {
+        "prompt_tokens": 9,
+        "total_tokens": 9,
+        "cost": 9e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 9e-08,
+          "upstream_inference_prompt_cost": 9e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861733-zPNV0MtgrdntB3IZVC6e",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861734-DdpDZhluqmCfosOSQPe6",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861735-6xuIZAS8N0E1PCAWpd1Q",
+      "usage": {
+        "prompt_tokens": 9,
+        "total_tokens": 9,
+        "cost": 9e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 9e-08,
+          "upstream_inference_prompt_cost": 9e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861736-6OxdJeQsHv1dDXt6P8Rd",
+      "usage": {
+        "prompt_tokens": 9,
+        "total_tokens": 9,
+        "cost": 9e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 9e-08,
+          "upstream_inference_prompt_cost": 9e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "用户是否被诊断为失眠症？",
+        "expected_facts": [
+          "用户经医生评估并未患有失眠症。",
+          "用户明确表示不需要服用安眠药等药物治疗。"
+        ],
+        "required_groups": [
+          [
+            "无",
+            "没有",
+            "未患"
+          ],
+          [
+            "失眠症",
+            "睡眠障碍"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "4cc1e226-e45b-4988-9234-f54a15d3ed38",
+          "content": "用户经医生评估无失眠症，头晕症状是由工作压力大导致的暂时性疲劳，不需要药物治疗",
+          "score": 0.7097708885802418,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:26.627632+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:01:48.094336+00:00"
+        },
+        {
+          "memory_id": "c121dce3-56eb-4a52-b742-7a5a614a39ff",
+          "content": "用户最近总是头晕，邻居建议吃安眠药，但用户已查阅资料并咨询医生",
+          "score": 0.6797392031429862,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:26.627632+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:01:48.094325+00:00"
+        },
+        {
+          "memory_id": "86fc3ea2-d140-469b-8b6d-2ed56a6f659f",
+          "content": "用户表示头晕疲劳症状只需休息几天即可缓解",
+          "score": 0.5846899173451909,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:48.136471+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:02:11.056619+00:00"
+        },
+        {
+          "memory_id": "a14ff015-7eed-460a-b49e-b11871ccbbfe",
+          "content": "用户头晕疲劳状态持续了大约一个月，始于上个月项目上线后，此前从未出现过类似情况",
+          "score": 0.5551153253303509,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:48.136471+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:02:11.056619+00:00"
+        }
+      ],
+      "seconds": 1.719
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "用户出现头晕症状的具体时间段和原因是什么？",
+        "expected_facts": [
+          "用户的头晕症状始于上个月项目上线后。",
+          "用户症状由工作压力大导致，持续时间约一个月。"
+        ],
+        "required_groups": [
+          [
+            "上个月",
+            "上月"
+          ],
+          [
+            "工作压力",
+            "项目上线",
+            "疲劳"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "86fc3ea2-d140-469b-8b6d-2ed56a6f659f",
+          "content": "用户表示头晕疲劳症状只需休息几天即可缓解",
+          "score": 0.7242626534808287,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:48.136471+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:02:11.056619+00:00"
+        },
+        {
+          "memory_id": "c121dce3-56eb-4a52-b742-7a5a614a39ff",
+          "content": "用户最近总是头晕，邻居建议吃安眠药，但用户已查阅资料并咨询医生",
+          "score": 0.66686817078042,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:26.627632+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:01:48.094325+00:00"
+        },
+        {
+          "memory_id": "a14ff015-7eed-460a-b49e-b11871ccbbfe",
+          "content": "用户头晕疲劳状态持续了大约一个月，始于上个月项目上线后，此前从未出现过类似情况",
+          "score": 0.6371878578618798,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:48.136471+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:02:11.056619+00:00"
+        },
+        {
+          "memory_id": "4cc1e226-e45b-4988-9234-f54a15d3ed38",
+          "content": "用户经医生评估无失眠症，头晕症状是由工作压力大导致的暂时性疲劳，不需要药物治疗",
+          "score": 0.6369421246888278,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:01:26.627632+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-04",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:01:48.094336+00:00"
+        }
+      ],
+      "seconds": 0.719
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "用户是否被诊断为失眠症？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "4cc1e226-e45b-4988-9234-f54a15d3ed38",
+        "content": "用户经医生评估无失眠症，头晕症状是由工作压力大导致的暂时性疲劳，不需要药物治疗",
+        "score": 0.7050061296988126,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:01:26.627632+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M12-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:01:48.094336+00:00"
+      },
+      {
+        "memory_id": "c121dce3-56eb-4a52-b742-7a5a614a39ff",
+        "content": "用户最近总是头晕，邻居建议吃安眠药，但用户已查阅资料并咨询医生",
+        "score": 0.6611621553303036,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:01:26.627632+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M12-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:01:48.094325+00:00"
+      },
+      {
+        "memory_id": "86fc3ea2-d140-469b-8b6d-2ed56a6f659f",
+        "content": "用户表示头晕疲劳症状只需休息几天即可缓解",
+        "score": 0.5718158716943088,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:01:48.136471+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M12-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:02:11.056619+00:00"
+      },
+      {
+        "memory_id": "a14ff015-7eed-460a-b49e-b11871ccbbfe",
+        "content": "用户头晕疲劳状态持续了大约一个月，始于上个月项目上线后，此前从未出现过类似情况",
+        "score": 0.5227856622335433,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:01:48.136471+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M12-04",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:02:11.056619+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 49.406
+}

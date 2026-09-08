@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"5bf2ae5863966fc0f3db\", \"query\": \"请问您的配偶中，谁在两年前被确诊为高血压并开始服药？\", \"expected_facts\": [\"用户的妻子在两年前确诊高血压并开始服药。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户更正：是妻子而非丈夫两年前（约2024年9月）确诊高血压并开始服药控制\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:42.150967+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户的丈夫两年前（约2024年9月）因高血压开始服药控制，最近血压已稳定\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:16.917515+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户的丈夫身体健康状况良好\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:42.150967+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户体检时血糖稍微偏高，医生建议注意饮食，用户没有糖尿病但处于临界状态\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:16.917515+00:00\"}]}, {\"id\": \"5c2d9ef017cb54f6f95c\", \"query\": \"患者六年前因什么工作习惯导致什么疾病，接受了什么治疗，效果如何？\", \"expected_facts\": [\"患者六年前因长期伏案工作导致颈椎病。\", \"患者接受了两个月理疗。\", \"患者症状好转后未再复发。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户三十五岁，六年前（约2020年9月）因长期伏案工作导致颈椎病，出现脖子僵硬症状\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:59:58.257699+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户治疗后注意保持正确姿势，颈椎病症状未再复发\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:59:58.257699+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户因颈椎病接受了医生建议的理疗治疗，持续两个月后症状好转\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:59:58.257699+00:00\"}]}, {\"id\": \"5cee2b5b47c1ea76e255\", \"query\": \"您的同事中，谁在上个月因流感发烧而请假一周？\", \"expected_facts\": [\"用户的同事小李在上个月因流感发烧请假一周。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户更正：上个月因流感请假的是同事小李，不是小王。小王很健康。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:44:31.474446+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户同事小王上个月因流感发烧请假一周，现已康复返岗\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:43:38.467852+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户去年冬天没有感冒过\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:43:38.467852+00:00\"}]}, {\"id\": \"5ef07b1f19ce04108625\", \"query\": \"用户本人的血糖情况如何，是否已经确诊为糖尿病？\", \"expected_facts\": [\"用户体检发现血糖偏高，但未确诊糖尿病，处于临界状态。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户体检时血糖稍微偏高，医生建议注意饮食，用户没有糖尿病但处于临界状态\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:16.917515+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户的丈夫两年前（约2024年9月）因高血压开始服药控制，最近血压已稳定\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:16.917515+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户更正：是妻子而非丈夫两年前（约2024年9月）确诊高血压并开始服药控制\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:42.150967+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861974-efMLSlUOyunXAEDi2Q7g",
+    "object": "chat.completion",
+    "created": 1788861974,
+    "model": "minimax/minimax-m2.5",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "\n\n{\"items\":[{\"id\":\"5bf2ae5863966fc0f3db\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Later correction in session-2 explicitly states wife was diagnosed with hypertension two years ago.\"}]},{\"id\":\"5c2d9ef017cb54f6f95c\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states six years ago (2020) long-term desk work caused cervical spondylosis.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m2\"}],\"reason\":\"Memory explicitly states physical therapy lasted two months.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory explicitly states symptoms did not recur after treatment.\"}]},{\"id\":\"5cee2b5b47c1ea76e255\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Later correction in session-2 explicitly states colleague Xiao Li took flu leave last month.\"}]},{\"id\":\"5ef07b1f19ce04108625\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states slightly elevated blood sugar, no diabetes, in borderline state.\"}]}]}",
+          "refusal": null,
+          "reasoning": "\nLet me analyze each item according to the instructions:\n\n1. **Item 5bf2ae5863966fc0f3db**:\n   - Query: 请问您的配偶中，谁在两年前被确诊为高血压并开始服药？\n   - Expected fact: 用户的妻子在两年前确诊高血压并开始服药。\n   - Memories:\n     - m0: \"用户更正：是妻子而非丈夫两年前（约2024年9月）确诊高血压并开始服药控制\" (session-2)\n     - m1: \"用户的丈夫两年前（约2024年9月）因高血压开始服药控制，最近血压已稳定\" (session-1)\n     - m2: \"用户的丈夫身体健康状况良好\" (session-2)\n     - m3: 血糖相关内容\n   \n   Analysis:\n   - m1 says husband was diagnosed with hypertension and started medication two years ago\n   - m0 is a correction stating it's the wife, not husband, who was diagnosed two years ago\n   - The expected fact says \"wife\" - this is the corrected information from session-2\n   - The fact is supported by m0 (the correction) which explicitly states the wife was diagnosed\n   - This is the later/corrected information, so it should be supported\n\n2. **Item 5c2d9ef017cb54f6f95c**:\n   - Query: 患者六年前因什么工作习惯导致什么疾病，接受了什么治疗，效果如何？\n   - Expected facts:\n     - 患者六年前因长期伏案工作导致颈椎病。\n     - 患者接受了两个月理疗。\n     - 患者症状好转后未再复发。\n   - Memories:\n     - m0: \"用户三十五岁，六年前（约2020年9月）因长期伏案工作导致颈椎病，出现脖子僵硬症状\" (session-1)\n     - m1: \"用户治疗后注意保持正确姿势，颈椎病症状未再复发\" (session-1)\n     - m2: \"用户因颈椎病接受了医生建议的理疗治疗，持续两个月后症状好转\" (session-1)\n   \n   Analysis:\n   - m0 supports the first fact: long-term desk work causing cervical spondylosis six years ago\n   - m2 supports the second fact: received two months of physical therapy\n   - m1 supports the third fact: symptoms did not recur after treatment\n   - All three facts are supported\n\n3. **Item 5cee2b5b47c1ea76e255**:\n   - Query: 您的同事中，谁在上个月因流感发烧而请假一周？\n   - Expected fact: 用户的同事小李在上个月因流感发烧请假一周。\n   - Memories:\n     - m0: \"用户更正：上个月因流感请假的是同事小李，不是小王。小王很健康。\" (session-2)\n     - m1: \"用户同事小王上个月因流感发烧请假一周，现已康复返岗\" (session-1)\n     - m2: 感冒相关内容\n   \n   Analysis:\n   - m1 initially reported that colleague Xiao Wang took leave due to flu\n   - m0 corrects this to Xiao Li being the one who took leave\n   - The expected fact states it's Xiao Li, matching the corrected information from m0\n   - Fact is supported by m0 (the correction)\n\n4. **Item 5ef07b1f19ce04108625**:\n   - Query: 用户本人的血糖情况如何，是否已经确诊为糖尿病？\n   - Expected fact: 用户体检发现血糖偏高，但未确诊糖尿病，处于临界状态。\n   - Memories:\n     - m0: \"用户体检时血糖稍微偏高，医生建议注意饮食，用户没有糖尿病但处于临界状态\" (session-1)\n     - m1: 高血压相关内容 (husband)\n     - m2: 高血压更正 (wife)\n   \n   Analysis:\n   - m0 directly states blood sugar is slightly elevated, no diabetes, but in borderline state\n   - This matches the expected fact perfectly\n   - Fact is supported by m0\n\nNow I'll format the JSON output:\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "\nLet me analyze each item according to the instructions:\n\n1. **Item 5bf2ae5863966fc0f3db**:\n   - Query: 请问您的配偶中，谁在两年前被确诊为高血压并开始服药？\n   - Expected fact: 用户的妻子在两年前确诊高血压并开始服药。\n   - Memories:\n     - m0: \"用户更正：是妻子而非丈夫两年前（约2024年9月）确诊高血压并开始服药控制\" (session-2)\n     - m1: \"用户的丈夫两年前（约2024年9月）因高血压开始服药控制，最近血压已稳定\" (session-1)\n     - m2: \"用户的丈夫身体健康状况良好\" (session-2)\n     - m3: 血糖相关内容\n   \n   Analysis:\n   - m1 says husband was diagnosed with hypertension and started medication two years ago\n   - m0 is a correction stating it's the wife, not husband, who was diagnosed two years ago\n   - The expected fact says \"wife\" - this is the corrected information from session-2\n   - The fact is supported by m0 (the correction) which explicitly states the wife was diagnosed\n   - This is the later/corrected information, so it should be supported\n\n2. **Item 5c2d9ef017cb54f6f95c**:\n   - Query: 患者六年前因什么工作习惯导致什么疾病，接受了什么治疗，效果如何？\n   - Expected facts:\n     - 患者六年前因长期伏案工作导致颈椎病。\n     - 患者接受了两个月理疗。\n     - 患者症状好转后未再复发。\n   - Memories:\n     - m0: \"用户三十五岁，六年前（约2020年9月）因长期伏案工作导致颈椎病，出现脖子僵硬症状\" (session-1)\n     - m1: \"用户治疗后注意保持正确姿势，颈椎病症状未再复发\" (session-1)\n     - m2: \"用户因颈椎病接受了医生建议的理疗治疗，持续两个月后症状好转\" (session-1)\n   \n   Analysis:\n   - m0 supports the first fact: long-term desk work causing cervical spondylosis six years ago\n   - m2 supports the second fact: received two months of physical therapy\n   - m1 supports the third fact: symptoms did not recur after treatment\n   - All three facts are supported\n\n3. **Item 5cee2b5b47c1ea76e255**:\n   - Query: 您的同事中，谁在上个月因流感发烧而请假一周？\n   - Expected fact: 用户的同事小李在上个月因流感发烧请假一周。\n   - Memories:\n     - m0: \"用户更正：上个月因流感请假的是同事小李，不是小王。小王很健康。\" (session-2)\n     - m1: \"用户同事小王上个月因流感发烧请假一周，现已康复返岗\" (session-1)\n     - m2: 感冒相关内容\n   \n   Analysis:\n   - m1 initially reported that colleague Xiao Wang took leave due to flu\n   - m0 corrects this to Xiao Li being the one who took leave\n   - The expected fact states it's Xiao Li, matching the corrected information from m0\n   - Fact is supported by m0 (the correction)\n\n4. **Item 5ef07b1f19ce04108625**:\n   - Query: 用户本人的血糖情况如何，是否已经确诊为糖尿病？\n   - Expected fact: 用户体检发现血糖偏高，但未确诊糖尿病，处于临界状态。\n   - Memories:\n     - m0: \"用户体检时血糖稍微偏高，医生建议注意饮食，用户没有糖尿病但处于临界状态\" (session-1)\n     - m1: 高血压相关内容 (husband)\n     - m2: 高血压更正 (wife)\n   \n   Analysis:\n   - m0 directly states blood sugar is slightly elevated, no diabetes, but in borderline state\n   - This matches the expected fact perfectly\n   - Fact is supported by m0\n\nNow I'll format the JSON output:\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1362,
+      "completion_tokens": 1116,
+      "total_tokens": 2478,
+      "cost": 0.0017478,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0017478,
+        "upstream_inference_prompt_cost": 0.0004086,
+        "upstream_inference_completions_cost": 0.0013392
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 852,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 12.11
+}

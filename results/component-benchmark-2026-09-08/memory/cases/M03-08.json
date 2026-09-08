@@ -1,0 +1,436 @@
+{
+  "case": {
+    "id": "M03-08",
+    "category": "药物过敏及具体反应",
+    "turns": [
+      {
+        "user": "我有过对链霉素注射液过敏的记录。那是八年前，2016年冬天的事，因为耳部感染打了针，结果耳朵周围红肿发热，还伴有耳鸣和听力下降。",
+        "assistant": "了解，已登记您关于链霉素注射液的过敏历史。"
+      },
+      {
+        "user": "补充说明，那次反应不仅限于局部，我还出现了全身性的皮疹和关节疼痛，持续了好几天才消退，从那以后我就拒绝使用氨基糖苷类药物了。",
+        "assistant": "好的，已根据您的补充更新了过敏反应的全身症状及后续禁忌。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "患者曾因治疗耳部感染注射何种药物导致局部及全身性过敏反应？",
+        "expected_facts": [
+          "患者因注射链霉素治疗耳部感染引发过敏。",
+          "症状包括耳周红肿发热、耳鸣、听力下降、全身皮疹及关节疼痛。"
+        ],
+        "required_groups": [
+          [
+            "链霉素",
+            "链霉素注射液"
+          ],
+          [
+            "耳鸣",
+            "听力下降",
+            "耳朵响"
+          ],
+          [
+            "全身皮疹",
+            "关节疼痛",
+            "关节痛"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "根据患者回忆，这次过敏发生在哪一年的冬季，患者此后对哪类药物持拒绝态度？",
+        "expected_facts": [
+          "事件发生在2016年冬天。",
+          "患者此后拒绝使用氨基糖苷类药物。"
+        ],
+        "required_groups": [
+          [
+            "2016年",
+            "2016年冬天"
+          ],
+          [
+            "拒绝使用",
+            "不再用",
+            "禁用"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M03-08",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860433-eOvXo349gYrGJuZsG79B",
+      "usage": {
+        "prompt_tokens": 67,
+        "total_tokens": 67,
+        "cost": 6.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.7e-07,
+          "upstream_inference_prompt_cost": 6.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860435-b5r4vYy6Nvia03Q1kVSf",
+      "usage": {
+        "prompt_tokens": 8366,
+        "completion_tokens": 195,
+        "total_tokens": 8561,
+        "cost": 0.0029778,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0029778,
+          "upstream_inference_prompt_cost": 0.0025098,
+          "upstream_inference_completions_cost": 0.000468
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 97,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"User has a documented allergy to streptomycin injection. In winter 2016, eight years ago, the user received an injection for an ear infection and experienced swelling, redness, and heat around the ears, accompanied by tinnitus and hearing loss.\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860447-3P9Evr8TWfyL4oRv5auv",
+      "usage": {
+        "prompt_tokens": 54,
+        "total_tokens": 54,
+        "cost": 5.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.4e-07,
+          "upstream_inference_prompt_cost": 5.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860448-pynZTjzHmURQg7GcXnSH",
+      "usage": {
+        "prompt_tokens": 68,
+        "total_tokens": 68,
+        "cost": 6.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.8e-07,
+          "upstream_inference_prompt_cost": 6.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860451-oe8wlS7vKZWvGBSV3AjR",
+      "usage": {
+        "prompt_tokens": 8485,
+        "completion_tokens": 516,
+        "total_tokens": 9001,
+        "cost": 0.0035477,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0035477,
+          "upstream_inference_prompt_cost": 0.0022061,
+          "upstream_inference_completions_cost": 0.0013416
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 495,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户补充说明2016年链霉素过敏反应不仅限于局部，还出现了全身性皮疹和关节疼痛，持续数天才消退。从那以后，用户拒绝使用氨基糖苷类药物。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860465-r3cUr5kvWxlIWX3wWr0V",
+      "usage": {
+        "prompt_tokens": 47,
+        "total_tokens": 47,
+        "cost": 4.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.7e-07,
+          "upstream_inference_prompt_cost": 4.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860469-6xY7i3RCHXTtaB3fry6G",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860470-Dq0wkZWUXUiONNuv4Jjj",
+      "usage": {
+        "prompt_tokens": 23,
+        "total_tokens": 23,
+        "cost": 2.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.3e-07,
+          "upstream_inference_prompt_cost": 2.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860471-HqMHT8AWISxrSH4Gq7Zv",
+      "usage": {
+        "prompt_tokens": 29,
+        "total_tokens": 29,
+        "cost": 2.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.9e-07,
+          "upstream_inference_prompt_cost": 2.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860474-fW3ydAPFGBlXZDCMrOx7",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860475-uze1WG7YQcvsOZzABB8n",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "患者曾因治疗耳部感染注射何种药物导致局部及全身性过敏反应？",
+        "expected_facts": [
+          "患者因注射链霉素治疗耳部感染引发过敏。",
+          "症状包括耳周红肿发热、耳鸣、听力下降、全身皮疹及关节疼痛。"
+        ],
+        "required_groups": [
+          [
+            "链霉素",
+            "链霉素注射液"
+          ],
+          [
+            "耳鸣",
+            "听力下降",
+            "耳朵响"
+          ],
+          [
+            "全身皮疹",
+            "关节疼痛",
+            "关节痛"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "e9855c05-76ba-4558-8799-ec3917fb29f3",
+          "content": "用户补充说明2016年链霉素过敏反应不仅限于局部，还出现了全身性皮疹和关节疼痛，持续数天才消退。从那以后，用户拒绝使用氨基糖苷类药物。",
+          "score": 0.6635105548458125,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:40:47.609368+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M03-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:08.248343+00:00"
+        },
+        {
+          "memory_id": "613eb054-6f20-4eb7-be03-32d18fd2246e",
+          "content": "User has a documented allergy to streptomycin injection. In winter 2016, eight years ago, the user received an injection for an ear infection and experienced swelling, redness, and heat around the ears, accompanied by tinnitus and hearing loss.",
+          "score": 0.6483573404031135,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:40:31.617681+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M03-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:40:47.583756+00:00"
+        }
+      ],
+      "seconds": 1.266
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "根据患者回忆，这次过敏发生在哪一年的冬季，患者此后对哪类药物持拒绝态度？",
+        "expected_facts": [
+          "事件发生在2016年冬天。",
+          "患者此后拒绝使用氨基糖苷类药物。"
+        ],
+        "required_groups": [
+          [
+            "2016年",
+            "2016年冬天"
+          ],
+          [
+            "拒绝使用",
+            "不再用",
+            "禁用"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "e9855c05-76ba-4558-8799-ec3917fb29f3",
+          "content": "用户补充说明2016年链霉素过敏反应不仅限于局部，还出现了全身性皮疹和关节疼痛，持续数天才消退。从那以后，用户拒绝使用氨基糖苷类药物。",
+          "score": 0.6487048604358077,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:40:47.609368+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M03-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:08.248343+00:00"
+        },
+        {
+          "memory_id": "613eb054-6f20-4eb7-be03-32d18fd2246e",
+          "content": "User has a documented allergy to streptomycin injection. In winter 2016, eight years ago, the user received an injection for an ear infection and experienced swelling, redness, and heat around the ears, accompanied by tinnitus and hearing loss.",
+          "score": 0.5423614005932409,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:40:31.617681+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M03-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:40:47.583756+00:00"
+        }
+      ],
+      "seconds": 1.14
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者曾因治疗耳部感染注射何种药物导致局部及全身性过敏反应？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "613eb054-6f20-4eb7-be03-32d18fd2246e",
+        "content": "User has a documented allergy to streptomycin injection. In winter 2016, eight years ago, the user received an injection for an ear infection and experienced swelling, redness, and heat around the ears, accompanied by tinnitus and hearing loss.",
+        "score": 0.6245230610337547,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:40:31.617681+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M03-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:40:47.583756+00:00"
+      },
+      {
+        "memory_id": "e9855c05-76ba-4558-8799-ec3917fb29f3",
+        "content": "用户补充说明2016年链霉素过敏反应不仅限于局部，还出现了全身性皮疹和关节疼痛，持续数天才消退。从那以后，用户拒绝使用氨基糖苷类药物。",
+        "score": 0.6181159642791121,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:40:47.609368+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M03-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:41:08.248343+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 45.297
+}

@@ -1,0 +1,442 @@
+{
+  "case": {
+    "id": "M08-03",
+    "category": "搬家旅行与生活环境变化",
+    "turns": [
+      {
+        "user": "我三年前因为工作调动，从北京搬到了上海，那时候刚入职新公司，所以把家也安顿在了浦东。",
+        "assistant": "了解，已记录您三年前因工作从北京搬迁至上海浦东的情况。"
+      },
+      {
+        "user": "补充说明，其实我是在两年前才正式把户口迁到上海的，虽然三年前就搬过去了，但手续拖了很久。",
+        "assistant": "明白，已补充您两年前完成户口迁移至上海的信息。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "M08-03-Q1",
+        "query": "患者何时从北京搬至上海，以及户口迁移的具体时间是什么时候？",
+        "expected_facts": [
+          "患者三年前从北京搬到了上海。",
+          "患者两年前正式将户口迁至上海。",
+          "搬家原因是工作调动。"
+        ],
+        "required_groups": [
+          [
+            "三年前",
+            "三年前"
+          ],
+          [
+            "两年前",
+            "两年前"
+          ],
+          [
+            "工作调动",
+            "工作"
+          ]
+        ]
+      },
+      {
+        "id": "M08-03-Q2",
+        "query": "请说明患者搬迁上海的时间线，包括实际居住和户口变更的时间。",
+        "expected_facts": [
+          "患者三年前实际搬入上海浦东居住。",
+          "患者两年前完成了户口迁移手续。",
+          "搬迁原因为新公司入职。"
+        ],
+        "required_groups": [
+          [
+            "三年前",
+            "三年前"
+          ],
+          [
+            "两年前",
+            "两年前"
+          ],
+          [
+            "浦东",
+            "上海"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M08-03",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861068-Yn17ueZFv9AqegqvgYRj",
+      "usage": {
+        "prompt_tokens": 54,
+        "total_tokens": 54,
+        "cost": 5.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.4e-07,
+          "upstream_inference_prompt_cost": 5.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861072-gv8Gndr3E3Xd35SEqLB1",
+      "usage": {
+        "prompt_tokens": 8355,
+        "completion_tokens": 430,
+        "total_tokens": 8785,
+        "cost": 0.00318465,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00318465,
+          "upstream_inference_prompt_cost": 0.00225585,
+          "upstream_inference_completions_cost": 0.0009288
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 362,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户三年前因工作调动从北京搬迁至上海，当时刚入职新公司，家安顿在浦东\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861094-55J8O4CSTkSAKk0341RP",
+      "usage": {
+        "prompt_tokens": 24,
+        "total_tokens": 24,
+        "cost": 2.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.4e-07,
+          "upstream_inference_prompt_cost": 2.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861100-qEz5erj8oiWYAqGzDYRI",
+      "usage": {
+        "prompt_tokens": 51,
+        "total_tokens": 51,
+        "cost": 5.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.1e-07,
+          "upstream_inference_prompt_cost": 5.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861102-asopCcVSOE8E0FyKHkge",
+      "usage": {
+        "prompt_tokens": 8433,
+        "completion_tokens": 405,
+        "total_tokens": 8838,
+        "cost": 0.00291825,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00291825,
+          "upstream_inference_prompt_cost": 0.00210825,
+          "upstream_inference_completions_cost": 0.00081
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 365,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户两年前才正式将户口迁到上海，虽然三年前就搬过去了，但手续拖了很久\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861118-dumVcEazUNL0wAf3j17L",
+      "usage": {
+        "prompt_tokens": 22,
+        "total_tokens": 22,
+        "cost": 2.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.2e-07,
+          "upstream_inference_prompt_cost": 2.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861119-8ZgiSe2HQ22K5nT8Pzn2",
+      "usage": {
+        "prompt_tokens": 17,
+        "total_tokens": 17,
+        "cost": 1.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.7e-07,
+          "upstream_inference_prompt_cost": 1.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861119-Sgkp9ONOfsZ4op1Sq90Q",
+      "usage": {
+        "prompt_tokens": 17,
+        "total_tokens": 17,
+        "cost": 1.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.7e-07,
+          "upstream_inference_prompt_cost": 1.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861125-GTLJYoAo1VDb6wlMCVzC",
+      "usage": {
+        "prompt_tokens": 27,
+        "total_tokens": 27,
+        "cost": 2.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.7e-07,
+          "upstream_inference_prompt_cost": 2.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861132-4XoKPz7dRxcThb2vcE9D",
+      "usage": {
+        "prompt_tokens": 17,
+        "total_tokens": 17,
+        "cost": 1.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.7e-07,
+          "upstream_inference_prompt_cost": 1.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861136-NWA5bOiy8E2P8a3uMSNm",
+      "usage": {
+        "prompt_tokens": 17,
+        "total_tokens": 17,
+        "cost": 1.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.7e-07,
+          "upstream_inference_prompt_cost": 1.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "M08-03-Q1",
+        "query": "患者何时从北京搬至上海，以及户口迁移的具体时间是什么时候？",
+        "expected_facts": [
+          "患者三年前从北京搬到了上海。",
+          "患者两年前正式将户口迁至上海。",
+          "搬家原因是工作调动。"
+        ],
+        "required_groups": [
+          [
+            "三年前",
+            "三年前"
+          ],
+          [
+            "两年前",
+            "两年前"
+          ],
+          [
+            "工作调动",
+            "工作"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "573a84e7-862a-4cab-b018-8f6635989b6e",
+          "content": "用户两年前才正式将户口迁到上海，虽然三年前就搬过去了，但手续拖了很久",
+          "score": 0.6890361878824709,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:39.497914+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M08-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:57.919610+00:00"
+        },
+        {
+          "memory_id": "597c70ef-1b7b-4883-bd49-508c57ca65bf",
+          "content": "用户三年前因工作调动从北京搬迁至上海，当时刚入职新公司，家安顿在浦东",
+          "score": 0.6690617064534101,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:06.782082+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M08-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:39.471993+00:00"
+        }
+      ],
+      "seconds": 1.047
+    },
+    {
+      "query": {
+        "id": "M08-03-Q2",
+        "query": "请说明患者搬迁上海的时间线，包括实际居住和户口变更的时间。",
+        "expected_facts": [
+          "患者三年前实际搬入上海浦东居住。",
+          "患者两年前完成了户口迁移手续。",
+          "搬迁原因为新公司入职。"
+        ],
+        "required_groups": [
+          [
+            "三年前",
+            "三年前"
+          ],
+          [
+            "两年前",
+            "两年前"
+          ],
+          [
+            "浦东",
+            "上海"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "573a84e7-862a-4cab-b018-8f6635989b6e",
+          "content": "用户两年前才正式将户口迁到上海，虽然三年前就搬过去了，但手续拖了很久",
+          "score": 0.825612543580053,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:39.497914+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M08-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:57.919610+00:00"
+        },
+        {
+          "memory_id": "597c70ef-1b7b-4883-bd49-508c57ca65bf",
+          "content": "用户三年前因工作调动从北京搬迁至上海，当时刚入职新公司，家安顿在浦东",
+          "score": 0.7491604699178689,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:06.782082+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M08-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:39.471993+00:00"
+        }
+      ],
+      "seconds": 5.797
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者何时从北京搬至上海，以及户口迁移的具体时间是什么时候？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "573a84e7-862a-4cab-b018-8f6635989b6e",
+        "content": "用户两年前才正式将户口迁到上海，虽然三年前就搬过去了，但手续拖了很久",
+        "score": 0.6946790351621892,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:51:39.497914+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M08-03",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:51:57.919610+00:00"
+      },
+      {
+        "memory_id": "597c70ef-1b7b-4883-bd49-508c57ca65bf",
+        "content": "用户三年前因工作调动从北京搬迁至上海，当时刚入职新公司，家安顿在浦东",
+        "score": 0.6852675651781375,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:51:06.782082+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M08-03",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:51:39.471993+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 69.75
+}

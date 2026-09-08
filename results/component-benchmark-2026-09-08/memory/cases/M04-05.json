@@ -1,0 +1,479 @@
+{
+  "case": {
+    "id": "M04-05",
+    "category": "用户和家人的经历区分",
+    "turns": [
+      {
+        "user": "我女儿去年夏天因为食物中毒住了一天院，后来就好了。我自己肠胃一直比较弱，经常拉肚子，但从来没有因为这个问题住过医院。",
+        "assistant": "明白，已记录您女儿的住院经历及您长期的肠胃状况。"
+      },
+      {
+        "user": "不对，是儿子去年夏天食物中毒住院的，女儿没事。我自己确实肠胃不好，容易腹泻，但从未因此入院治疗，都是在家调理。",
+        "assistant": "收到，已更正为您儿子的住院记录，并确认您在家调理的情况。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "您的孩子中，谁在去年夏天因食物中毒而住院治疗？",
+        "expected_facts": [
+          "用户的儿子在去年夏天因食物中毒住院一天。"
+        ],
+        "required_groups": [
+          [
+            "儿子",
+            "孩子"
+          ],
+          [
+            "去年夏天",
+            "去年夏季"
+          ],
+          [
+            "食物中毒",
+            "吃坏肚子"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "用户本人是否有过因肠胃问题住院的历史？平时如何处理？",
+        "expected_facts": [
+          "用户肠胃较弱常腹泻，但从未住院，均在家调理。"
+        ],
+        "required_groups": [
+          [
+            "肠胃弱",
+            "拉肚子"
+          ],
+          [
+            "从未住院",
+            "没住过院"
+          ],
+          [
+            "在家调理",
+            "自己处理"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M04-05",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860526-FflFMWymsKUxFjPKUZIn",
+      "usage": {
+        "prompt_tokens": 58,
+        "total_tokens": 58,
+        "cost": 5.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.8e-07,
+          "upstream_inference_prompt_cost": 5.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860528-tdawVmD6ib1KprHLRtmU",
+      "usage": {
+        "prompt_tokens": 8356,
+        "completion_tokens": 179,
+        "total_tokens": 8535,
+        "cost": 0.0029364,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0029364,
+          "upstream_inference_prompt_cost": 0.0025068,
+          "upstream_inference_completions_cost": 0.0004296
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 105,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\"memory\": [{\"id\": \"0\", \"text\": \"用户的女儿去年夏天因食物中毒住院一天，后来康复了\", \"attributed_to\": \"user\"}, {\"id\": \"1\", \"text\": \"用户自己肠胃一直比较弱，经常拉肚子，但从来没有因为这个问题住过医院\", \"attributed_to\": \"user\"}]}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860535-gH6fnZgdOLcBeLENGHHQ",
+      "usage": {
+        "prompt_tokens": 33,
+        "total_tokens": 33,
+        "cost": 3.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.3e-07,
+          "upstream_inference_prompt_cost": 3.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860538-kyEtFbsVpakjqzSX7ddD",
+      "usage": {
+        "prompt_tokens": 59,
+        "total_tokens": 59,
+        "cost": 5.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.9e-07,
+          "upstream_inference_prompt_cost": 5.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860542-4vO4cuLpzmGLZXEUbymG",
+      "usage": {
+        "prompt_tokens": 8461,
+        "completion_tokens": 675,
+        "total_tokens": 9136,
+        "cost": 0.00346525,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00346525,
+          "upstream_inference_prompt_cost": 0.00211525,
+          "upstream_inference_completions_cost": 0.00135
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 709,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户更正：是儿子去年夏天（2025年）因食物中毒住院，而非女儿。女儿没有住院。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"1\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860566-iDNcEKFrtqWkw0chPTmL",
+      "usage": {
+        "prompt_tokens": 28,
+        "total_tokens": 28,
+        "cost": 2.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.8e-07,
+          "upstream_inference_prompt_cost": 2.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860567-zCBNjlHcBEYNj47M4tee",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860568-G9ZPR2BPyyVcC4q7Egxa",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6e-07,
+          "upstream_inference_prompt_cost": 6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860579-IgZkJf1RFyq2YPhV2W35",
+      "usage": {
+        "prompt_tokens": 25,
+        "total_tokens": 25,
+        "cost": 2.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.5e-07,
+          "upstream_inference_prompt_cost": 2.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860580-fkQgcCBaoTar3o6B0eJd",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860588-Gfq5f9t9mlLlZtFULBFW",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "您的孩子中，谁在去年夏天因食物中毒而住院治疗？",
+        "expected_facts": [
+          "用户的儿子在去年夏天因食物中毒住院一天。"
+        ],
+        "required_groups": [
+          [
+            "儿子",
+            "孩子"
+          ],
+          [
+            "去年夏天",
+            "去年夏季"
+          ],
+          [
+            "食物中毒",
+            "吃坏肚子"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "a8154d74-123e-4be7-92da-f65371dc2ea6",
+          "content": "用户的女儿去年夏天因食物中毒住院一天，后来康复了",
+          "score": 0.7845783726028297,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:02.478541+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:17.581797+00:00"
+        },
+        {
+          "memory_id": "f6fd7a7e-cff1-49a4-a492-479cfaf0d27c",
+          "content": "用户更正：是儿子去年夏天（2025年）因食物中毒住院，而非女儿。女儿没有住院。",
+          "score": 0.7684360907369207,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:17.616487+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M04-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:46.307445+00:00"
+        },
+        {
+          "memory_id": "ce134894-44b5-4b62-901c-801a10f6b81b",
+          "content": "用户自己肠胃一直比较弱，经常拉肚子，但从来没有因为这个问题住过医院",
+          "score": 0.44435246985807675,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:02.478541+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:17.581797+00:00"
+        }
+      ],
+      "seconds": 1.172
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "用户本人是否有过因肠胃问题住院的历史？平时如何处理？",
+        "expected_facts": [
+          "用户肠胃较弱常腹泻，但从未住院，均在家调理。"
+        ],
+        "required_groups": [
+          [
+            "肠胃弱",
+            "拉肚子"
+          ],
+          [
+            "从未住院",
+            "没住过院"
+          ],
+          [
+            "在家调理",
+            "自己处理"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "ce134894-44b5-4b62-901c-801a10f6b81b",
+          "content": "用户自己肠胃一直比较弱，经常拉肚子，但从来没有因为这个问题住过医院",
+          "score": 0.8117535022990909,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:02.478541+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:17.581797+00:00"
+        },
+        {
+          "memory_id": "a8154d74-123e-4be7-92da-f65371dc2ea6",
+          "content": "用户的女儿去年夏天因食物中毒住院一天，后来康复了",
+          "score": 0.6138184987444155,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:02.478541+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:17.581797+00:00"
+        },
+        {
+          "memory_id": "f6fd7a7e-cff1-49a4-a492-479cfaf0d27c",
+          "content": "用户更正：是儿子去年夏天（2025年）因食物中毒住院，而非女儿。女儿没有住院。",
+          "score": 0.5462444993117312,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:17.616487+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M04-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:46.307445+00:00"
+        }
+      ],
+      "seconds": 10.969
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "您的孩子中，谁在去年夏天因食物中毒而住院治疗？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "f6fd7a7e-cff1-49a4-a492-479cfaf0d27c",
+        "content": "用户更正：是儿子去年夏天（2025年）因食物中毒住院，而非女儿。女儿没有住院。",
+        "score": 0.7297172086686916,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:42:17.616487+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M04-05",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:42:46.307445+00:00"
+      },
+      {
+        "memory_id": "a8154d74-123e-4be7-92da-f65371dc2ea6",
+        "content": "用户的女儿去年夏天因食物中毒住院一天，后来康复了",
+        "score": 0.6890755320686182,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:42:02.478541+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M04-05",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:42:17.581797+00:00"
+      },
+      {
+        "memory_id": "ce134894-44b5-4b62-901c-801a10f6b81b",
+        "content": "用户自己肠胃一直比较弱，经常拉肚子，但从来没有因为这个问题住过医院",
+        "score": 0.4705179964666481,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:42:02.478541+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M04-05",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:42:17.581797+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 69.266
+}

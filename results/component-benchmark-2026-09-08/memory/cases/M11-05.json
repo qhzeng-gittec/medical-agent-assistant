@@ -1,0 +1,442 @@
+{
+  "case": {
+    "id": "M11-05",
+    "category": "多项历史事实的跨会话汇总",
+    "turns": [
+      {
+        "user": "我五十二岁，十年前因为车祸导致左腿骨折，做了手术，术后康复了半年，走路基本正常，但阴雨天膝盖还是会疼。",
+        "assistant": "明白，已记录您十年前的车祸骨折及手术康复历史。"
+      },
+      {
+        "user": "补充一下，五年前我因为爬山扭伤了右腿，当时没骨折，只是拉伤，休息了两周就好了，但之后右腿偶尔也会酸胀，不过不影响日常活动。",
+        "assistant": "收到，已更新您五年前右腿拉伤及后续症状的记录。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "M11-05-Q1",
+        "query": "患者十年前因什么事故受伤，做了什么治疗，康复后有什么遗留症状？",
+        "expected_facts": [
+          "患者十年前因车祸导致左腿骨折。",
+          "患者接受了手术治疗并康复半年。",
+          "患者阴雨天膝盖仍会疼痛。"
+        ],
+        "required_groups": [
+          [
+            "车祸",
+            "交通事故"
+          ],
+          [
+            "左腿骨折",
+            "骨折"
+          ],
+          [
+            "阴雨天疼",
+            "天气变化疼"
+          ]
+        ]
+      },
+      {
+        "id": "M11-05-Q2",
+        "query": "五年前他右腿发生了什么情况，休息了多久，现在是否影响生活？",
+        "expected_facts": [
+          "患者五年前因爬山扭伤右腿。",
+          "患者休息了两周后恢复。",
+          "患者右腿偶尔酸胀但不影响日常活动。"
+        ],
+        "required_groups": [
+          [
+            "爬山扭伤",
+            "扭伤"
+          ],
+          [
+            "休息两周",
+            "两周"
+          ],
+          [
+            "不影响日常",
+            "正常活动"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M11-05",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861558-2JvoqzOBqwt6nwvK4O2f",
+      "usage": {
+        "prompt_tokens": 56,
+        "total_tokens": 56,
+        "cost": 5.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.6e-07,
+          "upstream_inference_prompt_cost": 5.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861560-KCyvHXtbwTpahhN4eKgP",
+      "usage": {
+        "prompt_tokens": 8358,
+        "completion_tokens": 155,
+        "total_tokens": 8513,
+        "cost": 0.00259146,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00259146,
+          "upstream_inference_prompt_cost": 0.00225666,
+          "upstream_inference_completions_cost": 0.0003348
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 78,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户五十二岁，十年前因车祸导致左腿骨折并进行了手术，术后康复了半年，走路基本正常，但阴雨天膝盖仍会疼痛\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861564-9sNuXGMOfS8BBvm25jRt",
+      "usage": {
+        "prompt_tokens": 34,
+        "total_tokens": 34,
+        "cost": 3.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.4e-07,
+          "upstream_inference_prompt_cost": 3.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861566-4Fuuwk7HxLKL2l2s75Dd",
+      "usage": {
+        "prompt_tokens": 69,
+        "total_tokens": 69,
+        "cost": 6.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.9e-07,
+          "upstream_inference_prompt_cost": 6.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861567-pAJGJVPyC2ZFvyWHj7Ex",
+      "usage": {
+        "prompt_tokens": 8464,
+        "completion_tokens": 403,
+        "total_tokens": 8867,
+        "cost": 0.00324844,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00324844,
+          "upstream_inference_prompt_cost": 0.00220064,
+          "upstream_inference_completions_cost": 0.0010478
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 324,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户五年前爬山时扭伤右腿，当时未骨折只是拉伤，休息两周后恢复，但之后右腿偶尔会酸胀，不影响日常活动\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861575-eyDVVbVphZ1HSBk29chj",
+      "usage": {
+        "prompt_tokens": 36,
+        "total_tokens": 36,
+        "cost": 3.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.6e-07,
+          "upstream_inference_prompt_cost": 3.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861578-7uVtXtIxvl841s6Xb7bY",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861579-XRF8E8KmbojbTwesMCIk",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861581-PBF5m2LcJMml3HjV4nBI",
+      "usage": {
+        "prompt_tokens": 28,
+        "total_tokens": 28,
+        "cost": 2.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.8e-07,
+          "upstream_inference_prompt_cost": 2.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861583-krmycluDkc0VLc5HMM0k",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861584-KuP1AjpAgrOwQPHNszV7",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 7.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.2e-07,
+          "upstream_inference_prompt_cost": 7.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "M11-05-Q1",
+        "query": "患者十年前因什么事故受伤，做了什么治疗，康复后有什么遗留症状？",
+        "expected_facts": [
+          "患者十年前因车祸导致左腿骨折。",
+          "患者接受了手术治疗并康复半年。",
+          "患者阴雨天膝盖仍会疼痛。"
+        ],
+        "required_groups": [
+          [
+            "车祸",
+            "交通事故"
+          ],
+          [
+            "左腿骨折",
+            "骨折"
+          ],
+          [
+            "阴雨天疼",
+            "天气变化疼"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "11572e24-b8e0-477f-bd83-ae61b387a8b7",
+          "content": "用户五十二岁，十年前因车祸导致左腿骨折并进行了手术，术后康复了半年，走路基本正常，但阴雨天膝盖仍会疼痛",
+          "score": 0.624051335123324,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:59:16.941090+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:59:25.330049+00:00"
+        },
+        {
+          "memory_id": "8801d916-bf0a-48ca-b1e8-dcb83570d169",
+          "content": "用户五年前爬山时扭伤右腿，当时未骨折只是拉伤，休息两周后恢复，但之后右腿偶尔会酸胀，不影响日常活动",
+          "score": 0.5244739766521036,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:59:25.362077+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M11-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:59:35.970276+00:00"
+        }
+      ],
+      "seconds": 2.5
+    },
+    {
+      "query": {
+        "id": "M11-05-Q2",
+        "query": "五年前他右腿发生了什么情况，休息了多久，现在是否影响生活？",
+        "expected_facts": [
+          "患者五年前因爬山扭伤右腿。",
+          "患者休息了两周后恢复。",
+          "患者右腿偶尔酸胀但不影响日常活动。"
+        ],
+        "required_groups": [
+          [
+            "爬山扭伤",
+            "扭伤"
+          ],
+          [
+            "休息两周",
+            "两周"
+          ],
+          [
+            "不影响日常",
+            "正常活动"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "8801d916-bf0a-48ca-b1e8-dcb83570d169",
+          "content": "用户五年前爬山时扭伤右腿，当时未骨折只是拉伤，休息两周后恢复，但之后右腿偶尔会酸胀，不影响日常活动",
+          "score": 0.7082658174209946,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:59:25.362077+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M11-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:59:35.970276+00:00"
+        },
+        {
+          "memory_id": "11572e24-b8e0-477f-bd83-ae61b387a8b7",
+          "content": "用户五十二岁，十年前因车祸导致左腿骨折并进行了手术，术后康复了半年，走路基本正常，但阴雨天膝盖仍会疼痛",
+          "score": 0.5931095951834451,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:59:16.941090+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:59:25.330049+00:00"
+        }
+      ],
+      "seconds": 2.172
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者十年前因什么事故受伤，做了什么治疗，康复后有什么遗留症状？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "11572e24-b8e0-477f-bd83-ae61b387a8b7",
+        "content": "用户五十二岁，十年前因车祸导致左腿骨折并进行了手术，术后康复了半年，走路基本正常，但阴雨天膝盖仍会疼痛",
+        "score": 0.4787467815802258,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:59:16.941090+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M11-05",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:59:25.330049+00:00"
+      },
+      {
+        "memory_id": "8801d916-bf0a-48ca-b1e8-dcb83570d169",
+        "content": "用户五年前爬山时扭伤右腿，当时未骨折只是拉伤，休息两周后恢复，但之后右腿偶尔会酸胀，不影响日常活动",
+        "score": 0.39946768856340653,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:59:25.362077+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M11-05",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:59:35.970276+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 41.313
+}

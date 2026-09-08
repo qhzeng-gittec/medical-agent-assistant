@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"ce8f99c9925e7e511076\", \"query\": \"用户提到曾因赶报告而严重缺觉，这件事具体发生在哪一年？持续了多久？\", \"expected_facts\": [\"该事件发生在前年十二月。\", \"该用户当时连续半个月每天凌晨三点才睡。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户更正：赶年终报告连续半个月凌晨三点睡、早上七点起打印资料的情况发生在2024年12月（前年十二月），而非2025年12月。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:33:41.059615+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户去年年底（2025年12月）为赶年终报告，连续半个月每天凌晨三点睡、早上七点起，需要早起打印资料。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:33:19.215669+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户2025年年底处于休假状态，没有像前年那样劳累，只是偶尔晚睡。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:33:41.059615+00:00\"}]}, {\"id\": \"cee270edc05b319ce0d4\", \"query\": \"患者对停药日期的记忆是否有过错误？\", \"expected_facts\": [\"患者最初误记为3月5日或10日，后更正为3月8日\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"User更正佐匹克隆停药日期为2026年3月8日，当天重新查看病历发现医生写的是八号而非五号。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:36:49.774864+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"User因失眠于2021年开始服用佐匹克隆，每晚一片。2026年3月医生告知睡眠改善，建议3月5日停药，但User实际于3月10日才停用。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:36:29.691192+00:00\"}]}, {\"id\": \"cf4df0ff547d6150d626\", \"query\": \"患者预约了什么检查，主要症状和病史背景是什么？\", \"expected_facts\": [\"患者预约了下周三下午的颈动脉彩超。\", \"患者有高血压病史且近期出现头晕症状。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户预约了下周三下午的颈动脉彩超检查，有高血压病史，最近出现头晕症状\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:49:18.366478+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户计划于2026年9月16日下午两点到医院进行颈动脉彩超检查\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:49:29.260828+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户询问下午两点进行颈动脉彩超检查是否需要空腹\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:49:29.260828+00:00\"}]}, {\"id\": \"cfce65c0443571492d24\", \"query\": \"用户是否被确诊患有糖尿病？\", \"expected_facts\": [\"用户去年体检时未被确诊患有糖尿病。\", \"医生明确告知用户血糖正常且无糖尿病。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"很多人误以为用户患有糖尿病，但用户去年（约2025年）体检时血糖完全正常，医生特意强调用户没有患糖尿病\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:01:06.441190+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户家族中有糖尿病病史，因此用户比较注意饮食\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:01:06.441190+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户坚持每天监测空腹血糖，这一习惯从两年前开始，主要是为了预防，因为用户的父母都患有糖尿病。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:01:23.793991+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862218-hJ6hz2v5PXFGbUrHYBuN",
+    "object": "chat.completion",
+    "created": 1788862218,
+    "model": "minimax/minimax-m2.5",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "```json{\n  \"items\": [\n    {\n      \"id\": \"ce8f99c9925e7e511076\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"m0明确指出赶报告发生在2024年12月（前年十二月），且m0为后续更正记录。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}, {\"memory_id\": \"m1\"}],\n          \"reason\": \"m0和m1均提到连续半个月每天凌晨三点睡的情况，m0为更正后的最终确认。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"cee270edc05b319ce0d4\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}, {\"memory_id\": \"m1\"}],\n          \"reason\": \"m1记录了最初日期（医嘱3月5日、实际3月10日），m0提供了更正（3月8日），显示患者记忆有过错误并被更正。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"cf4df0ff547d6150d626\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}, {\"memory_id\": \"m1\"}],\n          \"reason\": \"m0和m1均明确提到预约了下周三下午的颈动脉彩超，m1给出具体日期2026年9月16日下午两点。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"m0明确提到用户有高血压病史且近期出现头晕症状。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"cfce65c0443571492d24\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"m0明确指出用户去年（约2025年）体检时血糖完全正常，医生强调用户没有糖尿病。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"m0明确提到医生特意强调用户没有患糖尿病。\"\n        }\n      ]\n    }\n  ]\n}\n```",
+          "refusal": null,
+          "reasoning": "Let me analyze each item according to the instructions:\n\n1. **ce8f99c9925e7e511076**: Query about when the sleep-deprived report event occurred and duration\n   - Expected facts:\n     - \"该事件发生在前年十二月。\" (This event occurred in the year before last, December)\n     - \"该用户当时连续半个月每天凌晨三点才睡。\" (The user then consecutively for half a month slept at 3am every day)\n   \n   Memories:\n   - m0: User corrected: the situation of working on year-end report for half a month sleeping at 3am and waking at 7am to print materials occurred in 2024年12月（前年十二月）, not 2025年12月. (session-2)\n   - m1: User last year (2025年12月) for year-end report, consecutive half a month sleeping at 3am, waking at 7am, needed to wake early to print materials. (session-1)\n   - m2: User at end of 2025 was on vacation, not as tired as the year before, only occasionally stayed up late. (session-2)\n   \n   Analysis:\n   - For \"前年十二月\": m0 explicitly states it was 2024年12月 (前年十二月). This supports the expected fact.\n   - For \"连续半个月每天凌晨三点才睡\": m0 and m1 both mention \"连续半个月每天凌晨三点睡\". This supports the expected fact.\n   \n   Both facts are supported by m0 (the correction).\n\n2. **cee270edc05b319ce0d4**: Query about whether patient's memory of discontinuation date was wrong\n   - Expected fact: \"患者最初误记为3月5日或10日，后更正为3月8日\"\n   \n   Memories:\n   - m0: User corrected zopiclone discontinuation date to 2026年3月8日, that day re-checked medical record found doctor wrote 8th not 5th. (session-2)\n   - m1: User started taking zopiclone in 2021 for insomnia. In 2026 March doctor suggested discontinuation on March 5, but User actually stopped on March 10. (session-1)\n   \n   Analysis:\n   - The expected fact says patient initially misremembered as March 5 or 10, later corrected to March 8.\n   - m0 says the correction was to March 8 (doctor wrote 8th not 5th)\n   - m1 says doctor suggested March 5, but user actually stopped on March 10\n   - The expected fact mentions \"3月5日或10日\" - this is partially supported by m1 (mentions both 5 and 10), and m0 provides the correction to 8\n   - This is supported - the correction exists in m0\n\nI'll continue analyzing the next items, focusing on the specific details and evidence from the memories.\n\nThe carotid artery ultrasound appointment is confirmed for next Wednesday afternoon, with supporting evidence from multiple memory sources. The patient's medical history includes hypertension and recent dizziness, which aligns with the expected medical background. The evidence consistently points to a scheduled ultrasound examination with clear medical context.\n\nRegarding the diabetes diagnosis, the medical records definitively show no diabetes diagnosis. The patient's blood tests from the previous year were completely normal, with explicit medical confirmation of no diabetes. While there is a family history of diabetes, the current medical assessment rules out any diabetes condition.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item according to the instructions:\n\n1. **ce8f99c9925e7e511076**: Query about when the sleep-deprived report event occurred and duration\n   - Expected facts:\n     - \"该事件发生在前年十二月。\" (This event occurred in the year before last, December)\n     - \"该用户当时连续半个月每天凌晨三点才睡。\" (The user then consecutively for half a month slept at 3am every day)\n   \n   Memories:\n   - m0: User corrected: the situation of working on year-end report for half a month sleeping at 3am and waking at 7am to print materials occurred in 2024年12月（前年十二月）, not 2025年12月. (session-2)\n   - m1: User last year (2025年12月) for year-end report, consecutive half a month sleeping at 3am, waking at 7am, needed to wake early to print materials. (session-1)\n   - m2: User at end of 2025 was on vacation, not as tired as the year before, only occasionally stayed up late. (session-2)\n   \n   Analysis:\n   - For \"前年十二月\": m0 explicitly states it was 2024年12月 (前年十二月). This supports the expected fact.\n   - For \"连续半个月每天凌晨三点才睡\": m0 and m1 both mention \"连续半个月每天凌晨三点睡\". This supports the expected fact.\n   \n   Both facts are supported by m0 (the correction).\n\n2. **cee270edc05b319ce0d4**: Query about whether patient's memory of discontinuation date was wrong\n   - Expected fact: \"患者最初误记为3月5日或10日，后更正为3月8日\"\n   \n   Memories:\n   - m0: User corrected zopiclone discontinuation date to 2026年3月8日, that day re-checked medical record found doctor wrote 8th not 5th. (session-2)\n   - m1: User started taking zopiclone in 2021 for insomnia. In 2026 March doctor suggested discontinuation on March 5, but User actually stopped on March 10. (session-1)\n   \n   Analysis:\n   - The expected fact says patient initially misremembered as March 5 or 10, later corrected to March 8.\n   - m0 says the correction was to March 8 (doctor wrote 8th not 5th)\n   - m1 says doctor suggested March 5, but user actually stopped on March 10\n   - The expected fact mentions \"3月5日或10日\" - this is partially supported by m1 (mentions both 5 and 10), and m0 provides the correction to 8\n   - This is supported - the correction exists in m0\n\nI'll continue analyzing the next items, focusing on the specific details and evidence from the memories.\n\nThe carotid artery ultrasound appointment is confirmed for next Wednesday afternoon, with supporting evidence from multiple memory sources. The patient's medical history includes hypertension and recent dizziness, which aligns with the expected medical background. The evidence consistently points to a scheduled ultrasound examination with clear medical context.\n\nRegarding the diabetes diagnosis, the medical records definitively show no diabetes diagnosis. The patient's blood tests from the previous year were completely normal, with explicit medical confirmation of no diabetes. While there is a family history of diabetes, the current medical assessment rules out any diabetes condition.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1315,
+      "completion_tokens": 1238,
+      "total_tokens": 2553,
+      "cost": 0.001813365,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.001813365,
+        "upstream_inference_prompt_cost": 0.000327765,
+        "upstream_inference_completions_cost": 0.0014856
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 722,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 26.812
+}

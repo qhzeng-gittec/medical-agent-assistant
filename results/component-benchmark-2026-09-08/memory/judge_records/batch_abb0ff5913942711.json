@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"511cbc194aafbd0970f0\", \"query\": \"患者对停药日期的记忆是否有过错误？\", \"expected_facts\": [\"患者最初误记为7月20日或25日，后更正为7月22日\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"User corrected their topiramate (托吡酯) stop date to July 22nd, 2026 after reviewing their medical records and finding it was written as the 22nd, not the 20th\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:48:45.182599+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"User actually stopped taking topiramate on July 25th, 2026, five days after the doctor's recommended stop date of July 20th\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:48:26.376767+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"In July 2026, the doctor told User their migraine attacks had decreased and instructed them to stop topiramate on July 20th\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:48:26.376767+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"User started taking topiramate (托吡酯) in 2020 for migraines, taking half a tablet daily\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:48:26.376767+00:00\"}]}, {\"id\": \"51fc8b5f3d1bf7bf34df\", \"query\": \"患者最近被建议避免哪些具体运动？\", \"expected_facts\": [\"患者被建议暂时避免跑步和跳跃。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户于2026年9月1日左右开始膝盖疼痛，医生建议暂时避免跑步和跳跃，但可以进行游泳或骑自行车。用户目前每天只能散步半小时。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:33:09.015964+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户补充说明，如果膝盖疼痛加剧，需要完全停止所有下肢运动直到复查。目前用户仍在坚持每天散步半小时。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:34:08.181964+00:00\"}]}, {\"id\": \"545f27211fd4ce89aba4\", \"query\": \"患者是从哪一年开始执行无麸质饮食计划的？目前是否完全坚持？\", \"expected_facts\": [\"该患者于2023年春天开始执行无麸质饮食计划。\", \"该患者目前偶尔仍会食用含麸质食物如面包。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户从2023年春天正式开始无麸质饮食。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:54.288716+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户最近两年开始尝试无麸质饮食，因为觉得身体更轻盈，但偶尔还是会偷吃面包。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:40:43.423170+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户的花生过敏在十岁时反应最严重，后来虽然未完全痊愈，但轻微接触已无大碍。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:54.288716+00:00\"}]}, {\"id\": \"55957dfbb342273010e9\", \"query\": \"您的表亲中，谁在两年前因心理健康问题休学了半年？\", \"expected_facts\": [\"用户的表哥在两年前因抑郁症休学半年。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户更正：是表哥（而非表姐）两年前因抑郁症休学半年，表姐很健康。用户自己有焦虑情绪但从未确诊抑郁症，也从未因此休学。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:43:02.108905+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户的表姐两年前因抑郁症休学半年，后来复学并好转\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:42:47.478283+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户在工作压力大时会有焦虑情绪，但从未达到抑郁程度，也从未休学过\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:42:47.478283+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861957-dv0grWCuuwY08EIYjIUY",
+    "object": "chat.completion",
+    "created": 1788861957,
+    "model": "minimax/minimax-m2.5",
+    "provider": "Minimax",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"items\": [\n    {\n      \"id\": \"511cbc194aafbd0970f0\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"}\n          ],\n          \"reason\": \"Memory m0 explicitly shows the user corrected the stop date from July 20th to July 22nd after reviewing medical records.\"\n        }\n      ]\n    },\n    {\n      \"id\": \"51fc8b5f3d1bf7bf34df\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"},\n            {\"memory_id\": \"m1\"}\n          ],\n          \"reason\": \"Both m0 and m1 explicitly state the doctor advised temporarily avoiding running and jumping.\"\n        }\n      ]\n    },\n    {\n      \"id\": \"545f27211fd4ce89aba4\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"}\n          ],\n          \"reason\": \"Memory m0 states the user started gluten-free diet in spring 2023.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m1\"}\n          ],\n          \"reason\": \"Memory m1 explicitly mentions occasionally eating bread despite the gluten-free attempt.\"\n        }\n      ]\n    },\n    {\n      \"id\": \"55957dfbb342273010e9\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [\n            {\"memory_id\": \"m0\"}\n          ],\n          \"reason\": \"Memory m0 corrects the earlier error and confirms the cousin (表哥) took a half-year break due to depression two years ago.\"\n        }\n      ]\n    }\n  ]\n}\n```",
+          "refusal": null,
+          "reasoning": "Let me analyze each item:\n\n**Item 1 (511cbc194aafbd0970f0):**\n- Query: 患者对停药日期的记忆是否有过错误？\n- Expected facts: \"患者最初误记为7月20日或25日，后更正为7月22日\"\n- Memories:\n  - m0: \"User corrected their topiramate (托吡酯) stop date to July 22nd, 2026 after reviewing their medical records and finding it was written as the 22nd, not the 20th\" (session-2, later correction)\n  - m1: \"User actually stopped taking topiramate on July 25th, 2026, five days after the doctor's recommended stop date of July 20th\" (session-1)\n  - m2: \"In July 2026, the doctor told User their migraine attacks had decreased and instructed them to stop topiramate on July 20th\" (session-1)\n  - m3: \"User started taking topiramate (托吡酯) in 2020 for migraines, taking half a tablet daily\" (session-1)\n\nAnalysis: The expected fact states the patient initially misremembered as July 20 or 25, then corrected to July 22. Looking at memories:\n- m0 shows correction to July 22 (after reviewing records, found it was the 22nd, not the 20th)\n- m1 shows actual stop was July 25\n- m2 shows doctor recommended July 20\n\nThis is a bit complex. The expected fact says \"误记为7月20日或25日\" (misremembered as July 20 or 25) then corrected to July 22. The memories show:\n- A correction was made (m0) from July 20 to July 22\n- The actual stop date was July 25 (m1)\n- The doctor recommended July 20 (m2)\n\nSo there was indeed a correction from an earlier misremembered date to July 22. \n\nI see the memories confirm the correction process. The evidence points to a specific memory (m0) that supports the fact of correction from July 20 to July 22. While the expected fact mentions multiple possible misremembered dates, the core detail of correction is supported. The nuance is subtle but the memory provides clear evidence of the correction.\n\nFor the second fact about avoiding running and jumping, I find strong evidence. Two memories (m0 and m1) directly indicate the doctor's recommendation to temporarily avoid these specific activities. The evidence is clear and supports the expected fact precisely.\n\nThe third fact involves gluten-free diet starting in spring 2023, which is corroborated by multiple memories. The information consistently points to the diet beginning in 2023, with clear documentation from different sessions supporting this timeline.\n\nThe fourth fact reveals nuanced details about the cousin's mental health history. The initial memory suggests a discrepancy between a male and female cousin's mental health situation, with subsequent clarification pointing to a male cousin's depression-related school leave.\n\nThe memories provide conflicting accounts: one indicates the cousin took a half-year break due to depression two years ago, while another mentions the cousin's recovery and return to school. The evidence shows some uncertainty about the precise details, yet supports the core fact of a mental health-related interruption.\n\nThe expected facts align with the corrected information from the memory, specifically highlighting the cousin's temporary school suspension due to depression. While the initial memory contained an error, the subsequent correction provides accurate details about the family member's experience.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item:\n\n**Item 1 (511cbc194aafbd0970f0):**\n- Query: 患者对停药日期的记忆是否有过错误？\n- Expected facts: \"患者最初误记为7月20日或25日，后更正为7月22日\"\n- Memories:\n  - m0: \"User corrected their topiramate (托吡酯) stop date to July 22nd, 2026 after reviewing their medical records and finding it was written as the 22nd, not the 20th\" (session-2, later correction)\n  - m1: \"User actually stopped taking topiramate on July 25th, 2026, five days after the doctor's recommended stop date of July 20th\" (session-1)\n  - m2: \"In July 2026, the doctor told User their migraine attacks had decreased and instructed them to stop topiramate on July 20th\" (session-1)\n  - m3: \"User started taking topiramate (托吡酯) in 2020 for migraines, taking half a tablet daily\" (session-1)\n\nAnalysis: The expected fact states the patient initially misremembered as July 20 or 25, then corrected to July 22. Looking at memories:\n- m0 shows correction to July 22 (after reviewing records, found it was the 22nd, not the 20th)\n- m1 shows actual stop was July 25\n- m2 shows doctor recommended July 20\n\nThis is a bit complex. The expected fact says \"误记为7月20日或25日\" (misremembered as July 20 or 25) then corrected to July 22. The memories show:\n- A correction was made (m0) from July 20 to July 22\n- The actual stop date was July 25 (m1)\n- The doctor recommended July 20 (m2)\n\nSo there was indeed a correction from an earlier misremembered date to July 22. \n\nI see the memories confirm the correction process. The evidence points to a specific memory (m0) that supports the fact of correction from July 20 to July 22. While the expected fact mentions multiple possible misremembered dates, the core detail of correction is supported. The nuance is subtle but the memory provides clear evidence of the correction.\n\nFor the second fact about avoiding running and jumping, I find strong evidence. Two memories (m0 and m1) directly indicate the doctor's recommendation to temporarily avoid these specific activities. The evidence is clear and supports the expected fact precisely.\n\nThe third fact involves gluten-free diet starting in spring 2023, which is corroborated by multiple memories. The information consistently points to the diet beginning in 2023, with clear documentation from different sessions supporting this timeline.\n\nThe fourth fact reveals nuanced details about the cousin's mental health history. The initial memory suggests a discrepancy between a male and female cousin's mental health situation, with subsequent clarification pointing to a male cousin's depression-related school leave.\n\nThe memories provide conflicting accounts: one indicates the cousin took a half-year break due to depression two years ago, while another mentions the cousin's recovery and return to school. The evidence shows some uncertainty about the precise details, yet supports the core fact of a mental health-related interruption.\n\nThe expected facts align with the corrected information from the memory, specifically highlighting the cousin's temporary school suspension due to depression. While the initial memory contained an error, the subsequent correction provides accurate details about the family member's experience.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1396,
+      "completion_tokens": 1126,
+      "total_tokens": 2522,
+      "cost": 0.00177,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00177,
+        "upstream_inference_prompt_cost": 0.0004188,
+        "upstream_inference_completions_cost": 0.0013512
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 737,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 14.454
+}

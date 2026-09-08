@@ -1,0 +1,448 @@
+{
+  "case": {
+    "id": "M05-02",
+    "category": "确诊与待检查的不确定性区分",
+    "turns": [
+      {
+        "user": "我最近总是头晕，特别是早上起床的时候。我怀疑自己是不是低血糖，因为我有时候不吃早饭就会这样，想确认一下。",
+        "assistant": "已记录您的头晕症状及低血糖的自我怀疑。"
+      },
+      {
+        "user": "更正一下，我昨天去抽了血，医生说要等化验单。我现在还没有确诊低血糖，只是根据症状猜测，需要等报告出来才能确定。",
+        "assistant": "收到，已更新您目前处于血液检查等待期且未确诊低血糖。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "M05-02-Q1",
+        "query": "患者目前是否已确诊为低血糖？",
+        "expected_facts": [
+          "患者目前尚未确诊低血糖。",
+          "患者最近总是头晕，特别是早上起床时。",
+          "患者怀疑自己可能低血糖。"
+        ],
+        "required_groups": [
+          [
+            "尚未确诊",
+            "未确诊",
+            "没确诊"
+          ],
+          [
+            "低血糖",
+            "血糖低"
+          ],
+          [
+            "最近",
+            "近期"
+          ]
+        ]
+      },
+      {
+        "id": "M05-02-Q2",
+        "query": "患者昨天进行了什么检查，目前结果状态怎样？",
+        "expected_facts": [
+          "患者昨天进行了抽血检查。",
+          "化验单结果尚未出来。",
+          "需要等待报告确认诊断。"
+        ],
+        "required_groups": [
+          [
+            "抽血",
+            "验血",
+            "血液检查"
+          ],
+          [
+            "结果未出",
+            "没出来",
+            "等待报告"
+          ],
+          [
+            "昨天",
+            "前天"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M05-02",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860628-uQzAZjj1Sziq5zwgtEsc",
+      "usage": {
+        "prompt_tokens": 49,
+        "total_tokens": 49,
+        "cost": 4.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.9e-07,
+          "upstream_inference_prompt_cost": 4.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860640-oCB88cQQClmgxface1dz",
+      "usage": {
+        "prompt_tokens": 8349,
+        "completion_tokens": 325,
+        "total_tokens": 8674,
+        "cost": 0.00273725,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00273725,
+          "upstream_inference_prompt_cost": 0.00208725,
+          "upstream_inference_completions_cost": 0.00065
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 310,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户最近总是头晕，特别是早上起床的时候，怀疑可能是低血糖，因为有时候不吃早饭就会出现这种情况，想确认这个猜测\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860651-W9rtA3WNr9PABiZgp98u",
+      "usage": {
+        "prompt_tokens": 29,
+        "total_tokens": 29,
+        "cost": 2.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.9e-07,
+          "upstream_inference_prompt_cost": 2.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860654-VJ9AXP0QOwUuMlgp2Mxl",
+      "usage": {
+        "prompt_tokens": 62,
+        "total_tokens": 62,
+        "cost": 6.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.2e-07,
+          "upstream_inference_prompt_cost": 6.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860655-kaCGn4Lm1gi2Z9mlNpnK",
+      "usage": {
+        "prompt_tokens": 8448,
+        "completion_tokens": 211,
+        "total_tokens": 8659,
+        "cost": 0.00273672,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00273672,
+          "upstream_inference_prompt_cost": 0.00228096,
+          "upstream_inference_completions_cost": 0.00045576
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 106,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户于2026年9月7日（昨天）去抽血检查头晕症状，医生要求等待化验单结果，目前尚未确诊低血糖，只是根据症状猜测，需要等报告出来才能确定\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860666-yNTLrrkB6tb8Gwx6FOVg",
+      "usage": {
+        "prompt_tokens": 47,
+        "total_tokens": 47,
+        "cost": 4.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.7e-07,
+          "upstream_inference_prompt_cost": 4.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860672-HZ5E6ZYWBmeVQUBoEEKp",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860673-0KZfGveSRWhaYzcDR5kL",
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 12,
+        "cost": 1.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.2e-07,
+          "upstream_inference_prompt_cost": 1.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860674-GMyY2UAFY0rm3QuXQgOn",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860675-BGT78WZbtteVApsxMrNO",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860676-gOtbRCRH9DMossF31YbM",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "M05-02-Q1",
+        "query": "患者目前是否已确诊为低血糖？",
+        "expected_facts": [
+          "患者目前尚未确诊低血糖。",
+          "患者最近总是头晕，特别是早上起床时。",
+          "患者怀疑自己可能低血糖。"
+        ],
+        "required_groups": [
+          [
+            "尚未确诊",
+            "未确诊",
+            "没确诊"
+          ],
+          [
+            "低血糖",
+            "血糖低"
+          ],
+          [
+            "最近",
+            "近期"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "4b844d9d-b4f9-4260-9ab0-f35aebdf0fcf",
+          "content": "用户于2026年9月7日（昨天）去抽血检查头晕症状，医生要求等待化验单结果，目前尚未确诊低血糖，只是根据症状猜测，需要等报告出来才能确定",
+          "score": 0.7654266948184005,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:44:13.994036+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M05-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:44:30.942383+00:00"
+        },
+        {
+          "memory_id": "5e923938-4dff-43a7-afb8-0945c6b8c9be",
+          "content": "用户最近总是头晕，特别是早上起床的时候，怀疑可能是低血糖，因为有时候不吃早饭就会出现这种情况，想确认这个猜测",
+          "score": 0.6350610994979893,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:43:46.630909+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M05-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:44:13.969407+00:00"
+        }
+      ],
+      "seconds": 1.203
+    },
+    {
+      "query": {
+        "id": "M05-02-Q2",
+        "query": "患者昨天进行了什么检查，目前结果状态怎样？",
+        "expected_facts": [
+          "患者昨天进行了抽血检查。",
+          "化验单结果尚未出来。",
+          "需要等待报告确认诊断。"
+        ],
+        "required_groups": [
+          [
+            "抽血",
+            "验血",
+            "血液检查"
+          ],
+          [
+            "结果未出",
+            "没出来",
+            "等待报告"
+          ],
+          [
+            "昨天",
+            "前天"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "4b844d9d-b4f9-4260-9ab0-f35aebdf0fcf",
+          "content": "用户于2026年9月7日（昨天）去抽血检查头晕症状，医生要求等待化验单结果，目前尚未确诊低血糖，只是根据症状猜测，需要等报告出来才能确定",
+          "score": 0.5068644752226898,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:44:13.994036+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M05-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:44:30.942383+00:00"
+        },
+        {
+          "memory_id": "5e923938-4dff-43a7-afb8-0945c6b8c9be",
+          "content": "用户最近总是头晕，特别是早上起床的时候，怀疑可能是低血糖，因为有时候不吃早饭就会出现这种情况，想确认这个猜测",
+          "score": 0.39420885314324694,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:43:46.630909+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M05-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:44:13.969407+00:00"
+        }
+      ],
+      "seconds": 1.141
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者目前是否已确诊为低血糖？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "4b844d9d-b4f9-4260-9ab0-f35aebdf0fcf",
+        "content": "用户于2026年9月7日（昨天）去抽血检查头晕症状，医生要求等待化验单结果，目前尚未确诊低血糖，只是根据症状猜测，需要等报告出来才能确定",
+        "score": 0.7436748131539677,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:44:13.994036+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M05-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:44:30.942383+00:00"
+      },
+      {
+        "memory_id": "5e923938-4dff-43a7-afb8-0945c6b8c9be",
+        "content": "用户最近总是头晕，特别是早上起床的时候，怀疑可能是低血糖，因为有时候不吃早饭就会出现这种情况，想确认这个猜测",
+        "score": 0.5113635135972423,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:43:46.630909+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M05-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:44:13.969407+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 49.875
+}

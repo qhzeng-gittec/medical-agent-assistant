@@ -1,0 +1,442 @@
+{
+  "case": {
+    "id": "M11-03",
+    "category": "多项历史事实的跨会话汇总",
+    "turns": [
+      {
+        "user": "我三十八岁，五年前因为长期熬夜导致失眠，医生开了褪黑素，我吃了三个月觉得有效就停了，后来偶尔还会睡不好，但没再吃药。",
+        "assistant": "明白，已记录您五年前失眠及服用褪黑素的历史。"
+      },
+      {
+        "user": "补充一点，两年前我因为换工作焦虑，失眠又犯了，这次我尝试了冥想和喝热牛奶，坚持了半年，睡眠改善了很多，所以现在基本不需要药物辅助了。",
+        "assistant": "收到，已更新您两年前尝试非药物疗法改善睡眠的记录。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "M11-03-Q1",
+        "query": "患者五年前因什么导致失眠，医生开了什么药，他吃了多久？",
+        "expected_facts": [
+          "患者五年前因长期熬夜导致失眠。",
+          "医生开具了褪黑素。",
+          "患者服用了三个月后停药。"
+        ],
+        "required_groups": [
+          [
+            "长期熬夜",
+            "熬夜"
+          ],
+          [
+            "褪黑素",
+            "褪黑素药物"
+          ],
+          [
+            "三个月",
+            "三个月"
+          ]
+        ]
+      },
+      {
+        "id": "M11-03-Q2",
+        "query": "两年前失眠复发时他用了什么方法，坚持了多久，现在是否还需要药物？",
+        "expected_facts": [
+          "患者两年前因换工作焦虑导致失眠复发。",
+          "患者尝试了冥想和喝热牛奶，坚持了半年。",
+          "患者目前基本不需要药物辅助。"
+        ],
+        "required_groups": [
+          [
+            "冥想",
+            "冥想练习"
+          ],
+          [
+            "热牛奶",
+            "喝牛奶"
+          ],
+          [
+            "不需要药物",
+            "不用药"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M11-03",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861513-6Dv3zKts81zlIUGDe7js",
+      "usage": {
+        "prompt_tokens": 64,
+        "total_tokens": 64,
+        "cost": 6.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.4e-07,
+          "upstream_inference_prompt_cost": 6.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861515-Fj0vq4gsfkDduLDcNKv7",
+      "usage": {
+        "prompt_tokens": 8365,
+        "completion_tokens": 616,
+        "total_tokens": 8981,
+        "cost": 0.00358911,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00358911,
+          "upstream_inference_prompt_cost": 0.00225855,
+          "upstream_inference_completions_cost": 0.00133056
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 534,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户三十八岁，五年前因长期熬夜导致失眠，医生开了褪黑素，服用三个月后觉得有效就停了，后来偶尔还会睡不好但没再吃药\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861534-pA4AMv4oaX76ed7t01pc",
+      "usage": {
+        "prompt_tokens": 39,
+        "total_tokens": 39,
+        "cost": 3.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.9e-07,
+          "upstream_inference_prompt_cost": 3.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861535-MWGlLhlI7PBnZztcHUp3",
+      "usage": {
+        "prompt_tokens": 67,
+        "total_tokens": 67,
+        "cost": 6.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.7e-07,
+          "upstream_inference_prompt_cost": 6.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861538-1W92D9C5XBsxE1lM0Vm5",
+      "usage": {
+        "prompt_tokens": 8472,
+        "completion_tokens": 455,
+        "total_tokens": 8927,
+        "cost": 0.00338572,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00338572,
+          "upstream_inference_prompt_cost": 0.00220272,
+          "upstream_inference_completions_cost": 0.001183
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 414,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户两年前因换工作焦虑导致失眠复发，尝试了冥想和喝热牛奶，坚持了半年后睡眠改善很多，现在基本不需要药物辅助\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861545-64jTWB2C6plUCOhw04uC",
+      "usage": {
+        "prompt_tokens": 33,
+        "total_tokens": 33,
+        "cost": 3.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.3e-07,
+          "upstream_inference_prompt_cost": 3.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861547-XgN6sNJV9Z0vHNv6nlPQ",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861552-ueKTjKT50VoqzgeJWcLi",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861555-LWq3fH9aMvgQlqSaqTLf",
+      "usage": {
+        "prompt_tokens": 28,
+        "total_tokens": 28,
+        "cost": 2.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.8e-07,
+          "upstream_inference_prompt_cost": 2.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861555-jspPFHAf44wx47oMmfV2",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861556-faXgiwPI4lpqZVhIsruE",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "M11-03-Q1",
+        "query": "患者五年前因什么导致失眠，医生开了什么药，他吃了多久？",
+        "expected_facts": [
+          "患者五年前因长期熬夜导致失眠。",
+          "医生开具了褪黑素。",
+          "患者服用了三个月后停药。"
+        ],
+        "required_groups": [
+          [
+            "长期熬夜",
+            "熬夜"
+          ],
+          [
+            "褪黑素",
+            "褪黑素药物"
+          ],
+          [
+            "三个月",
+            "三个月"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "8d04c7eb-e19b-424a-9c11-b2b6e43eeb36",
+          "content": "用户三十八岁，五年前因长期熬夜导致失眠，医生开了褪黑素，服用三个月后觉得有效就停了，后来偶尔还会睡不好但没再吃药",
+          "score": 0.7510302272776398,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:31.826640+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:58:54.386367+00:00"
+        },
+        {
+          "memory_id": "2a47e177-1f91-41ca-a26c-93e34ecbc3b8",
+          "content": "用户两年前因换工作焦虑导致失眠复发，尝试了冥想和喝热牛奶，坚持了半年后睡眠改善很多，现在基本不需要药物辅助",
+          "score": 0.7078138372416903,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:54.411204+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M11-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:59:05.384046+00:00"
+        }
+      ],
+      "seconds": 6.562
+    },
+    {
+      "query": {
+        "id": "M11-03-Q2",
+        "query": "两年前失眠复发时他用了什么方法，坚持了多久，现在是否还需要药物？",
+        "expected_facts": [
+          "患者两年前因换工作焦虑导致失眠复发。",
+          "患者尝试了冥想和喝热牛奶，坚持了半年。",
+          "患者目前基本不需要药物辅助。"
+        ],
+        "required_groups": [
+          [
+            "冥想",
+            "冥想练习"
+          ],
+          [
+            "热牛奶",
+            "喝牛奶"
+          ],
+          [
+            "不需要药物",
+            "不用药"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "2a47e177-1f91-41ca-a26c-93e34ecbc3b8",
+          "content": "用户两年前因换工作焦虑导致失眠复发，尝试了冥想和喝热牛奶，坚持了半年后睡眠改善很多，现在基本不需要药物辅助",
+          "score": 0.8091808798984268,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:54.411204+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M11-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:59:05.384046+00:00"
+        },
+        {
+          "memory_id": "8d04c7eb-e19b-424a-9c11-b2b6e43eeb36",
+          "content": "用户三十八岁，五年前因长期熬夜导致失眠，医生开了褪黑素，服用三个月后觉得有效就停了，后来偶尔还会睡不好但没再吃药",
+          "score": 0.689686963586996,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:31.826640+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:58:54.386367+00:00"
+        }
+      ],
+      "seconds": 2.156
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者五年前因什么导致失眠，医生开了什么药，他吃了多久？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "2a47e177-1f91-41ca-a26c-93e34ecbc3b8",
+        "content": "用户两年前因换工作焦虑导致失眠复发，尝试了冥想和喝热牛奶，坚持了半年后睡眠改善很多，现在基本不需要药物辅助",
+        "score": 0.691759140935958,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:58:54.411204+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M11-03",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:59:05.384046+00:00"
+      },
+      {
+        "memory_id": "8d04c7eb-e19b-424a-9c11-b2b6e43eeb36",
+        "content": "用户三十八岁，五年前因长期熬夜导致失眠，医生开了褪黑素，服用三个月后觉得有效就停了，后来偶尔还会睡不好但没再吃药",
+        "score": 0.6801086349555343,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:58:31.826640+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M11-03",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:58:54.386367+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 45.11
+}

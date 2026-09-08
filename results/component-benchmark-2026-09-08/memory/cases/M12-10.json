@@ -1,0 +1,467 @@
+{
+  "case": {
+    "id": "M12-10",
+    "category": "否定事实与助手建议区分",
+    "turns": [
+      {
+        "user": "有人说我视力下降是青光眼，但我昨天做了眼压和视野检查，医生说我眼压正常，视野也没缺损，根本没有青光眼，只是近视加深了。",
+        "assistant": "好的，已记录您昨日检查排除青光眼的结果。"
+      },
+      {
+        "user": "是的，我最近看东西模糊是因为长时间看电脑，度数涨了，但这跟青光眼没关系，以前每年体检眼压都是正常的。",
+        "assistant": "明白，已补充您视力下降源于近视加深而非青光眼的记录。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "用户是否患有青光眼？",
+        "expected_facts": [
+          "用户昨日检查显示眼压正常且无视野缺损。",
+          "医生确认用户未患青光眼。"
+        ],
+        "required_groups": [
+          [
+            "无",
+            "没有",
+            "排除"
+          ],
+          [
+            "青光眼"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "用户视力下降的真实原因是什么？",
+        "expected_facts": [
+          "用户视力下降是因为长时间看电脑导致近视加深。",
+          "用户视力问题与青光眼无关。"
+        ],
+        "required_groups": [
+          [
+            "近视加深",
+            "度数涨"
+          ],
+          [
+            "看电脑",
+            "用眼过度"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M12-10",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861767-YPZ4t9xsDctsl9DZjwmG",
+      "usage": {
+        "prompt_tokens": 62,
+        "total_tokens": 62,
+        "cost": 6.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.2e-07,
+          "upstream_inference_prompt_cost": 6.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861777-itfNYg2MIUnrcppeTLDm",
+      "usage": {
+        "prompt_tokens": 8356,
+        "completion_tokens": 546,
+        "total_tokens": 8902,
+        "cost": 0.003181,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.003181,
+          "upstream_inference_prompt_cost": 0.002089,
+          "upstream_inference_completions_cost": 0.001092
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 518,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户于2026年9月7日进行了眼压和视野检查，结果显示眼压正常、视野无缺损，医生排除了青光眼诊断，确认视力下降是由于近视加深所致\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861792-ViXtynchiryRX68ZTZOf",
+      "usage": {
+        "prompt_tokens": 45,
+        "total_tokens": 45,
+        "cost": 4.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.5e-07,
+          "upstream_inference_prompt_cost": 4.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861793-wNrKG7xjafb3jJZlbq5h",
+      "usage": {
+        "prompt_tokens": 58,
+        "total_tokens": 58,
+        "cost": 5.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.8e-07,
+          "upstream_inference_prompt_cost": 5.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861794-FNTv5MxK8oNAYLCD3zpS",
+      "usage": {
+        "prompt_tokens": 8459,
+        "completion_tokens": 945,
+        "total_tokens": 9404,
+        "cost": 0.00400475,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00400475,
+          "upstream_inference_prompt_cost": 0.00211475,
+          "upstream_inference_completions_cost": 0.00189
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1001,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户最近看东西模糊是因为长时间看电脑导致近视度数增加\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户以前每年体检眼压都是正常的\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861817-E6hoZsGu8iOBSHtj60HT",
+      "usage": {
+        "prompt_tokens": 24,
+        "total_tokens": 24,
+        "cost": 2.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.4e-07,
+          "upstream_inference_prompt_cost": 2.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861819-1dfhZ1iIlY1jCSoZkyIr",
+      "usage": {
+        "prompt_tokens": 8,
+        "total_tokens": 8,
+        "cost": 8e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 8e-08,
+          "upstream_inference_prompt_cost": 8e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861820-t6CVy11Ci68WVFNy8A9E",
+      "usage": {
+        "prompt_tokens": 8,
+        "total_tokens": 8,
+        "cost": 8e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 8e-08,
+          "upstream_inference_prompt_cost": 8e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861821-9bCkWLCLPvRD52oNzS7h",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861823-NQ8NuZfL6xHZmsJYL13j",
+      "usage": {
+        "prompt_tokens": 8,
+        "total_tokens": 8,
+        "cost": 8e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 8e-08,
+          "upstream_inference_prompt_cost": 8e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861825-BF6OptIfLVv4iWfcr0sO",
+      "usage": {
+        "prompt_tokens": 8,
+        "total_tokens": 8,
+        "cost": 8e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 8e-08,
+          "upstream_inference_prompt_cost": 8e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "用户是否患有青光眼？",
+        "expected_facts": [
+          "用户昨日检查显示眼压正常且无视野缺损。",
+          "医生确认用户未患青光眼。"
+        ],
+        "required_groups": [
+          [
+            "无",
+            "没有",
+            "排除"
+          ],
+          [
+            "青光眼"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "d86b81ba-381a-4022-bff0-4112afc62e2e",
+          "content": "用户以前每年体检眼压都是正常的",
+          "score": 0.7764160862396713,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:03:12.577754+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:03:37.561852+00:00"
+        },
+        {
+          "memory_id": "b36e3011-0a80-4f83-9432-1bdc2190cbf1",
+          "content": "用户于2026年9月7日进行了眼压和视野检查，结果显示眼压正常、视野无缺损，医生排除了青光眼诊断，确认视力下降是由于近视加深所致",
+          "score": 0.6987578105060147,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:02:46.073521+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:03:12.553579+00:00"
+        },
+        {
+          "memory_id": "508e9b63-e630-4476-b2a9-29378e62332c",
+          "content": "用户最近看东西模糊是因为长时间看电脑导致近视度数增加",
+          "score": 0.6774613957806406,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:03:12.577754+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:03:37.561852+00:00"
+        }
+      ],
+      "seconds": 1.859
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "用户视力下降的真实原因是什么？",
+        "expected_facts": [
+          "用户视力下降是因为长时间看电脑导致近视加深。",
+          "用户视力问题与青光眼无关。"
+        ],
+        "required_groups": [
+          [
+            "近视加深",
+            "度数涨"
+          ],
+          [
+            "看电脑",
+            "用眼过度"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "508e9b63-e630-4476-b2a9-29378e62332c",
+          "content": "用户最近看东西模糊是因为长时间看电脑导致近视度数增加",
+          "score": 0.7383966857119297,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:03:12.577754+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:03:37.561852+00:00"
+        },
+        {
+          "memory_id": "b36e3011-0a80-4f83-9432-1bdc2190cbf1",
+          "content": "用户于2026年9月7日进行了眼压和视野检查，结果显示眼压正常、视野无缺损，医生排除了青光眼诊断，确认视力下降是由于近视加深所致",
+          "score": 0.654486884776847,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:02:46.073521+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:03:12.553579+00:00"
+        },
+        {
+          "memory_id": "d86b81ba-381a-4022-bff0-4112afc62e2e",
+          "content": "用户以前每年体检眼压都是正常的",
+          "score": 0.6393797489600551,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:03:12.577754+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:03:37.561852+00:00"
+        }
+      ],
+      "seconds": 0.844
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "用户是否患有青光眼？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "d86b81ba-381a-4022-bff0-4112afc62e2e",
+        "content": "用户以前每年体检眼压都是正常的",
+        "score": 0.7808267634488864,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:03:12.577754+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M12-10",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:03:37.561852+00:00"
+      },
+      {
+        "memory_id": "b36e3011-0a80-4f83-9432-1bdc2190cbf1",
+        "content": "用户于2026年9月7日进行了眼压和视野检查，结果显示眼压正常、视野无缺损，医生排除了青光眼诊断，确认视力下降是由于近视加深所致",
+        "score": 0.7578131365179451,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:02:46.073521+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M12-10",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:03:12.553579+00:00"
+      },
+      {
+        "memory_id": "508e9b63-e630-4476-b2a9-29378e62332c",
+        "content": "用户最近看东西模糊是因为长时间看电脑导致近视度数增加",
+        "score": 0.5872985728290945,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:03:12.577754+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M12-10",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:03:37.561852+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 59.266
+}

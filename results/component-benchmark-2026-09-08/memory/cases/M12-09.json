@@ -1,0 +1,424 @@
+{
+  "case": {
+    "id": "M12-09",
+    "category": "否定事实与助手建议区分",
+    "turns": [
+      {
+        "user": "亲戚都说我手抖是帕金森，但我神经内科医生看了之后说这是特发性震颤，而且很轻微，绝对不是帕金森病，不用太紧张。",
+        "assistant": "收到，已记录您被诊断为特发性震颤而非帕金森病的情况。"
+      },
+      {
+        "user": "补充一下，这个手抖现象从我二十多岁就有了，最近因为紧张稍微明显点，但医生确认它不会发展成帕金森，一直都很稳定。",
+        "assistant": "明白，已更新您手抖始于二十多岁且病情稳定的记录。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "用户是否患有帕金森病？",
+        "expected_facts": [
+          "用户经神经内科医生诊断排除帕金森病。",
+          "用户确诊为特发性震颤，非帕金森病。"
+        ],
+        "required_groups": [
+          [
+            "不是",
+            "排除",
+            "非"
+          ],
+          [
+            "帕金森病",
+            "帕金森"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "用户手抖症状的起始时间和性质？",
+        "expected_facts": [
+          "用户手抖症状始于二十多岁。",
+          "用户手抖为特发性震颤，病情长期稳定。"
+        ],
+        "required_groups": [
+          [
+            "二十多岁",
+            "20多岁"
+          ],
+          [
+            "特发性震颤",
+            "手抖"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M12-09",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861755-op0mZgiLFNR8Ym6jCEvc",
+      "usage": {
+        "prompt_tokens": 68,
+        "total_tokens": 68,
+        "cost": 6.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.8e-07,
+          "upstream_inference_prompt_cost": 6.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861761-YdZWtb3aCYLdefipmeWJ",
+      "usage": {
+        "prompt_tokens": 8358,
+        "completion_tokens": 328,
+        "total_tokens": 8686,
+        "cost": 0.00214149,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00214149,
+          "upstream_inference_prompt_cost": 0.00162981,
+          "upstream_inference_completions_cost": 0.00051168
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 224,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"User has hand tremors (手抖). Relatives suggested it might be Parkinson's disease, but a neurologist diagnosed it as essential tremor (特发性震颤), which is very mild and definitely not Parkinson's disease. The doctor advised the user not to be too nervous about it.\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861769-uIBLCl8v8pSiTe8AZokQ",
+      "usage": {
+        "prompt_tokens": 61,
+        "total_tokens": 61,
+        "cost": 6.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.1e-07,
+          "upstream_inference_prompt_cost": 6.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861773-QS2TVTHYRaMum3tQsR8p",
+      "usage": {
+        "prompt_tokens": 62,
+        "total_tokens": 62,
+        "cost": 6.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.2e-07,
+          "upstream_inference_prompt_cost": 6.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861782-YSCYVzJ5kmGBmnctEMjo",
+      "usage": {
+        "prompt_tokens": 8479,
+        "completion_tokens": 467,
+        "total_tokens": 8946,
+        "cost": 0.00341874,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00341874,
+          "upstream_inference_prompt_cost": 0.00220454,
+          "upstream_inference_completions_cost": 0.0012142
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 465,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户的手抖现象从二十多岁开始，一直都很稳定。最近因为紧张稍微明显点，但医生确认它不会发展成帕金森病。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861790-r1JlDJ6b5AtchI31JAbX",
+      "usage": {
+        "prompt_tokens": 34,
+        "total_tokens": 34,
+        "cost": 3.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.4e-07,
+          "upstream_inference_prompt_cost": 3.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861792-PCuOc66FMCBts0ggdOzZ",
+      "usage": {
+        "prompt_tokens": 9,
+        "total_tokens": 9,
+        "cost": 9e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 9e-08,
+          "upstream_inference_prompt_cost": 9e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861793-nQW74mBVDOfUcoEeaLGU",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861794-hzKc5AB8Tul1uybQVFYY",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861795-NC7Q3OrqWdnkc03DR1In",
+      "usage": {
+        "prompt_tokens": 9,
+        "total_tokens": 9,
+        "cost": 9e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 9e-08,
+          "upstream_inference_prompt_cost": 9e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861797-7AuN1cHDxwfTFxljZZTv",
+      "usage": {
+        "prompt_tokens": 9,
+        "total_tokens": 9,
+        "cost": 9e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 9e-08,
+          "upstream_inference_prompt_cost": 9e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "用户是否患有帕金森病？",
+        "expected_facts": [
+          "用户经神经内科医生诊断排除帕金森病。",
+          "用户确诊为特发性震颤，非帕金森病。"
+        ],
+        "required_groups": [
+          [
+            "不是",
+            "排除",
+            "非"
+          ],
+          [
+            "帕金森病",
+            "帕金森"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "d8b858e8-dcfd-4b07-9545-de1ff9689f28",
+          "content": "用户的手抖现象从二十多岁开始，一直都很稳定。最近因为紧张稍微明显点，但医生确认它不会发展成帕金森病。",
+          "score": 0.681574021300372,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:02:52.158095+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:03:10.435026+00:00"
+        },
+        {
+          "memory_id": "76201794-89de-4d83-ad6f-d9fe6f5ec7c0",
+          "content": "User has hand tremors (手抖). Relatives suggested it might be Parkinson's disease, but a neurologist diagnosed it as essential tremor (特发性震颤), which is very mild and definitely not Parkinson's disease. The doctor advised the user not to be too nervous about it.",
+          "score": 0.6480363893807619,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:02:34.640138+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:02:52.127460+00:00"
+        }
+      ],
+      "seconds": 1.891
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "用户手抖症状的起始时间和性质？",
+        "expected_facts": [
+          "用户手抖症状始于二十多岁。",
+          "用户手抖为特发性震颤，病情长期稳定。"
+        ],
+        "required_groups": [
+          [
+            "二十多岁",
+            "20多岁"
+          ],
+          [
+            "特发性震颤",
+            "手抖"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "d8b858e8-dcfd-4b07-9545-de1ff9689f28",
+          "content": "用户的手抖现象从二十多岁开始，一直都很稳定。最近因为紧张稍微明显点，但医生确认它不会发展成帕金森病。",
+          "score": 0.722291726723649,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:02:52.158095+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M12-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:03:10.435026+00:00"
+        },
+        {
+          "memory_id": "76201794-89de-4d83-ad6f-d9fe6f5ec7c0",
+          "content": "User has hand tremors (手抖). Relatives suggested it might be Parkinson's disease, but a neurologist diagnosed it as essential tremor (特发性震颤), which is very mild and definitely not Parkinson's disease. The doctor advised the user not to be too nervous about it.",
+          "score": 0.6956020574935841,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T10:02:34.640138+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M12-09",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:02:52.127460+00:00"
+        }
+      ],
+      "seconds": 0.812
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "用户是否患有帕金森病？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "d8b858e8-dcfd-4b07-9545-de1ff9689f28",
+        "content": "用户的手抖现象从二十多岁开始，一直都很稳定。最近因为紧张稍微明显点，但医生确认它不会发展成帕金森病。",
+        "score": 0.6116574076199137,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:02:52.158095+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M12-09",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:03:10.435026+00:00"
+      },
+      {
+        "memory_id": "76201794-89de-4d83-ad6f-d9fe6f5ec7c0",
+        "content": "User has hand tremors (手抖). Relatives suggested it might be Parkinson's disease, but a neurologist diagnosed it as essential tremor (特发性震颤), which is very mild and definitely not Parkinson's disease. The doctor advised the user not to be too nervous about it.",
+        "score": 0.5822123505975778,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T10:02:34.640138+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M12-09",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:02:52.127460+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 42.672
+}

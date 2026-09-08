@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"943cc2defc8e8bc34b32\", \"query\": \"患者因何健康指标异常而调整了甜食摄入频率？该指标异常是何时发现的？\", \"expected_facts\": [\"该患者因血糖偏高而减少了甜食摄入。\", \"该患者的血糖异常是在两年前体检中发现的。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户特别喜欢吃甜食，尤其是巧克力，之前每天都要吃一块黑巧，但自从2025年体检发现血糖偏高后，已将频率降低到每周两次\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:57:41.548301+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户两年前体检发现血糖偏高问题（而非去年），此后开始控制甜食摄入\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:58:00.718455+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户现在只在周末吃巧克力，严格控制在一小块以内，平时完全不吃甜食\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:58:00.718455+00:00\"}]}, {\"id\": \"96653b54f6c9415ea50e\", \"query\": \"患者何时从北京搬至上海，以及户口迁移的具体时间是什么时候？\", \"expected_facts\": [\"患者三年前从北京搬到了上海。\", \"患者两年前正式将户口迁至上海。\", \"搬家原因是工作调动。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户两年前才正式将户口迁到上海，虽然三年前就搬过去了，但手续拖了很久\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:51:39.497914+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户三年前因工作调动从北京搬迁至上海，当时刚入职新公司，家安顿在浦东\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:51:06.782082+00:00\"}]}, {\"id\": \"9672beff088911491180\", \"query\": \"用户是否患有贫血？\", \"expected_facts\": [\"用户上周血常规检查显示不贫血。\", \"医生确认用户各项指标正常，无贫血症状。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"同事总说用户脸色不好是贫血，但用户上周血常规检查各项指标都在正常范围内，医生确认用户根本不贫血，可能是最近熬夜太多导致气色差\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:42:16.440081+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户休息好后气色即可恢复\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:42:38.901661+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户以往体检从未发现过贫血问题\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:42:38.901661+00:00\"}]}, {\"id\": \"9786bd374e9453a62f04\", \"query\": \"患者制定的饮食控制方案是从何时开始，持续到何时结束？\", \"expected_facts\": [\"患者计划从前天晚上开始只吃流质食物。\", \"患者的流食计划持续到检查前一天的中午十二点。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户计划从2026年9月6日晚上开始只进食流质食物，直至2026年9月9日中午12点，作为无痛肠镜检查前的准备\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:49:19.347625+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"User预约了2026年9月10日上午的无痛肠镜检查，医生嘱咐检查前一天要吃流食\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:49:03.156650+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"User咨询关于无痛肠镜检查前流食开始的具体时间点，以及检查当天早上是否需要完全禁水的要求\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:49:03.156650+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户计划在2026年9月10日肠镜检查当天早上饮用半杯清水，并询问该安排是否可行\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:49:19.347625+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862045-abULU69QwcC45CxkxXzN",
+    "object": "chat.completion",
+    "created": 1788862045,
+    "model": "minimax/minimax-m2.5",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"943cc2defc8e8bc34b32\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"m0和m1均明确指出患者因血糖偏高而减少甜食摄入，m1进一步说明是两年前体检发现\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"m1明确指出血糖偏高问题是两年前体检发现的\"}]},{\"id\":\"96653b54f6c9415ea50e\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"m1明确指出用户三年前从北京搬迁至上海\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"m0明确指出用户两年前正式将户口迁到上海\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"m1明确指出搬家原因是工作调动\"}]},{\"id\":\"9672beff088911491180\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"m0明确指出用户上周血常规检查各项指标正常，医生确认不贫血\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"m0明确指出医生确认用户根本不贫血，各项指标正常\"}]},{\"id\":\"9786bd374e9453a62f04\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"m0明确指出计划从2026年9月6日晚上开始只进食流质食物\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"m0明确指出流质食物持续至2026年9月9日中午12点\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item:\n\n**Item 1 (id: 943cc2defc8e8bc34b32)**\nQuery: 患者因何健康指标异常而调整了甜食摄入频率？该指标异常是何时发现的？\nExpected facts:\n1. \"该患者因血糖偏高而减少了甜食摄入。\" - This is supported by m0 and m1. m0 says \"2025年体检发现血糖偏高后，已将频率降低到每周两次\". m1 says \"两年前体检发现血糖偏高问题...此后开始控制甜食摄入\"\n2. \"该患者的血糖异常是在两年前体检中发现的。\" - This is supported by m1 which explicitly says \"两年前体检发现血糖偏高问题\"\n\nBoth facts are supported.\n\n**Item 2 (id: 96653b54f6c9415ea50e)**\nQuery: 患者何时从北京搬至上海，以及户口迁移的具体时间是什么时候？\nExpected facts:\n1. \"患者三年前从北京搬到了上海。\" - Supported by m1: \"用户三年前因工作调动从北京搬迁至上海\"\n2. \"患者两年前正式将户口迁至上海。\" - Supported by m0: \"用户两年前才正式将户口迁到上海\"\n3. \"搬家原因是工作调动。\" - Supported by m1: \"用户三年前因工作调动从北京搬迁至上海\"\n\nAll three facts are supported.\n\n**Item 3 (id: 9672beff088911491180)**\nQuery: 用户是否患有贫血？\nExpected facts:\n1. \"用户上周血常规检查显示不贫血。\" - Supported by m0: \"用户上周血常规检查各项指标都在正常范围内，医生确认用户根本不贫血\"\n\n\n2. \"医生确认用户各项指标正常，无贫血症状。\" - Supported by m0: \"医生确认用户根本不贫血\"\n\nThe medical evidence confirms the user's health status, with both expected facts validated by the doctor's assessment.\n\n**Item 4 (id: 9786bd374e9453a62f04)**\nQuery: 患者制定的饮食控制方案是从何时开始，持续到何时结束？\nExpected facts:\n1. \"患者计划从前天晚上开始只吃流质食物。\" - Supported by m0: \"用户计\n\n划从2026年9月6日晚上开始只进食流质食物\"\n2. \"患者的流食计划持续到检查前一天的中午十二点。\" - Supported by m0: \"直至2026年9月9日中午12点\"\n\nThe dietary plan details are confirmed, specifying the precise timing of the liquid food consumption before the medical examination.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item:\n\n**Item 1 (id: 943cc2defc8e8bc34b32)**\nQuery: 患者因何健康指标异常而调整了甜食摄入频率？该指标异常是何时发现的？\nExpected facts:\n1. \"该患者因血糖偏高而减少了甜食摄入。\" - This is supported by m0 and m1. m0 says \"2025年体检发现血糖偏高后，已将频率降低到每周两次\". m1 says \"两年前体检发现血糖偏高问题...此后开始控制甜食摄入\"\n2. \"该患者的血糖异常是在两年前体检中发现的。\" - This is supported by m1 which explicitly says \"两年前体检发现血糖偏高问题\"\n\nBoth facts are supported.\n\n**Item 2 (id: 96653b54f6c9415ea50e)**\nQuery: 患者何时从北京搬至上海，以及户口迁移的具体时间是什么时候？\nExpected facts:\n1. \"患者三年前从北京搬到了上海。\" - Supported by m1: \"用户三年前因工作调动从北京搬迁至上海\"\n2. \"患者两年前正式将户口迁至上海。\" - Supported by m0: \"用户两年前才正式将户口迁到上海\"\n3. \"搬家原因是工作调动。\" - Supported by m1: \"用户三年前因工作调动从北京搬迁至上海\"\n\nAll three facts are supported.\n\n**Item 3 (id: 9672beff088911491180)**\nQuery: 用户是否患有贫血？\nExpected facts:\n1. \"用户上周血常规检查显示不贫血。\" - Supported by m0: \"用户上周血常规检查各项指标都在正常范围内，医生确认用户根本不贫血\"\n\n\n2. \"医生确认用户各项指标正常，无贫血症状。\" - Supported by m0: \"医生确认用户根本不贫血\"\n\nThe medical evidence confirms the user's health status, with both expected facts validated by the doctor's assessment.\n\n**Item 4 (id: 9786bd374e9453a62f04)**\nQuery: 患者制定的饮食控制方案是从何时开始，持续到何时结束？\nExpected facts:\n1. \"患者计划从前天晚上开始只吃流质食物。\" - Supported by m0: \"用户计\n\n划从2026年9月6日晚上开始只进食流质食物\"\n2. \"患者的流食计划持续到检查前一天的中午十二点。\" - Supported by m0: \"直至2026年9月9日中午12点\"\n\nThe dietary plan details are confirmed, specifying the precise timing of the liquid food consumption before the medical examination.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1381,
+      "completion_tokens": 907,
+      "total_tokens": 2288,
+      "cost": 0.00144126,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00144126,
+        "upstream_inference_prompt_cost": 0.00035286,
+        "upstream_inference_completions_cost": 0.0010884
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 810,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 13.578
+}

@@ -1,0 +1,583 @@
+{
+  "case": {
+    "id": "M05-06",
+    "category": "确诊与待检查的不确定性区分",
+    "turns": [
+      {
+        "user": "我最近经常咳嗽，痰里有血丝，持续了两周。我担心自己是不是肺癌，因为吸烟多年，想做个CT检查确认。",
+        "assistant": "已记录您的咳嗽症状及肺癌的自我怀疑。"
+      },
+      {
+        "user": "更正一下，我昨天做了胸部CT，医生说要等影像报告。我现在还没确诊肺癌，只是根据症状猜测，需要等报告出来。",
+        "assistant": "收到，已更新您目前处于CT检查等待期且未确诊肺癌。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "M05-06-Q1",
+        "query": "患者目前是否已确诊患有肺癌？",
+        "expected_facts": [
+          "患者目前尚未确诊肺癌。",
+          "患者最近经常咳嗽，痰中有血丝。",
+          "患者吸烟多年，担心肺癌。"
+        ],
+        "required_groups": [
+          [
+            "尚未确诊",
+            "未确诊",
+            "没确诊"
+          ],
+          [
+            "肺癌",
+            "肺部肿瘤"
+          ],
+          [
+            "最近",
+            "近期"
+          ]
+        ]
+      },
+      {
+        "id": "M05-06-Q2",
+        "query": "患者昨天进行了什么检查，结果状态怎样？",
+        "expected_facts": [
+          "患者昨天做了胸部CT检查。",
+          "影像报告尚未出来。",
+          "需要等待报告确认诊断。"
+        ],
+        "required_groups": [
+          [
+            "胸部CT",
+            "CT检查",
+            "肺部扫描"
+          ],
+          [
+            "报告未出",
+            "没出来",
+            "等待结果"
+          ],
+          [
+            "昨天",
+            "前天"
+          ]
+        ]
+      }
+    ],
+    "split": "dev",
+    "family_id": "M05-06",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860114-r5dfKybbiY1l86hLxnM3",
+      "usage": {
+        "prompt_tokens": 50,
+        "total_tokens": 50,
+        "cost": 5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5e-07,
+          "upstream_inference_prompt_cost": 5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860116-CwzGPKUsLkeEXYq8pU58",
+      "usage": {
+        "prompt_tokens": 8349,
+        "completion_tokens": 601,
+        "total_tokens": 8950,
+        "cost": 0.00328925,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00328925,
+          "upstream_inference_prompt_cost": 0.00208725,
+          "upstream_inference_completions_cost": 0.001202
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 475,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户最近经常咳嗽，痰中有血丝，症状已持续两周（约从2026年8月25日开始）\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户有多年吸烟史，因此担心自己可能患有肺癌\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"2\",\n      \"text\": \"用户计划进行CT检查以确认健康状况\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860130-gE050j29xtNjNgwCC0Uh",
+      "usage": {
+        "prompt_tokens": 53,
+        "total_tokens": 53,
+        "cost": 5.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.3e-07,
+          "upstream_inference_prompt_cost": 5.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860134-JIti9XQPSVWMzQXbf3zA",
+      "usage": {
+        "prompt_tokens": 56,
+        "total_tokens": 56,
+        "cost": 2.24e-06,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.24e-06,
+          "upstream_inference_prompt_cost": 2.24e-06,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860136-JVd94ox3Q6Sk8bKpVtXv",
+      "usage": {
+        "prompt_tokens": 8484,
+        "completion_tokens": 1988,
+        "total_tokens": 10472,
+        "cost": 0.006097,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.006097,
+          "upstream_inference_prompt_cost": 0.002121,
+          "upstream_inference_completions_cost": 0.003976
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1971,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户于2026年9月7日完成了胸部CT检查，目前正在等待影像报告结果\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户澄清目前尚未确诊肺癌，仅根据症状猜测，需等待CT报告确认\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"1\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860195-xzjvZnJXtb8IAB35bxCc",
+      "usage": {
+        "prompt_tokens": 40,
+        "total_tokens": 40,
+        "cost": 4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4e-07,
+          "upstream_inference_prompt_cost": 4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860198-4M3Sg8hBrckpBWTevehI",
+      "usage": {
+        "prompt_tokens": 9,
+        "total_tokens": 9,
+        "cost": 9e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 9e-08,
+          "upstream_inference_prompt_cost": 9e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860201-cBRbQhEcuQkZsZwB0kSp",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860209-K5cjhur55P11oZNNsVV8",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860212-1Bo1C2vVbv3ZV8Z6LsLG",
+      "usage": {
+        "prompt_tokens": 9,
+        "total_tokens": 9,
+        "cost": 9e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 9e-08,
+          "upstream_inference_prompt_cost": 9e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860232-kMQjL6hg903n6D0Vc0Il",
+      "usage": {
+        "prompt_tokens": 9,
+        "total_tokens": 9,
+        "cost": 9e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 9e-08,
+          "upstream_inference_prompt_cost": 9e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "M05-06-Q1",
+        "query": "患者目前是否已确诊患有肺癌？",
+        "expected_facts": [
+          "患者目前尚未确诊肺癌。",
+          "患者最近经常咳嗽，痰中有血丝。",
+          "患者吸烟多年，担心肺癌。"
+        ],
+        "required_groups": [
+          [
+            "尚未确诊",
+            "未确诊",
+            "没确诊"
+          ],
+          [
+            "肺癌",
+            "肺部肿瘤"
+          ],
+          [
+            "最近",
+            "近期"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "02cae38c-a0af-45fc-bc09-4b7784ee54d6",
+          "content": "用户澄清目前尚未确诊肺癌，仅根据症状猜测，需等待CT报告确认",
+          "score": 0.8233024567295665,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:33.234448+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M05-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:36:37.223606+00:00"
+        },
+        {
+          "memory_id": "b0942884-e4af-4944-a1f1-f42c032c39ae",
+          "content": "用户有多年吸烟史，因此担心自己可能患有肺癌",
+          "score": 0.6567340393027788,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:13.539515+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M05-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:33.189366+00:00"
+        },
+        {
+          "memory_id": "ef9a28f1-b782-4536-b76d-c0eb4e6ac4c7",
+          "content": "用户于2026年9月7日完成了胸部CT检查，目前正在等待影像报告结果",
+          "score": 0.6240357093993388,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:33.234448+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M05-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:36:37.223606+00:00"
+        },
+        {
+          "memory_id": "49052854-2db3-4bc6-af97-fd1657b9e07d",
+          "content": "用户最近经常咳嗽，痰中有血丝，症状已持续两周（约从2026年8月25日开始）",
+          "score": 0.5484521363379743,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:13.539515+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M05-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:33.189366+00:00"
+        },
+        {
+          "memory_id": "852a6c6c-8698-495f-9f2a-18601115ef0e",
+          "content": "用户计划进行CT检查以确认健康状况",
+          "score": 0.5441673210113187,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:13.539515+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M05-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:33.189366+00:00"
+        }
+      ],
+      "seconds": 2.907
+    },
+    {
+      "query": {
+        "id": "M05-06-Q2",
+        "query": "患者昨天进行了什么检查，结果状态怎样？",
+        "expected_facts": [
+          "患者昨天做了胸部CT检查。",
+          "影像报告尚未出来。",
+          "需要等待报告确认诊断。"
+        ],
+        "required_groups": [
+          [
+            "胸部CT",
+            "CT检查",
+            "肺部扫描"
+          ],
+          [
+            "报告未出",
+            "没出来",
+            "等待结果"
+          ],
+          [
+            "昨天",
+            "前天"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "ef9a28f1-b782-4536-b76d-c0eb4e6ac4c7",
+          "content": "用户于2026年9月7日完成了胸部CT检查，目前正在等待影像报告结果",
+          "score": 0.6292391949072198,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:33.234448+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M05-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:36:37.223606+00:00"
+        },
+        {
+          "memory_id": "02cae38c-a0af-45fc-bc09-4b7784ee54d6",
+          "content": "用户澄清目前尚未确诊肺癌，仅根据症状猜测，需等待CT报告确认",
+          "score": 0.6126329295132764,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:33.234448+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M05-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:36:37.223606+00:00"
+        },
+        {
+          "memory_id": "852a6c6c-8698-495f-9f2a-18601115ef0e",
+          "content": "用户计划进行CT检查以确认健康状况",
+          "score": 0.555995687382911,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:13.539515+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M05-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:33.189366+00:00"
+        },
+        {
+          "memory_id": "b0942884-e4af-4944-a1f1-f42c032c39ae",
+          "content": "用户有多年吸烟史，因此担心自己可能患有肺癌",
+          "score": 0.45683374765065937,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:13.539515+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M05-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:33.189366+00:00"
+        },
+        {
+          "memory_id": "49052854-2db3-4bc6-af97-fd1657b9e07d",
+          "content": "用户最近经常咳嗽，痰中有血丝，症状已持续两周（约从2026年8月25日开始）",
+          "score": 0.41879824395918497,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:13.539515+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M05-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:33.189366+00:00"
+        }
+      ],
+      "seconds": 8.515
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者目前是否已确诊患有肺癌？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "02cae38c-a0af-45fc-bc09-4b7784ee54d6",
+        "content": "用户澄清目前尚未确诊肺癌，仅根据症状猜测，需等待CT报告确认",
+        "score": 0.6694549062639223,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:35:33.234448+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M05-06",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:36:37.223606+00:00"
+      },
+      {
+        "memory_id": "ef9a28f1-b782-4536-b76d-c0eb4e6ac4c7",
+        "content": "用户于2026年9月7日完成了胸部CT检查，目前正在等待影像报告结果",
+        "score": 0.6242740038528863,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:35:33.234448+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M05-06",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:36:37.223606+00:00"
+      },
+      {
+        "memory_id": "852a6c6c-8698-495f-9f2a-18601115ef0e",
+        "content": "用户计划进行CT检查以确认健康状况",
+        "score": 0.5018827751091088,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:35:13.539515+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M05-06",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:35:33.189366+00:00"
+      },
+      {
+        "memory_id": "b0942884-e4af-4944-a1f1-f42c032c39ae",
+        "content": "用户有多年吸烟史，因此担心自己可能患有肺癌",
+        "score": 0.483033942098272,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:35:13.539515+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M05-06",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:35:33.189366+00:00"
+      },
+      {
+        "memory_id": "49052854-2db3-4bc6-af97-fd1657b9e07d",
+        "content": "用户最近经常咳嗽，痰中有血丝，症状已持续两周（约从2026年8月25日开始）",
+        "score": 0.448138819464139,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:35:13.539515+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M05-06",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:35:33.189366+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 121.25
+}

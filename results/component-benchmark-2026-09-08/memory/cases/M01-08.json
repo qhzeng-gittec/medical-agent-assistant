@@ -1,0 +1,483 @@
+{
+  "case": {
+    "id": "M01-08",
+    "category": "工作作息与睡眠时间变化",
+    "turns": [
+      {
+        "user": "上个月参加行业峰会时，我为了赶飞机，连续三天凌晨两点出发，导致那几天完全没怎么睡觉。",
+        "assistant": "好的，已记录您上月参会期间的极度疲劳状态。"
+      },
+      {
+        "user": "补充细节，其实是四天而不是三天，而且回程那天我直接睡了十二个小时才缓过来。",
+        "assistant": "收到，已修正天数并记录您回程后的长时睡眠。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "用户参加峰会期间，实际有多少天需要凌晨出发？",
+        "expected_facts": [
+          "该用户实际有四天需要凌晨两点出发。",
+          "该用户在那几天几乎完全没有睡觉。"
+        ],
+        "required_groups": [
+          [
+            "四天",
+            "四个整天"
+          ],
+          [
+            "凌晨两点出发",
+            "两点动身"
+          ],
+          [
+            "完全没怎么睡觉",
+            "几乎没睡"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "用户回程当天的睡眠情况如何？",
+        "expected_facts": [
+          "该用户回程当天直接睡了十二个小时。",
+          "该用户通过长睡恢复了体力。"
+        ],
+        "required_groups": [
+          [
+            "回程那天",
+            "返回当天"
+          ],
+          [
+            "睡了十二个小时",
+            "睡了十二小时"
+          ],
+          [
+            "缓过来",
+            "恢复体力"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M01-08",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860058-I1TARKofjPVjnBMFvFkI",
+      "usage": {
+        "prompt_tokens": 49,
+        "total_tokens": 49,
+        "cost": 1.96e-06,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.96e-06,
+          "upstream_inference_prompt_cost": 1.96e-06,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860079-Xu9M6llotJQYrutHYG1p",
+      "usage": {
+        "prompt_tokens": 8347,
+        "completion_tokens": 640,
+        "total_tokens": 8987,
+        "cost": 0.00336675,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00336675,
+          "upstream_inference_prompt_cost": 0.00208675,
+          "upstream_inference_completions_cost": 0.00128
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 629,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户于2026年8月参加行业峰会，为赶飞机连续三天凌晨两点出发，导致那几天几乎没怎么睡觉。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860105-zmKgHcWTMF4loSkezQf5",
+      "usage": {
+        "prompt_tokens": 31,
+        "total_tokens": 31,
+        "cost": 3.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.1e-07,
+          "upstream_inference_prompt_cost": 3.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860106-Ahah3d5QLlsl5olZmmWz",
+      "usage": {
+        "prompt_tokens": 50,
+        "total_tokens": 50,
+        "cost": 5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5e-07,
+          "upstream_inference_prompt_cost": 5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860108-taMXzDQwRbZqjT6t7oHs",
+      "usage": {
+        "prompt_tokens": 8433,
+        "completion_tokens": 283,
+        "total_tokens": 8716,
+        "cost": 0.00288819,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00288819,
+          "upstream_inference_prompt_cost": 0.00227691,
+          "upstream_inference_completions_cost": 0.00061128
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 141,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户参加行业峰会期间实际连续四天凌晨两点出发赶飞机，而非之前记录的三天。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户从行业峰会回程后直接睡了十二个小时才缓过来。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860117-wjR7ZPB1D6uaAde9mrns",
+      "usage": {
+        "prompt_tokens": 39,
+        "total_tokens": 39,
+        "cost": 3.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.9e-07,
+          "upstream_inference_prompt_cost": 3.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860125-0Vwsd9vyKDhPgZ8wmmX4",
+      "usage": {
+        "prompt_tokens": 13,
+        "total_tokens": 13,
+        "cost": 1.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.3e-07,
+          "upstream_inference_prompt_cost": 1.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860126-DT3IPSOkaaUF54cI3IET",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860129-zxvWx7HvbNcXtjowWIi8",
+      "usage": {
+        "prompt_tokens": 23,
+        "total_tokens": 23,
+        "cost": 2.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.3e-07,
+          "upstream_inference_prompt_cost": 2.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860130-zgt1ZEJvGq7fdWTe6gDx",
+      "usage": {
+        "prompt_tokens": 13,
+        "total_tokens": 13,
+        "cost": 1.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.3e-07,
+          "upstream_inference_prompt_cost": 1.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860135-DMtDX6mhqZ6hVGmgBh2V",
+      "usage": {
+        "prompt_tokens": 13,
+        "total_tokens": 13,
+        "cost": 1.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.3e-07,
+          "upstream_inference_prompt_cost": 1.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "用户参加峰会期间，实际有多少天需要凌晨出发？",
+        "expected_facts": [
+          "该用户实际有四天需要凌晨两点出发。",
+          "该用户在那几天几乎完全没有睡觉。"
+        ],
+        "required_groups": [
+          [
+            "四天",
+            "四个整天"
+          ],
+          [
+            "凌晨两点出发",
+            "两点动身"
+          ],
+          [
+            "完全没怎么睡觉",
+            "几乎没睡"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "32dab66a-3016-4a51-a4b3-e3857e9914e7",
+          "content": "用户参加行业峰会期间实际连续四天凌晨两点出发赶飞机，而非之前记录的三天。",
+          "score": 0.7830703083997529,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:05.836965+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:23.845086+00:00"
+        },
+        {
+          "memory_id": "c9a530a0-3194-4cda-9ea9-bf60e47092df",
+          "content": "用户于2026年8月参加行业峰会，为赶飞机连续三天凌晨两点出发，导致那几天几乎没怎么睡觉。",
+          "score": 0.7115641043644652,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:17.683105+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M01-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:05.816104+00:00"
+        },
+        {
+          "memory_id": "41699e88-a86d-4814-ae74-73fe735bd3e2",
+          "content": "用户从行业峰会回程后直接睡了十二个小时才缓过来。",
+          "score": 0.6892528654789192,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:05.836965+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:23.845086+00:00"
+        }
+      ],
+      "seconds": 1.531
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "用户回程当天的睡眠情况如何？",
+        "expected_facts": [
+          "该用户回程当天直接睡了十二个小时。",
+          "该用户通过长睡恢复了体力。"
+        ],
+        "required_groups": [
+          [
+            "回程那天",
+            "返回当天"
+          ],
+          [
+            "睡了十二个小时",
+            "睡了十二小时"
+          ],
+          [
+            "缓过来",
+            "恢复体力"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "41699e88-a86d-4814-ae74-73fe735bd3e2",
+          "content": "用户从行业峰会回程后直接睡了十二个小时才缓过来。",
+          "score": 0.7607604377481518,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:05.836965+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:23.845086+00:00"
+        },
+        {
+          "memory_id": "c9a530a0-3194-4cda-9ea9-bf60e47092df",
+          "content": "用户于2026年8月参加行业峰会，为赶飞机连续三天凌晨两点出发，导致那几天几乎没怎么睡觉。",
+          "score": 0.704578897922017,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:17.683105+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M01-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:05.816104+00:00"
+        },
+        {
+          "memory_id": "32dab66a-3016-4a51-a4b3-e3857e9914e7",
+          "content": "用户参加行业峰会期间实际连续四天凌晨两点出发赶飞机，而非之前记录的三天。",
+          "score": 0.6585009425993056,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:05.836965+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:23.845086+00:00"
+        }
+      ],
+      "seconds": 3.281
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "用户参加峰会期间，实际有多少天需要凌晨出发？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "32dab66a-3016-4a51-a4b3-e3857e9914e7",
+        "content": "用户参加行业峰会期间实际连续四天凌晨两点出发赶飞机，而非之前记录的三天。",
+        "score": 0.7014791710510313,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:35:05.836965+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M01-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:35:23.845086+00:00"
+      },
+      {
+        "memory_id": "c9a530a0-3194-4cda-9ea9-bf60e47092df",
+        "content": "用户于2026年8月参加行业峰会，为赶飞机连续三天凌晨两点出发，导致那几天几乎没怎么睡觉。",
+        "score": 0.6460706431185839,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:34:17.683105+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M01-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:35:05.816104+00:00"
+      },
+      {
+        "memory_id": "41699e88-a86d-4814-ae74-73fe735bd3e2",
+        "content": "用户从行业峰会回程后直接睡了十二个小时才缓过来。",
+        "score": 0.5780328371519472,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:35:05.836965+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M01-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:35:23.845086+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 79.687
+}

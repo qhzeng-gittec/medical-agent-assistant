@@ -1,0 +1,72 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Create source-grounded retrieval evaluation questions. Return JSON {\"items\":[...]}.\nFor EACH supplied source return {\"id\":same id,\"en\":English patient question,\"zh\":Chinese patient question,\n\"evidence_id\":the exact id string of ONE supplied evidence_options entry supporting BOTH questions}.\nAsk one concrete question about a supported detail (cause, symptom, prevention, evaluation, management).\nThe two questions express the SAME information need, not two facts. Use ordinary patient language.\nInclude enough topic context to identify the condition but do not copy a source sentence into the question.\nSelect an evidence option and ask about a concrete detail stated in that option. Do not ask for a personalized dose or individual diagnosis. Do not invent content. No answers in questions.\nThese are synthetic topic-source retrieval labels, not a clinician-authored benchmark."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"MLP-1660\", \"title\": \"Throat Disorders\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Your throat is a tube that carries food to your esophagus and air to your windpipe and larynx.\"}, {\"id\": \"S001\", \"text\": \"The technical name for your throat is the pharynx.\"}, {\"id\": \"S002\", \"text\": \"The cause is usually a viral infection, but other causes include allergies, infection with strep bacteria or the leaking of stomach acids back up into the esophagus, called GERD .\"}, {\"id\": \"S003\", \"text\": \"Other problems that affect the throat include: Tonsillitis - inflammation of the tonsils Cancer Croup - inflammation, usually in small children, which causes a barking cough Laryngitis - swelling of the voice box, which can cause a hoarse voice or loss of voice Most throat problems are minor and go away on their own.\"}, {\"id\": \"S004\", \"text\": \"Treatments, when needed, depend on the problem.\"}]}, {\"id\": \"MLP-5559\", \"title\": \"Coma\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"A coma is a deep state of unconsciousness.\"}, {\"id\": \"S001\", \"text\": \"An individual in a coma is alive but unable to move or respond to his or her environment.\"}, {\"id\": \"S002\", \"text\": \"Coma may occur as a complication of an underlying illness, or as a result of injuries, such as brain injury .\"}, {\"id\": \"S003\", \"text\": \"A coma rarely lasts more than 2 to 4 weeks.\"}, {\"id\": \"S004\", \"text\": \"The outcome for coma depends on the cause, severity, and site of the damage.\"}, {\"id\": \"S005\", \"text\": \"People may come out of a coma with physical, intellectual, and psychological problems.\"}, {\"id\": \"S006\", \"text\": \"Some people may remain in a coma for years or even decades.\"}, {\"id\": \"S007\", \"text\": \"For those people, the most common cause of death is infection, such as pneumonia.\"}, {\"id\": \"S008\", \"text\": \"NIH: National Institute of Neurological Disorders and Stroke\"}]}, {\"id\": \"MLP-462\", \"title\": \"Women's Health\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"And some of the health issues that affect both men and women can affect women differently.\"}, {\"id\": \"S001\", \"text\": \"Unique issues include pregnancy , menopause , and conditions of the female organs.\"}, {\"id\": \"S002\", \"text\": \"Women can have a healthy pregnancy by getting early and regular prenatal care .\"}, {\"id\": \"S003\", \"text\": \"They should also get recommended breast cancer, cervical cancer , and bone density screenings.\"}, {\"id\": \"S004\", \"text\": \"Women and men also have many of the same health problems.\"}, {\"id\": \"S005\", \"text\": \"But these problems can affect women differently.\"}, {\"id\": \"S006\", \"text\": \"For example: Women are more likely to die following a heart attack than men Women are more likely to show signs of depression and anxiety than men The effects of sexually transmitted infections (STIs) can be more serious in women Osteoarthritis affects more women than men Women are more likely to have urinary tract problems NIH: National Institute of Child Health and Human Development\"}]}, {\"id\": \"MLP-1691\", \"title\": \"Wilson Disease\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Wilson disease is a rare inherited disorder that prevents your body from getting rid of extra copper.\"}, {\"id\": \"S001\", \"text\": \"You need a small amount of copper from food to stay healthy.\"}, {\"id\": \"S002\", \"text\": \"Normally, your liver releases extra copper into bile, a digestive fluid.\"}, {\"id\": \"S003\", \"text\": \"With Wilson disease, the copper builds up in your liver, and it releases the copper directly into your bloodstream.\"}, {\"id\": \"S004\", \"text\": \"This can cause damage to your brain, kidneys, and eyes.\"}, {\"id\": \"S005\", \"text\": \"Wilson disease is present at birth, but symptoms usually start between ages 5 and 35.\"}, {\"id\": \"S006\", \"text\": \"It first attacks the liver, the central nervous system or both.\"}, {\"id\": \"S007\", \"text\": \"The most characteristic sign is a rusty brown ring around the cornea of the eye.\"}, {\"id\": \"S008\", \"text\": \"A physical exam and laboratory tests can diagnose it.\"}, {\"id\": \"S009\", \"text\": \"Treatment is with drugs to remove the extra copper from your body.\"}, {\"id\": \"S010\", \"text\": \"You need to take medicine and follow a low-copper diet for the rest of your life.\"}, {\"id\": \"S011\", \"text\": \"Don't eat shellfish or liver, as these foods may contain high levels of copper.\"}, {\"id\": \"S012\", \"text\": \"At the beginning of treatment, you'll also need to avoid chocolate, mushrooms, and nuts.\"}, {\"id\": \"S013\", \"text\": \"Have your drinking water checked for copper content and don't take multivitamins that contain copper.\"}, {\"id\": \"S014\", \"text\": \"With early detection and proper treatment, you can enjoy good health.\"}, {\"id\": \"S015\", \"text\": \"NIH: National Institute of Diabetes and Digestive and Kidney Diseases\"}]}, {\"id\": \"MLP-341\", \"title\": \"Neurologic Diseases\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"The brain, spinal cord, and nerves make up the nervous system.\"}, {\"id\": \"S001\", \"text\": \"Together they control all the workings of the body.\"}, {\"id\": \"S002\", \"text\": \"When something goes wrong with a part of your nervous system, you can have trouble moving, speaking, swallowing, breathing, or learning.\"}, {\"id\": \"S003\", \"text\": \"You can also have problems with your memory, senses, or mood.\"}, {\"id\": \"S004\", \"text\": \"There are more than 600 neurologic diseases.\"}, {\"id\": \"S005\", \"text\": \"Major types include: Diseases caused by faulty genes, such as Huntington's disease and muscular dystrophy Problems with the way the nervous system develops, such as spina bifida Degenerative diseases , where nerve cells are damaged or die, such as Parkinson's disease and Alzheimer's disease Diseases of the blood vessels that supply the brain, such as stroke Injuries to the spinal cord and brain Seizure disorders, such as epilepsy Cancer, such as brain tumors infections, such as meningitis\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 2500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788858695-tuJhjw1TGJW7hFBIMr7I",
+    "object": "chat.completion",
+    "created": 1788858695,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "SiliconFlow",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"MLP-1660\",\n      \"en\": \"Besides viral infections, what are some other common causes of throat problems?\",\n      \"zh\": \"除了病毒感染，喉咙问题的其他常见原因有哪些？\",\n      \"evidence_id\": \"S002\"\n    },\n    {\n      \"id\": \"MLP-5559\",\n      \"en\": \"For people who remain in a coma for years, what is the most common cause of death?\",\n      \"zh\": \"对于昏迷持续数年的人来说，最常见的死亡原因是什么？\",\n      \"evidence_id\": \"S007\"\n    },\n    {\n      \"id\": \"MLP-462\",\n      \"en\": \"What specific health screenings are recommended for women to detect cancer and bone issues?\",\n      \"zh\": \"为了检测癌症和骨骼问题，建议女性进行哪些具体的健康筛查？\",\n      \"evidence_id\": \"S003\"\n    },\n    {\n      \"id\": \"MLP-1691\",\n      \"en\": \"What is the most characteristic eye sign that doctors look for when diagnosing Wilson disease?\",\n      \"zh\": \"医生在诊断威尔逊病时，寻找的最具特征性的眼部体征是什么？\",\n      \"evidence_id\": \"S007\"\n    },\n    {\n      \"id\": \"MLP-341\",\n      \"en\": \"What are some examples of degenerative diseases where nerve cells are damaged or die?\",\n      \"zh\": \"神经细胞受损或死亡的退行性疾病有哪些例子？\",\n      \"evidence_id\": \"S005\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1794,
+      "completion_tokens": 386,
+      "total_tokens": 2180,
+      "cost": 0.0012205,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0012205,
+        "upstream_inference_prompt_cost": 0.0004485,
+        "upstream_inference_completions_cost": 0.000772
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 13.563
+}

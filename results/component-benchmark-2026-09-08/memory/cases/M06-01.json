@@ -1,0 +1,477 @@
+{
+  "case": {
+    "id": "M06-01",
+    "category": "按医嘱停用药物的时间线",
+    "turns": [
+      {
+        "user": "我去年三月因为高血压开始吃氨氯地平，每天一片。上个月医生说我血压稳定了，让我从四月十五号起停药，现在感觉挺好的。",
+        "assistant": "收到，已记录您四月十五号按医嘱停用氨氯地平的病史信息。"
+      },
+      {
+        "user": "补充一下，其实我是四月二十号才完全停的，中间有几天忘了吃，但医生确认过没问题，所以正式停药日期是二十号。",
+        "assistant": "明白，已将您的正式停药日期更正为四月二十号。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "Q1",
+        "query": "这位患者具体是在哪一天停止服用降压药的？",
+        "expected_facts": [
+          "患者在2023年4月20日按医嘱完全停止服用氨氯地平"
+        ],
+        "required_groups": [
+          [
+            "4月20日",
+            "四月二十号"
+          ],
+          [
+            "停止服用",
+            "停药"
+          ],
+          [
+            "氨氯地平"
+          ]
+        ]
+      },
+      {
+        "id": "Q2",
+        "query": "患者最初计划停药的时间与实际执行时间是否一致？",
+        "expected_facts": [
+          "患者原计划于4月15日停药，实际于4月20日完成停药"
+        ],
+        "required_groups": [
+          [
+            "4月15日",
+            "四月十五号"
+          ],
+          [
+            "4月20日",
+            "四月二十号"
+          ],
+          [
+            "计划",
+            "实际"
+          ]
+        ]
+      }
+    ],
+    "split": "dev",
+    "family_id": "M06-01",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860788-ak2hlIZl12QZY1BS8Nlp",
+      "usage": {
+        "prompt_tokens": 71,
+        "total_tokens": 71,
+        "cost": 7.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.1e-07,
+          "upstream_inference_prompt_cost": 7.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860790-Qj0Dv7u9zsZRbPixOIhs",
+      "usage": {
+        "prompt_tokens": 8361,
+        "completion_tokens": 882,
+        "total_tokens": 9243,
+        "cost": 0.0046251,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0046251,
+          "upstream_inference_prompt_cost": 0.0025083,
+          "upstream_inference_completions_cost": 0.0021168
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 753,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户因高血压于2025年3月开始服用氨氯地平，每天一片\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户于2026年8月被医生告知血压稳定，医嘱从2026年4月15日起停用氨氯地平，停药后感觉良好\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860823-Sns4t9fJAR1bLvTGgQ3Y",
+      "usage": {
+        "prompt_tokens": 62,
+        "total_tokens": 62,
+        "cost": 6.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.2e-07,
+          "upstream_inference_prompt_cost": 6.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860824-Qh60v3DHWJgwgUerWXvb",
+      "usage": {
+        "prompt_tokens": 62,
+        "total_tokens": 62,
+        "cost": 6.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.2e-07,
+          "upstream_inference_prompt_cost": 6.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860827-lWeDGE56Ni8mjp4ffQyB",
+      "usage": {
+        "prompt_tokens": 8492,
+        "completion_tokens": 885,
+        "total_tokens": 9377,
+        "cost": 0.00450892,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00450892,
+          "upstream_inference_prompt_cost": 0.00220792,
+          "upstream_inference_completions_cost": 0.002301
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 887,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户更正氨氯地平正式停药日期为2026年4月20日，中间有几天忘记服药但医生确认没问题\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860842-7KTAoDLfwbqK9cZgdyyQ",
+      "usage": {
+        "prompt_tokens": 34,
+        "total_tokens": 34,
+        "cost": 3.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.4e-07,
+          "upstream_inference_prompt_cost": 3.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860845-piaZVGfWxOwhRlAGRsen",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 14,
+        "cost": 1.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.4e-07,
+          "upstream_inference_prompt_cost": 1.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860846-PKDisBu9Yolky0DD1DHE",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 14,
+        "cost": 1.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.4e-07,
+          "upstream_inference_prompt_cost": 1.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860849-OqjfOzpVmZmsYUYXN0Mh",
+      "usage": {
+        "prompt_tokens": 24,
+        "total_tokens": 24,
+        "cost": 2.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.4e-07,
+          "upstream_inference_prompt_cost": 2.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860850-l2Yf3va3Q1I1QrNeklsC",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 14,
+        "cost": 5.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.6e-07,
+          "upstream_inference_prompt_cost": 5.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860851-kC6bqHCJNDQykGsA3CY9",
+      "usage": {
+        "prompt_tokens": 14,
+        "total_tokens": 14,
+        "cost": 1.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.4e-07,
+          "upstream_inference_prompt_cost": 1.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "Q1",
+        "query": "这位患者具体是在哪一天停止服用降压药的？",
+        "expected_facts": [
+          "患者在2023年4月20日按医嘱完全停止服用氨氯地平"
+        ],
+        "required_groups": [
+          [
+            "4月20日",
+            "四月二十号"
+          ],
+          [
+            "停止服用",
+            "停药"
+          ],
+          [
+            "氨氯地平"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "6d740810-f2bc-4caf-86f6-a019a73b36f7",
+          "content": "用户于2026年8月被医生告知血压稳定，医嘱从2026年4月15日起停用氨氯地平，停药后感觉良好",
+          "score": 0.8203451395457679,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:46:27.197085+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M06-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:47:03.952272+00:00"
+        },
+        {
+          "memory_id": "ead094aa-2a1b-48a7-9c14-ad43ad0071ce",
+          "content": "用户更正氨氯地平正式停药日期为2026年4月20日，中间有几天忘记服药但医生确认没问题",
+          "score": 0.76682207875603,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:47:03.988559+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M06-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:47:23.094594+00:00"
+        },
+        {
+          "memory_id": "15620fa1-946b-45d6-bfcf-85324a8b358a",
+          "content": "用户因高血压于2025年3月开始服用氨氯地平，每天一片",
+          "score": 0.737046223361058,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:46:27.197085+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M06-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:47:03.952272+00:00"
+        }
+      ],
+      "seconds": 2.828
+    },
+    {
+      "query": {
+        "id": "Q2",
+        "query": "患者最初计划停药的时间与实际执行时间是否一致？",
+        "expected_facts": [
+          "患者原计划于4月15日停药，实际于4月20日完成停药"
+        ],
+        "required_groups": [
+          [
+            "4月15日",
+            "四月十五号"
+          ],
+          [
+            "4月20日",
+            "四月二十号"
+          ],
+          [
+            "计划",
+            "实际"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "ead094aa-2a1b-48a7-9c14-ad43ad0071ce",
+          "content": "用户更正氨氯地平正式停药日期为2026年4月20日，中间有几天忘记服药但医生确认没问题",
+          "score": 0.7938504830427626,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:47:03.988559+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M06-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:47:23.094594+00:00"
+        },
+        {
+          "memory_id": "6d740810-f2bc-4caf-86f6-a019a73b36f7",
+          "content": "用户于2026年8月被医生告知血压稳定，医嘱从2026年4月15日起停用氨氯地平，停药后感觉良好",
+          "score": 0.6582856815293723,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:46:27.197085+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M06-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:47:03.952272+00:00"
+        },
+        {
+          "memory_id": "15620fa1-946b-45d6-bfcf-85324a8b358a",
+          "content": "用户因高血压于2025年3月开始服用氨氯地平，每天一片",
+          "score": 0.5795147221461867,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:46:27.197085+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M06-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:47:03.952272+00:00"
+        }
+      ],
+      "seconds": 2.266
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "这位患者具体是在哪一天停止服用降压药的？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "ead094aa-2a1b-48a7-9c14-ad43ad0071ce",
+        "content": "用户更正氨氯地平正式停药日期为2026年4月20日，中间有几天忘记服药但医生确认没问题",
+        "score": 0.7907750809877887,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:47:03.988559+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M06-01",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:47:23.094594+00:00"
+      },
+      {
+        "memory_id": "6d740810-f2bc-4caf-86f6-a019a73b36f7",
+        "content": "用户于2026年8月被医生告知血压稳定，医嘱从2026年4月15日起停用氨氯地平，停药后感觉良好",
+        "score": 0.7695237856828866,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:46:27.197085+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M06-01",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:47:03.952272+00:00"
+      },
+      {
+        "memory_id": "15620fa1-946b-45d6-bfcf-85324a8b358a",
+        "content": "用户因高血压于2025年3月开始服用氨氯地平，每天一片",
+        "score": 0.7063599535921872,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:46:27.197085+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M06-01",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:47:03.952272+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 70.86
+}

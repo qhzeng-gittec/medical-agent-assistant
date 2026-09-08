@@ -1,0 +1,520 @@
+{
+  "case": {
+    "id": "M07-02",
+    "category": "预约复查与检查准备安排",
+    "turns": [
+      {
+        "user": "我需要安排本周五下午的腰椎核磁共振。护士说检查时身上不能带金属物品，我想知道我的心脏起搏器是否会影响检查，或者是否需要提前办理特殊手续？",
+        "assistant": "好的，已记录您本周五下午的核磁预约需求及关于心脏起搏器的咨询。"
+      },
+      {
+        "user": "更正一下，我刚才查了资料，起搏器型号是兼容核磁的，但我还是想确认一下，如果周五下午三点到院，需要提前多久去登记和更换衣物？",
+        "assistant": "收到，已更新您关于起搏器兼容性的信息及对周五下午三点到院流程的询问。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "患者预约了哪项检查，并在何时进行？",
+        "expected_facts": [
+          "患者预约了本周五下午的腰椎核磁共振检查。"
+        ],
+        "required_groups": [
+          [
+            "本周五下午",
+            "周五下午"
+          ],
+          [
+            "腰椎核磁共振",
+            "腰椎核磁",
+            "做核磁"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "患者对自己体内植入物的情况做了怎样的说明，并计划何时到达医院？",
+        "expected_facts": [
+          "患者确认其心脏起搏器型号兼容核磁共振检查。",
+          "患者计划于周五下午三点到达医院。"
+        ],
+        "required_groups": [
+          [
+            "心脏起搏器",
+            "起搏器"
+          ],
+          [
+            "兼容核磁",
+            "可以做核磁"
+          ],
+          [
+            "周五下午三点",
+            "三点到院"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M07-02",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860920-fA7aNmWfebKpCcgfv9fQ",
+      "usage": {
+        "prompt_tokens": 74,
+        "total_tokens": 74,
+        "cost": 7.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.4e-07,
+          "upstream_inference_prompt_cost": 7.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860922-2nbjokL55Fs3QUuGQWAe",
+      "usage": {
+        "prompt_tokens": 8371,
+        "completion_tokens": 213,
+        "total_tokens": 8584,
+        "cost": 0.0030225,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0030225,
+          "upstream_inference_prompt_cost": 0.0025113,
+          "upstream_inference_completions_cost": 0.0005112
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 123,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\"memory\": [{\"id\": \"0\", \"text\": \"User needs to schedule a lumbar spine MRI for this Friday afternoon (around September 11, 2026)\", \"attributed_to\": \"user\"}, {\"id\": \"1\", \"text\": \"User has a heart pacemaker and is concerned about whether it will affect the MRI examination or require special procedures\", \"attributed_to\": \"user\"}]}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860930-Bh6Mpn1z2L06amO9ft6W",
+      "usage": {
+        "prompt_tokens": 49,
+        "total_tokens": 49,
+        "cost": 4.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.9e-07,
+          "upstream_inference_prompt_cost": 4.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860932-e4HRmsOyKoKRfry1lUa5",
+      "usage": {
+        "prompt_tokens": 73,
+        "total_tokens": 73,
+        "cost": 7.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.3e-07,
+          "upstream_inference_prompt_cost": 7.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860932-mOK4qmeagNsjqP9rEZ4b",
+      "usage": {
+        "prompt_tokens": 8511,
+        "completion_tokens": 347,
+        "total_tokens": 8858,
+        "cost": 0.00304749,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00304749,
+          "upstream_inference_prompt_cost": 0.00229797,
+          "upstream_inference_completions_cost": 0.00074952
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 174,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"User's heart pacemaker model is MRI-compatible, as confirmed by the user after checking information\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\"\n      ]\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"User plans to arrive at the hospital at 3 PM on Friday afternoon (September 11, 2026) for the lumbar spine MRI and wants to know how much time to allow for registration and changing clothes beforehand\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"1\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860948-REVwmsSoZxAGvJQt1Sas",
+      "usage": {
+        "prompt_tokens": 67,
+        "total_tokens": 67,
+        "cost": 6.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.7e-07,
+          "upstream_inference_prompt_cost": 6.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860951-A8hDIV2HtQhb9PLnmiJS",
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 12,
+        "cost": 1.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.2e-07,
+          "upstream_inference_prompt_cost": 1.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860952-j0mpKSbxNE06VkxQtX0y",
+      "usage": {
+        "prompt_tokens": 17,
+        "total_tokens": 17,
+        "cost": 1.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.7e-07,
+          "upstream_inference_prompt_cost": 1.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860955-y5S1eDUYwWzW9UNQ4oxP",
+      "usage": {
+        "prompt_tokens": 22,
+        "total_tokens": 22,
+        "cost": 2.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.2e-07,
+          "upstream_inference_prompt_cost": 2.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860956-zVzAJ85tDrbTneHgNliV",
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 12,
+        "cost": 1.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.2e-07,
+          "upstream_inference_prompt_cost": 1.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860958-DnIMMrvzJI4J29GY6paD",
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 12,
+        "cost": 1.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.2e-07,
+          "upstream_inference_prompt_cost": 1.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "患者预约了哪项检查，并在何时进行？",
+        "expected_facts": [
+          "患者预约了本周五下午的腰椎核磁共振检查。"
+        ],
+        "required_groups": [
+          [
+            "本周五下午",
+            "周五下午"
+          ],
+          [
+            "腰椎核磁共振",
+            "腰椎核磁",
+            "做核磁"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "7f2f2b05-847a-49bc-826f-5805cc865fdf",
+          "content": "User needs to schedule a lumbar spine MRI for this Friday afternoon (around September 11, 2026)",
+          "score": 0.5762046016579205,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:48:39.048746+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:48:51.093943+00:00"
+        },
+        {
+          "memory_id": "ba1b7abf-87f5-45d6-a350-e8d2ad8642be",
+          "content": "User plans to arrive at the hospital at 3 PM on Friday afternoon (September 11, 2026) for the lumbar spine MRI and wants to know how much time to allow for registration and changing clothes beforehand",
+          "score": 0.5529939907839834,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:48:51.129805+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:49:09.831767+00:00"
+        },
+        {
+          "memory_id": "a8188e55-d2d5-4769-85ba-90b759e13021",
+          "content": "User's heart pacemaker model is MRI-compatible, as confirmed by the user after checking information",
+          "score": 0.41857493876381685,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:48:51.129805+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:49:09.831767+00:00"
+        },
+        {
+          "memory_id": "cd3dd9c0-3527-4775-bca4-ed3d7cb681f2",
+          "content": "User has a heart pacemaker and is concerned about whether it will affect the MRI examination or require special procedures",
+          "score": 0.38372597222781946,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:48:39.048746+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:48:51.093943+00:00"
+        }
+      ],
+      "seconds": 1.203
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "患者对自己体内植入物的情况做了怎样的说明，并计划何时到达医院？",
+        "expected_facts": [
+          "患者确认其心脏起搏器型号兼容核磁共振检查。",
+          "患者计划于周五下午三点到达医院。"
+        ],
+        "required_groups": [
+          [
+            "心脏起搏器",
+            "起搏器"
+          ],
+          [
+            "兼容核磁",
+            "可以做核磁"
+          ],
+          [
+            "周五下午三点",
+            "三点到院"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "a8188e55-d2d5-4769-85ba-90b759e13021",
+          "content": "User's heart pacemaker model is MRI-compatible, as confirmed by the user after checking information",
+          "score": 0.5187554610823821,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:48:51.129805+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:49:09.831767+00:00"
+        },
+        {
+          "memory_id": "ba1b7abf-87f5-45d6-a350-e8d2ad8642be",
+          "content": "User plans to arrive at the hospital at 3 PM on Friday afternoon (September 11, 2026) for the lumbar spine MRI and wants to know how much time to allow for registration and changing clothes beforehand",
+          "score": 0.5165496642867009,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:48:51.129805+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M07-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:49:09.831767+00:00"
+        },
+        {
+          "memory_id": "cd3dd9c0-3527-4775-bca4-ed3d7cb681f2",
+          "content": "User has a heart pacemaker and is concerned about whether it will affect the MRI examination or require special procedures",
+          "score": 0.48773038050844575,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:48:39.048746+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:48:51.093943+00:00"
+        },
+        {
+          "memory_id": "7f2f2b05-847a-49bc-826f-5805cc865fdf",
+          "content": "User needs to schedule a lumbar spine MRI for this Friday afternoon (around September 11, 2026)",
+          "score": 0.44178106578088416,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:48:39.048746+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M07-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:48:51.093943+00:00"
+        }
+      ],
+      "seconds": 3.032
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者预约了哪项检查，并在何时进行？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "7f2f2b05-847a-49bc-826f-5805cc865fdf",
+        "content": "User needs to schedule a lumbar spine MRI for this Friday afternoon (around September 11, 2026)",
+        "score": 0.5694821505612702,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:48:39.048746+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M07-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:48:51.093943+00:00"
+      },
+      {
+        "memory_id": "ba1b7abf-87f5-45d6-a350-e8d2ad8642be",
+        "content": "User plans to arrive at the hospital at 3 PM on Friday afternoon (September 11, 2026) for the lumbar spine MRI and wants to know how much time to allow for registration and changing clothes beforehand",
+        "score": 0.554690411749591,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:48:51.129805+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M07-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:49:09.831767+00:00"
+      },
+      {
+        "memory_id": "a8188e55-d2d5-4769-85ba-90b759e13021",
+        "content": "User's heart pacemaker model is MRI-compatible, as confirmed by the user after checking information",
+        "score": 0.4298562152044867,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:48:51.129805+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M07-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:49:09.831767+00:00"
+      },
+      {
+        "memory_id": "cd3dd9c0-3527-4775-bca4-ed3d7cb681f2",
+        "content": "User has a heart pacemaker and is concerned about whether it will affect the MRI examination or require special procedures",
+        "score": 0.3727447910112523,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:48:39.048746+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M07-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:48:51.093943+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 39.328
+}

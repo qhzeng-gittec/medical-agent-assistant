@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Create source-grounded retrieval evaluation questions. Return JSON {\"items\":[...]}.\nFor EACH supplied source return {\"id\":same id,\"en\":English patient question,\"zh\":Chinese patient question,\n\"evidence_id\":the exact id string of ONE supplied evidence_options entry supporting BOTH questions}.\nAsk one concrete question about a supported detail (cause, symptom, prevention, evaluation, management).\nThe two questions express the SAME information need, not two facts. Use ordinary patient language.\nInclude enough topic context to identify the condition but do not copy a source sentence into the question.\nSelect an evidence option and ask about a concrete detail stated in that option. Do not ask for a personalized dose or individual diagnosis. Do not invent content. No answers in questions.\nThese are synthetic topic-source retrieval labels, not a clinician-authored benchmark."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"MLP-6103\", \"title\": \"Norovirus Infections\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Noroviruses are a group of related viruses.\"}, {\"id\": \"S001\", \"text\": \"Infection with these viruses causes an illness called gastroenteritis , an inflammation of the stomach and intestines.\"}, {\"id\": \"S002\", \"text\": \"It can spread from person to person, or through contaminated food or water.\"}, {\"id\": \"S003\", \"text\": \"You can also get it if you touch a contaminated surface.\"}, {\"id\": \"S004\", \"text\": \"Norovirus can be serious, especially for young children and older adults.\"}, {\"id\": \"S005\", \"text\": \"The most common symptoms of norovirus infection are: Diarrhea Nausea and vomiting Stomach pain Other symptoms may include fever, headache or body aches.\"}, {\"id\": \"S006\", \"text\": \"Treatment includes bed rest and lots of liquids to prevent dehydration .\"}, {\"id\": \"S007\", \"text\": \"There is no specific medicine to treat norovirus infections.\"}, {\"id\": \"S008\", \"text\": \"Proper hand washing and safe food preparation may help prevent infections.\"}, {\"id\": \"S009\", \"text\": \"Centers for Disease Control and Prevention\"}]}, {\"id\": \"MLP-7547\", \"title\": \"Caregiver Health\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"A caregiver gives care to someone who needs help taking care of themselves.\"}, {\"id\": \"S001\", \"text\": \"The person who needs help may be a child, an adult, or an older adult.\"}, {\"id\": \"S002\", \"text\": \"They may need help because of an injury, chronic illness, or disability .\"}, {\"id\": \"S003\", \"text\": \"Some caregivers are informal caregivers.\"}, {\"id\": \"S004\", \"text\": \"They are usually family members or friends.\"}, {\"id\": \"S005\", \"text\": \"Other caregivers are paid professionals.\"}, {\"id\": \"S006\", \"text\": \"Caregivers may give care at home or in a hospital or other health care setting.\"}, {\"id\": \"S007\", \"text\": \"Sometimes they are caregiving from a distance.\"}, {\"id\": \"S008\", \"text\": \"The types of tasks that caregivers do may include: Helping with daily tasks like bathing, eating, or taking medicine Arranging activities and medical care Making health and financial decisions How does caregiving affect the caregiver?\"}, {\"id\": \"S009\", \"text\": \"It may help to strengthen connections to a loved one.\"}, {\"id\": \"S010\", \"text\": \"You may feel fulfillment from helping someone else.\"}, {\"id\": \"S011\", \"text\": \"But caregiving may also be stressful and sometimes even overwhelming.\"}, {\"id\": \"S012\", \"text\": \"Caregiving may involve meeting complex demands without any training or help.\"}, {\"id\": \"S013\", \"text\": \"You may also be working and have children or others to care for.\"}, {\"id\": \"S014\", \"text\": \"To meet all of the demands, you might be putting your own needs and feelings aside.\"}, {\"id\": \"S015\", \"text\": \"But that's not good for your long-term health.\"}, {\"id\": \"S016\", \"text\": \"But you need to make sure that you are also taking care of yourself.\"}, {\"id\": \"S017\", \"text\": \"Many caregivers are affected by caregiver stress .\"}, {\"id\": \"S018\", \"text\": \"This is the stress that comes from the emotional and physical strain of caregiving.\"}, {\"id\": \"S019\", \"text\": \"The signs include: Feeling overwhelmed Feeling alone, isolated, or deserted by others Sleeping too much or too little Gaining or losing a lot of weight Feeling tired most of the time Losing interest in activities you used to enjoy Becoming easily irritated or angered Feeling worried or sad often Having headaches or body aches often Turning to unhealthy behaviors like smoking or drinking too much alcohol How can caregiver stress affect my health?\"}, {\"id\": \"S020\", \"text\": \"Long-term caregiver stress may put you at risk for many different health problems.\"}, {\"id\": \"S021\", \"text\": \"They include: Depression and anxiety A weak immune system Excess weight and obesity Chronic diseases such as heart disease , cancer, diabetes , or arthritis .\"}, {\"id\": \"S022\", \"text\": \"Depression and obesity can raise the risk of these diseases even more.\"}, {\"id\": \"S023\", \"text\": \"Problems with short-term memory or paying attention What can I do to prevent or relieve caregiver stress?\"}, {\"id\": \"S024\", \"text\": \"Taking steps to prevent or relieve caregiver stress may help prevent health problems.\"}, {\"id\": \"S025\", \"text\": \"Remember that if you feel better, you can take better care of your loved one.\"}, {\"id\": \"S026\", \"text\": \"It will also be easier to focus on the rewards of caregiving.\"}, {\"id\": \"S027\", \"text\": \"Some ways to help yourself include: Learning better ways to help your loved one.\"}, {\"id\": \"S028\", \"text\": \"For examples, hospitals offer classes that can teach you how to care for someone with an injury or illness.\"}, {\"id\": \"S029\", \"text\": \"Finding caregiving resources in your community to help you.\"}, {\"id\": \"S030\", \"text\": \"Many communities have adult daycare services or respite services.\"}, {\"id\": \"S031\", \"text\": \"Using one of these can give you a break from your caregiving duties.\"}, {\"id\": \"S032\", \"text\": \"Make a list of ways others can help you.\"}, {\"id\": \"S033\", \"text\": \"Let helpers choose what they would like to do.\"}, {\"id\": \"S034\", \"text\": \"For instance, someone might sit with the person you care for while you do an errand.\"}, {\"id\": \"S035\", \"text\": \"Someone else might pick up groceries for you.\"}, {\"id\": \"S036\", \"text\": \"A support group can allow you to share stories, pick up caregiving tips, and get support from others who face the same challenges as you do.\"}, {\"id\": \"S037\", \"text\": \"Being organized to make caregiving more manageable.\"}, {\"id\": \"S038\", \"text\": \"Make to-do lists and set a daily routine.\"}, {\"id\": \"S039\", \"text\": \"Staying in touch with family and friends.\"}, {\"id\": \"S040\", \"text\": \"It's important for you to have emotional support.\"}, {\"id\": \"S041\", \"text\": \"Try to find time to be physically active on most days of the week, choose healthy foods, and get enough sleep .\"}, {\"id\": \"S042\", \"text\": \"Make sure that you keep up with your medical care such as regular checkups and screenings .\"}, {\"id\": \"S043\", \"text\": \"Considering taking a break from your job , if you also work and are feeling overwhelmed.\"}, {\"id\": \"S044\", \"text\": \"Under the federal Family and Medical Leave Act, eligible employees can take up to 12 weeks of unpaid leave per year to care for relatives.\"}, {\"id\": \"S045\", \"text\": \"Check with your human resources office about your options.\"}, {\"id\": \"S046\", \"text\": \"of Health and Human Services Office on Women's Health\"}]}, {\"id\": \"MLP-4151\", \"title\": \"Advance Directives\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"What kind of medical care would you want if you were too ill or hurt to express your wishes?\"}, {\"id\": \"S001\", \"text\": \"Advance directives are legal documents that allow you to spell out your decisions about end-of-life care ahead of time.\"}, {\"id\": \"S002\", \"text\": \"They give you a way to tell your wishes to family, friends, and health care professionals and to avoid confusion later on.\"}, {\"id\": \"S003\", \"text\": \"A living will tells which treatments you want if you are dying or permanently unconscious.\"}, {\"id\": \"S004\", \"text\": \"You might want to include instructions on: The use of dialysis and breathing machines If you want to be resuscitated if your breathing or heartbeat stops Tube feeding Organ or tissue donation A durable power of attorney for health care is a document that names your health care proxy.\"}, {\"id\": \"S005\", \"text\": \"Your proxy is someone you trust to make health decisions for you if you are unable to do so.\"}]}, {\"id\": \"MLP-200\", \"title\": \"Constipation\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Constipation means having fewer than three bowel movements a week.\"}, {\"id\": \"S001\", \"text\": \"At one time or another, almost everyone gets constipated.\"}, {\"id\": \"S002\", \"text\": \"In most cases, it lasts a short time and is not serious.\"}, {\"id\": \"S003\", \"text\": \"There are many things you can do to prevent constipation.\"}, {\"id\": \"S004\", \"text\": \"They include: Eating more fruits, vegetables and grains, which are high in fiber Drinking plenty of water and other liquids Getting enough exercise Taking time to have a bowel movement when you need to Using laxatives only if your health care provider says you should Asking your provider if medicines you take may cause constipation It's not important that you have a bowel movement every day.\"}, {\"id\": \"S005\", \"text\": \"If your bowel habits change, however, check with your provider.\"}, {\"id\": \"S006\", \"text\": \"NIH: National Institute of Diabetes and Digestive and Kidney Diseases\"}]}, {\"id\": \"MLP-1253\", \"title\": \"Impetigo\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Impetigo is a skin infection caused by bacteria.\"}, {\"id\": \"S001\", \"text\": \"It is usually caused by staphylococcal (staph) bacteria, but it can also be caused by streptococcal (strep) bacteria.\"}, {\"id\": \"S002\", \"text\": \"It is most common in children between the ages of two and six.\"}, {\"id\": \"S003\", \"text\": \"It usually starts when bacteria get into a break in the skin, such as a cut, scratch, or insect bite.\"}, {\"id\": \"S004\", \"text\": \"Symptoms start with red or pimple-like sores surrounded by red skin.\"}, {\"id\": \"S005\", \"text\": \"These sores can be anywhere, but usually they occur on your face, arms and legs.\"}, {\"id\": \"S006\", \"text\": \"The sores fill with pus, then break open after a few days and form a thick crust.\"}, {\"id\": \"S007\", \"text\": \"They are often itchy, but scratching them can spread the sores.\"}, {\"id\": \"S008\", \"text\": \"Impetigo can spread by contact with sores or nasal discharge from an infected person.\"}, {\"id\": \"S009\", \"text\": \"You can treat impetigo with antibiotics.\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 2500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788858904-9P0BCFEzLIZWVNqhtjYz",
+    "object": "chat.completion",
+    "created": 1788858904,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"MLP-6103\",\n      \"en\": \"If I get sick with norovirus, what are the main symptoms I should expect to feel?\",\n      \"zh\": \"如果我感染了诺如病毒，我应该预期会出现哪些主要症状？\",\n      \"evidence_id\": \"S005\"\n    },\n    {\n      \"id\": \"MLP-7547\",\n      \"en\": \"What are some signs that a caregiver might be experiencing stress from their duties?\",\n      \"zh\": \"照顾者因职责而感到压力时，可能会出现哪些迹象？\",\n      \"evidence_id\": \"S019\"\n    },\n    {\n      \"id\": \"MLP-4151\",\n      \"en\": \"What is the purpose of a living will in an advance directive?\",\n      \"zh\": \"在预先指示中，生前遗嘱的目的是什么？\",\n      \"evidence_id\": \"S003\"\n    },\n    {\n      \"id\": \"MLP-200\",\n      \"en\": \"How many bowel movements per week define constipation?\",\n      \"zh\": \"每周排便多少次被定义为便秘？\",\n      \"evidence_id\": \"S000\"\n    },\n    {\n      \"id\": \"MLP-1253\",\n      \"en\": \"What type of germs cause impetigo skin infections?\",\n      \"zh\": \"哪种类型的细菌会引起脓疱疮皮肤感染？\",\n      \"evidence_id\": \"S000\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2850,
+      "completion_tokens": 364,
+      "total_tokens": 3214,
+      "cost": 0.00155574,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00155574,
+        "upstream_inference_prompt_cost": 0.0007695,
+        "upstream_inference_completions_cost": 0.00078624
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 9.594
+}

@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"b548ff0c9a9c1b174d7d\", \"query\": \"患者母亲的糖尿病是在哪一年被确诊的？\", \"expected_facts\": [\"患者母亲于2015年被确诊患有糖尿病。\", \"此前将糖尿病归因于父亲是错误的。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的父亲患有糖尿病，用户希望记录这段家族病史\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:53:40.711652+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户更正了家族病史信息：父亲实际患有高血压，母亲患有糖尿病且于2015年确诊。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:54:30.319447+00:00\"}]}, {\"id\": \"b5f6c0cf1460fe2cc9b2\", \"query\": \"患者目前能否食用所有类型的发酵乳制品？是否存在例外情况？\", \"expected_facts\": [\"该患者通常可食用酸奶和奶酪等发酵乳制品。\", \"该患者近期发现部分品牌酸奶会导致轻微腹胀。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户可以接受酸奶和奶酪等发酵乳制品，因为它们经过发酵处理\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:08.629837+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户对乳制品非常敏感，喝牛奶后会拉肚子，因此家里从来不买牛奶\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:08.629837+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户最近发现某些品牌的酸奶会引起轻微腹胀，目前正在尝试筛选适合的酸奶品牌\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:20.302668+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户的乳糖不耐受是遗传性的，从记事起就一直存在\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:20.302668+00:00\"}]}, {\"id\": \"b60826f0198c94be41d5\", \"query\": \"患者具体的用药时间和检查时间分别是多少，他对中间时段进食有何疑问？\", \"expected_facts\": [\"患者周二早上六点注射了胰岛素。\", \"患者询问若检查在下午两点，中午是否可以正常吃饭。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户询问如果心脏负荷试验安排在下午两点，中午是否可以正常吃饭，还是必须一直空腹到检查结束。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:51:57.967504+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户担心心脏负荷试验过程中若需运动会导致低血糖，并咨询检查前是否可以吃早饭。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:50:38.566304+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户患有糖尿病，平时打胰岛素。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:50:38.566304+00:00\"}]}, {\"id\": \"b79a5acdd5a2048357a3\", \"query\": \"患者计划何时进行乳腺超声复查？\", \"expected_facts\": [\"患者计划在本周四下午进行乳腺超声复查。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户想预约2026年9月10日（周四）下午两点半的乳腺超声复查，上次检查发现有个小结节，这次需要对比影像。用户询问是否需要携带之前的胶片还是电子版报告就行。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:49:09.651610+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户更正说明手头只有上次的纸质报告单，没有胶片了。用户询问周四下午两点半到院后能否先调取系统里的历史影像，还是必须回家找胶片。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:49:28.833361+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862091-64ADBWuTxrNc4iuBtT2B",
+    "object": "chat.completion",
+    "created": 1788862091,
+    "model": "minimax/minimax-m2.5",
+    "provider": "Friendli",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "[{\"id\": \"b548ff0c9a9c1b174d7d\", \"facts\": [{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory explicitly states mother has diabetes diagnosed in 2015.\"}, {\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory corrects earlier misattribution by stating father has hypertension, not diabetes.\"}]}, {\"id\": \"b5f6c0cf1460fe2cc9b2\", \"facts\": [{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states user can accept yogurt and cheese as fermented dairy products.\"}, {\"supported\":true,\"evidence\":[{\"memory_id\":\"m2\"}],\"reason\":\"Memory states user recently discovered certain yogurt brands cause mild bloating.\"}]}, {\"id\": \"b60826f0198c94be41d5\", \"facts\": [{\"supported\":false,\"evidence\":[],\"reason\":\"No memory mentions insulin injection at 6am on Tuesday or any specific medication time.\"}, {\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly asks about eating normally at noon if the test is scheduled for 2pm.\"}]}, {\"id\": \"b79a5acdd5a2048357a3\", \"facts\": [{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states appointment for breast ultrasound on Thursday September 10th at 2:30pm.\"}]}]",
+          "refusal": null,
+          "reasoning": "Let me analyze each item according to the instructions:\n\n1. **b548ff0c9a9c1b174d7d** - Query about when the patient's mother was diagnosed with diabetes\n   - Expected facts:\n     - \"患者母亲于2015年被确诊患有糖尿病。\" - This is supported by m1 which says \"母亲患有糖尿病且于2015年确诊\"\n     - \"此前将糖尿病归因于父亲是错误的。\" - This is supported by m1 which says \"父亲实际患有高血压，母亲患有糖尿病\" (correcting the earlier misattribution)\n   - Both facts are supported by m1\n\n2. **b5f6c0cf1460fe2cc9b2** - Query about fermented dairy products\n   - Expected facts:\n     - \"该患者通常可食用酸奶和奶酪等发酵乳制品。\" - Supported by m0 \"用户可以接受酸奶和奶酪等发酵乳制品\"\n     - \"该患者近期发现部分品牌酸奶会导致轻微腹胀。\" - Supported by m2 \"用户最近发现某些品牌的酸奶会引起轻微腹胀\"\n   - Both facts are supported\n\n3. **b60826f0198c94be41d5** - Query about medication time and examination time\n   - Expected facts:\n     - \"患者周二早上六点注射了胰岛素。\" - NOT supported. The memories mention \"用户患有糖尿病，平时打胰岛素\" but no specific time mentioned. The query mentions \"周二早上六点\" but there's no memory supporting this specific time.\n     - \"患者询问若检查在下午两点，中午是否可以正常吃饭。\" - Supported by m0 which asks about \"心脏负荷试验安排在下午两点\"\n   - First fact is NOT supported, second is supported\n\n4. **b79a5acdd5a2048357a3** - Query about breast ultrasound follow-up\n   - Expected facts:\n     - \"患者计划在本周四下午进行乳腺超声复查。\" - Supported by m0 \"用户想预约2026年9月10日（周四）下午两点半的乳腺超声复查\"\n   - Fact is supported\n\nNow I need to format the output as JSON with the specified structure.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item according to the instructions:\n\n1. **b548ff0c9a9c1b174d7d** - Query about when the patient's mother was diagnosed with diabetes\n   - Expected facts:\n     - \"患者母亲于2015年被确诊患有糖尿病。\" - This is supported by m1 which says \"母亲患有糖尿病且于2015年确诊\"\n     - \"此前将糖尿病归因于父亲是错误的。\" - This is supported by m1 which says \"父亲实际患有高血压，母亲患有糖尿病\" (correcting the earlier misattribution)\n   - Both facts are supported by m1\n\n2. **b5f6c0cf1460fe2cc9b2** - Query about fermented dairy products\n   - Expected facts:\n     - \"该患者通常可食用酸奶和奶酪等发酵乳制品。\" - Supported by m0 \"用户可以接受酸奶和奶酪等发酵乳制品\"\n     - \"该患者近期发现部分品牌酸奶会导致轻微腹胀。\" - Supported by m2 \"用户最近发现某些品牌的酸奶会引起轻微腹胀\"\n   - Both facts are supported\n\n3. **b60826f0198c94be41d5** - Query about medication time and examination time\n   - Expected facts:\n     - \"患者周二早上六点注射了胰岛素。\" - NOT supported. The memories mention \"用户患有糖尿病，平时打胰岛素\" but no specific time mentioned. The query mentions \"周二早上六点\" but there's no memory supporting this specific time.\n     - \"患者询问若检查在下午两点，中午是否可以正常吃饭。\" - Supported by m0 which asks about \"心脏负荷试验安排在下午两点\"\n   - First fact is NOT supported, second is supported\n\n4. **b79a5acdd5a2048357a3** - Query about breast ultrasound follow-up\n   - Expected facts:\n     - \"患者计划在本周四下午进行乳腺超声复查。\" - Supported by m0 \"用户想预约2026年9月10日（周四）下午两点半的乳腺超声复查\"\n   - Fact is supported\n\nNow I need to format the output as JSON with the specified structure.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1291,
+      "completion_tokens": 760,
+      "total_tokens": 2051,
+      "cost": 0.00123786,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00123786,
+        "upstream_inference_prompt_cost": 0.00032586,
+        "upstream_inference_completions_cost": 0.000912
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 541,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 3.781
+}

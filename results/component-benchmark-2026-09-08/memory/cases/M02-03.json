@@ -1,0 +1,449 @@
+{
+  "case": {
+    "id": "M02-03",
+    "category": "运动限制与日常活动",
+    "turns": [
+      {
+        "user": "由于腰部问题，我被要求避免弯腰提东西和长时间坐着。现在我只能短时间站立或缓慢行走。",
+        "assistant": "好的，已记录您的腰部活动限制。"
+      },
+      {
+        "user": "医生还说，如果出现麻木感，需要立刻躺下休息。目前我尽量控制活动时间。",
+        "assistant": "明白，已更新您的注意事项。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "Q1",
+        "query": "患者因腰部问题被禁止哪些动作？",
+        "expected_facts": [
+          "患者被禁止弯腰提东西和长时间坐着。"
+        ],
+        "required_groups": [
+          [
+            "弯腰提东西",
+            "长时间坐着"
+          ]
+        ]
+      },
+      {
+        "id": "Q2",
+        "query": "当出现什么感觉时患者需要立即躺下休息？",
+        "expected_facts": [
+          "如果出现麻木感，患者需要立刻躺下休息。"
+        ],
+        "required_groups": [
+          [
+            "麻木感",
+            "立刻躺下",
+            "休息"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M02-03",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860143-ZT4nbijBsb03FDCI1BOv",
+      "usage": {
+        "prompt_tokens": 45,
+        "total_tokens": 45,
+        "cost": 4.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.5e-07,
+          "upstream_inference_prompt_cost": 4.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860147-sEqKTbCJfdlsDz52wh5M",
+      "usage": {
+        "prompt_tokens": 8341,
+        "completion_tokens": 1579,
+        "total_tokens": 9920,
+        "cost": 0.0050727,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 8128,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0050727,
+          "upstream_inference_prompt_cost": 0.0012831,
+          "upstream_inference_completions_cost": 0.0037896
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1533,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\"memory\": [{\"id\": \"0\", \"text\": \"用户因腰部问题被要求避免弯腰提东西和长时间坐着，目前只能短时间站立或缓慢行走。\", \"attributed_to\": \"user\"}]}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860210-yhIFjEtm4kp94M9VdgIS",
+      "usage": {
+        "prompt_tokens": 25,
+        "total_tokens": 25,
+        "cost": 2.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.5e-07,
+          "upstream_inference_prompt_cost": 2.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860218-uBkLIqKYD1m8nt3uUPBe",
+      "usage": {
+        "prompt_tokens": 39,
+        "total_tokens": 39,
+        "cost": 3.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.9e-07,
+          "upstream_inference_prompt_cost": 3.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860222-fRw719b7dFYH9cweVzGk",
+      "usage": {
+        "prompt_tokens": 8409,
+        "completion_tokens": 508,
+        "total_tokens": 8917,
+        "cost": 0.00311825,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00311825,
+          "upstream_inference_prompt_cost": 0.00210225,
+          "upstream_inference_completions_cost": 0.001016
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 501,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"医生告知用户如果出现麻木感需要立刻躺下休息\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户目前尽量控制活动时间以应对腰部问题\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860238-um8I0npW81FcmU7h9JD0",
+      "usage": {
+        "prompt_tokens": 24,
+        "total_tokens": 24,
+        "cost": 2.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.4e-07,
+          "upstream_inference_prompt_cost": 2.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860243-YReDuVhFDBnFrZHRRTcl",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860250-ufESiOzkq8Wq2T65AQda",
+      "usage": {
+        "prompt_tokens": 13,
+        "total_tokens": 13,
+        "cost": 1.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.3e-07,
+          "upstream_inference_prompt_cost": 1.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860251-aJOlOoGmKUnPtuT2APxi",
+      "usage": {
+        "prompt_tokens": 20,
+        "total_tokens": 20,
+        "cost": 2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2e-07,
+          "upstream_inference_prompt_cost": 2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860264-Os03kEbFcQEdjYDBm3qg",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860268-9EMYngKGFGtHNJ9WAJr6",
+      "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 10,
+        "cost": 1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1e-07,
+          "upstream_inference_prompt_cost": 1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "Q1",
+        "query": "患者因腰部问题被禁止哪些动作？",
+        "expected_facts": [
+          "患者被禁止弯腰提东西和长时间坐着。"
+        ],
+        "required_groups": [
+          [
+            "弯腰提东西",
+            "长时间坐着"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "8ee4a64b-853c-4353-8bd3-d11aae40ba9d",
+          "content": "用户因腰部问题被要求避免弯腰提东西和长时间坐着，目前只能短时间站立或缓慢行走。",
+          "score": 0.7842527839367914,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:41.040978+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M02-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:36:57.431220+00:00"
+        },
+        {
+          "memory_id": "3f49eae1-5e66-4edb-81a5-c06b06827865",
+          "content": "用户目前尽量控制活动时间以应对腰部问题",
+          "score": 0.7827419209418143,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:36:57.453507+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M02-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:37:21.786270+00:00"
+        },
+        {
+          "memory_id": "23995e5e-a839-4cdb-9a9b-7faf4ab97907",
+          "content": "医生告知用户如果出现麻木感需要立刻躺下休息",
+          "score": 0.6121054444143905,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:36:57.453507+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M02-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:37:21.786270+00:00"
+        }
+      ],
+      "seconds": 7.781
+    },
+    {
+      "query": {
+        "id": "Q2",
+        "query": "当出现什么感觉时患者需要立即躺下休息？",
+        "expected_facts": [
+          "如果出现麻木感，患者需要立刻躺下休息。"
+        ],
+        "required_groups": [
+          [
+            "麻木感",
+            "立刻躺下",
+            "休息"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "23995e5e-a839-4cdb-9a9b-7faf4ab97907",
+          "content": "医生告知用户如果出现麻木感需要立刻躺下休息",
+          "score": 0.7520096403398627,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:36:57.453507+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M02-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:37:21.786270+00:00"
+        },
+        {
+          "memory_id": "3f49eae1-5e66-4edb-81a5-c06b06827865",
+          "content": "用户目前尽量控制活动时间以应对腰部问题",
+          "score": 0.5859872281266026,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:36:57.453507+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M02-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:37:21.786270+00:00"
+        },
+        {
+          "memory_id": "8ee4a64b-853c-4353-8bd3-d11aae40ba9d",
+          "content": "用户因腰部问题被要求避免弯腰提东西和长时间坐着，目前只能短时间站立或缓慢行走。",
+          "score": 0.49346122673864745,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:41.040978+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M02-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:36:57.431220+00:00"
+        }
+      ],
+      "seconds": 1.313
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者因腰部问题被禁止哪些动作？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "8ee4a64b-853c-4353-8bd3-d11aae40ba9d",
+        "content": "用户因腰部问题被要求避免弯腰提东西和长时间坐着，目前只能短时间站立或缓慢行走。",
+        "score": 0.6382091143697348,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:35:41.040978+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M02-03",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:36:57.431220+00:00"
+      },
+      {
+        "memory_id": "3f49eae1-5e66-4edb-81a5-c06b06827865",
+        "content": "用户目前尽量控制活动时间以应对腰部问题",
+        "score": 0.6328531923059402,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:36:57.453507+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M02-03",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:37:21.786270+00:00"
+      },
+      {
+        "memory_id": "23995e5e-a839-4cdb-9a9b-7faf4ab97907",
+        "content": "医生告知用户如果出现麻木感需要立刻躺下休息",
+        "score": 0.5283790294486121,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:36:57.453507+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M02-03",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:37:21.786270+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 135.453
+}

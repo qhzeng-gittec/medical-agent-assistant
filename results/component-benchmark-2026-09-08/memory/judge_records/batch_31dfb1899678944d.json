@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"16822e216add5b542af7\", \"query\": \"患者对哪类乳制品存在明确的不耐受反应？其根本原因是什么？\", \"expected_facts\": [\"该患者饮用牛奶后会出现腹泻症状。\", \"该患者的乳糖不耐受具有遗传背景。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户对乳制品非常敏感，喝牛奶后会拉肚子，因此家里从来不买牛奶\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:08.629837+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户的乳糖不耐受是遗传性的，从记事起就一直存在\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:20.302668+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户最近发现某些品牌的酸奶会引起轻微腹胀，目前正在尝试筛选适合的酸奶品牌\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:20.302668+00:00\"}]}, {\"id\": \"168f3a8c3a18e0ca9f7f\", \"query\": \"三年前他因为什么导致脂肪肝加重，之后做了什么运动，结果如何？\", \"expected_facts\": [\"患者三年前因应酬饮酒导致脂肪肝加重。\", \"患者开始每周游泳三次，坚持了一年。\", \"患者指标恢复至轻度水平。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"三年前用户因应酬多又喝了几次酒，体检发现脂肪肝稍微加重\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:59:32.998878+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户彻底戒酒后开始每周游泳三次，坚持了一年，脂肪肝指标回到轻度水平\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:59:32.998878+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"医生建议用户减重和戒酒以改善脂肪肝情况\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:58:57.186690+00:00\"}]}, {\"id\": \"16956c27d072dec682d7\", \"query\": \"患者搬迁至新区的具体时间是什么时候，原因是什么？\", \"expected_facts\": [\"患者去年年底完成了搬迁。\", \"搬迁原因是为了孩子上学。\", \"患者从老城区搬到了新区。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户原计划两年前为孩子上学搬家，但因手续拖延，实际于2025年底才完成从老城区到新区学区房的搬迁。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:53:21.097561+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户为了孩子上学，于两年前（约2024年9月）从老城区搬到了新区的学区房，现在每天的通勤时间缩短了很多。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:52:05.751379+00:00\"}]}, {\"id\": \"16c9d82b0574cbde6207\", \"query\": \"患者上个月度假的具体目的地和停留时长是多少？\", \"expected_facts\": [\"患者上个月度假的目的地是厦门。\", \"患者在厦门停留了七天。\", \"度假出发时间是上个月初。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户于2026年8月前往海南度假，停留了五天，主要在三亚海边活动，天气非常暖和。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:52:58.137150+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户于2026年8月初前往厦门度假，停留了七天，而非之前提到的海南五天行程。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:53:18.358096+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861876-vkCDzcGF1iKj7HCaD8uH",
+    "object": "chat.completion",
+    "created": 1788861876,
+    "model": "minimax/minimax-m2.5",
+    "provider": "Friendli",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "[{\"id\":\"16822e216add5b542af7\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states user has diarrhea after drinking milk.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory states user's lactose intolerance is hereditary.\"}]},{\"id\":\"168f3a8c3a18e0ca9f7f\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states fatty liver worsened three years ago due to business drinking.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory states user swam three times weekly for one year after quitting drinking.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory states fatty liver indicators returned to mild level.\"}]},{\"id\":\"16956c27d072dec682d7\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory states relocation was completed at end of 2025.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"Both memories explicitly mention relocation was for child's schooling.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"Both memories state user moved from old city area to new district.\"}]},{\"id\":\"16c9d82b0574cbde6207\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory explicitly states user vacationed in Xiamen in August 2026.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory states user stayed for seven days in Xiamen.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory states user went at the beginning of August, which is early last month.\"}]}]",
+          "refusal": null,
+          "reasoning": "Let me analyze each item according to the instructions:\n\n1. **Item 16822e216add5b542af7**: Query about dairy intolerance and root cause\n   - Expected facts:\n     - \"该患者饮用牛奶后会出现腹泻症状。\" - This is supported by m0: \"用户对乳制品非常敏感，喝牛奶后会拉肚子\"\n     - \"该患者的乳糖不耐受具有遗传背景。\" - This is supported by m1: \"用户的乳糖不耐受是遗传性的，从记事起就一直存在\"\n\n2. **Item 168f3a8c3a18e0ca9f7f**: Query about fatty liver three years ago\n   - Expected facts:\n     - \"患者三年前因应酬饮酒导致脂肪肝加重。\" - Supported by m0: \"三年前用户因应酬多又喝了几次酒，体检发现脂肪肝稍微加重\"\n     - \"患者开始每周游泳三次，坚持了一年。\" - Supported by m1: \"用户彻底戒酒后开始每周游泳三次，坚持了一年\"\n     - \"患者指标恢复至轻度水平。\" - Supported by m1: \"脂肪肝指标回到轻度水平\"\n\n3. **Item 16956c27d072dec682d7**: Query about relocation\n   - Expected facts:\n     - \"患者去年年底完成了搬迁。\" - Supported by m0: \"实际于2025年底才完成从老城区到新区学区房的搬迁\" (2025 is last year relative to 2026)\n     - \"搬迁原因是为了孩子上学。\" - Supported by both m0 and m1 (mentioned in both)\n     - \"患者从老城区搬到了新区。\" - Supported by both m0 and m1\n\n4. **Item 16c9d82b0574cbde6207**: Query about vacation\n   - Expected facts:\n     - \"患者上个月度假的目的地是厦门。\" - Supported by m1: \"用户于2026年8月初前往厦门度假\"\n     - \"患者在厦门停留了七天。\" - Supported by m1: \"停留了七天\"\n     - \"度假出发时间是上个月初。\" - Supported by m1: \"2026年8月初\"\n\nI'll verify the evidence for each fact, ensuring precise alignment with the expected details. The vacation details in item 4 are particularly clear, with exact location, duration, and timing confirmed by m1.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item according to the instructions:\n\n1. **Item 16822e216add5b542af7**: Query about dairy intolerance and root cause\n   - Expected facts:\n     - \"该患者饮用牛奶后会出现腹泻症状。\" - This is supported by m0: \"用户对乳制品非常敏感，喝牛奶后会拉肚子\"\n     - \"该患者的乳糖不耐受具有遗传背景。\" - This is supported by m1: \"用户的乳糖不耐受是遗传性的，从记事起就一直存在\"\n\n2. **Item 168f3a8c3a18e0ca9f7f**: Query about fatty liver three years ago\n   - Expected facts:\n     - \"患者三年前因应酬饮酒导致脂肪肝加重。\" - Supported by m0: \"三年前用户因应酬多又喝了几次酒，体检发现脂肪肝稍微加重\"\n     - \"患者开始每周游泳三次，坚持了一年。\" - Supported by m1: \"用户彻底戒酒后开始每周游泳三次，坚持了一年\"\n     - \"患者指标恢复至轻度水平。\" - Supported by m1: \"脂肪肝指标回到轻度水平\"\n\n3. **Item 16956c27d072dec682d7**: Query about relocation\n   - Expected facts:\n     - \"患者去年年底完成了搬迁。\" - Supported by m0: \"实际于2025年底才完成从老城区到新区学区房的搬迁\" (2025 is last year relative to 2026)\n     - \"搬迁原因是为了孩子上学。\" - Supported by both m0 and m1 (mentioned in both)\n     - \"患者从老城区搬到了新区。\" - Supported by both m0 and m1\n\n4. **Item 16c9d82b0574cbde6207**: Query about vacation\n   - Expected facts:\n     - \"患者上个月度假的目的地是厦门。\" - Supported by m1: \"用户于2026年8月初前往厦门度假\"\n     - \"患者在厦门停留了七天。\" - Supported by m1: \"停留了七天\"\n     - \"度假出发时间是上个月初。\" - Supported by m1: \"2026年8月初\"\n\nI'll verify the evidence for each fact, ensuring precise alignment with the expected details. The vacation details in item 4 are particularly clear, with exact location, duration, and timing confirmed by m1.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1240,
+      "completion_tokens": 900,
+      "total_tokens": 2140,
+      "cost": 0.00139824,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 224,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00139824,
+        "upstream_inference_prompt_cost": 0.00031824,
+        "upstream_inference_completions_cost": 0.00108
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 570,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 6.235
+}

@@ -1,0 +1,436 @@
+{
+  "case": {
+    "id": "M03-01",
+    "category": "药物过敏及具体反应",
+    "turns": [
+      {
+        "user": "我上周在诊所提到过，我对青霉素类药物有严重过敏反应。记得是五年前那次住院时发生的，当时全身起了大片红疹，还伴有呼吸困难，医生紧急处理后才好转。",
+        "assistant": "已记录您关于青霉素过敏的历史信息。"
+      },
+      {
+        "user": "补充一下细节，那次反应发生在2019年夏天，除了皮疹和呼吸急促，我还出现了喉咙肿胀的症状，所以从那以后我就严格避免接触任何含青霉素的药物了。",
+        "assistant": "收到补充信息，已更新您的过敏史记录。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "请回顾一下患者之前提到的对哪种抗生素产生过严重不良反应，以及当时出现的具体症状有哪些？",
+        "expected_facts": [
+          "患者在2019年夏天对青霉素类药物产生了严重过敏反应。",
+          "当时的症状包括全身大片红疹、呼吸困难和喉咙肿胀。"
+        ],
+        "required_groups": [
+          [
+            "青霉素",
+            "青霉素类"
+          ],
+          [
+            "红疹",
+            "皮疹",
+            "全身红疹"
+          ],
+          [
+            "呼吸困难",
+            "呼吸急促",
+            "喘不上气"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "根据之前的对话，患者是在哪一年经历了这次药物过敏事件，并且之后采取了什么预防措施？",
+        "expected_facts": [
+          "患者的过敏事件发生在2019年夏天。",
+          "自那以后患者严格避免接触任何含青霉素的药物。"
+        ],
+        "required_groups": [
+          [
+            "2019年",
+            "2019年夏天"
+          ],
+          [
+            "避免接触",
+            "严格避免",
+            "不再使用"
+          ]
+        ]
+      }
+    ],
+    "split": "dev",
+    "family_id": "M03-01",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859840-x69ivnb7sIgf23F7yMGa",
+      "usage": {
+        "prompt_tokens": 63,
+        "total_tokens": 63,
+        "cost": 6.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.3e-07,
+          "upstream_inference_prompt_cost": 6.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788859871-hyLWRPvQBx6HKzhhMSiw",
+      "usage": {
+        "prompt_tokens": 8363,
+        "completion_tokens": 720,
+        "total_tokens": 9083,
+        "cost": 0.00381321,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00381321,
+          "upstream_inference_prompt_cost": 0.00225801,
+          "upstream_inference_completions_cost": 0.0015552
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 637,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户对青霉素类药物有严重过敏反应，五年前住院期间发生，症状包括全身大片红疹和呼吸困难，经医生紧急处理后好转。用户上周在诊所提及了这一过敏史。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859892-lUpepGHBDywUy0DuxHIj",
+      "usage": {
+        "prompt_tokens": 45,
+        "total_tokens": 45,
+        "cost": 4.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.5e-07,
+          "upstream_inference_prompt_cost": 4.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859893-NinGO4Y7L8SpmH5HX1TC",
+      "usage": {
+        "prompt_tokens": 66,
+        "total_tokens": 66,
+        "cost": 6.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.6e-07,
+          "upstream_inference_prompt_cost": 6.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788859896-h1dNsaT51IMuT6vrFwQX",
+      "usage": {
+        "prompt_tokens": 8471,
+        "completion_tokens": 621,
+        "total_tokens": 9092,
+        "cost": 0.00381706,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00381706,
+          "upstream_inference_prompt_cost": 0.00220246,
+          "upstream_inference_completions_cost": 0.0016146
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 603,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户补充说明青霉素过敏反应发生在2019年夏天，除皮疹和呼吸急促外还出现了喉咙肿胀症状，此后严格避免接触任何含青霉素的药物。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859911-tImlplKoTAQcGao3H4Ct",
+      "usage": {
+        "prompt_tokens": 42,
+        "total_tokens": 42,
+        "cost": 4.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.2e-07,
+          "upstream_inference_prompt_cost": 4.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859913-zOKmwwXGVd3qTc2tqZ0p",
+      "usage": {
+        "prompt_tokens": 24,
+        "total_tokens": 24,
+        "cost": 2.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.4e-07,
+          "upstream_inference_prompt_cost": 2.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859914-J3NPjxMzRISKDIphoHBI",
+      "usage": {
+        "prompt_tokens": 23,
+        "total_tokens": 23,
+        "cost": 2.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.3e-07,
+          "upstream_inference_prompt_cost": 2.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859915-YjwrGRxaQoG3twSio3IS",
+      "usage": {
+        "prompt_tokens": 34,
+        "total_tokens": 34,
+        "cost": 3.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.4e-07,
+          "upstream_inference_prompt_cost": 3.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859916-EOQSZ3fVIOJYYunepgVw",
+      "usage": {
+        "prompt_tokens": 24,
+        "total_tokens": 24,
+        "cost": 2.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.4e-07,
+          "upstream_inference_prompt_cost": 2.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859917-MvPfn3SnghgOq1yQjmYG",
+      "usage": {
+        "prompt_tokens": 24,
+        "total_tokens": 24,
+        "cost": 2.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.4e-07,
+          "upstream_inference_prompt_cost": 2.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "请回顾一下患者之前提到的对哪种抗生素产生过严重不良反应，以及当时出现的具体症状有哪些？",
+        "expected_facts": [
+          "患者在2019年夏天对青霉素类药物产生了严重过敏反应。",
+          "当时的症状包括全身大片红疹、呼吸困难和喉咙肿胀。"
+        ],
+        "required_groups": [
+          [
+            "青霉素",
+            "青霉素类"
+          ],
+          [
+            "红疹",
+            "皮疹",
+            "全身红疹"
+          ],
+          [
+            "呼吸困难",
+            "呼吸急促",
+            "喘不上气"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "3dcbb8c4-debf-422d-9e59-e8d509a83b58",
+          "content": "用户补充说明青霉素过敏反应发生在2019年夏天，除皮疹和呼吸急促外还出现了喉咙肿胀症状，此后严格避免接触任何含青霉素的药物。",
+          "score": 0.7013674556525826,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:31:32.402408+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M03-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:31:52.482849+00:00"
+        },
+        {
+          "memory_id": "de0ebb92-9d38-44ba-8dd9-8ee99d1c89f8",
+          "content": "用户对青霉素类药物有严重过敏反应，五年前住院期间发生，症状包括全身大片红疹和呼吸困难，经医生紧急处理后好转。用户上周在诊所提及了这一过敏史。",
+          "score": 0.6514186140451443,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:30:38.971470+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M03-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:31:32.376400+00:00"
+        }
+      ],
+      "seconds": 1.078
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "根据之前的对话，患者是在哪一年经历了这次药物过敏事件，并且之后采取了什么预防措施？",
+        "expected_facts": [
+          "患者的过敏事件发生在2019年夏天。",
+          "自那以后患者严格避免接触任何含青霉素的药物。"
+        ],
+        "required_groups": [
+          [
+            "2019年",
+            "2019年夏天"
+          ],
+          [
+            "避免接触",
+            "严格避免",
+            "不再使用"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "3dcbb8c4-debf-422d-9e59-e8d509a83b58",
+          "content": "用户补充说明青霉素过敏反应发生在2019年夏天，除皮疹和呼吸急促外还出现了喉咙肿胀症状，此后严格避免接触任何含青霉素的药物。",
+          "score": 0.668276299680614,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:31:32.402408+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M03-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:31:52.482849+00:00"
+        },
+        {
+          "memory_id": "de0ebb92-9d38-44ba-8dd9-8ee99d1c89f8",
+          "content": "用户对青霉素类药物有严重过敏反应，五年前住院期间发生，症状包括全身大片红疹和呼吸困难，经医生紧急处理后好转。用户上周在诊所提及了这一过敏史。",
+          "score": 0.6136537916862899,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:30:38.971470+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M03-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:31:32.376400+00:00"
+        }
+      ],
+      "seconds": 0.766
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "请回顾一下患者之前提到的对哪种抗生素产生过严重不良反应，以及当时出现的具体症状有哪些？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "3dcbb8c4-debf-422d-9e59-e8d509a83b58",
+        "content": "用户补充说明青霉素过敏反应发生在2019年夏天，除皮疹和呼吸急促外还出现了喉咙肿胀症状，此后严格避免接触任何含青霉素的药物。",
+        "score": 0.6787038898253533,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:31:32.402408+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M03-01",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:31:52.482849+00:00"
+      },
+      {
+        "memory_id": "de0ebb92-9d38-44ba-8dd9-8ee99d1c89f8",
+        "content": "用户对青霉素类药物有严重过敏反应，五年前住院期间发生，症状包括全身大片红疹和呼吸困难，经医生紧急处理后好转。用户上周在诊所提及了这一过敏史。",
+        "score": 0.6435457581379558,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:30:38.971470+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M03-01",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:31:32.376400+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 78.422
+}

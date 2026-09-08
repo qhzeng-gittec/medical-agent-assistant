@@ -1,0 +1,442 @@
+{
+  "case": {
+    "id": "M11-06",
+    "category": "多项历史事实的跨会话汇总",
+    "turns": [
+      {
+        "user": "我四十八岁，七年前被诊断出有过敏性鼻炎，每年春天都会打喷嚏流鼻涕，医生开了抗组胺药，我每年春天吃一周左右，症状就缓解了。",
+        "assistant": "好的，已记录您七年前的过敏性鼻炎诊断及季节性用药历史。"
+      },
+      {
+        "user": "对了，三年前我因为搬家到新环境，过敏症状减轻了，去年春天没吃药也没事，但今年春天又犯了，我又开始吃药了，不过只吃了三天。",
+        "assistant": "收到，已更新您近三年过敏症状变化及用药调整的记录。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "M11-06-Q1",
+        "query": "患者七年前确诊了什么过敏问题，每年什么季节发作，通常怎么用药？",
+        "expected_facts": [
+          "患者七年前被诊断出过敏性鼻炎。",
+          "患者每年春天出现打喷嚏流鼻涕症状。",
+          "患者每年春天服用抗组胺药一周左右。"
+        ],
+        "required_groups": [
+          [
+            "过敏性鼻炎",
+            "过敏"
+          ],
+          [
+            "春天",
+            "春季"
+          ],
+          [
+            "抗组胺药",
+            "抗过敏药"
+          ]
+        ]
+      },
+      {
+        "id": "M11-06-Q2",
+        "query": "三年前他搬家后症状有何变化，今年春天用药情况如何？",
+        "expected_facts": [
+          "患者三年前搬家后过敏症状减轻。",
+          "患者去年春天未服药且无症状。",
+          "患者今年春天服药三天后症状缓解。"
+        ],
+        "required_groups": [
+          [
+            "搬家",
+            "换环境"
+          ],
+          [
+            "未服药",
+            "没吃药"
+          ],
+          [
+            "服药三天",
+            "三天"
+          ]
+        ]
+      }
+    ],
+    "split": "dev",
+    "family_id": "M11-06",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860487-xyFFF5mnIhE8CtUibF6p",
+      "usage": {
+        "prompt_tokens": 74,
+        "total_tokens": 74,
+        "cost": 7.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.4e-07,
+          "upstream_inference_prompt_cost": 7.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860489-vMDUqsfXlPEGbfRlgGpi",
+      "usage": {
+        "prompt_tokens": 8361,
+        "completion_tokens": 567,
+        "total_tokens": 8928,
+        "cost": 0.0026499,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 8128,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0026499,
+          "upstream_inference_prompt_cost": 0.0012891,
+          "upstream_inference_completions_cost": 0.0013608
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 501,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\"memory\": [\n  {\"id\": \"0\", \"text\": \"用户四十八岁，七年前被诊断出过敏性鼻炎，每年春天会出现打喷嚏、流鼻涕的症状，医生开了抗组胺药，用户每年春天服用一周左右，症状即可缓解\", \"attributed_to\": \"user\"}\n]}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860514-lEr5Ng5RJ6PffccI7tjL",
+      "usage": {
+        "prompt_tokens": 45,
+        "total_tokens": 45,
+        "cost": 4.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.5e-07,
+          "upstream_inference_prompt_cost": 4.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860516-AOhwirHOh83WC8EEwHYn",
+      "usage": {
+        "prompt_tokens": 66,
+        "total_tokens": 66,
+        "cost": 6.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.6e-07,
+          "upstream_inference_prompt_cost": 6.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860517-XIT1U1LYjldn8HOUUBNa",
+      "usage": {
+        "prompt_tokens": 8469,
+        "completion_tokens": 389,
+        "total_tokens": 8858,
+        "cost": 0.00289525,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00289525,
+          "upstream_inference_prompt_cost": 0.00211725,
+          "upstream_inference_completions_cost": 0.000778
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 296,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户三年前（约2023年）因搬家到新环境后过敏症状减轻，2025年春天未服药也无症状，但2026年春天症状复发，仅服用了三天抗组胺药\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860532-eSShqBLnPCfjscItRQM9",
+      "usage": {
+        "prompt_tokens": 53,
+        "total_tokens": 53,
+        "cost": 5.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.3e-07,
+          "upstream_inference_prompt_cost": 5.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860533-Mvef7rA492IbXAC75zkD",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860534-xCLIrDHrtQ125syuMuJo",
+      "usage": {
+        "prompt_tokens": 16,
+        "total_tokens": 16,
+        "cost": 1.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.6e-07,
+          "upstream_inference_prompt_cost": 1.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860536-KI4YvMjDQL8K5bWqmxto",
+      "usage": {
+        "prompt_tokens": 29,
+        "total_tokens": 29,
+        "cost": 2.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.9e-07,
+          "upstream_inference_prompt_cost": 2.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860540-lkv7gNnzRl1QzQHh7Z8x",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860547-N2UmPaOkME24ZoO3KRCa",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "M11-06-Q1",
+        "query": "患者七年前确诊了什么过敏问题，每年什么季节发作，通常怎么用药？",
+        "expected_facts": [
+          "患者七年前被诊断出过敏性鼻炎。",
+          "患者每年春天出现打喷嚏流鼻涕症状。",
+          "患者每年春天服用抗组胺药一周左右。"
+        ],
+        "required_groups": [
+          [
+            "过敏性鼻炎",
+            "过敏"
+          ],
+          [
+            "春天",
+            "春季"
+          ],
+          [
+            "抗组胺药",
+            "抗过敏药"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "456614d0-3801-47ba-9515-6cd9015c2df9",
+          "content": "用户四十八岁，七年前被诊断出过敏性鼻炎，每年春天会出现打喷嚏、流鼻涕的症状，医生开了抗组胺药，用户每年春天服用一周左右，症状即可缓解",
+          "score": 0.7834163573898323,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:25.458081+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:55.576101+00:00"
+        },
+        {
+          "memory_id": "86b14e03-5756-46f1-9fb4-9252546f7c23",
+          "content": "用户三年前（约2023年）因搬家到新环境后过敏症状减轻，2025年春天未服药也无症状，但2026年春天症状复发，仅服用了三天抗组胺药",
+          "score": 0.6967987782826768,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:55.607717+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M11-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:12.125267+00:00"
+        }
+      ],
+      "seconds": 1.671
+    },
+    {
+      "query": {
+        "id": "M11-06-Q2",
+        "query": "三年前他搬家后症状有何变化，今年春天用药情况如何？",
+        "expected_facts": [
+          "患者三年前搬家后过敏症状减轻。",
+          "患者去年春天未服药且无症状。",
+          "患者今年春天服药三天后症状缓解。"
+        ],
+        "required_groups": [
+          [
+            "搬家",
+            "换环境"
+          ],
+          [
+            "未服药",
+            "没吃药"
+          ],
+          [
+            "服药三天",
+            "三天"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "86b14e03-5756-46f1-9fb4-9252546f7c23",
+          "content": "用户三年前（约2023年）因搬家到新环境后过敏症状减轻，2025年春天未服药也无症状，但2026年春天症状复发，仅服用了三天抗组胺药",
+          "score": 0.7434972308286432,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:55.607717+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M11-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:42:12.125267+00:00"
+        },
+        {
+          "memory_id": "456614d0-3801-47ba-9515-6cd9015c2df9",
+          "content": "用户四十八岁，七年前被诊断出过敏性鼻炎，每年春天会出现打喷嚏、流鼻涕的症状，医生开了抗组胺药，用户每年春天服用一周左右，症状即可缓解",
+          "score": 0.6076338069256949,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:41:25.458081+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:55.576101+00:00"
+        }
+      ],
+      "seconds": 1.907
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者七年前确诊了什么过敏问题，每年什么季节发作，通常怎么用药？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "456614d0-3801-47ba-9515-6cd9015c2df9",
+        "content": "用户四十八岁，七年前被诊断出过敏性鼻炎，每年春天会出现打喷嚏、流鼻涕的症状，医生开了抗组胺药，用户每年春天服用一周左右，症状即可缓解",
+        "score": 0.6928392237003447,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:41:25.458081+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M11-06",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:41:55.576101+00:00"
+      },
+      {
+        "memory_id": "86b14e03-5756-46f1-9fb4-9252546f7c23",
+        "content": "用户三年前（约2023年）因搬家到新环境后过敏症状减轻，2025年春天未服药也无症状，但2026年春天症状复发，仅服用了三天抗组胺药",
+        "score": 0.6659613256622149,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:41:55.607717+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M11-06",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:42:12.125267+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 74.578
+}

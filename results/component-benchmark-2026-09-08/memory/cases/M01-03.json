@@ -1,0 +1,483 @@
+{
+  "case": {
+    "id": "M01-03",
+    "category": "工作作息与睡眠时间变化",
+    "turns": [
+      {
+        "user": "去年年底为了赶年终报告，我连续半个月每天凌晨三点才睡，早上七点就得爬起来去打印资料。",
+        "assistant": "了解，已记录您去年年底因赶报告而长期晚睡的情况。"
+      },
+      {
+        "user": "不对，那是前年十二月的事，去年年底我其实已经休假了，并没有那么累，只是偶尔晚睡而已。",
+        "assistant": "明白，已将相关事件时间修正为前年十二月。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "用户提到曾因赶报告而严重缺觉，这件事具体发生在哪一年？持续了多久？",
+        "expected_facts": [
+          "该事件发生在前年十二月。",
+          "该用户当时连续半个月每天凌晨三点才睡。"
+        ],
+        "required_groups": [
+          [
+            "前年十二月",
+            "两年前十二月"
+          ],
+          [
+            "连续半个月",
+            "整整半个月"
+          ],
+          [
+            "凌晨三点才睡",
+            "半夜三点入睡"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "关于去年年底的作息，用户后来是如何澄清的？",
+        "expected_facts": [
+          "该用户去年年底实际上处于休假状态。",
+          "该用户去年年底并未严重缺觉，只是偶尔晚睡。"
+        ],
+        "required_groups": [
+          [
+            "去年年底",
+            "去年年末"
+          ],
+          [
+            "休假了",
+            "在休假"
+          ],
+          [
+            "偶尔晚睡",
+            "有时睡得晚"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M01-03",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860001-2zMVAKiOeZcoGnJxMzNU",
+      "usage": {
+        "prompt_tokens": 51,
+        "total_tokens": 51,
+        "cost": 5.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.1e-07,
+          "upstream_inference_prompt_cost": 5.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860002-Ol3RUhVmmbD9By4yKfNE",
+      "usage": {
+        "prompt_tokens": 8351,
+        "completion_tokens": 656,
+        "total_tokens": 9007,
+        "cost": 0.00339975,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00339975,
+          "upstream_inference_prompt_cost": 0.00208775,
+          "upstream_inference_completions_cost": 0.001312
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 586,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户去年年底（2025年12月）为赶年终报告，连续半个月每天凌晨三点睡、早上七点起，需要早起打印资料。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860021-xgTrcCvRaA6X0bRQJRq3",
+      "usage": {
+        "prompt_tokens": 37,
+        "total_tokens": 37,
+        "cost": 3.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.7e-07,
+          "upstream_inference_prompt_cost": 3.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860021-f5DLBs8lEy2VrD9AsPmD",
+      "usage": {
+        "prompt_tokens": 50,
+        "total_tokens": 50,
+        "cost": 5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5e-07,
+          "upstream_inference_prompt_cost": 5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860023-D0qYGVeMIyyNt5xgYpal",
+      "usage": {
+        "prompt_tokens": 8446,
+        "completion_tokens": 671,
+        "total_tokens": 9117,
+        "cost": 0.00372978,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00372978,
+          "upstream_inference_prompt_cost": 0.00228042,
+          "upstream_inference_completions_cost": 0.00144936
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 518,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户更正：赶年终报告连续半个月凌晨三点睡、早上七点起打印资料的情况发生在2024年12月（前年十二月），而非2025年12月。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户2025年年底处于休假状态，没有像前年那样劳累，只是偶尔晚睡。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860036-CNjEAsrcEZmicQPibXLq",
+      "usage": {
+        "prompt_tokens": 69,
+        "total_tokens": 69,
+        "cost": 6.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.9e-07,
+          "upstream_inference_prompt_cost": 6.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860038-zSeEG6YwgjcejPwiQA8t",
+      "usage": {
+        "prompt_tokens": 22,
+        "total_tokens": 22,
+        "cost": 2.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.2e-07,
+          "upstream_inference_prompt_cost": 2.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860038-PRXVf7os75Fv4owIfgV7",
+      "usage": {
+        "prompt_tokens": 13,
+        "total_tokens": 13,
+        "cost": 1.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.3e-07,
+          "upstream_inference_prompt_cost": 1.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860039-5Hmrb4Le3yPLBh9ItH7d",
+      "usage": {
+        "prompt_tokens": 32,
+        "total_tokens": 32,
+        "cost": 3.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.2e-07,
+          "upstream_inference_prompt_cost": 3.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860040-JQxY9zInP3Y3aRRaTfgv",
+      "usage": {
+        "prompt_tokens": 22,
+        "total_tokens": 22,
+        "cost": 2.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.2e-07,
+          "upstream_inference_prompt_cost": 2.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860042-uKCQgfZilgWtt7nOquf0",
+      "usage": {
+        "prompt_tokens": 22,
+        "total_tokens": 22,
+        "cost": 2.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.2e-07,
+          "upstream_inference_prompt_cost": 2.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "用户提到曾因赶报告而严重缺觉，这件事具体发生在哪一年？持续了多久？",
+        "expected_facts": [
+          "该事件发生在前年十二月。",
+          "该用户当时连续半个月每天凌晨三点才睡。"
+        ],
+        "required_groups": [
+          [
+            "前年十二月",
+            "两年前十二月"
+          ],
+          [
+            "连续半个月",
+            "整整半个月"
+          ],
+          [
+            "凌晨三点才睡",
+            "半夜三点入睡"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "eeea7494-222c-47ae-b11a-7e3786282835",
+          "content": "用户更正：赶年终报告连续半个月凌晨三点睡、早上七点起打印资料的情况发生在2024年12月（前年十二月），而非2025年12月。",
+          "score": 0.6179078423335189,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:33:41.059615+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:33:56.577227+00:00"
+        },
+        {
+          "memory_id": "ab0833d3-62b4-4a21-bb8b-7a25b87f666e",
+          "content": "用户去年年底（2025年12月）为赶年终报告，连续半个月每天凌晨三点睡、早上七点起，需要早起打印资料。",
+          "score": 0.6136806740756464,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:33:19.215669+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M01-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:33:41.026044+00:00"
+        },
+        {
+          "memory_id": "1958a463-c849-4ea0-9d6d-bc4913039493",
+          "content": "用户2025年年底处于休假状态，没有像前年那样劳累，只是偶尔晚睡。",
+          "score": 0.5637202855806485,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:33:41.059615+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:33:56.577227+00:00"
+        }
+      ],
+      "seconds": 1.375
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "关于去年年底的作息，用户后来是如何澄清的？",
+        "expected_facts": [
+          "该用户去年年底实际上处于休假状态。",
+          "该用户去年年底并未严重缺觉，只是偶尔晚睡。"
+        ],
+        "required_groups": [
+          [
+            "去年年底",
+            "去年年末"
+          ],
+          [
+            "休假了",
+            "在休假"
+          ],
+          [
+            "偶尔晚睡",
+            "有时睡得晚"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "ab0833d3-62b4-4a21-bb8b-7a25b87f666e",
+          "content": "用户去年年底（2025年12月）为赶年终报告，连续半个月每天凌晨三点睡、早上七点起，需要早起打印资料。",
+          "score": 0.6477128545381473,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:33:19.215669+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M01-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:33:41.026044+00:00"
+        },
+        {
+          "memory_id": "1958a463-c849-4ea0-9d6d-bc4913039493",
+          "content": "用户2025年年底处于休假状态，没有像前年那样劳累，只是偶尔晚睡。",
+          "score": 0.6250844025867344,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:33:41.059615+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:33:56.577227+00:00"
+        },
+        {
+          "memory_id": "eeea7494-222c-47ae-b11a-7e3786282835",
+          "content": "用户更正：赶年终报告连续半个月凌晨三点睡、早上七点起打印资料的情况发生在2024年12月（前年十二月），而非2025年12月。",
+          "score": 0.621287737661453,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:33:41.059615+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M01-03",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:33:56.577227+00:00"
+        }
+      ],
+      "seconds": 0.812
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "用户提到曾因赶报告而严重缺觉，这件事具体发生在哪一年？持续了多久？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "eeea7494-222c-47ae-b11a-7e3786282835",
+        "content": "用户更正：赶年终报告连续半个月凌晨三点睡、早上七点起打印资料的情况发生在2024年12月（前年十二月），而非2025年12月。",
+        "score": 0.6830845432832082,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:33:41.059615+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M01-03",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:33:56.577227+00:00"
+      },
+      {
+        "memory_id": "ab0833d3-62b4-4a21-bb8b-7a25b87f666e",
+        "content": "用户去年年底（2025年12月）为赶年终报告，连续半个月每天凌晨三点睡、早上七点起，需要早起打印资料。",
+        "score": 0.6718970353636388,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:33:19.215669+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M01-03",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:33:41.026044+00:00"
+      },
+      {
+        "memory_id": "1958a463-c849-4ea0-9d6d-bc4913039493",
+        "content": "用户2025年年底处于休假状态，没有像前年那样劳累，只是偶尔晚睡。",
+        "score": 0.6475706496827254,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:33:41.059615+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M01-03",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:33:56.577227+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 44.719
+}

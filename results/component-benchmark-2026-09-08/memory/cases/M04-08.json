@@ -1,0 +1,479 @@
+{
+  "case": {
+    "id": "M04-08",
+    "category": "用户和家人的经历区分",
+    "turns": [
+      {
+        "user": "我表姐两年前因为抑郁症休学了半年，后来复学并好转。我自己工作压力大时会有焦虑情绪，但从未达到抑郁程度，也没休学过。",
+        "assistant": "好的，已记录您表姐的休学经历及您的压力反应。"
+      },
+      {
+        "user": "更正一下，是表哥两年前因抑郁症休学的，表姐很健康。我自己确实有焦虑情绪，但从未确诊抑郁症，也从未因此休学。",
+        "assistant": "收到，已更新为您表哥的病史，并确认您目前的心理状态。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "您的表亲中，谁在两年前因心理健康问题休学了半年？",
+        "expected_facts": [
+          "用户的表哥在两年前因抑郁症休学半年。"
+        ],
+        "required_groups": [
+          [
+            "表哥",
+            "表姐"
+          ],
+          [
+            "两年前",
+            "2年前"
+          ],
+          [
+            "抑郁症",
+            "心理问题"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "用户本人是否有过抑郁症诊断或因此休学的经历？",
+        "expected_facts": [
+          "用户有焦虑情绪，但未确诊抑郁症，从未休学。"
+        ],
+        "required_groups": [
+          [
+            "焦虑情绪",
+            "压力大"
+          ],
+          [
+            "未确诊",
+            "没得抑郁症"
+          ],
+          [
+            "从未休学",
+            "没休学"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M04-08",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860568-FILPILH3mKS8OW4rlnZR",
+      "usage": {
+        "prompt_tokens": 63,
+        "total_tokens": 63,
+        "cost": 6.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.3e-07,
+          "upstream_inference_prompt_cost": 6.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860573-w56Hus6ZmqPhSZLOtryX",
+      "usage": {
+        "prompt_tokens": 8358,
+        "completion_tokens": 304,
+        "total_tokens": 8662,
+        "cost": 0.00296348,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00296348,
+          "upstream_inference_prompt_cost": 0.00217308,
+          "upstream_inference_completions_cost": 0.0007904
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 244,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户的表姐两年前因抑郁症休学半年，后来复学并好转\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户在工作压力大时会有焦虑情绪，但从未达到抑郁程度，也从未休学过\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860579-lxqzN7u67BIyr8aZZnLg",
+      "usage": {
+        "prompt_tokens": 38,
+        "total_tokens": 38,
+        "cost": 3.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.8e-07,
+          "upstream_inference_prompt_cost": 3.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860583-TbEflDAkidaQ6VkhJzeO",
+      "usage": {
+        "prompt_tokens": 61,
+        "total_tokens": 61,
+        "cost": 6.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.1e-07,
+          "upstream_inference_prompt_cost": 6.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860593-vHgdW0CKH3gvvjIzoHhF",
+      "usage": {
+        "prompt_tokens": 8471,
+        "completion_tokens": 694,
+        "total_tokens": 9165,
+        "cost": 0.00378621,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00378621,
+          "upstream_inference_prompt_cost": 0.00228717,
+          "upstream_inference_completions_cost": 0.00149904
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 593,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户更正：是表哥（而非表姐）两年前因抑郁症休学半年，表姐很健康。用户自己有焦虑情绪但从未确诊抑郁症，也从未因此休学。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\n        \"0\",\n        \"1\"\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860614-Sihe2hjvnx2xlgGu6aZh",
+      "usage": {
+        "prompt_tokens": 41,
+        "total_tokens": 41,
+        "cost": 4.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.1e-07,
+          "upstream_inference_prompt_cost": 4.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860619-DWtXx0Q4fmHWV1fFfIwd",
+      "usage": {
+        "prompt_tokens": 17,
+        "total_tokens": 17,
+        "cost": 1.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.7e-07,
+          "upstream_inference_prompt_cost": 1.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860619-lZLroh7vC3sMsmBtGQFf",
+      "usage": {
+        "prompt_tokens": 13,
+        "total_tokens": 13,
+        "cost": 1.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.3e-07,
+          "upstream_inference_prompt_cost": 1.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860624-qK6DUfDGnF6LsGIU3P2B",
+      "usage": {
+        "prompt_tokens": 27,
+        "total_tokens": 27,
+        "cost": 2.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.7e-07,
+          "upstream_inference_prompt_cost": 2.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860625-haYOKTSeeYjKLnyJ1eYc",
+      "usage": {
+        "prompt_tokens": 17,
+        "total_tokens": 17,
+        "cost": 1.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.7e-07,
+          "upstream_inference_prompt_cost": 1.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860626-OGPfGXcxOqcddQ423vDG",
+      "usage": {
+        "prompt_tokens": 17,
+        "total_tokens": 17,
+        "cost": 1.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.7e-07,
+          "upstream_inference_prompt_cost": 1.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "您的表亲中，谁在两年前因心理健康问题休学了半年？",
+        "expected_facts": [
+          "用户的表哥在两年前因抑郁症休学半年。"
+        ],
+        "required_groups": [
+          [
+            "表哥",
+            "表姐"
+          ],
+          [
+            "两年前",
+            "2年前"
+          ],
+          [
+            "抑郁症",
+            "心理问题"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "610bafea-4ffe-4630-a7b7-d3907af6f15d",
+          "content": "用户更正：是表哥（而非表姐）两年前因抑郁症休学半年，表姐很健康。用户自己有焦虑情绪但从未确诊抑郁症，也从未因此休学。",
+          "score": 0.6837011053619525,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:43:02.108905+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M04-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:43:37.567242+00:00"
+        },
+        {
+          "memory_id": "6730bb29-9edd-41d8-9d0e-6d4ef74a2dda",
+          "content": "用户的表姐两年前因抑郁症休学半年，后来复学并好转",
+          "score": 0.6245170339697965,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:47.478283+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:43:02.074540+00:00"
+        },
+        {
+          "memory_id": "7108da91-5be7-4db4-b43f-16a563d39f62",
+          "content": "用户在工作压力大时会有焦虑情绪，但从未达到抑郁程度，也从未休学过",
+          "score": 0.46150129118534666,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:47.478283+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:43:02.074540+00:00"
+        }
+      ],
+      "seconds": 1.359
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "用户本人是否有过抑郁症诊断或因此休学的经历？",
+        "expected_facts": [
+          "用户有焦虑情绪，但未确诊抑郁症，从未休学。"
+        ],
+        "required_groups": [
+          [
+            "焦虑情绪",
+            "压力大"
+          ],
+          [
+            "未确诊",
+            "没得抑郁症"
+          ],
+          [
+            "从未休学",
+            "没休学"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "7108da91-5be7-4db4-b43f-16a563d39f62",
+          "content": "用户在工作压力大时会有焦虑情绪，但从未达到抑郁程度，也从未休学过",
+          "score": 0.8059496437971607,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:47.478283+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:43:02.074540+00:00"
+        },
+        {
+          "memory_id": "6730bb29-9edd-41d8-9d0e-6d4ef74a2dda",
+          "content": "用户的表姐两年前因抑郁症休学半年，后来复学并好转",
+          "score": 0.7583976315578739,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:42:47.478283+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M04-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:43:02.074540+00:00"
+        },
+        {
+          "memory_id": "610bafea-4ffe-4630-a7b7-d3907af6f15d",
+          "content": "用户更正：是表哥（而非表姐）两年前因抑郁症休学半年，表姐很健康。用户自己有焦虑情绪但从未确诊抑郁症，也从未因此休学。",
+          "score": 0.7422291829058854,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:43:02.108905+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M04-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:43:37.567242+00:00"
+        }
+      ],
+      "seconds": 4.219
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "您的表亲中，谁在两年前因心理健康问题休学了半年？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "610bafea-4ffe-4630-a7b7-d3907af6f15d",
+        "content": "用户更正：是表哥（而非表姐）两年前因抑郁症休学半年，表姐很健康。用户自己有焦虑情绪但从未确诊抑郁症，也从未因此休学。",
+        "score": 0.6434725426654915,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:43:02.108905+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M04-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:43:37.567242+00:00"
+      },
+      {
+        "memory_id": "6730bb29-9edd-41d8-9d0e-6d4ef74a2dda",
+        "content": "用户的表姐两年前因抑郁症休学半年，后来复学并好转",
+        "score": 0.57651059534219,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:42:47.478283+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M04-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:43:02.074540+00:00"
+      },
+      {
+        "memory_id": "7108da91-5be7-4db4-b43f-16a563d39f62",
+        "content": "用户在工作压力大时会有焦虑情绪，但从未达到抑郁程度，也从未休学过",
+        "score": 0.4692120781936425,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:42:47.478283+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M04-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:43:02.074540+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 59.157
+}

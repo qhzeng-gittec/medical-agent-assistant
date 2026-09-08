@@ -1,0 +1,471 @@
+{
+  "case": {
+    "id": "M10-07",
+    "category": "饮食偏好与个人生活习惯",
+    "turns": [
+      {
+        "user": "我特别喜欢吃甜食，尤其是巧克力，每天都要吃一块黑巧。但自从去年体检血糖偏高后，我就把频率降到了每周两次。",
+        "assistant": "已记录您的甜食偏好及基于健康检查后的调整行为。"
+      },
+      {
+        "user": "更正一下，不是去年，而是两年前体检发现的血糖问题。现在我只在周末吃，而且严格控制在一小块以内，平时完全不吃。",
+        "assistant": "已修正血糖异常发现时间及目前的甜食摄入频率。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "q1",
+        "query": "患者因何健康指标异常而调整了甜食摄入频率？该指标异常是何时发现的？",
+        "expected_facts": [
+          "该患者因血糖偏高而减少了甜食摄入。",
+          "该患者的血糖异常是在两年前体检中发现的。"
+        ],
+        "required_groups": [
+          [
+            "血糖偏高",
+            "血糖高",
+            "血糖异常"
+          ],
+          [
+            "两年前",
+            "2年前"
+          ]
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "患者目前食用巧克力的具体频率和份量控制是怎样的？",
+        "expected_facts": [
+          "该患者目前仅在周末食用巧克力。",
+          "该患者每次食用量严格控制在一小块以内。"
+        ],
+        "required_groups": [
+          [
+            "周末",
+            "周六日"
+          ],
+          [
+            "一小块",
+            "少量",
+            "严格控制"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M10-07",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861462-cdX2GqhP9eOOP396pwhN",
+      "usage": {
+        "prompt_tokens": 55,
+        "total_tokens": 55,
+        "cost": 5.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.5e-07,
+          "upstream_inference_prompt_cost": 5.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861467-uOizHlSe8QT4sdtOBo2u",
+      "usage": {
+        "prompt_tokens": 8353,
+        "completion_tokens": 325,
+        "total_tokens": 8678,
+        "cost": 0.00273825,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00273825,
+          "upstream_inference_prompt_cost": 0.00208825,
+          "upstream_inference_completions_cost": 0.00065
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 283,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户特别喜欢吃甜食，尤其是巧克力，之前每天都要吃一块黑巧，但自从2025年体检发现血糖偏高后，已将频率降低到每周两次\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861480-umLQ3sq83NCMnG3hS7yS",
+      "usage": {
+        "prompt_tokens": 39,
+        "total_tokens": 39,
+        "cost": 3.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.9e-07,
+          "upstream_inference_prompt_cost": 3.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861481-6jbOqKvLoUua9HNlgJD4",
+      "usage": {
+        "prompt_tokens": 55,
+        "total_tokens": 55,
+        "cost": 2.2e-06,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.2e-06,
+          "upstream_inference_prompt_cost": 2.2e-06,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861483-8aZhOHcavTT0G0hquj8C",
+      "usage": {
+        "prompt_tokens": 8447,
+        "completion_tokens": 750,
+        "total_tokens": 9197,
+        "cost": 0.00414622,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00414622,
+          "upstream_inference_prompt_cost": 0.00219622,
+          "upstream_inference_completions_cost": 0.00195
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 781,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户两年前体检发现血糖偏高问题（而非去年），此后开始控制甜食摄入\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户现在只在周末吃巧克力，严格控制在一小块以内，平时完全不吃甜食\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861498-AFDBeIfQwXCP9f3MzUXY",
+      "usage": {
+        "prompt_tokens": 40,
+        "total_tokens": 40,
+        "cost": 4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4e-07,
+          "upstream_inference_prompt_cost": 4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861504-CaY3Le9g7HzGrIrbKVJc",
+      "usage": {
+        "prompt_tokens": 23,
+        "total_tokens": 23,
+        "cost": 2.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.3e-07,
+          "upstream_inference_prompt_cost": 2.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861505-U7xbLPjmMqCY3uBWjS3N",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 15,
+        "cost": 1.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.5e-07,
+          "upstream_inference_prompt_cost": 1.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861505-HBCGaSTZOubQf9j6b39u",
+      "usage": {
+        "prompt_tokens": 33,
+        "total_tokens": 33,
+        "cost": 3.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.3e-07,
+          "upstream_inference_prompt_cost": 3.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861507-oqWVgzNANaDk5gDzBO4M",
+      "usage": {
+        "prompt_tokens": 23,
+        "total_tokens": 23,
+        "cost": 2.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.3e-07,
+          "upstream_inference_prompt_cost": 2.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861511-UgG3yPrxoiCsKEEprDEk",
+      "usage": {
+        "prompt_tokens": 23,
+        "total_tokens": 23,
+        "cost": 2.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.3e-07,
+          "upstream_inference_prompt_cost": 2.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "q1",
+        "query": "患者因何健康指标异常而调整了甜食摄入频率？该指标异常是何时发现的？",
+        "expected_facts": [
+          "该患者因血糖偏高而减少了甜食摄入。",
+          "该患者的血糖异常是在两年前体检中发现的。"
+        ],
+        "required_groups": [
+          [
+            "血糖偏高",
+            "血糖高",
+            "血糖异常"
+          ],
+          [
+            "两年前",
+            "2年前"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "f2e69afe-1549-4656-b5e6-5fd426626043",
+          "content": "用户特别喜欢吃甜食，尤其是巧克力，之前每天都要吃一块黑巧，但自从2025年体检发现血糖偏高后，已将频率降低到每周两次",
+          "score": 0.7006178843741147,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:57:41.548301+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M10-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:58:00.686153+00:00"
+        },
+        {
+          "memory_id": "e4caf91d-acf7-4f00-b976-505f03924bd8",
+          "content": "用户两年前体检发现血糖偏高问题（而非去年），此后开始控制甜食摄入",
+          "score": 0.6479404170762062,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:00.718455+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M10-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:58:22.256359+00:00"
+        },
+        {
+          "memory_id": "d7a651eb-9720-4ac2-b7fd-a05d2682a51c",
+          "content": "用户现在只在周末吃巧克力，严格控制在一小块以内，平时完全不吃甜食",
+          "score": 0.6403846633145658,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:00.718455+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M10-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:58:22.256359+00:00"
+        }
+      ],
+      "seconds": 1.984
+    },
+    {
+      "query": {
+        "id": "q2",
+        "query": "患者目前食用巧克力的具体频率和份量控制是怎样的？",
+        "expected_facts": [
+          "该患者目前仅在周末食用巧克力。",
+          "该患者每次食用量严格控制在一小块以内。"
+        ],
+        "required_groups": [
+          [
+            "周末",
+            "周六日"
+          ],
+          [
+            "一小块",
+            "少量",
+            "严格控制"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "d7a651eb-9720-4ac2-b7fd-a05d2682a51c",
+          "content": "用户现在只在周末吃巧克力，严格控制在一小块以内，平时完全不吃甜食",
+          "score": 0.8541942873262882,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:00.718455+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M10-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:58:22.256359+00:00"
+        },
+        {
+          "memory_id": "f2e69afe-1549-4656-b5e6-5fd426626043",
+          "content": "用户特别喜欢吃甜食，尤其是巧克力，之前每天都要吃一块黑巧，但自从2025年体检发现血糖偏高后，已将频率降低到每周两次",
+          "score": 0.7196322184008161,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:57:41.548301+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M10-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:58:00.686153+00:00"
+        },
+        {
+          "memory_id": "e4caf91d-acf7-4f00-b976-505f03924bd8",
+          "content": "用户两年前体检发现血糖偏高问题（而非去年），此后开始控制甜食摄入",
+          "score": 0.5863864448092666,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:00.718455+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M10-07",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:58:22.256359+00:00"
+        }
+      ],
+      "seconds": 0.594
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者因何健康指标异常而调整了甜食摄入频率？该指标异常是何时发现的？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "f2e69afe-1549-4656-b5e6-5fd426626043",
+        "content": "用户特别喜欢吃甜食，尤其是巧克力，之前每天都要吃一块黑巧，但自从2025年体检发现血糖偏高后，已将频率降低到每周两次",
+        "score": 0.6860245472466789,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:57:41.548301+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M10-07",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:58:00.686153+00:00"
+      },
+      {
+        "memory_id": "d7a651eb-9720-4ac2-b7fd-a05d2682a51c",
+        "content": "用户现在只在周末吃巧克力，严格控制在一小块以内，平时完全不吃甜食",
+        "score": 0.6565052513675522,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:58:00.718455+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M10-07",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:58:22.256359+00:00"
+      },
+      {
+        "memory_id": "e4caf91d-acf7-4f00-b976-505f03924bd8",
+        "content": "用户两年前体检发现血糖偏高问题（而非去年），此后开始控制甜食摄入",
+        "score": 0.6564742364463296,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:58:00.718455+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M10-07",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:58:22.256359+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 50.281
+}

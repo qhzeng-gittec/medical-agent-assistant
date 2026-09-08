@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Create source-grounded retrieval evaluation questions. Return JSON {\"items\":[...]}.\nFor EACH supplied source return {\"id\":same id,\"en\":English patient question,\"zh\":Chinese patient question,\n\"evidence_id\":the exact id string of ONE supplied evidence_options entry supporting BOTH questions}.\nAsk one concrete question about a supported detail (cause, symptom, prevention, evaluation, management).\nThe two questions express the SAME information need, not two facts. Use ordinary patient language.\nInclude enough topic context to identify the condition but do not copy a source sentence into the question.\nSelect an evidence option and ask about a concrete detail stated in that option. Do not ask for a personalized dose or individual diagnosis. Do not invent content. No answers in questions.\nThese are synthetic topic-source retrieval labels, not a clinician-authored benchmark."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"MLP-6132\", \"title\": \"Overactive Bladder\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Overactive bladder is a condition in which the bladder squeezes urine out at the wrong time.\"}, {\"id\": \"S001\", \"text\": \"You may have overactive bladder if you have two or more of these symptoms: You urinate eight or more times a day or two or more times at night You have the sudden, strong need to urinate immediately You leak urine after a sudden, strong urge to urinate You also may have incontinence , a loss of bladder control.\"}, {\"id\": \"S002\", \"text\": \"Nerve problems, too much fluid, or too much caffeine can cause it.\"}, {\"id\": \"S003\", \"text\": \"Your doctor may prescribe a medicine that can calm muscles and nerves.\"}, {\"id\": \"S004\", \"text\": \"The medicine may come as a pill, a liquid, or a patch.\"}, {\"id\": \"S005\", \"text\": \"The medicines can cause your eyes to become dry.\"}, {\"id\": \"S006\", \"text\": \"They can also cause dry mouth and constipation.\"}, {\"id\": \"S007\", \"text\": \"To deal with these effects, use eye drops to keep your eyes moist, chew sugarless gum or suck on sugarless hard candy if dry mouth bothers you, and take small sips of water throughout the day.\"}, {\"id\": \"S008\", \"text\": \"NIH: National Institute of Diabetes and Digestive and Kidney Diseases\"}]}, {\"id\": \"MLP-246\", \"title\": \"Esophagus Disorders\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Esophagus disorders are problems with how your esophagus works.\"}, {\"id\": \"S001\", \"text\": \"The esophagus is the tube that carries food from your mouth to your stomach.\"}, {\"id\": \"S002\", \"text\": \"You usually don't notice it unless you swallow something too big, hot, or cold.\"}, {\"id\": \"S003\", \"text\": \"You might also notice it if something is wrong.\"}, {\"id\": \"S004\", \"text\": \"When that happens, you might feel pain or have trouble swallowing (dysphagia).\"}, {\"id\": \"S005\", \"text\": \"The cause depends on the type of disorder.\"}, {\"id\": \"S006\", \"text\": \"Others are linked to allergic reactions to food or substances in your environment.\"}, {\"id\": \"S007\", \"text\": \"You may be more likely to develop an esophagus disorder if you: Are overweight or have obesity Are pregnant Take certain medicines Have had radiation treatment t to your neck or chest Smoke or are around secondhand smoke What are common esophagus disorders?\"}, {\"id\": \"S008\", \"text\": \"The most common esophagus problem is gastroesophageal reflux disease ( GERD ).\"}, {\"id\": \"S009\", \"text\": \"This happens when the muscle at the bottom of your esophagus doesn't close properly.\"}, {\"id\": \"S010\", \"text\": \"Stomach acid can move back up and irritate the esophagus.\"}, {\"id\": \"S011\", \"text\": \"Other esophagus disorders include: Heartburn is a burning feeling in your chest or throat.\"}, {\"id\": \"S012\", \"text\": \"Barrett's Esophagus happens when the lining of your esophagus changes.\"}, {\"id\": \"S013\", \"text\": \"It is often caused by chronic (long-term) GERD.\"}, {\"id\": \"S014\", \"text\": \"Achalasia is a problem where the lower muscle in your esophagus doesn't relax like it should.\"}, {\"id\": \"S015\", \"text\": \"Esophageal Spasms are muscle contractions that cause chest pain or swallowing problems.\"}, {\"id\": \"S016\", \"text\": \"Eosinophilic Esophagitis (EoE) is a rare condition where certain white blood cells (eosinophils) build up in the esophagus, causing swelling, pain, and trouble swallowing.\"}, {\"id\": \"S017\", \"text\": \"Esophageal Cancer is a type of cancer that starts in the tissues of the esophagus.\"}, {\"id\": \"S018\", \"text\": \"What are symptoms of esophagus disorders?\"}, {\"id\": \"S019\", \"text\": \"Symptoms can be different for each condition but may include: Pain in your chest , abdomen (belly), or back A cough or sore throat that doesn't go away Trouble swallowing or feeling like food is stuck A hoarse voice or wheezing Heartburn or a burning feeling in your stomach Tasting acid or food in the back of your mouth Food or liquid coming back up into your mouth (regurgitation) Losing weight without trying Get medical help right away if you have chest pain with shortness of breath , or pain in your jaw or arm.\"}, {\"id\": \"S020\", \"text\": \"These could be signs of a heart problem.\"}, {\"id\": \"S021\", \"text\": \"Your health care provider will ask about your symptoms and medical history.\"}, {\"id\": \"S022\", \"text\": \"They may order one or more tests, such as: Upper gastrointestinal (GI) endoscopy .\"}, {\"id\": \"S023\", \"text\": \"This test uses a tiny camera to look inside your esophagus and stomach.\"}, {\"id\": \"S024\", \"text\": \"This test takes a small tissue sample to check.\"}, {\"id\": \"S025\", \"text\": \"This test uses imaging to see how you swallow.\"}, {\"id\": \"S026\", \"text\": \"This test checks how well your esophagus moves food to your stomach.\"}, {\"id\": \"S027\", \"text\": \"This test measures how often acid backs up into your esophagus and how long the acid stays there.\"}, {\"id\": \"S028\", \"text\": \"Treatment depends on what's causing the problem and your overall health.\"}, {\"id\": \"S029\", \"text\": \"Some esophagus disorders get better with over-the-counter medicines , diet changes, or lifestyle changes.\"}, {\"id\": \"S030\", \"text\": \"Others may need prescription medicine or surgery.\"}, {\"id\": \"S031\", \"text\": \"Without treatment, some disorders may lead to other problems, such as pneumonia , from food entering the windpipe.\"}, {\"id\": \"S032\", \"text\": \"GERD, Barrett's esophagus, and achalasia can also raise your risk for esophageal cancer.\"}, {\"id\": \"S033\", \"text\": \"You can help prevent or reduce symptoms by: Not smoking and limiting alcohol Eating smaller meals Avoiding eating close to bedtime Wearing loose-fitting clothes Sleeping on your left side or raising the head of your bed Maintaining a healthy weight NIH: National Institute of Diabetes and Digestive and Kidney Diseases\"}]}, {\"id\": \"MLP-6410\", \"title\": \"Dandruff, Cradle Cap, and Other Scalp Conditions\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Your scalp is the skin on the top of your head.\"}, {\"id\": \"S001\", \"text\": \"Unless you have hair loss , hair grows on your scalp.\"}, {\"id\": \"S002\", \"text\": \"Different skin problems can affect your scalp.\"}, {\"id\": \"S003\", \"text\": \"Dandruff may make your scalp feel itchy.\"}, {\"id\": \"S004\", \"text\": \"It usually starts after puberty, and is more common in men.\"}, {\"id\": \"S005\", \"text\": \"Dandruff is usually a symptom of seborrheic dermatitis, or seborrhea.\"}, {\"id\": \"S006\", \"text\": \"It is a skin condition that can also cause redness and irritation of the skin.\"}, {\"id\": \"S007\", \"text\": \"Most of the time, using a dandruff shampoo can help control your dandruff.\"}, {\"id\": \"S008\", \"text\": \"If that does not work, contact your health care provider.\"}, {\"id\": \"S009\", \"text\": \"There is a type of seborrheic dermatitis that babies can get.\"}, {\"id\": \"S010\", \"text\": \"It usually lasts a few months, and then goes away on its own.\"}, {\"id\": \"S011\", \"text\": \"Besides the scalp, it can sometimes affect other parts of the body, such as the eyelids, armpits, groin, and ears.\"}, {\"id\": \"S012\", \"text\": \"Normally, washing your baby's hair every day with a mild shampoo and gently rubbing their scalp with your fingers or a soft brush can help.\"}, {\"id\": \"S013\", \"text\": \"For severe cases, your health care provider may give you a prescription shampoo or cream to use.\"}, {\"id\": \"S014\", \"text\": \"Other problems that can affect the scalp include: Scalp ringworm , a fungal infection that causes itchy, red patches on your head.\"}, {\"id\": \"S015\", \"text\": \"Scalp psoriasis , which causes itchy or sore patches of thick, red skin with silvery scales.\"}, {\"id\": \"S016\", \"text\": \"About half of the people with psoriasis have it on their scalp.\"}]}, {\"id\": \"MLP-495\", \"title\": \"Soft Tissue Sarcoma\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Your soft tissues connect, support, or surround other tissues.\"}, {\"id\": \"S001\", \"text\": \"Examples include your muscles, tendons, fat, and blood vessels.\"}, {\"id\": \"S002\", \"text\": \"Soft tissue sarcoma is a cancer of these soft tissues.\"}, {\"id\": \"S003\", \"text\": \"There are many kinds, based on the type of tissue they started in.\"}, {\"id\": \"S004\", \"text\": \"They may cause a lump or swelling in the soft tissue.\"}, {\"id\": \"S005\", \"text\": \"Sometimes they spread and can press on nerves and organs, causing problems such as pain or trouble breathing.\"}, {\"id\": \"S006\", \"text\": \"No one knows exactly what causes these cancers.\"}, {\"id\": \"S007\", \"text\": \"They are not common, but you have a higher risk if you have been exposed to certain chemicals, have had radiation therapy, or have certain genetic diseases.\"}, {\"id\": \"S008\", \"text\": \"Doctors diagnose soft tissue sarcomas with a biopsy.\"}, {\"id\": \"S009\", \"text\": \"Treatments include surgery to remove the tumor, radiation therapy, chemotherapy, or a combination.\"}]}, {\"id\": \"MLP-4600\", \"title\": \"Volcanoes\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"A volcano is a vent in the Earth's crust.\"}, {\"id\": \"S001\", \"text\": \"Hot rock, steam, poisonous gases, and ash reach the Earth's surface when a volcano erupts.\"}, {\"id\": \"S002\", \"text\": \"An eruption can also cause earthquakes , mudflows and flash floods , rock falls and landslides, acid rain, fires , and even tsunamis .\"}, {\"id\": \"S003\", \"text\": \"Volcanic gas and ash can damage the lungs of small infants, older adults, and people with severe respiratory illnesses.\"}, {\"id\": \"S004\", \"text\": \"Volcanic ash can affect people hundreds of miles away from the eruption.\"}, {\"id\": \"S005\", \"text\": \"Although there are no guarantees of safety during a volcanic eruption, you can take actions to protect yourself.\"}, {\"id\": \"S006\", \"text\": \"Being prepared can help reduce fear, anxiety, and losses.\"}, {\"id\": \"S007\", \"text\": \"If you do experience a disaster, it is normal to feel stressed.\"}, {\"id\": \"S008\", \"text\": \"You may need help in finding ways to cope .\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 2500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788858876-oNhNPOarEhs0crXZ3i1Z",
+    "object": "chat.completion",
+    "created": 1788858876,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"MLP-6132\",\n      \"en\": \"I have been diagnosed with overactive bladder. What are some things that can cause this condition?\",\n      \"zh\": \"我被诊断出患有膀胱过度活动症。有哪些因素可能导致这种情况？\",\n      \"evidence_id\": \"S002\"\n    },\n    {\n      \"id\": \"MLP-246\",\n      \"en\": \"My doctor mentioned I might have GERD. How does stomach acid affect my esophagus in this condition?\",\n      \"zh\": \"我的医生提到我可能患有胃食管反流病（GERD）。在这种疾病中，胃酸是如何影响我的食道的？\",\n      \"evidence_id\": \"S010\"\n    },\n    {\n      \"id\": \"MLP-6410\",\n      \"en\": \"My baby has cradle cap on their scalp. What is a simple daily routine to help manage it at home?\",\n      \"zh\": \"我的宝宝头皮上有摇篮帽（乳痂）。有什么简单的日常护理方法可以在家里帮助缓解？\",\n      \"evidence_id\": \"S012\"\n    },\n    {\n      \"id\": \"MLP-495\",\n      \"en\": \"If someone has soft tissue sarcoma, what kind of medical test is used to confirm the diagnosis?\",\n      \"zh\": \"如果某人患有软组织肉瘤，需要使用哪种医学检查来确诊？\",\n      \"evidence_id\": \"S008\"\n    },\n    {\n      \"id\": \"MLP-4600\",\n      \"en\": \"During a volcanic eruption, which groups of people are most at risk for lung damage from the gas and ash?\",\n      \"zh\": \"在火山爆发期间，哪些人群最容易因气体和火山灰而遭受肺部损伤？\",\n      \"evidence_id\": \"S003\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2998,
+      "completion_tokens": 439,
+      "total_tokens": 3437,
+      "cost": 0.00126945,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00126945,
+        "upstream_inference_prompt_cost": 0.00058461,
+        "upstream_inference_completions_cost": 0.00068484
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 6.766
+}

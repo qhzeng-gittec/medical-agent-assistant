@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"720e2757b8bc41d190ca\", \"query\": \"患者七年前确诊了什么过敏问题，每年什么季节发作，通常怎么用药？\", \"expected_facts\": [\"患者七年前被诊断出过敏性鼻炎。\", \"患者每年春天出现打喷嚏流鼻涕症状。\", \"患者每年春天服用抗组胺药一周左右。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户四十八岁，七年前被诊断出过敏性鼻炎，每年春天会出现打喷嚏、流鼻涕的症状，医生开了抗组胺药，用户每年春天服用一周左右，症状即可缓解\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:25.458081+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户三年前（约2023年）因搬家到新环境后过敏症状减轻，2025年春天未服药也无症状，但2026年春天症状复发，仅服用了三天抗组胺药\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:55.607717+00:00\"}]}, {\"id\": \"72645c5ab0e473893ed4\", \"query\": \"用户从何时开始进行血糖监测？\", \"expected_facts\": [\"用户从两年前开始坚持每天监测空腹血糖。\", \"用户进行血糖监测是为了预防而非治疗。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户坚持每天监测空腹血糖，这一习惯从两年前开始，主要是为了预防，因为用户的父母都患有糖尿病。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:01:23.793991+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户家族中有糖尿病病史，因此用户比较注意饮食\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:01:06.441190+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"很多人误以为用户患有糖尿病，但用户去年（约2025年）体检时血糖完全正常，医生特意强调用户没有患糖尿病\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:01:06.441190+00:00\"}]}, {\"id\": \"77042a31554addd127e2\", \"query\": \"这次药物过敏事件发生在哪一年的夏季，医生随后采取了什么应对措施？\", \"expected_facts\": [\"事件发生在2017年夏天。\", \"医生更换了其他麻醉方式。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"During the 2017 procaine allergy reaction, the doctor promptly identified the symptoms and switched to a different anesthesia method, preventing further complications.\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:40:18.452946+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"User has an allergy to procaine (普鲁卡因) anesthesia, first experienced during a tooth extraction in summer 2017. Symptoms included palpitations, trembling hands and feet, pale skin, and early signs of anaphylactic shock with sudden blood pressure drop.\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:40:18.452946+00:00\"}]}, {\"id\": \"78c82bba667291a0f31f\", \"query\": \"患者实际停止服用抗抑郁药的具体日期是哪天？\", \"expected_facts\": [\"患者在2023年6月12日停止服用氟西汀\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"2026年6月医生告知用户情绪好转，建议6月10日停药，但用户实际坚持服用到6月15日才停用氟西汀\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:48:04.491424+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户实际在2026年6月12日停用氟西汀，当天医生打电话确认可以停药后就不再服用\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:48:28.807981+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户2021年因抑郁症开始服用氟西汀，每天一片\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:48:04.491424+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862013-WF8JOfOc2XNsQ11KHImw",
+    "object": "chat.completion",
+    "created": 1788862013,
+    "model": "minimax/minimax-m2.5",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"720e2757b8bc41d190ca\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states patient was diagnosed with allergic rhinitis seven years ago.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states patient experiences sneezing and runny nose symptoms every spring.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states patient takes antihistamines for about one week each spring.\"}]},{\"id\":\"72645c5ab0e473893ed4\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states the habit of daily fasting blood glucose monitoring started two years ago.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states monitoring is for prevention because the user's parents have diabetes.\"}]},{\"id\":\"77042a31554addd127e2\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\",\"memory_id\":\"m1\"}],\"reason\":\"Both memories explicitly state the procaine allergy reaction occurred in summer 2017.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\",\"memory_id\":\"m1\"}],\"reason\":\"Both memories explicitly state the doctor switched to a different anesthesia method.\"}]},{\"id\":\"78c82bba667291a0f31f\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"Memory explicitly states user stopped taking fluoxetine on June 12, 2026.\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item:\n\n**Item 1: 720e2757b8bc41d190ca**\nQuery: 患者七年前确诊了什么过敏问题，每年什么季节发作，通常怎么用药？\nExpected facts:\n1. 患者七年前被诊断出过敏性鼻炎。\n2. 患者每年春天出现打喷嚏流鼻涕症状。\n3. 患者每年春天服用抗组胺药一周左右。\n\nMemories:\n- m0: \"用户四十八岁，七年前被诊断出过敏性鼻炎，每年春天会出现打喷嚏、流鼻涕的症状，医生开了抗组胺药，用户每年春天服用一周左右，症状即可缓解\"\n- m1: \"用户三年前（约2023年）因搬家到新环境后过敏症状减轻，2025年春天未服药也无症状，但2026年春天症状复发，仅服用了三天抗组胺药\"\n\nAnalysis:\n- Fact 1: \"患者七年前被诊断出过敏性鼻炎\" - m0 explicitly states \"七年前被诊断出过敏性鼻炎\" - SUPPORTED by m0\n- Fact 2: \"患者每年春天出现打喷嚏流鼻涕症状\" - m0 explicitly states \"每年春天会出现打喷嚏、流鼻涕的症状\" - SUPPORTED by m0\n- Fact 3: \"患者每年春天服用抗组胺药一周左右\" - m0 explicitly states \"每年春天服用一周左右\" - SUPPORTED by m0\n\nNote: m1 provides updated info that in 2026 spring, symptoms recurred but only took antihistamines for 3 days. This contradicts the \"usual\" one week. However, the expected fact asks about the \"usual\" or typical pattern, which m0 supports. The question asks \"每年什么季节发作，通常怎么用药？\" which implies the typical pattern. m0 provides the typical pattern, so it's supported.\n\n**Item 2: 72645c5ab0e473893ed4**\n\n\nQuery: 用户从何时开始进行血糖监测？\nExpected facts:\n1. 用户从两年前开始坚持每天监测空腹血糖。\n2. 用户进行血糖监测是为了预防而非治疗。\n\nI'll analyze the memory details to confirm the facts. The memory indicates the user started daily fasting blood sugar monitoring two years ago, specifically for preventive purposes due to their parents' diabetes history. This matches both expected facts precisely.\n\nThe key evidence comes from m0, which directly supports the two key points: the two-year monitoring timeline and the preventive nature of the monitoring. No conflicting information exists in other memories.\n\nThe next fact about the 2017 summer allergy event requires careful examination of the specific details.\n\nThe procaine allergy incident occurred in 2017, with the doctor switching anesthesia methods to prevent complications. This matches the expected facts precisely, with both memory sources (m0 and m1) providing consistent supporting details about the summer 2017 allergic reaction.\n\nThe evidence confirms the event happened in 2017, during summer, with an alternative anesthesia method used as the response.\n\nFor the next set of facts, the user stopped taking Fluoxetine on June 12, 2026, after a doctor's confirmation. This contradicts the initial suggestion of stopping on June 10, with the actual discontinuation happening on June 15, 2026.\n\nThe key evidence comes from m1, which specifically states the user stopped taking Fluoxetine on June 12, 2026, after receiving phone confirmation from the doctor. This directly supports the fact about the specific date of discontinuation.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item:\n\n**Item 1: 720e2757b8bc41d190ca**\nQuery: 患者七年前确诊了什么过敏问题，每年什么季节发作，通常怎么用药？\nExpected facts:\n1. 患者七年前被诊断出过敏性鼻炎。\n2. 患者每年春天出现打喷嚏流鼻涕症状。\n3. 患者每年春天服用抗组胺药一周左右。\n\nMemories:\n- m0: \"用户四十八岁，七年前被诊断出过敏性鼻炎，每年春天会出现打喷嚏、流鼻涕的症状，医生开了抗组胺药，用户每年春天服用一周左右，症状即可缓解\"\n- m1: \"用户三年前（约2023年）因搬家到新环境后过敏症状减轻，2025年春天未服药也无症状，但2026年春天症状复发，仅服用了三天抗组胺药\"\n\nAnalysis:\n- Fact 1: \"患者七年前被诊断出过敏性鼻炎\" - m0 explicitly states \"七年前被诊断出过敏性鼻炎\" - SUPPORTED by m0\n- Fact 2: \"患者每年春天出现打喷嚏流鼻涕症状\" - m0 explicitly states \"每年春天会出现打喷嚏、流鼻涕的症状\" - SUPPORTED by m0\n- Fact 3: \"患者每年春天服用抗组胺药一周左右\" - m0 explicitly states \"每年春天服用一周左右\" - SUPPORTED by m0\n\nNote: m1 provides updated info that in 2026 spring, symptoms recurred but only took antihistamines for 3 days. This contradicts the \"usual\" one week. However, the expected fact asks about the \"usual\" or typical pattern, which m0 supports. The question asks \"每年什么季节发作，通常怎么用药？\" which implies the typical pattern. m0 provides the typical pattern, so it's supported.\n\n**Item 2: 72645c5ab0e473893ed4**\n\n\nQuery: 用户从何时开始进行血糖监测？\nExpected facts:\n1. 用户从两年前开始坚持每天监测空腹血糖。\n2. 用户进行血糖监测是为了预防而非治疗。\n\nI'll analyze the memory details to confirm the facts. The memory indicates the user started daily fasting blood sugar monitoring two years ago, specifically for preventive purposes due to their parents' diabetes history. This matches both expected facts precisely.\n\nThe key evidence comes from m0, which directly supports the two key points: the two-year monitoring timeline and the preventive nature of the monitoring. No conflicting information exists in other memories.\n\nThe next fact about the 2017 summer allergy event requires careful examination of the specific details.\n\nThe procaine allergy incident occurred in 2017, with the doctor switching anesthesia methods to prevent complications. This matches the expected facts precisely, with both memory sources (m0 and m1) providing consistent supporting details about the summer 2017 allergic reaction.\n\nThe evidence confirms the event happened in 2017, during summer, with an alternative anesthesia method used as the response.\n\nFor the next set of facts, the user stopped taking Fluoxetine on June 12, 2026, after a doctor's confirmation. This contradicts the initial suggestion of stopping on June 10, with the actual discontinuation happening on June 15, 2026.\n\nThe key evidence comes from m1, which specifically states the user stopped taking Fluoxetine on June 12, 2026, after receiving phone confirmation from the doctor. This directly supports the fact about the specific date of discontinuation.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1302,
+      "completion_tokens": 1050,
+      "total_tokens": 2352,
+      "cost": 0.00158916,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 256,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00158916,
+        "upstream_inference_prompt_cost": 0.00032916,
+        "upstream_inference_completions_cost": 0.00126
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 1009,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 16.891
+}

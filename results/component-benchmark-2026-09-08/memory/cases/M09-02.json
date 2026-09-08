@@ -1,0 +1,444 @@
+{
+  "case": {
+    "id": "M09-02",
+    "category": "用户更正先前陈述",
+    "turns": [
+      {
+        "user": "我对花生严重过敏，这一点请帮我记住。",
+        "assistant": "已记录您本次提供的信息。"
+      },
+      {
+        "user": "之前我说我的过敏史是对花生严重过敏，但最近一次体检报告提醒我，其实我对的是芒果过敏，花生只是小时候误食过两次没事。",
+        "assistant": "明白，已将您的过敏原记录更新为芒果，并备注花生无严重反应。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "Q1",
+        "query": "根据最新更正，患者目前被确认的严重过敏原是哪种水果？",
+        "expected_facts": [
+          "患者对芒果存在严重过敏反应。",
+          "患者此前误报的对花生过敏已被更正。"
+        ],
+        "required_groups": [
+          [
+            "芒果",
+            "大芒果"
+          ],
+          [
+            "严重过敏",
+            "重度过敏"
+          ],
+          [
+            "更正",
+            "修正",
+            "更新"
+          ]
+        ]
+      },
+      {
+        "id": "Q2",
+        "query": "患者童年时期接触花生后的实际身体反应如何？",
+        "expected_facts": [
+          "患者小时候误食花生两次后没有发生不良反应。",
+          "患者并非对花生过敏。"
+        ],
+        "required_groups": [
+          [
+            "小时候",
+            "童年",
+            "幼年"
+          ],
+          [
+            "误食",
+            "吃过"
+          ],
+          [
+            "无反应",
+            "没事",
+            "正常"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M09-02",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861224-uvh6wxZqZwsBVMiS67c5",
+      "usage": {
+        "prompt_tokens": 26,
+        "total_tokens": 26,
+        "cost": 2.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.6e-07,
+          "upstream_inference_prompt_cost": 2.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861230-n3o3MeDC0VlcEI9HvyVC",
+      "usage": {
+        "prompt_tokens": 8327,
+        "completion_tokens": 366,
+        "total_tokens": 8693,
+        "cost": 0.0021573,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 8128,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0021573,
+          "upstream_inference_prompt_cost": 0.0012789,
+          "upstream_inference_completions_cost": 0.0008784
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 338,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\"memory\": [{\"id\": \"0\", \"text\": \"用户对花生严重过敏\", \"attributed_to\": \"user\"}]}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861251-Ez7caleebQKrXUTxmtg0",
+      "usage": {
+        "prompt_tokens": 6,
+        "total_tokens": 6,
+        "cost": 6e-08,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6e-08,
+          "upstream_inference_prompt_cost": 6e-08,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861253-OVVZrGD1rEkKSVDtSNUV",
+      "usage": {
+        "prompt_tokens": 60,
+        "total_tokens": 60,
+        "cost": 6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6e-07,
+          "upstream_inference_prompt_cost": 6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861254-pBhNgZjsyhtMy0jjSTd9",
+      "usage": {
+        "prompt_tokens": 8402,
+        "completion_tokens": 1360,
+        "total_tokens": 9762,
+        "cost": 0.0057846,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0057846,
+          "upstream_inference_prompt_cost": 0.0025206,
+          "upstream_inference_completions_cost": 0.003264
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1293,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\"memory\": [{\"id\": \"0\", \"text\": \"用户根据最近一次体检报告更正过敏史：实际对芒果过敏，而非花生；小时候误食过两次花生均无不良反应，因此对花生并无严重过敏。\", \"attributed_to\": \"user\", \"linked_memory_ids\": [\"0\"]}]}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861314-PP8yAkJaRNmEhmdsjwMr",
+      "usage": {
+        "prompt_tokens": 38,
+        "total_tokens": 38,
+        "cost": 3.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.8e-07,
+          "upstream_inference_prompt_cost": 3.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861318-7qSJq465kPatjYQm8nYR",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861319-JwMamiUtZzOhTFoT0DgP",
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 12,
+        "cost": 1.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.2e-07,
+          "upstream_inference_prompt_cost": 1.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861323-DvGWVNPgknRsYcnQlMtI",
+      "usage": {
+        "prompt_tokens": 28,
+        "total_tokens": 28,
+        "cost": 2.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.8e-07,
+          "upstream_inference_prompt_cost": 2.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861326-QWjutYaYqrEf95jF7Rfy",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861334-6K04Yruii5BDRjHcInmX",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "Q1",
+        "query": "根据最新更正，患者目前被确认的严重过敏原是哪种水果？",
+        "expected_facts": [
+          "患者对芒果存在严重过敏反应。",
+          "患者此前误报的对花生过敏已被更正。"
+        ],
+        "required_groups": [
+          [
+            "芒果",
+            "大芒果"
+          ],
+          [
+            "严重过敏",
+            "重度过敏"
+          ],
+          [
+            "更正",
+            "修正",
+            "更新"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "91d5baca-f34d-4b37-b644-8830ee590b08",
+          "content": "用户根据最近一次体检报告更正过敏史：实际对芒果过敏，而非花生；小时候误食过两次花生均无不良反应，因此对花生并无严重过敏。",
+          "score": 0.7028110486756716,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:54:12.347902+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M09-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:55:15.858499+00:00"
+        },
+        {
+          "memory_id": "7452aeda-2911-413c-a7c0-3dcb7f313fae",
+          "content": "用户对花生严重过敏",
+          "score": 0.6080803308077363,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:53:37.671993+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M09-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:54:12.322054+00:00"
+        }
+      ],
+      "seconds": 2.812
+    },
+    {
+      "query": {
+        "id": "Q2",
+        "query": "患者童年时期接触花生后的实际身体反应如何？",
+        "expected_facts": [
+          "患者小时候误食花生两次后没有发生不良反应。",
+          "患者并非对花生过敏。"
+        ],
+        "required_groups": [
+          [
+            "小时候",
+            "童年",
+            "幼年"
+          ],
+          [
+            "误食",
+            "吃过"
+          ],
+          [
+            "无反应",
+            "没事",
+            "正常"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "91d5baca-f34d-4b37-b644-8830ee590b08",
+          "content": "用户根据最近一次体检报告更正过敏史：实际对芒果过敏，而非花生；小时候误食过两次花生均无不良反应，因此对花生并无严重过敏。",
+          "score": 0.7013586350434357,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:54:12.347902+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M09-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:55:15.858499+00:00"
+        },
+        {
+          "memory_id": "7452aeda-2911-413c-a7c0-3dcb7f313fae",
+          "content": "用户对花生严重过敏",
+          "score": 0.699014201468052,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:53:37.671993+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M09-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:54:12.322054+00:00"
+        }
+      ],
+      "seconds": 3.36
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "根据最新更正，患者目前被确认的严重过敏原是哪种水果？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "91d5baca-f34d-4b37-b644-8830ee590b08",
+        "content": "用户根据最近一次体检报告更正过敏史：实际对芒果过敏，而非花生；小时候误食过两次花生均无不良反应，因此对花生并无严重过敏。",
+        "score": 0.7559642449468174,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:54:12.347902+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M09-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:55:15.858499+00:00"
+      },
+      {
+        "memory_id": "7452aeda-2911-413c-a7c0-3dcb7f313fae",
+        "content": "用户对花生严重过敏",
+        "score": 0.6309563521573085,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:53:37.671993+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M09-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:54:12.322054+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 129.984
+}

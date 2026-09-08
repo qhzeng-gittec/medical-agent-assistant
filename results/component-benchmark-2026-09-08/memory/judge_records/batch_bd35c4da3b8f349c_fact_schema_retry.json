@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item.\nThe previous response did not pass output validation. Return all items with valid JSON, exact item IDs and only memory IDs present in the same item.\nRequired facts-array length for each item: {\"f27947a646b5aa0bac53\": 1, \"f2ab386ae82a8fad60dd\": 2, \"f308c4ec750b983f92b4\": 1, \"f390688c7e90a92cbdfa\": 1}. Never combine expected facts into one verdict. Return one separate verdict per expected fact even when their evidence overlaps."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"f27947a646b5aa0bac53\", \"query\": \"家里哪位亲属在五年前接受了甲状腺相关的手术治疗？\", \"expected_facts\": [\"用户的哥哥在五年前做了甲状腺结节切除手术。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的哥哥五年前（约2021年）因甲状腺结节做了切除手术，而非之前误记的姐姐\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:42:15.776891+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户去年（约2025年）体检时发现甲状腺有一个小结节，医生建议观察即可，不需要手术\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:36.015272+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户的姐姐五年前（约2021年）因甲状腺结节做了切除手术，恢复得很好\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:36.015272+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户的姐姐很健康，没有甲状腺问题\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:42:15.776891+00:00\"}, {\"memory_id\": \"m4\", \"content\": \"用户目前没有服用任何药物来治疗甲状腺结节\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:36.015272+00:00\"}]}, {\"id\": \"f2ab386ae82a8fad60dd\", \"query\": \"患者在进行哪项检查前使用了何种表面麻醉剂导致口腔及呼吸道严重反应？\", \"expected_facts\": [\"患者在做胃镜前使用利多卡因凝胶引发过敏。\", \"症状包括口腔黏膜起泡溃烂、吞咽困难、面部浮肿及呼吸困难。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户2021年春天利多卡因凝胶过敏反应除口腔溃烂外，还出现面部浮肿和呼吸困难，必须吸氧才能缓解。从那以后做无痛检查都要求避开含利多卡因的药物。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:40:58.100622+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户对利多卡因凝胶过敏。2021年春天做胃镜前使用该药后，口腔黏膜迅速起泡溃烂，出现吞咽困难。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:40:40.221555+00:00\"}]}, {\"id\": \"f308c4ec750b983f92b4\", \"query\": \"患者是否按照医生最初建议的时间停药？\", \"expected_facts\": [\"患者未按最初建议的5月20日停药，而是延后至5月30日\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"医生建议用户在2026年5月20日停用二甲双胍，但用户坚持服用至2026年6月1日才停药\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:46:24.871302+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户实际于2026年5月30日停用二甲双胍，当天医生再次确认可以停药后彻底停止服用\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:46:47.602025+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户在2026年5月的体检中血糖达标\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:46:24.871302+00:00\"}]}, {\"id\": \"f390688c7e90a92cbdfa\", \"query\": \"您的同事中，谁在上个月因流感发烧而请假一周？\", \"expected_facts\": [\"用户的同事小李在上个月因流感发烧请假一周。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户更正：上个月因流感请假的是同事小李，不是小王。小王很健康。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:44:31.474446+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户同事小王上个月因流感发烧请假一周，现已康复返岗\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:43:38.467852+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户去年冬天没有感冒过\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:43:38.467852+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户自身免疫力很强，很少生病\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:43:38.467852+00:00\"}, {\"memory_id\": \"m4\", \"content\": \"用户一直全勤\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:43:38.467852+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862348-Fako44fR86ln32GpjN7L",
+    "object": "chat.completion",
+    "created": 1788862348,
+    "model": "minimax/minimax-m2.5",
+    "provider": "Minimax",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"f27947a646b5aa0bac53\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory m0 explicitly states the brother had thyroid nodule removal surgery five years ago.\"}]},{\"id\":\"f2ab386ae82a8fad60dd\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"Both memories confirm lidocaine gel was used before gastroscopy causing allergic reaction with mouth blistering, facial swelling and breathing difficulty.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"m0 and m1 together confirm all symptoms including mouth blistering, difficulty swallowing, facial swelling and breathing difficulty.\"}]},{\"id\":\"f308c4ec750b983f92b4\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"m0 explicitly states user stopped metformin on June 1st, later than the recommended May 20th date.\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"m1 explicitly states user stopped metformin on May 30th, which is the actual date of discontinuation.\"}]},{\"id\":\"f390688c7e90a92cbdfa\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"m0 is a correction from session-2 stating the colleague who took leave was 小李, not 小王.\"}]}]}",
+          "refusal": null,
+          "reasoning": "Let me analyze each item and determine if the memories support the expected facts.\n\n**Item 1: f27947a646b5aa0bac53**\nQuery: 家里哪位亲属在五年前接受了甲状腺相关的手术治疗？\nExpected fact: 用户的哥哥在五年前做了甲状腺结节切除手术。\n\nMemories:\n- m0: \"用户的哥哥五年前（约2021年）因甲状腺结节做了切除手术，而非之前误记的姐姐\"\n- m1: about user having a thyroid nodule\n- m2: \"用户的姐姐五年前（约2021年）因甲状腺结节做了切除手术\"\n- m3: \"用户的姐姐很健康，没有甲状腺问题\"\n- m4: about user not taking medication\n\nThere's a conflict here. m0 says the brother had the surgery (and corrects a previous mistake about the sister), while m2 says the sister had the surgery. m3 says the sister is healthy with no thyroid issues.\n\nLooking at session-2 (m0, m3), which was recorded later (2026-09-08T09:42:15), these appear to be corrections. m0 explicitly says \"而非之前误记的姐姐\" (rather than the previously incorrectly remembered sister). This indicates the brother had the surgery, and the earlier memory about the sister was wrong.\n\nThe expected fact is \"用户的哥哥在五年前做了甲状腺结节切除手术\" - this is supported by m0.\n\nSo: supported: true, evidence: [m0], reason: \"Memory m0 explicitly states the brother had thyroid nodule removal surgery five years ago.\"\n\n**Item 2: f2ab386ae82a8fad60dd**\nQuery: 患者在进行哪项检查前使用了何种表面麻醉剂导致口腔及呼吸道严重反应？\nExpected facts: \n1. 患者在做胃镜前使用利多卡因凝胶引发过敏。\n2. 症状包括口腔黏膜起泡溃烂、吞咽困难、面部浮肿及呼吸困难。\n\nMemories:\n- m0: \"用户2021年春天利多卡因凝胶过敏反应除口腔溃烂外，还出现面部浮肿和呼吸困难，必须吸氧才能缓解。\n\n从那以后做无痛检查都要求避开含利多卡因的药物。\"\n- m1: \"用户对利多卡因凝胶过敏。2021年春天做胃镜前使用该药后，口腔黏膜迅速起泡溃烂，出现吞咽困难。\"\n\nm0 and m1 collectively confirm both expected facts. The patient developed an allergic reaction to lidocaine gel before a gastroscopy, with symptoms including mouth blistering, facial swelling, and breathing difficulties. Both memories corroborate the details of the allergic reaction.\n\nThe evidence is supported, with m0 and m1 providing comprehensive documentation of the incident.\n\nFor the medication discontinuation fact, m0 explicitly confirms the patient stopped taking metformin on June 1st, later than the initially recommended date of May 20th.\n\nExamining the second fact about the exact discontinuation date, m1 directly states the patient stopped metformin on May 30th, which precisely matches the expected May 30th detail. This memory provides clear evidence supporting the specific date of medication discontinuation.\n\nThe third fact about the colleague's sick leave involves a correction between two sessions. Session-2 (m0) explicitly corrects the previous misidentification, stating that \"小李\" was the colleague who took leave due to flu last month, not \"小王\" as originally recorded in session-1. This correction confirms the colleague's identity and validates the fact.\n\nThe evidence supports both expected facts: the colleague's name and the reason for leave are now accurately represented.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item and determine if the memories support the expected facts.\n\n**Item 1: f27947a646b5aa0bac53**\nQuery: 家里哪位亲属在五年前接受了甲状腺相关的手术治疗？\nExpected fact: 用户的哥哥在五年前做了甲状腺结节切除手术。\n\nMemories:\n- m0: \"用户的哥哥五年前（约2021年）因甲状腺结节做了切除手术，而非之前误记的姐姐\"\n- m1: about user having a thyroid nodule\n- m2: \"用户的姐姐五年前（约2021年）因甲状腺结节做了切除手术\"\n- m3: \"用户的姐姐很健康，没有甲状腺问题\"\n- m4: about user not taking medication\n\nThere's a conflict here. m0 says the brother had the surgery (and corrects a previous mistake about the sister), while m2 says the sister had the surgery. m3 says the sister is healthy with no thyroid issues.\n\nLooking at session-2 (m0, m3), which was recorded later (2026-09-08T09:42:15), these appear to be corrections. m0 explicitly says \"而非之前误记的姐姐\" (rather than the previously incorrectly remembered sister). This indicates the brother had the surgery, and the earlier memory about the sister was wrong.\n\nThe expected fact is \"用户的哥哥在五年前做了甲状腺结节切除手术\" - this is supported by m0.\n\nSo: supported: true, evidence: [m0], reason: \"Memory m0 explicitly states the brother had thyroid nodule removal surgery five years ago.\"\n\n**Item 2: f2ab386ae82a8fad60dd**\nQuery: 患者在进行哪项检查前使用了何种表面麻醉剂导致口腔及呼吸道严重反应？\nExpected facts: \n1. 患者在做胃镜前使用利多卡因凝胶引发过敏。\n2. 症状包括口腔黏膜起泡溃烂、吞咽困难、面部浮肿及呼吸困难。\n\nMemories:\n- m0: \"用户2021年春天利多卡因凝胶过敏反应除口腔溃烂外，还出现面部浮肿和呼吸困难，必须吸氧才能缓解。\n\n从那以后做无痛检查都要求避开含利多卡因的药物。\"\n- m1: \"用户对利多卡因凝胶过敏。2021年春天做胃镜前使用该药后，口腔黏膜迅速起泡溃烂，出现吞咽困难。\"\n\nm0 and m1 collectively confirm both expected facts. The patient developed an allergic reaction to lidocaine gel before a gastroscopy, with symptoms including mouth blistering, facial swelling, and breathing difficulties. Both memories corroborate the details of the allergic reaction.\n\nThe evidence is supported, with m0 and m1 providing comprehensive documentation of the incident.\n\nFor the medication discontinuation fact, m0 explicitly confirms the patient stopped taking metformin on June 1st, later than the initially recommended date of May 20th.\n\nExamining the second fact about the exact discontinuation date, m1 directly states the patient stopped metformin on May 30th, which precisely matches the expected May 30th detail. This memory provides clear evidence supporting the specific date of medication discontinuation.\n\nThe third fact about the colleague's sick leave involves a correction between two sessions. Session-2 (m0) explicitly corrects the previous misidentification, stating that \"小李\" was the colleague who took leave due to flu last month, not \"小王\" as originally recorded in session-1. This correction confirms the colleague's identity and validates the fact.\n\nThe evidence supports both expected facts: the colleague's name and the reason for leave are now accurately represented.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1647,
+      "completion_tokens": 1064,
+      "total_tokens": 2711,
+      "cost": 0.0017709,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0017709,
+        "upstream_inference_prompt_cost": 0.0004941,
+        "upstream_inference_completions_cost": 0.0012768
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 747,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 12.016
+}

@@ -1,0 +1,376 @@
+{
+  "case": {
+    "id": "M09-05",
+    "category": "用户更正先前陈述",
+    "turns": [
+      {
+        "user": "我戒烟已经三年了，之前抽过烟。",
+        "assistant": "已记录您本次提供的信息。"
+      },
+      {
+        "user": "我之前说戒烟已经三年了，但仔细算了一下日子，其实是从2021年1月才彻底戒掉的，之前那段时间只是减量，并没有完全停止。",
+        "assistant": "了解，已将戒烟时间点修正为2021年1月，并标注此前为减量阶段。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "Q1",
+        "query": "患者彻底停止吸烟的确切起始时间是什么时候？",
+        "expected_facts": [
+          "患者于2021年1月彻底戒烟。",
+          "在此之前患者仅减少了吸烟量，并未完全停止。"
+        ],
+        "required_groups": [
+          [
+            "2021年1月",
+            "二零二一年一月"
+          ],
+          [
+            "彻底戒烟",
+            "完全停止"
+          ],
+          [
+            "减量",
+            "少抽"
+          ]
+        ]
+      },
+      {
+        "id": "Q2",
+        "query": "在2021年1月之前，患者的吸烟状态是怎样的？",
+        "expected_facts": [
+          "在2021年1月之前，患者处于减少吸烟量的状态。",
+          "患者此前并未实现完全戒烟。"
+        ],
+        "required_groups": [
+          [
+            "2021年1月之前",
+            "此前"
+          ],
+          [
+            "减少",
+            "减量"
+          ],
+          [
+            "未完全停止",
+            "没戒掉"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M09-05",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861276-4PqBxQORaFyFK1LiRBct",
+      "usage": {
+        "prompt_tokens": 27,
+        "total_tokens": 27,
+        "cost": 2.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.7e-07,
+          "upstream_inference_prompt_cost": 2.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861282-5qwnDReUjcBZLh13gNXX",
+      "usage": {
+        "prompt_tokens": 8330,
+        "completion_tokens": 56,
+        "total_tokens": 8386,
+        "cost": 0.00237006,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00237006,
+          "upstream_inference_prompt_cost": 0.0022491,
+          "upstream_inference_completions_cost": 0.00012096
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 55,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": null
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861285-WmpoHF6tafPs2pRfxyfP",
+      "usage": {
+        "prompt_tokens": 74,
+        "total_tokens": 74,
+        "cost": 7.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.4e-07,
+          "upstream_inference_prompt_cost": 7.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861288-D9RG1tllj0qjKrXjr2DI",
+      "usage": {
+        "prompt_tokens": 8395,
+        "completion_tokens": 389,
+        "total_tokens": 8784,
+        "cost": 0.0031941,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0031941,
+          "upstream_inference_prompt_cost": 0.0021827,
+          "upstream_inference_completions_cost": 0.0010114
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 359,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户于2021年1月彻底戒烟，此前只是减少吸烟量但并未完全停止\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861295-MjzOptTS1OPgc6dZcSno",
+      "usage": {
+        "prompt_tokens": 23,
+        "total_tokens": 23,
+        "cost": 2.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.3e-07,
+          "upstream_inference_prompt_cost": 2.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861296-EzdjCqQhrPBmSE2x18kc",
+      "usage": {
+        "prompt_tokens": 13,
+        "total_tokens": 13,
+        "cost": 1.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.3e-07,
+          "upstream_inference_prompt_cost": 1.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861297-kwoEPwsbiv0rIXrwIkz0",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861298-xU4dUBdkMSdb1o8kD8Oy",
+      "usage": {
+        "prompt_tokens": 23,
+        "total_tokens": 23,
+        "cost": 2.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.3e-07,
+          "upstream_inference_prompt_cost": 2.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861299-FLF6yCnh1ab1zFfrbXlA",
+      "usage": {
+        "prompt_tokens": 13,
+        "total_tokens": 13,
+        "cost": 1.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.3e-07,
+          "upstream_inference_prompt_cost": 1.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861300-mvdgmrdYuhC0RwxVTBfK",
+      "usage": {
+        "prompt_tokens": 13,
+        "total_tokens": 13,
+        "cost": 1.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.3e-07,
+          "upstream_inference_prompt_cost": 1.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "Q1",
+        "query": "患者彻底停止吸烟的确切起始时间是什么时候？",
+        "expected_facts": [
+          "患者于2021年1月彻底戒烟。",
+          "在此之前患者仅减少了吸烟量，并未完全停止。"
+        ],
+        "required_groups": [
+          [
+            "2021年1月",
+            "二零二一年一月"
+          ],
+          [
+            "彻底戒烟",
+            "完全停止"
+          ],
+          [
+            "减量",
+            "少抽"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "ab11ab01-cd1b-4532-aec4-bb84ded39698",
+          "content": "用户于2021年1月彻底戒烟，此前只是减少吸烟量但并未完全停止",
+          "score": 0.8843124029879781,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:54:43.807199+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M09-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:54:55.262193+00:00"
+        }
+      ],
+      "seconds": 1.421
+    },
+    {
+      "query": {
+        "id": "Q2",
+        "query": "在2021年1月之前，患者的吸烟状态是怎样的？",
+        "expected_facts": [
+          "在2021年1月之前，患者处于减少吸烟量的状态。",
+          "患者此前并未实现完全戒烟。"
+        ],
+        "required_groups": [
+          [
+            "2021年1月之前",
+            "此前"
+          ],
+          [
+            "减少",
+            "减量"
+          ],
+          [
+            "未完全停止",
+            "没戒掉"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "ab11ab01-cd1b-4532-aec4-bb84ded39698",
+          "content": "用户于2021年1月彻底戒烟，此前只是减少吸烟量但并未完全停止",
+          "score": 0.8008917411414365,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:54:43.807199+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M09-05",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:54:55.262193+00:00"
+        }
+      ],
+      "seconds": 0.891
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者彻底停止吸烟的确切起始时间是什么时候？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "ab11ab01-cd1b-4532-aec4-bb84ded39698",
+        "content": "用户于2021年1月彻底戒烟，此前只是减少吸烟量但并未完全停止",
+        "score": 0.745689962695345,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:54:43.807199+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M09-05",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:54:55.262193+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 26.297
+}

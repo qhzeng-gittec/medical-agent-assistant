@@ -1,0 +1,137 @@
+{
+  "case": {
+    "id": "M02-06",
+    "category": "运动限制与日常活动",
+    "turns": [
+      {
+        "user": "我的手腕受伤后，医生建议不要用力握拳或提重物。目前我只能轻轻抓握轻物。",
+        "assistant": "好的，已记录您的手腕活动限制。"
+      },
+      {
+        "user": "另外，如果感到刺痛，需要停止使用手部并冰敷。我现在尽量避免用力。",
+        "assistant": "了解，已补充您的护理建议。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "Q1",
+        "query": "患者被建议避免哪些手部动作？",
+        "expected_facts": [
+          "患者被建议避免用力握拳和提重物。"
+        ],
+        "required_groups": [
+          [
+            "用力握拳",
+            "提重物"
+          ]
+        ]
+      },
+      {
+        "id": "Q2",
+        "query": "当手腕感到刺痛时，患者应采取什么措施？",
+        "expected_facts": [
+          "如果感到刺痛，患者需要停止使用手部并冰敷。"
+        ],
+        "required_groups": [
+          [
+            "刺痛",
+            "停止使用手部",
+            "冰敷"
+          ]
+        ]
+      }
+    ],
+    "split": "dev",
+    "family_id": "M02-06",
+    "synthetic": true
+  },
+  "status": "error",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859804-U9FtfWlTwxoZH3RuYt0c",
+      "usage": {
+        "prompt_tokens": 45,
+        "total_tokens": 45,
+        "cost": 4.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.5e-07,
+          "upstream_inference_prompt_cost": 4.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788859808-kY9iW497jcUgRo1TI3Px",
+      "usage": {
+        "prompt_tokens": 8343,
+        "completion_tokens": 330,
+        "total_tokens": 8673,
+        "cost": 0.00296541,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00296541,
+          "upstream_inference_prompt_cost": 0.00225261,
+          "upstream_inference_completions_cost": 0.0007128
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 262,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户手腕受伤，医生建议不要用力握拳或提重物，目前只能轻轻抓握轻物。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859820-Al5SkzluiXEwePDWlZHj",
+      "usage": {
+        "prompt_tokens": 24,
+        "total_tokens": 24,
+        "cost": 2.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.4e-07,
+          "upstream_inference_prompt_cost": 2.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788859823-XnLRwmSb0PKLGQjyJWnN",
+      "usage": {
+        "prompt_tokens": 38,
+        "total_tokens": 38,
+        "cost": 3.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.8e-07,
+          "upstream_inference_prompt_cost": 3.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [],
+  "error_type": "LongTermMemoryError",
+  "provider_issues": [],
+  "seconds": 36.953
+}

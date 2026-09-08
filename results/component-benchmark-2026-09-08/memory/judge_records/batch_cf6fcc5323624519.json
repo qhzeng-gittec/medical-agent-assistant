@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"09d6ce15b5a5844614f7\", \"query\": \"患者被建议避免哪些手部动作？\", \"expected_facts\": [\"患者被建议避免用力握拳和提重物。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户手腕受伤，医生建议不要用力握拳或提重物，目前只能轻轻抓握轻物。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:33:09.015438+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户表示如果手腕感到刺痛，需要停止使用手部并进行冰敷，目前正尽量避免用力。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:33:56.823542+00:00\"}]}, {\"id\": \"09ef346b982523a546f4\", \"query\": \"患者昨天进行了什么检查，目前结果状态怎样？\", \"expected_facts\": [\"患者昨天进行了抽血检查。\", \"化验单结果尚未出来。\", \"需要等待报告确认诊断。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户于2026年9月7日（昨天）去抽血检查头晕症状，医生要求等待化验单结果，目前尚未确诊低血糖，只是根据症状猜测，需要等报告出来才能确定\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:44:13.994036+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户最近总是头晕，特别是早上起床的时候，怀疑可能是低血糖，因为有时候不吃早饭就会出现这种情况，想确认这个猜测\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:43:46.630909+00:00\"}]}, {\"id\": \"0c2d4b98b092908d47c4\", \"query\": \"患者十五年前确诊了什么代谢疾病，医生建议什么措施，坚持了多久？\", \"expected_facts\": [\"患者十五年前被查出轻度糖尿病。\", \"医生建议控制饮食和运动。\", \"患者坚持了十年后血糖稳定。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户六十岁，十五年前被查出有轻度糖尿病，医生建议控制饮食和运动\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:00:25.654046+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户坚持饮食控制和运动十年，血糖一直稳定\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:00:25.654046+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户现在偶尔测血糖，基本没问题\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:00:39.961250+00:00\"}]}, {\"id\": \"0c3e0fb912a62810e949\", \"query\": \"患者前天做了什么检查，结果状态如何？\", \"expected_facts\": [\"患者前天拍了X光片。\", \"影像报告尚未出来。\", \"需要等待报告确认诊断。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户最近膝盖疼痛严重，上下楼梯都感到困难\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:43:52.563242+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户于2026年9月6日（前天）拍摄了膝盖X光片，目前等待影像报告结果，尚未确诊关节炎，只是怀疑\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:44:15.008296+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户的妈妈有关节炎，用户担心自己可能遗传了关节炎，想做个检查确认一下\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:43:52.563242+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861851-XYE6m02POTt5HnoaCdXl",
+    "object": "chat.completion",
+    "created": 1788861851,
+    "model": "minimax/minimax-m2.5",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"items\": [\n    {\n      \"id\": \"09d6ce15b5a5844614f7\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"Memory explicitly states doctor advised against用力握拳or提重物.\"\n        }\n      ]\n    },\n    {\n      \"id\": \"09ef346b982523a546f4\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"Memory states patient went for抽血检查yesterday and is waiting for results.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"Memory states化验单结果尚未出来and not yet diagnosed.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"Memory states需要等报告出来才能确定diagnosis.\"\n        }\n      ]\n    },\n    {\n      \"id\": \"0c2d4b98b092908d47c4\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"Memory states十五年前被查出有轻度糖尿病.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"Memory states医生建议控制饮食和运动.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m1\"}],\n          \"reason\": \"Memory states坚持饮食控制和运动十年，血糖一直稳定.\"\n        }\n      ]\n    },\n    {\n      \"id\": \"0c3e0fb912a62810e949\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m1\"}],\n          \"reason\": \"Memory states patient拍摄了膝盖X光片on前天(September 6).\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m1\"}],\n          \"reason\": \"Memory states currently等待影像报告结果，尚未确诊.\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m1\"}],\n          \"reason\": \"Memory implies need for report to confirm diagnosis of arthritis.\"\n        }\n      ]\n    }\n  ]\n}\n```",
+          "refusal": null,
+          "reasoning": "Let me analyze each item:\n\n**Item 1 (id: 09d6ce15b5a5844614f7)**\nQuery: 患者被建议避免哪些手部动作？\nExpected fact: \"患者被建议避免用力握拳和提重物。\"\n\nMemory m0: \"用户手腕受伤，医生建议不要用力握拳或提重物，目前只能轻轻抓握轻物。\"\n- This explicitly mentions avoiding \"用力握拳\" (forceful fist clenching) and \"提重物\" (lifting heavy objects)\n- This directly supports the expected fact\n\nMemory m1: \"用户表示如果手腕感到刺痛，需要停止使用手部并进行冰敷，目前正尽量避免用力。\"\n- Mentions avoiding \"用力\" (forceful use) but doesn't specifically mention fist clenching or lifting heavy objects\n- This is more general\n\nThe expected fact is \"患者被建议避免用力握拳和提重物\" - this is supported by m0 which explicitly mentions both actions.\n\nSupported: true\nEvidence: m0\n\n**Item 2 (id: 09ef346b982523a546f4)**\nQuery: 患者昨天进行了什么检查，目前结果状态怎样？\nExpected facts:\n1. \"患者昨天进行了抽血检查。\"\n2. \"化验单结果尚未出来。\"\n3. \"需要等待报告确认诊断。\"\n\nMemory m0: \"用户于2026年9月7日（昨天）去抽血检查头晕症状，医生要求等待化验单结果，目前尚未确诊低血糖，只是根据症状猜测，需要等报告出来才能确定\"\n- Supports fact 1: mentions \"抽血检查\" (blood test) on yesterday (2026年9月7日)\n- Supports fact 2: mentions \"目前尚未确诊\" and \"等待化验单结果\" (waiting for test results, not yet diagnosed)\n\n\n- Supports fact 3: mentions \"需要等报告出来才能确定\" (need to wait for report to confirm)\n\nMemory m1: \"用户最近总是头晕，特别是早上起床的时候，怀疑可能是低血糖，因为有时候不吃早饭就会出现这种情况，想确认这个猜测\"\n- This is about the symptom (dizziness) and hypothesis (hypoglycemia), not about the test or results\n\nAll three facts are supported by m0.\n\n**Item 3 (id: 0c2d4b98b092908d47c4)**\nQuery: 患者十五年前确诊了什么代谢疾病，医生建议什么措施，坚持了多久？\n\nI'll continue analyzing the next set of facts and memories to verify their support.\n\nThe first fact about being diagnosed with mild diabetes fifteen years ago is confirmed by memory m0, which explicitly states the patient's age and diagnosis timeline. The second fact about diet and exercise recommendations is also supported by m0's mention of controlling diet and exercise. The third fact regarding ten years of坚持 (persistence) is backed by m1's statement about maintaining diet control and exercise for a decade, with stable blood sugar levels.\n\nThe fourth fact about current blood sugar stability is nuanced. While m2 suggests occasional blood sugar measurements are generally normal, this doesn't definitively confirm the specific claim of \"血糖稳定\" (stable blood sugar) after ten years. The evidence is somewhat indirect, requiring careful interpretation of the memory context.\n\nThe key observations are the partial support for the first three facts and the ambiguous nature of the fourth fact's confirmation.\n\nFor the knee X-ray examination, the facts are more clearly supported. Memory m1 provides direct evidence: the patient had a knee X-ray on September 6th, is currently waiting for imaging results, and has not yet been definitively diagnosed with arthritis - only a suspected condition.\n\nThe evidence strongly supports the first two facts about the X-ray examination and pending results. The third fact about confirming the diagnosis is implicitly backed by the need to wait for the imaging report.",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze each item:\n\n**Item 1 (id: 09d6ce15b5a5844614f7)**\nQuery: 患者被建议避免哪些手部动作？\nExpected fact: \"患者被建议避免用力握拳和提重物。\"\n\nMemory m0: \"用户手腕受伤，医生建议不要用力握拳或提重物，目前只能轻轻抓握轻物。\"\n- This explicitly mentions avoiding \"用力握拳\" (forceful fist clenching) and \"提重物\" (lifting heavy objects)\n- This directly supports the expected fact\n\nMemory m1: \"用户表示如果手腕感到刺痛，需要停止使用手部并进行冰敷，目前正尽量避免用力。\"\n- Mentions avoiding \"用力\" (forceful use) but doesn't specifically mention fist clenching or lifting heavy objects\n- This is more general\n\nThe expected fact is \"患者被建议避免用力握拳和提重物\" - this is supported by m0 which explicitly mentions both actions.\n\nSupported: true\nEvidence: m0\n\n**Item 2 (id: 09ef346b982523a546f4)**\nQuery: 患者昨天进行了什么检查，目前结果状态怎样？\nExpected facts:\n1. \"患者昨天进行了抽血检查。\"\n2. \"化验单结果尚未出来。\"\n3. \"需要等待报告确认诊断。\"\n\nMemory m0: \"用户于2026年9月7日（昨天）去抽血检查头晕症状，医生要求等待化验单结果，目前尚未确诊低血糖，只是根据症状猜测，需要等报告出来才能确定\"\n- Supports fact 1: mentions \"抽血检查\" (blood test) on yesterday (2026年9月7日)\n- Supports fact 2: mentions \"目前尚未确诊\" and \"等待化验单结果\" (waiting for test results, not yet diagnosed)\n\n\n- Supports fact 3: mentions \"需要等报告出来才能确定\" (need to wait for report to confirm)\n\nMemory m1: \"用户最近总是头晕，特别是早上起床的时候，怀疑可能是低血糖，因为有时候不吃早饭就会出现这种情况，想确认这个猜测\"\n- This is about the symptom (dizziness) and hypothesis (hypoglycemia), not about the test or results\n\nAll three facts are supported by m0.\n\n**Item 3 (id: 0c2d4b98b092908d47c4)**\nQuery: 患者十五年前确诊了什么代谢疾病，医生建议什么措施，坚持了多久？\n\nI'll continue analyzing the next set of facts and memories to verify their support.\n\nThe first fact about being diagnosed with mild diabetes fifteen years ago is confirmed by memory m0, which explicitly states the patient's age and diagnosis timeline. The second fact about diet and exercise recommendations is also supported by m0's mention of controlling diet and exercise. The third fact regarding ten years of坚持 (persistence) is backed by m1's statement about maintaining diet control and exercise for a decade, with stable blood sugar levels.\n\nThe fourth fact about current blood sugar stability is nuanced. While m2 suggests occasional blood sugar measurements are generally normal, this doesn't definitively confirm the specific claim of \"血糖稳定\" (stable blood sugar) after ten years. The evidence is somewhat indirect, requiring careful interpretation of the memory context.\n\nThe key observations are the partial support for the first three facts and the ambiguous nature of the fourth fact's confirmation.\n\nFor the knee X-ray examination, the facts are more clearly supported. Memory m1 provides direct evidence: the patient had a knee X-ray on September 6th, is currently waiting for imaging results, and has not yet been definitively diagnosed with arthritis - only a suspected condition.\n\nThe evidence strongly supports the first two facts about the X-ray examination and pending results. The third fact about confirming the diagnosis is implicitly backed by the need to wait for the imaging report.",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1200,
+      "completion_tokens": 1317,
+      "total_tokens": 2517,
+      "cost": 0.0019344,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0019344,
+        "upstream_inference_prompt_cost": 0.000354,
+        "upstream_inference_completions_cost": 0.0015804
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 780,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 25.265
+}

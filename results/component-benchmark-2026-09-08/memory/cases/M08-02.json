@@ -1,0 +1,442 @@
+{
+  "case": {
+    "id": "M08-02",
+    "category": "搬家旅行与生活环境变化",
+    "turns": [
+      {
+        "user": "去年夏天我独自去云南旅行了一周，那是我第一次去那么远的地方，主要是在大理和丽江停留，风景很美。",
+        "assistant": "好的，已记录您去年夏天独自前往云南旅行的经历。"
+      },
+      {
+        "user": "更正一下，那次旅行其实是和一位老朋友一起去的，我们是在去年六月出发的，在大理住了五天。",
+        "assistant": "收到，已更正为去年六月与朋友同行，并在大理停留五天。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "M08-02-Q1",
+        "query": "患者去年夏天的旅行是独自一人还是有人陪同，具体去了哪些城市？",
+        "expected_facts": [
+          "患者去年夏天的旅行是与一位老朋友同行的。",
+          "患者去了大理和丽江。",
+          "旅行出发时间是去年六月。"
+        ],
+        "required_groups": [
+          [
+            "老朋友",
+            "朋友",
+            "同伴"
+          ],
+          [
+            "大理",
+            "丽江"
+          ],
+          [
+            "去年六月",
+            "去年夏天"
+          ]
+        ]
+      },
+      {
+        "id": "M08-02-Q2",
+        "query": "请确认患者那次云南之行的具体行程细节和同行人员情况。",
+        "expected_facts": [
+          "患者在大理停留了五天。",
+          "患者是与朋友一起前往云南的。",
+          "旅行发生在去年六月。"
+        ],
+        "required_groups": [
+          [
+            "五天",
+            "五天时间"
+          ],
+          [
+            "朋友",
+            "同伴"
+          ],
+          [
+            "去年六月"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M08-02",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861070-YwFu1K7qMuUUVkKrvEn1",
+      "usage": {
+        "prompt_tokens": 54,
+        "total_tokens": 54,
+        "cost": 5.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.4e-07,
+          "upstream_inference_prompt_cost": 5.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861073-0QNVW1ajj2JIpIHlYDnB",
+      "usage": {
+        "prompt_tokens": 8352,
+        "completion_tokens": 185,
+        "total_tokens": 8537,
+        "cost": 0.0029496,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0029496,
+          "upstream_inference_prompt_cost": 0.0025056,
+          "upstream_inference_completions_cost": 0.000444
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 93,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"User traveled alone to Yunnan for one week last summer (summer 2025), which was their first time traveling such a long distance. They mainly stayed in Dali and Lijiang, where they found the scenery beautiful.\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861085-7H9XRXc3OqplMo1I7F0H",
+      "usage": {
+        "prompt_tokens": 50,
+        "total_tokens": 50,
+        "cost": 5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5e-07,
+          "upstream_inference_prompt_cost": 5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861089-bRlHWEs1I4bc374ycJ8E",
+      "usage": {
+        "prompt_tokens": 54,
+        "total_tokens": 54,
+        "cost": 5.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.4e-07,
+          "upstream_inference_prompt_cost": 5.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861093-ET1AUreFKt8fuoD648oM",
+      "usage": {
+        "prompt_tokens": 8457,
+        "completion_tokens": 615,
+        "total_tokens": 9072,
+        "cost": 0.00334425,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00334425,
+          "upstream_inference_prompt_cost": 0.00211425,
+          "upstream_inference_completions_cost": 0.00123
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 579,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户去年六月与一位老朋友一同前往云南旅行，在大理停留了五天\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861111-kJDfQjJKN2Hfd0zu1b6S",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861116-XEf97aLjpuiUyKfnDe0J",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861117-Ogev8QIAJOM0OVbPQiWr",
+      "usage": {
+        "prompt_tokens": 16,
+        "total_tokens": 16,
+        "cost": 1.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.6e-07,
+          "upstream_inference_prompt_cost": 1.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861118-kk4IeVvkTkGUwbRZ3eNp",
+      "usage": {
+        "prompt_tokens": 28,
+        "total_tokens": 28,
+        "cost": 2.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.8e-07,
+          "upstream_inference_prompt_cost": 2.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861119-ZZu77FAamGERdzSoYfjl",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861121-CC0FhzG8VFKWywDjp6lI",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18,
+        "cost": 1.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.8e-07,
+          "upstream_inference_prompt_cost": 1.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "M08-02-Q1",
+        "query": "患者去年夏天的旅行是独自一人还是有人陪同，具体去了哪些城市？",
+        "expected_facts": [
+          "患者去年夏天的旅行是与一位老朋友同行的。",
+          "患者去了大理和丽江。",
+          "旅行出发时间是去年六月。"
+        ],
+        "required_groups": [
+          [
+            "老朋友",
+            "朋友",
+            "同伴"
+          ],
+          [
+            "大理",
+            "丽江"
+          ],
+          [
+            "去年六月",
+            "去年夏天"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "2c00b538-79e9-452c-b28b-54735f0e5821",
+          "content": "User traveled alone to Yunnan for one week last summer (summer 2025), which was their first time traveling such a long distance. They mainly stayed in Dali and Lijiang, where they found the scenery beautiful.",
+          "score": 0.5959593098670555,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:05.906846+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M08-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:28.077106+00:00"
+        },
+        {
+          "memory_id": "231d99df-839e-4317-89f8-6185d0cd36ce",
+          "content": "用户去年六月与一位老朋友一同前往云南旅行，在大理停留了五天",
+          "score": 0.5524176805234005,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:28.109537+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M08-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:54.315277+00:00"
+        }
+      ],
+      "seconds": 2.547
+    },
+    {
+      "query": {
+        "id": "M08-02-Q2",
+        "query": "请确认患者那次云南之行的具体行程细节和同行人员情况。",
+        "expected_facts": [
+          "患者在大理停留了五天。",
+          "患者是与朋友一起前往云南的。",
+          "旅行发生在去年六月。"
+        ],
+        "required_groups": [
+          [
+            "五天",
+            "五天时间"
+          ],
+          [
+            "朋友",
+            "同伴"
+          ],
+          [
+            "去年六月"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "231d99df-839e-4317-89f8-6185d0cd36ce",
+          "content": "用户去年六月与一位老朋友一同前往云南旅行，在大理停留了五天",
+          "score": 0.5886689037179755,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:28.109537+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M08-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:54.315277+00:00"
+        },
+        {
+          "memory_id": "2c00b538-79e9-452c-b28b-54735f0e5821",
+          "content": "User traveled alone to Yunnan for one week last summer (summer 2025), which was their first time traveling such a long distance. They mainly stayed in Dali and Lijiang, where they found the scenery beautiful.",
+          "score": 0.43591908011271613,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:51:05.906846+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M08-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:51:28.077106+00:00"
+        }
+      ],
+      "seconds": 0.484
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者去年夏天的旅行是独自一人还是有人陪同，具体去了哪些城市？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "231d99df-839e-4317-89f8-6185d0cd36ce",
+        "content": "用户去年六月与一位老朋友一同前往云南旅行，在大理停留了五天",
+        "score": 0.5114081916569122,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:51:28.109537+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M08-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:51:54.315277+00:00"
+      },
+      {
+        "memory_id": "2c00b538-79e9-452c-b28b-54735f0e5821",
+        "content": "User traveled alone to Yunnan for one week last summer (summer 2025), which was their first time traveling such a long distance. They mainly stayed in Dali and Lijiang, where they found the scenery beautiful.",
+        "score": 0.42205469211077234,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:51:05.906846+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M08-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:51:28.077106+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 59.844
+}

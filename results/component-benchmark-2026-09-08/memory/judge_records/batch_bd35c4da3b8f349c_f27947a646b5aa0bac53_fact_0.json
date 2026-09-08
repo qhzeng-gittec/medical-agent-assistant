@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Return one JSON object {\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}.\nEvaluate the entire expected_fact as one claim. All its clauses must be supported to set supported=true.\nReturn one verdict, not a list of facts. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "{\"query\": \"家里哪位亲属在五年前接受了甲状腺相关的手术治疗？\", \"expected_fact\": \"用户的哥哥在五年前做了甲状腺结节切除手术。\", \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户的哥哥五年前（约2021年）因甲状腺结节做了切除手术，而非之前误记的姐姐\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:42:15.776891+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户去年（约2025年）体检时发现甲状腺有一个小结节，医生建议观察即可，不需要手术\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:36.015272+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户的姐姐五年前（约2021年）因甲状腺结节做了切除手术，恢复得很好\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:36.015272+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户的姐姐很健康，没有甲状腺问题\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:42:15.776891+00:00\"}, {\"memory_id\": \"m4\", \"content\": \"用户目前没有服用任何药物来治疗甲状腺结节\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:36.015272+00:00\"}]}"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862495-iiwV3E8k2Wo0MKKww5tb",
+    "object": "chat.completion",
+    "created": 1788862495,
+    "model": "minimax/minimax-m2.5",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"supported\": true, \"evidence\": [{\"memory_id\": \"m0\"}], \"reason\": \"m0明确指出用户的哥哥在五年前做了甲状腺结节切除手术，并说明这是对之前误记姐姐的更正。\"}",
+          "refusal": null,
+          "reasoning": "Let me analyze this query and the memories to determine if the expected fact is supported.\n\nQuery: 家里哪位亲属在五年前接受了甲状腺相关的手术治疗？\nExpected fact: 用户的哥哥在五年前做了甲状腺结节切除手术。\n\nLet me check the memories:\n\nm0: \"用户的哥哥五年前（约2021年）因甲状腺结节做了切除手术，而非之前误记的姐姐\"\n- This says the user's brother had thyroid nodule removal surgery five years ago (around 2021)\n- This directly supports the expected fact about the brother having the surgery\n\nm1: About the user (not a relative) having a thyroid nodule found in 2025\n- Not relevant to the expected fact\n\nm2: \"用户的姐姐五年前（约2021年）因甲状腺结节做了切除手术\"\n- This says the user's sister had thyroid nodule removal surgery five years ago\n- This contradicts the expected fact (which says brother, not sister)\n\nm3: \"用户的姐姐很健康，没有甲状腺问题\"\n- This says the sister is healthy and has no thyroid problems\n- This contradicts m2 and suggests the earlier record about sister may be wrong\n\nm4: About the user not taking medication\n- Not relevant\n\nNow I need to evaluate:\n1. The expected fact claims the BROTHER had the surgery\n2. m0 explicitly states the brother had the surgery five years ago\n3. m0 also clarifies this is a correction of a previous misremembering about the sister\n\nThe key issue: There are conflicting records - m2 says sister had the surgery, m0 says brother had the surgery (and it's a correction of the sister misremembering). m3 says sister has no thyroid problems.\n\nLooking at the source_session_id and recorded_at:\n- session-1 (m1, m2, m4): recorded at 2026-09-08T09:41:36\n- session-2 (m0, m3): recorded at 2026-09-08T09:42:15 (later)\n \nThe temporal sequence reveals a clear correction mechanism. The later session provides explicit clarification about the brother's surgery, directly addressing and rectifying the earlier misattribution to the sister. This chronological evidence strongly supports the expected fact about the brother's thyroid surgery.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "Let me analyze this query and the memories to determine if the expected fact is supported.\n\nQuery: 家里哪位亲属在五年前接受了甲状腺相关的手术治疗？\nExpected fact: 用户的哥哥在五年前做了甲状腺结节切除手术。\n\nLet me check the memories:\n\nm0: \"用户的哥哥五年前（约2021年）因甲状腺结节做了切除手术，而非之前误记的姐姐\"\n- This says the user's brother had thyroid nodule removal surgery five years ago (around 2021)\n- This directly supports the expected fact about the brother having the surgery\n\nm1: About the user (not a relative) having a thyroid nodule found in 2025\n- Not relevant to the expected fact\n\nm2: \"用户的姐姐五年前（约2021年）因甲状腺结节做了切除手术\"\n- This says the user's sister had thyroid nodule removal surgery five years ago\n- This contradicts the expected fact (which says brother, not sister)\n\nm3: \"用户的姐姐很健康，没有甲状腺问题\"\n- This says the sister is healthy and has no thyroid problems\n- This contradicts m2 and suggests the earlier record about sister may be wrong\n\nm4: About the user not taking medication\n- Not relevant\n\nNow I need to evaluate:\n1. The expected fact claims the BROTHER had the surgery\n2. m0 explicitly states the brother had the surgery five years ago\n3. m0 also clarifies this is a correction of a previous misremembering about the sister\n\nThe key issue: There are conflicting records - m2 says sister had the surgery, m0 says brother had the surgery (and it's a correction of the sister misremembering). m3 says sister has no thyroid problems.\n\nLooking at the source_session_id and recorded_at:\n- session-1 (m1, m2, m4): recorded at 2026-09-08T09:41:36\n- session-2 (m0, m3): recorded at 2026-09-08T09:42:15 (later)\n \nThe temporal sequence reveals a clear correction mechanism. The later session provides explicit clarification about the brother's surgery, directly addressing and rectifying the earlier misattribution to the sister. This chronological evidence strongly supports the expected fact about the brother's thyroid surgery.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 604,
+      "completion_tokens": 514,
+      "total_tokens": 1118,
+      "cost": 0.000798,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000798,
+        "upstream_inference_prompt_cost": 0.0001812,
+        "upstream_inference_completions_cost": 0.0006168
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 573,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 9.219
+}

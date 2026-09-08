@@ -1,0 +1,438 @@
+{
+  "case": {
+    "id": "M09-06",
+    "category": "用户更正先前陈述",
+    "turns": [
+      {
+        "user": "我从未做过胃镜，以前胃痛也没有做过这项检查。",
+        "assistant": "已记录您本次提供的信息。"
+      },
+      {
+        "user": "上次我说自己从未做过胃镜，但今天整理旧档案发现，其实在2017年因为胃痛做过一次检查，当时结果是浅表性胃炎。",
+        "assistant": "收到，已补充2017年的胃镜检查记录及浅表性胃炎的诊断结果。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "Q1",
+        "query": "患者实际上在哪一年进行过胃镜检查？",
+        "expected_facts": [
+          "患者在2017年进行过胃镜检查。",
+          "患者此前声称从未做过胃镜是不准确的。"
+        ],
+        "required_groups": [
+          [
+            "2017年",
+            "二零一七年"
+          ],
+          [
+            "胃镜",
+            "胃镜检查"
+          ],
+          [
+            "做过",
+            "进行过"
+          ]
+        ]
+      },
+      {
+        "id": "Q2",
+        "query": "那次胃镜检查得出的具体医学结论是什么？",
+        "expected_facts": [
+          "2017年的胃镜检查结果显示为浅表性胃炎。",
+          "患者曾因胃痛症状进行检查。"
+        ],
+        "required_groups": [
+          [
+            "浅表性胃炎",
+            "轻度胃炎"
+          ],
+          [
+            "检查结果",
+            "诊断"
+          ],
+          [
+            "胃痛",
+            "胃部不适"
+          ]
+        ]
+      }
+    ],
+    "split": "dev",
+    "family_id": "M09-06",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860422-Qvnib29FQiC4YUPGWzYB",
+      "usage": {
+        "prompt_tokens": 29,
+        "total_tokens": 29,
+        "cost": 2.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.9e-07,
+          "upstream_inference_prompt_cost": 2.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860428-o0WIlc1SYL6OZPy9tlmB",
+      "usage": {
+        "prompt_tokens": 8330,
+        "completion_tokens": 230,
+        "total_tokens": 8560,
+        "cost": 0.003051,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.003051,
+          "upstream_inference_prompt_cost": 0.002499,
+          "upstream_inference_completions_cost": 0.000552
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 178,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\"memory\": [\n  {\n    \"id\": \"0\",\n    \"text\": \"用户从未做过胃镜检查，以前胃痛时也没有做过这项检查。\",\n    \"attributed_to\": \"user\"\n  }\n]}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860448-rGOUvSQWkdIOaDivQtVs",
+      "usage": {
+        "prompt_tokens": 17,
+        "total_tokens": 17,
+        "cost": 1.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.7e-07,
+          "upstream_inference_prompt_cost": 1.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860455-qX1bz6H2t1N0TdyhIgWz",
+      "usage": {
+        "prompt_tokens": 70,
+        "total_tokens": 70,
+        "cost": 7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7e-07,
+          "upstream_inference_prompt_cost": 7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860457-RvDsnPnLuxwKkSRAsDR7",
+      "usage": {
+        "prompt_tokens": 8418,
+        "completion_tokens": 534,
+        "total_tokens": 8952,
+        "cost": 0.0031725,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0031725,
+          "upstream_inference_prompt_cost": 0.0021045,
+          "upstream_inference_completions_cost": 0.001068
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 486,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户在2017年因胃痛做过一次胃镜检查，当时诊断为浅表性胃炎。\",\n      \"attributed_to\": \"user\",\n      \"linked_memory_ids\": [\"0\"]\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860472-oUb4OSg1YpJHJ7ixUSBu",
+      "usage": {
+        "prompt_tokens": 26,
+        "total_tokens": 26,
+        "cost": 2.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.6e-07,
+          "upstream_inference_prompt_cost": 2.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860474-nuysICfyxXmQFEqTpH8v",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860476-AD9rNFUCMsOZiCocBTTb",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860478-CbOl0o2qzaD9YCsKxam2",
+      "usage": {
+        "prompt_tokens": 21,
+        "total_tokens": 21,
+        "cost": 2.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.1e-07,
+          "upstream_inference_prompt_cost": 2.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860479-s8slHXMLMVPLO1Yrc0VV",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860482-L38o3Qx7ryvNOLAd1tJL",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "Q1",
+        "query": "患者实际上在哪一年进行过胃镜检查？",
+        "expected_facts": [
+          "患者在2017年进行过胃镜检查。",
+          "患者此前声称从未做过胃镜是不准确的。"
+        ],
+        "required_groups": [
+          [
+            "2017年",
+            "二零一七年"
+          ],
+          [
+            "胃镜",
+            "胃镜检查"
+          ],
+          [
+            "做过",
+            "进行过"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "2f145463-ea4e-42b2-99ce-aed04908b6cf",
+          "content": "用户从未做过胃镜检查，以前胃痛时也没有做过这项检查。",
+          "score": 0.8347054485519336,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:40:20.818970+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M09-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:40:54.156786+00:00"
+        },
+        {
+          "memory_id": "402df035-924b-4a23-9a89-013ddf98d478",
+          "content": "用户在2017年因胃痛做过一次胃镜检查，当时诊断为浅表性胃炎。",
+          "score": 0.7439538553645231,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:40:54.182141+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M09-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:12.360371+00:00"
+        }
+      ],
+      "seconds": 3.125
+    },
+    {
+      "query": {
+        "id": "Q2",
+        "query": "那次胃镜检查得出的具体医学结论是什么？",
+        "expected_facts": [
+          "2017年的胃镜检查结果显示为浅表性胃炎。",
+          "患者曾因胃痛症状进行检查。"
+        ],
+        "required_groups": [
+          [
+            "浅表性胃炎",
+            "轻度胃炎"
+          ],
+          [
+            "检查结果",
+            "诊断"
+          ],
+          [
+            "胃痛",
+            "胃部不适"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "2f145463-ea4e-42b2-99ce-aed04908b6cf",
+          "content": "用户从未做过胃镜检查，以前胃痛时也没有做过这项检查。",
+          "score": 0.7543912613494361,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:40:20.818970+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M09-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:40:54.156786+00:00"
+        },
+        {
+          "memory_id": "402df035-924b-4a23-9a89-013ddf98d478",
+          "content": "用户在2017年因胃痛做过一次胃镜检查，当时诊断为浅表性胃炎。",
+          "score": 0.708271143872483,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:40:54.182141+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M09-06",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:41:12.360371+00:00"
+        }
+      ],
+      "seconds": 2.219
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者实际上在哪一年进行过胃镜检查？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "2f145463-ea4e-42b2-99ce-aed04908b6cf",
+        "content": "用户从未做过胃镜检查，以前胃痛时也没有做过这项检查。",
+        "score": 0.7352841704600568,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:40:20.818970+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M09-06",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:40:54.156786+00:00"
+      },
+      {
+        "memory_id": "402df035-924b-4a23-9a89-013ddf98d478",
+        "content": "用户在2017年因胃痛做过一次胃镜检查，当时诊断为浅表性胃炎。",
+        "score": 0.6556375119383123,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:40:54.182141+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M09-06",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:41:12.360371+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 64.75
+}

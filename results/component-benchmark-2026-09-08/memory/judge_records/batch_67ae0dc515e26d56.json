@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"f4ec5d44d8800d008af3\", \"query\": \"用户产生烦躁情绪的具体诱因和时间？\", \"expected_facts\": [\"用户的烦躁情绪始于半个月前的搬家活动。\", \"用户的情绪波动是由搬家劳累引起，非病理性。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户最近因搬家太累而感到有些烦躁\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:02:05.027932+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户的烦躁感从半个月前（约2026年8月24日）搬家时开始，现在东西已整理好，心情已平复很多，用户明确表示这与病理性抑郁完全不同\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:02:47.090272+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户家人一直担心用户有抑郁症\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:02:05.027932+00:00\"}]}, {\"id\": \"f506e4746f105947494d\", \"query\": \"患者接受阑尾炎切除手术的实际城市是哪里？\", \"expected_facts\": [\"患者的阑尾炎切除手术是在上海进行的。\", \"患者此前声称在北京手术的说法是错误的。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户之前误以为阑尾炎切除手术在北京进行，后查阅病历发现实际是在上海的一家医院完成的，时间为2020年5月。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:54:11.181044+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户以前在北京做过阑尾炎切除手术。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:53:39.415259+00:00\"}]}, {\"id\": \"f7982c1d6055b8a7fece\", \"query\": \"这位患者具体是在哪一天停止服用降压药的？\", \"expected_facts\": [\"患者在2023年4月20日按医嘱完全停止服用氨氯地平\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户于2026年8月被医生告知血压稳定，医嘱从2026年4月15日起停用氨氯地平，停药后感觉良好\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:46:27.197085+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户更正氨氯地平正式停药日期为2026年4月20日，中间有几天忘记服药但医生确认没问题\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:47:03.988559+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户因高血压于2025年3月开始服用氨氯地平，每天一片\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:46:27.197085+00:00\"}]}, {\"id\": \"f9c181b57a94df7f7f6c\", \"query\": \"患者昨天进行了什么测试，结果状态怎样？\", \"expected_facts\": [\"患者昨天做了听力测试。\", \"详细报告尚未出来。\", \"需要等待报告确认诊断。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户于2026年9月7日进行了听力测试，医生表示需要等待详细报告。目前突发性耳聋尚未确诊，仅为用户根据症状的猜测，需待报告结果确认。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:47:07.920698+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户最近经常耳鸣且听力下降，尤其在晚上。因近期压力大，用户怀疑自己患有突发性耳聋，并计划进行听力测试以确认。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:46:07.569142+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862298-9AyOiOs2J77aJ8lqqkh4",
+    "object": "chat.completion",
+    "created": 1788862298,
+    "model": "minimax/minimax-m2.5",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "\n\n```json\n{\"items\": [{\"id\": \"f4ec5d44d8800d008af3\", \"facts\": [{\"supported\": true, \"evidence\": [{\"memory_id\": \"m1\"}], \"reason\": \"m1明确指出烦躁感从半个月前（约2026年8月24日）搬家时开始。\"}, {\"supported\": true, \"evidence\": [{\"memory_id\": \"m1\"}, {\"memory_id\": \"m0\"}], \"reason\": \"m1说明与病理性抑郁完全不同，m0指出因搬家太累导致烦躁。\"}]}, {\"id\": \"f506e4746f105947494d\", \"facts\": [{\"supported\": true, \"evidence\": [{\"memory_id\": \"m0\"}], \"reason\": \"m0明确指出阑尾炎切除手术实际是在上海的一家医院完成。\"}, {\"supported\": true, \"evidence\": [{\"memory_id\": \"m0\"}, {\"memory_id\": \"m1\"}], \"reason\": \"m1显示之前误以为在北京，m0确认实际在上海，证实之前说法错误。\"}]}, {\"id\": \"f7982c1d6055b8a7fece\", \"facts\": [{\"supported\": false, \"evidence\": [], \"reason\": \"预期fact声称2023年4月20日停药，但记忆显示停药日期为2026年4月20日，时间不匹配。\"}]}, {\"id\": \"f9c181b57a94df7f7f6c\", \"facts\": [{\"supported\": true, \"evidence\": [{\"memory_id\": \"m0\"}], \"reason\": \"m0明确指出用户于2026年9月7日进行了听力测试。\"}, {\"supported\": true, \"evidence\": [{\"memory_id\": \"m0\"}], \"reason\": \"m0明确表示医生表示需要等待详细报告。\"}, {\"supported\": true, \"evidence\": [{\"memory_id\": \"m0\"}], \"reason\": \"m0指出目前尚未确诊，需待报告结果确认。\"}]}]}\n```",
+          "refusal": null,
+          "reasoning": "\n让我分析每个查询及其对应的记忆，评估预期的facts是否得到支持。\n\n## 第一个项目 (f4ec5d44d8800d008af3)\n查询：用户产生烦躁情绪的具体诱因和时间？\n\n预期事实：\n1. \"用户的烦躁情绪始于半个月前的搬家活动。\"\n2. \"用户的情绪波动是由搬家劳累引起，非病理性。\"\n\n记忆：\n- m0: \"用户最近因搬家太累而感到有些烦躁\" - 支持诱因（搬家劳累），但没有具体时间\n- m1: \"用户的烦躁感从半个月前（约2026年8月24日）搬家时开始，现在东西已整理好，心情已平复很多，用户明确表示这与病理性抑郁完全不同\" - 完全支持两个fact：有具体时间（半个月前/约2026年8月24日），有诱因（搬家），且说明非病理性\n- m2: \"用户家人一直担心用户有抑郁症\" - 支持非病理性的结论\n\n结论：\n- fact 1: supported by m1 (明确说\"从半个月前约2026年8月24日搬家时开始\")\n- fact 2: supported by m1 (说\"与病理性抑郁完全不同\")和m0 (说\"因搬家太累\")\n\n## 第二个项目 (f506e4746f105947494d)\n查询：患者接受阑尾炎切除手术的实际城市是哪里？\n\n预期事实：\n1. \"患者的阑尾炎切除手术是在上海进行的。\"\n2. \"患者此前声称在北京手术的说法是错误的。\"\n \n记忆显示：\n- m0: 明确指出手术实际在上海医院完成\n- m1: 记录之前错误地认为在北京进行手术\n\n两个事实都得到完全支持：\n- 手术地点：上海\n- 之前北京的说法是错误的\n\n## 第三个项目 (f7982c1d6055b8a7fece)\n查询：这位患者具体是在哪一天停止服用降压药的？\n\n预期事实：\n1. \"患者在2023年4月20日按医嘱完全停止服用氨氯地平\"\n\n记忆 m0 显示：\n- 从2026年4月15日起停用氨氯地平\n\n记忆 m1 提供补充信息：\n- 正式停药日期更正为2026年4月20日\n- 确认是按医嘱停药\n\n结论：\n- 预期fact中的年份（2023年）与实际记录（2026年）不符\n- 需要再次核实具体日期\n- 因此该fact无法支持\n\n## 第四个项目 (f9c181b57a94df7f7f6c)\n查询：患者昨天进行的检查项目及结果状态\n\n预期事实：\n1. \"患者昨天做了听力测试\"\n2. \"详细报告尚未出来\"\n3. \"需要等待报告确认诊断\"\n\n记忆信息显示：\n- 2026年9月7日进行听力测试\n- 需等待详细报告\n- 尚未确诊，仅为猜测\n\n支持情况：\n- 第一个fact完全支持：m0证实昨天进行听力测试\n- 第二个fact完全支持：m0明确报告尚未出来\n- 第三个fact完全支持：m0指出需等待报告确认诊断\n\n准备生成JSON输出。\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "\n让我分析每个查询及其对应的记忆，评估预期的facts是否得到支持。\n\n## 第一个项目 (f4ec5d44d8800d008af3)\n查询：用户产生烦躁情绪的具体诱因和时间？\n\n预期事实：\n1. \"用户的烦躁情绪始于半个月前的搬家活动。\"\n2. \"用户的情绪波动是由搬家劳累引起，非病理性。\"\n\n记忆：\n- m0: \"用户最近因搬家太累而感到有些烦躁\" - 支持诱因（搬家劳累），但没有具体时间\n- m1: \"用户的烦躁感从半个月前（约2026年8月24日）搬家时开始，现在东西已整理好，心情已平复很多，用户明确表示这与病理性抑郁完全不同\" - 完全支持两个fact：有具体时间（半个月前/约2026年8月24日），有诱因（搬家），且说明非病理性\n- m2: \"用户家人一直担心用户有抑郁症\" - 支持非病理性的结论\n\n结论：\n- fact 1: supported by m1 (明确说\"从半个月前约2026年8月24日搬家时开始\")\n- fact 2: supported by m1 (说\"与病理性抑郁完全不同\")和m0 (说\"因搬家太累\")\n\n## 第二个项目 (f506e4746f105947494d)\n查询：患者接受阑尾炎切除手术的实际城市是哪里？\n\n预期事实：\n1. \"患者的阑尾炎切除手术是在上海进行的。\"\n2. \"患者此前声称在北京手术的说法是错误的。\"\n \n记忆显示：\n- m0: 明确指出手术实际在上海医院完成\n- m1: 记录之前错误地认为在北京进行手术\n\n两个事实都得到完全支持：\n- 手术地点：上海\n- 之前北京的说法是错误的\n\n## 第三个项目 (f7982c1d6055b8a7fece)\n查询：这位患者具体是在哪一天停止服用降压药的？\n\n预期事实：\n1. \"患者在2023年4月20日按医嘱完全停止服用氨氯地平\"\n\n记忆 m0 显示：\n- 从2026年4月15日起停用氨氯地平\n\n记忆 m1 提供补充信息：\n- 正式停药日期更正为2026年4月20日\n- 确认是按医嘱停药\n\n结论：\n- 预期fact中的年份（2023年）与实际记录（2026年）不符\n- 需要再次核实具体日期\n- 因此该fact无法支持\n\n## 第四个项目 (f9c181b57a94df7f7f6c)\n查询：患者昨天进行的检查项目及结果状态\n\n预期事实：\n1. \"患者昨天做了听力测试\"\n2. \"详细报告尚未出来\"\n3. \"需要等待报告确认诊断\"\n\n记忆信息显示：\n- 2026年9月7日进行听力测试\n- 需等待详细报告\n- 尚未确诊，仅为猜测\n\n支持情况：\n- 第一个fact完全支持：m0证实昨天进行听力测试\n- 第二个fact完全支持：m0明确报告尚未出来\n- 第三个fact完全支持：m0指出需等待报告确认诊断\n\n准备生成JSON输出。\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1244,
+      "completion_tokens": 1098,
+      "total_tokens": 2342,
+      "cost": 0.0016908,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0016908,
+        "upstream_inference_prompt_cost": 0.0003732,
+        "upstream_inference_completions_cost": 0.0013176
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 670,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 13.937
+}

@@ -1,0 +1,72 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Create source-grounded retrieval evaluation questions. Return JSON {\"items\":[...]}.\nFor EACH supplied source return {\"id\":same id,\"en\":English patient question,\"zh\":Chinese patient question,\n\"evidence_id\":the exact id string of ONE supplied evidence_options entry supporting BOTH questions}.\nAsk one concrete question about a supported detail (cause, symptom, prevention, evaluation, management).\nThe two questions express the SAME information need, not two facts. Use ordinary patient language.\nInclude enough topic context to identify the condition but do not copy a source sentence into the question.\nSelect an evidence option and ask about a concrete detail stated in that option. Do not ask for a personalized dose or individual diagnosis. Do not invent content. No answers in questions.\nThese are synthetic topic-source retrieval labels, not a clinician-authored benchmark."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"MLP-4939\", \"title\": \"Blood Pressure Medicines\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"High blood pressure , also called hypertension, is when blood puts too much pressure against the walls of your arteries.\"}, {\"id\": \"S001\", \"text\": \"Almost half of American adults have high blood pressure, usually with no symptoms.\"}, {\"id\": \"S002\", \"text\": \"But it can cause serious problems such as stroke , heart failure , heart attack , and kidney disease .\"}, {\"id\": \"S003\", \"text\": \"What lifestyle changes can help lower high blood pressure?\"}, {\"id\": \"S004\", \"text\": \"Healthy lifestyle changes can help reduce high blood pressure: Losing weight Being physically active Managing stress Reducing sodium in your diet Avoiding alcohol , tobacco , and illegal drugs Getting enough sleep What if lifestyle changes alone cannot lower blood pressure?\"}, {\"id\": \"S005\", \"text\": \"Sometimes lifestyle changes alone cannot control or lower your high blood pressure.\"}, {\"id\": \"S006\", \"text\": \"In that case, your health care provider may prescribe blood pressure medicines.\"}, {\"id\": \"S007\", \"text\": \"The most commonly used blood pressure medicines work in different ways to lower blood pressure: Angiotensin-converting enzyme (ACE) inhibitors and angiotensin II receptor blockers (ARBs) keep your blood vessels from narrowing as much and allows blood to move through them with less pressure.\"}, {\"id\": \"S008\", \"text\": \"Beta blockers help your heart beat slower and with less force.\"}, {\"id\": \"S009\", \"text\": \"This means that your heart pumps less blood through your blood vessels.\"}, {\"id\": \"S010\", \"text\": \"Beta blockers are typically used only as a backup option or if you also have certain other conditions.\"}, {\"id\": \"S011\", \"text\": \"Calcium channel blockers prevent calcium from entering the muscle cells of your heart and blood vessels.\"}, {\"id\": \"S012\", \"text\": \"Diuretics remove extra water and sodium (salt) from your body.\"}, {\"id\": \"S013\", \"text\": \"This lowers the amount of fluid in your blood.\"}, {\"id\": \"S014\", \"text\": \"Diuretics are often used with other high blood pressure medicines, sometimes in one combined pill.\"}, {\"id\": \"S015\", \"text\": \"Often, two or more medicines work better than one.\"}, {\"id\": \"S016\", \"text\": \"If these medicines do not lower your blood pressure enough, your provider may suggest that you take another type of blood pressure medicine.\"}, {\"id\": \"S017\", \"text\": \"While taking the medicines, it is still important to keep up with your healthy lifestyle changes.\"}, {\"id\": \"S018\", \"text\": \"Doing both helps keep blood pressure lower than lifestyle changes or medicines alone.\"}, {\"id\": \"S019\", \"text\": \"NIH: National Heart, Lung, and Blood Institute\"}]}, {\"id\": \"MLP-6387\", \"title\": \"Lipid Metabolism Disorders\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Metabolism is the process your body uses to make energy from the food you eat.\"}, {\"id\": \"S001\", \"text\": \"Food is made up of proteins, carbohydrates, and fats.\"}, {\"id\": \"S002\", \"text\": \"Chemicals in your digestive system (enzymes) break the food parts down into sugars and acids, your body's fuel.\"}, {\"id\": \"S003\", \"text\": \"Your body can use this fuel right away, or it can store the energy in your body tissues.\"}, {\"id\": \"S004\", \"text\": \"If you have a metabolic disorder , something goes wrong with this process.\"}, {\"id\": \"S005\", \"text\": \"Lipid metabolism disorders, such as Gaucher disease and Tay-Sachs disease , involve lipids.\"}, {\"id\": \"S006\", \"text\": \"They include oils, fatty acids, waxes, and cholesterol.\"}, {\"id\": \"S007\", \"text\": \"If you have one of these disorders, you may not have enough enzymes to break down lipids.\"}, {\"id\": \"S008\", \"text\": \"Or the enzymes may not work properly and your body can't convert the fats into energy.\"}, {\"id\": \"S009\", \"text\": \"They cause a harmful amount of lipids to build up in your body.\"}, {\"id\": \"S010\", \"text\": \"Over time, that can damage your cells and tissues, especially in the brain, peripheral nervous system, liver, spleen, and bone marrow.\"}, {\"id\": \"S011\", \"text\": \"Many of these disorders can be very serious, or sometimes even fatal.\"}, {\"id\": \"S012\", \"text\": \"Newborn babies get screened for some of them, using blood tests.\"}, {\"id\": \"S013\", \"text\": \"If there is a family history of one of these disorders, parents can get genetic testing to see whether they carry the gene.\"}, {\"id\": \"S014\", \"text\": \"Other genetic tests can tell whether the fetus has the disorder or carries the gene for the disorder.\"}, {\"id\": \"S015\", \"text\": \"Enzyme replacement therapies can help with a few of these disorders.\"}, {\"id\": \"S016\", \"text\": \"Medicines, blood transfusions, and other procedures may help with complications.\"}]}, {\"id\": \"MLP-6155\", \"title\": \"G6PD Deficiency\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Glucose-6-phosphate dehydrogenase (G6PD) deficiency is a genetic disorder that is most common in males.\"}, {\"id\": \"S001\", \"text\": \"About 1 in 10 African American males in the United States has it.\"}, {\"id\": \"S002\", \"text\": \"G6PD deficiency mainly affects red blood cells , which carry oxygen from the lungs to tissues throughout the body.\"}, {\"id\": \"S003\", \"text\": \"The most common medical problem it can cause is hemolytic anemia .\"}, {\"id\": \"S004\", \"text\": \"That happens when red blood cells are destroyed faster than the body can replace them.\"}, {\"id\": \"S005\", \"text\": \"If you have G6PD deficiency, you may not have symptoms.\"}, {\"id\": \"S006\", \"text\": \"Symptoms happen if your red blood cells are exposed to certain chemicals in food or medicine, certain bacterial or viral infections, or stress.\"}, {\"id\": \"S007\", \"text\": \"They may include: Paleness Jaundice Dark urine Fatigue Shortness of breath Enlarged spleen Rapid heart rate A blood test can tell if you have it.\"}, {\"id\": \"S008\", \"text\": \"Treatments include medicines to treat infection, avoiding substances that cause the problem with red blood cells, and sometimes transfusions.\"}]}, {\"id\": \"MLP-3059\", \"title\": \"Dietary Fiber\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"You may also see it listed on a food label as soluble fiber or insoluble fiber.\"}, {\"id\": \"S001\", \"text\": \"Both types have important health benefits.\"}, {\"id\": \"S002\", \"text\": \"Good sources of dietary fiber include: Whole grains Nuts and seeds Fruit and vegetables Dietary fiber adds bulk to your diet and makes you feel full faster, helping you control your weight.\"}, {\"id\": \"S003\", \"text\": \"It helps digestion and helps prevent constipation .\"}, {\"id\": \"S004\", \"text\": \"Most Americans don't eat enough dietary fiber.\"}, {\"id\": \"S005\", \"text\": \"Increasing dietary fiber too quickly can lead to gas , bloating, and cramps.\"}, {\"id\": \"S006\", \"text\": \"Centers for Disease Control and Prevention\"}]}, {\"id\": \"MLP-5536\", \"title\": \"Jaw Injuries and Disorders\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Your jaw is a set of bones that holds your teeth.\"}, {\"id\": \"S001\", \"text\": \"It includes: The maxilla, which is the upper part of your jaw.\"}, {\"id\": \"S002\", \"text\": \"It holds your top teeth in place and doesn't move.\"}, {\"id\": \"S003\", \"text\": \"It also supports the muscles involved in chewing and facial expressions.\"}, {\"id\": \"S004\", \"text\": \"The mandible, which is the lower part of your jaw.\"}, {\"id\": \"S005\", \"text\": \"It also holds your lower teeth in place.\"}, {\"id\": \"S006\", \"text\": \"The temporomandibular joints (TMJs), which are two joints (one on each side) that connect your mandible to your skull.\"}, {\"id\": \"S007\", \"text\": \"Jaw problems can include: Fractures (broken bones).\"}, {\"id\": \"S008\", \"text\": \"Dislocations , which are joint injuries that force the ends of your bones out of position.\"}, {\"id\": \"S009\", \"text\": \"Temporomandibular disorders (TMDs), which are conditions that affect your TMJs.\"}, {\"id\": \"S010\", \"text\": \"Osteonecrosis , which happens when the blood flow to part of your bone is disrupted.\"}, {\"id\": \"S011\", \"text\": \"Jaw tumors, which can be benign (not cancer) or cancer.\"}, {\"id\": \"S012\", \"text\": \"Jaw defects, which are birth defects in which your jaw could be missing or deformed.\"}, {\"id\": \"S013\", \"text\": \"Diagnostic imaging tests are often used to diagnose jaw injuries and disorders.\"}, {\"id\": \"S014\", \"text\": \"Your treatment will depend on which jaw problem you have.\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 2500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788858659-AK1WnOLrphmTqYRIEOr8",
+    "object": "chat.completion",
+    "created": 1788858659,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"MLP-4939\",\n      \"en\": \"If I have high blood pressure and lifestyle changes like diet and exercise aren't enough to control it, what might my doctor prescribe next?\",\n      \"zh\": \"如果我患有高血压，但饮食和运动等生活方式的改变不足以控制病情，医生接下来可能会给我开什么药？\",\n      \"evidence_id\": \"S006\"\n    },\n    {\n      \"id\": \"MLP-6387\",\n      \"en\": \"In lipid metabolism disorders like Gaucher disease, what happens inside the body when enzymes fail to break down fats properly?\",\n      \"zh\": \"在像戈谢病这样的脂质代谢紊乱中，当酶无法正确分解脂肪时，体内会发生什么情况？\",\n      \"evidence_id\": \"S009\"\n    },\n    {\n      \"id\": \"MLP-6155\",\n      \"en\": \"For someone with G6PD deficiency, what are some common signs that their red blood cells are being destroyed too quickly?\",\n      \"zh\": \"对于患有G6PD缺乏症的人来说，红细胞被过快破坏的一些常见迹象是什么？\",\n      \"evidence_id\": \"S007\"\n    },\n    {\n      \"id\": \"MLP-3059\",\n      \"en\": \"What digestive side effects might occur if I increase my fiber intake too quickly?\",\n      \"zh\": \"如果我增加纤维摄入的速度太快，可能会出现哪些消化方面的副作用？\",\n      \"evidence_id\": \"S005\"\n    },\n    {\n      \"id\": \"MLP-5536\",\n      \"en\": \"Besides broken bones, what is another type of jaw injury where the joint forces the bone ends out of their normal position?\",\n      \"zh\": \"除了骨折外，还有一种颌骨损伤会导致关节将骨头末端推离正常位置，那是什么？\",\n      \"evidence_id\": \"S008\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2507,
+      "completion_tokens": 454,
+      "total_tokens": 2961,
+      "cost": 0.0018417,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0018417,
+        "upstream_inference_prompt_cost": 0.0007521,
+        "upstream_inference_completions_cost": 0.0010896
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 7.421
+}

@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Create source-grounded retrieval evaluation questions. Return JSON {\"items\":[...]}.\nFor EACH supplied source return {\"id\":same id,\"en\":English patient question,\"zh\":Chinese patient question,\n\"evidence_id\":the exact id string of ONE supplied evidence_options entry supporting BOTH questions}.\nAsk one concrete question about a supported detail (cause, symptom, prevention, evaluation, management).\nThe two questions express the SAME information need, not two facts. Use ordinary patient language.\nInclude enough topic context to identify the condition but do not copy a source sentence into the question.\nSelect an evidence option and ask about a concrete detail stated in that option. Do not ask for a personalized dose or individual diagnosis. Do not invent content. No answers in questions.\nThese are synthetic topic-source retrieval labels, not a clinician-authored benchmark."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"MLP-250\", \"title\": \"Infertility\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Infertility means not being able to become pregnant after a year of trying.\"}, {\"id\": \"S001\", \"text\": \"If a woman can get pregnant but keeps having miscarriages or stillbirths , that's also called infertility.\"}, {\"id\": \"S002\", \"text\": \"After one year of having unprotected sex, about 15% of couples are unable to get pregnant.\"}, {\"id\": \"S003\", \"text\": \"About a third of the time, infertility can be traced to the woman .\"}, {\"id\": \"S004\", \"text\": \"In another third of cases, it is because of the man .\"}, {\"id\": \"S005\", \"text\": \"The rest of the time, it is because of both partners or no cause can be found.\"}, {\"id\": \"S006\", \"text\": \"There are treatments that are specifically for men or for women.\"}, {\"id\": \"S007\", \"text\": \"Drugs, assisted reproductive technology , and surgery are common treatments.\"}, {\"id\": \"S008\", \"text\": \"Happily, many couples treated for infertility go on to have babies.\"}, {\"id\": \"S009\", \"text\": \"NIH: National Institute of Child Health and Human Development\"}]}, {\"id\": \"MLP-5218\", \"title\": \"Platelet Disorders\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Platelets, also known as thrombocytes, are blood cells.\"}, {\"id\": \"S001\", \"text\": \"They form in your bone marrow, a sponge-like tissue in your bones.\"}, {\"id\": \"S002\", \"text\": \"Platelets play a major role in blood clotting.\"}, {\"id\": \"S003\", \"text\": \"Normally, when one of your blood vessels is injured, you start to bleed.\"}, {\"id\": \"S004\", \"text\": \"Your platelets will clot (clump together) to plug the hole in the blood vessel and stop the bleeding.\"}, {\"id\": \"S005\", \"text\": \"You can have different problems with your platelets: If your blood has a low number of platelets , it is called thrombocytopenia.\"}, {\"id\": \"S006\", \"text\": \"This can put you at risk for mild to serious bleeding .\"}, {\"id\": \"S007\", \"text\": \"The bleeding could be external or internal.\"}, {\"id\": \"S008\", \"text\": \"If the problem is mild, you may not need treatment.\"}, {\"id\": \"S009\", \"text\": \"For more serious cases, you may need medicines or blood or platelet transfusions .\"}, {\"id\": \"S010\", \"text\": \"If your blood has too many platelets , you may have a higher risk of blood clots .\"}, {\"id\": \"S011\", \"text\": \"When the cause is unknown, this is called thrombocythemia.\"}, {\"id\": \"S012\", \"text\": \"You may not need treatment if there are no signs or symptoms.\"}, {\"id\": \"S013\", \"text\": \"In other cases, people who have it may need treatment with medicines or procedures.\"}, {\"id\": \"S014\", \"text\": \"If another disease or condition is causing the high platelet count, it is thrombocytosis.\"}, {\"id\": \"S015\", \"text\": \"The treatment and outlook for thrombocytosis depends on what is causing it.\"}, {\"id\": \"S016\", \"text\": \"Another possible problem is that your platelets do not work as they should .\"}, {\"id\": \"S017\", \"text\": \"For example, in von Willebrand Disease, your platelets cannot stick together or cannot attach to blood vessel walls.\"}, {\"id\": \"S018\", \"text\": \"There are different types of in von Willebrand Disease; treatment depends on which type you have.\"}, {\"id\": \"S019\", \"text\": \"NIH: National Heart, Lung, and Blood Institute\"}]}, {\"id\": \"MLP-258\", \"title\": \"Fungal Infections\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"If you have ever had athlete's foot or a yeast infection , you can blame a fungus.\"}, {\"id\": \"S001\", \"text\": \"Mushrooms, mold and mildew are examples.\"}, {\"id\": \"S002\", \"text\": \"Fungi live in air, in soil, on plants and in water.\"}, {\"id\": \"S003\", \"text\": \"Only about half of all types of fungi are harmful.\"}, {\"id\": \"S004\", \"text\": \"Some fungi reproduce through tiny spores in the air.\"}, {\"id\": \"S005\", \"text\": \"You can inhale the spores or they can land on you.\"}, {\"id\": \"S006\", \"text\": \"As a result, fungal infections often start in the lungs or on the skin.\"}, {\"id\": \"S007\", \"text\": \"You are more likely to get a fungal infection if you have a weakened immune system or take antibiotics.\"}, {\"id\": \"S008\", \"text\": \"For skin and nail infections, you can apply medicine directly to the infected area.\"}, {\"id\": \"S009\", \"text\": \"Oral antifungal medicines are also available for serious infections.\"}]}, {\"id\": \"MLP-6427\", \"title\": \"Optic Nerve Disorders\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"The optic nerve is a bundle of more than 1 million nerve fibers that carry visual messages.\"}, {\"id\": \"S001\", \"text\": \"You have one connecting the back of each eye (your retina ) to your brain.\"}, {\"id\": \"S002\", \"text\": \"Damage to an optic nerve can cause vision loss .\"}, {\"id\": \"S003\", \"text\": \"The type of vision loss and how severe it is depends on where the damage occurs.\"}, {\"id\": \"S004\", \"text\": \"There are many different types of optic nerve disorders, including: Glaucoma is a group of diseases that are the leading cause of blindness in the United States.\"}, {\"id\": \"S005\", \"text\": \"Glaucoma usually happens when the fluid pressure inside the eyes slowly rises and damages the optic nerve.\"}, {\"id\": \"S006\", \"text\": \"Optic neuritis is an inflammation of the optic nerve.\"}, {\"id\": \"S007\", \"text\": \"Causes include infections and immune-related illnesses such as multiple sclerosis .\"}, {\"id\": \"S008\", \"text\": \"Optic nerve atrophy is damage to the optic nerve.\"}, {\"id\": \"S009\", \"text\": \"Causes include poor blood flow to the eye, disease, trauma, or exposure to toxic substances.\"}, {\"id\": \"S010\", \"text\": \"Optic nerve head drusen are pockets of protein and calcium salts that build up in the optic nerve over time Contact your health care provider if you are having vision problems.\"}, {\"id\": \"S011\", \"text\": \"Tests for optic nerve disorders may include eye exams, ophthalmoscopy (an examination of the back of your eye), and imaging tests .\"}, {\"id\": \"S012\", \"text\": \"Treatment depends on which disorder that you have.\"}, {\"id\": \"S013\", \"text\": \"With some optic nerve disorders, you may get your vision back.\"}, {\"id\": \"S014\", \"text\": \"With others, there is no treatment, or treatment may only prevent further vision loss.\"}]}, {\"id\": \"MLP-6053\", \"title\": \"Canker Sores\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Canker sores are small, round sores in your mouth .\"}, {\"id\": \"S001\", \"text\": \"They can be on the inside of your cheek, under your tongue, or in the back of your throat.\"}, {\"id\": \"S002\", \"text\": \"They usually have a red edge and a gray center.\"}, {\"id\": \"S003\", \"text\": \"They are not the same as cold sores , which are caused by herpes simplex.\"}, {\"id\": \"S004\", \"text\": \"They may happen if you have a viral infection.\"}, {\"id\": \"S005\", \"text\": \"They may also be triggered by stress, food allergies, lack of vitamins and minerals, hormonal changes or menstrual periods.\"}, {\"id\": \"S006\", \"text\": \"In most cases, the sores go away by themselves.\"}, {\"id\": \"S007\", \"text\": \"Some ointments, creams or rinses may help with the pain.\"}, {\"id\": \"S008\", \"text\": \"Avoiding hot, spicy food while you have a canker sore also helps.\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 2500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788858860-8lhVSsvaSvQcbca6l4g6",
+    "object": "chat.completion",
+    "created": 1788858860,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"MLP-250\",\n      \"en\": \"My partner and I have been trying to get pregnant for over a year without success. Does this mean we are considered infertile?\",\n      \"zh\": \"我和伴侣尝试怀孕超过一年但没有成功。这是否意味着我们被认定为不孕？\",\n      \"evidence_id\": \"S000\"\n    },\n    {\n      \"id\": \"MLP-5218\",\n      \"en\": \"I was told my blood has too few platelets, which is called thrombocytopenia. What kind of health risk does this put me at?\",\n      \"zh\": \"医生告诉我我的血小板数量太少，这叫血小板减少症。这会给我带来什么样的健康风险？\",\n      \"evidence_id\": \"S006\"\n    },\n    {\n      \"id\": \"MLP-258\",\n      \"en\": \"I recently took a course of antibiotics and now have a skin infection. Could the medication have made me more likely to get a fungal infection?\",\n      \"zh\": \"我最近服用了一疗程的抗生素，现在皮肤感染了。药物会让我更容易患上真菌感染吗？\",\n      \"evidence_id\": \"S007\"\n    },\n    {\n      \"id\": \"MLP-6427\",\n      \"en\": \"I have been diagnosed with optic neuritis. Can you tell me what causes inflammation of the optic nerve?\",\n      \"zh\": \"我被诊断出患有视神经炎。你能告诉我是什么导致视神经发炎的吗？\",\n      \"evidence_id\": \"S007\"\n    },\n    {\n      \"id\": \"MLP-6053\",\n      \"en\": \"I have a sore in my mouth with a gray center and red edge. Is there anything I should avoid eating to help it heal?\",\n      \"zh\": \"我嘴里有一个中间发灰、边缘发红的溃疡。为了帮助它愈合，我应该避免吃些什么食物？\",\n      \"evidence_id\": \"S008\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2264,
+      "completion_tokens": 472,
+      "total_tokens": 2736,
+      "cost": 0.0011778,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0011778,
+        "upstream_inference_prompt_cost": 0.00044148,
+        "upstream_inference_completions_cost": 0.00073632
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 8.141
+}

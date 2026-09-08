@@ -1,0 +1,378 @@
+{
+  "case": {
+    "id": "M09-08",
+    "category": "用户更正先前陈述",
+    "turns": [
+      {
+        "user": "我弟弟有哮喘，请记录这条家族史。",
+        "assistant": "已记录您本次提供的信息。"
+      },
+      {
+        "user": "刚才提到我弟弟有哮喘，但刚刚联系他确认，其实是他妹妹有哮喘，而且她是从小就有，我是记混了兄弟姐妹的顺序。",
+        "assistant": "收到，已更正家族病史，确认患者妹妹自幼患有哮喘，弟弟无此病史。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "Q1",
+        "query": "患者家中哪位亲属被确认患有哮喘？",
+        "expected_facts": [
+          "患者的妹妹患有哮喘。",
+          "患者的弟弟并不患有哮喘。"
+        ],
+        "required_groups": [
+          [
+            "妹妹",
+            "姐姐"
+          ],
+          [
+            "哮喘",
+            "气喘"
+          ],
+          [
+            "弟弟",
+            "兄弟"
+          ]
+        ]
+      },
+      {
+        "id": "Q2",
+        "query": "这位患病亲属的哮喘病史是从什么时候开始的？",
+        "expected_facts": [
+          "患者的妹妹从小就有哮喘病史。",
+          "此前将哮喘归因于弟弟是错误的。"
+        ],
+        "required_groups": [
+          [
+            "从小",
+            "幼年",
+            "儿时"
+          ],
+          [
+            "哮喘",
+            "气喘"
+          ],
+          [
+            "妹妹",
+            "姐妹"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M09-08",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861301-d9Ff0pnwfG3hjXV74DLO",
+      "usage": {
+        "prompt_tokens": 25,
+        "total_tokens": 25,
+        "cost": 2.5e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.5e-07,
+          "upstream_inference_prompt_cost": 2.5e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861303-l299tAaZ36jdPHbULyIY",
+      "usage": {
+        "prompt_tokens": 8330,
+        "completion_tokens": 58,
+        "total_tokens": 8388,
+        "cost": 0.00237438,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00237438,
+          "upstream_inference_prompt_cost": 0.0022491,
+          "upstream_inference_completions_cost": 0.00012528
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 57,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": null
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861309-9j3xQoHGIvZcv87pV3tm",
+      "usage": {
+        "prompt_tokens": 66,
+        "total_tokens": 66,
+        "cost": 6.6e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.6e-07,
+          "upstream_inference_prompt_cost": 6.6e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861310-6jhJRHHyxcGcCuSv7IBR",
+      "usage": {
+        "prompt_tokens": 8386,
+        "completion_tokens": 541,
+        "total_tokens": 8927,
+        "cost": 0.0031785,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0031785,
+          "upstream_inference_prompt_cost": 0.0020965,
+          "upstream_inference_completions_cost": 0.001082
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 599,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户有一个妹妹自幼患有哮喘，弟弟没有哮喘病史。用户之前误记了兄弟姐妹的顺序，现已更正。\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861329-JtYdd6tS1SGLauls0niU",
+      "usage": {
+        "prompt_tokens": 29,
+        "total_tokens": 29,
+        "cost": 2.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.9e-07,
+          "upstream_inference_prompt_cost": 2.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861331-24LfAzNkuyuxJFBXoOhH",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861335-IQ6zEQzPS854Qpzu44cF",
+      "usage": {
+        "prompt_tokens": 13,
+        "total_tokens": 13,
+        "cost": 1.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.3e-07,
+          "upstream_inference_prompt_cost": 1.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861348-iTrSbWidtlAeilYo27zG",
+      "usage": {
+        "prompt_tokens": 21,
+        "total_tokens": 21,
+        "cost": 2.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.1e-07,
+          "upstream_inference_prompt_cost": 2.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861358-LQgvob8PT08MAijBqgbY",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861359-yE5XMwy68Xcy5NstOHCb",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "Q1",
+        "query": "患者家中哪位亲属被确认患有哮喘？",
+        "expected_facts": [
+          "患者的妹妹患有哮喘。",
+          "患者的弟弟并不患有哮喘。"
+        ],
+        "required_groups": [
+          [
+            "妹妹",
+            "姐姐"
+          ],
+          [
+            "哮喘",
+            "气喘"
+          ],
+          [
+            "弟弟",
+            "兄弟"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "c15b0508-3caa-43e1-9eb6-68c43fb71ca3",
+          "content": "用户有一个妹妹自幼患有哮喘，弟弟没有哮喘病史。用户之前误记了兄弟姐妹的顺序，现已更正。",
+          "score": 0.77187852831053,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:55:07.930284+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M09-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:55:29.369361+00:00"
+        }
+      ],
+      "seconds": 5.156
+    },
+    {
+      "query": {
+        "id": "Q2",
+        "query": "这位患病亲属的哮喘病史是从什么时候开始的？",
+        "expected_facts": [
+          "患者的妹妹从小就有哮喘病史。",
+          "此前将哮喘归因于弟弟是错误的。"
+        ],
+        "required_groups": [
+          [
+            "从小",
+            "幼年",
+            "儿时"
+          ],
+          [
+            "哮喘",
+            "气喘"
+          ],
+          [
+            "妹妹",
+            "姐妹"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "c15b0508-3caa-43e1-9eb6-68c43fb71ca3",
+          "content": "用户有一个妹妹自幼患有哮喘，弟弟没有哮喘病史。用户之前误记了兄弟姐妹的顺序，现已更正。",
+          "score": 0.7207169596463164,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:55:07.930284+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M09-08",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:55:29.369361+00:00"
+        }
+      ],
+      "seconds": 13.313
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者家中哪位亲属被确认患有哮喘？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "c15b0508-3caa-43e1-9eb6-68c43fb71ca3",
+        "content": "用户有一个妹妹自幼患有哮喘，弟弟没有哮喘病史。用户之前误记了兄弟姐妹的顺序，现已更正。",
+        "score": 0.7741009739645794,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:55:07.930284+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M09-08",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:55:29.369361+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 62.296
+}

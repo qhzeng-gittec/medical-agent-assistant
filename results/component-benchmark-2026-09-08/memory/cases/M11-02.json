@@ -1,0 +1,577 @@
+{
+  "case": {
+    "id": "M11-02",
+    "category": "多项历史事实的跨会话汇总",
+    "turns": [
+      {
+        "user": "我五十五岁，二十年前被诊断出有轻度高血压，那时候医生建议我控制盐分摄入，我坚持了五年，后来觉得身体没事就放松了，最近体检发现血压又有点高。",
+        "assistant": "好的，已记录您二十年前的高血压诊断及饮食控制历史。"
+      },
+      {
+        "user": "对了，其实五年前我因为体检发现血压升高，开始每天慢跑半小时，坚持了两年，血压确实稳定了，但去年因为膝盖受伤停跑后，血压又波动了，现在还没开始吃药。",
+        "assistant": "收到，已补充您五年前运动干预及去年因伤停跑的情况。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "M11-02-Q1",
+        "query": "患者二十年前确诊了什么疾病，当时采取了什么措施，坚持了多久？",
+        "expected_facts": [
+          "患者二十年前被诊断出轻度高血压。",
+          "医生建议控制盐分摄入。",
+          "患者坚持了五年后放松了控制。"
+        ],
+        "required_groups": [
+          [
+            "轻度高血压",
+            "高血压"
+          ],
+          [
+            "控制盐分",
+            "低盐饮食"
+          ],
+          [
+            "坚持五年",
+            "五年"
+          ]
+        ]
+      },
+      {
+        "id": "M11-02-Q2",
+        "query": "五年前他为了控制血压做了什么运动，为什么后来停了，目前用药情况如何？",
+        "expected_facts": [
+          "患者五年前开始每天慢跑半小时。",
+          "患者坚持了两年后因膝盖受伤停跑。",
+          "患者目前尚未开始服用降压药物。"
+        ],
+        "required_groups": [
+          [
+            "慢跑",
+            "跑步"
+          ],
+          [
+            "膝盖受伤",
+            "腿伤"
+          ],
+          [
+            "未开始吃药",
+            "没吃药"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M11-02",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861510-WovUbIhjuxtUfhbjrFrg",
+      "usage": {
+        "prompt_tokens": 70,
+        "total_tokens": 70,
+        "cost": 7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7e-07,
+          "upstream_inference_prompt_cost": 7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861511-a60SpSAyvy7Sl0pydZJH",
+      "usage": {
+        "prompt_tokens": 8369,
+        "completion_tokens": 459,
+        "total_tokens": 8828,
+        "cost": 0.0036123,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0036123,
+          "upstream_inference_prompt_cost": 0.0025107,
+          "upstream_inference_completions_cost": 0.0011016
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 309,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户五十五岁，二十年前被诊断出有轻度高血压\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户二十年前确诊轻度高血压时医生建议控制盐分摄入，坚持了五年后放松了饮食控制\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"2\",\n      \"text\": \"用户最近体检发现血压又有点高\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861530-aaMvi7VMCqBYNdbrbhtr",
+      "usage": {
+        "prompt_tokens": 48,
+        "total_tokens": 48,
+        "cost": 4.8e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.8e-07,
+          "upstream_inference_prompt_cost": 4.8e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861537-I2EDCh2zROtbNPa8chBH",
+      "usage": {
+        "prompt_tokens": 73,
+        "total_tokens": 73,
+        "cost": 7.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.3e-07,
+          "upstream_inference_prompt_cost": 7.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861540-p3TzHoQwThrGXD5AkRWb",
+      "usage": {
+        "prompt_tokens": 8513,
+        "completion_tokens": 1334,
+        "total_tokens": 9847,
+        "cost": 0.0057555,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0057555,
+          "upstream_inference_prompt_cost": 0.0025539,
+          "upstream_inference_completions_cost": 0.0032016
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1221,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户五年前因体检发现血压升高开始每天慢跑半小时，坚持了两年，期间血压保持稳定\",\n      \"attributed_to\": \"user\"\n    },\n    {\n      \"id\": \"1\",\n      \"text\": \"用户去年因膝盖受伤停止慢跑后血压出现波动，目前尚未开始服用降压药物\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861590-A0hMq04wuONE3zHVBE1g",
+      "usage": {
+        "prompt_tokens": 44,
+        "total_tokens": 44,
+        "cost": 4.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.4e-07,
+          "upstream_inference_prompt_cost": 4.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861604-fZCZKj7kYPaCNBG0NP1i",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861604-3EUruYlUv1TeLKG4UxYg",
+      "usage": {
+        "prompt_tokens": 21,
+        "total_tokens": 21,
+        "cost": 2.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.1e-07,
+          "upstream_inference_prompt_cost": 2.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861607-BGw8YgHpzj6uA0dNxC1a",
+      "usage": {
+        "prompt_tokens": 29,
+        "total_tokens": 29,
+        "cost": 2.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.9e-07,
+          "upstream_inference_prompt_cost": 2.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861619-cF7lel2BeEZO8mQVBNIU",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861623-MneYMrGcqw05kXElmpWW",
+      "usage": {
+        "prompt_tokens": 19,
+        "total_tokens": 19,
+        "cost": 1.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.9e-07,
+          "upstream_inference_prompt_cost": 1.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "M11-02-Q1",
+        "query": "患者二十年前确诊了什么疾病，当时采取了什么措施，坚持了多久？",
+        "expected_facts": [
+          "患者二十年前被诊断出轻度高血压。",
+          "医生建议控制盐分摄入。",
+          "患者坚持了五年后放松了控制。"
+        ],
+        "required_groups": [
+          [
+            "轻度高血压",
+            "高血压"
+          ],
+          [
+            "控制盐分",
+            "低盐饮食"
+          ],
+          [
+            "坚持五年",
+            "五年"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "cb58e1d9-5e28-46d4-9ed2-72d1d5bd3258",
+          "content": "用户二十年前确诊轻度高血压时医生建议控制盐分摄入，坚持了五年后放松了饮食控制",
+          "score": 0.6975046848299168,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:29.303140+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:58:56.310961+00:00"
+        },
+        {
+          "memory_id": "d7f3f27d-9fad-4b1b-bb58-559234837402",
+          "content": "用户五十五岁，二十年前被诊断出有轻度高血压",
+          "score": 0.6835058932576654,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:29.303140+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:58:56.310961+00:00"
+        },
+        {
+          "memory_id": "01df141c-86c7-4ec4-a51c-9061aef792b3",
+          "content": "用户五年前因体检发现血压升高开始每天慢跑半小时，坚持了两年，期间血压保持稳定",
+          "score": 0.5843981610592471,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:56.364460+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M11-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:01.393772+00:00"
+        },
+        {
+          "memory_id": "cef6c0d1-4d46-43b7-9172-65f8f41aaf11",
+          "content": "用户去年因膝盖受伤停止慢跑后血压出现波动，目前尚未开始服用降压药物",
+          "score": 0.5601551966944929,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:56.364460+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M11-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:01.393772+00:00"
+        },
+        {
+          "memory_id": "f35ded12-8618-4243-93f9-9196c03103f9",
+          "content": "用户最近体检发现血压又有点高",
+          "score": 0.5545024337888235,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:29.303140+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:58:56.310961+00:00"
+        }
+      ],
+      "seconds": 2.469
+    },
+    {
+      "query": {
+        "id": "M11-02-Q2",
+        "query": "五年前他为了控制血压做了什么运动，为什么后来停了，目前用药情况如何？",
+        "expected_facts": [
+          "患者五年前开始每天慢跑半小时。",
+          "患者坚持了两年后因膝盖受伤停跑。",
+          "患者目前尚未开始服用降压药物。"
+        ],
+        "required_groups": [
+          [
+            "慢跑",
+            "跑步"
+          ],
+          [
+            "膝盖受伤",
+            "腿伤"
+          ],
+          [
+            "未开始吃药",
+            "没吃药"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "01df141c-86c7-4ec4-a51c-9061aef792b3",
+          "content": "用户五年前因体检发现血压升高开始每天慢跑半小时，坚持了两年，期间血压保持稳定",
+          "score": 0.849870166687552,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:56.364460+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M11-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:01.393772+00:00"
+        },
+        {
+          "memory_id": "cef6c0d1-4d46-43b7-9172-65f8f41aaf11",
+          "content": "用户去年因膝盖受伤停止慢跑后血压出现波动，目前尚未开始服用降压药物",
+          "score": 0.8119861733414895,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:56.364460+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M11-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T10:00:01.393772+00:00"
+        },
+        {
+          "memory_id": "f35ded12-8618-4243-93f9-9196c03103f9",
+          "content": "用户最近体检发现血压又有点高",
+          "score": 0.7218996860331599,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:29.303140+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:58:56.310961+00:00"
+        },
+        {
+          "memory_id": "cb58e1d9-5e28-46d4-9ed2-72d1d5bd3258",
+          "content": "用户二十年前确诊轻度高血压时医生建议控制盐分摄入，坚持了五年后放松了饮食控制",
+          "score": 0.7128976330470127,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:29.303140+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:58:56.310961+00:00"
+        },
+        {
+          "memory_id": "d7f3f27d-9fad-4b1b-bb58-559234837402",
+          "content": "用户五十五岁，二十年前被诊断出有轻度高血压",
+          "score": 0.6910914635712695,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:58:29.303140+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M11-02",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:58:56.310961+00:00"
+        }
+      ],
+      "seconds": 2.391
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者二十年前确诊了什么疾病，当时采取了什么措施，坚持了多久？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "d7f3f27d-9fad-4b1b-bb58-559234837402",
+        "content": "用户五十五岁，二十年前被诊断出有轻度高血压",
+        "score": 0.5574916987657061,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:58:29.303140+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M11-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:58:56.310961+00:00"
+      },
+      {
+        "memory_id": "cb58e1d9-5e28-46d4-9ed2-72d1d5bd3258",
+        "content": "用户二十年前确诊轻度高血压时医生建议控制盐分摄入，坚持了五年后放松了饮食控制",
+        "score": 0.5538337945344811,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:58:29.303140+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M11-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:58:56.310961+00:00"
+      },
+      {
+        "memory_id": "f35ded12-8618-4243-93f9-9196c03103f9",
+        "content": "用户最近体检发现血压又有点高",
+        "score": 0.536571115166621,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:58:29.303140+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M11-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:58:56.310961+00:00"
+      },
+      {
+        "memory_id": "01df141c-86c7-4ec4-a51c-9061aef792b3",
+        "content": "用户五年前因体检发现血压升高开始每天慢跑半小时，坚持了两年，期间血压保持稳定",
+        "score": 0.5260351099041136,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:58:56.364460+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M11-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:00:01.393772+00:00"
+      },
+      {
+        "memory_id": "cef6c0d1-4d46-43b7-9172-65f8f41aaf11",
+        "content": "用户去年因膝盖受伤停止慢跑后血压出现波动，目前尚未开始服用降压药物",
+        "score": 0.5174456306779835,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:58:56.364460+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M11-02",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T10:00:01.393772+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 117.375
+}

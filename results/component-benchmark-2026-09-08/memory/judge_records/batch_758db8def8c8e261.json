@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"379687d90afbf8e87a37\", \"query\": \"患者预约了哪项检查，目的是什么？\", \"expected_facts\": [\"患者预约了下周一上午的骨密度检测。\", \"患者因腿疼且医生怀疑骨质疏松而进行检查。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户预约了2026年9月14日（下周一）上午进行骨密度检测\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:37:44.928694+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户询问骨密度检测前是否需要停药，以及服用的钙片和维生素D是否会影响检测结果\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:37:44.928694+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户的骨密度检测具体安排在周一上午十点，用户询问检测当天早上是否还能服用钙片，或者是否应改为晚上服用\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:39:04.018607+00:00\"}]}, {\"id\": \"37bd2fda1caf50b67e6a\", \"query\": \"患者十年前因什么习惯导致什么呼吸道疾病，医生建议什么，他执行得如何？\", \"expected_facts\": [\"患者十年前因吸烟导致慢性支气管炎。\", \"医生建议戒烟。\", \"患者戒烟三年后复吸。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"医生建议戒烟后，用户成功戒了三年，症状减轻，但后来复吸了\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:00:29.739352+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户58岁，十年前因吸烟导致慢性支气管炎，症状为咳嗽痰多\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:00:29.739352+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"在两年戒烟期间用户的咳嗽基本消失，但去年冬天（2025-2026年冬季）复吸了几次，现在偶尔咳一下\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:00:44.442511+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"五年前（约2021年），用户因咳嗽加重再次开始戒烟，使用尼古丁贴片作为辅助，坚持了两年\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T10:00:44.442511+00:00\"}, {\"memory_id\": \"m4\", \"content\": \"用户目前偶尔咳嗽\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T10:00:29.739352+00:00\"}]}, {\"id\": \"37cf824b35fc9fe9d8ae\", \"query\": \"用户脸色不好的真实原因及持续时间？\", \"expected_facts\": [\"用户脸色不好是因为连续两周每晚只睡四小时。\", \"用户熬夜是由于赶报告工作所致。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"同事总说用户脸色不好是贫血，但用户上周血常规检查各项指标都在正常范围内，医生确认用户根本不贫血，可能是最近熬夜太多导致气色差\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:42:16.440081+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户休息好后气色即可恢复\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:42:38.901661+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户以往体检从未发现过贫血问题\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:42:38.901661+00:00\"}]}, {\"id\": \"392ca5aa0c9934fd591c\", \"query\": \"用户何时结束轮岗？之后的睡眠情况怎样？\", \"expected_facts\": [\"该用户于今天结束轮岗。\", \"该用户回家后睡了个安稳觉。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户两周前开始轮岗急诊科，实际持续九天而非七天，每天工作十四小时，只能在休息室眯二十分钟，于2026年9月8日结束轮岗并回家睡了安稳觉\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:35:21.803929+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户两周前（约2026年8月25日）开始轮岗被分到急诊科，连续七天每天工作十四小时，只能在休息室眯二十分钟\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:35:06.957346+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861934-I4oSNZ1smtwK1H3cGY7G",
+    "object": "chat.completion",
+    "created": 1788861934,
+    "model": "minimax/minimax-m2.5",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "\n\n```json\n{\n  \"items\": [\n    {\n      \"id\": \"379687d90afbf8e87a37\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"m0明确记录预约2026年9月14日（下周一）上午进行骨密度检测。\"\n        },\n        {\n          \"supported\": false,\n          \"evidence\": [],\n          \"reason\": \"记忆未提及患者腿疼或医生怀疑骨质疏松，仅记录预约检查事项。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"37bd2fda1caf50b67e6a\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m1\"}],\n          \"reason\": \"m1记录十年前因吸烟导致慢性支气管炎，症状为咳嗽痰多。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"m0记录医生建议戒烟，用户成功戒了三年。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m2\"}, {\"memory_id\": \"m3\"}],\n          \"reason\": \"m2和m3记录用户戒烟后复吸，m3提到五年前再次戒烟坚持了两年后复吸。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"37cf824b35fc9fe9d8ae\",\n      \"facts\": [\n        {\n          \"supported\": false,\n          \"evidence\": [],\n          \"reason\": \"m0仅提到熬夜太多但未明确连续两周每晚只睡四小时的具体时长。\"\n        },\n        {\n          \"supported\": false,\n          \"evidence\": [],\n          \"reason\": \"记忆未提及熬夜是由于赶报告工作所致。\"\n        }\n      ]\n    },\n    {\n      \"id\": \"392ca5aa0c9934fd591c\",\n      \"facts\": [\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"m0明确记录于2026年9月8日结束轮岗并回家。\"\n        },\n        {\n          \"supported\": true,\n          \"evidence\": [{\"memory_id\": \"m0\"}],\n          \"reason\": \"m0记录用户回家后睡了安稳觉。\"\n        }\n      ]\n    }\n  ]\n}\n```",
+          "refusal": null,
+          "reasoning": "\n让我分析每个查询和记忆，然后判断预期事实是否被支持。\n\n**Item 1: 379687d90afbf8e87a37**\n\nquery: \"患者预约了哪项检查，目的是什么？\"\nexpected_facts:\n1. \"患者预约了下周一上午的骨密度检测。\"\n2. \"患者因腿疼且医生怀疑骨质疏松而进行检查。\"\n\nmemories:\n- m0: \"用户预约了2026年9月14日（下周一）上午进行骨密度检测\"\n- m1: \"用户询问骨密度检测前是否需要停药，以及服用的钙片和维生素D是否会影响检测结果\"\n- m2: \"用户的骨密度检测具体安排在周一上午十点，用户询问检测当天早上是否还能服用钙片，或者是否应改为晚上服用\"\n\n分析：\n1. 第一个预期事实：患者预约了下周一上午的骨密度检测\n   - m0明确提到预约了2026年9月14日（下周一）上午进行骨密度检测\n   - 支持：true\n\n2. 第二个预期事实：患者因腿疼且医生怀疑骨质疏松而进行检查\n   - m0, m1, m2都没有提到患者腿疼或医生怀疑骨质疏松\n   - 支持：false\n\n**Item 2: 37bd2fda1caf50b67e6a**\n\nquery: \"患者十年前因什么习惯导致什么呼吸道疾病，医生建议什么，他执行得如何？\"\nexpected_facts:\n1. \"患者十年前因吸烟导致慢性支气管炎。\"\n2. \"医生建议戒烟。\"\n\n\n3. \"患者戒烟三年后复吸。\"\n\n我注意到记忆中的细节与预期事实存在微妙差异。m1提到患者58岁，十年前因吸烟导致慢性支气管炎，这与第一个预期事实吻合。戒烟过程确实显示患者曾成功戒烟，但具体细节与预期不完全一致。需要进一步核实每个细节的准确性。\n\nm2和m3的记录显示了戒烟的复杂过程：戒烟期间症状明显改善，但后来出现复吸情况。这证实了戒烟后确实有复吸的情况。\n\n最终判断：\n1. 第一个预期事实：true\n2. 第二个预期事实：true  \n3. 第三个预期事实：需要根据m3的具体时间线进一步确认。\n\n用户去年冬天复吸，但具体时间不够明确。\n\n现在分析用户面色和健康状况：睡眠不足确实是导致面色不佳的主要原因。不过，记忆中未明确提及具体睡眠时长为两周每晚四小时，也未提及赶报告工作细节。因此，第一个预期事实被判定为缺乏直接支持，第二个预期事实同样如此。\n\n对于轮岗和睡眠情况，预期事实相对清晰：用户于2026年9月8日结束轮岗，并回家安稳入睡。这些细节得到了m0的直接支持。因此，第一和第二个预期事实均被认定为真实。\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "\n让我分析每个查询和记忆，然后判断预期事实是否被支持。\n\n**Item 1: 379687d90afbf8e87a37**\n\nquery: \"患者预约了哪项检查，目的是什么？\"\nexpected_facts:\n1. \"患者预约了下周一上午的骨密度检测。\"\n2. \"患者因腿疼且医生怀疑骨质疏松而进行检查。\"\n\nmemories:\n- m0: \"用户预约了2026年9月14日（下周一）上午进行骨密度检测\"\n- m1: \"用户询问骨密度检测前是否需要停药，以及服用的钙片和维生素D是否会影响检测结果\"\n- m2: \"用户的骨密度检测具体安排在周一上午十点，用户询问检测当天早上是否还能服用钙片，或者是否应改为晚上服用\"\n\n分析：\n1. 第一个预期事实：患者预约了下周一上午的骨密度检测\n   - m0明确提到预约了2026年9月14日（下周一）上午进行骨密度检测\n   - 支持：true\n\n2. 第二个预期事实：患者因腿疼且医生怀疑骨质疏松而进行检查\n   - m0, m1, m2都没有提到患者腿疼或医生怀疑骨质疏松\n   - 支持：false\n\n**Item 2: 37bd2fda1caf50b67e6a**\n\nquery: \"患者十年前因什么习惯导致什么呼吸道疾病，医生建议什么，他执行得如何？\"\nexpected_facts:\n1. \"患者十年前因吸烟导致慢性支气管炎。\"\n2. \"医生建议戒烟。\"\n\n\n3. \"患者戒烟三年后复吸。\"\n\n我注意到记忆中的细节与预期事实存在微妙差异。m1提到患者58岁，十年前因吸烟导致慢性支气管炎，这与第一个预期事实吻合。戒烟过程确实显示患者曾成功戒烟，但具体细节与预期不完全一致。需要进一步核实每个细节的准确性。\n\nm2和m3的记录显示了戒烟的复杂过程：戒烟期间症状明显改善，但后来出现复吸情况。这证实了戒烟后确实有复吸的情况。\n\n最终判断：\n1. 第一个预期事实：true\n2. 第二个预期事实：true  \n3. 第三个预期事实：需要根据m3的具体时间线进一步确认。\n\n用户去年冬天复吸，但具体时间不够明确。\n\n现在分析用户面色和健康状况：睡眠不足确实是导致面色不佳的主要原因。不过，记忆中未明确提及具体睡眠时长为两周每晚四小时，也未提及赶报告工作细节。因此，第一个预期事实被判定为缺乏直接支持，第二个预期事实同样如此。\n\n对于轮岗和睡眠情况，预期事实相对清晰：用户于2026年9月8日结束轮岗，并回家安稳入睡。这些细节得到了m0的直接支持。因此，第一和第二个预期事实均被认定为真实。\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1434,
+      "completion_tokens": 1098,
+      "total_tokens": 2532,
+      "cost": 0.0017478,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0017478,
+        "upstream_inference_prompt_cost": 0.0004302,
+        "upstream_inference_completions_cost": 0.0013176
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 581,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 12.765
+}

@@ -1,0 +1,378 @@
+{
+  "case": {
+    "id": "M09-10",
+    "category": "用户更正先前陈述",
+    "turns": [
+      {
+        "user": "我每天喝两杯咖啡，一直按这个数量记着。",
+        "assistant": "已记录您本次提供的信息。"
+      },
+      {
+        "user": "之前我说每天喝两杯咖啡，但最近统计发现其实只喝一杯，另一杯是茶，而且这个习惯是从2022年开始调整的，以前确实喝两杯咖啡。",
+        "assistant": "收到，已更新饮品摄入记录：2022年起调整为每日一杯咖啡加一杯茶。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "Q1",
+        "query": "患者目前的日常咖啡因饮品摄入组合是什么？",
+        "expected_facts": [
+          "患者目前每天饮用一杯咖啡和一杯茶。",
+          "患者此前声称每天喝两杯咖啡是不准确的。"
+        ],
+        "required_groups": [
+          [
+            "一杯咖啡",
+            "一壶咖啡"
+          ],
+          [
+            "一杯茶",
+            "一壶茶"
+          ],
+          [
+            "目前",
+            "现在"
+          ]
+        ]
+      },
+      {
+        "id": "Q2",
+        "query": "患者改变饮品习惯的具体时间节点是哪一年？",
+        "expected_facts": [
+          "患者从2022年开始调整饮品习惯。",
+          "在2022年之前，患者每天饮用两杯咖啡。"
+        ],
+        "required_groups": [
+          [
+            "2022年",
+            "二零二二年"
+          ],
+          [
+            "调整",
+            "改变",
+            "开始"
+          ],
+          [
+            "两杯咖啡",
+            "双份咖啡"
+          ]
+        ]
+      }
+    ],
+    "split": "test",
+    "family_id": "M09-10",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861370-oNWRpJ53LxOo7IByuz0n",
+      "usage": {
+        "prompt_tokens": 29,
+        "total_tokens": 29,
+        "cost": 2.9e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.9e-07,
+          "upstream_inference_prompt_cost": 2.9e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861378-YUuQAxoWLApQrIDJa7Zq",
+      "usage": {
+        "prompt_tokens": 8332,
+        "completion_tokens": 61,
+        "total_tokens": 8393,
+        "cost": 0.002646,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.002646,
+          "upstream_inference_prompt_cost": 0.0024996,
+          "upstream_inference_completions_cost": 0.0001464
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 60,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": null
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861381-uKTBJFWAGl0GwCDBBImH",
+      "usage": {
+        "prompt_tokens": 72,
+        "total_tokens": 72,
+        "cost": 7.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 7.2e-07,
+          "upstream_inference_prompt_cost": 7.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788861381-05duYm2vCUCk6BgCNdZ9",
+      "usage": {
+        "prompt_tokens": 8398,
+        "completion_tokens": 276,
+        "total_tokens": 8674,
+        "cost": 0.0026515,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0026515,
+          "upstream_inference_prompt_cost": 0.0020995,
+          "upstream_inference_completions_cost": 0.000552
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 212,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\n  \"memory\": [\n    {\n      \"id\": \"0\",\n      \"text\": \"用户从2022年开始调整饮品习惯，从每天两杯咖啡改为每天一杯咖啡加一杯茶\",\n      \"attributed_to\": \"user\"\n    }\n  ]\n}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861390-0oeXqv7sxsBQThzrcjxF",
+      "usage": {
+        "prompt_tokens": 24,
+        "total_tokens": 24,
+        "cost": 2.4e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.4e-07,
+          "upstream_inference_prompt_cost": 2.4e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861394-P2jLYz4fRtPj2AejZuNr",
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 12,
+        "cost": 1.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.2e-07,
+          "upstream_inference_prompt_cost": 1.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861396-yIEKUoEW9vnHz5jFSyxN",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861400-JccPMk6xPovchaGXSimh",
+      "usage": {
+        "prompt_tokens": 22,
+        "total_tokens": 22,
+        "cost": 2.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.2e-07,
+          "upstream_inference_prompt_cost": 2.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861403-yFYX3dgiod9kPERaE48n",
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 12,
+        "cost": 1.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.2e-07,
+          "upstream_inference_prompt_cost": 1.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788861418-Gi4RE0OOnXzSp6StbEtJ",
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 12,
+        "cost": 1.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.2e-07,
+          "upstream_inference_prompt_cost": 1.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "Q1",
+        "query": "患者目前的日常咖啡因饮品摄入组合是什么？",
+        "expected_facts": [
+          "患者目前每天饮用一杯咖啡和一杯茶。",
+          "患者此前声称每天喝两杯咖啡是不准确的。"
+        ],
+        "required_groups": [
+          [
+            "一杯咖啡",
+            "一壶咖啡"
+          ],
+          [
+            "一杯茶",
+            "一壶茶"
+          ],
+          [
+            "目前",
+            "现在"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "6156d4ab-02a4-45fe-b22c-23ded271adad",
+          "content": "用户从2022年开始调整饮品习惯，从每天两杯咖啡改为每天一杯咖啡加一杯茶",
+          "score": 0.7081789728167678,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:56:20.134147+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M09-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:56:31.844849+00:00"
+        }
+      ],
+      "seconds": 3.828
+    },
+    {
+      "query": {
+        "id": "Q2",
+        "query": "患者改变饮品习惯的具体时间节点是哪一年？",
+        "expected_facts": [
+          "患者从2022年开始调整饮品习惯。",
+          "在2022年之前，患者每天饮用两杯咖啡。"
+        ],
+        "required_groups": [
+          [
+            "2022年",
+            "二零二二年"
+          ],
+          [
+            "调整",
+            "改变",
+            "开始"
+          ],
+          [
+            "两杯咖啡",
+            "双份咖啡"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "6156d4ab-02a4-45fe-b22c-23ded271adad",
+          "content": "用户从2022年开始调整饮品习惯，从每天两杯咖啡改为每天一杯咖啡加一杯茶",
+          "score": 0.7202463163408108,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:56:20.134147+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M09-10",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:56:31.844849+00:00"
+        }
+      ],
+      "seconds": 3.594
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者目前的日常咖啡因饮品摄入组合是什么？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "6156d4ab-02a4-45fe-b22c-23ded271adad",
+        "content": "用户从2022年开始调整饮品习惯，从每天两杯咖啡改为每天一杯咖啡加一杯茶",
+        "score": 0.6036178700057862,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:56:20.134147+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M09-10",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:56:31.844849+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 56.735
+}

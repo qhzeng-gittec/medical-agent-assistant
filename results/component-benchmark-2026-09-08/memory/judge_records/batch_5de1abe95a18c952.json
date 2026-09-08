@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"dd2c85617c0b20e10ec9\", \"query\": \"患者最终在哪一天停止了奥美拉唑的服用？\", \"expected_facts\": [\"患者在2022年9月12日停止服用奥美拉唑\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"In September 2025, the doctor told User their symptoms had disappeared and instructed them to stop omeprazole on September 10, but User actually stopped on September 15\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:46:30.287945+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户更正实际停用奥美拉唑的日期为2025年9月12日，当天重新查看医嘱后发现医生原定的停药日期是12号而非10号。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:46:44.528015+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"User started taking omeprazole (奥美拉唑) for gastroesophageal reflux disease in 2020, taking one tablet every morning\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:46:30.287945+00:00\"}]}, {\"id\": \"df39b0c5c401af171e46\", \"query\": \"在什么情况下患者需要完全停止下肢运动？\", \"expected_facts\": [\"如果膝盖疼痛加剧，患者需要完全停止所有下肢运动。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户补充说明，如果膝盖疼痛加剧，需要完全停止所有下肢运动直到复查。目前用户仍在坚持每天散步半小时。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:34:08.181964+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户于2026年9月1日左右开始膝盖疼痛，医生建议暂时避免跑步和跳跃，但可以进行游泳或骑自行车。用户目前每天只能散步半小时。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:33:09.015964+00:00\"}]}, {\"id\": \"e2320b21f46ef6807d57\", \"query\": \"患者预约了什么检查，主要症状和病史背景是什么？\", \"expected_facts\": [\"患者预约了下周三下午的颈动脉彩超。\", \"患者有高血压病史且近期出现头晕症状。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户预约了下周三下午的颈动脉彩超检查，有高血压病史，最近出现头晕症状\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:49:18.366478+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户计划于2026年9月16日下午两点到医院进行颈动脉彩超检查\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:49:29.260828+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户询问下午两点进行颈动脉彩超检查是否需要空腹\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:49:29.260828+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户于2026年9月7日咨询主治医生，获知颈动脉彩超检查前无需停用阿司匹林\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:49:29.260828+00:00\"}, {\"memory_id\": \"m4\", \"content\": \"用户担心颈动脉彩超检查前是否需要停用阿司匹林，纠结于出血风险和血栓风险之间的平衡\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:49:18.366478+00:00\"}]}, {\"id\": \"e29aab16bb384d0a2433\", \"query\": \"用户轮岗急诊科的实际时长是多少？期间睡眠如何？\", \"expected_facts\": [\"该用户实际轮岗了九天。\", \"该用户期间每天工作十四小时，仅能休息二十分钟。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户两周前开始轮岗急诊科，实际持续九天而非七天，每天工作十四小时，只能在休息室眯二十分钟，于2026年9月8日结束轮岗并回家睡了安稳觉\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:35:21.803929+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户两周前（约2026年8月25日）开始轮岗被分到急诊科，连续七天每天工作十四小时，只能在休息室眯二十分钟\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:35:06.957346+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788862259-QmskVb3J7Z8Sh2ewGAQg",
+    "object": "chat.completion",
+    "created": 1788862259,
+    "model": "minimax/minimax-m2.5",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "\n\n{\"items\":[{\"id\":\"dd2c85617c0b20e10ec9\",\"facts\":[{\"supported\":false,\"evidence\":[],\"reason\":\"Expected fact states 2022 but memories consistently indicate September 12, 2025 as the corrected stop date\"}]},{\"id\":\"df39b0c5c401af171e46\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory explicitly states if knee pain worsens, need to completely stop all lower limb exercise until follow-up\"}]},{\"id\":\"e2320b21f46ef6807d57\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory confirms scheduled carotid ultrasound for next Wednesday afternoon with hypertension history and recent dizziness symptoms\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory confirms patient has hypertension history and recent dizziness symptoms\"}]},{\"id\":\"e29aab16bb384d0a2433\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory confirms actual rotation was nine days, not seven, as corrected in session-2\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"Memory confirms fourteen-hour workdays with only twenty-minute rest\"}]}]}",
+          "refusal": null,
+          "reasoning": "\nLet me analyze each item according to the instructions:\n\n1. **dd2c85617c0b20e10ec9** - Query: \"患者最终在哪一天停止了奥美拉唑的服用？\" (On which day did the patient finally stop taking omeprazole?)\n   - Expected fact: \"患者在2022年9月12日停止服用奥美拉唑\" (Patient stopped taking omeprazole on September 12, 2022)\n   \n   Looking at memories:\n   - m0: \"In September 2025, the doctor told User their symptoms had disappeared and instructed them to stop omeprazole on September 10, but User actually stopped on September 15\"\n   - m1: \"用户更正实际停用奥美拉唑的日期为2025年9月12日，当天重新查看医嘱后发现医生原定的停药日期是12号而非10号。\" (User corrected the actual stop date to September 12, 2025, and found the doctor's original date was the 12th, not the 10th)\n   - m2: \"User started taking omeprazole (奥美拉唑) for gastroesophageal reflux disease in 2020...\"\n   \n   The expected fact says \"2022年9月12日\" (September 12, 2022), but the memories clearly mention September 12, 2025. There's a year discrepancy. The expected fact mentions 2022 but the records show 2025. This is NOT supported because the year is wrong. The memory m1 is a correction that confirms September 12, 2025.\n   \n   Actually wait - let me re-read more carefully. The expected_fact says \"2022年9月12日\" but the memories say \"2025年9月12日\" in m1. So the date (day) is correct (12th) but the YEAR is different (2022 vs 2025). The query asks for \"哪一天\" (which day) - the expected fact specifies 2022, but memories indicate 2025.\n   \n   The key here is that m1 is a CORRECTION from session-2 that clarifies the actual stop date was September 12, 2025. So the supported fact should be \"患者在2025年9月12日停止服用奥美拉唑\" - NOT 2022. So this is NOT supported because the expected_fact contains wrong year (2022 vs 2025).\n\n2. **df39b0c5c401af171e46** - Query: \"在什么情况下患者需要完全停止下肢运动？\" (Under what circumstances does the patient need to completely stop lower limb exercise?)\n   - Expected fact: \"如果膝盖疼痛加剧，患者需要完全停止所有下肢运动。\" (If knee pain worsens, the patient needs to completely stop all lower limb exercise)\n   \n   Memory m0 directly confirms this: \"用户补充说明，如果膝盖疼痛加剧，需要完全停止所有下肢运动直到复查。\" This matches the expected fact exactly. Supported = TRUE, evidence: m0.\n\n3. **e2320b21f46ef6807d57** - Query: \"患者预约了什么检查，主要症状和病史背景是什么？\" (What examination did the patient schedule, and what are the main symptoms and medical history?)\n   - Expected facts: \n     1) \"患者预约了下周三下午的颈动脉彩超。\" (Patient scheduled a carotid ultrasound for next Wednesday afternoon)\n     2) \"患者有高血压病史且近期出现头晕症状。\" (Patient has hypertension history and recent dizziness symptoms)\n   \n   Checking against memories - m0 explicitly confirms both: the appointment for next Wednesday afternoon and the hypertension with recent dizziness. These match perfectly. Supported = TRUE, evidence: m0.\n\n4. **e29aab16bb384d0a2433** - Query: \"用户轮岗急诊科的实际时长是多少？期间睡眠如何？\"\n   - Expected facts:\n     1) \"该用户实际轮岗了\n\nThe user worked nine days in the emergency department rotation, not the initially planned seven. They maintained a grueling fourteen-hour daily schedule with only twenty-minute rest breaks. This differs from the original expectation of seven days, showing the actual duration was longer than initially assumed.\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "\nLet me analyze each item according to the instructions:\n\n1. **dd2c85617c0b20e10ec9** - Query: \"患者最终在哪一天停止了奥美拉唑的服用？\" (On which day did the patient finally stop taking omeprazole?)\n   - Expected fact: \"患者在2022年9月12日停止服用奥美拉唑\" (Patient stopped taking omeprazole on September 12, 2022)\n   \n   Looking at memories:\n   - m0: \"In September 2025, the doctor told User their symptoms had disappeared and instructed them to stop omeprazole on September 10, but User actually stopped on September 15\"\n   - m1: \"用户更正实际停用奥美拉唑的日期为2025年9月12日，当天重新查看医嘱后发现医生原定的停药日期是12号而非10号。\" (User corrected the actual stop date to September 12, 2025, and found the doctor's original date was the 12th, not the 10th)\n   - m2: \"User started taking omeprazole (奥美拉唑) for gastroesophageal reflux disease in 2020...\"\n   \n   The expected fact says \"2022年9月12日\" (September 12, 2022), but the memories clearly mention September 12, 2025. There's a year discrepancy. The expected fact mentions 2022 but the records show 2025. This is NOT supported because the year is wrong. The memory m1 is a correction that confirms September 12, 2025.\n   \n   Actually wait - let me re-read more carefully. The expected_fact says \"2022年9月12日\" but the memories say \"2025年9月12日\" in m1. So the date (day) is correct (12th) but the YEAR is different (2022 vs 2025). The query asks for \"哪一天\" (which day) - the expected fact specifies 2022, but memories indicate 2025.\n   \n   The key here is that m1 is a CORRECTION from session-2 that clarifies the actual stop date was September 12, 2025. So the supported fact should be \"患者在2025年9月12日停止服用奥美拉唑\" - NOT 2022. So this is NOT supported because the expected_fact contains wrong year (2022 vs 2025).\n\n2. **df39b0c5c401af171e46** - Query: \"在什么情况下患者需要完全停止下肢运动？\" (Under what circumstances does the patient need to completely stop lower limb exercise?)\n   - Expected fact: \"如果膝盖疼痛加剧，患者需要完全停止所有下肢运动。\" (If knee pain worsens, the patient needs to completely stop all lower limb exercise)\n   \n   Memory m0 directly confirms this: \"用户补充说明，如果膝盖疼痛加剧，需要完全停止所有下肢运动直到复查。\" This matches the expected fact exactly. Supported = TRUE, evidence: m0.\n\n3. **e2320b21f46ef6807d57** - Query: \"患者预约了什么检查，主要症状和病史背景是什么？\" (What examination did the patient schedule, and what are the main symptoms and medical history?)\n   - Expected facts: \n     1) \"患者预约了下周三下午的颈动脉彩超。\" (Patient scheduled a carotid ultrasound for next Wednesday afternoon)\n     2) \"患者有高血压病史且近期出现头晕症状。\" (Patient has hypertension history and recent dizziness symptoms)\n   \n   Checking against memories - m0 explicitly confirms both: the appointment for next Wednesday afternoon and the hypertension with recent dizziness. These match perfectly. Supported = TRUE, evidence: m0.\n\n4. **e29aab16bb384d0a2433** - Query: \"用户轮岗急诊科的实际时长是多少？期间睡眠如何？\"\n   - Expected facts:\n     1) \"该用户实际轮岗了\n\nThe user worked nine days in the emergency department rotation, not the initially planned seven. They maintained a grueling fourteen-hour daily schedule with only twenty-minute rest breaks. This differs from the original expectation of seven days, showing the actual duration was longer than initially assumed.\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1423,
+      "completion_tokens": 1158,
+      "total_tokens": 2581,
+      "cost": 0.0018165,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0018165,
+        "upstream_inference_prompt_cost": 0.0004269,
+        "upstream_inference_completions_cost": 0.0013896
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 887,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 14.141
+}

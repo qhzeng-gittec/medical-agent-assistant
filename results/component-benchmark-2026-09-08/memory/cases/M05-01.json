@@ -1,0 +1,536 @@
+{
+  "case": {
+    "id": "M05-01",
+    "category": "确诊与待检查的不确定性区分",
+    "turns": [
+      {
+        "user": "医生您好，我上周开始感到胸口偶尔闷痛，尤其是爬楼梯的时候。我父亲有冠心病史，所以我特别担心自己是不是也得了冠心病，想请您帮我看看。",
+        "assistant": "收到，已记录您的症状描述及家族史担忧。"
+      },
+      {
+        "user": "补充一下，昨天我去做了心电图，结果还没出来，医生让我等三天。我现在还没确诊，只是怀疑可能有心脏问题，想先了解一下后续流程。",
+        "assistant": "明白，已更新您目前处于检查等待期且尚未确诊的状态。"
+      }
+    ],
+    "queries": [
+      {
+        "id": "M05-01-Q1",
+        "query": "患者目前是否已经确诊患有冠心病？",
+        "expected_facts": [
+          "患者目前尚未确诊冠心病。",
+          "患者上周开始感到胸口偶尔闷痛。",
+          "患者父亲有冠心病史。"
+        ],
+        "required_groups": [
+          [
+            "尚未确诊",
+            "未确诊",
+            "没确诊"
+          ],
+          [
+            "冠心病",
+            "心脏问题"
+          ],
+          [
+            "上周",
+            "最近"
+          ]
+        ]
+      },
+      {
+        "id": "M05-01-Q2",
+        "query": "患者昨天做了哪项检查，结果状态如何？",
+        "expected_facts": [
+          "患者昨天做了心电图检查。",
+          "检查结果尚未出来。",
+          "医生要求患者等待三天。"
+        ],
+        "required_groups": [
+          [
+            "心电图",
+            "心脏检查"
+          ],
+          [
+            "结果未出",
+            "没出来",
+            "等待结果"
+          ],
+          [
+            "昨天",
+            "前天"
+          ]
+        ]
+      }
+    ],
+    "split": "dev",
+    "family_id": "M05-01",
+    "synthetic": true
+  },
+  "status": "completed",
+  "api_calls": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860100-3R3azKoxAfdFMAOFh7Jz",
+      "usage": {
+        "prompt_tokens": 63,
+        "total_tokens": 63,
+        "cost": 6.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.3e-07,
+          "upstream_inference_prompt_cost": 6.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860103-GlpNPqYfJRmbguBVukXt",
+      "usage": {
+        "prompt_tokens": 8359,
+        "completion_tokens": 376,
+        "total_tokens": 8735,
+        "cost": 0.0021909,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 8128,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0021909,
+          "upstream_inference_prompt_cost": 0.0012885,
+          "upstream_inference_completions_cost": 0.0009024
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 259,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\"memory\": [\n  {\"id\": \"0\", \"text\": \"用户自2026年9月1日左右开始感到胸口偶尔闷痛，尤其在爬楼梯时出现\", \"attributed_to\": \"user\"},\n  {\"id\": \"1\", \"text\": \"用户的父亲有冠心病史\", \"attributed_to\": \"user\"},\n  {\"id\": \"2\", \"text\": \"用户因父亲有冠心病史而担心自己是否也患有冠心病，正在寻求医疗咨询\", \"attributed_to\": \"user\"}\n]}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860124-xZJHqaiZegRjZaGsXYXd",
+      "usage": {
+        "prompt_tokens": 57,
+        "total_tokens": 57,
+        "cost": 5.7e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 5.7e-07,
+          "upstream_inference_prompt_cost": 5.7e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860127-WZburtIax0cL3C6Pz1Hr",
+      "usage": {
+        "prompt_tokens": 61,
+        "total_tokens": 61,
+        "cost": 6.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 6.1e-07,
+          "upstream_inference_prompt_cost": 6.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/chat/completions",
+      "model": "qwen/qwen3.5-27b",
+      "status": 200,
+      "id": "gen-1788860130-kaGklDIK97TATE8nEq9L",
+      "usage": {
+        "prompt_tokens": 8496,
+        "completion_tokens": 1126,
+        "total_tokens": 9622,
+        "cost": 0.004032,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 8128,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.004032,
+          "upstream_inference_prompt_cost": 0.0013296,
+          "upstream_inference_completions_cost": 0.0027024
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1065,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "finish_reason": "stop",
+      "response_content": "{\"memory\": [{\"id\": \"0\", \"text\": \"用户于2026年9月7日做了心电图，结果尚未出来，医生建议等待三天。用户目前尚未确诊，只是怀疑可能有心脏问题，想了解后续流程。\", \"attributed_to\": \"user\"}]}"
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860172-UqSKfk2xxOeK338Nxr51",
+      "usage": {
+        "prompt_tokens": 43,
+        "total_tokens": 43,
+        "cost": 4.3e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.3e-07,
+          "upstream_inference_prompt_cost": 4.3e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860174-ShqIjHmpW9NQWFZletVS",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860180-OVjh6hCQ1cLptFF02wIN",
+      "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 12,
+        "cost": 1.2e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.2e-07,
+          "upstream_inference_prompt_cost": 1.2e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860183-X27uskjbTjP4l7SA3Axp",
+      "usage": {
+        "prompt_tokens": 21,
+        "total_tokens": 21,
+        "cost": 2.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.1e-07,
+          "upstream_inference_prompt_cost": 2.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860184-AUOd8pXVt4DCq9OlyDk1",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "model": "qwen/qwen3-embedding-8b",
+      "status": 200,
+      "id": "gen-emb-1788860186-WDg48COuiF5Lz8g1lgPb",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 11,
+        "cost": 1.1e-07,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.1e-07,
+          "upstream_inference_prompt_cost": 1.1e-07,
+          "upstream_inference_completions_cost": 0
+        }
+      }
+    }
+  ],
+  "queries": [
+    {
+      "query": {
+        "id": "M05-01-Q1",
+        "query": "患者目前是否已经确诊患有冠心病？",
+        "expected_facts": [
+          "患者目前尚未确诊冠心病。",
+          "患者上周开始感到胸口偶尔闷痛。",
+          "患者父亲有冠心病史。"
+        ],
+        "required_groups": [
+          [
+            "尚未确诊",
+            "未确诊",
+            "没确诊"
+          ],
+          [
+            "冠心病",
+            "心脏问题"
+          ],
+          [
+            "上周",
+            "最近"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "7cc5ca4a-4a23-4207-8dde-3ddead751221",
+          "content": "用户的父亲有冠心病史",
+          "score": 0.7206709069029944,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:58.977359+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M05-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:26.647928+00:00"
+        },
+        {
+          "memory_id": "425c2dd1-4b8f-4c9a-a211-399b329f5418",
+          "content": "用户因父亲有冠心病史而担心自己是否也患有冠心病，正在寻求医疗咨询",
+          "score": 0.6532888774949931,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:58.977359+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M05-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:26.647928+00:00"
+        },
+        {
+          "memory_id": "84c906bf-a65c-4206-aaec-e5db9403c66e",
+          "content": "用户自2026年9月1日左右开始感到胸口偶尔闷痛，尤其在爬楼梯时出现",
+          "score": 0.5946170733626067,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:58.977359+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M05-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:26.647928+00:00"
+        },
+        {
+          "memory_id": "fee61b93-bea2-4e5e-8f08-b9b642bffc3d",
+          "content": "用户于2026年9月7日做了心电图，结果尚未出来，医生建议等待三天。用户目前尚未确诊，只是怀疑可能有心脏问题，想了解后续流程。",
+          "score": 0.5224968243162915,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:26.699009+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M05-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:36:12.720589+00:00"
+        }
+      ],
+      "seconds": 6.687
+    },
+    {
+      "query": {
+        "id": "M05-01-Q2",
+        "query": "患者昨天做了哪项检查，结果状态如何？",
+        "expected_facts": [
+          "患者昨天做了心电图检查。",
+          "检查结果尚未出来。",
+          "医生要求患者等待三天。"
+        ],
+        "required_groups": [
+          [
+            "心电图",
+            "心脏检查"
+          ],
+          [
+            "结果未出",
+            "没出来",
+            "等待结果"
+          ],
+          [
+            "昨天",
+            "前天"
+          ]
+        ]
+      },
+      "hits": [
+        {
+          "memory_id": "fee61b93-bea2-4e5e-8f08-b9b642bffc3d",
+          "content": "用户于2026年9月7日做了心电图，结果尚未出来，医生建议等待三天。用户目前尚未确诊，只是怀疑可能有心脏问题，想了解后续流程。",
+          "score": 0.585548247581593,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:35:26.699009+00:00",
+            "source_session_id": "session-2",
+            "user_id": "M05-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:36:12.720589+00:00"
+        },
+        {
+          "memory_id": "7cc5ca4a-4a23-4207-8dde-3ddead751221",
+          "content": "用户的父亲有冠心病史",
+          "score": 0.5088849110305448,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:58.977359+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M05-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:26.647928+00:00"
+        },
+        {
+          "memory_id": "425c2dd1-4b8f-4c9a-a211-399b329f5418",
+          "content": "用户因父亲有冠心病史而担心自己是否也患有冠心病，正在寻求医疗咨询",
+          "score": 0.4392748885203501,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:58.977359+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M05-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:26.647928+00:00"
+        },
+        {
+          "memory_id": "84c906bf-a65c-4206-aaec-e5db9403c66e",
+          "content": "用户自2026年9月1日左右开始感到胸口偶尔闷痛，尤其在爬楼梯时出现",
+          "score": 0.42213678742395017,
+          "metadata": {
+            "evaluation": "synthetic-component-v2",
+            "type": "consultation_event",
+            "timestamp": "2026-09-08T09:34:58.977359+00:00",
+            "source_session_id": "session-1",
+            "user_id": "M05-01",
+            "agent_id": "component-v2",
+            "attributed_to": "user"
+          },
+          "timestamp": "2026-09-08T09:35:26.647928+00:00"
+        }
+      ],
+      "seconds": 3.063
+    }
+  ],
+  "reopened_before_queries": true,
+  "unanswerable": {
+    "query": "患者目前是否已经确诊患有冠心病？ 对应门诊收费发票的完整编号是什么？",
+    "hits": [
+      {
+        "memory_id": "7cc5ca4a-4a23-4207-8dde-3ddead751221",
+        "content": "用户的父亲有冠心病史",
+        "score": 0.6434841335385888,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:34:58.977359+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M05-01",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:35:26.647928+00:00"
+      },
+      {
+        "memory_id": "fee61b93-bea2-4e5e-8f08-b9b642bffc3d",
+        "content": "用户于2026年9月7日做了心电图，结果尚未出来，医生建议等待三天。用户目前尚未确诊，只是怀疑可能有心脏问题，想了解后续流程。",
+        "score": 0.5882488685171093,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:35:26.699009+00:00",
+          "source_session_id": "session-2",
+          "user_id": "M05-01",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:36:12.720589+00:00"
+      },
+      {
+        "memory_id": "425c2dd1-4b8f-4c9a-a211-399b329f5418",
+        "content": "用户因父亲有冠心病史而担心自己是否也患有冠心病，正在寻求医疗咨询",
+        "score": 0.5731751137891092,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:34:58.977359+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M05-01",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:35:26.647928+00:00"
+      },
+      {
+        "memory_id": "84c906bf-a65c-4206-aaec-e5db9403c66e",
+        "content": "用户自2026年9月1日左右开始感到胸口偶尔闷痛，尤其在爬楼梯时出现",
+        "score": 0.5142400010905552,
+        "metadata": {
+          "evaluation": "synthetic-component-v2",
+          "type": "consultation_event",
+          "timestamp": "2026-09-08T09:34:58.977359+00:00",
+          "source_session_id": "session-1",
+          "user_id": "M05-01",
+          "agent_id": "component-v2",
+          "attributed_to": "user"
+        },
+        "timestamp": "2026-09-08T09:35:26.647928+00:00"
+      }
+    ]
+  },
+  "unknown_user_hits": [],
+  "other_app_hits": [],
+  "seconds": 90.719
+}

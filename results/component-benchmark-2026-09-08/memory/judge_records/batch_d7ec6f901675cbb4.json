@@ -1,0 +1,86 @@
+{
+  "request": {
+    "model": "minimax/minimax-m2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Judge retrieval support, not clinical correctness. Return JSON {\"items\":[...]} in input order.\nFor each input item return {\"id\":same id,\"facts\":[{\"supported\":true/false,\"evidence\":[{\"memory_id\":id}],\"reason\":\"short\"}]}.\nOne facts entry per expected_fact, in the original order. Judge only whether retrieved memories explicitly\nsupport the requested personal fact, with correct person, event time, current/historical state and uncertainty.\nHistorical records may coexist with newer ones if chronology resolves the requested state. Mere keyword overlap,\nan assistant suggestion or a contradicted current-state assertion does not count. A supported fact requires\nat least one supplied memory id; the evaluation program will attach the full original memory text as its quote.\nsource_session_id and recorded_at preserve the original record order: session-2 follows session-1.\nUse an explicit later correction to resolve an earlier assertion. Recording time provides the reference date\nfor relative dates, not a new claimed date of a past event. Unsupported facts may have empty evidence.\nDo not use outside knowledge. Keep each reason to one short sentence.\nEach item is independent. A memory id is valid ONLY inside that item's memories, never another item."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"006023db060d7b878c8f\", \"query\": \"五年前他为了控制血压做了什么运动，为什么后来停了，目前用药情况如何？\", \"expected_facts\": [\"患者五年前开始每天慢跑半小时。\", \"患者坚持了两年后因膝盖受伤停跑。\", \"患者目前尚未开始服用降压药物。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户五年前因体检发现血压升高开始每天慢跑半小时，坚持了两年，期间血压保持稳定\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:58:56.364460+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户去年因膝盖受伤停止慢跑后血压出现波动，目前尚未开始服用降压药物\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:58:56.364460+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户最近体检发现血压又有点高\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:58:29.303140+00:00\"}, {\"memory_id\": \"m3\", \"content\": \"用户二十年前确诊轻度高血压时医生建议控制盐分摄入，坚持了五年后放松了饮食控制\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:58:29.303140+00:00\"}, {\"memory_id\": \"m4\", \"content\": \"用户五十五岁，二十年前被诊断出有轻度高血压\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:58:29.303140+00:00\"}]}, {\"id\": \"00faf6ad68881f092ff7\", \"query\": \"患者被建议避免哪些 footwear 和活动？\", \"expected_facts\": [\"患者被建议避免穿高跟鞋和进行剧烈跑跳。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户脚踝扭伤，医生建议不要穿高跟鞋或进行剧烈跑跳，目前只能穿平底鞋慢慢走。\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:35:54.410517+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户补充说明脚踝扭伤护理：如果肿胀加重，需要抬高脚部并减少走动。用户目前尽量保持脚部抬高。\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:36:56.011793+00:00\"}]}, {\"id\": \"0319ab8144a95e1f50b3\", \"query\": \"请问您的配偶中，谁在两年前被确诊为高血压并开始服药？\", \"expected_facts\": [\"用户的妻子在两年前确诊高血压并开始服药。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户更正：是妻子而非丈夫两年前（约2024年9月）确诊高血压并开始服药控制\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:42.150967+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户的丈夫两年前（约2024年9月）因高血压开始服药控制，最近血压已稳定\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:41:16.917515+00:00\"}, {\"memory_id\": \"m2\", \"content\": \"用户的丈夫身体健康状况良好\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:41:42.150967+00:00\"}]}, {\"id\": \"043050b1684e959d55f5\", \"query\": \"根据患者叙述，这次过敏反应发生在哪一年，从用药到发病经过了多长时间？\", \"expected_facts\": [\"事件发生在2019年。\", \"用药后几分钟内即出现反应。\"], \"memories\": [{\"memory_id\": \"m0\", \"content\": \"用户补充说明2019年氯霉素眼药水过敏反应发生得非常迅速，用药后几分钟内就开始出现症状，除了眼睑严重水肿外还感到眼部剧痛，不得不立即冲洗眼睛并停用该药\", \"source_session_id\": \"session-2\", \"recorded_at\": \"2026-09-08T09:34:23.440088+00:00\"}, {\"memory_id\": \"m1\", \"content\": \"用户于2019年因结膜炎使用氯霉素眼药水时出现过敏反应，症状包括眼皮严重肿胀和大量流泪\", \"source_session_id\": \"session-1\", \"recorded_at\": \"2026-09-08T09:34:11.460768+00:00\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 9000,
+    "reasoning": {
+      "effort": "low"
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788861850-qEl5gp23Lm7P9VBofjyd",
+    "object": "chat.completion",
+    "created": 1788861850,
+    "model": "minimax/minimax-m2.5",
+    "provider": "StreamLake",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"items\":[{\"id\":\"006023db060d7b878c8f\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确记录患者五年前开始每天慢跑半小时。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"记忆记录患者坚持跑步两年后因膝盖受伤停止，与期望事实一致。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m1\"}],\"reason\":\"记忆明确记录患者目前尚未开始服用降压药物。\"}]},{\"id\":\"00faf6ad68881f092ff7\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确记录医生建议不要穿高跟鞋或进行剧烈跑跳。\"}]},{\"id\":\"0319ab8144a95e1f50b3\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确更正为妻子在两年前确诊高血压并开始服药。\"}]},{\"id\":\"043050b1684e959d55f5\",\"facts\":[{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"},{\"memory_id\":\"m1\"}],\"reason\":\"记忆明确记录事件发生在2019年。\"},{\"supported\":true,\"evidence\":[{\"memory_id\":\"m0\"}],\"reason\":\"记忆明确记录用药后几分钟内出现症状。\"}]}]}",
+          "refusal": null,
+          "reasoning": "让我逐一分析每个查询项：\n\n**Item 1: id=\"006023db060d7b878c8f\"**\n\n查询：五年前他为了控制血压做了什么运动，为什么后来停了，目前用药情况如何？\n期望事实：\n1. 患者五年前开始每天慢跑半小时。\n2. 患者坚持了两年后因膝盖受伤停跑。\n3. 患者目前尚未开始服用降压药物。\n\n记忆：\n- m0: 用户五年前因体检发现血压升高开始每天慢跑半小时，坚持了两年，期间血压保持稳定\n- m1: 用户去年因膝盖受伤停止慢跑后血压出现波动，目前尚未开始服用降压药物\n- m2: 用户最近体检发现血压又有点高\n- m3: 用户二十年前确诊轻度高血压时医生建议控制盐分摄入，坚持了五年后放松了饮食控制\n- m4: 用户五十五岁，二十年前被诊断出有轻度高血压\n\n分析：\n1. \"患者五年前开始每天慢跑半小时\" - m0明确说\"五年前因体检发现血压升高开始每天慢跑半小时\"，支持！\n2. \"患者坚持了两年后因膝盖受伤停跑\" - m0说\"坚持了两年\"，m1说\"去年因膝盖受伤停止慢跑\"，但这里有个问题：m1说\"去年\"停止，而m0说\"五年前开始...坚持了两年\"，如果五年前开始并坚持两年，那应该是三年前停止，但m1说去年停止。这里有时间上的不一致。但从支持事实的角度，m0和m1都提到了膝盖受伤停止跑步，可以支持\"因膝盖受伤停跑\"这个事实。\n\n时间线存在矛盾：五年前开始跑步，坚持两年，应该三年前停止，但m1说去年才停止。这种不一致需要进一步核实。\n\n膝盖受伤是停止跑步的直接原因，这一点基本可以确认。\n\n关于用药情况，目前尚未开始服用降压药物，这与之前的信息基本吻合。\n\n**Item 2: id=\"00faf6ad68881f092ff7\"**\n\n查询：患者被建议避免哪些 footwear 和活动？\n期望事实：[\"患者被建议避免穿高跟鞋和进行剧烈跑跳。\"]\n\n记忆：\n- m0: 用户脚踝扭伤，医生建议不要穿高跟鞋或进行剧烈跑跳，目前只能穿平底鞋慢慢走。\n\n分析：\n- \"患者被建议避免穿高跟鞋和进行剧烈跑跳\" - m0明确说\"医生建议不要穿高跟鞋或进行剧烈跑跳\"，完全支持！\n\n**Item 3: id=\"0319ab8144a95e1f50b3\"**\n\n查询：请问您的配偶中，谁在两年前被确诊为高血压并开始服药？\n期望事实：[\"用户的妻子在两年前确诊高血压并开始服药。\"]\n\n记忆：\n- m0: 用户更正：是妻子而非丈夫两年前（约2024年9月）确诊高血压并开始服药控制\n- m1: 用户的丈夫两年前（约2024年9月）因高血压开始服药控制，最近血压已稳定\n- m2: 用户的丈夫身体健康状况良好\n\n分析：\n- \"用户的妻子在两年前确诊高血压并开始服药\" - m0明确更正说是妻子，且m1虽然说丈夫，但m0是更正信息，应该以m0为准。支持！\n\n**Item 4: id=\"043050b1684e959d55f5\"**\n\n查询：根据患者叙述，这次过敏反应发生在哪一年，从用药到发病经过了多长时间？\n期望事实：[\"事件发生在2019年。\", \"用药后几分钟内即出现反应。\"]\n\n记忆：\n- m0: 用户补充说明2019年氯霉素眼药水过敏反应发生得非常迅速，用药后几分钟内就开始出现症状...\n- m1: 用户于2019年因结膜炎使用氯霉素眼药水时出现过敏反应...\n\n分析：\n- \"事件发生在2019年\" - m0和m1都明确说是2019年，支持！\n- \"用药后几分钟内即出现反应\" - m0明确说\"用药后几分钟内就开始出现症状\"，支持！\n\n现在生成JSON输出：\n",
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "让我逐一分析每个查询项：\n\n**Item 1: id=\"006023db060d7b878c8f\"**\n\n查询：五年前他为了控制血压做了什么运动，为什么后来停了，目前用药情况如何？\n期望事实：\n1. 患者五年前开始每天慢跑半小时。\n2. 患者坚持了两年后因膝盖受伤停跑。\n3. 患者目前尚未开始服用降压药物。\n\n记忆：\n- m0: 用户五年前因体检发现血压升高开始每天慢跑半小时，坚持了两年，期间血压保持稳定\n- m1: 用户去年因膝盖受伤停止慢跑后血压出现波动，目前尚未开始服用降压药物\n- m2: 用户最近体检发现血压又有点高\n- m3: 用户二十年前确诊轻度高血压时医生建议控制盐分摄入，坚持了五年后放松了饮食控制\n- m4: 用户五十五岁，二十年前被诊断出有轻度高血压\n\n分析：\n1. \"患者五年前开始每天慢跑半小时\" - m0明确说\"五年前因体检发现血压升高开始每天慢跑半小时\"，支持！\n2. \"患者坚持了两年后因膝盖受伤停跑\" - m0说\"坚持了两年\"，m1说\"去年因膝盖受伤停止慢跑\"，但这里有个问题：m1说\"去年\"停止，而m0说\"五年前开始...坚持了两年\"，如果五年前开始并坚持两年，那应该是三年前停止，但m1说去年停止。这里有时间上的不一致。但从支持事实的角度，m0和m1都提到了膝盖受伤停止跑步，可以支持\"因膝盖受伤停跑\"这个事实。\n\n时间线存在矛盾：五年前开始跑步，坚持两年，应该三年前停止，但m1说去年才停止。这种不一致需要进一步核实。\n\n膝盖受伤是停止跑步的直接原因，这一点基本可以确认。\n\n关于用药情况，目前尚未开始服用降压药物，这与之前的信息基本吻合。\n\n**Item 2: id=\"00faf6ad68881f092ff7\"**\n\n查询：患者被建议避免哪些 footwear 和活动？\n期望事实：[\"患者被建议避免穿高跟鞋和进行剧烈跑跳。\"]\n\n记忆：\n- m0: 用户脚踝扭伤，医生建议不要穿高跟鞋或进行剧烈跑跳，目前只能穿平底鞋慢慢走。\n\n分析：\n- \"患者被建议避免穿高跟鞋和进行剧烈跑跳\" - m0明确说\"医生建议不要穿高跟鞋或进行剧烈跑跳\"，完全支持！\n\n**Item 3: id=\"0319ab8144a95e1f50b3\"**\n\n查询：请问您的配偶中，谁在两年前被确诊为高血压并开始服药？\n期望事实：[\"用户的妻子在两年前确诊高血压并开始服药。\"]\n\n记忆：\n- m0: 用户更正：是妻子而非丈夫两年前（约2024年9月）确诊高血压并开始服药控制\n- m1: 用户的丈夫两年前（约2024年9月）因高血压开始服药控制，最近血压已稳定\n- m2: 用户的丈夫身体健康状况良好\n\n分析：\n- \"用户的妻子在两年前确诊高血压并开始服药\" - m0明确更正说是妻子，且m1虽然说丈夫，但m0是更正信息，应该以m0为准。支持！\n\n**Item 4: id=\"043050b1684e959d55f5\"**\n\n查询：根据患者叙述，这次过敏反应发生在哪一年，从用药到发病经过了多长时间？\n期望事实：[\"事件发生在2019年。\", \"用药后几分钟内即出现反应。\"]\n\n记忆：\n- m0: 用户补充说明2019年氯霉素眼药水过敏反应发生得非常迅速，用药后几分钟内就开始出现症状...\n- m1: 用户于2019年因结膜炎使用氯霉素眼药水时出现过敏反应...\n\n分析：\n- \"事件发生在2019年\" - m0和m1都明确说是2019年，支持！\n- \"用药后几分钟内即出现反应\" - m0明确说\"用药后几分钟内就开始出现症状\"，支持！\n\n现在生成JSON输出：\n",
+              "format": "unknown",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1346,
+      "completion_tokens": 1124,
+      "total_tokens": 2470,
+      "cost": 0.00157734,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00157734,
+        "upstream_inference_prompt_cost": 0.00036342,
+        "upstream_inference_completions_cost": 0.00121392
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 833,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 11.234
+}

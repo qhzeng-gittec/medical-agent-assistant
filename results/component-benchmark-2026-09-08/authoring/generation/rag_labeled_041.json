@@ -1,0 +1,78 @@
+{
+  "request": {
+    "model": "qwen/qwen3.5-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Create source-grounded retrieval evaluation questions. Return JSON {\"items\":[...]}.\nFor EACH supplied source return {\"id\":same id,\"en\":English patient question,\"zh\":Chinese patient question,\n\"evidence_id\":the exact id string of ONE supplied evidence_options entry supporting BOTH questions}.\nAsk one concrete question about a supported detail (cause, symptom, prevention, evaluation, management).\nThe two questions express the SAME information need, not two facts. Use ordinary patient language.\nInclude enough topic context to identify the condition but do not copy a source sentence into the question.\nSelect an evidence option and ask about a concrete detail stated in that option. Do not ask for a personalized dose or individual diagnosis. Do not invent content. No answers in questions.\nThese are synthetic topic-source retrieval labels, not a clinician-authored benchmark."
+      },
+      {
+        "role": "user",
+        "content": "[{\"id\": \"MLP-6322\", \"title\": \"Tetanus, Diphtheria, and Pertussis Vaccines\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Tetanus , diphtheria , and pertussis (whooping cough) are serious bacterial infections : Tetanus is an uncommon disease that requires immediate treatment in a hospital.\"}, {\"id\": \"S001\", \"text\": \"It causes painful tightening of the muscles, usually all over the body.\"}, {\"id\": \"S002\", \"text\": \"Diphtheria usually affects the nose and throat.\"}, {\"id\": \"S003\", \"text\": \"But it can also affect the skin and other body parts.\"}, {\"id\": \"S004\", \"text\": \"Whooping cough can cause uncontrollable coughing fits.\"}, {\"id\": \"S005\", \"text\": \"It may begin like a cold , but unlike a cold, the coughing can last for weeks or months.\"}, {\"id\": \"S006\", \"text\": \"Vaccines can protect you from these diseases.\"}, {\"id\": \"S007\", \"text\": \"In the U.S., there are three combination vaccines: DTaP (diphtheria, tetanus, and pertussis) prevents all three diseases.\"}, {\"id\": \"S008\", \"text\": \"It is for babies and children under age 7.\"}, {\"id\": \"S009\", \"text\": \"There are several different DTaP vaccines.\"}, {\"id\": \"S010\", \"text\": \"Some of them also protect against other diseases.\"}, {\"id\": \"S011\", \"text\": \"Tdap (tetanus, diphtheria, and pertussis) also prevents all three diseases.\"}, {\"id\": \"S012\", \"text\": \"Td (tetanus and diphtheria) prevents those two diseases.\"}, {\"id\": \"S013\", \"text\": \"It is usually given as a booster dose every 10 years.\"}, {\"id\": \"S014\", \"text\": \"You may also get it after 5 years if you get a severe or dirty wound or burn.\"}, {\"id\": \"S015\", \"text\": \"Some people should not get these vaccines, including those who have had severe reactions to the shots before.\"}, {\"id\": \"S016\", \"text\": \"Check with your health care provider first if you have seizures , a neurologic problem , or Guillain-Barre syndrome .\"}, {\"id\": \"S017\", \"text\": \"People with minor illnesses such as a cold can get vaccinated.\"}, {\"id\": \"S018\", \"text\": \"But those who are more ill may need wait until they feel better before getting some vaccines.\"}, {\"id\": \"S019\", \"text\": \"Centers for Disease Control and Prevention\"}]}, {\"id\": \"MLP-194\", \"title\": \"Colonic Diseases\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Your colon, also known as the large intestine, is part of your digestive system.\"}, {\"id\": \"S001\", \"text\": \"It's a long, hollow tube at the end of your digestive tract where your body makes and stores stool.\"}, {\"id\": \"S002\", \"text\": \"Many disorders affect the colon's ability to work properly.\"}, {\"id\": \"S003\", \"text\": \"Some of these include: Colorectal cancer Colonic polyps - extra tissue growing in the colon that can become cancerous Ulcerative colitis - ulcers of the colon and rectum Diverticulitis - inflammation or infection of pouches in the colon Irritable bowel syndrome - an uncomfortable condition causing abdominal cramping and other symptoms Treatment for colonic diseases varies greatly depending on the disease and its severity.\"}, {\"id\": \"S004\", \"text\": \"Treatment may involve diet, medicines and in some cases, surgery.\"}, {\"id\": \"S005\", \"text\": \"NIH: National Institute of Diabetes and Digestive and Kidney Diseases\"}]}, {\"id\": \"MLP-616\", \"title\": \"Patient Safety\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"You can help prevent medical errors by being an active member of your health care team.\"}, {\"id\": \"S001\", \"text\": \"Research shows that patients who are more involved with their care tend to get better results.\"}, {\"id\": \"S002\", \"text\": \"To reduce the risk of medical errors, you can: Ask questions if you have doubts or concerns.\"}, {\"id\": \"S003\", \"text\": \"Take a relative or friend to your doctor appointment to help you ask questions and understand answers.\"}, {\"id\": \"S004\", \"text\": \"Make sure you understand what will happen if you need surgery Tell your health care providers about all the medicines you take, including over-the-counter drugs and dietary supplements.\"}, {\"id\": \"S005\", \"text\": \"Tell them if you have any allergies or bad reactions to anesthesia.\"}, {\"id\": \"S006\", \"text\": \"Make sure you know how to take your medications correctly .\"}, {\"id\": \"S007\", \"text\": \"Get a second opinion about treatment options Keep a copy of your own medical history Agency for Healthcare Research and Quality\"}]}, {\"id\": \"MLP-522\", \"title\": \"Rehabilitation\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Rehabilitation is care that can help you get back, keep, or improve abilities that you need for daily life.\"}, {\"id\": \"S001\", \"text\": \"These abilities may be physical, mental, and/or cognitive (thinking and learning).\"}, {\"id\": \"S002\", \"text\": \"You may have lost them because of a disease or injury, or as a side effect from a medical treatment.\"}, {\"id\": \"S003\", \"text\": \"Rehabilitation can improve your daily life and functioning.\"}, {\"id\": \"S004\", \"text\": \"Rehabilitation is for people who have lost abilities that they need for daily life.\"}, {\"id\": \"S005\", \"text\": \"Some of the most common causes include: Injuries and trauma, including burns , fractures (broken bones), traumatic brain injury , and spinal cord injuries Stroke Severe infections Major surgery Side effects from medical treatments, such as from cancer treatments Certain birth defects and genetic disorders Developmental disabilities Chronic pain , including back and neck pain What are the goals of rehabilitation?\"}, {\"id\": \"S006\", \"text\": \"The overall goal of rehabilitation is to help you get your abilities back and regain independence.\"}, {\"id\": \"S007\", \"text\": \"But the specific goals are different for each person.\"}, {\"id\": \"S008\", \"text\": \"They depend on what caused the problem, whether the cause is ongoing or temporary, which abilities you lost, and how severe the problem is.\"}, {\"id\": \"S009\", \"text\": \"For example,: A person who has had a stroke may need rehabilitation to be able to dress or bathe without help An active person who has had a heart attack may go through cardiac rehabilitation to try to return to exercising Someone with a lung disease may get pulmonary rehabilitation to be able to breathe better and improve their quality of life What happens in a rehabilitation program?\"}, {\"id\": \"S010\", \"text\": \"When you get rehabilitation, you often have a team of different health care providers helping you.\"}, {\"id\": \"S011\", \"text\": \"They will work with you to figure out your needs, goals, and treatment plan.\"}, {\"id\": \"S012\", \"text\": \"The types of treatments that may be in a treatment plan include: Assistive devices , which are tools, equipment, and products that help people with disabilities move and function Cognitive rehabilitation therapy to help you relearn or improve skills such as thinking, learning, memory, planning, and decision making Mental health counseling Music or art therapy to help you express your feelings, improve your thinking, and develop social connections Nutritional counseling Occupational therapy to help you with your daily activities Physical therapy to help your strength, mobility, and fitness Recreational therapy to improve your emotional well-being through arts and crafts, games, relaxation training, and animal-assisted therapy Speech-language therapy to help with speaking, understanding, reading, writing and swallowing Treatment for pain Vocational rehabilitation to help you build skills for going to school or working at a job Depending on your needs, you may have rehabilitation in the providers' offices, a hospital, or an inpatient rehabilitation center.\"}, {\"id\": \"S013\", \"text\": \"In some cases, a provider may come to your home.\"}, {\"id\": \"S014\", \"text\": \"If you get care in your home, you will need to have family members or friends who can come and help with your rehabilitation.\"}]}, {\"id\": \"MLP-209\", \"title\": \"Developmental Disabilities\", \"evidence_options\": [{\"id\": \"S000\", \"text\": \"Developmental disabilities are conditions that are usually present at birth.\"}, {\"id\": \"S001\", \"text\": \"They can affect a child's growth and development.\"}, {\"id\": \"S002\", \"text\": \"These conditions can cause physical, learning, language, or behavior issues.\"}, {\"id\": \"S003\", \"text\": \"They can include: Learning disabilities .\"}, {\"id\": \"S004\", \"text\": \"These conditions affect the ability to learn.\"}, {\"id\": \"S005\", \"text\": \"This is a disorder that affects behavior, communication, and social skills.\"}, {\"id\": \"S006\", \"text\": \"This is a condition that affects movement, coordination, and balance.\"}, {\"id\": \"S007\", \"text\": \"These could include blindness or deafness .\"}, {\"id\": \"S008\", \"text\": \"Conditions that can affect both physical and mental abilities.\"}, {\"id\": \"S009\", \"text\": \"These conditions can cause lifelong challenges in learning.\"}, {\"id\": \"S010\", \"text\": \"Completing daily tasks may be difficult.\"}, {\"id\": \"S011\", \"text\": \"Early treatment may help your child learn important skills and make the most of their strengths.\"}, {\"id\": \"S012\", \"text\": \"Developmental disabilities are often present at birth.\"}, {\"id\": \"S013\", \"text\": \"These can include: Genetic or chromosome abnormalities.\"}, {\"id\": \"S014\", \"text\": \"These cause conditions such as Down syndrome, Fragile-X-Syndrome , and Rett syndrome .\"}, {\"id\": \"S015\", \"text\": \"For example, drinking alcohol when pregnant can cause fetal alcohol spectrum disorders .\"}, {\"id\": \"S016\", \"text\": \"How are developmental disabilities diagnosed?\"}, {\"id\": \"S017\", \"text\": \"The way a developmental disability is diagnosed depends on the condition.\"}, {\"id\": \"S018\", \"text\": \"Screening tests or a physical exam may be done to check for a medical problem.\"}, {\"id\": \"S019\", \"text\": \"Other tests and questionnaires may help find out if your child has a developmental disability.\"}, {\"id\": \"S020\", \"text\": \"These may include: Screening tests that are done during pregnancy or for newborns Developmental and behavioral screening tests or questionnaires to check if your child is developing on schedule Observing your child's behavior and how they interact with other people Testing your child's intellectual and school performance Asking about your family history What are the treatments for developmental disabilities?\"}, {\"id\": \"S021\", \"text\": \"If your child has a developmental disability, these are usually lifelong conditions.\"}, {\"id\": \"S022\", \"text\": \"Often, there is no cure, but treatment can help the symptoms.\"}, {\"id\": \"S023\", \"text\": \"Treatments can include: Physical, speech, and occupational therapy Special teaching methods Psychological counseling To keep track of how your child grows and changes over time NIH: National Institute of Child Health and Human Development\"}]}]"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 2500,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "status": "completed",
+  "transport_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200
+    }
+  ],
+  "http_status": 200,
+  "response": {
+    "id": "gen-1788858900-0pOKeTx6iP3lkGiuVzjh",
+    "object": "chat.completion",
+    "created": 1788858900,
+    "model": "qwen/qwen3.5-27b",
+    "provider": "Novita",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"items\": [\n    {\n      \"id\": \"MLP-6322\",\n      \"en\": \"If I get a severe or dirty wound, how soon after my last tetanus shot might I need another booster dose?\",\n      \"zh\": \"如果我受了严重或脏的伤口，距离上次破伤风疫苗接种后多久可能需要再打一针加强针？\",\n      \"evidence_id\": \"S014\"\n    },\n    {\n      \"id\": \"MLP-194\",\n      \"en\": \"What are some examples of disorders that can affect the colon's ability to work properly?\",\n      \"zh\": \"有哪些疾病可能会影响结肠的正常功能？\",\n      \"evidence_id\": \"S003\"\n    },\n    {\n      \"id\": \"MLP-616\",\n      \"en\": \"Besides asking questions, what is one way I can bring support to my doctor appointment to help reduce medical errors?\",\n      \"zh\": \"除了提问之外，我还可以采取什么措施带人陪同看医生，以帮助减少医疗差错？\",\n      \"evidence_id\": \"S003\"\n    },\n    {\n      \"id\": \"MLP-522\",\n      \"en\": \"What are some common causes that might lead a person to need rehabilitation services?\",\n      \"zh\": \"哪些常见原因可能导致一个人需要接受康复治疗服务？\",\n      \"evidence_id\": \"S005\"\n    },\n    {\n      \"id\": \"MLP-209\",\n      \"en\": \"How can early treatment help a child who has been diagnosed with a developmental disability?\",\n      \"zh\": \"早期治疗如何帮助被诊断为发育障碍的儿童？\",\n      \"evidence_id\": \"S011\"\n    }\n  ]\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2904,
+      "completion_tokens": 404,
+      "total_tokens": 3308,
+      "cost": 0.0018408,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0018408,
+        "upstream_inference_prompt_cost": 0.0008712,
+        "upstream_inference_completions_cost": 0.0009696
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 9.532
+}
