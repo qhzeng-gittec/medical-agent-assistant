@@ -62,13 +62,15 @@ python evals/campaign_run.py --output evals/results/my_run --repetition 1 --conc
 
 当前整体验收运行器使用 MiniMax M2.5、Qwen3.5-27B 和 GPT-5.5。前两者与嵌入通过 OpenRouter 调用，GPT-5.5 通过本机已登录 ChatGPT 账号的 Codex CLI 调用，需要 `codex` 在 PATH 中可用。调用记录区分 API 费用与 ChatGPT 账号额度。`campaign_resume.py`、`campaign_report.py` 等保留原实验的恢复和汇总逻辑，含固定批次选择；新评测使用新的输出目录。已发布报告中的历史模型与数据按各自冻结协议保留。
 
-已完成的关键实验及模型角色见 [关键测评](../results/README.md)。运行器将新实验的轨迹和评分保存到指定输出目录。
+当前版本的 72 场景结果、六项关键设计和逐场证据见 [Agent 整体测评](../results/agent-current-2026-09-09/README.md)。运行器将新实验的轨迹和评分保存到指定输出目录。
 
 ## 离线演示
 
 在本目录运行 `python -m examples.context_growth`，可查看真实编排代码收到的消息与证据复用轨迹。模型回复和知识库内容均使用固定模拟数据，不发送付费请求。回归测试位于 `tests/`。
 
 ## 关键设计与评测
+
+[当前 Agent 设计与整体测评](../results/agent-current-2026-09-09/README.md)汇总语义调度、分层记忆、档案更新、主动补查、证据复用与执行控制，并公开 72 场历史回归中的逐轮回答、工具轨迹及双评结果。
 
 Supervisor 按依赖调度专业 Worker，核对其返回的真实检索摘录；正文中的伪工具调用不会当作已执行结果。研究回答保留来源条件，避免将缺失依据补写成已验证结论。同一 Worker 内继续复用相同请求和文档正文。
 
