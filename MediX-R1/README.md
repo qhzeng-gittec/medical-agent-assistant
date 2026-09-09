@@ -2,6 +2,8 @@
 
 Qwen3.5-2B 的医疗多模态 SFT、GSPO 及评测代码。训练模块与 Agent 系统独立运行。
 
+[模型关键测评](../results/model-evaluations-2026-09-09/README.md)：A–F 配方、600 题医疗选择题、VQA GSPO、知识/病例 GSPO 和三项通用基准，含完整对照与逐题证据。
+
 ## 目录与入口
 
 | 目录 | 内容 | 主要入口 |
