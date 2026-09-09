@@ -62,7 +62,7 @@ python evals/campaign_run.py --output evals/results/my_run --repetition 1 --conc
 
 当前整体验收运行器使用 MiniMax M2.5、Qwen3.5-27B 和 GPT-5.5。前两者与嵌入通过 OpenRouter 调用，GPT-5.5 通过本机已登录 ChatGPT 账号的 Codex CLI 调用，需要 `codex` 在 PATH 中可用。调用记录区分 API 费用与 ChatGPT 账号额度。`campaign_resume.py`、`campaign_report.py` 等保留原实验的恢复和汇总逻辑，含固定批次选择；新评测使用新的输出目录。已发布报告中的历史模型与数据按各自冻结协议保留。
 
-当前系统回归与记忆修复见 [设计与测评报告](../results/memory-2026-09-09/README.md)，其他关键实验见 [精选测评](../results/README.md)。运行器将新实验的轨迹和评分保存到指定输出目录。
+已完成的关键实验及模型角色见 [关键测评](../results/README.md)。运行器将新实验的轨迹和评分保存到指定输出目录。
 
 ## 离线演示
 
@@ -76,4 +76,6 @@ Supervisor 按依赖调度专业 Worker，核对其返回的真实检索摘录�
 
 Worker 的 `max_tool_calls` 默认 `None`（不限制调用次数），可在 Agent 配置中设置整数上限；执行层继续强制已配置的上限，轮数及超时边界保持有效。历史工具预算审计对应其原有配置。
 
-[系统回归与记忆修复](../results/memory-2026-09-09/README.md)给出当前代码对应的配对结果、分母、退步项和原始证据。[混合检索与回答测评](../results/hybrid-grounding-2026-09-08/README.md)分别测量检索覆盖与回答质量；混合检索为实验适配器，产品默认仍用 Milvus。[架构对照](../results/2026-09-08/architecture.md)报告子任务并行收益和完整流程代价。
+工程机制已通过 104 项 Agent 测试和 48 项受影响的评测运行器测试，覆盖用户隔离、原话长度与截断、工具协议、证据交付和本地存储重开。上述测试使用确定性网络输出。
+
+[关键测评](../results/README.md)按调度效率、检索覆盖和模型训练分别说明模型角色与实测结果。默认问诊模型通过 `LLM_MODEL` 配置；长期记忆的抽取与嵌入配置见安装说明。
