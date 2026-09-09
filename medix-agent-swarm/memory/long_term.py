@@ -24,7 +24,13 @@ MEMORY_INSTRUCTIONS = (
     "Distinguish the user's reports from the assistant's hypotheses and recommendations; "
     "the latter are not confirmed patient facts. Omit generic explanations and routine acknowledgements."
     " Write in the user's language. Do not add dates, frequencies, or other details not stated by the user."
+    " Preserve explicitly reported consultation dates as well as dates of symptoms, incidents, and care; "
+    "these are separate events. Keep the user's stated temporal anchor and corrections attached to the "
+    "event they describe, including when only part of a date is known. Observation Date and Current Date "
+    "are processing metadata, not evidence of when a reported event or earlier consultation occurred."
 )
+
+USER_STATEMENT_MAX_CHARS = 4000
 
 
 class LongTermMemoryError(RuntimeError):
@@ -132,6 +138,8 @@ class LongTermMemory:
             "type": "consultation_event",
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "source_session_id": session_id,
+            "user_statement": question[:USER_STATEMENT_MAX_CHARS],
+            "user_statement_truncated": len(question) > USER_STATEMENT_MAX_CHARS,
         }
         try:
             with self._lock:

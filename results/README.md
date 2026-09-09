@@ -1,10 +1,23 @@
-# 完整评测结果
+# 精选测评与证据
 
-新增 [800 查询的混合检索与最终回答测评](hybrid-grounding-2026-09-08/README.md)：1,016 篇资料、1,440 份 RAG 回答、288 份本地 Mem0 回答；包含 BM25 / 向量 / RRF 消融、证据不足检查、评审复核和离线复算。
+围绕当前设计保留关键对照、结果及复算入口。报告各自标注冻结版本、模型、样本量与评分分母；同一任务的不同运行不累加为独立样本。
 
-新增 [CPT+SFT 三项通用基准实测](general-benchmarks-2026-09-08/README.md)：各 500 题，MMLU **61.2% → 59.0%**、ARC-Challenge **44.2% → 51.2%**、HellaSwag **65.8% → 67.4%**；提供配对区间、完整数据与离线复算。
+| 主题 | 核心证据 | 报告 |
+| --- | --- | --- |
+| 系统与跨会话记忆 | 72 历史场景 + 12 新增场景、两版 168 次完成执行；原话与事件时间修复，含退步和评分缺失 | [设计、结果与下载附件](memory-2026-09-09/README.md) |
+| 检索与回答 | 1,016 篇语料、800 查询；向量/BM25/混合对照、证据约束、本地 Mem0 回答 | [完整测评](hybrid-grounding-2026-09-08/README.md) |
+| 并行调度 | 固定 Worker 批次串并行，以及完整单/多 Agent 流程的代价 | [架构对照](2026-09-08/architecture.md) |
+| 训练阶段 | CPT/SFT/GSPO 的知识调用和问法稳定性；保留无明确增益的对照 | [阶段诊断](2026-09-08/model_diagnostics.md) |
+| 通用基准 | MMLU、ARC-Challenge、HellaSwag 各 500 题，含全部主指标 | [结果与复算](general-benchmarks-2026-09-08/README.md) |
 
-**最新增量：[2026-09-08 新评测与代码更新](2026-09-08/README.md)**。以下为继续保留的 9 月 7 日历史发布。
+检索报告所用的实际向量、语料与早期 Mem0 执行证据见 [组件数据](component-benchmark-2026-09-08/README.md)。训练配方及其原始留出结果见 [模型训练报告](../MediX-R1/reports/training_report.md)；后续实验的选材依据见 [训练动机分析](training-motivation-2026-09-08/README.md)。这些材料作为方法依据，不逐轮重复展示。
+
+未完成或暂停的模型实验暂留本地，完成后再纳入相应主题。已发布的旧快照保持冻结状态，不把其中的阶段进度当作当前成果。
+
+<details>
+<summary>历史快照与溯源附件</summary>
+
+[2026-09-08 快照与校验](2026-09-08/README.md)记录当时的实验状态。以下为 9 月 7 日归档，不代表当前版本。
 
 2026-09-07 结果快照。包含 35 组结果目录、14,055 份结构化文件：正式留出评测、开发实验、消融、历史诊断与性能探针。目录数和文件数不是独立题目数。
 
@@ -85,3 +98,5 @@ python results/verify.py --assets-dir path/to/downloads
 | `rationale_pilot_v1` | 模型评测与实验 | 355 | [results.json](summaries/training/rationale_pilot_v1/results.json)、[verification.json](summaries/training/rationale_pilot_v1/verification.json) | [model-evaluations.zip](https://github.com/qhzeng-gittec/medical-agent-assistant/releases/download/evaluation-results-2026-09-07/model-evaluations.zip) |
 | `rationale_pilot_v2` | 模型评测与实验 | 572 | [results.json](summaries/training/rationale_pilot_v2/results.json)、[verification.json](summaries/training/rationale_pilot_v2/verification.json) | [model-evaluations.zip](https://github.com/qhzeng-gittec/medical-agent-assistant/releases/download/evaluation-results-2026-09-07/model-evaluations.zip) |
 | `reasoning_effects_v1` | 模型评测与实验 | 1853 | [diagnostics_results.json](summaries/training/reasoning_effects_v1/diagnostics_results.json)、[pilot_aggregate_stats.json](summaries/training/reasoning_effects_v1/pilot_aggregate_stats.json) | [model-evaluations.zip](https://github.com/qhzeng-gittec/medical-agent-assistant/releases/download/evaluation-results-2026-09-07/model-evaluations.zip) |
+
+</details>

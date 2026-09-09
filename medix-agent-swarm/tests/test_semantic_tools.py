@@ -75,7 +75,7 @@ def test_worker_deliverables_are_not_classified_or_rewritten(agent_class, answer
     llm.chat_with_tools.return_value = LLMResponse(answer, [], "stop")
     agent = agent_class(llm_client=llm)
     result = asyncio.run(agent.process({"question": "只整理已有信息"}))
-    assert result == {"answer": answer, "iterations": 1, "agent_id": agent.agent_id}
+    assert result == {"answer": answer, "iterations": 1, "agent_id": agent.agent_id, "evidence": []}
 
 
 def test_web_search_uses_the_model_query_unchanged(monkeypatch):

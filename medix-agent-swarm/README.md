@@ -62,7 +62,7 @@ python evals/campaign_run.py --output evals/results/my_run --repetition 1 --conc
 
 当前整体验收运行器使用 MiniMax M2.5、Qwen3.5-27B 和 GPT-5.5。前两者与嵌入通过 OpenRouter 调用，GPT-5.5 通过本机已登录 ChatGPT 账号的 Codex CLI 调用，需要 `codex` 在 PATH 中可用。调用记录区分 API 费用与 ChatGPT 账号额度。`campaign_resume.py`、`campaign_report.py` 等保留原实验的恢复和汇总逻辑，含固定批次选择；新评测使用新的输出目录。已发布报告中的历史模型与数据按各自冻结协议保留。
 
-关键设计的数据与测量方式见 [Agent 测评报告](../results/2026-09-08/agent_improvements.md)，完整场景验收见 [测评方法与评分表](../results/2026-09-08/agent_holdout.md)。运行器将新实验的轨迹和评分保存到指定输出目录。
+当前系统回归与记忆修复见 [设计与测评报告](../results/memory-2026-09-09/README.md)，其他关键实验见 [精选测评](../results/README.md)。运行器将新实验的轨迹和评分保存到指定输出目录。
 
 ## 离线演示
 
@@ -70,10 +70,10 @@ python evals/campaign_run.py --output evals/results/my_run --repetition 1 --conc
 
 ## 关键设计与评测
 
-系统采用独立 Worker 条件并行、患者档案/近期对话/可检索历史的分层记忆、主动补查、RAG 多候选、同一 Worker 内证据复用和执行层工具预算控制。
+Supervisor 按依赖调度专业 Worker，核对其返回的真实检索摘录；正文中的伪工具调用不会当作已执行结果。研究回答保留来源条件，避免将缺失依据补写成已验证结论。同一 Worker 内继续复用相同请求和文档正文。
 
-[关键设计报告](../results/2026-09-08/agent_improvements.md)逐项给出解决的问题、实测数据、对照条件与适用范围；[整体验收](../results/2026-09-08/agent_holdout.md)说明 72 个合成场景如何构造、逐轮检查和双评；[架构对照](../results/2026-09-08/architecture.md)分别报告子任务并行收益及完整流程代价。
+新写入的 Mem0 记忆附带最多 4,000 个字符的用户原话及截断标记，保留事件时间与咨询时间，系统保存时间不作为事件日期。已有记忆不回填原话。
 
-新增 [RAG / Mem0 独立组件测评](../results/component-benchmark-2026-09-08/README.md)：RAG 在 1,016 篇语料、400 条查询上测试，冻结测试集 Top 1 → Top 3 的完整目标来源覆盖为 **183/272 → 249/272**；Mem0 在 120 个场景上测试，测试集 Top 3 → Top 10 的全部事实支持为 **176/192 → 184/192**。数据、脚本和原始记录均可直接下载。
+Worker 的 `max_tool_calls` 默认 `None`（不限制调用次数），可在 Agent 配置中设置整数上限；执行层继续强制已配置的上限，轮数及超时边界保持有效。历史工具预算审计对应其原有配置。
 
-当前总控结合完整语义选择分派与并行顺序，症状工具返回候选证据，专业 Agent 负责分析并交付实际来源。执行层校验工具可用性、用户作用域和调用预算。既有固定子任务并行对照记录 **59.5%** 的耗时缩短，原始配置与记录见 [结果索引](../results/2026-09-08/README.md)。
+[系统回归与记忆修复](../results/memory-2026-09-09/README.md)给出当前代码对应的配对结果、分母、退步项和原始证据。[混合检索与回答测评](../results/hybrid-grounding-2026-09-08/README.md)分别测量检索覆盖与回答质量；混合检索为实验适配器，产品默认仍用 Milvus。[架构对照](../results/2026-09-08/architecture.md)报告子任务并行收益和完整流程代价。

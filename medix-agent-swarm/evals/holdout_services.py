@@ -117,7 +117,7 @@ class HoldoutGateway:
                          "role": role, "status": "started", "cost_usd": None})
             retry = False
             try:
-                response = httpx.post(url, json=payload, headers={"Authorization": f"Bearer {key}"}, timeout=180)
+                response = post_with_deadline(url, payload, {"Authorization": f"Bearer {key}"}, timeout=180)
                 if response.is_error:
                     event["provider_error_body"] = self.redact(response.text[:2000])
                     event["http_status"] = response.status_code
@@ -147,6 +147,9 @@ class HoldoutGateway:
             except Exception as error:
                 event.update(status="error", error_type=type(error).__name__, error=self.redact(error))
                 event.setdefault("cost_status", "unknown_not_zero_cost")
+                # Connection establishment failed before sending an HTTP request.
+                # Retry the same payload; read/write failures remain uncertain outcomes.
+                retry = retry or (isinstance(error, (httpx.ConnectError, httpx.ConnectTimeout)) and attempt < 2)
                 if not retry:
                     raise
             finally:
@@ -155,7 +158,7 @@ class HoldoutGateway:
                     self.spent += event["cost_usd"]
                     self.append({k: event[k] for k in ("request_id", "provider", "role", "status", "cost_usd", "cost_status", "elapsed_seconds")}
                                 | {"model": model})
-            # Only explicit transient HTTP responses are retried, never unknown write/timeout outcomes.
+            # Retry establishment failures and explicit transient HTTP responses only.
             time.sleep(2 ** (attempt + 1))
 
     async def chat(self, model, messages, trace, role, tools=None, tool_choice="auto", max_tokens=8192):
@@ -168,6 +171,19 @@ class HoldoutGateway:
         if tools:
             payload.update(tools=tools, tool_choice=tool_choice)
         return await asyncio.to_thread(self.request, "chat/completions", payload, trace, role)
+
+
+def post_with_deadline(url, payload, headers, timeout):
+    """A read timeout alone does not stop an upstream sending keepalive chunks."""
+    started = time.monotonic()
+    with httpx.stream("POST", url, json=payload, headers=headers, timeout=timeout) as response:
+        chunks = []
+        for chunk in response.iter_raw():
+            if time.monotonic() - started > timeout:
+                raise TimeoutError("OpenRouter response exceeded elapsed-time deadline")
+            chunks.append(chunk)
+        return httpx.Response(response.status_code, headers=response.headers,
+                              content=b"".join(chunks), request=response.request)
 
 
 class FixtureKnowledge:

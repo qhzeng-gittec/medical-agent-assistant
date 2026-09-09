@@ -34,6 +34,10 @@ class LLMResponse:
         """是否包含 function calls"""
         return len(self.tool_calls) > 0
 
+    def has_text_tool_call(self) -> bool:
+        """Detect a provider's serialized tool envelope without executing its text."""
+        return not self.tool_calls and (self.content or "").lstrip().startswith("<tool_call>")
+
 
 class LLMClient:
     """统一的LLM客户端，支持多种模型"""

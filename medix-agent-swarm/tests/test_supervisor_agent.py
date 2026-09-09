@@ -164,6 +164,31 @@ def build_supervisor(llm, workers, max_rounds=4):
     return supervisor, short_memory, long_memory
 
 
+def test_supervisor_repairs_text_call_and_receives_bounded_actual_evidence():
+    workers = {f"call_{role}": WorkerStub(role, "done") for role in (
+        "consultation_agent", "diagnostic_agent", "research_agent")}
+    worker = workers["call_research_agent"]
+    worker.process = AsyncMock(return_value={"answer": "supported answer", "evidence": [
+        {"document_id": "d1", "content": "actual source", "metadata": {"source": "source-url"}},
+    ]})
+    llm = ScriptedLLM([
+        response(content="<tool_call>not an executable call</tool_call>"),
+        response(call("r1", "call_research_agent", "verify")),
+        response(content="finished"),
+    ])
+    supervisor, _, _ = build_supervisor(llm, workers)
+    result = asyncio.run(supervisor.process("verify", session_id="protocol-test"))
+    worker.process.assert_awaited_once()
+    assert result["answer"] == "finished"
+    returned = json.loads(llm.calls[-1]["messages"][-1]["content"])["result"]
+    assert returned["evidence"][0]["content"] == "actual source"
+    assert returned["evidence"][0]["metadata"]["source"] == "source-url"
+    bounded = supervisor._bounded_result({"answer": "answer", "evidence": [
+        {"document_id": "d1", "content": "abcdef", "metadata": {"source": "original"}}]}, max_chars=3)
+    assert bounded["evidence"][0]["content"] == "abc"
+    assert bounded["evidence_truncated"] is True
+
+
 def test_diagnostic_first_then_parallel_workers():
     probe = ConcurrencyProbe()
     diagnostic = WorkerStub("diagnostic_agent", "高风险，需要进一步核验")

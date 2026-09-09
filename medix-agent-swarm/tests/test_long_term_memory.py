@@ -49,8 +49,32 @@ def test_add_turn_uses_real_roles_and_user_scope():
     assert [message["role"] for message in call["messages"]] == ["user", "assistant"]
     assert call["metadata"]["type"] == "consultation_event"
     assert call["metadata"]["source_session_id"] == "session-1"
-    assert "user_statement" not in call["metadata"]
+    assert call["metadata"]["user_statement"] == "我经常上夜班，最近睡不好"
+    assert call["metadata"]["user_statement_truncated"] is False
     assert "assistant_response" not in call["metadata"]
+
+
+def test_source_excerpt_is_bounded_and_cannot_be_replaced_by_metadata():
+    client = memory_client()
+    memory = LongTermMemory(config={}, client=client)
+    question = "原话" * 2500
+    memory.add_session_summary("user-1", "session-1", question, "答复", metadata={
+        "user_statement": "伪造出处", "user_statement_truncated": False,
+    })
+    metadata = client.add.call_args.kwargs["metadata"]
+    assert metadata["user_statement"] == question[:4000]
+    assert metadata["user_statement_truncated"] is True
+
+
+def test_memory_context_preserves_source_truncation_and_recording_time():
+    from swarm.supervisor_agent import MedicalSupervisorAgent
+    context = MedicalSupervisorAgent._memory_context([{
+        "content": "摘要", "timestamp": "2026-09-09T00:00:00Z", "metadata": {
+            "user_statement": "原话片段", "user_statement_truncated": True,
+        },
+    }])
+    assert context == [{"memory": "摘要", "recorded_at": "2026-09-09T00:00:00Z",
+                        "user_statement": "原话片段", "user_statement_truncated": True}]
 
 
 def test_search_uses_current_filters_and_deduplicates_content():
@@ -145,6 +169,8 @@ def test_real_local_storage_restart_user_app_isolation_and_thread_execution(tmp_
         hits = asyncio.run(asyncio.to_thread(reopened.search_similar_sessions, "工作作息", "user-a"))
         assert [hit["memory_id"] for hit in hits] == [memory_id]
         assert hits[0]["metadata"]["source_session_id"] == "session-one"
+        assert hits[0]["metadata"]["user_statement"] == "九月起上夜班。"
+        assert hits[0]["metadata"]["user_statement_truncated"] is False
         assert reopened.search_similar_sessions("工作作息", "user-b") == []
     finally:
         reopened.close()

@@ -1,0 +1,639 @@
+{
+  "run_id": "HH-014__qwen_qwen3.5-27b__r1",
+  "case_id": "HH-014",
+  "model": "qwen/qwen3.5-27b",
+  "repetition": 1,
+  "status": "completed",
+  "turns": [
+    {
+      "turn": 1,
+      "user": "把手腕那次记录补完整：我2026年8月9日去医院看过了。另外，我8月6日来告诉你时说的是8月4日摔的，不是8月6日摔的。",
+      "answer": "已为您完成手腕记录的补充更新：\n\n**新增记录：**\n- 2026年8月9日手腕就医（状态：active）\n\n**关于摔倒日期：**\n您提到\"8月4日摔的，不是8月6日摔的\"——经核对，系统原有记录已是\"2026年8月4日摔倒\"，与您本次澄清一致，无需修改。\n\n**当前手腕相关完整记录：**\n1. 手腕受伤不适（2026年8月4日摔倒后出现，状态：active）\n2. 2026年8月9日手腕就医（状态：active）\n\n如需补充就诊结果、诊断或后续治疗信息，请随时告知。",
+      "user_id": "iteration-HH-014-self",
+      "session_id": "HH-014__qwen_qwen3.5-27b__r1-target-1",
+      "profile_before": {
+        "conditions": [
+          {
+            "value": "手腕受伤不适",
+            "status": "active",
+            "source": "user_reported",
+            "source_text": "8月4日摔倒后手腕有些不舒服"
+          }
+        ]
+      },
+      "profile_record_before": {
+        "schema_version": 1,
+        "user_id": "iteration-HH-014-self",
+        "demographics": {},
+        "conditions": [
+          {
+            "value": "手腕受伤不适",
+            "status": "active",
+            "source": "user_reported",
+            "source_text": "8月4日摔倒后手腕有些不舒服",
+            "source_session_id": "iteration-HH-014-self-seed-self-wrist-20260806",
+            "updated_at": "2026-09-09T03:23:30.512377+00:00"
+          }
+        ],
+        "medications": [],
+        "allergies": [],
+        "lifestyle": [],
+        "limitations": [],
+        "updated_at": "2026-09-09T03:23:30.512898+00:00"
+      },
+      "profile_after": {
+        "conditions": [
+          {
+            "value": "手腕受伤不适",
+            "status": "active",
+            "source": "user_reported",
+            "source_text": "8月4日摔倒后手腕有些不舒服"
+          },
+          {
+            "value": "2026年8月9日手腕就医",
+            "status": "active",
+            "source": "user_reported",
+            "source_text": "2026年8月9日去医院看过了"
+          }
+        ]
+      },
+      "profile_record_after": {
+        "schema_version": 1,
+        "user_id": "iteration-HH-014-self",
+        "demographics": {},
+        "conditions": [
+          {
+            "value": "手腕受伤不适",
+            "status": "active",
+            "source": "user_reported",
+            "source_text": "8月4日摔倒后手腕有些不舒服",
+            "source_session_id": "iteration-HH-014-self-seed-self-wrist-20260806",
+            "updated_at": "2026-09-09T03:23:30.512377+00:00"
+          },
+          {
+            "value": "2026年8月9日手腕就医",
+            "status": "active",
+            "source": "user_reported",
+            "source_text": "2026年8月9日去医院看过了",
+            "source_session_id": "HH-014__qwen_qwen3.5-27b__r1-target-1",
+            "updated_at": "2026-09-09T03:24:30.019429+00:00"
+          }
+        ],
+        "medications": [],
+        "allergies": [],
+        "lifestyle": [],
+        "limitations": [],
+        "updated_at": "2026-09-09T03:24:30.019429+00:00"
+      },
+      "system_result": {
+        "answer": "已为您完成手腕记录的补充更新：\n\n**新增记录：**\n- 2026年8月9日手腕就医（状态：active）\n\n**关于摔倒日期：**\n您提到\"8月4日摔的，不是8月6日摔的\"——经核对，系统原有记录已是\"2026年8月4日摔倒\"，与您本次澄清一致，无需修改。\n\n**当前手腕相关完整记录：**\n1. 手腕受伤不适（2026年8月4日摔倒后出现，状态：active）\n2. 2026年8月9日手腕就医（状态：active）\n\n如需补充就诊结果、诊断或后续治疗信息，请随时告知。",
+        "session_id": "HH-014__qwen_qwen3.5-27b__r1-target-1",
+        "mode": "iterative_supervisor",
+        "swarm_enabled": false,
+        "agents_involved": [],
+        "subtasks_completed": 0,
+        "supervisor_rounds": 3,
+        "total_time": 34.175376,
+        "timeout_occurred": false,
+        "call_trace": [
+          {
+            "tool_call_id": "call_43ae4ec6e6964081bed8b406",
+            "tool_name": "update_patient_profile",
+            "agent_id": "update_patient_profile",
+            "round": 1,
+            "success": false,
+            "result": {
+              "error_type": "ValueError",
+              "message": "Evidence must be a verbatim excerpt of the current user message"
+            }
+          },
+          {
+            "tool_call_id": "call_d0e0eabd66544a91b104a5b0",
+            "tool_name": "update_patient_profile",
+            "agent_id": "supervisor_memory",
+            "round": 2,
+            "success": true,
+            "result": {
+              "updates": [
+                {
+                  "category": "conditions",
+                  "value": "2026年8月9日手腕就医",
+                  "status": "active",
+                  "source": "user_reported",
+                  "source_text": "2026年8月9日去医院看过了",
+                  "source_session_id": "HH-014__qwen_qwen3.5-27b__r1-target-1",
+                  "updated_at": "2026-09-09T03:24:30.019429+00:00"
+                }
+              ]
+            }
+          }
+        ],
+        "route_reason": "Supervisor 根据每轮 Subagent 结果动态决定后续调用",
+        "long_term_memory_enabled": true,
+        "recalled_memories": 1,
+        "patient_profile_enabled": true,
+        "profile_updates": [
+          {
+            "category": "conditions",
+            "value": "2026年8月9日手腕就医",
+            "status": "active",
+            "source": "user_reported",
+            "source_text": "2026年8月9日去医院看过了",
+            "source_session_id": "HH-014__qwen_qwen3.5-27b__r1-target-1",
+            "updated_at": "2026-09-09T03:24:30.019429+00:00"
+          }
+        ],
+        "memory_warnings": [],
+        "suggestions": [
+          "手腕受伤不适（2026年8月4日摔倒后出现，状态：active）",
+          "2026年8月9日手腕就医（状态：active）"
+        ],
+        "disclaimer": "以上信息仅供参考，不能替代专业医生的诊断和治疗。如有疑虑，请及时就医。"
+      },
+      "event_memory_after": {
+        "backend": "actual_local_mem0_oss",
+        "write_observation_available": true,
+        "memories": {
+          "results": [
+            {
+              "id": "02f66610-cae8-4cb2-992a-ed6d8414b384",
+              "memory": "用户于2026年8月9日去医院就诊了手腕受伤的情况。",
+              "hash": "f8ca1e04f693432d714e5c1dc260c432",
+              "metadata": {
+                "mode": "iterative_supervisor",
+                "agents_count": 0,
+                "total_time": 23.058097,
+                "type": "consultation_event",
+                "timestamp": "2026-09-09T03:24:34.581448+00:00",
+                "source_session_id": "HH-014__qwen_qwen3.5-27b__r1-target-1",
+                "user_statement": "把手腕那次记录补完整：我2026年8月9日去医院看过了。另外，我8月6日来告诉你时说的是8月4日摔的，不是8月6日摔的。",
+                "user_statement_truncated": false
+              },
+              "created_at": "2026-09-09T03:24:45.676062+00:00",
+              "updated_at": "2026-09-09T03:24:45.676062+00:00",
+              "user_id": "iteration-HH-014-self",
+              "agent_id": "medix-agent-swarm",
+              "attributed_to": "user"
+            },
+            {
+              "id": "b99283d3-473c-4a3e-854a-218642cf5e87",
+              "memory": "用户于2026年8月4日摔倒，之后手腕感到不适。截至2026年8月6日，尚未去医院就诊，想先记录此事。",
+              "hash": "143c11a24c04f643a15a50e941d3f7fb",
+              "metadata": {
+                "source_session_id": "self-wrist-20260806"
+              },
+              "created_at": "2026-09-09T03:24:11.494773+00:00",
+              "updated_at": "2026-09-09T03:24:11.494773+00:00",
+              "user_id": "iteration-HH-014-self",
+              "agent_id": "medix-agent-swarm",
+              "attributed_to": "user"
+            }
+          ]
+        }
+      },
+      "latency_seconds": 34.186999999918044
+    },
+    {
+      "turn": 2,
+      "user": "把摔倒、第一次向你咨询、实际去医院这三个时间整理给我。",
+      "answer": "根据您提供的信息，这三个时间点整理如下：\n\n| 事件 | 日期 | 依据 |\n|------|------|------|\n| **摔倒** | 2026年8月4日 | 您明确说明\"8月4日摔的\" |\n| **第一次向我咨询** | 2026年8月6日 | 您提到\"我8月6日来告诉你时\" |\n| **实际去医院** | 2026年8月9日 | 您说明\"2026年8月9日去医院看过了\" |\n\n时间线为：**摔倒(8/4) → 首次咨询(8/6) → 就医(8/9)**，间隔分别为2天和3天。",
+      "user_id": "iteration-HH-014-self",
+      "session_id": "HH-014__qwen_qwen3.5-27b__r1-target-2",
+      "profile_before": {
+        "conditions": [
+          {
+            "value": "手腕受伤不适",
+            "status": "active",
+            "source": "user_reported",
+            "source_text": "8月4日摔倒后手腕有些不舒服"
+          },
+          {
+            "value": "2026年8月9日手腕就医",
+            "status": "active",
+            "source": "user_reported",
+            "source_text": "2026年8月9日去医院看过了"
+          }
+        ]
+      },
+      "profile_record_before": {
+        "schema_version": 1,
+        "user_id": "iteration-HH-014-self",
+        "demographics": {},
+        "conditions": [
+          {
+            "value": "手腕受伤不适",
+            "status": "active",
+            "source": "user_reported",
+            "source_text": "8月4日摔倒后手腕有些不舒服",
+            "source_session_id": "iteration-HH-014-self-seed-self-wrist-20260806",
+            "updated_at": "2026-09-09T03:23:30.512377+00:00"
+          },
+          {
+            "value": "2026年8月9日手腕就医",
+            "status": "active",
+            "source": "user_reported",
+            "source_text": "2026年8月9日去医院看过了",
+            "source_session_id": "HH-014__qwen_qwen3.5-27b__r1-target-1",
+            "updated_at": "2026-09-09T03:24:30.019429+00:00"
+          }
+        ],
+        "medications": [],
+        "allergies": [],
+        "lifestyle": [],
+        "limitations": [],
+        "updated_at": "2026-09-09T03:24:30.019429+00:00"
+      },
+      "profile_after": {
+        "conditions": [
+          {
+            "value": "手腕受伤不适",
+            "status": "active",
+            "source": "user_reported",
+            "source_text": "8月4日摔倒后手腕有些不舒服"
+          },
+          {
+            "value": "2026年8月9日手腕就医",
+            "status": "active",
+            "source": "user_reported",
+            "source_text": "2026年8月9日去医院看过了"
+          }
+        ]
+      },
+      "profile_record_after": {
+        "schema_version": 1,
+        "user_id": "iteration-HH-014-self",
+        "demographics": {},
+        "conditions": [
+          {
+            "value": "手腕受伤不适",
+            "status": "active",
+            "source": "user_reported",
+            "source_text": "8月4日摔倒后手腕有些不舒服",
+            "source_session_id": "iteration-HH-014-self-seed-self-wrist-20260806",
+            "updated_at": "2026-09-09T03:23:30.512377+00:00"
+          },
+          {
+            "value": "2026年8月9日手腕就医",
+            "status": "active",
+            "source": "user_reported",
+            "source_text": "2026年8月9日去医院看过了",
+            "source_session_id": "HH-014__qwen_qwen3.5-27b__r1-target-1",
+            "updated_at": "2026-09-09T03:24:30.019429+00:00"
+          }
+        ],
+        "medications": [],
+        "allergies": [],
+        "lifestyle": [],
+        "limitations": [],
+        "updated_at": "2026-09-09T03:24:30.019429+00:00"
+      },
+      "system_result": {
+        "answer": "根据您提供的信息，这三个时间点整理如下：\n\n| 事件 | 日期 | 依据 |\n|------|------|------|\n| **摔倒** | 2026年8月4日 | 您明确说明\"8月4日摔的\" |\n| **第一次向我咨询** | 2026年8月6日 | 您提到\"我8月6日来告诉你时\" |\n| **实际去医院** | 2026年8月9日 | 您说明\"2026年8月9日去医院看过了\" |\n\n时间线为：**摔倒(8/4) → 首次咨询(8/6) → 就医(8/9)**，间隔分别为2天和3天。",
+        "session_id": "HH-014__qwen_qwen3.5-27b__r1-target-2",
+        "mode": "iterative_supervisor",
+        "swarm_enabled": false,
+        "agents_involved": [],
+        "subtasks_completed": 0,
+        "supervisor_rounds": 1,
+        "total_time": 16.447611,
+        "timeout_occurred": false,
+        "call_trace": [],
+        "route_reason": "Supervisor 根据每轮 Subagent 结果动态决定后续调用",
+        "long_term_memory_enabled": true,
+        "recalled_memories": 2,
+        "patient_profile_enabled": true,
+        "profile_updates": [],
+        "memory_warnings": [],
+        "suggestions": [],
+        "disclaimer": "以上信息仅供参考，不能替代专业医生的诊断和治疗。如有疑虑，请及时就医。"
+      },
+      "event_memory_after": {
+        "backend": "actual_local_mem0_oss",
+        "write_observation_available": true,
+        "memories": {
+          "results": [
+            {
+              "id": "02f66610-cae8-4cb2-992a-ed6d8414b384",
+              "memory": "用户于2026年8月9日去医院就诊了手腕受伤的情况。",
+              "hash": "f8ca1e04f693432d714e5c1dc260c432",
+              "metadata": {
+                "mode": "iterative_supervisor",
+                "agents_count": 0,
+                "total_time": 23.058097,
+                "type": "consultation_event",
+                "timestamp": "2026-09-09T03:24:34.581448+00:00",
+                "source_session_id": "HH-014__qwen_qwen3.5-27b__r1-target-1",
+                "user_statement": "把手腕那次记录补完整：我2026年8月9日去医院看过了。另外，我8月6日来告诉你时说的是8月4日摔的，不是8月6日摔的。",
+                "user_statement_truncated": false
+              },
+              "created_at": "2026-09-09T03:24:45.676062+00:00",
+              "updated_at": "2026-09-09T03:24:45.676062+00:00",
+              "user_id": "iteration-HH-014-self",
+              "agent_id": "medix-agent-swarm",
+              "attributed_to": "user"
+            },
+            {
+              "id": "b99283d3-473c-4a3e-854a-218642cf5e87",
+              "memory": "用户于2026年8月4日摔倒，之后手腕感到不适。截至2026年8月6日，尚未去医院就诊，想先记录此事。",
+              "hash": "143c11a24c04f643a15a50e941d3f7fb",
+              "metadata": {
+                "source_session_id": "self-wrist-20260806"
+              },
+              "created_at": "2026-09-09T03:24:11.494773+00:00",
+              "updated_at": "2026-09-09T03:24:11.494773+00:00",
+              "user_id": "iteration-HH-014-self",
+              "agent_id": "medix-agent-swarm",
+              "attributed_to": "user"
+            }
+          ]
+        }
+      },
+      "latency_seconds": 16.45299999974668
+    }
+  ],
+  "seed_turns": [
+    {
+      "turn": 1,
+      "user": "今天2026年8月6日。我8月4日摔倒后手腕有些不舒服，还没有去医院，想先记录一下。",
+      "answer": "已为您记录此次受伤情况。根据您提供的信息（8月4日摔倒后手腕不适，至今约2天），以下是专业评估和建议：\n\n---\n\n## 📋 当前风险评估\n\n**风险等级：中等风险**  \n**紧急程度：非急诊，但建议尽快就诊**\n\n---\n\n## ⚠️ 需立即急诊的危险信号\n\n如出现以下任一情况，请**立即前往急诊**：\n- 手腕明显畸形或角度异常\n- 开放性伤口或持续出血\n- 手指麻木、发凉、苍白或感觉丧失\n- 剧烈疼痛无法忍受或止痛药无效\n- 完全无法活动手腕或手指\n\n---\n\n## 🔍 可能的问题方向\n\n| 可能性 | 说明 |\n|--------|------|\n| **桡骨远端骨折** | 摔倒手掌着地是常见机制，部分骨折早期X线可能不明显 |\n| **腕关节扭伤/韧带损伤** | 外伤后轻度至中度疼痛较常见 |\n| **软组织挫伤** | 轻微外伤可仅引起软组织损伤 |\n| **隐匿性骨折** | 无移位骨折症状不典型，需影像学确认 |\n\n---\n\n## ❓ 为更好评估，请告知以下情况\n\n1. **疼痛程度**：轻度/中度/重度？是否影响睡眠或日常活动？\n2. **局部体征**：是否有明显肿胀、瘀斑或压痛固定点？\n3. **活动功能**：手腕能否正常弯曲、旋转？手指活动是否正常？\n4. **感觉变化**：手指有无麻木、刺痛或发凉感？\n\n---\n\n## 🏥 就医建议\n\n- **目前情况**：建议**24-48小时内**到骨科或急诊门诊就诊\n- **首选检查**：腕关节X线平片（正侧位）筛查骨折\n- **不建议继续等待**：若症状加重或无改善，应尽快就医\n\n> 注：以上分析基于您的描述进行临床推理，不能替代医生面诊。如有任何疑虑，请及时就医。\n\n请补充上述信息，我可进一步帮您判断紧迫程度。",
+      "user_id": "iteration-HH-014-self",
+      "session_id": "iteration-HH-014-self-seed-self-wrist-20260806",
+      "profile_before": {},
+      "profile_record_before": {
+        "schema_version": 1,
+        "user_id": "iteration-HH-014-self",
+        "demographics": {},
+        "conditions": [],
+        "medications": [],
+        "allergies": [],
+        "lifestyle": [],
+        "limitations": [],
+        "updated_at": null
+      },
+      "profile_after": {
+        "conditions": [
+          {
+            "value": "手腕受伤不适",
+            "status": "active",
+            "source": "user_reported",
+            "source_text": "8月4日摔倒后手腕有些不舒服"
+          }
+        ]
+      },
+      "profile_record_after": {
+        "schema_version": 1,
+        "user_id": "iteration-HH-014-self",
+        "demographics": {},
+        "conditions": [
+          {
+            "value": "手腕受伤不适",
+            "status": "active",
+            "source": "user_reported",
+            "source_text": "8月4日摔倒后手腕有些不舒服",
+            "source_session_id": "iteration-HH-014-self-seed-self-wrist-20260806",
+            "updated_at": "2026-09-09T03:23:30.512377+00:00"
+          }
+        ],
+        "medications": [],
+        "allergies": [],
+        "lifestyle": [],
+        "limitations": [],
+        "updated_at": "2026-09-09T03:23:30.512898+00:00"
+      },
+      "system_result": {
+        "answer": "已为您记录此次受伤情况。根据您提供的信息（8月4日摔倒后手腕不适，至今约2天），以下是专业评估和建议：\n\n---\n\n## 📋 当前风险评估\n\n**风险等级：中等风险**  \n**紧急程度：非急诊，但建议尽快就诊**\n\n---\n\n## ⚠️ 需立即急诊的危险信号\n\n如出现以下任一情况，请**立即前往急诊**：\n- 手腕明显畸形或角度异常\n- 开放性伤口或持续出血\n- 手指麻木、发凉、苍白或感觉丧失\n- 剧烈疼痛无法忍受或止痛药无效\n- 完全无法活动手腕或手指\n\n---\n\n## 🔍 可能的问题方向\n\n| 可能性 | 说明 |\n|--------|------|\n| **桡骨远端骨折** | 摔倒手掌着地是常见机制，部分骨折早期X线可能不明显 |\n| **腕关节扭伤/韧带损伤** | 外伤后轻度至中度疼痛较常见 |\n| **软组织挫伤** | 轻微外伤可仅引起软组织损伤 |\n| **隐匿性骨折** | 无移位骨折症状不典型，需影像学确认 |\n\n---\n\n## ❓ 为更好评估，请告知以下情况\n\n1. **疼痛程度**：轻度/中度/重度？是否影响睡眠或日常活动？\n2. **局部体征**：是否有明显肿胀、瘀斑或压痛固定点？\n3. **活动功能**：手腕能否正常弯曲、旋转？手指活动是否正常？\n4. **感觉变化**：手指有无麻木、刺痛或发凉感？\n\n---\n\n## 🏥 就医建议\n\n- **目前情况**：建议**24-48小时内**到骨科或急诊门诊就诊\n- **首选检查**：腕关节X线平片（正侧位）筛查骨折\n- **不建议继续等待**：若症状加重或无改善，应尽快就医\n\n> 注：以上分析基于您的描述进行临床推理，不能替代医生面诊。如有任何疑虑，请及时就医。\n\n请补充上述信息，我可进一步帮您判断紧迫程度。",
+        "session_id": "iteration-HH-014-self-seed-self-wrist-20260806",
+        "mode": "iterative_supervisor",
+        "swarm_enabled": false,
+        "agents_involved": [
+          "diagnostic_agent"
+        ],
+        "subtasks_completed": 1,
+        "supervisor_rounds": 2,
+        "total_time": 34.862551,
+        "timeout_occurred": false,
+        "call_trace": [
+          {
+            "tool_call_id": "call_522869f794f9490980a6cf91",
+            "tool_name": "update_patient_profile",
+            "agent_id": "supervisor_memory",
+            "round": 1,
+            "success": true,
+            "result": {
+              "updates": [
+                {
+                  "category": "conditions",
+                  "value": "手腕受伤不适",
+                  "status": "active",
+                  "source": "user_reported",
+                  "source_text": "8月4日摔倒后手腕有些不舒服",
+                  "source_session_id": "iteration-HH-014-self-seed-self-wrist-20260806",
+                  "updated_at": "2026-09-09T03:23:30.512377+00:00"
+                }
+              ]
+            }
+          },
+          {
+            "tool_call_id": "call_27d0a1796866423fbe15c299",
+            "tool_name": "call_diagnostic_agent",
+            "agent_id": "diagnostic_agent",
+            "round": 1,
+            "success": true,
+            "result": {
+              "answer": "【风险评估】\n风险等级：中等风险（需进一步评估）\n紧急程度：非急诊但建议尽快就诊\n\n**需要警惕的危险信号**（如出现应立即急诊）：\n- 手腕明显畸形或异常角度\n- 开放性伤口或持续出血\n- 手指麻木、发凉、苍白或感觉丧失\n- 剧烈疼痛无法忍受或止痛药无效\n- 完全无法活动手腕或手指\n\n【症状分析】\n主要症状类别：创伤性腕部损伤\n症状关联性：摔倒直接外伤史与手腕不适存在明确因果关系，时间关系清晰（伤后2天）\n\n**关键信息缺口**：\n- 具体疼痛程度（轻度/中度/重度）\n- 是否有明显肿胀、瘀斑\n- 手腕活动是否受限\n- 按压是否有固定痛点\n- 手指活动及感觉是否正常\n\n【鉴别诊断】\n1. **桡骨远端骨折**（Colles骨折等）\n   - 支持证据：摔倒时手掌着地是常见机制，腕部不适持续2天未缓解\n   - 反对证据：缺乏典型体征描述（畸形、剧痛、骨擦感等）\n\n2. **腕关节扭伤/韧带损伤**\n   - 支持证据：外伤后不适，可能表现为轻度至中度疼痛\n   - 反对证据：需排除骨折后才能确认\n\n3. **软组织挫伤**\n   - 支持证据：轻微外伤可仅引起软组织损伤\n   - 反对证据：需观察症状演变\n\n4. **隐匿性骨折**（无移位骨折）\n   - 支持证据：部分骨折早期X线可能不明显，症状不典型\n   - 反对证据：需影像学检查确认\n\n【建议检查】\n- **X线平片**（腕关节正侧位）：首选筛查骨折\n- **体格检查**：压痛定位、活动度评估、神经血管状态\n- 如X线阴性但症状持续：**MRI或CT**（必要时）\n- 如有神经症状：**肌电图/神经传导检查**\n\n【依据与局限】\n**主要依据**：\n- 明确外伤史（摔倒）与症状的时间关联\n- 伤后2天症状未自行缓解提示需医学评估\n- 遵循\"先排除骨折，再考虑软组织损伤\"的诊断原则\n\n**待确认信息**：\n- 具体疼痛评分和性质\n- 局部体征（肿胀、瘀斑、畸形）\n- 功能影响程度\n- 既往病史（骨质疏松、凝血障碍等）\n\n**就医时机建议**：\n- **立即急诊**：如出现上述任何危险信号\n- **24-48小时内门诊**：目前情况建议尽快就诊，避免延误治疗导致并发症\n- 若症状加重或无改善：不应继续等待\n\n*注：以上为诊断思路分析，不能替代临床面诊。请结合实际情况及时就医。*",
+              "evidence": []
+            }
+          }
+        ],
+        "route_reason": "Supervisor 根据每轮 Subagent 结果动态决定后续调用",
+        "long_term_memory_enabled": true,
+        "recalled_memories": 0,
+        "patient_profile_enabled": true,
+        "profile_updates": [
+          {
+            "category": "conditions",
+            "value": "手腕受伤不适",
+            "status": "active",
+            "source": "user_reported",
+            "source_text": "8月4日摔倒后手腕有些不舒服",
+            "source_session_id": "iteration-HH-014-self-seed-self-wrist-20260806",
+            "updated_at": "2026-09-09T03:23:30.512377+00:00"
+          }
+        ],
+        "memory_warnings": [],
+        "suggestions": [
+          "**疼痛程度**：轻度/中度/重度？是否影响睡眠或日常活动？",
+          "**局部体征**：是否有明显肿胀、瘀斑或压痛固定点？",
+          "**活动功能**：手腕能否正常弯曲、旋转？手指活动是否正常？",
+          "**感觉变化**：手指有无麻木、刺痛或发凉感？"
+        ],
+        "disclaimer": "以上信息仅供参考，不能替代专业医生的诊断和治疗。如有疑虑，请及时就医。"
+      },
+      "event_memory_after": {
+        "backend": "actual_local_mem0_oss",
+        "write_observation_available": true,
+        "memories": {
+          "results": []
+        }
+      },
+      "latency_seconds": 34.875,
+      "authored_history_before": []
+    }
+  ],
+  "user_ids": {
+    "self": "iteration-HH-014-self",
+    "other": "iteration-HH-014-other"
+  },
+  "protocol": {
+    "purpose": "72 historical regression cases, HH-014 used in development; other 71 are this iteration regression",
+    "case_ids": [
+      "HH-014"
+    ],
+    "case_sha256": "8ca9b100e902f06b672ab5d5bb7a771da3ca00e5d0aa799ee0e7925163269c6b",
+    "model": "qwen/qwen3.5-27b",
+    "max_tool_calls": null,
+    "worker_iterations": 5,
+    "supervisor_rounds": 4,
+    "worker_timeout_seconds": 120,
+    "turn_timeout_seconds": 600,
+    "target_max_output_tokens": 8192,
+    "judge_max_output_tokens": 16384,
+    "judges": [
+      "minimax/minimax-m2.5",
+      "qwen/qwen3.5-27b"
+    ],
+    "case_isolation": "one case per fresh child process",
+    "grader": "iteration-v1-explicit-timing-and-evidence-shape",
+    "memory": "local Mem0 for live_mem0 cases; otherwise original fixtures",
+    "rag": "original case modes: controlled snippets or live embeddings over frozen corpus; no external web search",
+    "sources": {
+      ".claude\\skills\\analyze-symptoms\\script\\__init__.py": "25bc3dd3768fa95285f80692a01fa618cc6d852be6f3c3bfcaa1a81a67ff4bf5",
+      ".claude\\skills\\analyze-symptoms\\script\\symptoms.py": "ef86a2d48246fa005d3d7a1585ed8eb4b2a8d6d5e9e1b8a39ac6eeee96dd1dff",
+      ".claude\\skills\\analyze-symptoms\\SKILL.md": "a439b5994a2373278f8e196e672986e987b12929a8633925a33b67778de2fdb9",
+      ".claude\\skills\\assess-risk\\script\\__init__.py": "25bc3dd3768fa95285f80692a01fa618cc6d852be6f3c3bfcaa1a81a67ff4bf5",
+      ".claude\\skills\\assess-risk\\script\\risk.py": "69454dcaf89ae994a5813d4a8bfcce84d6730c20b3181f1ecca0c31719a4fadd",
+      ".claude\\skills\\assess-risk\\SKILL.md": "6f719c5bcf07e3d40a97a6f5a1df56322417e4253c868380fe7d8398362ffe36",
+      ".claude\\skills\\clinical-guideline\\script\\__init__.py": "25bc3dd3768fa95285f80692a01fa618cc6d852be6f3c3bfcaa1a81a67ff4bf5",
+      ".claude\\skills\\clinical-guideline\\script\\guideline.py": "9f3621ecebfadfb85a3dc42aa9c8601a7dc8acb7fe1596cf80d04d4c06b8373e",
+      ".claude\\skills\\clinical-guideline\\SKILL.md": "8168380b75a7cdd2c4fea343b0a9cd16431821dcfdce564b842359583070d177",
+      ".claude\\skills\\deep-research\\script\\__init__.py": "25bc3dd3768fa95285f80692a01fa618cc6d852be6f3c3bfcaa1a81a67ff4bf5",
+      ".claude\\skills\\deep-research\\script\\research.py": "cc4f4f851538a1f658958c0b90a41cddf2d4337646b66d290230a08c0ae6c764",
+      ".claude\\skills\\deep-research\\SKILL.md": "dcf9489d80bf3c2c83526cecac7d7d1b3ad3177ecb9dad8d70549d5a7705e5af",
+      ".claude\\skills\\disease-code\\script\\__init__.py": "25bc3dd3768fa95285f80692a01fa618cc6d852be6f3c3bfcaa1a81a67ff4bf5",
+      ".claude\\skills\\disease-code\\script\\code.py": "78edbf33b62b846225e9b50d8514508bb480134482015bc1f233cb6d60052c01",
+      ".claude\\skills\\disease-code\\SKILL.md": "1b26f779f9bdbbe438c385cbab888eec8434be446a050621cf74041b1cc465db",
+      ".claude\\skills\\recommend-lifestyle\\script\\__init__.py": "25bc3dd3768fa95285f80692a01fa618cc6d852be6f3c3bfcaa1a81a67ff4bf5",
+      ".claude\\skills\\recommend-lifestyle\\script\\lifestyle.py": "0372984553fb7867159dd4eb251f510c0f4746378f6d8e672bc2a464dbb4dc3e",
+      ".claude\\skills\\recommend-lifestyle\\SKILL.md": "6353ec7f2aeca23ee1d9a1ea0e2d4bc26dcbdabdb349c08f3cd55d18f6db228c",
+      ".claude\\skills\\search-history\\script\\search.py": "982266aafd8a93e25d63a128bc078bf8e2589b03ee4050bb1ae69e9b7964547c",
+      ".claude\\skills\\search-history\\SKILL.md": "ce9f214a1aa71f6748544f792775cafe98899e351c390fb19f0f659dd8fa99bf",
+      ".claude\\skills\\search-knowledge\\script\\__init__.py": "25bc3dd3768fa95285f80692a01fa618cc6d852be6f3c3bfcaa1a81a67ff4bf5",
+      ".claude\\skills\\search-knowledge\\script\\search.py": "fce08e44ab01051a801b8ce21b4b5169e0da395a81ebb6cdab02be9d87829b81",
+      ".claude\\skills\\search-knowledge\\SKILL.md": "f70431902b14d115e2e0a942f9ff59d372754722145de8c69460c3f0e2d081af",
+      ".claude\\skills\\search-similar-cases\\script\\search.py": "4c7bf9b71bc5ac48024b9ee485b4141e9454fc72d1f69d7382e74109f7b99add",
+      ".claude\\skills\\search-similar-cases\\SKILL.md": "e14bfaaf4c00f50296de9ae62d17c3d187cd75e79906a10c488bdbb767f0cf60",
+      "agents\\__init__.py": "eedbbe93166c63d3a5e5a19be5c61ed294ffe932e8937b2e6b73d605fe740c48",
+      "agents\\base_agent.py": "b8987bcfaf15f1d4fec5d3829984ab2840f7c3140754b2f5ffda890d03adff6d",
+      "agents\\consultation_agent.py": "4f8ad4ae38ef62dabec86dac94432241de5c775438cd3501fe9c69f2e11df89f",
+      "agents\\diagnostic_agent.py": "814ddc7c55d09b21fc7750ebb010b43c49f129d19cd5b8ecb30e53b05cc84058",
+      "agents\\research_agent.py": "27caf66b9002a6b7b54a7e4de81645b15237cc9a82e6ce88b5dbbe725c44c714",
+      "agents\\skill_registry_mixin.py": "3b26d1835aea44ffabc520503f81f83a992e6f84e8f4fda7be1eb74fab700976",
+      "core\\__init__.py": "ee420ba32d7bf2a17fa860841f82d68fa4664d2cff69659447423a7dcecea8a0",
+      "core\\agent_loop.py": "ce107736670092bea107dfecbcd5a285164956f1a411d2ba4073978683205150",
+      "core\\evidence_store.py": "a980ae863f81aff42f5252840aa23a6235acc6221afa459f57a19fa55065cfd6",
+      "core\\llm_client.py": "45ae3a067b1681abf7cb240cab3053537a3072a9ed90e36f41db018dc9aea6ab",
+      "core\\rag_context.py": "9cf220d2531567b2370fdf1f0449fe308972124bc328d785808a1fd7757d5050",
+      "core\\skill_loader.py": "9262cdf275e61d744241678d7bf84345a57b58f3721b3e3603c5c8332ab57009",
+      "core\\skill_registry.py": "c6e52af1ff651cc88a3daca98ab2a342de6b947cf8c5329f11823796db0cf0b1",
+      "core\\state_manager.py": "2b24a7f3281a634f2399099d3bf6089cbaadac0d6ecb6f7186d18b0c114b6583",
+      "knowledge\\__init__.py": "6173a829429c72d28b82935a1cc716c337317ed58b628fcf16cf26f354643ada",
+      "knowledge\\milvus_kb.py": "7bd7b04afce01f5d0766c3afd6480c1223f9af49110e8e9b754e3db6e0c3649b",
+      "knowledge\\scripts\\__init__.py": "369afde7abfb1728e9894b03fcb217d255da286353c86e63536940422ce7f421",
+      "knowledge\\scripts\\import_hardcoded_data.py": "c837d055fb5d64b9dea02ef1b7c6e86e7f45a1e31ab1613e50051e313e084645",
+      "memory\\__init__.py": "016a35c292da4e3c9d344d8fd42890ddf58cb3351ee1d96948dc3d9470f46f44",
+      "memory\\agent_identity.py": "da94a5e26daf884e5682d219e1ea53cd5e65e60039232efeed7be77c7f161e45",
+      "memory\\context_budget.py": "6c76c92d5b60d52918b144d9ea92c71ae9f8d912051989026d5a8a1828c0d4b3",
+      "memory\\entropy_manager.py": "63820766afd8ab158e178547df18dd7682c830d0fe4904f4b6974ba9e8bc7ffc",
+      "memory\\long_term.py": "8a638b0e1d74a2405a65db83be0a851a9a3d0026ca42ad4eeaccf3fcd9941226",
+      "memory\\patient_profile.py": "a84e30d905c463fe7a954635ef6184d88bad47500edc8f6a3bf682cad8c34b98",
+      "memory\\session_summary.py": "c10e97106df835112876c4335b1713221dc34628d125b132d81ff40d41d2ee31",
+      "memory\\short_term.py": "8699e5aa8b85590abb4e65995e4f20f9ed9cf36b8838778c81c6c20cb670293e",
+      "research\\deep_research_workflow.py": "e686daa4e7d41a91ec4eb7b28600aac2ecd30ea75c65ab57ad0263678754b87c",
+      "research\\evidence_synthesizer.py": "673193bd61ad882fae5916fd15e272364cf3367bc77076fe477f7e223b2ec503",
+      "research\\knowledge_base.py": "bc2e16cd75db226dd06d7a5b4fe2057e3804594c9aee278a99a8967da44c617f",
+      "research\\web_search.py": "16fae308297131fe4c4ff122a9ced0d79ddbc7f6fb5c9dbf7277d6e821f42e5f",
+      "swarm\\__init__.py": "127d24f270f843b3c96e1e097c8100f6df21f4709f405a026865257f38059090",
+      "swarm\\events.py": "52ed37548a942477a3b7b6e465995bac22d8d288eaac495243aacc7bdf4ac865",
+      "swarm\\shared_context.py": "49b6e4e87b874d135903f22355191cc666981f0b2e0ad35a7ed71e4526d91086",
+      "swarm\\supervisor_agent.py": "ddf1fab165eb270d57b8ff1ab8b416bd691f06ed5184423b68c1e97b92e3c5f4",
+      "evals\\system_iteration.py": "8a8942e1fb86eb7fc5f318e2140cfb0557b2582a1d41d5fc6efc4e90ecca90fe",
+      "evals\\campaign_run.py": "8d485a30498909013ef014f8f8770e5751a41374caf5dd0f71b71affca33530a",
+      "evals\\campaign_gateway.py": "81cbd1957793f4957cc945282a00cbedb520556a73893c005d20d69646fb5104",
+      "evals\\campaign_rag.py": "4eb043e588e35ce2d77ab8b8abe618f2095246106d015db5d9f67bccb010cec6",
+      "evals\\holdout_run.py": "b4d591ffcb4e22b77a8470ca32e8dfc08ec26d80fdd938baab6c2ddbee8eab97",
+      "evals\\holdout_services.py": "665bce53d55a8956324406b0919dc2fa08998b5dda8eae0116c5646d0a3b5440",
+      "evals\\holdout_grade.py": "8c3302f7db68098ba4da6757dbaa871c5d7e687182893c017414198176f6e41b",
+      "evals\\iteration_grade.py": "410ceb8a332db5d116bda6f111fabe7290adb51d703016fb27c955e0cf3cabd5",
+      "evals\\campaign_v1\\corpus.jsonl": "77b4970c7300ea2ab032ca2f44f9d309f65efa2f0f02bbf76d5446c00a8aa406"
+    }
+  },
+  "environment": {
+    "rag_mode": "not_needed",
+    "memory_mode": "live_mem0",
+    "documents": [],
+    "memory_records": []
+  },
+  "patient_fact_ids_revealed": [],
+  "environment_backends": {
+    "rag": "not_needed",
+    "memory": "actual_local_mem0_oss",
+    "profile": "actual_product_PatientProfileStore"
+  },
+  "seed_event_memory_after": {
+    "self": {
+      "backend": "actual_local_mem0_oss",
+      "write_observation_available": true,
+      "memories": {
+        "results": [
+          {
+            "id": "b99283d3-473c-4a3e-854a-218642cf5e87",
+            "memory": "用户于2026年8月4日摔倒，之后手腕感到不适。截至2026年8月6日，尚未去医院就诊，想先记录此事。",
+            "hash": "143c11a24c04f643a15a50e941d3f7fb",
+            "metadata": {
+              "source_session_id": "self-wrist-20260806"
+            },
+            "created_at": "2026-09-09T03:24:11.494773+00:00",
+            "updated_at": "2026-09-09T03:24:11.494773+00:00",
+            "user_id": "iteration-HH-014-self",
+            "agent_id": "medix-agent-swarm",
+            "attributed_to": "user"
+          }
+        ]
+      }
+    },
+    "other": {
+      "backend": "actual_local_mem0_oss",
+      "write_observation_available": true,
+      "memories": {
+        "results": []
+      }
+    }
+  },
+  "elapsed_seconds": 100.20299999974668,
+  "metrics": {
+    "model_requests": 8,
+    "requested_tool_calls": 6,
+    "retrieval_backend_executions": 2,
+    "document_bodies_added": 0,
+    "document_references_added": 0,
+    "document_body_characters": 0,
+    "prompt_tokens": 18555,
+    "completion_tokens": 3669,
+    "target_cost_usd": 0.009341865000000001,
+    "all_api_cost_usd": 0.01731618,
+    "model_requested_unadvertised_tools": [],
+    "provider_error_count": 0,
+    "incomplete_response_count": 0
+  },
+  "trace_sha256": "979b5bd320b279b33ba2f75d523b86da83381a757c3dae129fc9aa7508a027c9"
+}

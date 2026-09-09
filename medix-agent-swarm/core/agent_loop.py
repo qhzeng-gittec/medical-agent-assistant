@@ -6,6 +6,7 @@ Agent循环引擎
 """
 import uuid
 import json
+import copy
 from typing import Dict, Any, List, Optional
 from loguru import logger
 
@@ -25,14 +26,14 @@ class AgentLoop:
     - 自动记录每轮的 user/assistant 消息
     """
 
-    def __init__(self, max_iterations: int = 10, short_term_memory: Optional[Any] = None, max_tool_calls: int = 2):
+    def __init__(self, max_iterations: int = 10, short_term_memory: Optional[Any] = None, max_tool_calls: Optional[int] = None):
         """
         初始化Agent循环引擎
 
         Args:
             max_iterations: 最大迭代次数（防止无限循环）
             short_term_memory: 短期记忆管理器（可选）
-            max_tool_calls: 最大 Skill 调用次数（硬性限制，默认2次）
+            max_tool_calls: 可选的 Skill 调用上限；默认不限制调用次数
         """
         self.max_iterations = max_iterations
         self.max_tool_calls = max_tool_calls
@@ -65,6 +66,7 @@ class AgentLoop:
 
         # 重置计数
         tool_call_count = 0
+        evidence = {}
 
         logger.info(f"Starting Agent Loop for {agent.agent_id}, task_id={task_id}")
 
@@ -98,7 +100,7 @@ class AgentLoop:
                     # 调用 LLM（可能返回 tool_calls）
                     llm_response: LLMResponse = await agent.llm_client.chat_with_tools(
                         messages=messages,
-                        tools=tools_openai_format if tool_call_count < self.max_tool_calls else None,
+                        tools=tools_openai_format if self.max_tool_calls is None or tool_call_count < self.max_tool_calls else None,
                         tool_choice="auto",
                         temperature=agent.config.get('temperature', 0.7)
                     )
@@ -115,6 +117,13 @@ class AgentLoop:
                             'finish_reason': llm_response.finish_reason
                         }
                     })
+
+                    if llm_response.has_text_tool_call():
+                        messages.append({'role': 'assistant', 'content': llm_response.content})
+                        messages.append({'role': 'user', 'content':
+                            '上一条是写在正文中的工具调用标记，系统没有执行。需要工具时请通过 tool_calls 接口调用已提供的工具；'
+                            '不需要工具时直接交付任务结果。不要把调用标记或等待承诺作为最终答复。'})
+                        continue
 
                     # 情况1: LLM 返回 tool_calls，执行 Skills
                     if llm_response.has_tool_calls():
@@ -134,7 +143,7 @@ class AgentLoop:
 
                         # 执行每个 Skill 调用
                         for tool_call in llm_response.tool_calls:
-                            if tool_call_count >= self.max_tool_calls:
+                            if self.max_tool_calls is not None and tool_call_count >= self.max_tool_calls:
                                 tool_result = {"success": False, "error": "ToolCallBudgetExceeded"}
                             else:
                                 tool_call_count += 1
@@ -142,6 +151,8 @@ class AgentLoop:
                                     tool_name=tool_call.name,
                                     arguments=tool_call.arguments
                                 )
+                            for block in tool_result.get("documents", []):
+                                evidence.setdefault(block["block_id"], copy.deepcopy(block))
                             tool_result = compact_rag_result(tool_result, messages, tool_call.id)
 
                             # 添加结果消息
@@ -219,6 +230,9 @@ class AgentLoop:
                         temperature=0.7
                     )
 
+                    if final_response.has_tool_calls() or final_response.has_text_tool_call():
+                        raise RuntimeError("Tool protocol remained invalid at finalization")
+
                     result = {
                         'answer': final_response.content or '抱歉，未能完成任务',
                         'iterations': state.iteration,
@@ -238,17 +252,12 @@ class AgentLoop:
 
                 except Exception as e:
                     logger.error(f"Failed to generate fallback answer: {e}")
-                    # 降级到简单提取
-                    result = {
-                        'answer': '抱歉，系统在处理您的问题时遇到了问题。建议您简化问题或稍后重试。',
-                        'iterations': state.iteration,
-                        'warning': 'max_iterations_reached',
-                        'error': str(e)
-                    }
-                    state.mark_completed(result)
+                    raise
 
             logger.info(f"Agent Loop finished: status={state.status.value}, iterations={state.iteration}")
-            return state.final_result or {}
+            result = state.final_result or {}
+            result["evidence"] = list(evidence.values())
+            return result
 
         except Exception as e:
             logger.error(f"Agent Loop failed: {e}")

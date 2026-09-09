@@ -29,7 +29,10 @@ class BaseAgent(ABC):
         self.agent_id = agent_id
         self.config = config
         self.llm_client = llm_client or LLMClient(model_type=config.get('model', 'openai_compatible'))
-        self.loop = AgentLoop(max_iterations=config.get('max_iterations', 10))
+        self.loop = AgentLoop(
+            max_iterations=config.get('max_iterations', 10),
+            max_tool_calls=config.get('max_tool_calls'),
+        )
 
         # Skill 注册表
         self.skill_registry = SkillRegistry(owner=agent_id)

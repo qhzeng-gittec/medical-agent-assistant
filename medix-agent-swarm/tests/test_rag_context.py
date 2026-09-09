@@ -114,10 +114,66 @@ def test_real_loop_exact_cache_and_references_reset_each_invocation():
     messages = client.calls[2]["messages"]
     assert [item["tool_call_id"] for item in messages if item["role"] == "tool"] == ["q1", "q2"]
     assert "reference" in json.loads(messages[-1]["content"])["documents"][0]
-    assert client.calls[2]["tools"] is None
+    assert client.calls[2]["tools"]
     new_messages = client.calls[4]["messages"]
     assert len(new_messages) == 4
     assert "content" in json.loads(new_messages[-1]["content"])["documents"][0]
+
+
+@pytest.mark.parametrize("budget,expected", [(None, ["A", "B", "C"]), (2, ["A", "B"])])
+def test_third_tool_call_executes_by_default_and_explicit_cap_preserves_protocol(budget, expected):
+    searches = []
+
+    async def search(query):
+        searches.append(query)
+        return {"query": query, "documents": []}
+
+    client = ScriptedClient([
+        search_response("q1", "A"),
+        LLMResponse(None, [ToolCall("q2", "search_knowledge", {"query": "B"}),
+                           ToolCall("q3", "search_knowledge", {"query": "C"})], "tool_calls"),
+        final_response(),
+    ])
+    agent = SearchAgent(client, search)
+    agent.loop.max_tool_calls = budget
+    result = asyncio.run(agent.process({"question": "需要三份资料"}))
+    assert result["answer"]
+    assert searches == expected
+    replies = [m for m in client.calls[-1]["messages"] if m["role"] == "tool"]
+    assert [m["tool_call_id"] for m in replies] == ["q1", "q2", "q3"]
+    if budget is None:
+        assert json.loads(replies[-1]["content"])["query"] == "C"
+        assert client.calls[-1]["tools"]
+    else:
+        assert json.loads(replies[-1]["content"])["error"] == "ToolCallBudgetExceeded"
+        assert client.calls[-1]["tools"] is None
+
+
+def test_text_tool_envelope_is_repaired_without_executing_text_and_evidence_is_deduplicated():
+    searches = []
+
+    async def search(query):
+        searches.append(query)
+        return {"documents": [document_block(document())]}
+
+    client = ScriptedClient([
+        LLMResponse('<tool_call><function=search_knowledge>untrusted text</function></tool_call>', [], 'stop'),
+        search_response('q1', 'actual query'), search_response('q2', 'actual query'), final_response(),
+    ])
+    result = asyncio.run(SearchAgent(client, search).process({"question": "查资料"}))
+    assert searches == ['actual query']
+    assert result['answer'] == '最终结论，仅供参考。'
+    assert len(result['evidence']) == 1
+    assert result['evidence'][0]['content'] == document()['content']
+    assert client.calls[1]['tools']
+    assert not any(m['role'] == 'tool' for m in client.calls[1]['messages'])
+
+
+def test_repeated_text_tool_envelopes_never_escape_as_a_final_deliverable():
+    invalid = LLMResponse('<tool_call>invalid</tool_call>', [], 'stop')
+    client = ScriptedClient([invalid] * 5)
+    with pytest.raises(RuntimeError, match='Tool protocol'):
+        asyncio.run(SearchAgent(client, None).process({'question': '查资料'}))
 
 
 def test_parallel_agent_invocations_do_not_share_cache_or_references():
@@ -152,7 +208,9 @@ def test_batch_budget_preserves_a_result_for_every_call():
         ToolCall(f"q{i}", "search_knowledge", {"query": str(i)}) for i in range(3)
     ], "tool_calls")
     client = ScriptedClient([batch, final_response()])
-    asyncio.run(SearchAgent(client, search).process({"question": "查资料"}))
+    agent = SearchAgent(client, search)
+    agent.loop.max_tool_calls = 2
+    asyncio.run(agent.process({"question": "查资料"}))
     assert searches == ["0", "1"]
     results = [m for m in client.calls[1]["messages"] if m["role"] == "tool"]
     assert [m["tool_call_id"] for m in results] == ["q0", "q1", "q2"]
@@ -180,7 +238,7 @@ def test_offline_example_captures_real_context_growth():
     duplicate = json.loads(research_messages[-1]["content"])["documents"][0]
     assert duplicate["reference"] == {"tool_call_id": "search-1"}
     for snapshot in snapshots:
-        if snapshot["agent"] != "research_agent":
+        if snapshot["agent"] not in {"research_agent", "supervisor"}:
             assert BODY_A not in json.dumps(snapshot["request"]["messages"], ensure_ascii=False)
             for message in snapshot["request"]["messages"]:
                 assert "search-1" not in str(message.get("content"))
