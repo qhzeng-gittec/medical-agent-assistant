@@ -263,6 +263,67 @@ def test_simple_question_uses_one_worker_and_stays_single_agent():
     assert not workers["call_research_agent"].inputs
 
 
+def test_same_specialty_distinct_tasks_keep_separate_results_and_reject_exact_duplicate():
+    class TaskWorker(WorkerStub):
+        async def process(self, input_data):
+            await super().process(input_data)
+            return {"answer": input_data["question"]}
+
+    probe = ConcurrencyProbe()
+    workers = {f"call_{role}": WorkerStub(role, "unused") for role in (
+        "consultation_agent", "diagnostic_agent", "research_agent")}
+    research = TaskWorker("research_agent", "unused", probe)
+    workers["call_research_agent"] = research
+    llm = ScriptedLLM([
+        response(call("pregnancy", "call_research_agent", "核对妊娠资料"),
+                 call("sleep", "call_research_agent", "核对睡眠资料"),
+                 call("duplicate", "call_research_agent", "核对妊娠资料")),
+        response(content="已核对两份资料"),
+    ])
+    supervisor, _, _ = build_supervisor(llm, workers)
+    result = asyncio.run(supervisor.process("核对两个不同问题", session_id="distinct-tasks"))
+    assert probe.max_active == 2
+    assert [item["question"] for item in research.inputs] == ["核对妊娠资料", "核对睡眠资料"]
+    assert all(item["context"]["prior_agent_findings"] == [] for item in research.inputs)
+    records = result["call_trace"]
+    assert [r["success"] for r in records] == [True, True, False]
+    assert [r["result"]["answer"] for r in records[:2]] == ["核对妊娠资料", "核对睡眠资料"]
+    assert records[2]["result"]["error_type"] == "DuplicateCall"
+    messages = llm.calls[-1]["messages"][-3:]
+    assert [m["tool_call_id"] for m in messages] == ["pregnancy", "sleep", "duplicate"]
+    assert [json.loads(m["content"])["tool_call_id"] for m in messages] == ["pregnancy", "sleep", "duplicate"]
+
+
+def test_real_research_worker_reuse_starts_fresh_conversations():
+    class ResearchLLM:
+        def __init__(self):
+            self.inputs = []
+
+        async def chat_with_tools(self, messages, **kwargs):
+            self.inputs.append([dict(message) for message in messages])
+            task = json.loads(messages[-1]["content"])["question"]
+            await asyncio.sleep(0.01)
+            return response(content=f"核对完成：{task}")
+
+    research_llm = ResearchLLM()
+    research = ResearchAgent(llm_client=research_llm)
+    workers = {
+        "call_research_agent": research,
+        "call_diagnostic_agent": WorkerStub("diagnostic_agent", "unused"),
+        "call_consultation_agent": WorkerStub("consultation_agent", "unused"),
+    }
+    llm = ScriptedLLM([
+        response(call("first", "call_research_agent", "第一份资料"),
+                 call("second", "call_research_agent", "第二份资料")),
+        response(content="完成"),
+    ])
+    supervisor, _, _ = build_supervisor(llm, workers)
+    result = asyncio.run(supervisor.process("分别核对", session_id="fresh-research"))
+    assert len(research_llm.inputs) == 2
+    assert all([m["role"] for m in messages] == ["system", "user"] for messages in research_llm.inputs)
+    assert [r["result"]["answer"] for r in result["call_trace"]] == ["核对完成：第一份资料", "核对完成：第二份资料"]
+
+
 def test_user_scoped_long_term_memory_is_injected_into_context():
     workers = {
         "call_consultation_agent": WorkerStub("consultation_agent", "咨询结果"),
@@ -539,7 +600,7 @@ def test_each_real_worker_exposes_only_role_specific_skills():
 
     assert set(consultation.skill_registry.get_all()) == {"recommend_lifestyle"}
     assert set(diagnostic.skill_registry.get_all()) == {
-        "assess_risk", "analyze_symptoms", "disease_code",
+        "analyze_symptoms", "disease_code",
     }
     assert set(research.skill_registry.get_all()) == {
         "clinical_guideline", "deep_research", "search_knowledge",

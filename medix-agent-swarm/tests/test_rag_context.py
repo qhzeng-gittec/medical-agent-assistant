@@ -261,7 +261,6 @@ def test_offline_example_captures_real_context_growth():
     ("clinical-guideline", "guideline", "clinical_guideline", {"query": "测试"}),
     ("recommend-lifestyle", "lifestyle", "recommend_lifestyle", {"diagnosis": "测试"}),
     ("disease-code", "code", "disease_code", {"disease_name": "测试"}),
-    ("assess-risk", "risk", "assess_risk", {"symptoms": "咳嗽"}),
     ("analyze-symptoms", "symptoms", "analyze_symptoms", {"symptoms": "咳嗽"}),
 ])
 def test_real_kb_tools_return_structured_bodies_once(monkeypatch, skill, script, function, arguments):

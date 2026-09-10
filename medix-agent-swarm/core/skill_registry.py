@@ -16,7 +16,7 @@ class SkillParameter:
     type: str  # "string", "number", "integer", "boolean", "object", "array"
     description: str
     required: bool = False
-    enum: Optional[List[str]] = None
+    enum: Optional[List[Any]] = None
 
 
 class SkillRegistry:

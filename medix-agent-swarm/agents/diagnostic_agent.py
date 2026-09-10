@@ -43,7 +43,6 @@ class DiagnosticAgent(BaseAgent, SkillRegistryMixin):
     def register_tools(self):
         """只暴露诊断推理职责所需的 Skills。"""
         self.register_skills({
-            "assess_risk",
             "analyze_symptoms",
             "disease_code",
         })
@@ -63,16 +62,15 @@ class DiagnosticAgent(BaseAgent, SkillRegistryMixin):
 - 明确需要进一步检查的项目
 - 永远不做确诊，只提供诊断思路
 
-**可用 Skills（3个）**：
-1. assess_risk: 检索风险评估所需的候选资料，不直接给出风险等级
-2. analyze_symptoms: 检索症状分析候选资料，不预设身体系统或疾病
-3. disease_code: 查询 ICD-10 疾病编码
+**可用 Skills（2个）**：
+1. analyze_symptoms: 检索风险评估与症状分析候选资料，不直接给出风险等级或预设疾病
+2. disease_code: 查询 ICD-10 疾病编码
 
 **Skills 使用策略**：
 - 优先明确紧急风险，按本次任务和信息缺口选择工具，不必机械遍历
 - 如果需要疾病编码，使用 disease_code
 - 如需权威指南或通用医学知识，在结果中说明需要核验的问题，由 Supervisor 调用 ResearchAgent
-- 风险等级、症状关联和鉴别判断由你结合病例与证据完成。两个症状工具只检索资料；保留完整病例语义构造查询，核对返回资料的适用性，无结果不代表低风险
+- 风险等级、症状关联和鉴别判断由你结合病例与证据完成。analyze_symptoms 只检索资料；保留完整病例语义构造查询，核对返回资料的适用性，无结果不代表低风险
 - 已有信息足够时交付结论，信息不足时说明必要的追问或核验
 
 **Supervisor 协作模式**：

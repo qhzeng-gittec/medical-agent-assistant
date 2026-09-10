@@ -2,7 +2,7 @@
 
 医疗多智能体助手与 Qwen3.5-2B 医疗模型训练实验。支持多轮问诊、专业 Agent 调度、患者档案和检索证据管理，并提供 CPT、LoRA SFT、GSPO 训练与可追溯评测。
 
-更新于 **2026-09-09**：同步证据核对、工具调用协议和跨会话记忆改进；补充迭代后保留的关键设计、72 场景 Agent 整体测评，以及 A–F 配方、600 题医疗选择题、VQA/知识病例 GSPO 和通用基准结果。
+更新于 **2026-09-10**：合并重复的风险与症状检索工具，允许同专业独立任务并行，并接入 Tavily 实时来源检索。补充内部执行轮次、上下文传递和历史补查说明；下方 800 查询 RAG、120 场景 Mem0 与 72 场 Agent 回归分别保留冻结版本和统计口径，本次代码更新未重跑这些模型测评。
 
 [Agent 使用说明](medix-agent-swarm/README.md) · [训练与推理](MediX-R1/README.md) · [Agent 关键设计](#agent-关键设计) · [Agent 整体测评](#agent-整体测评) · [模型关键测评](#模型关键测评) · [全部精选测评](results/README.md) · [模型与数据](https://huggingface.co/collections/starttoshow/medix-medical-sft-and-gspo-6a9e6f31b80642f4ba8b6f28)
 
@@ -23,14 +23,14 @@
 
 | 设计 | 当前实现 |
 | --- | --- |
-| **按语义与依赖调度** | 总控根据问题和已有结果选择专业 Agent；独立任务同轮并行，有依赖的任务分轮执行，各 Worker 只获得职责内工具 |
+| **按语义与依赖调度** | 总控根据问题和已有结果选择专业 Agent；包括同专业在内的独立任务可同轮并行，依赖由模型判断、分轮执行，各 Worker 只获得职责内工具 |
 | **分层记忆与上下文预算** | 患者档案保存稳定事实，近期对话按完整轮次与字符预算保留，Mem0 提供跨会话事件检索 |
 | **有原话依据的档案更新** | 模型提议新增、更正、否定和停用状态；代码校验用户范围与本轮原话证据后持久化 |
 | **主动补查与来源保留** | 初始历史不足时调用补查工具；新记忆保留有长度上限的用户原话，区分事件、咨询与系统保存时间 |
 | **证据交付与复用** | Worker 返回实际检索摘录供总控核对；同一次调用内复用相同请求，并用引用代替重复文档正文 |
 | **执行控制与可追溯状态** | 正式工具调用经过白名单、参数和作用域检查；配置调用上限、轮数与超时，记录实际执行及返回结果 |
 
-[设计说明、代码入口与整体验证](results/agent-current-2026-09-09/README.md)。下图展开总控、专业 Agent 和实际注册的工具/Skills。
+[当前执行流程与上下文](medix-agent-swarm/README.md#执行流程与上下文) · [9 月 9 日冻结版本的设计与整体验证](results/agent-current-2026-09-09/README.md)。下图展开总控、专业 Agent 和实际注册的工具/Skills。
 
 ```mermaid
 flowchart TB
@@ -52,10 +52,8 @@ flowchart TB
 
     subgraph DiagnosticGroup["诊断 Agent 与 Skills"]
         Diagnostic["Diagnostic Agent"]
-        Risk["assess_risk<br/>风险评估资料检索"]
-        Symptoms["analyze_symptoms<br/>症状分析资料检索"]
+        Symptoms["analyze_symptoms<br/>风险与症状候选资料检索"]
         Code["disease_code<br/>ICD-10 编码查询"]
-        Diagnostic --> Risk
         Diagnostic --> Symptoms
         Diagnostic --> Code
     end
@@ -64,7 +62,7 @@ flowchart TB
         Research["Research Agent"]
         Guideline["clinical_guideline<br/>临床指南检索"]
         Knowledge["search_knowledge<br/>医学知识库检索"]
-        DeepResearch["deep_research<br/>外部深度研究（需配置后端）"]
+        DeepResearch["deep_research<br/>Tavily 实时来源检索"]
         Research --> Guideline
         Research --> Knowledge
         Research --> DeepResearch
@@ -80,7 +78,7 @@ flowchart TB
     Summary --> Answer["用户答复"]
 ```
 
-图中列出当前注册的 **5 个总控工具和 7 个 Worker Skills**；节点名称对应实际调用函数。上下两个 `MedicalSupervisorAgent` 节点表示同一总控的调度与汇总阶段。总控记忆工具按用户身份和长期记忆配置启用，Worker 的 Skills 通过统一工具接口调用。[Agent 注册代码](medix-agent-swarm/agents/) · [Skills 实现](medix-agent-swarm/.claude/skills/)
+图中列出最多 **5 个总控工具和 6 个 Worker Skills**；节点名称对应实际调用函数。上下两个 `MedicalSupervisorAgent` 节点表示同一总控的调度与汇总阶段。总控记忆工具按用户身份和长期记忆配置启用。Skills 由说明元数据和可执行 Python 函数组成；风险与症状共用一个检索工具，判断由诊断 Agent 完成。[Agent 注册代码](medix-agent-swarm/agents/) · [Skills 实现](medix-agent-swarm/.claude/skills/)
 
 ## 快速开始
 
@@ -105,7 +103,7 @@ python medix-agent-swarm/main.py
 
 ### Agent 整体测评
 
-运行完整的 Supervisor、专业 Agent、患者档案、记忆和工具流程，检查系统能否完成多轮任务。**被测模型统一为 Qwen3.5-27B；MiniMax M2.5 与 Qwen3.5-27B 分别担任独立评审。**
+运行 9 月 9 日冻结版本的完整 Supervisor、专业 Agent、患者档案、记忆和工具流程，检查系统能否完成多轮任务。**被测模型统一为 Qwen3.5-27B；MiniMax M2.5 与 Qwen3.5-27B 分别担任独立评审。**
 
 | 能力 | 场景数 | 执行完成 | 有效双评 | 全部适用检查项通过 |
 | --- | ---: | ---: | ---: | ---: |
@@ -114,7 +112,7 @@ python medix-agent-swarm/main.py
 | 证据检索与使用 | 24 | 24 | 24 | **23/24** |
 | **合计** | **72** | **72** | **71** | **67/72（93.1%）** |
 
-每类含常规、复杂、边界各 8 个合成场景；通过要求两名评审对全部适用项均判通过。1 场评分错误仍计入 72 场分母。该组是当前版本在已用于迭代的历史场景上的回归表现，逐轮核对回答、前后档案和工具证据；真实服务与受控证据的范围在报告中说明。
+每类含常规、复杂、边界各 8 个合成场景；通过要求两名评审对全部适用项均判通过。1 场评分错误仍计入 72 场分母。该组是冻结版本在已用于迭代的历史场景上的回归表现，逐轮核对回答、前后档案和工具证据；不构成多 Agent 优于单 Agent 的对照，也不是 9 月 10 日代码的重新验收。
 
 同批运行共记录 **365 次工具请求、195 次检索后端执行**，含预置历史的场景耗时中位数 **84.8 秒**。下方子任务并行对照来自另一组固定任务实验，按各自模型和计时范围解读。
 
@@ -138,9 +136,20 @@ python medix-agent-swarm/main.py
 
 Top 3 比 Top 1 多覆盖 **75 个问题所需的全部来源**，说明保留多个候选能更好地支持多证据问题。统计使用无相似度过滤的固定排序，衡量检索覆盖；资料来自公开摘要，查询为合成检索任务。[数据、排名与复算](results/hybrid-grounding-2026-09-08/retrieval/summary.json)
 
+### Mem0 跨会话记忆
+
+冻结组件测评包含 **120 个合成场景、240 次正向查询**；每个场景写入两次会话，关闭并重新打开本地 Mem0 OSS / Qdrant 存储。测试集为 96 场景、192 次正向查询，固定实际召回记录及阈值 0.3：
+
+| 检索配置 | 全部预期事实得到记忆支持 | 支持率 |
+| --- | ---: | ---: |
+| Top 3 | 176/192 | 91.7% |
+| Top 10 | 184/192 | 95.8% |
+
+未知用户与其他应用的查询空返回均为 **96/96**。这验证持久化、作用域和候选事实覆盖；该组件实验预先指定查询，没有测试总控是否会主动发现缺口并构造补查。后续回答实验复核并修正了 11 项旧记忆标签，原始冻结分数仍保留，见[组件报告](results/component-benchmark-2026-09-08/memory/README.md)及[标签修正与回答延伸](results/hybrid-grounding-2026-09-08/README.md#本地-mem0从历史召回到回答)。
+
 ### 工程回归测试
 
-另有 **104 项 Agent 测试和 48 项评测运行器测试**通过，覆盖存储重开、用户隔离、工具协议、上下文预算和证据复用；网络输出使用确定性测试替身。工程测试与上方真实 API 场景测评分别计数。[测试代码](medix-agent-swarm/tests/)
+9 月 9 日记录有 **104 项 Agent 测试和 48 项评测运行器测试**通过；9 月 10 日更新另运行 **81 项针对性测试**，覆盖角色工具集合、同专业任务并行、搜索参数、错误返回、上下文、证据回传与复用。网络输出使用确定性测试替身，历史与本次测试数量不相加作为独立能力样本。[测试代码](medix-agent-swarm/tests/)
 
 ### 模型关键测评
 

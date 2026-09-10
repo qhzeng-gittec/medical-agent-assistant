@@ -1,4 +1,4 @@
-"""检索症状分析候选证据；症状关联和鉴别分析由诊断 Agent 完成。"""
+"""检索风险与症状分析候选证据；风险、症状关联和鉴别分析由诊断 Agent 完成。"""
 from typing import Any, Dict
 
 from core.rag_context import document_block
@@ -22,7 +22,7 @@ async def analyze_symptoms(symptoms: str) -> Dict[str, Any]:
     results = get_knowledge_base().search(query=symptoms, top_k=3, filter_type=None)
     return {
         "status": "candidates" if results else "no_results",
-        "answer": "以下是候选资料，请结合完整病例判断症状关联与鉴别分析；检索命中不代表适用，没有结果也不代表风险低或不存在疾病。",
+        "answer": "以下是候选资料，请结合完整病例判断风险、紧急程度、症状关联与鉴别方向；检索命中不代表适用，没有结果也不代表风险低或不存在疾病。",
         "documents": [document_block(doc) for doc in results],
     }
 

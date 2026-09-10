@@ -1,11 +1,11 @@
 ---
 name: deep-research
-description: Conduct deep research combining web search, knowledge base, and evidence synthesis. Use for complex medical questions requiring latest research or comprehensive literature review.
+description: Search the live web with Tavily and return source text, URLs and retrieval time. Use for current medical information or source verification; inspect the returned evidence before drawing conclusions.
 ---
 
 # Deep Research (深度研究)
 
-综合网络搜索、知识库和证据综合的深度研究能力。
+通过 Tavily 实时搜索并返回网页正文或摘录，供调用 Agent 核验和综合。需要环境变量 `TAVILY_API_KEY`。
 
 ## When to Use
 
@@ -15,9 +15,9 @@ description: Conduct deep research combining web search, knowledge base, and evi
 
 ## 底层实现
 
-- 工作流: `DeepResearchWorkflow`
-- 数据源: Web Search + Milvus 向量数据库 + 证据综合
-- 技术: 并行搜索和检索 + LLM 证据综合
+- 数据源: Tavily Search API；知识库由其他工具独立查询
+- 返回来源链接、可用的发布时间、检索时间和截断标记
+- 不调用额外模型生成答案或证据评级；服务错误明确返回调用方
 
 ## 调用方式
 

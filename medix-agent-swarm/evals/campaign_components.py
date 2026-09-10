@@ -25,7 +25,7 @@ class FailedKnowledgeBase:
 async def main():
     contracts = await run(DEFAULT_DATASET)
     dump(OUTPUT / "component_contracts.json", contracts)
-    risk = load_skill_function("assess-risk", "risk", "assess_risk", PROJECT)
+    risk = load_skill_function("analyze-symptoms", "symptoms", "analyze_symptoms", PROJECT)
     probes = []
     for question, kb, desired in [
         ("没有胸痛，没有呼吸困难，只有咳嗽", EmptyKnowledgeBase(), "不能把否认的胸痛/呼吸困难识别为已出现的高危症状"),

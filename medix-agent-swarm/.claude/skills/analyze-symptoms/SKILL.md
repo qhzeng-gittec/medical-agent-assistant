@@ -1,11 +1,11 @@
 ---
 name: analyze-symptoms
-description: Retrieve candidate evidence for symptom analysis from the full case description, preserving negation, timing, subject and context. The agent reasons about symptom relationships and differential diagnoses; this tool does not map keywords to diseases.
+description: Retrieve candidate evidence for risk assessment and symptom analysis from the full case description, preserving negation, timing, subject and context. The agent judges urgency, symptom relationships and differential diagnoses; this tool does not assign risk levels or map keywords to diseases.
 ---
 
 # Analyze Symptoms (症状分析)
 
-检索症状分析候选资料，由诊断 Agent 判断症状关联和鉴别方向。
+检索风险评估与症状分析候选资料，由诊断 Agent 判断紧急程度、症状关联和鉴别方向。
 
 ## When to Use
 

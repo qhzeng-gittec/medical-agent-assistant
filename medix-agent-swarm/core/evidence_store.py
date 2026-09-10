@@ -13,7 +13,6 @@ EVIDENCE_SKILLS = frozenset({
     "clinical_guideline",
     "deep_research",
     "recommend_lifestyle",
-    "assess_risk",
     "analyze_symptoms",
     "disease_code",
 })

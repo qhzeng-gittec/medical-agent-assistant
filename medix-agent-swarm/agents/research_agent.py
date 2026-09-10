@@ -59,6 +59,13 @@ class ResearchAgent(BaseAgent, SkillRegistryMixin):
             "deep_research",
             "search_knowledge",
         })
+        for parameter in self.skill_registry.skills["deep_research"]["parameters"]:
+            if parameter.name == "max_iterations":
+                parameter.type = "integer"
+                parameter.enum = [1, 2, 3, 4, 5]
+                parameter.description = "Search size, not research rounds: 1 to 5 returns up to 3 to 15 sources. Default 5."
+            elif parameter.name == "query":
+                parameter.description = "Nonempty search query, at most 2000 characters; include site: for a target source."
 
 
     def get_system_prompt(self) -> str:
@@ -79,7 +86,7 @@ class ResearchAgent(BaseAgent, SkillRegistryMixin):
 **可用 Skills（3个）**：
 1. search_knowledge: 搜索医学知识库
 2. clinical_guideline: 检索临床指南和诊疗规范（权威指南、诊断标准）
-3. deep_research: 深度医学研究（网络搜索 + 知识库 + 证据综合，适用于最新信息、复杂问题）
+3. deep_research: Tavily 实时网络搜索，返回网页正文或搜索摘录、链接和检索时间；由你核对证据并综合，可用 site: 限定目标来源
 
 **Skills 使用策略**：
 - 按分派任务和证据缺口选择工具，已有结果足够时直接交付

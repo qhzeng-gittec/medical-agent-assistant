@@ -11,8 +11,7 @@ from research.evidence_synthesizer import EvidenceSynthesizer
 from research import web_search
 
 
-SYMPTOM_TOOLS = [("assess-risk", "risk", "assess_risk"),
-                 ("analyze-symptoms", "symptoms", "analyze_symptoms")]
+SYMPTOM_TOOLS = [("analyze-symptoms", "symptoms", "analyze_symptoms")]
 
 
 @pytest.mark.parametrize("skill,script,name", SYMPTOM_TOOLS)
