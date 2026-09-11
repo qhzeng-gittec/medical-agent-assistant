@@ -1,0 +1,198 @@
+{
+  "independent_questions": 596,
+  "reference_valid_questions": 590,
+  "metrics": {
+    "base": {
+      "n": 590,
+      "fully_correct": 220,
+      "partial": 64,
+      "judge_counts": {
+        "gpt-5.5": 183,
+        "gemini-3.5-flash": 7,
+        "deepseek-v4-flash": 400
+      },
+      "ranked_correct": 282,
+      "explicit_correct": 262,
+      "non_eos": 55
+    },
+    "cpt": {
+      "n": 590,
+      "fully_correct": 212,
+      "partial": 58,
+      "judge_counts": {
+        "gpt-5.5": 174,
+        "gemini-3.5-flash": 12,
+        "deepseek-v4-flash": 404
+      },
+      "ranked_correct": 273,
+      "explicit_correct": 239,
+      "non_eos": 14
+    },
+    "sft_only": {
+      "n": 590,
+      "fully_correct": 228,
+      "partial": 38,
+      "judge_counts": {
+        "gpt-5.5": 192,
+        "gemini-3.5-flash": 10,
+        "deepseek-v4-flash": 388
+      },
+      "ranked_correct": 249,
+      "explicit_correct": 102,
+      "non_eos": 0
+    },
+    "high_lr": {
+      "n": 590,
+      "fully_correct": 199,
+      "partial": 97,
+      "judge_counts": {
+        "gpt-5.5": 570,
+        "gemini-3.5-flash": 20
+      },
+      "ranked_correct": 248,
+      "explicit_correct": 49,
+      "non_eos": 0
+    },
+    "low_lr": {
+      "n": 590,
+      "fully_correct": 178,
+      "partial": 101,
+      "judge_counts": {
+        "gpt-5.5": 588,
+        "gemini-3.5-flash": 2
+      },
+      "ranked_correct": 266,
+      "explicit_correct": 265,
+      "non_eos": 0
+    }
+  },
+  "comparisons": [
+    {
+      "before": "base",
+      "after": "cpt",
+      "n": 590,
+      "repaired": 56,
+      "regressed": 64,
+      "delta_pp": -1.3559322033898304,
+      "paired_bootstrap95_pp": [
+        -4.915254237288136,
+        2.3728813559322033
+      ],
+      "judge_pair_counts": {
+        "gpt-5.5 -> gpt-5.5": 158,
+        "gemini-3.5-flash -> gemini-3.5-flash": 5,
+        "gpt-5.5 -> gemini-3.5-flash": 5,
+        "gemini-3.5-flash -> gpt-5.5": 2,
+        "deepseek-v4-flash -> deepseek-v4-flash": 384,
+        "deepseek-v4-flash -> gpt-5.5": 14,
+        "gpt-5.5 -> deepseek-v4-flash": 20,
+        "deepseek-v4-flash -> gemini-3.5-flash": 2
+      }
+    },
+    {
+      "before": "base",
+      "after": "sft_only",
+      "n": 590,
+      "repaired": 81,
+      "regressed": 73,
+      "delta_pp": 1.3559322033898304,
+      "paired_bootstrap95_pp": [
+        -2.711864406779661,
+        5.593220338983051
+      ],
+      "judge_pair_counts": {
+        "gpt-5.5 -> gpt-5.5": 143,
+        "gpt-5.5 -> gemini-3.5-flash": 8,
+        "gemini-3.5-flash -> gpt-5.5": 5,
+        "deepseek-v4-flash -> gpt-5.5": 44,
+        "deepseek-v4-flash -> deepseek-v4-flash": 354,
+        "gpt-5.5 -> deepseek-v4-flash": 32,
+        "deepseek-v4-flash -> gemini-3.5-flash": 2,
+        "gemini-3.5-flash -> deepseek-v4-flash": 2
+      }
+    },
+    {
+      "before": "sft_only",
+      "after": "high_lr",
+      "n": 590,
+      "repaired": 47,
+      "regressed": 76,
+      "delta_pp": -4.915254237288136,
+      "paired_bootstrap95_pp": [
+        -8.64406779661017,
+        -1.3559322033898304
+      ],
+      "judge_pair_counts": {
+        "gpt-5.5 -> gpt-5.5": 180,
+        "gemini-3.5-flash -> gemini-3.5-flash": 4,
+        "gpt-5.5 -> gemini-3.5-flash": 12,
+        "gemini-3.5-flash -> gpt-5.5": 6,
+        "deepseek-v4-flash -> gpt-5.5": 384,
+        "deepseek-v4-flash -> gemini-3.5-flash": 4
+      }
+    },
+    {
+      "before": "cpt",
+      "after": "high_lr",
+      "n": 590,
+      "repaired": 78,
+      "regressed": 91,
+      "delta_pp": -2.2033898305084745,
+      "paired_bootstrap95_pp": [
+        -6.610169491525424,
+        2.2033898305084745
+      ],
+      "judge_pair_counts": {
+        "gpt-5.5 -> gpt-5.5": 158,
+        "gpt-5.5 -> gemini-3.5-flash": 16,
+        "gemini-3.5-flash -> gpt-5.5": 12,
+        "deepseek-v4-flash -> gpt-5.5": 400,
+        "deepseek-v4-flash -> gemini-3.5-flash": 4
+      }
+    },
+    {
+      "before": "cpt",
+      "after": "low_lr",
+      "n": 590,
+      "repaired": 44,
+      "regressed": 78,
+      "delta_pp": -5.762711864406779,
+      "paired_bootstrap95_pp": [
+        -9.491525423728813,
+        -2.2033898305084745
+      ],
+      "judge_pair_counts": {
+        "gpt-5.5 -> gpt-5.5": 173,
+        "gemini-3.5-flash -> gpt-5.5": 11,
+        "gpt-5.5 -> gemini-3.5-flash": 1,
+        "gemini-3.5-flash -> gemini-3.5-flash": 1,
+        "deepseek-v4-flash -> gpt-5.5": 404
+      }
+    },
+    {
+      "before": "sft_only",
+      "after": "low_lr",
+      "n": 590,
+      "repaired": 54,
+      "regressed": 104,
+      "delta_pp": -8.47457627118644,
+      "paired_bootstrap95_pp": [
+        -12.54237288135593,
+        -4.402542372881418
+      ],
+      "judge_pair_counts": {
+        "gpt-5.5 -> gpt-5.5": 190,
+        "gemini-3.5-flash -> gpt-5.5": 10,
+        "gpt-5.5 -> gemini-3.5-flash": 2,
+        "deepseek-v4-flash -> gpt-5.5": 388
+      }
+    }
+  ],
+  "limitations": [
+    "Both arms have identical new prompt and128-token budget. Comparing to earlier32-token letter-only condition changes both prompt and budget, so it does not isolate prompt effect.",
+    "This is nonthinking explanation output, not native thinking-mode or broad clinical validation.",
+    "Same repeatedly inspected diagnostic600MCQs, historical high-LR control, one seed; not untouched generalization evidence.",
+    "Adds missing stage baselines; no new training, seed or independent test set. Native thinking remains untested here.",
+    "All same-question exact-answer historical labels retained. New judgments only Codex GPT5.5, mixed judge provenance reported."
+  ]
+}

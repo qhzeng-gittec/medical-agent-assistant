@@ -1,0 +1,58 @@
+{
+  "experiment_type": "expanded_candidate_not_full_coverage",
+  "semantic_full_coverage_verified": false,
+  "objective": "Raw keyword-retrieved medical prose next-token prediction; unchanged historical replay",
+  "max_length": 2048,
+  "seed": 42,
+  "nominal_token_budget": 8081502,
+  "train_tokens": 8081489,
+  "actual_causal_target_tokens": 8076984,
+  "replay_train_tokens": 81023,
+  "medical_train_tokens": 8000466,
+  "medical_tokens_by_bucket": {
+    "keyword": 8000466
+  },
+  "medical_tokens_by_source": {
+    "pubmed": 5655154,
+    "textbooks": 968797,
+    "statpearls": 1376515
+  },
+  "max_tokens_per_document": 19021,
+  "document_end_token": "<|endoftext|>",
+  "document_end_token_id": 248044,
+  "selected_medical_documents": 18781,
+  "associated_questions": 6434,
+  "train_blocks": 4505,
+  "quality_exclusions": {
+    "literal_task_question": 916,
+    "overlapping_source_window": 344,
+    "ocr_joined_words": 23,
+    "question_answer_format": 21,
+    "near_duplicate_body": 7,
+    "exact_body": 7,
+    "short_or_heading": 1,
+    "whole_document_exceeds_remaining_budget": 70
+  },
+  "packing": {
+    "method": "Whole sentence-aware excerpts <=2047 content tokens plus EOS; greedy rows <=2048",
+    "dropped_packing_tokens": 0,
+    "attention": "Ordinary causal attention across EOS"
+  },
+  "source_manifest_sha256": "20c0edc103c67ded38497eecd8d137ddf686cb007d67a6c2afa470c6af1d55be",
+  "script_sha256": "ba1f31a7fc378bd57ef85635c44723e706fe62e5bca314ddbf8ec4f1b88988ff",
+  "previous_manifest_sha256": "6ac1ac23aa34279c6d4311f00a73cb8e7410dd34d6d7786c3619c5cf25ccc519",
+  "limitations": [
+    "Lexical candidates are not certified semantic coverage.",
+    "Project train/validation/test keywords and answer knowledge informed retrieval: diagnostic exposure.",
+    "Budget is nominal input tokens, matching the old manifest; causal targets exclude each row first token.",
+    "Conservative lexical near dedup uses eight smallest hashed 5-grams and Jaccard>=.95 with equal numeric/negation signature; not exhaustive semantic dedup.",
+    "Overlapping source windows are rejected intact, not spliced; some unique neighboring material is therefore omitted.",
+    "Selected documents retained without token truncation; larger remaining-budget documents skipped.",
+    "Only about eight million tokens selected for this first comparison; full collected corpus remains available."
+  ],
+  "train_sha256": "5e477217888cd0d3e6cefae404c2296fbe39bca341812e196eb678ffafec849a",
+  "validation_sha256": "f569551a03246bb33b883a6e0b61422d3d6929d8e819977dff73a7e8c9ceb718",
+  "documents_sha256": "789a5fd88fc249728737aac8908e3e523c3c7e487e3f2e76df3e08e3e2b3fd72",
+  "evaluation_sha256": "bbdcc66ff95c9749722a5bc1cf8f285e59c87e0e4f07a1dcc7afc4c416d57327",
+  "candidate_map_sha256": "842732a5144369f27771fd27ecd3707ccb68cdfe83019f3b34996e5da0a5ec7e"
+}

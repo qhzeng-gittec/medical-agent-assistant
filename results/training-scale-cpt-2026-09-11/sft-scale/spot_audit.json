@@ -1,0 +1,230 @@
+{
+  "reviewer": "Codex assistant; independent evidence review, not clinician consensus or a second paid judge",
+  "scope": "17 purposively stratified questions plus the one unresolved automatic judgment. 41 model responses reviewed. Four inspected code snippets executed on two questions. This is not a representative estimate of judge accuracy. Original automatic grades and references remain unchanged.",
+  "items": [
+    {
+      "split": "medical",
+      "index": 358,
+      "finding": "20k retrieves the expected6.5kOhm value while5k returns4.5. The20k rationale misidentifies the apex-locator principle as a standard periodontal-health test. Final-answer improvement is plausible, rationale quality remains imperfect.",
+      "flags": [
+        "fact_retrieval_difference",
+        "reasoning_context_error"
+      ],
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC4304060/"
+      ]
+    },
+    {
+      "split": "medical",
+      "index": 81,
+      "finding": "Both models give the exact same incorrect rationale associating facial nerveVII with olfaction, yet choose different final options. The stem says olfaction while its explanation mixes taste and smell; the option set does not support a clean single-answer olfaction question. Retain the item and flag reference ambiguity.",
+      "flags": [
+        "identical_bad_reasoning_different_answer",
+        "reference_ambiguity"
+      ],
+      "sources": [
+        "https://www.nidcd.nih.gov/health/smell-disorders"
+      ]
+    },
+    {
+      "split": "medical",
+      "index": 14,
+      "finding": "20k selects thyroxine; repeated5k incorrectly assigns intracellular action to insulin.20k's passive-diffusion explanation is oversimplified relative to carrier-mediated thyroid transport, so its reasoning_score2 warrants review even though the final selection is right.",
+      "flags": [
+        "fact_retrieval_difference",
+        "possible_reasoning_overgrade"
+      ],
+      "sources": [
+        "https://www.ncbi.nlm.nih.gov/books/NBK285565/"
+      ]
+    },
+    {
+      "split": "medical",
+      "index": 508,
+      "finding": "20k labels the post-viral vomiting/encephalopathy presentation acute viral hepatitis and selects hemorrhagic necrosis. Repeated5k selects the reference microvesicular steatosis. A concrete domain reasoning regression remains despite20k's larger unique dataset.",
+      "flags": [
+        "domain_differential_error"
+      ],
+      "sources": [
+        "https://www.ncbi.nlm.nih.gov/books/NBK548900/?report=classic"
+      ]
+    },
+    {
+      "split": "medical",
+      "index": 185,
+      "finding": "The frozen reference awards vaginal delivery but WHO states vitaminA supplementation is not recommended to prevent mother-to-child HIV transmission. Base20k's vitaminA answer was graded0 despite this support. Both rationales also make unqualified claims about delivery risks;20k's rationale says vaginal delivery reduces risk while choosing it as the intervention that will not reduce risk. This is a reference-validity and reasoning-consistency problem, not secure evidence of a CPT gain.",
+      "flags": [
+        "reference_validity_problem",
+        "judge_answer_disagreement",
+        "reasoning_conclusion_contradiction"
+      ],
+      "sources": [
+        "https://www.who.int/tools/elena/interventions/vitamina-hiv-pregnancy"
+      ]
+    },
+    {
+      "split": "medical",
+      "index": 176,
+      "finding": "20k's final sodium-decrease choice contradicts its own statement that urinary sodium increases. The calcium clause concerns the first24hours; published acute thiazide effects depend on volume and sodium conditions. Do not replace the reference using the chronic hypocalciuria rule. Its universal first-day claim remains an expert-review item.",
+      "flags": [
+        "reasoning_conclusion_contradiction",
+        "timing_sensitive_reference_uncertainty"
+      ],
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/966453/",
+        "https://pubmed.ncbi.nlm.nih.gov/4552338/"
+      ]
+    },
+    {
+      "split": "medical",
+      "index": 223,
+      "finding": "Both inspected SFT models select superficial temporal artery at the anterior masseter border. The facial artery is the expected palpable vessel at the masseter's anteroinferior angle. Shared factual error remains after both training recipes.",
+      "flags": [
+        "shared_fact_error"
+      ],
+      "sources": [
+        "https://www.ncbi.nlm.nih.gov/books/NBK536932/"
+      ]
+    },
+    {
+      "split": "medical",
+      "index": 137,
+      "finding": "Both inspected models correctly identify interstitial cells of Cajal as slow-wave pacemakers and provide relevant support. A positive random agreement example; no correction suggested.",
+      "flags": [
+        "supported_agreement"
+      ],
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/2801932/"
+      ]
+    },
+    {
+      "split": "medical",
+      "index": 497,
+      "finding": "Both models select the correct left brachiocephalic vein but falsely say the right and left brachiocephalic veins form the azygos vein. They normally form the superior vena cava. This directly demonstrates why answer correctness and reasoning correctness must remain separate.",
+      "flags": [
+        "correct_answer_wrong_reasoning"
+      ],
+      "sources": [
+        "https://www.ncbi.nlm.nih.gov/books/NBK545255/"
+      ]
+    },
+    {
+      "split": "general",
+      "index": 108,
+      "finding": "The user asks to remove A/B/C/D prefixes.20k correctly performs the text edit; historical SFT treats the input as an MCQ and selectsA. The supplied reference also misreads the task, but the judge correctly accepts the actual instruction-following result.",
+      "flags": [
+        "instruction_following_improvement",
+        "reference_misreads_task"
+      ]
+    },
+    {
+      "split": "general",
+      "index": 533,
+      "finding": "Both generated Fibonacci implementations concatenate strings instead of adding integers. Executing N=10 returns the same89-character binary-looking string rather than55. Historical SFT received answer_score2 and reasoning_score2 despite this defect; this apparent20k regression is a confirmed judge false positive for the historical model.",
+      "flags": [
+        "confirmed_judge_false_positive",
+        "code_execution_failure"
+      ],
+      "evidence_file": "code_audit_checks.json"
+    },
+    {
+      "split": "general",
+      "index": 484,
+      "finding": "20k applies the why-to-here mapping;5k omits it. The final-answer difference and the difference in their rationales are supported by the explicit user mapping.",
+      "flags": [
+        "instruction_following_improvement"
+      ]
+    },
+    {
+      "split": "general",
+      "index": 339,
+      "finding": "20k's ROT13 implementation only maps lowercase letters despite claiming uppercase support. Execution returns Hryyb,Wbeyq for mixed-case input.5k's translation table handles both cases correctly. This is a real implementation regression, while both reasoning fields mostly state a plan rather than verify code.",
+      "flags": [
+        "code_execution_failure",
+        "plan_without_verification"
+      ],
+      "evidence_file": "code_audit_checks.json"
+    },
+    {
+      "split": "general",
+      "index": 75,
+      "finding": "Both final answers are valid Portuguese greetings satisfying the simple request to speak Portuguese. Repeated5k was graded1 versus20k's2 without a substantive answer defect. Both reasoning traces understand the instruction. The apparent improvement is not supported by independent review.",
+      "flags": [
+        "judge_grading_inconsistency"
+      ]
+    },
+    {
+      "split": "general",
+      "index": 362,
+      "finding": "Both provide short Spanish promotional copy with a title. Repeated5k invents AzulRey as the brand rather than treating azulrey as a color;20k retains nuestra marca. Its higher grade is questionable. Both thinking traces repeat drafts far beyond what the task needs; length did not ensure factual fidelity.",
+      "flags": [
+        "unsupported_brand_invention",
+        "possible_judge_grading_inconsistency",
+        "repetitive_reasoning"
+      ]
+    },
+    {
+      "split": "general",
+      "index": 249,
+      "finding": "Both sayYes, but the summary changes stimulus decoding performance to encoding and drops the strong-change-in-firing-rate qualification.20k explicitly treats encoding and decoding as equivalent. The referenceNo is defensible; reasoning_score1 may be generous because the altered measured endpoint is central.",
+      "flags": [
+        "source_endpoint_misread",
+        "possible_reasoning_overgrade"
+      ]
+    },
+    {
+      "split": "general",
+      "index": 40,
+      "finding": "Both derive6x=42 and x=7 and provide boxed final answers. The original grades are supported by direct arithmetic.",
+      "flags": [
+        "supported_agreement"
+      ]
+    },
+    {
+      "split": "medical",
+      "index": 369,
+      "finding": "All five SFT conditions select referenceB, but20k and repeated5k confuse adduction with lateral-rectus/abduction mechanisms. Base and CPT include the expected diagnostic name with substantial incorrect mechanisms in their final text. The stem's diplopia description lacks explicit adduction weakness, so diagnostic specificity is limited. Independent review is recorded separately; missing automatic scores are not reconstructed from duplicated IDs.",
+      "flags": [
+        "unavailable_automatic_judgment",
+        "correct_answer_wrong_reasoning",
+        "stem_under_specified"
+      ],
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/3105283/",
+        "https://www.merckmanuals.com/professional/neurologic-disorders/neuro-ophthalmologic-and-cranial-nerve-disorders/internuclear-ophthalmoplegia"
+      ]
+    }
+  ],
+  "pending_question369_assistant_review_only": {
+    "note": "Secondary, explicitly attributed assistant adjudication following the supplied rubric. Not inserted into automatic score files. Answer scores distinguish the expected selected syndrome from false factual explanations inside final text. Reasoning grades have clinical uncertainty because the stem is underspecified.",
+    "base": {
+      "answer_score": 1,
+      "reasoning_score": 0
+    },
+    "cpt": {
+      "answer_score": 1,
+      "reasoning_score": 0
+    },
+    "old_cpt_sft": {
+      "answer_score": 2,
+      "reasoning_score": 1
+    },
+    "cpt_5k": {
+      "answer_score": 2,
+      "reasoning_score": 1
+    },
+    "cpt_20k": {
+      "answer_score": 2,
+      "reasoning_score": 0
+    },
+    "cpt_5k_repeated": {
+      "answer_score": 2,
+      "reasoning_score": 0
+    },
+    "base_20k": {
+      "answer_score": 2,
+      "reasoning_score": 2
+    }
+  },
+  "decision": "Keep automatic primary results intact, report one missing-question sensitivity bound and separate assistant review. Do not use this small targeted audit to claim the judge is calibrated. Next experiments need objective checks for coding/arithmetic, better reference review, and independent domain reasoning supervision."
+}

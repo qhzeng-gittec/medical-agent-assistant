@@ -9,6 +9,7 @@
 | RAG 多候选检索 | Qwen3-Embedding-8B 编码查询和资料；程序按目标来源计分 | 432 条测试查询，Top 1→Top 3 完整来源覆盖 333→408；[逐项汇总](hybrid-grounding-2026-09-08/retrieval/summary.json) |
 | Agent 工程机制 | 固定模拟模型输出；真实代码与本地存储执行 | 152 项自动测试通过；[测试与运行](../medix-agent-swarm/README.md) |
 | **A–F 医疗 LoRA 配方** | **Qwen3.5-2B 执行；gpt-5.6-sol 评分** | **247 题、944 份回答**；[配方、答案/解释分与对照](model-evaluations-2026-09-09/README.md) |
+| **SFT 数据规模与组成** | **Qwen3.5-2B 执行；DeepSeek-V4.1-Flash 评分** | **1,200 道独立题、7 个条件、8,400 份回答**；[配方、配对区间与 CPT 机制](training-scale-cpt-2026-09-11/README.md) |
 | **医疗选择题 CPT/SFT 四阶段** | Qwen3.5-2B；按原题标签自动计分 | **600 题，排名正确 305 / 325 / 293 / 323**；[全部预测与汇总](model-evaluations-2026-09-09/medical600/summary.json) |
 | **VQA GSPO** | Qwen3.5-2B；gpt-5.5 评分 | **93 问、16 图，归一化分 60.75→66.13**；[结果与逐题证据](model-evaluations-2026-09-09/README.md) |
 | **知识与病例 GSPO** | Qwen3.5-2B 扩展 CPT 权重链；Gemini 3.5 Flash 评分 | **312 题，答案满分 134→132**；[阶段对照](model-evaluations-2026-09-09/README.md) |
@@ -16,7 +17,7 @@
 
 RAG 数据由 1,016 篇健康主题摘要和 800 条查询组成；Top-K 对照固定同一向量排序，阈值为零，只对完全可回答的测试查询统计全部目标来源覆盖。[语料与查询](../medix-agent-swarm/evals/hybrid_grounding_v3/README.md)提供数据构成、标注和下载说明。
 
-模型侧的完整配方表、五类关键测评及阶段探针集中在[模型测评报告](model-evaluations-2026-09-09/README.md)。训练配方与模型下载见 [训练与推理说明](../MediX-R1/README.md)。未完成的评测与仍需复核的诊断保留在本地。
+模型侧的 A–F、医疗 600、GSPO 与通用能力集中在[模型测评报告](model-evaluations-2026-09-09/README.md)；后续 SFT 规模、CPT 语料及学习率机制见[训练扩展报告](training-scale-cpt-2026-09-11/README.md)。训练配方与模型下载见 [训练与推理说明](../MediX-R1/README.md)。未完成的评测与仍需复核的诊断保留在本地。
 
 <details>
 <summary>历史快照与溯源附件</summary>
