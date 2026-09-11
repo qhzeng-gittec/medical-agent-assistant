@@ -1,6 +1,10 @@
 # MediX 多智能体医疗助手
 
-运行时由 `MedicalSupervisorAgent` 调度 Consultation、Diagnostic、Research 三类专业 Agent。核心代码位于 `swarm/`、`agents/`、`core/` 和 `memory/`，工具实现位于 `.claude/skills/`。
+这是医疗助手的运行模块：接收用户问题和可选图像，由一个总控 Agent 分配任务，专业 Agent 调用检索、图像分析等工具，最后汇总为面向用户的回答。跨会话记忆用于找回用户此前提供的信息。
+
+三个专业角色分别是：Consultation（咨询与健康资料检索）、Diagnostic（图像分析）、Research（文献与网络研究）。总控由 `MedicalSupervisorAgent` 实现；核心代码位于 `swarm/`、`agents/`、`core/` 和 `memory/`，工具实现位于 `.claude/skills/`。
+
+想先了解实际效果，可从[测评总览](../results/README.md)阅读任务表现、架构对照和检索/记忆实验；本页主要说明执行流程、配置和运行方法。
 
 ## 执行流程与上下文
 
