@@ -24,17 +24,52 @@
 [当前执行流程与上下文](medix-agent-swarm/README.md#执行流程与上下文) · [9 月 9 日冻结版本的设计与整体验证](results/agent-current-2026-09-09/README.md)。下图展开总控、专业 Agent 和实际注册的工具/Skills。
 
 ```mermaid
-flowchart LR
-    U["用户问题"] --> S["总控：理解需求与安排任务"]
-    M["患者档案与历史记忆"] --> S
-    S --> W["专业助手：咨询、诊断、医学研究"]
-    W --> E["工具：检索资料与查询来源"]
-    E --> W
-    W --> A["总控：核对证据并汇总答复"]
-    S --> A
+flowchart TB
+    User["用户"] --> Supervisor["MedicalSupervisorAgent<br/>理解需求 · 按依赖调度"]
+    Memory["患者档案 · 近期对话 · Mem0 历史"] --> Supervisor
+
+    subgraph MemoryTools["总控记忆工具"]
+        Profile["update_patient_profile<br/>更新患者档案"]
+        History["search_patient_history<br/>补查跨会话历史"]
+    end
+    Supervisor --> Profile
+    Supervisor --> History
+
+    subgraph ConsultationGroup["健康咨询 Agent 与 Skills"]
+        Consultation["Consultation Agent"]
+        Lifestyle["recommend_lifestyle<br/>检索生活方式建议的候选资料"]
+        Consultation --> Lifestyle
+    end
+
+    subgraph DiagnosticGroup["诊断 Agent 与 Skills"]
+        Diagnostic["Diagnostic Agent"]
+        Symptoms["analyze_symptoms<br/>风险与症状候选资料检索"]
+        Code["disease_code<br/>ICD-10 编码查询"]
+        Diagnostic --> Symptoms
+        Diagnostic --> Code
+    end
+
+    subgraph ResearchGroup["医学研究 Agent 与 Skills"]
+        Research["Research Agent"]
+        Guideline["clinical_guideline<br/>临床指南检索"]
+        Knowledge["search_knowledge<br/>医学知识库检索"]
+        DeepResearch["deep_research<br/>Tavily 实时来源检索"]
+        Research --> Guideline
+        Research --> Knowledge
+        Research --> DeepResearch
+    end
+
+    Supervisor -->|call_consultation_agent| Consultation
+    Supervisor -->|call_diagnostic_agent| Diagnostic
+    Supervisor -->|call_research_agent| Research
+    Consultation -.->|结果与实际证据| Summary["MedicalSupervisorAgent<br/>核对证据 · 汇总答复"]
+    Diagnostic -.->|结果与实际证据| Summary
+    Research -.->|结果与实际证据| Summary
+    Supervisor -->|可直接回答| Summary
+    Summary --> Answer["用户答复"]
 ```
 
-总控可以直接回答，也可以委派专业任务。独立任务允许并行，依赖前一步结果的任务分轮执行。具体工具名、调用顺序和上下文内容见[执行流程说明](medix-agent-swarm/README.md#执行流程与上下文)。
+图中列出最多 **5 个总控工具和 6 个 Worker Skills**；节点名称对应实际调用函数。上下两个 `MedicalSupervisorAgent` 节点表示同一总控的调度与汇总阶段。总控记忆工具按用户身份和长期记忆配置启用。Skills 由说明元数据和可执行 Python 函数组成；风险与症状共用一个检索工具，判断由诊断 Agent 完成。[Agent 注册代码](medix-agent-swarm/agents/) · [Skills 实现](medix-agent-swarm/.claude/skills/)
 
 ## 核心结果
 
