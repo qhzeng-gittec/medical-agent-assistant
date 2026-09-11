@@ -1,36 +1,75 @@
 # Medical Agent Assistant
 
-医疗多智能体助手与 Qwen3.5-2B 医疗模型训练实验。支持多轮问诊、专业 Agent 调度、患者档案和检索证据管理，并提供 CPT、LoRA SFT、GSPO 训练与可追溯评测。
+Qwen3.5-2B 医疗模型训练实验与医疗多智能体助手。项目公开 CPT、LoRA SFT、GSPO 的训练数据说明和可追溯评测，并支持多轮问诊、专业 Agent 调度、患者档案与检索证据管理。
 
-[Agent 使用说明](medix-agent-swarm/README.md) · [训练与推理](MediX-R1/README.md) · [Agent 关键设计](#agent-关键设计) · [Agent 整体测评](#agent-整体测评) · [模型关键测评](#模型关键测评) · [SFT 规模与 CPT 机制](results/training-scale-cpt-2026-09-11/README.md) · [全部精选测评](results/README.md) · [模型与数据](https://huggingface.co/collections/starttoshow/medix-medical-sft-and-gspo-6a9e6f31b80642f4ba8b6f28)
+[SFT 规模与 CPT 机制](results/training-scale-cpt-2026-09-11/README.md) · [训练与推理](MediX-R1/README.md) · [模型与数据](https://huggingface.co/collections/starttoshow/medix-medical-sft-and-gspo-6a9e6f31b80642f4ba8b6f28) · [Agent 使用说明](medix-agent-swarm/README.md) · [Agent 关键设计](#agent-关键设计) · [Agent 整体测评](#agent-整体测评) · [全部精选测评](results/README.md)
 
 ## 核心结果
 
 | 工作 | 测评规模 | 结果 | 证据 |
 | --- | ---: | --- | --- |
-| **SFT 数据组成** | 1,200 道独立题、7 个条件、8,400 份回答 | 新 5k 相对历史 5,418 条配方：通用答案 **+16.83** 个百分点 `[+12.50, +21.00]`；医疗答案 +1.17，区间跨零 | [规模、配方与逐项结果](results/training-scale-cpt-2026-09-11/README.md#sft-数据规模与组成) |
-| **SFT 数据规模** | 新 5k、独立 20k、重复 5k 对照 | 20k 相对 5k：医疗答案 +1.34、通用答案 +0.83 个百分点，区间均跨零；本轮**没有证明继续扩量有效** | [同题配对区间](results/training-scale-cpt-2026-09-11/sft-scale/results.json) |
+| **SFT 数据组成** | 1,200 道独立题、7 个条件、8,400 份回答 | 新 5k 相对历史 5,418 条配方：通用答案 **+16.83** 个百分点 `[+12.50, +21.00]`；医疗答案 +1.17 个百分点 | [规模、配方与逐项结果](results/training-scale-cpt-2026-09-11/README.md#sft-数据规模与组成) |
+| **SFT 数据规模** | 新 5k、独立 20k、重复 5k 对照 | 20k 相对 5k：医疗答案 +1.34、通用答案 +0.83 个百分点；重复 5k 提供 token 量匹配对照 | [同题配对区间](results/training-scale-cpt-2026-09-11/sft-scale/results.json) |
 | **关键词 CPT** | 808 万 token；600 道新留出医疗选择题 | 候选排名 **305/600→325/600**，+3.33 个百分点 `[+0.33, +6.50]`；单训练 seed | [CPT 数据与四阶段结果](results/training-scale-cpt-2026-09-11/README.md#关键词-cpt-语料) |
 | **VQA GSPO** | 93 问、16 张独立验证图像 | 归一化评分 **60.75→66.13**，满分答案 **50/93→57/93** | [逐题回答与评分](results/model-evaluations-2026-09-09/README.md#3-vqa-gspo93-问16-张验证图像) |
 | **医疗 Agent** | 72 个多轮场景，71 场有效双评 | 67/72 场全部适用检查项通过；测试的是冻结 Agent 版本，不是临床准确率 | [整体任务测评](results/agent-current-2026-09-09/README.md) |
 | **RAG 检索** | 1,016 篇资料、432 条可回答测试查询 | 全部目标来源覆盖：Top 1 **333/432**，Top 3 **408/432** | [检索结果](results/hybrid-grounding-2026-09-08/retrieval/summary.json) |
 
+## 模型训练与数据
+
+### SFT 数据规模与组成
+
+本轮固定 **600 道医疗题 + 600 道通用题**，对比历史 5,418 条配方、新 5k、独立 20k、重复 5k，以及有无 CPT 的 20k 对照，共公开 **7 个条件、8,400 份逐题回答**。新 5k 相对历史配方的通用答案提高 **16.83 个百分点**；20k 相对 5k 的医疗/通用答案差为 +1.34/+0.83 个百分点。数据计划、抽样审计、运行协议、代码检查和逐项结果均可下载并离线复算。[实验总览](results/training-scale-cpt-2026-09-11/README.md#sft-数据规模与组成) · [抽样审计](results/training-scale-cpt-2026-09-11/sft-scale/spot_audit.json) · [逐项结果](results/training-scale-cpt-2026-09-11/sft-scale/results.json)
+
 ### CPT 数据公开范围
 
 CPT 训练语料共 **8,081,489 个输入 token**：PubMed 5,655,154、StatPearls 1,376,515、医学教材 968,797，另含 81,023 个通用 replay token；选择 18,781 篇医学文档，打包为 4,505 个训练 block。仓库直接公开[语料构成与哈希](results/training-scale-cpt-2026-09-11/cpt/corpus_manifest.json)、[打包审计](results/training-scale-cpt-2026-09-11/cpt/corpus_audit.json)和构建限制，不重新分发许可尚未逐项核清的原文。
 
-机械审计已经通过，但关键词命中不等于语义知识覆盖；项目问题知识参与了选材，因此这批数据用于诊断性 CPT，不包装成独立无泄漏语料。相同新 20k SFT 下，有无 CPT 的医疗答案差 −0.33、通用答案差 +0.33 个百分点，区间均跨零，说明 CPT 的边际收益没有在该 SFT 对照中得到确认。[完整结论与局限](results/training-scale-cpt-2026-09-11/README.md)
+机械审计已经通过，但关键词命中不等于语义知识覆盖；项目问题知识参与了选材，因此这批数据用于诊断性 CPT，不包装成独立无泄漏语料。相同新 20k SFT 下，有无 CPT 的医疗答案差 −0.33、通用答案差 +0.33 个百分点；完整报告保留同题配对区间，用于区分 CPT 与后续 SFT 的作用。[完整结论与局限](results/training-scale-cpt-2026-09-11/README.md)
 
 更新于 **2026-09-11**。主结果只展示数百题正式比较；未完成的 CPT 运行不计作结果，小样本超参与回忆实验仅作为机制探针。
+
+### 其他训练关键测评
+
+模型侧统一以 **Qwen3.5-2B** 为被测基座，分别验证训练配方、CPT/SFT 阶段、GSPO 和通用能力。下表每行是独立冻结的实验；模型名称、评分器与样本划分在[模型测评报告](results/model-evaluations-2026-09-09/README.md)中对应列明。
+
+| 重要测评 | 数据与对照 | 关键结果 |
+| --- | --- | --- |
+| **A–F 训练配方** | 150 道知识 + 97 道上下文项目 test 题；含推理消融共 944 份回答 | 知识答案归一化分 A/B/C/D：**66.00 / 67.33 / 62.33 / 66.00**；上下文 E/F：**87.63 / 87.11** |
+| **医疗选择题四阶段** | 新留出 600 题，同题比较原始、仅 CPT、仅 SFT、CPT+SFT；关键词 CPT 实验 | 候选字母排名正确数依次为 **305 / 325 / 293 / 323（各 /600）**；CPT+SFT 比仅 SFT +5.00 个百分点，名义 95% 区间 [+2.00, +8.17] |
+| **VQA GSPO** | C 配方 SFT→GSPO；93 问、16 张项目验证图像 | 归一化评分 **60.75→66.13**；满分 **50/93→57/93**；9 题评分改善、2 题降低 |
+| **知识与病例 GSPO** | 扩展 CPT+SFT 权重，RL 关闭/开启；150 知识 + 162 病例项目测试题 | 已公开 312 道项目测试题的关闭/开启配对回答、答案分与解释分 |
+
+A–F 与 VQA 使用 0/1/2 模型评分再归一化，分数不同于严格正确率。600 题按原题标签计分，选自官方 MedMCQA train 中项目此前未使用的题，候选排名与自由回答分开报告。VQA 为单种子验证集模型评分，其中 1 对相同输出得到不同分数。各组完整基线、解释分、生成设置和逐题证据见[模型测评报告](results/model-evaluations-2026-09-09/README.md)，阶段探针与开发实验另列。
+
+### 模型通用基准
+
+使用原始 Qwen3.5-2B 与医学 CPT+SFT（`cpt_medical_v1`）在三个通用基准各 **500 道固定抽样题**上配对比较，共 **1,500 道独立题**：
+
+| 基准与零样本候选似然指标 | 原始模型 | CPT+SFT | 变化（百分点） | 配对 95% 区间 |
+| --- | ---: | ---: | ---: | --- |
+| MMLU 子集 · `acc` | 61.2% | 59.0% | −2.2 | [−5.6, +1.4] |
+| ARC-Challenge · `acc_norm` | 44.2% | **51.2%** | **+7.0** | **[+3.8, +10.2]** |
+| HellaSwag · `acc_norm` | 65.8% | 67.4% | +1.6 | [−0.6, +3.8] |
+
+ARC-Challenge 的改善经三项主检验 Holm 校正后达到统计显著，另两项差值区间包含零。MMLU 排除六个医学科目；这是单训练种子和固定子集结果。[三项基准与离线复算](results/general-benchmarks-2026-09-08/README.md)
+
+### 数据与权重
+
+数据包含 **5,418 条训练、503 条验证、514 条测试记录及 314 张图片**，来自 VQA-RAD、MedMCQA、PubMedQA，含模型辅助标注。[数据来源与许可证](https://huggingface.co/datasets/starttoshow/medix-medical-sft)
+
+已发布 A–F 六种 LoRA 配方、VQA GSPO 适配器，以及 [CPT→SFT→GSPO 四阶段权重链](https://huggingface.co/starttoshow/medix-qwen3.5-2b-cpt-sft-gspo-20260908)。权重链需按 CPT、SFT、RL 的依赖顺序合并，不能把后段适配器直接挂到原始基座；固定版本、哈希、配方和加载命令集中在 [训练与推理说明](MediX-R1/README.md)。
+
+关键词 CPT 使用约 808 万输入 token。仓库公开其来源构成、选择限制、打包审计和训练文件哈希，不重新分发完整原文；关键词候选尚未完成逐条语义覆盖认证，教材、Bookshelf/StatPearls 与 PubMed 摘要的再分发条件需按来源核查。[CPT 语料与机制审计](results/training-scale-cpt-2026-09-11/README.md#关键词-cpt-语料)
 
 ## 功能
 
 | 模块 | 功能 |
 | --- | --- |
-| 医疗 Agent | Supervisor 根据问题调用问诊、诊断、研究 Agent，汇总工具结果和来源 |
-| 记忆与检索 | 模型提议档案更新，代码校验用户和原话证据；近期对话预算、可选 Mem0 与主动历史补查；RAG 候选和正文复用 |
 | 模型训练 | Qwen3.5-2B 的 Attention / Attention+FFN LoRA、VQA GSPO，以及 CPT→SFT→知识/病例 GSPO 对照链 |
 | 评测 | 逐轮回答/档案/工具状态核对、逐项双评、串并行对照、答案与解释分评、配对置信区间 |
+| 医疗 Agent | Supervisor 根据问题调用问诊、诊断、研究 Agent，汇总工具结果和来源 |
+| 记忆与检索 | 模型提议档案更新，代码校验用户和原话证据；近期对话预算、可选 Mem0 与主动历史补查；RAG 候选和正文复用 |
 
 项目包含两条可独立运行的工程链路：通过 OpenAI 兼容 API 驱动的医疗 Agent，以及 Qwen3.5-2B 的 LoRA 训练与推理。
 
@@ -116,7 +155,7 @@ python medix-agent-swarm/main.py
 
 需要检索的问诊还需配置 Milvus、嵌入模型和知识库，见 [Agent 安装说明](medix-agent-swarm/README.md)。示例资料为合成技术文本。Linux/macOS 的环境设置与离线演示也见该文档。
 
-## 关键测评
+## Agent 测评
 
 ### Agent 整体测评
 
@@ -167,40 +206,6 @@ Top 3 比 Top 1 多覆盖 **75 个问题所需的全部来源**，说明保留�
 ### 工程回归测试
 
 9 月 9 日记录有 **104 项 Agent 测试和 48 项评测运行器测试**通过；9 月 10 日更新另运行 **81 项针对性测试**，覆盖角色工具集合、同专业任务并行、搜索参数、错误返回、上下文、证据回传与复用。网络输出使用确定性测试替身，历史与本次测试数量不相加作为独立能力样本。[测试代码](medix-agent-swarm/tests/)
-
-### 模型关键测评
-
-模型侧统一以 **Qwen3.5-2B** 为被测基座，分别验证训练配方、CPT/SFT 阶段、GSPO 和通用能力。下表每行是独立冻结的实验；模型名称、评分器与样本划分在[模型测评报告](results/model-evaluations-2026-09-09/README.md)中对应列明。
-
-| 重要测评 | 数据与对照 | 关键结果 |
-| --- | --- | --- |
-| **A–F 训练配方** | 150 道知识 + 97 道上下文项目 test 题；含推理消融共 944 份回答 | 知识答案归一化分 A/B/C/D：**66.00 / 67.33 / 62.33 / 66.00**；上下文 E/F：**87.63 / 87.11** |
-| **医疗选择题四阶段** | 新留出 600 题，同题比较原始、仅 CPT、仅 SFT、CPT+SFT；关键词 CPT 实验 | 候选字母排名正确数依次为 **305 / 325 / 293 / 323（各 /600）**；CPT+SFT 比仅 SFT +5.00 个百分点，名义 95% 区间 [+2.00, +8.17] |
-| **VQA GSPO** | C 配方 SFT→GSPO；93 问、16 张项目验证图像 | 归一化评分 **60.75→66.13**；满分 **50/93→57/93**；9 题评分改善、2 题降低 |
-| **知识与病例 GSPO** | 扩展 CPT+SFT 权重，RL 关闭/开启；150 知识 + 162 病例项目测试题 | 答案满分 **134/312→132/312**；答案与解释同时满分 **104/312→103/312**，差值区间均包含零 |
-| **SFT 数据规模与组成** | 医疗 600 题 + 通用 600 题；历史 5,418、新 5k/20k、重复 5k 与有无 CPT，共 8,400 份回答 | 新 5k 相对历史配方的通用答案 +16.83 个百分点；20k 相对 5k 及有无 CPT 的区间均跨零，[完整报告](results/training-scale-cpt-2026-09-11/README.md) |
-
-A–F 与 VQA 使用 0/1/2 模型评分再归一化，分数不同于严格正确率；A–F 六项主对照经 Holm 校正均未显著。600 题按原题标签计分，选自官方 MedMCQA train 中项目此前未使用的题，候选排名与自由回答分开报告。VQA 为单种子验证集模型评分，其中 1 对相同输出得到不同分数。各组完整基线、解释分、生成设置和逐题证据见[模型测评报告](results/model-evaluations-2026-09-09/README.md)，阶段探针与开发实验另列。
-
-### 模型通用基准
-
-使用原始 Qwen3.5-2B 与医学 CPT+SFT（`cpt_medical_v1`）在三个通用基准各 **500 道固定抽样题**上配对比较，共 **1,500 道独立题**：
-
-| 基准与零样本候选似然指标 | 原始模型 | CPT+SFT | 变化（百分点） | 配对 95% 区间 |
-| --- | ---: | ---: | ---: | --- |
-| MMLU 子集 · `acc` | 61.2% | 59.0% | −2.2 | [−5.6, +1.4] |
-| ARC-Challenge · `acc_norm` | 44.2% | **51.2%** | **+7.0** | **[+3.8, +10.2]** |
-| HellaSwag · `acc_norm` | 65.8% | 67.4% | +1.6 | [−0.6, +3.8] |
-
-ARC-Challenge 的改善经三项主检验 Holm 校正后达到统计显著，另两项差值区间包含零。MMLU 排除六个医学科目；这是单训练种子和固定子集结果。[三项基准与离线复算](results/general-benchmarks-2026-09-08/README.md)
-
-## 模型与数据
-
-数据包含 **5,418 条训练、503 条验证、514 条测试记录及 314 张图片**，来自 VQA-RAD、MedMCQA、PubMedQA，含模型辅助标注。[数据来源与许可证](https://huggingface.co/datasets/starttoshow/medix-medical-sft)
-
-已发布 A–F 六种 LoRA 配方、VQA GSPO 适配器，以及 [CPT→SFT→GSPO 四阶段权重链](https://huggingface.co/starttoshow/medix-qwen3.5-2b-cpt-sft-gspo-20260908)。权重链需按 CPT、SFT、RL 的依赖顺序合并，不能把后段适配器直接挂到原始基座；固定版本、哈希、配方和加载命令集中在 [训练与推理说明](MediX-R1/README.md)。
-
-关键词 CPT 使用约 808 万输入 token。仓库公开其来源构成、选择限制、打包审计和训练文件哈希，不重新分发完整原文；关键词候选尚未完成逐条语义覆盖认证，教材、Bookshelf/StatPearls 与 PubMed 摘要的再分发条件需按来源核查。[CPT 语料与机制审计](results/training-scale-cpt-2026-09-11/README.md#关键词-cpt-语料)
 
 ## 项目结构
 
