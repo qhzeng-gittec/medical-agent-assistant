@@ -1,0 +1,73 @@
+{
+  "objective": "Measure coverage without gaining it by including inapplicable items; no guaranteed positive result",
+  "model": "minimax/minimax-m2.5",
+  "arms": [
+    "single",
+    "single_review",
+    "single_audit",
+    "swarm",
+    "coverage_swarm"
+  ],
+  "primary": "Exact applicable item set per case",
+  "secondary": [
+    "macro recall",
+    "precision",
+    "omission count",
+    "false inclusion count",
+    "latency",
+    "tokens",
+    "cost"
+  ],
+  "oracle": "Generated current states and explicit synthetic workflow rules; deterministic matching by patient and opaque rule code; no LLM judge",
+  "fairness": "Same total available source packet and three-domain checklist; single initially sees full packet, candidate supervisor initially sees directory and workers initially see own-domain text and record fields; same seven raw tools across the system",
+  "candidate": "Prompt-directed independent three-domain coverage review, fresh worker context and final supervisor synthesis; no oracle or mandatory correct-item union used by target",
+  "scope": "Provided-document synthetic workflow auditing, not clinical accuracy or production RAG recall",
+  "dev": "4 breadth/subject/history scenarios before choosing final candidate",
+  "test": "Fresh seeds and codes; freeze after dev; retain every execution",
+  "budget_usd": 4.0,
+  "limits": "Formal:24 logical model requests and24 raw tool executions;16384 output/reasoning tokens per request; worker240s; initial main600s; additional single reviews count toward time and shared request cap",
+  "inference": "Paired by case; repeated cases cluster together, task items are not independent cases",
+  "development_amendments": [
+    {
+      "phase": "dev2",
+      "reason": "Initial 4096-token output+reasoning ceiling caused incomplete single responses; prompt-only candidate often did not delegate. Preserve all16 dev executions.",
+      "changes": [
+        "All target requests now allow16384 output/reasoning tokens",
+        "Candidate supervisor sees directory, workers access actual scoped reference text and return it as evidence",
+        "Add single_audit: initial draft plus3 domain reviews in shared context plus final synthesis",
+        "Worker timeout240s, main600s, review calls count toward total time but use request timeouts"
+      ]
+    },
+    {
+      "phase": "dev3",
+      "reason": "Dev2 broad cases showed worker false inclusions and cross-patient swaps; candidate received unrelated record fields and earlier worker findings. One single-audit final emitted textual tool instructions.",
+      "changes": [
+        "Workers get only own-domain record fields, retaining every patient/date/value in that domain; no prior worker answers",
+        "Supervisor encouraged to batch independent domain calls",
+        "Direct single review requests advertise same raw tool schemas with tool_choice=none because all sources already available",
+        "Scorer separates duplicate/format defects from semantic coverage; preserve legacy recorded scores in historical runs"
+      ]
+    },
+    {
+      "phase": "dev4",
+      "reason": "Provider returned native tool_calls despite tool_choice none during single audit; support actual tool execution instead of counting it as a semantic failure. Research worker confused missing-information tasks with waiting for user.",
+      "changes": [
+        "Review uses full native tool continuation and same raw tools under common24-request cap",
+        "Common instruction for every arm explicitly clarifies that unknown-state clarification items are required deliverables"
+      ]
+    }
+  ],
+  "final_candidate": "Directory-only supervisor; each worker receives its domain rule text and all patient/date fields in that domain, no previous worker answers; raw source returned as evidence; model synthesizes final set",
+  "primary_comparison": "coverage_swarm versus single_audit over32 new input configurations:16 full five-arm cases and16 confirmation cases; unconditional second cohort",
+  "formal_runs": 112,
+  "formal_repeats": 1,
+  "formal_scope": "32 generated state/order/code configurations from the same36-field simulated workflow catalog; not32 independent clinical scenarios",
+  "common_single_call_output_limit": 16384,
+  "worker_timeout": 240,
+  "main_timeout": 600,
+  "initial_dev_limits": "4096 used only in initial dev; all formal arms use16384",
+  "scoring": "Exact item set is primary; macro coverage and precision both reported; duplicate formatting is separate from semantic omissions; no LLM judge",
+  "reporting": "Do not call coverage gain overall quality gain if false inclusions worsen; report paired uncertainty and actual compute; all prior dev trials retained",
+  "review_protocol": "Full native tool continuation for single reviews; same raw tools and common24-request/tool cap",
+  "data_audit": "All32 expected sets independently rebuilt from displayed document rule text and latest dated notes, without using hidden structured states/rules"
+}

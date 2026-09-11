@@ -1,0 +1,21 @@
+{
+  "reason": "Observed directory-routing calls asked workers to retrieve documents instead of explicitly completing each domain audit; one candidate planner exhausted tokens before dispatch.",
+  "change": "Fixed three required domain audits using real existing workers, then model synthesis with the same raw tools; no initial planner model call.",
+  "scope": "Follow-up candidate after inspecting earlier formal results; all earlier cohorts retained. New eight-case follow-up is exploratory, not replacement for32-case primary comparison.",
+  "arms": [
+    "single_audit",
+    "coverage_swarm"
+  ],
+  "dev_runs": 2,
+  "test_runs": 16,
+  "primary": "Exact applicable patient-action set",
+  "secondary": [
+    "coverage",
+    "precision",
+    "latency",
+    "cost"
+  ],
+  "stopping": "Run both development cases, then all16 new paired executions regardless of development outcome, subject to shared4USD hard cap. No further candidate changes.",
+  "budget": "Same study-wide4USD cap; start only if spent_or_reserved after original112runs is at most3.4USD.",
+  "limitations": "Explicit task routing and prompts change together; not isolated effect of agent count. Eight new input configurations reuse the original field catalog."
+}

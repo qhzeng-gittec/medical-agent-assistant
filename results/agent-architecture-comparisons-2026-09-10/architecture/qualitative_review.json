@@ -1,0 +1,104 @@
+{
+  "reviewer": "Codex main execution agent; not a human or clinical expert",
+  "effect_on_primary_scores": "None; frozen valid model judgments remain unchanged",
+  "observations": [
+    {
+      "run": "T04_swarm_r2",
+      "finding": "工作 Agent 的回答首先漏掉 GERD 和鼻后滴漏排除人群；主管随后沿用这一遗漏。主管最终请求中的 tool 消息确实含 GERD 原始资料，因此不是原始证据未传回主管。",
+      "evidence": [
+        "test/T04_swarm_r2/result.json",
+        "test/T04_swarm_r2/trace.json",
+        "test/T04_swarm_r2/grade_0.json"
+      ],
+      "interpretation": "传回证据和增加汇总层都不足以保证主管发现工作 Agent 的遗漏。"
+    },
+    {
+      "run": "T07_swarm_tasks_r1",
+      "finding": "五个研究任务确实同时运行，峰值并发为 5；全程 148.05 秒，17 次模型请求。配对现有 swarm 为 108.06 秒、8 次请求，single 为 132.92 秒、9 次请求。",
+      "evidence": [
+        "test/T07_swarm_tasks_r1/trace.json",
+        "test/T07_swarm_tasks_r1/result.json",
+        "test/T07_swarm_r1/result.json",
+        "test/T07_single_r1/result.json"
+      ],
+      "interpretation": "实测并行不等于更快。各方案自行规划且请求工作量不同，不能用本例估计固定工作量下的纯并行加速比。"
+    },
+    {
+      "run": "T11_single_r2; T11_swarm_r2; T11_swarm_tasks_r2",
+      "finding": "题目未给出单胎信息，但这些答案将孕周、无并发症与单胎指南条件合并，并宣称符合适用条件。",
+      "evidence": [
+        "test.json",
+        "test/T11_single_r2/result.json",
+        "test/T11_swarm_r2/result.json",
+        "test/T11_swarm_tasks_r2/result.json"
+      ],
+      "interpretation": "单 Agent 与多 Agent 都可能把未知前提补成患者事实，角色数量不是防止过度推断的保证。"
+    },
+    {
+      "run": "T09_swarm_tasks_r1",
+      "finding": "MiniMax 第一份无效评分称答案声称数据丢失，但实际答案明确写无数据丢失记录；两次评分均漏掉共同来源检查项。程序均拒绝采纳。",
+      "evidence": [
+        "test/T09_swarm_tasks_r1/result.json",
+        "test/T09_swarm_tasks_r1/judge_1/trace.json",
+        "test/T09_swarm_tasks_r1/grade_1.json"
+      ],
+      "interpretation": "评审可能混淆题干错误前提与被测答案；格式完整性校验只能发现部分评审错误。"
+    },
+    {
+      "run": "T11_single_review_r1",
+      "finding": "最终答案明确写若BMI≥28，检查项允许明确条件化建议，但MiniMax据此判定伪造BMI并使答案失败。Qwen给出通过。",
+      "evidence": [
+        "test/T11_single_review_r1/result.json",
+        "test/T11_single_review_r1/grade_1.json",
+        "test.json"
+      ],
+      "interpretation": "这一具体失败理由不成立；不覆盖其他未被评审发现的可能错误。不回写主评分。"
+    },
+    {
+      "run": "T11_swarm_r1",
+      "finding": "答案末尾将不适用于妊娠期妇女错误归给T11-D1；D1实际说本手册不适用于非妊娠人群。两名评审均通过共同来源检查。",
+      "evidence": [
+        "test/T11_swarm_r1/result.json",
+        "test/T11_swarm_r1/grade_0.json",
+        "test/T11_swarm_r1/grade_1.json",
+        "test.json"
+      ],
+      "interpretation": "双评审一致通过仍可能是假阳性，因此本题自动评分的多Agent胜出不能作为可靠质量收益证据。不回写主评分。"
+    },
+    {
+      "run": "T11_single_r2; T11_swarm_r2; T11_swarm_tasks_r2",
+      "finding": "两名评审对这三次答案的全部检查项均给pass，包括单胎未知条件检查，但最终答案均将相关适用性写成已确认。",
+      "evidence": [
+        "test/T11_single_r2/grade_0.json",
+        "test/T11_single_r2/grade_1.json",
+        "test/T11_swarm_r2/grade_0.json",
+        "test/T11_swarm_r2/grade_1.json",
+        "test/T11_swarm_tasks_r2/grade_0.json",
+        "test/T11_swarm_tasks_r2/grade_1.json"
+      ],
+      "interpretation": "自动评分的共同盲点跨方案存在；一致通过不能替代证据核查或专家校准。不回写主评分。"
+    },
+    {
+      "run": "T08 dataset and grades",
+      "finding": "D1指南引用的排除标准是精神疾病、中风/TIA、智能手机操作；D2原始研究摘要列出年龄、妊娠、既往预防用药、慢性疼痛、认知障碍。冻结检查项只要求D1的三项，未规定如何处理两份来源差异。Qwen对不同方案出现相互矛盾的扣分理由。D2新增归档附录还把12周研究写到了第12个月，说明附录并非完全中性。",
+      "evidence": [
+        "test.json",
+        "test/T08_single_r1/grade_0.json",
+        "test/T08_single_review_r1/grade_0.json",
+        "test/T08_swarm_r1/grade_0.json"
+      ],
+      "interpretation": "这是数据与评分标准的有效性缺陷，不归因于某个架构。保留原始全量结果；T08不能支持架构质量优势。下一版应让标准接受可追溯的来源差异说明，并校验所有附录事实，不对已看答案偷偷改分。"
+    },
+    {
+      "run": "T12_swarm_tasks_r1",
+      "finding": "候选答案问是否已满1个月，但直接将≥1个月视为适用2025版，漏掉过去3个月无急性加重和静息血氧≥90%的冻结条件。两名评审均通过。Qwen给出的quote还包含最终答案中不存在的3个月和血氧条件，内容实际上来自检查项/资料。",
+      "evidence": [
+        "test/T12_swarm_tasks_r1/result.json",
+        "test/T12_swarm_tasks_r1/grade_0.json",
+        "test/T12_swarm_tasks_r1/grade_1.json",
+        "test.json"
+      ],
+      "interpretation": "这是共同假阳性及引用失真。相对single的另一个自动配对胜例也不能作为完整质量收益证据；可确认的局部改进仅是追问了时间。不回写主评分。"
+    }
+  ]
+}

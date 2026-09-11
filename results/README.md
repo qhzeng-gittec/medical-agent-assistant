@@ -5,6 +5,7 @@
 | 任务 | 使用的模型及角色 | 结果与证据 |
 | --- | --- | --- |
 | **当前 Agent 整体任务** | **Qwen3.5-27B 执行；MiniMax M2.5 与 Qwen3.5-27B 双评** | **72 场完成，71 场有效双评，67 场全项通过**；[设计与整体测评](agent-current-2026-09-09/README.md) · [逐场评分](agent-current-2026-09-09/case_scores.csv) |
+| **Agent 架构与任务覆盖** | **MiniMax M2.5 执行；冻结事项自动计分及 Qwen/MiniMax 双评** | **32 道多事项题完整正确均为 13/32；分工方案耗时 −41.3%、输入 token −74.8%**；[两组对照与完整证据](agent-architecture-comparisons-2026-09-10/README.md) |
 | Worker 串行 / 并行 | MiniMax M2.5 执行同一批 Agent 子任务；程序计时 | 平均 49.80→20.15 秒；[架构测评](2026-09-08/architecture.md) |
 | RAG 多候选检索 | Qwen3-Embedding-8B 编码查询和资料；程序按目标来源计分 | 432 条测试查询，Top 1→Top 3 完整来源覆盖 333→408；[逐项汇总](hybrid-grounding-2026-09-08/retrieval/summary.json) |
 | Agent 工程机制 | 固定模拟模型输出；真实代码与本地存储执行 | 152 项自动测试通过；[测试与运行](../medix-agent-swarm/README.md) |

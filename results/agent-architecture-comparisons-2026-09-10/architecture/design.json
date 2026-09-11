@@ -1,0 +1,49 @@
+{
+  "objective": "Identify conditional value, including null/negative results; no guaranteed multi-agent win",
+  "primary": "Strict all-requirement pass by two independent blinded model judges",
+  "secondary": "requirement pass fraction, source support, latency, token usage, API calls and cost; no weighted score",
+  "arms": [
+    "single",
+    "single_review",
+    "swarm",
+    "swarm_tasks"
+  ],
+  "target": "minimax/minimax-m2.5",
+  "judges": [
+    "qwen/qwen3.5-27b",
+    "minimax/minimax-m2.5"
+  ],
+  "temperature": 0.2,
+  "global_model_request_cap": 24,
+  "global_raw_tool_cap": 24,
+  "per_response_output_cap": 4096,
+  "single_rounds": 10,
+  "swarm_supervisor_rounds": 4,
+  "worker_rounds": 5,
+  "worker_timeout": 120,
+  "case_timeout": 420,
+  "cap_usd": 5.0,
+  "dev": "four already exposed development cases, one repetition",
+  "test": "12 newly authored synthetic cases, 3 per family; two repetitions per arm, 96 planned primary executions",
+  "families": [
+    "simple",
+    "parallel",
+    "long_evidence",
+    "dependency"
+  ],
+  "author": "Qwen API sees schema/mechanisms only, no implementation, prompts, scores or previous cases",
+  "fairness": "Same source corpus, dense embedding retrieval and tools; single can parallelize tools; single_review gets extra critique with full own trace",
+  "services": "real model and embedding API, per-case frozen cosine index; synthetic packet contents clearly labeled; no web or Mem0",
+  "serial_ablation": "Candidate swarm_tasks with only worker execution serialized; preselected T04-T06 and T10-T12, two repetitions = 12 executions",
+  "inference": "Pair by case/repetition; bootstrap at case level; multiple families exploratory; repeated runs are not independent cases",
+  "success_interpretation": "A mechanism needs quality gain over both singles, or comparable quality with measured efficiency gain; otherwise retain null result",
+  "failures": "Keep all scheduled executions in denominator, show paired-valid subset; never rerun a valid semantic fail",
+  "grading": "Two named models, version/arm hidden; disagreements not passes; incomplete rating may retry identical once",
+  "scope": "No clinical accuracy claim; not exact realized-token matching; budget ceilings do not guarantee equal compute",
+  "candidate": "Only permit independent tasks for the same specialty in one round, with worker-local fresh loops/context. Motivated by D04 dev trace: three research calls, two DuplicateCall rejections. No case-specific routing.",
+  "baseline_amendment": "Remove one inherited instruction to delegate risk assessment from the single-agent prompt before test freeze; all other target settings retained. Dev results remain prior baseline wording.",
+  "data_audit": "After author generation and before any test execution, independent MiniMax reviews question/evidence/rubric consistency; original authored data and corrected requirements retained. Long-packet body expanded without changing original facts or questions.",
+  "dev_grading_transport_amendment": "MiniMax requires reasoning: low enabled, invalid HTTP400 judgments retained and replaced; valid Qwen grades untouched.",
+  "test_authorship_limit": "Qwen authors and also serves as one judge; MiniMax is target and second judge. Independent calls, but not independent human/clinical review.",
+  "environment_amendment": "Before any test quality grading, 13 initial runs showed the supplied-packet location was unspecified. Preserve all as environment_pilot and rerun every arm with identical context stating the packet is in the knowledge base. Questions, documents and rubrics unchanged. These are audited synthetic validation data, not an untouched clinical holdout."
+}
