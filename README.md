@@ -1,20 +1,51 @@
 # Medical Agent Assistant
 
-医疗多智能体助手与 Qwen3.5-2B 医疗模型训练实验。项目支持多轮问诊、专业 Agent 调度、患者档案与检索证据管理，并公开 CPT、LoRA SFT、GSPO 的训练数据说明和可追溯评测。
+这是一个研究医疗助手如何分工、使用证据和记住用户信息的工程项目，同时包含一个小型医疗模型的训练实验。
+
+**医疗助手**由总控 Agent 接收问题，按需要调用健康咨询、诊断和医学研究三个专业 Agent，再结合检索资料汇总答复。患者档案保存用户明确提供的稳定信息，长期记忆支持跨会话回查，检索工具提供可追溯的回答依据。
+
+**模型训练**以 Qwen3.5-2B 为基础，比较学习医学原文、学习问答示例以及按回答评分优化模型这几种方法。Agent 系统通过模型 API 运行，下面的整体测评使用 Qwen3.5-27B；小模型训练单独评测，尚未作为该组 Agent 整体测试的执行模型。
 
 [Agent 使用说明](medix-agent-swarm/README.md) · [Agent 整体测评](#agent-整体测评) · [Agent 架构对照](results/agent-architecture-comparisons-2026-09-10/README.md) · [Agent 关键设计](#agent-关键设计) · [SFT 规模与 CPT 机制](results/training-scale-cpt-2026-09-11/README.md) · [训练与推理](MediX-R1/README.md) · [模型与数据](https://huggingface.co/collections/starttoshow/medix-medical-sft-and-gspo-6a9e6f31b80642f4ba8b6f28) · [全部精选测评](results/README.md)
 
+## Agent 关键设计
+
+项目迭代围绕总控如何分工、跨轮状态怎样更新、历史如何回查以及证据怎样交付展开。当前保留六项核心设计：
+
+| 设计 | 当前实现 |
+| --- | --- |
+| **按语义与依赖调度** | 总控根据问题和已有结果选择专业 Agent；包括同专业在内的独立任务可同轮并行，依赖由模型判断、分轮执行，各 Worker 只获得职责内工具 |
+| **分层记忆与上下文预算** | 患者档案保存稳定事实，近期对话按完整轮次与字符预算保留，Mem0 提供跨会话事件检索 |
+| **有原话依据的档案更新** | 模型提议新增、更正、否定和停用状态；代码校验用户范围与本轮原话证据后持久化 |
+| **主动补查与来源保留** | 初始历史不足时调用补查工具；新记忆保留有长度上限的用户原话，区分事件、咨询与系统保存时间 |
+| **证据交付与复用** | Worker 返回实际检索摘录供总控核对；同一次调用内复用相同请求，并用引用代替重复文档正文 |
+| **执行控制与可追溯状态** | 正式工具调用经过白名单、参数和作用域检查；配置调用上限、轮数与超时，记录实际执行及返回结果 |
+
+[当前执行流程与上下文](medix-agent-swarm/README.md#执行流程与上下文) · [9 月 9 日冻结版本的设计与整体验证](results/agent-current-2026-09-09/README.md)。下图展开总控、专业 Agent 和实际注册的工具/Skills。
+
+```mermaid
+flowchart LR
+    U["用户问题"] --> S["总控：理解需求与安排任务"]
+    M["患者档案与历史记忆"] --> S
+    S --> W["专业助手：咨询、诊断、医学研究"]
+    W --> E["工具：检索资料与查询来源"]
+    E --> W
+    W --> A["总控：核对证据并汇总答复"]
+    S --> A
+```
+
+总控可以直接回答，也可以委派专业任务。独立任务允许并行，依赖前一步结果的任务分轮执行。具体工具名、调用顺序和上下文内容见[执行流程说明](medix-agent-swarm/README.md#执行流程与上下文)。
+
 ## 核心结果
 
-| 工作 | 测评规模 | 结果 | 证据 |
-| --- | ---: | --- | --- |
-| **医疗 Agent** | 72 个多轮场景，71 场有效双评 | 67/72 场全部适用检查项通过；测试的是冻结 Agent 版本，不是临床准确率 | [整体任务测评](results/agent-current-2026-09-09/README.md) |
-| **Agent 架构对照** | 32 道多事项题、两种完整流程 | 完整正确均为 13/32；分工方案平均耗时 **−41.3%**、输入 token **−74.8%** | [架构与任务覆盖对照](results/agent-architecture-comparisons-2026-09-10/README.md) |
-| **RAG 检索** | 1,016 篇资料、432 条可回答测试查询 | 全部目标来源覆盖：Top 1 **333/432**，Top 3 **408/432** | [检索结果](results/hybrid-grounding-2026-09-08/retrieval/summary.json) |
-| **SFT 数据组成** | 1,200 道独立题、7 个条件、8,400 份回答 | 新 5k 相对历史 5,418 条配方：通用答案 **+16.83** 个百分点 `[+12.50, +21.00]`；医疗答案 +1.17 个百分点 | [规模、配方与逐项结果](results/training-scale-cpt-2026-09-11/README.md#sft-数据规模与组成) |
-| **SFT 数据规模** | 新 5k、独立 20k、重复 5k 对照 | 20k 相对 5k：医疗答案 +1.34、通用答案 +0.83 个百分点；重复 5k 提供 token 量匹配对照 | [同题配对区间](results/training-scale-cpt-2026-09-11/sft-scale/results.json) |
-| **关键词 CPT** | 808 万 token；600 道新留出医疗选择题 | 候选排名 **305/600→325/600**，+3.33 个百分点 `[+0.33, +6.50]`；单训练 seed | [CPT 数据与四阶段结果](results/training-scale-cpt-2026-09-11/README.md#关键词-cpt-语料) |
-| **VQA GSPO** | 93 问、16 张独立验证图像 | 归一化评分 **60.75→66.13**，满分答案 **50/93→57/93** | [逐题回答与评分](results/model-evaluations-2026-09-09/README.md#3-vqa-gspo93-问16-张验证图像) |
+| 项目工作 | 实验比较与主要结果 | 详细说明 |
+| --- | --- | --- |
+| 多轮任务完成情况 | 72 个合成场景中，67 场的全部适用检查项获两位模型评审通过 | [场景、回答与评分](results/agent-current-2026-09-09/README.md) |
+| 专业分工的运行效率 | 在 32 道资料核对题上，相对一个助手连续多轮复核，独立分工方案平均耗时减少 41.3%、输入文本量减少 74.8%；两组完整正确均为 13/32 | [分工方案与对照方法](results/agent-architecture-comparisons-2026-09-10/README.md) |
+| 检索资料是否齐全 | 432 条可回答查询中，每次取前三篇资料比只取第一篇多覆盖 75 个问题所需的全部来源 | [检索数据与结果](results/hybrid-grounding-2026-09-08/README.md) |
+| 问答训练数据的组成 | 使用 5,000 条通用与医疗混合示例，相对原项目 5,418 条医学问答，通用答案满分率增加 16.83 个百分点 | [数据来源、数量与评分](results/training-scale-cpt-2026-09-11/README.md#sft-数据规模与组成) |
+| 学习医学原文 | 继续学习约 808 万 token 的文本后，600 道医学选择题的选项排名正确数由 305 增至 325 | [医学原文训练实验](results/training-scale-cpt-2026-09-11/README.md#关键词-cpt-语料) |
+| 医学图像问答优化 | 93 个图像问题上，按回答评分继续优化后，归一化评分从 60.75 增至 66.13 | [图像问答训练与评分](results/model-evaluations-2026-09-09/README.md) |
 
 ## Agent 测评
 
@@ -37,9 +68,11 @@
 
 ### Agent 架构与任务覆盖对照
 
+这组实验让助手阅读模拟资料，核对不同患者、日期和适用条件对应的待办事项。“连续复核单 Agent”让同一个助手分多个方向依次检查；“独立分工多 Agent”让专业助手各自阅读相关资料，再由总控合并清单。下面的效率数字比较这两种完整流程，分工方案是评测原型。
+
 在 32 道多事项核对题、898 个标准事项上，连续复核单 Agent 与独立分工多 Agent 的完整正确清单均为 **13/32**。分工方案在 24/32 道题中实际并发，平均耗时由 **119.8 秒降至 70.3 秒（−41.3%）**，输入 token 从 **2,486,128 降至 627,044（−74.8%）**。
 
-另一组 12 场景、四种架构、96 次主对照及 12 次串行消融定位了“同专业不同任务”误拒绝：当前方案出现 9 次，独立任务候选为 0 次。两组实验的冻结输入、逐项分析、108 次架构运行、128 次覆盖率运行及 1,248 份轨迹/评分证据已公开。[完整架构报告与离线复算](results/agent-architecture-comparisons-2026-09-10/README.md)
+另一组 12 场景、四种架构、96 次主对照及 12 次串行消融定位了“同专业不同任务”误拒绝：实验时的旧版方案出现 9 次，独立任务候选为 0 次。两组实验的冻结输入、逐项分析、108 次架构运行、128 次覆盖率运行及 1,248 份轨迹/评分证据已公开。[完整架构报告与离线复算](results/agent-architecture-comparisons-2026-09-10/README.md)
 
 ### Agent 调度效率
 
@@ -48,6 +81,8 @@
 两组使用同一模型、同一批任务，只改变调度方式；这是调度耗时对照。完整流程的请求数、费用和耗时另见 [架构测评](results/2026-09-08/architecture.md)。
 
 ### RAG 证据覆盖
+
+RAG（检索增强生成）先从知识库找资料，再让模型依据资料回答。本项先检查检索阶段：返回的资料是否包含回答问题所需的全部来源。Top 1、Top 3、Top 5 分别表示取排名前一篇、前三篇和前五篇。
 
 在 **1,016 篇 MedlinePlus 健康主题摘要、800 条查询**的固定数据上，以 **Qwen3-Embedding-8B 生成检索向量**，按预先标注的目标来源直接计算覆盖，无需回答评分模型。测试集有 432 条完全可回答查询，保持同一排名，只改变返回的候选数量：
 
@@ -60,6 +95,8 @@
 Top 3 比 Top 1 多覆盖 **75 个问题所需的全部来源**，说明保留多个候选能更好地支持多证据问题。统计使用无相似度过滤的固定排序，衡量检索覆盖；资料来自公开摘要，查询为合成检索任务。[数据、排名与复算](results/hybrid-grounding-2026-09-08/retrieval/summary.json)
 
 ### Mem0 跨会话记忆
+
+Mem0 是本项目使用的长期记忆组件：从对话提取用户信息，保存后供下次会话查询。本项通过关闭并重开存储，检查记忆是否真正持久化，以及返回的记忆能否支持预设的历史问题。
 
 冻结组件测评包含 **120 个合成场景、240 次正向查询**；每个场景写入两次会话，关闭并重新打开本地 Mem0 OSS / Qdrant 存储。测试集为 96 场景、192 次正向查询，固定实际召回记录及阈值 0.3：
 
@@ -76,17 +113,19 @@ Top 3 比 Top 1 多覆盖 **75 个问题所需的全部来源**，说明保留�
 
 ## 模型训练与数据
 
+训练目标是让一个 2B 参数规模的模型适应医学问答，同时检查通用能力是否保留。持续预训练（CPT）学习医学原文；监督微调（SFT）学习带推理和答案的问答示例；GSPO 根据回答奖励做进一步优化。LoRA 是这些实验使用的参数高效微调方式。图像问答在报告中简称 VQA。
+
 ### SFT 数据规模与组成
 
-本轮固定 **600 道医疗题 + 600 道通用题**，对比历史 5,418 条配方、新 5k、独立 20k、重复 5k，以及有无 CPT 的 20k 对照，共公开 **7 个条件、8,400 份逐题回答**。新 5k 相对历史配方的通用答案提高 **16.83 个百分点**；20k 相对 5k 的医疗/通用答案差为 +1.34/+0.83 个百分点。数据计划、抽样审计、运行协议、代码检查和逐项结果均可下载并离线复算。[实验总览](results/training-scale-cpt-2026-09-11/README.md#sft-数据规模与组成) · [抽样审计](results/training-scale-cpt-2026-09-11/sft-scale/spot_audit.json) · [逐项结果](results/training-scale-cpt-2026-09-11/sft-scale/results.json)
+实验关注两个选择：训练数据应该怎样搭配，以及增加不同问答示例是否有帮助。原项目训练集有 5,418 条医学问答；新的混合方案由 80% 通用指令、15% 医疗推理问答和 5% 原项目数据组成，分别训练 5,000 条和 20,000 条。另设重复使用同一批 5,000 条的对照，让训练所见的答案与推理文本总量接近 20,000 条方案。
+
+七种训练方案回答相同的 **600 道医疗题和 600 道通用题**。其中，5,000 条混合示例方案在通用题上有 **321/600** 份答案获满分，原项目方案为 **220/600**，相差 **16.83 个百分点**。两组均先做医学原文训练。数据组成、抽样质量检查、增加样本及训练顺序的完整比较见[训练报告](results/training-scale-cpt-2026-09-11/README.md#sft-数据规模与组成)。
 
 ### CPT 数据公开范围
 
-CPT 训练语料共 **8,081,489 个输入 token**：PubMed 5,655,154、StatPearls 1,376,515、医学教材 968,797，另含 81,023 个通用 replay token；选择 18,781 篇医学文档，打包为 4,505 个训练 block。仓库直接公开[语料构成与哈希](results/training-scale-cpt-2026-09-11/cpt/corpus_manifest.json)、[打包审计](results/training-scale-cpt-2026-09-11/cpt/corpus_audit.json)和构建限制，不重新分发许可尚未逐项核清的原文。
+CPT 训练语料共 **8,081,489 个输入 token**：PubMed 5,655,154、StatPearls 1,376,515、医学教材 968,797，另含 81,023 个通用文本 token；选择 18,781 篇医学文档，打包为 4,505 个训练文本块。仓库直接公开[语料构成与哈希](results/training-scale-cpt-2026-09-11/cpt/corpus_manifest.json)、[打包审计](results/training-scale-cpt-2026-09-11/cpt/corpus_audit.json)和构建限制，不重新分发许可尚未逐项核清的原文。
 
-机械审计已经通过，但关键词命中不等于语义知识覆盖；项目问题知识参与了选材，因此这批数据用于诊断性 CPT，不包装成独立无泄漏语料。相同新 20k SFT 下，有无 CPT 的医疗答案差 −0.33、通用答案差 +0.33 个百分点；完整报告保留同题配对区间，用于区分 CPT 与后续 SFT 的作用。[完整结论与局限](results/training-scale-cpt-2026-09-11/README.md)
-
-更新于 **2026-09-11**。主结果只展示数百题正式比较；未完成的 CPT 运行不计作结果，小样本超参与回忆实验仅作为机制探针。
+审计检查每段训练文本能否追溯到来源、打包是否正确及训练/验证数据是否隔离。语料按与项目问题有关的关键词选取，其选材方式和覆盖限制在[语料说明](results/training-scale-cpt-2026-09-11/README.md#关键词-cpt-语料)中公开。数据与实验更新于 **2026-09-11**。
 
 ### 其他训练关键测评
 
@@ -94,16 +133,16 @@ CPT 训练语料共 **8,081,489 个输入 token**：PubMed 5,655,154、StatPearl
 
 | 重要测评 | 数据与对照 | 关键结果 |
 | --- | --- | --- |
-| **A–F 训练配方** | 150 道知识 + 97 道上下文项目 test 题；含推理消融共 944 份回答 | 知识答案归一化分 A/B/C/D：**66.00 / 67.33 / 62.33 / 66.00**；上下文 E/F：**87.63 / 87.11** |
+| **六种微调配置** | 比较不同 LoRA 训练配置；150 道知识题与 97 道带上下文的题 | 知识题四组答案归一化分为 62.33–67.33，上下文题两组为 87.11–87.63；配置编号及对应设置见详细报告 |
 | **医疗选择题四阶段** | 新留出 600 题，同题比较原始、仅 CPT、仅 SFT、CPT+SFT；关键词 CPT 实验 | 候选字母排名正确数依次为 **305 / 325 / 293 / 323（各 /600）**；CPT+SFT 比仅 SFT +5.00 个百分点，名义 95% 区间 [+2.00, +8.17] |
-| **VQA GSPO** | C 配方 SFT→GSPO；93 问、16 张项目验证图像 | 归一化评分 **60.75→66.13**；满分 **50/93→57/93**；9 题评分改善、2 题降低 |
+| **医学图像问答奖励优化** | 在已微调模型上继续进行 GSPO 训练；93 问、16 张项目验证图像 | 归一化评分 **60.75→66.13**；满分 **50/93→57/93**；9 题评分改善、2 题降低 |
 | **知识与病例 GSPO** | 扩展 CPT+SFT 权重，RL 关闭/开启；150 知识 + 162 病例项目测试题 | 已公开 312 道项目测试题的关闭/开启配对回答、答案分与解释分 |
 
-A–F 与 VQA 使用 0/1/2 模型评分再归一化，分数不同于严格正确率。600 题按原题标签计分，选自官方 MedMCQA train 中项目此前未使用的题，候选排名与自由回答分开报告。VQA 为单种子验证集模型评分，其中 1 对相同输出得到不同分数。各组完整基线、解释分、生成设置和逐题证据见[模型测评报告](results/model-evaluations-2026-09-09/README.md)，阶段探针与开发实验另列。
+六种微调配置与图像问答使用 0/1/2 模型评分再归一化，分数不同于严格正确率。600 题按原题标签计分，选自官方 MedMCQA train 中项目此前未使用的题，候选排名与自由回答分开报告。VQA 为单种子验证集模型评分，其中 1 对相同输出得到不同分数。各组完整基线、解释分、生成设置和逐题证据见[模型测评报告](results/model-evaluations-2026-09-09/README.md)，阶段探针与开发实验另列。
 
 ### 模型通用基准
 
-使用原始 Qwen3.5-2B 与医学 CPT+SFT（`cpt_medical_v1`）在三个通用基准各 **500 道固定抽样题**上配对比较，共 **1,500 道独立题**：
+使用原始 Qwen3.5-2B 与先学习医学原文、再学习医学问答的模型在三个通用测试集（MMLU 知识选择题、ARC-Challenge 科学推理题、HellaSwag 常识续写题）各 **500 道固定抽样题**上配对比较，共 **1,500 道独立题**：
 
 | 基准与零样本候选似然指标 | 原始模型 | CPT+SFT | 变化（百分点） | 配对 95% 区间 |
 | --- | ---: | ---: | ---: | --- |
@@ -115,85 +154,11 @@ ARC-Challenge 的改善经三项主检验 Holm 校正后达到统计显著，另
 
 ### 数据与权重
 
-数据包含 **5,418 条训练、503 条验证、514 条测试记录及 314 张图片**，来自 VQA-RAD、MedMCQA、PubMedQA，含模型辅助标注。[数据来源与许可证](https://huggingface.co/datasets/starttoshow/medix-medical-sft)
+原项目医学问答数据集包含 **5,418 条训练、503 条验证、514 条测试记录及 314 张图片**，来自 VQA-RAD、MedMCQA、PubMedQA，含模型辅助标注。[数据来源与许可证](https://huggingface.co/datasets/starttoshow/medix-medical-sft)
 
-已发布 A–F 六种 LoRA 配方、VQA GSPO 适配器，以及 [CPT→SFT→GSPO 四阶段权重链](https://huggingface.co/starttoshow/medix-qwen3.5-2b-cpt-sft-gspo-20260908)。权重链需按 CPT、SFT、RL 的依赖顺序合并，不能把后段适配器直接挂到原始基座；固定版本、哈希、配方和加载命令集中在 [训练与推理说明](MediX-R1/README.md)。
+已发布六种 LoRA 微调配置的权重、医学图像问答奖励优化权重，以及 [CPT→SFT→GSPO 四阶段权重链](https://huggingface.co/starttoshow/medix-qwen3.5-2b-cpt-sft-gspo-20260908)。权重链需按 CPT、SFT、RL 的依赖顺序合并，不能把后段适配器直接挂到原始基座；固定版本、哈希、配方和加载命令集中在 [训练与推理说明](MediX-R1/README.md)。
 
 关键词 CPT 使用约 808 万输入 token。仓库公开其来源构成、选择限制、打包审计和训练文件哈希，不重新分发完整原文；关键词候选尚未完成逐条语义覆盖认证，教材、Bookshelf/StatPearls 与 PubMed 摘要的再分发条件需按来源核查。[CPT 语料与机制审计](results/training-scale-cpt-2026-09-11/README.md#关键词-cpt-语料)
-
-## 功能
-
-| 模块 | 功能 |
-| --- | --- |
-| 模型训练 | Qwen3.5-2B 的 Attention / Attention+FFN LoRA、VQA GSPO，以及 CPT→SFT→知识/病例 GSPO 对照链 |
-| 评测 | 逐轮回答/档案/工具状态核对、逐项双评、串并行对照、答案与解释分评、配对置信区间 |
-| 医疗 Agent | Supervisor 根据问题调用问诊、诊断、研究 Agent，汇总工具结果和来源 |
-| 记忆与检索 | 模型提议档案更新，代码校验用户和原话证据；近期对话预算、可选 Mem0 与主动历史补查；RAG 候选和正文复用 |
-
-项目包含两条可独立运行的工程链路：通过 OpenAI 兼容 API 驱动的医疗 Agent，以及 Qwen3.5-2B 的 LoRA 训练与推理。
-
-## Agent 关键设计
-
-项目迭代围绕总控如何分工、跨轮状态怎样更新、历史如何回查以及证据怎样交付展开。当前保留六项核心设计：
-
-| 设计 | 当前实现 |
-| --- | --- |
-| **按语义与依赖调度** | 总控根据问题和已有结果选择专业 Agent；包括同专业在内的独立任务可同轮并行，依赖由模型判断、分轮执行，各 Worker 只获得职责内工具 |
-| **分层记忆与上下文预算** | 患者档案保存稳定事实，近期对话按完整轮次与字符预算保留，Mem0 提供跨会话事件检索 |
-| **有原话依据的档案更新** | 模型提议新增、更正、否定和停用状态；代码校验用户范围与本轮原话证据后持久化 |
-| **主动补查与来源保留** | 初始历史不足时调用补查工具；新记忆保留有长度上限的用户原话，区分事件、咨询与系统保存时间 |
-| **证据交付与复用** | Worker 返回实际检索摘录供总控核对；同一次调用内复用相同请求，并用引用代替重复文档正文 |
-| **执行控制与可追溯状态** | 正式工具调用经过白名单、参数和作用域检查；配置调用上限、轮数与超时，记录实际执行及返回结果 |
-
-[当前执行流程与上下文](medix-agent-swarm/README.md#执行流程与上下文) · [9 月 9 日冻结版本的设计与整体验证](results/agent-current-2026-09-09/README.md)。下图展开总控、专业 Agent 和实际注册的工具/Skills。
-
-```mermaid
-flowchart TB
-    User["用户"] --> Supervisor["MedicalSupervisorAgent<br/>理解需求 · 按依赖调度"]
-    Memory["患者档案 · 近期对话 · Mem0 历史"] --> Supervisor
-
-    subgraph MemoryTools["总控记忆工具"]
-        Profile["update_patient_profile<br/>更新患者档案"]
-        History["search_patient_history<br/>补查跨会话历史"]
-    end
-    Supervisor --> Profile
-    Supervisor --> History
-
-    subgraph ConsultationGroup["健康咨询 Agent 与 Skills"]
-        Consultation["Consultation Agent"]
-        Lifestyle["recommend_lifestyle<br/>检索生活方式建议的候选资料"]
-        Consultation --> Lifestyle
-    end
-
-    subgraph DiagnosticGroup["诊断 Agent 与 Skills"]
-        Diagnostic["Diagnostic Agent"]
-        Symptoms["analyze_symptoms<br/>风险与症状候选资料检索"]
-        Code["disease_code<br/>ICD-10 编码查询"]
-        Diagnostic --> Symptoms
-        Diagnostic --> Code
-    end
-
-    subgraph ResearchGroup["医学研究 Agent 与 Skills"]
-        Research["Research Agent"]
-        Guideline["clinical_guideline<br/>临床指南检索"]
-        Knowledge["search_knowledge<br/>医学知识库检索"]
-        DeepResearch["deep_research<br/>Tavily 实时来源检索"]
-        Research --> Guideline
-        Research --> Knowledge
-        Research --> DeepResearch
-    end
-
-    Supervisor -->|call_consultation_agent| Consultation
-    Supervisor -->|call_diagnostic_agent| Diagnostic
-    Supervisor -->|call_research_agent| Research
-    Consultation -.->|结果与实际证据| Summary["MedicalSupervisorAgent<br/>核对证据 · 汇总答复"]
-    Diagnostic -.->|结果与实际证据| Summary
-    Research -.->|结果与实际证据| Summary
-    Supervisor -->|可直接回答| Summary
-    Summary --> Answer["用户答复"]
-```
-
-图中列出最多 **5 个总控工具和 6 个 Worker Skills**；节点名称对应实际调用函数。上下两个 `MedicalSupervisorAgent` 节点表示同一总控的调度与汇总阶段。总控记忆工具按用户身份和长期记忆配置启用。Skills 由说明元数据和可执行 Python 函数组成；风险与症状共用一个检索工具，判断由诊断 Agent 完成。[Agent 注册代码](medix-agent-swarm/agents/) · [Skills 实现](medix-agent-swarm/.claude/skills/)
 
 ## 快速开始
 

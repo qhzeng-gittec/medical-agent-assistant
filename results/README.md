@@ -1,6 +1,6 @@
 # 关键测评
 
-首先展示当前版本的 Agent 整体任务表现，再列调度、检索与训练专项。每组对照固定自己的模型和数据，模型角色在下表中分别标明。
+这里按项目功能组织评测入口。Agent 部分检查助手能否完成多轮任务、专业分工如何影响耗时，以及检索和记忆是否提供所需信息；模型部分检查学习医学原文（CPT）、问答示例（SFT）和回答奖励优化（GSPO）后的表现。两部分分别运行，使用的模型和统计单位在各报告中说明。
 
 | 任务 | 使用的模型及角色 | 结果与证据 |
 | --- | --- | --- |
@@ -9,10 +9,10 @@
 | Worker 串行 / 并行 | MiniMax M2.5 执行同一批 Agent 子任务；程序计时 | 平均 49.80→20.15 秒；[架构测评](2026-09-08/architecture.md) |
 | RAG 多候选检索 | Qwen3-Embedding-8B 编码查询和资料；程序按目标来源计分 | 432 条测试查询，Top 1→Top 3 完整来源覆盖 333→408；[逐项汇总](hybrid-grounding-2026-09-08/retrieval/summary.json) |
 | Agent 工程机制 | 固定模拟模型输出；真实代码与本地存储执行 | 152 项自动测试通过；[测试与运行](../medix-agent-swarm/README.md) |
-| **A–F 医疗 LoRA 配方** | **Qwen3.5-2B 执行；gpt-5.6-sol 评分** | **247 题、944 份回答**；[配方、答案/解释分与对照](model-evaluations-2026-09-09/README.md) |
-| **SFT 数据规模与组成** | **Qwen3.5-2B 执行；DeepSeek-V4.1-Flash 评分** | **1,200 道独立题、7 个条件、8,400 份回答**；[配方、配对区间与 CPT 机制](training-scale-cpt-2026-09-11/README.md) |
+| **六种医学问答微调配置** | **Qwen3.5-2B 执行；gpt-5.6-sol 评分** | **247 题、944 份回答**；[配方、答案/解释分与对照](model-evaluations-2026-09-09/README.md) |
+| **问答训练数据的数量与组成** | **Qwen3.5-2B 执行；DeepSeek-V4.1-Flash 评分** | **1,200 道独立题、7 个条件、8,400 份回答**；[配方、配对区间与 CPT 机制](training-scale-cpt-2026-09-11/README.md) |
 | **医疗选择题 CPT/SFT 四阶段** | Qwen3.5-2B；按原题标签自动计分 | **600 题，排名正确 305 / 325 / 293 / 323**；[全部预测与汇总](model-evaluations-2026-09-09/medical600/summary.json) |
-| **VQA GSPO** | Qwen3.5-2B；gpt-5.5 评分 | **93 问、16 图，归一化分 60.75→66.13**；[结果与逐题证据](model-evaluations-2026-09-09/README.md) |
+| **医学图像问答奖励优化** | Qwen3.5-2B；gpt-5.5 评分 | **93 问、16 图，归一化分 60.75→66.13**；[结果与逐题证据](model-evaluations-2026-09-09/README.md) |
 | **知识与病例 GSPO** | Qwen3.5-2B 扩展 CPT 权重链；Gemini 3.5 Flash 评分 | **312 题，答案满分 134→132**；[阶段对照](model-evaluations-2026-09-09/README.md) |
 | 医学训练后的通用能力 | 原始 Qwen3.5-2B 与 CPT+SFT 权重；候选似然自动计分 | 三项基准各 500 题；[全部主指标与复算](general-benchmarks-2026-09-08/README.md) |
 
