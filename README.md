@@ -2,9 +2,26 @@
 
 医疗多智能体助手与 Qwen3.5-2B 医疗模型训练实验。支持多轮问诊、专业 Agent 调度、患者档案和检索证据管理，并提供 CPT、LoRA SFT、GSPO 训练与可追溯评测。
 
-更新于 **2026-09-11**：公开 SFT 数据规模/组成对照和 CPT 语料、阶段及学习率审计。新增实验包含 1,200 道独立题、7 个模型条件和 8,400 份回答；未完成的 CPT probe 不计作正式结果。9 月 10 日的 Agent 工具与上下文更新仍按各自冻结版本解读。
-
 [Agent 使用说明](medix-agent-swarm/README.md) · [训练与推理](MediX-R1/README.md) · [Agent 关键设计](#agent-关键设计) · [Agent 整体测评](#agent-整体测评) · [模型关键测评](#模型关键测评) · [SFT 规模与 CPT 机制](results/training-scale-cpt-2026-09-11/README.md) · [全部精选测评](results/README.md) · [模型与数据](https://huggingface.co/collections/starttoshow/medix-medical-sft-and-gspo-6a9e6f31b80642f4ba8b6f28)
+
+## 核心结果
+
+| 工作 | 测评规模 | 结果 | 证据 |
+| --- | ---: | --- | --- |
+| **SFT 数据组成** | 1,200 道独立题、7 个条件、8,400 份回答 | 新 5k 相对历史 5,418 条配方：通用答案 **+16.83** 个百分点 `[+12.50, +21.00]`；医疗答案 +1.17，区间跨零 | [规模、配方与逐项结果](results/training-scale-cpt-2026-09-11/README.md#sft-数据规模与组成) |
+| **SFT 数据规模** | 新 5k、独立 20k、重复 5k 对照 | 20k 相对 5k：医疗答案 +1.34、通用答案 +0.83 个百分点，区间均跨零；本轮**没有证明继续扩量有效** | [同题配对区间](results/training-scale-cpt-2026-09-11/sft-scale/results.json) |
+| **关键词 CPT** | 808 万 token；600 道新留出医疗选择题 | 候选排名 **305/600→325/600**，+3.33 个百分点 `[+0.33, +6.50]`；单训练 seed | [CPT 数据与四阶段结果](results/training-scale-cpt-2026-09-11/README.md#关键词-cpt-语料) |
+| **VQA GSPO** | 93 问、16 张独立验证图像 | 归一化评分 **60.75→66.13**，满分答案 **50/93→57/93** | [逐题回答与评分](results/model-evaluations-2026-09-09/README.md#3-vqa-gspo93-问16-张验证图像) |
+| **医疗 Agent** | 72 个多轮场景，71 场有效双评 | 67/72 场全部适用检查项通过；测试的是冻结 Agent 版本，不是临床准确率 | [整体任务测评](results/agent-current-2026-09-09/README.md) |
+| **RAG 检索** | 1,016 篇资料、432 条可回答测试查询 | 全部目标来源覆盖：Top 1 **333/432**，Top 3 **408/432** | [检索结果](results/hybrid-grounding-2026-09-08/retrieval/summary.json) |
+
+### CPT 数据公开范围
+
+CPT 训练语料共 **8,081,489 个输入 token**：PubMed 5,655,154、StatPearls 1,376,515、医学教材 968,797，另含 81,023 个通用 replay token；选择 18,781 篇医学文档，打包为 4,505 个训练 block。仓库直接公开[语料构成与哈希](results/training-scale-cpt-2026-09-11/cpt/corpus_manifest.json)、[打包审计](results/training-scale-cpt-2026-09-11/cpt/corpus_audit.json)和构建限制，不重新分发许可尚未逐项核清的原文。
+
+机械审计已经通过，但关键词命中不等于语义知识覆盖；项目问题知识参与了选材，因此这批数据用于诊断性 CPT，不包装成独立无泄漏语料。相同新 20k SFT 下，有无 CPT 的医疗答案差 −0.33、通用答案差 +0.33 个百分点，区间均跨零，说明 CPT 的边际收益没有在该 SFT 对照中得到确认。[完整结论与局限](results/training-scale-cpt-2026-09-11/README.md)
+
+更新于 **2026-09-11**。主结果只展示数百题正式比较；未完成的 CPT 运行不计作结果，小样本超参与回忆实验仅作为机制探针。
 
 ## 功能
 
