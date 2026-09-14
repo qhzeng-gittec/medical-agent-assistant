@@ -1,0 +1,40 @@
+{
+  "scope": "2026-09-13 covered-relation factorial evaluation and 2026-09-14 transfer scoring completion; separate evaluation protocols.",
+  "source_sha256": {
+    "outputs/sft_relation_batch_v1/evaluation500.json": "e766990a5b5b5d7112a8d9810af559ceab4c494ad3961c829698f9132c6938a3",
+    "outputs/sft_relation_batch_v1/evaluation_factorial_v4/scored500.json": "32c7b64b7990738e2ead0c11fff1b437b5516d83fb4f182977793c7f703ac3fd",
+    "outputs/sft_relation_batch_v1/evaluation_factorial_v4/summary.json": "b4dc9b33eb2a8a32c34b9fae681690e1eca0af8db3d85c7820f9cd6267d42533",
+    "outputs/relation_transfer_v1/medical_scores.json": "25141fd0a7c603331f71f2066f6901fe11ba99129737a80beeedbde38aa2f2c6",
+    "outputs/relation_transfer_v1/general_scores.json": "2cc6c6e8176c012b5cb77fef968a0a4628ed84f50922998355002188b9bc75aa",
+    "outputs/relation_transfer_v1/original_text_scores.json": "b595d95bf470eac53ffe4ba6edad5dea927a92233e4531363180942cc3f2f62d"
+  },
+  "training": {
+    "base": "posttrained Qwen3.5-2B",
+    "cpt_epochs": 1,
+    "cpt_input_tokens": 7584299,
+    "sft_epochs": 1,
+    "sft_rank": 8,
+    "sft_alpha": 16,
+    "sft_dropout": 0.05,
+    "sft_lora_scope": "attention_ffn",
+    "learning_rate": 5e-05,
+    "effective_batch": 4,
+    "seed": 42,
+    "supervised_tokens_per_recipe": 522540
+  },
+  "decoding": {
+    "covered": {
+      "greedy": true,
+      "max_new_tokens": 1024,
+      "reasoning_budget": 768,
+      "batch": 64
+    },
+    "transfer": {
+      "greedy": true,
+      "max_new_tokens": 2048,
+      "reasoning_budget": 1792,
+      "new_generation_batch": 32
+    }
+  },
+  "publication": "Scores, summary, source IDs, CPT token locations and hashes; no source prose or new model weights. Original scores unchanged. Coverage locations are recorded provenance, not a new token audit."
+}

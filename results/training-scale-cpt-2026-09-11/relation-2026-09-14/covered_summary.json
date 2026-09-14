@@ -1,0 +1,199 @@
+{
+  "comparisons": [
+    {
+      "first": "cpt_augmented",
+      "second": "base_augmented",
+      "rows": 500,
+      "source_documents": 500,
+      "first_accuracy": 0.304,
+      "second_accuracy": 0.286,
+      "repaired": 54,
+      "regressed": 45,
+      "net": 9,
+      "delta": 0.018,
+      "fact_bootstrap95": [
+        -0.02,
+        0.058
+      ],
+      "document_cluster_bootstrap95": [
+        -0.022,
+        0.056
+      ]
+    },
+    {
+      "first": "cpt_control",
+      "second": "base_control",
+      "rows": 500,
+      "source_documents": 500,
+      "first_accuracy": 0.2,
+      "second_accuracy": 0.184,
+      "repaired": 37,
+      "regressed": 29,
+      "net": 8,
+      "delta": 0.016,
+      "fact_bootstrap95": [
+        -0.016,
+        0.048
+      ],
+      "document_cluster_bootstrap95": [
+        -0.016,
+        0.048
+      ]
+    },
+    {
+      "first": "cpt_augmented",
+      "second": "cpt_control",
+      "rows": 500,
+      "source_documents": 500,
+      "first_accuracy": 0.304,
+      "second_accuracy": 0.2,
+      "repaired": 97,
+      "regressed": 45,
+      "net": 52,
+      "delta": 0.104,
+      "fact_bootstrap95": [
+        0.058,
+        0.15
+      ],
+      "document_cluster_bootstrap95": [
+        0.058,
+        0.148
+      ]
+    },
+    {
+      "first": "base_augmented",
+      "second": "base_control",
+      "rows": 500,
+      "source_documents": 500,
+      "first_accuracy": 0.286,
+      "second_accuracy": 0.184,
+      "repaired": 98,
+      "regressed": 47,
+      "net": 51,
+      "delta": 0.102,
+      "fact_bootstrap95": [
+        0.056,
+        0.148
+      ],
+      "document_cluster_bootstrap95": [
+        0.054,
+        0.148
+      ]
+    }
+  ],
+  "interaction": {
+    "delta": 0.002,
+    "bootstrap95": [
+      -0.048,
+      0.052
+    ],
+    "facts": 500
+  },
+  "arms": {
+    "base_augmented": {
+      "correct": 143,
+      "total": 500,
+      "accuracy": 0.286,
+      "partial_credit": 0.473,
+      "incomplete": 0,
+      "length_stops": 0
+    },
+    "cpt_augmented": {
+      "correct": 152,
+      "total": 500,
+      "accuracy": 0.304,
+      "partial_credit": 0.485,
+      "incomplete": 0,
+      "length_stops": 0
+    },
+    "base_control": {
+      "correct": 92,
+      "total": 500,
+      "accuracy": 0.184,
+      "partial_credit": 0.389,
+      "incomplete": 0,
+      "length_stops": 0
+    },
+    "cpt_control": {
+      "correct": 100,
+      "total": 500,
+      "accuracy": 0.2,
+      "partial_credit": 0.395,
+      "incomplete": 0,
+      "length_stops": 0
+    }
+  },
+  "by_source": {
+    "statpearls": {
+      "primary": {
+        "first": "cpt_augmented",
+        "second": "base_augmented",
+        "rows": 406,
+        "source_documents": 406,
+        "first_accuracy": 0.31527093596059114,
+        "second_accuracy": 0.2832512315270936,
+        "repaired": 47,
+        "regressed": 34,
+        "net": 13,
+        "delta": 0.03201970443349754,
+        "fact_bootstrap95": [
+          -0.009852216748768473,
+          0.07635467980295567
+        ],
+        "document_cluster_bootstrap95": [
+          -0.012315270935960592,
+          0.07389162561576355
+        ]
+      },
+      "interaction": {
+        "delta": 0.0024630541871921183,
+        "bootstrap95": [
+          -0.054187192118226604,
+          0.059113300492610835
+        ],
+        "facts": 406
+      }
+    },
+    "textbooks": {
+      "primary": {
+        "first": "cpt_augmented",
+        "second": "base_augmented",
+        "rows": 94,
+        "source_documents": 94,
+        "first_accuracy": 0.2553191489361702,
+        "second_accuracy": 0.2978723404255319,
+        "repaired": 7,
+        "regressed": 11,
+        "net": -4,
+        "delta": -0.0425531914893617,
+        "fact_bootstrap95": [
+          -0.1276595744680851,
+          0.0425531914893617
+        ],
+        "document_cluster_bootstrap95": [
+          -0.1276595744680851,
+          0.0425531914893617
+        ]
+      },
+      "interaction": {
+        "delta": 0.0,
+        "bootstrap95": [
+          -0.10638297872340426,
+          0.11702127659574468
+        ],
+        "facts": 94
+      }
+    }
+  },
+  "limitations": [
+    "One seed, posttrained Qwen3.5-2B, not a raw pretrained base.",
+    "Source-grounded Flash-reviewed references with main sample review; not clinical expert gold.",
+    "Retrieval-assisted relation isolation cannot prove absence of all semantic leakage.",
+    "Final-answer rubric does not score separate generated reasoning; reasoning and scoring sample audit reported separately.",
+    "Effective batch4 matched; base_augmented resumed after GPU tuning at step200. Actual run configs and tuning audit frozen.",
+    "Supervised-token budgets matched, but step counts, replay exposures and absolute warmup steps differ between recipes.",
+    "GPU execution amendment: all four arms regenerated with batch64, unchanged frozen questions, greedy decoding, 1024-token output cap, 768-token thinking cap and original scoring rubric. Cache files retain groups of four.",
+    "Changing BF16 batch shape changed some development answers, including factual numeric content; not bitwise-equivalent. Existing 264 base answers archived and excluded from the new comparison. Performance probes are not effectiveness estimates."
+  ],
+  "main_scoring_and_reasoning_audit_pending": true
+}

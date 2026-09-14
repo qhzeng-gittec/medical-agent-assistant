@@ -72,3 +72,32 @@ for arm, count in expected_content.items():
     assert stage["metrics"][arm]["fully_correct"] == count, arm
 
 print(f"verified {len(manifest['files'])} files and all published headline counts")
+
+# Recompute the covered-relation and transfer counts from published item scores.
+covered = load("relation-2026-09-14/covered_scores.json")
+covered_summary = load("relation-2026-09-14/covered_summary.json")
+assert len(covered) == len({r["id"] for r in covered}) == 500
+assert len({r["document_id"] for r in covered}) == 500
+for arm, expected in covered_summary["arms"].items():
+    assert sum(r["arms"][arm]["answer_score"] == 2 for r in covered) == expected["correct"]
+for c in covered_summary["comparisons"]:
+    a = [r["arms"][c["first"]]["answer_score"] == 2 for r in covered]
+    b = [r["arms"][c["second"]]["answer_score"] == 2 for r in covered]
+    assert sum(x and not y for x, y in zip(a, b)) == c["repaired"]
+    assert sum(y and not x for x, y in zip(a, b)) == c["regressed"]
+for split, count in [("medical", 599), ("general", 600), ("original_text", 408)]:
+    rows = load(f"relation-2026-09-14/{split}_scores.json")
+    assert len(rows) == len({r["source_id"] for r in rows}) == count
+    summary = load(f"relation-2026-09-14/{split}_summary.json")
+    if split != "original_text":
+        for arm, expected in summary["arms"].items():
+            assert sum(r[arm]["answer_score"] == 2 for r in rows) == expected["correct"]
+            assert sum(r[arm]["reasoning_score"] == 2 for r in rows) == expected["reasoning_correct"]
+    for group, comparisons in summary["groups"].items():
+        for c in comparisons["answer_score"]:
+            subset = rows if group == "all" else [r for r in rows if r["task"] == group]
+            a = [r[c["first"]]["answer_score"] == 2 for r in subset]
+            b = [r[c["second"]]["answer_score"] == 2 for r in subset]
+            assert sum(x and not y for x,y in zip(a,b)) == c["improved"]
+            assert sum(y and not x for x,y in zip(a,b)) == c["regressed"]
+print("Covered-relation and transfer item counts and paired changes verified.")

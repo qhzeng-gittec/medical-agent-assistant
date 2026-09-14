@@ -11,6 +11,7 @@
 | Agent 工程机制 | 固定模拟模型输出；真实代码与本地存储执行 | 152 项自动测试通过；[测试与运行](../medix-agent-swarm/README.md) |
 | **六种医学问答微调配置** | **Qwen3.5-2B 执行；gpt-5.6-sol 评分** | **247 题、944 份回答**；[配方、答案/解释分与对照](model-evaluations-2026-09-09/README.md) |
 | **问答训练数据的数量与组成** | **Qwen3.5-2B 执行；DeepSeek-V4.1-Flash 评分** | **1,200 道独立题、7 个条件、8,400 份回答**；[配方、配对区间与 CPT 机制](training-scale-cpt-2026-09-11/README.md) |
+| **CPT覆盖领域与复杂问答迁移** | Qwen3.5-2B；DeepSeek Flash匿名评分 | 500道关系题：新SFT带来+10.4个百分点，固定SFT的CPT增量+1.8个百分点；[一般医学迁移及逐题对照](training-scale-cpt-2026-09-11/README.md#cpt-覆盖领域的复杂问答与医学迁移2026-09-14) |
 | **医疗选择题 CPT/SFT 四阶段** | Qwen3.5-2B；按原题标签自动计分 | **600 题，排名正确 305 / 325 / 293 / 323**；[全部预测与汇总](model-evaluations-2026-09-09/medical600/summary.json) |
 | **医学图像问答奖励优化** | Qwen3.5-2B；gpt-5.5 评分 | **93 问、16 图，归一化分 60.75→66.13**；[结果与逐题证据](model-evaluations-2026-09-09/README.md) |
 | **知识与病例 GSPO** | Qwen3.5-2B 扩展 CPT 权重链；Gemini 3.5 Flash 评分 | **312 题，答案满分 134→132**；[阶段对照](model-evaluations-2026-09-09/README.md) |
